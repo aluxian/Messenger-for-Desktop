@@ -2,6 +2,8 @@
 
 Bring [messenger.com](https://messenger.com) to your OS X, Windows or Linux desktop. Built with [NW.js](http://nwjs.io/).
 
+![OS X Screenshot](screenshot.png)
+
 ## Features
 
 * **Sounds** (can be disabled in settings)
