@@ -1,4 +1,4 @@
-# Facebook Messenger
+# Facebook Messenger (Unofficial)
 
 Bring [messenger.com](https://messenger.com) to your OS X, Windows or Linux desktop. Built with [NW.js](http://nwjs.io/).
 
@@ -13,12 +13,12 @@ Bring [messenger.com](https://messenger.com) to your OS X, Windows or Linux desk
 
 ## Download
 
-* [OS X 32](https://github.com/Aluxian/Facebook-Messenger-Desktop/blob/master/build/Messenger/osx32/Messenger.app)
-* [OS X 64](https://github.com/Aluxian/Facebook-Messenger-Desktop/blob/master/build/Messenger/osx64/Messenger.app)
-* [Windows 32](https://github.com/Aluxian/Facebook-Messenger-Desktop/blob/master/build/Messenger/win32)
-* [Windows 64](https://github.com/Aluxian/Facebook-Messenger-Desktop/blob/master/build/Messenger/win64)
-* [Linux 32](https://github.com/Aluxian/Facebook-Messenger-Desktop/blob/master/build/Messenger/linux32/)
-* [Linux 64](https://github.com/Aluxian/Facebook-Messenger-Desktop/blob/master/build/Messenger/linux64/)
+* [OS X 32](https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v1.0.0/osx32.zip)
+* [OS X 64](https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v1.0.0/osx64.zip)
+* [Windows 32](https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v1.0.0/win32.zip)
+* [Windows 64](https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v1.0.0/win64.zip)
+* [Linux 32](https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v1.0.0/linux32.zip)
+* [Linux 64](https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v1.0.0/linux64.zip)
 
 ## Build
 
