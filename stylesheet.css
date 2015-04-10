@@ -54,13 +54,13 @@ a:hover {
   }
 }
 
-section.center {
+.center {
   text-align: center;
   margin-top: 1rem;
   margin-bottom: 2rem;
 }
 
-section.center.less-top {
+.center.less-top {
   margin-top: 1rem;
 }
 
