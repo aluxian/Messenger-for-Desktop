@@ -6,10 +6,14 @@ Bring [messenger.com](https://messenger.com) to your OS X, Windows or Linux desk
 
 ## Features
 
-* **Sounds** (can be disabled in settings)
-* **Desktop notifications** (enable them in settings)
-* **Voice and video calls**
-* **Badge with the number of notifications (OS X and Windows)**
+* Sounds *(can be disabled in settings)*
+* Desktop notifications *(enable them in settings)*
+* Voice and video calls
+
+## Extra
+
+* Badge with the number of notifications (OS X and Windows)
+* Native notifications
 
 ## Build
 
@@ -18,7 +22,5 @@ Bring [messenger.com](https://messenger.com) to your OS X, Windows or Linux desk
 
 ## To Do
 
-* Create an installer for Windows
-* Change the app icon for Linux
-* Launch on OS startup
-* Preferences menu
+* Preferences menu ??
+* Launch on OS startup ??
