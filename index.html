@@ -70,9 +70,9 @@
     </h2>
 
     <a href="https://github.com/Aluxian/Facebook-Messenger-Desktop" class="btn">View on GitHub</a>
-    <a href="https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v1.1.0/messenger_osx64.zip" class="btn">Download OS X</a>
-    <a href="https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v1.1.0/messenger_win32.zip" class="btn">Download Windows</a>
-    <a href="https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v1.1.0/messenger_linux32-64.zip" class="btn">Download Linux</a>
+    <a class="btn osx" href="https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v1.1.0/messenger_osx64.zip">Download OS X</a>
+    <a class="btn win" href="https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v1.1.0/messenger_win32.zip">Download Windows</a>
+    <a class="btn linux" href="https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v1.1.0/messenger_linux32-64.zip">Download Linux</a>
 
   </section>
 
@@ -135,9 +135,9 @@
     </p>
 
     <section class="center">
-      <a class="btn blue" href="https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v1.1.0/messenger_osx64.zip">Download for OS X</a>
-      <a class="btn blue" href="https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v1.1.0/messenger_win32.zip">Download for Windows</a>
-      <a class="btn blue" href="https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v1.1.0/messenger_linux32-64.zip">Download for Linux</a>
+      <a class="btn blue osx" href="https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v1.1.0/messenger_osx64.zip">Download for OS X</a>
+      <a class="btn blue win" href="https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v1.1.0/messenger_win32.zip">Download for Windows</a>
+      <a class="btn blue linux" href="https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v1.1.0/messenger_linux32-64.zip">Download for Linux</a>
     </section>
 
     <h1>Spread the love</h1>
@@ -161,6 +161,18 @@
 
     ga('create', 'UA-45600261-5', 'auto');
     ga('send', 'pageview');
+
+    function addListener(element, type, callback) {
+      if (element.addEventListener) element.addEventListener(type, callback);
+      else if (element.attachEvent) element.attachEvent('on' + type, callback);
+    }
+
+    ['osx', 'win', 'linux'].forEach(function(tag) {
+      var btnElem = document.querySelector('.btn.' + tag);
+      addListener(btnElem, 'click', function() {
+        ga('send', 'event', 'button', 'click', 'download ' + tag);
+      });
+    });
   </script>
 
 </body>
