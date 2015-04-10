@@ -1,8 +1,8 @@
 {
-  "main": "https://www.messenger.com/login",
+  "main": "app.html",
+  "node-main": "main.js",
   "name": "Messenger",
-  "version": "1.0.0",
-  "nodejs": false,
+  "version": "1.1.0",
   "window": {
     "width": 800,
     "height": 600,

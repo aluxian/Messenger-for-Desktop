@@ -1,7 +1,7 @@
 var NwBuilder = require('node-webkit-builder');
 var nw = new NwBuilder({
   files: './src/**',
-  platforms: ['win', 'osx', 'linux'],
+  platforms: ['win32', 'osx64', 'linux32', 'linux64'],
   macIcns: './app_icon.icns'
 });
 

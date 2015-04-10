@@ -1,0 +1,13 @@
+<script>
+  var gui = require('nw.gui');
+  var win = gui.Window.get();
+
+  var menu = new gui.Menu({ type: 'menubar' });
+  if (menu.createMacBuiltin) {
+    menu.createMacBuiltin('Messenger');
+  }
+  win.menu = menu;
+
+  process.mainModule.exports.watch(win);
+  document.location = 'https://www.messenger.com/login';
+</script>
