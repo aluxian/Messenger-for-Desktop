@@ -69,7 +69,7 @@
       A beautiful desktop client for Facebook Messenger.<br>Chat without being distracted by your feed or notifications.
     </h2>
 
-    <a href="https://github.com/Aluxian/Facebook-Messenger-Desktop" class="btn">View on GitHub</a>
+    <a class="btn github" href="https://github.com/Aluxian/Facebook-Messenger-Desktop">View on GitHub</a>
     <a class="btn osx" href="https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v1.1.0/messenger_osx64.zip">Download OS X</a>
     <a class="btn win" href="https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v1.1.0/messenger_win32.zip">Download Windows</a>
     <a class="btn linux" href="https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v1.1.0/messenger_linux32-64.zip">Download Linux</a>
@@ -167,7 +167,7 @@
       else if (element.attachEvent) element.attachEvent('on' + type, callback);
     }
 
-    ['osx', 'win', 'linux'].forEach(function(tag) {
+    ['github', 'osx', 'win', 'linux'].forEach(function(tag) {
       var btnElem = document.querySelector('.btn.' + tag);
       addListener(btnElem, 'click', function() {
         ga('send', 'event', 'button', 'click', 'download ' + tag);
