@@ -56,8 +56,8 @@ a:hover {
 
 section.center {
   text-align: center;
-  margin-top: 4rem;
-  margin-bottom: 4rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
 }
 
 section.center.less-top {
@@ -378,8 +378,18 @@ section.center.less-top {
   }
 }
 
-.main-content h2 {
+.main-content h1 {
   display: block;
   width: 100%;
+  font-weight: normal;
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.main-content .space-below {
+  margin-bottom: 4rem;
+}
+
+.site-footer {
   text-align: center;
 }

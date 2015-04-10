@@ -20,11 +20,21 @@
 
 <body>
 
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.3&appId=306546619532755";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+
   <section class="page-header">
 
-    <h1 class="project-name">Facebook Messenger</h1>
-    <h2 class="project-tagline">A beautiful desktop client for Messenger to chat with your friends.
-      <br>Talk without being distracted by your wild feed of posts.</h2>
+    <h1 class="project-name">Messenger for Desktop</h1>
+    <h2 class="project-tagline">
+      A beautiful desktop client for Facebook Messenger.<br>Chat without being distracted by your feed or notifications.
+    </h2>
 
     <a href="https://github.com/Aluxian/Facebook-Messenger-Desktop" class="btn">View on GitHub</a>
     <a href="https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v1.0.0/osx64.zip" class="btn">Download OS X</a>
@@ -34,15 +44,14 @@
   </section>
 
   <section class="main-content">
+
+    <h1>It's everywhere you are</h1>
+
     <p>
       <img src="screenshot.png" alt="OS X Screenshot">
     </p>
 
-    <h2>
-      <a id="features" class="anchor" href="http://aluxian.github.io/Facebook-Messenger-Desktop/#features" aria-hidden="true">
-        <span class="octicon octicon-link"></span>
-      </a>What you can do with Messenger
-    </h2>
+    <h1>It's fun, just like you</h1>
 
     <p>
       <img src="screenshot_features.png" alt="Messenger Features">
@@ -52,21 +61,34 @@
       <a class="btn blue" href="https://messenger.com">Explore more on Messenger.com</a>
     </section>
 
-    <h2>
-      <a id="download" class="anchor" href="http://aluxian.github.io/Facebook-Messenger-Desktop/#about" aria-hidden="true">
-        <span class="octicon octicon-link"></span>
-      </a>About
-    </h2>
+    <h1>What's this?</h1>
 
-    <p>
-      This is an unofficial desktop client that brings the <a href="https://messenger.com">messenger.com</a> app to your desktop.
-      The functionality is identical, because the client embeds the official website.
-      You can send media and files, make voice and video calls, and enable desktop notifications with sounds.
+    <p class="space-below">
+      Messenger for Desktop is an unofficial desktop client that brings the <a href="https://messenger.com">messenger.com</a> app to your desktop.
+      It works by embedding the official website, so the functionality is identical.
     </p>
 
+    <h1>Does everything work?</h1>
+
     <p>
-      Dock notifications badge for the OS X version of the app is a work-in-progress.
+      Yes! These features and many more work just as advertised by Facebook :)
     </p>
+
+    <ul class="space-below">
+      <li>Chat with your friends, or groups of friends</li>
+      <li>Send photos, videos and other files</li>
+      <li>Make voice and video calls</li>
+      <li>Send awesome stickers</li>
+    </ul>
+
+    <h1>What's coming up next?</h1>
+
+    <ul>
+      <li>Dock notifications badge for OS X</li>
+      <li>Suggest something <a href="https://github.com/Aluxian/Facebook-Messenger-Desktop/issues">here</a> or by <a href="http://aluxian.com">contacting me</a></li>
+    </ul>
+
+    <h1>Downloads</h1>
 
     <section class="center">
       <a class="btn blue" href="https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v1.0.0/osx64.zip">Download for OS X</a>
@@ -74,8 +96,14 @@
       <a class="btn blue" href="https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v1.0.0/linux32.zip">Download for Linux</a>
     </section>
 
+    <h1>Spread the love</h1>
+
+    <section class="center">
+      <div class="fb-like" data-href="https://github.com/Aluxian/Facebook-Messenger-Desktop" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+    </section>
+
     <footer class="site-footer">
-      <span class="site-footer-owner"><a href="https://github.com/Aluxian/Facebook-Messenger-Desktop">Facebook Messenger</a> is an unofficial app created by <a href="https://github.com/Aluxian">Aluxian</a>. No affiliation with Facebook.</span>
+      <span class="site-footer-owner"><a href="https://github.com/Aluxian/Facebook-Messenger-Desktop">Messenger for Desktop</a> is an unofficial app created by <a href="http://aluxian.com">Aluxian</a>. No affiliation with Facebook.</span>
       <span class="site-footer-credits">This website is a modified version of the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
     </footer>
 
