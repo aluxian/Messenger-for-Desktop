@@ -1,6 +1,6 @@
 # Facebook Messenger (Unofficial)
 
-Bring [messenger.com](https://messenger.com) to your OS X, Windows or Linux desktop. Built with [NW.js](http://nwjs.io/).
+Bring [messenger.com](https://messenger.com) to your OS X, Windows, Linux or Chromebook desktop. Built with [NW.js](http://nwjs.io/).
 
 ![Cross-platform screenshot](screenshot.png)
 
@@ -17,8 +17,26 @@ Bring [messenger.com](https://messenger.com) to your OS X, Windows or Linux desk
 
 ## Build
 
-    npm install    # install node-webkit-builder
-    node build.js  # build the cross-platform releases
+### OS X, Windows, Linux
+
+    npm install    # install dependencies
+    node build.js  # build the releases
+
+### Chrome
+
+    Switch to the `chrome` branch.
+
+## Changelog
+
+    1.2.0
+    - Links open in the browser
+    - Added Chromebook support
+
+    1.1.0
+    - Badge with the number of unread notifications in the dock/taskbar (OSX/Win)
+
+    1.0.0
+    - First release
 
 ## To Do
 
