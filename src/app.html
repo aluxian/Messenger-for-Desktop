@@ -1,79 +1,11 @@
+<!doctype html>
 <html>
-
-<head>
-  <title>Messenger</title>
-
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      border: none;
-    }
-
-    html, body, #app {
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-    }
-  </style>
-
-  <script>
-    var gui = require('nw.gui');
-    var win = gui.Window.get();
-    var isOSX = process.platform == 'darwin';
-
-    // Create the menu
-    var menu = new gui.Menu({ type: 'menubar' });
-    if (menu.createMacBuiltin) {
-      menu.createMacBuiltin('Messenger');
-    }
-    win.menu = menu;
-
-    // OS X: Don't quit the app when the window is closed
-    if (isOSX) {
-      win.on('close', function(quit) {
-        if (quit) {
-          win.close(true);
-        } else {
-          win.hide();
-        }
-      });
-    }
-
-    // OS X: Re-show the window when the dock icon is pressed
-    if (isOSX) {
-      gui.App.on('reopen', function() {
-        win.show();
-      });
-    }
-
-    // Open external urls in the browser
-    win.on('new-win-policy', function(frame, url, policy) {
-      gui.Shell.openExternal(url);
-      policy.ignore();
-    });
-
-    // Listen for DOM load
-    window.onload = function() {
-      var app = document.getElementById('app');
-      var titleRegExp = /\((\d)\)/;
-
-      // Watch the iframe every 250ms
-      setInterval(function() {
-        // Sync the title
-        document.title = app.contentDocument.title;
-
-        // Update the badge
-        var match = titleRegExp.exec(document.title);
-        var label = match && match[1] || '';
-        win.setBadgeLabel(label);
-      }, 250);
-    }
-  </script>
-</head>
-
-<body>
-  <iframe id="app" src="https://www.messenger.com/login" nwdisable nwfaketop></iframe>
-</body>
-
+  <head>
+    <title>Messenger</title>
+    <link rel="stylesheet" type="text/css" href="app.css">
+    <script src="app.js"></script>
+  </head>
+  <body>
+    <iframe id="app" src="https://www.messenger.com/login" nwdisable nwfaketop></iframe>
+  </body>
 </html>
