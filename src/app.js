@@ -18,8 +18,8 @@ if (gui.App.argv.length) { // args are passed when the app is launched from the 
   execPath = gui.App.argv[1];
 
   // Replace the old app, run the updated one from the original location and close the temp instance
-  updater.install(copyPath, function(err) {
-    if (!err) {
+  updater.install(copyPath, function(error) {
+    if (!error) {
       // The new app will run itself from original folder and exit the process
       updater.run(execPath);
       gui.App.quit();
