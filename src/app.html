@@ -27,6 +27,26 @@
       menu.createMacBuiltin('Messenger');
     }
     win.menu = menu;
+    // Add a tray icon
+    tray = new gui.Tray({ icon: 'icon.png', tooltip: 'Show Messenger' });
+    // Restore Window when clicked
+    // TODO Add minimize to tray icon by displaying tray icon only when minimized.
+    // NOTE following approach crashes on Ubuntu 14.10
+    // win.on('minimize', function() {
+    //  // Hide window
+    //  this.hide();
+    //
+    //  // Show tray
+    //  tray = new gui.Tray({ icon: 'icon.png' });
+    //
+    //  // Show window and remove tray when clicked
+    //  tray.on('click', function() {
+    //    win.show();
+    //    this.remove();
+    //    tray = null;
+    //  });
+    //});
+    tray.on('click', function() { win.show();}); //This is kludgy.
 
     // Open external urls in the browser
     win.on('new-win-policy', function(frame, url, policy) {
