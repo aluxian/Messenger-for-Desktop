@@ -32,13 +32,27 @@
 
     win.on('minimize', function() {
 		this.hide();
-		tray = new gui.Tray({icon: 'icon.png'});
+		tray = new gui.Tray({title : 'Messenger', icon: 'icon.png'});
 
-   tray.on('click', function() {
-       win.show();
-       this.remove();
-       tray = null;
-   });
+	var menu = new gui.Menu();
+       menu.append(new gui.MenuItem({ label: 'Open Messenger' }));
+       menu.append(new gui.MenuItem({ label: 'Quit Messenger' }));
+       tray.menu = menu;
+   
+       menu.items[0].click = function() {
+      			win.show();
+			tray.remove();
+                        tray = null;
+       };
+       
+       menu.items[1].click = function() {
+                tray.remove();
+                tray = null;
+                win.close(true);
+      };
+      // this.remove();
+      // tray = null;
+   
 });
     // OS X: Don't quit the app when the window is closed
     if (isOSX) {
