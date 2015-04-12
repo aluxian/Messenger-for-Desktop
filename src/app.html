@@ -33,56 +33,28 @@
     //Create tray menu
     var trayMenu = new gui.Menu();
     trayMenu.append(new gui.MenuItem({ label: 'Open Messenger' }));
+    trayMenu.append(new gui.MenuItem({ label: 'Close Messenger' }));
     trayMenu.append(new gui.MenuItem({ label: 'Quit Messenger' }));
+    
     //Creates tray on minimizing the window
-    win.on('minimize', function() {
-    	this.hide();
-	    tray = new gui.Tray({title : 'Messenger', tooltip: 'Facebook Messenger', icon: 'icon.png'});
-      tray.menu = trayMenu;
-    //tray.on('click', function() { win.show();});
-       trayMenu.items[0].click = function() {
+//    
+	tray = new gui.Tray({title : 'Messenger', tooltip: 'Facebook Messenger', icon: 'icon.png'});
+	tray.menu = trayMenu;
+
+	trayMenu.items[0].click = function() {
            win.show();
-           tray.remove();
-           tray = null;
         };
        
         trayMenu.items[1].click = function() {
-           tray.remove();
-           tray = null;
+           win.close();
+        };
+        
+	trayMenu.items[2].click = function() {
            win.close(true);
         };
-   
-    });
+  // 
     
-   // tray.on('click', function() { win.show();}); //This is kludgy.
-
-    //Create tray menu
-    var trayMenu = new gui.Menu();
-    trayMenu.append(new gui.MenuItem({ label: 'Open Messenger' }));
-    trayMenu.append(new gui.MenuItem({ label: 'Quit Messenger' }));
-
-    //Creates tray on minimizing the window
-    win.on('minimize', function() {
-	this.hide();
-	tray = new gui.Tray({title : 'Messenger', icon: 'icon.png'});
-        tray.menu = trayMenu;
-   
-        trayMenu.items[0].click = function() {
-           win.show();
-           tray.remove();
-           tray = null;
-        };
-       
-        trayMenu.items[1].click = function() {
-           tray.remove();
-           tray = null;
-           win.close(true);
-        };
-   
-    });
-    
-    // OS X: Don't quit the app when the window is closed
-    if (isOSX) {
+    // All: Don't quit the app when the window is closed    
       win.on('close', function(quit) {
         if (quit) {
           win.close(true);
@@ -90,8 +62,7 @@
           win.hide();
         }
       });
-    }
-
+//    
     // OS X: Re-show the window when the dock icon is pressed
     if (isOSX) {
       gui.App.on('reopen', function() {
