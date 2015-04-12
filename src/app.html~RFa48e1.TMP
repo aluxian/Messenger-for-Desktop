@@ -19,7 +19,6 @@
   <script>
     var gui = require('nw.gui');
     var win = gui.Window.get();
-    var isLinux = process.platform == 'linux';
     var isOSX = process.platform == 'darwin';
     var tray;
 
@@ -76,17 +75,17 @@
     window.onload = function() {
       var app = document.getElementById('app');
       var titleRegExp = /\((\d)\)/;
+      win.setBadgeLabel("1");
+      win.setProgressBar(0.5);
       // Watch the iframe every 250ms
       setInterval(function() {
         // Sync the title
         document.title = app.contentDocument.title;
+
         // Update the badge
         var match = titleRegExp.exec(document.title);
         var label = match && match[1] || '';
-	if(match)
-		tray.icon = 'icon_unread.png';
-	else
-        	win.setBadgeLabel(label);
+        win.setBadgeLabel(label);
       }, 250);
     }
   </script>

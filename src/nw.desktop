@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Messenger
+Icon=/home/muthu/workarea/Facebook-Messenger-Desktop/src/icon.png
+Exec=env NW_DESKTOP="/home/muthu/workarea/Facebook-Messenger-Desktop/src/Messenger.desktop" /home/muthu/workarea/Facebook-Messenger-Desktop/build/Messenger/linux64/Messenger
+Terminal=false
