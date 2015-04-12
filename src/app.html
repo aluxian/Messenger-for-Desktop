@@ -28,41 +28,49 @@
       menu.createMacBuiltin('Messenger');
     }
     win.menu = menu;
-    
+   
+
     //Create tray menu
     var trayMenu = new gui.Menu();
     trayMenu.append(new gui.MenuItem({ label: 'Open Messenger' }));
+    trayMenu.append(new gui.MenuItem({ label: 'Minimize to tray' }));
     trayMenu.append(new gui.MenuItem({ label: 'Quit Messenger' }));
     
-    //Creates tray on minimizing the window
-//    
-	tray = new gui.Tray({title : 'Messenger', tooltip: 'Facebook Messenger', icon: 'icon.png'});
-	tray.menu = trayMenu;
-
-	trayMenu.items[0].click = function() {
-           win.show();
-        };
+    //Create tray 
+    tray = new gui.Tray({title : 'Messenger', tooltip: 'Facebook Messenger', icon: 'icon.png'});
+    tray.menu = trayMenu;
+     
+    //Define tray menu functions 
+    trayMenu.items[0].click = function() {
+	win.show();
+    };
        
-        trayMenu.items[1].click = function() {
-           win.close(true);
-        };
-  // 
+    trayMenu.items[1].click = function() {
+	win.hide();
+	this.enabled = false;
+    };
+    
+    trayMenu.items[2].click = function() {
+       tray.remove();
+       tray = null;
+       win.close(true);
+    };
     
     // All: Don't quit the app when the window is closed    
       win.on('close', function(quit) {
         if (quit) {
           win.close(true);
         } else {
+	  trayMenu.items[1].enabled = false;
           win.hide();
         }
       });
-//    
-    // OS X: Re-show the window when the dock icon is pressed
-    if (isOSX) {
+
+    // All: Re-show the window when the dock icon is pressed
       gui.App.on('reopen', function() {
         win.show();
+	trayMenu.items[1].enabled = true;
       });
-    }
 
     // Open external urls in the browser
     win.on('new-win-policy', function(frame, url, policy) {
@@ -76,16 +84,18 @@
       var app = document.getElementById('app');
       var titleRegExp = /\((\d)\)/;
 
-      // Watch the iframe every 250ms
+      // Watch the iframe every 300ms
       setInterval(function() {
         // Sync the title
         document.title = app.contentDocument.title;
-
-        // Update the badge
+        
+	// Update the badge
         var match = titleRegExp.exec(document.title);
         var label = match && match[1] || '';
+        
+	//Options for notif.
         win.setBadgeLabel(label);
-      }, 250);
+      }, 300);
     }
   </script>
 </head>
