@@ -1,5 +1,4 @@
 <html>
-
 <head>
   <title>Messenger</title>
 
@@ -20,7 +19,9 @@
   <script>
     var gui = require('nw.gui');
     var win = gui.Window.get();
+    var isLinux = process.platform == 'linux';
     var isOSX = process.platform == 'darwin';
+    var tray;
 
     // Create the menu
     var menu = new gui.Menu({ type: 'menubar' });
@@ -28,9 +29,27 @@
       menu.createMacBuiltin('Messenger');
     }
     win.menu = menu;
+    
+    //Create tray menu
+    var trayMenu = new gui.Menu();
+    trayMenu.append(new gui.MenuItem({ label: 'Open Messenger' }));
+    trayMenu.append(new gui.MenuItem({ label: 'Quit Messenger' }));
+    
+    //Creates tray on minimizing the window
+//    
+	tray = new gui.Tray({title : 'Messenger', tooltip: 'Facebook Messenger', icon: 'icon.png'});
+	tray.menu = trayMenu;
 
-    // OS X: Don't quit the app when the window is closed
-    if (isOSX) {
+	trayMenu.items[0].click = function() {
+           win.show();
+        };
+       
+        trayMenu.items[1].click = function() {
+           win.close(true);
+        };
+  // 
+    
+    // All: Don't quit the app when the window is closed    
       win.on('close', function(quit) {
         if (quit) {
           win.close(true);
@@ -38,8 +57,7 @@
           win.hide();
         }
       });
-    }
-
+//    
     // OS X: Re-show the window when the dock icon is pressed
     if (isOSX) {
       gui.App.on('reopen', function() {
@@ -53,20 +71,28 @@
       policy.ignore();
     });
 
+    
     // Listen for DOM load
     window.onload = function() {
       var app = document.getElementById('app');
       var titleRegExp = /\((\d)\)/;
-
       // Watch the iframe every 250ms
       setInterval(function() {
         // Sync the title
         document.title = app.contentDocument.title;
-
         // Update the badge
         var match = titleRegExp.exec(document.title);
         var label = match && match[1] || '';
-        win.setBadgeLabel(label);
+	// setBadgeLabel doesn't work on Linux. Change the icon instead
+	if(isLinux)
+	{
+		if(match)
+			tray.icon = 'icon_unread.png';
+		else
+			tray.icon = 'icon.png';
+	}
+
+        		win.setBadgeLabel(label);
       }, 250);
     }
   </script>
