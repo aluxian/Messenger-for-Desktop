@@ -1,5 +1,4 @@
 <html>
-
 <head>
   <title>Messenger</title>
 
@@ -33,7 +32,6 @@
     //Create tray menu
     var trayMenu = new gui.Menu();
     trayMenu.append(new gui.MenuItem({ label: 'Open Messenger' }));
-    trayMenu.append(new gui.MenuItem({ label: 'Close Messenger' }));
     trayMenu.append(new gui.MenuItem({ label: 'Quit Messenger' }));
     
     //Creates tray on minimizing the window
@@ -46,10 +44,6 @@
         };
        
         trayMenu.items[1].click = function() {
-           win.close();
-        };
-        
-	trayMenu.items[2].click = function() {
            win.close(true);
         };
   // 
