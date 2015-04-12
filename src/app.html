@@ -83,6 +83,7 @@
         // Update the badge
         var match = titleRegExp.exec(document.title);
         var label = match && match[1] || '';
+	// setBadgeLabel doesn't work on Linux. Change the icon instead
 	if(isLinux)
 	{
 		if(match)
