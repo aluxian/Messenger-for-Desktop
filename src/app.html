@@ -27,26 +27,32 @@
       menu.createMacBuiltin('Messenger');
     }
     win.menu = menu;
-    // Add a tray icon
-    tray = new gui.Tray({ icon: 'icon.png', tooltip: 'Show Messenger' });
-    // Restore Window when clicked
-    // TODO Add minimize to tray icon by displaying tray icon only when minimized.
-    // NOTE following approach crashes on Ubuntu 14.10
-    // win.on('minimize', function() {
-    //  // Hide window
-    //  this.hide();
-    //
-    //  // Show tray
-    //  tray = new gui.Tray({ icon: 'icon.png' });
-    //
-    //  // Show window and remove tray when clicked
-    //  tray.on('click', function() {
-    //    win.show();
-    //    this.remove();
-    //    tray = null;
-    //  });
-    //});
-    tray.on('click', function() { win.show();}); //This is kludgy.
+    
+    //Create tray menu
+    var trayMenu = new gui.Menu();
+    trayMenu.append(new gui.MenuItem({ label: 'Open Messenger' }));
+    trayMenu.append(new gui.MenuItem({ label: 'Quit Messenger' }));
+    //Creates tray on minimizing the window
+    win.on('minimize', function() {
+    	this.hide();
+	    tray = new gui.Tray({title : 'Messenger', tooltip: 'Facebook Messenger', icon: 'icon.png'});
+      tray.menu = trayMenu;
+    //tray.on('click', function() { win.show();});
+       trayMenu.items[0].click = function() {
+           win.show();
+           tray.remove();
+           tray = null;
+        };
+       
+        trayMenu.items[1].click = function() {
+           tray.remove();
+           tray = null;
+           win.close(true);
+        };
+   
+    });
+    
+   // tray.on('click', function() { win.show();}); //This is kludgy.
 
     // Open external urls in the browser
     win.on('new-win-policy', function(frame, url, policy) {
