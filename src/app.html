@@ -21,6 +21,7 @@
     var gui = require('nw.gui');
     var win = gui.Window.get();
     var isOSX = process.platform == 'darwin';
+    var tray;
 
     // Create the menu
     var menu = new gui.Menu({ type: 'menubar' });
@@ -29,6 +30,16 @@
     }
     win.menu = menu;
 
+    win.on('minimize', function() {
+		this.hide();
+		tray = new gui.Tray({icon: 'icon.png'});
+
+   tray.on('click', function() {
+       win.show();
+       this.remove();
+       tray = null;
+   });
+});
     // OS X: Don't quit the app when the window is closed
     if (isOSX) {
       win.on('close', function(quit) {
@@ -53,6 +64,7 @@
       policy.ignore();
     });
 
+    
     // Listen for DOM load
     window.onload = function() {
       var app = document.getElementById('app');
