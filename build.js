@@ -4,10 +4,16 @@ var async = require('async');
 var fs = require('fs-extra');
 
 var builder = new NodeWebkitBuilder({
-  files: './src/**',
+  files: [
+    './src/**',
+    './node_modules/async/lib/async.js',
+    './node_modules/node-webkit-updater/**'
+  ],
   platforms: ['win32', 'osx64', 'linux32', 'linux64'],
+  //platforms: ['osx64'],
   macIcns: './app_icon.icns',
-  winIco: 'app_icon.ico'
+  winIco: 'app_icon.ico', // disable this if you're on OSX/Linux and don't have Wine
+  macZip: true
 });
 
 builder.on('log', console.log);
@@ -52,9 +58,9 @@ builder.build().then(function() {
 
     async.parallel([
       archive('osx64', 'zip'),
-      archive('win32', 'zip'),
-      archive('linux32', 'tar.gz'),
-      archive('linux64', 'tar.gz')
+      //archive('win32', 'zip'),
+      //archive('linux32', 'tar.gz'),
+      //archive('linux64', 'tar.gz')
     ], function(error, messages) {
       if (error) {
         console.error(error);

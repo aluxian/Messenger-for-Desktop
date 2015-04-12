@@ -1,12 +1,12 @@
 var gui = require('nw.gui');
-var async = require('async');
+var async = require('./node_modules/async/lib/async');
 
 var win = gui.Window.get();
 var isOSX = /^darwin/.test(process.platform);
 
 var copyPath, execPath;
 var updater = (function() {
-  var manifest = require('../package.json');
+  var manifest = require('./package.json');
   var updater = require('node-webkit-updater');
   return new updater(manifest);
 })();
@@ -17,14 +17,18 @@ if (gui.App.argv.length) { // args are passed when the app is launched from the 
   copyPath = gui.App.argv[0];
   execPath = gui.App.argv[1];
 
-  // Replace the old app, run the updated one from the original location and close the temp instance
+  //alert('copyPath=' + copyPath + ' execPa=' + execPath);
+
+  // Replace the old app
   updater.install(copyPath, function(error) {
+    //alert('install done ' + error)
+
     if (!error) {
-      // The new app will run itself from original folder and exit the process
-      updater.run(execPath);
+      // Run the new app and quit the temporary instance
+      gui.Shell.openItem(execPath);
       gui.App.quit();
     } else {
-      alert('Error while finishing update: ' + error);
+      //alert('Error while finishing update: ' + error);
     }
   });
 } else { // if no arguments were passed to the app
@@ -32,7 +36,7 @@ if (gui.App.argv.length) { // args are passed when the app is launched from the 
     // See if a check has already been made in the past hour
     function(callback) {
       var delay = 1 * 60 * 60 * 1000; // 1 hour
-      var lastCheck = localStorage.lastCheckUpdate;
+      var lastCheck = null;//localStorage.lastCheckUpdate;
       localStorage.lastCheckUpdate = Date.now();
 
       if (lastCheck && lastCheck + delay > Date.now()) {
@@ -48,10 +52,14 @@ if (gui.App.argv.length) { // args are passed when the app is launched from the 
     },
 
     // If there is a new release, download it to a temp directory
-    function(callback, newVersionExists, manifest) {
-      if (!newVersionExists) {
+    function(newVersionExists, manifest, callback) {
+      var updateMsg = 'There\'s a new version available (' + manifest.version + '). Would you like to update now?';
+
+      if (!newVersionExists || !confirm(updateMsg)) {
         return callback('skip'); // false error to skip the rest
       }
+
+      //alert('downloading ' + manifest.version);
 
       updater.download(function(error, filename) {
         callback(error, filename, manifest);
@@ -59,18 +67,20 @@ if (gui.App.argv.length) { // args are passed when the app is launched from the 
     },
 
     // Unpack the downloaded package
-    function(callback, filename, manifest) {
+    function(filename, manifest, callback) {
+      //alert('unpacking ' + filename);
       updater.unpack(filename, callback, manifest);
     },
 
     // Run the new app from temp and kill the current one
-    function(callback, newAppPath) {
+    function(newAppPath, callback) {
+      //alert('installing ' + newAppPath + '  1 ' + updater.getAppPath() + ' 2 ' + updater.getAppExec());
       updater.runInstaller(newAppPath, [updater.getAppPath(), updater.getAppExec()], {});
       gui.App.quit();
     }
   ], function(error) {
     if (error && error != 'skip') {
-      alert('Error while trying to update: ' + error);
+      //alert('Error while trying to update: ' + error);
     }
   });
 }
