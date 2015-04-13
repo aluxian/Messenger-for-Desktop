@@ -43,6 +43,10 @@ Bring [messenger.com](https://messenger.com) to your OS X, Windows, Linux or Chr
 * Preferences menu ??
 * Launch on OS startup ??
 
+## Contributions
+
+Contributions are welcome! For feature requests and bug reports please [submit an issue](https://github.com/Aluxian/Facebook-Messenger-Desktop/issues).
+
 ## License
 
 The MIT License (MIT)
