@@ -1,88 +1,44 @@
 var gui = require('nw.gui');
-var async = require('./node_modules/async/lib/async');
-
 var win = gui.Window.get();
-var isOSX = /^darwin/.test(process.platform);
 
-var copyPath, execPath;
-var updater = (function() {
-  var manifest = require('./package.json');
-  var updater = require('node-webkit-updater');
-  return new updater(manifest);
-})();
+var semver = require('./vendor/semver');
+var manifest = require('./package.json');
 
-// Auto updater
-if (gui.App.argv.length) { // args are passed when the app is launched from the temp dir during update
-  // The new app (in temp) will copy itself to the original folder, overwriting the old app
-  copyPath = gui.App.argv[0];
-  execPath = gui.App.argv[1];
+var platform = process.platform;
+platform = /^win/.test(platform) ? 'win32'
+         : /^darwin/.test(platform) ? 'osx64'
+         : 'linux' + (process.arch == 'ia32' ? '32' : '64');
 
-  //alert('copyPath=' + copyPath + ' execPa=' + execPath);
+// Check for update
+var req = new XMLHttpRequest();
+req.onload = function() {
+  if (req.status < 200 || req.status > 299) {
+    return callback(new Error(req.status));
+  }
 
-  // Replace the old app
-  updater.install(copyPath, function(error) {
-    //alert('install done ' + error)
+  try {
+    var data = JSON.parse(req.responseText);
+    checkNewVersion(null, semver.gt(data.version, manifest.version), data);
+  } catch(error) {
+    callback(error);
+  }
+};
+req.open('get', manifest.manifestUrl, true);
+req.send();
 
-    if (!error) {
-      // Run the new app and quit the temporary instance
-      gui.Shell.openItem(execPath);
-      gui.App.quit();
-    } else {
-      //alert('Error while finishing update: ' + error);
+function checkNewVersion(error, newVersionExists, newManifest) {
+  if (error) {
+    return alert('Error while trying to update: ' + error);
+  }
+
+  if (newVersionExists) {
+    var updateMessage = 'There\'s a new version available (' + newManifest.version + ').'
+                        + ' Would you like to download the update now?';
+
+    if (confirm(updateMessage)) {
+      gui.Shell.openExternal(newManifest.packages[platform]);
     }
-  });
-} else { // if no arguments were passed to the app
-  async.waterfall([
-    // See if a check has already been made in the past hour
-    function(callback) {
-      var delay = 1 * 60 * 60 * 1000; // 1 hour
-      var lastCheck = null;//localStorage.lastCheckUpdate;
-      localStorage.lastCheckUpdate = Date.now();
-
-      if (lastCheck && lastCheck + delay > Date.now()) {
-        return callback('skip'); // false error to skip the rest
-      }
-
-      callback();
-    },
-
-    // Check if there's a new version available
-    function(callback) {
-      updater.checkNewVersion(callback);
-    },
-
-    // If there is a new release, download it to a temp directory
-    function(newVersionExists, manifest, callback) {
-      var updateMsg = 'There\'s a new version available (' + manifest.version + '). Would you like to update now?';
-
-      if (!newVersionExists || !confirm(updateMsg)) {
-        return callback('skip'); // false error to skip the rest
-      }
-
-      //alert('downloading ' + manifest.version);
-
-      updater.download(function(error, filename) {
-        callback(error, filename, manifest);
-      }, manifest);
-    },
-
-    // Unpack the downloaded package
-    function(filename, manifest, callback) {
-      //alert('unpacking ' + filename);
-      updater.unpack(filename, callback, manifest);
-    },
-
-    // Run the new app from temp and kill the current one
-    function(newAppPath, callback) {
-      //alert('installing ' + newAppPath + '  1 ' + updater.getAppPath() + ' 2 ' + updater.getAppExec());
-      updater.runInstaller(newAppPath, [updater.getAppPath(), updater.getAppExec()], {});
-      gui.App.quit();
-    }
-  ], function(error) {
-    if (error && error != 'skip') {
-      //alert('Error while trying to update: ' + error);
-    }
-  });
+  }
 }
 
 // Create the app menu
@@ -93,7 +49,7 @@ if (menu.createMacBuiltin) {
 win.menu = menu;
 
 // OS X
-if (isOSX) {
+if (platform == 'osx64') {
   // Don't quit the app when the window is closed
   win.on('close', function(quit) {
     if (quit) {

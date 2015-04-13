@@ -1,4 +1,4 @@
-/build
-/dist
-/cache
-/node_modules
+build/
+dist/
+cache/
+node_modules/

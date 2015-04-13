@@ -17,20 +17,52 @@ Bring [messenger.com](https://messenger.com) to your OS X, Windows, Linux or Chr
 
 ## Build
 
-### OS X, Windows, Linux
+### Pre-requisites
 
-    npm install    # install dependencies
-    node build.js  # build the releases
+    # install gulp
+    npm install -g gulp
+
+    # install dependencies
+    npm install
+
+    # optional, read the comment about winIco in gulpfile
+    brew install wine
+
+    # optional; see task `package-win32` in gulpfile
+    brew install makensis
+
+### OS X
+
+    gulp release-osx64
+
+### Windows
+
+    gulp release-win32
+
+### Linux 32 bit
+
+    gulp release-linux32
+
+### Linux 64 bit
+
+    gulp release-linux64
+
+Take a look into `gulpfile.coffee` for additional tasks.
 
 ### Chrome
 
     Switch to the `chrome` branch.
 
+### Windows Metro
+
+    Switch to the `windows` branch.
+
 ## Changelog
 
     1.2.0
     - Links open in the browser
-    - Added Chromebook support
+    - OS X: keep the app open when closing the window
+    - The app checks for update when launched
 
     1.1.0
     - Badge with the number of unread notifications in the dock/taskbar (OSX/Win)
