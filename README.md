@@ -1,5 +1,7 @@
 # Facebook Messenger (Unofficial)
 
+[![Join the chat at https://gitter.im/Aluxian/Facebook-Messenger-Desktop](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Aluxian/Facebook-Messenger-Desktop?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Bring [messenger.com](https://messenger.com) to your OS X, Windows, Linux or Chromebook desktop. Built with [NW.js](http://nwjs.io/).
 
 ![Cross-platform screenshot](screenshot.png)
