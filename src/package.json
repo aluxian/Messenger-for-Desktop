@@ -5,7 +5,7 @@
   "window": {
     "width": 800,
     "height": 600,
-    "title": "Messenger Modified",
+    "title": "Messenger",
     "icon": "icon.png",
     "toolbar": false
   }
