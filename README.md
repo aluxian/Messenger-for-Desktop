@@ -1,7 +1,5 @@
 # Facebook Messenger (Unofficial)
 
-[![Join the chat at https://gitter.im/mtmr/Facebook-Messenger-Desktop](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/mtmr/Facebook-Messenger-Desktop?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
 Bring [messenger.com](https://messenger.com) to your OS X, Windows, Linux or Chromebook desktop. Built with [NW.js](http://nwjs.io/).
 
 ![Cross-platform screenshot](screenshot.png)
@@ -16,7 +14,7 @@ Bring [messenger.com](https://messenger.com) to your OS X, Windows, Linux or Chr
 
 * Badge with the number of notifications (OS X and Windows)
 * Native notifications
-* Add to System Tray
+* Minimize to Tray
 
 ## Build
 
