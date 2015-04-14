@@ -16,6 +16,7 @@ Bring [messenger.com](https://messenger.com) to your OS X, Windows, Linux or Chr
 
 * Badge with the number of notifications (OS X and Windows)
 * Native notifications
+* System tray icon on Windows
 
 ## Build
 

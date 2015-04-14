@@ -37,7 +37,9 @@ gulp.task 'build-linux64', ['vendor'], -> build ['linux64']
 
 # Create a DMG for osx64; only works on OS X due to gulp-appdmg
 gulp.task 'release-osx64', ['build-osx64'],  ->
-  shelljs.mkdir 'dist' # appdmg fails if ./dist doesn't exist
+  shelljs.mkdir 'dist'            # appdmg fails if ./dist doesn't exist
+  shelljs.rm 'dist/Messenger.dmg' # appdmg fails if the dmg already exists
+  
   gulp.src []
     .pipe $.appdmg
       source: 'assets/dmg.json'
@@ -49,7 +51,7 @@ gulp.task 'release-win32', ['build-win32'],  ->
 
 # Archive the linux32 files
 gulp.task 'release-linux32', ['build-linux32'], ->
-  
+
   gulp.src 'build/Messenger/linux32/**'
     .pipe $.tar 'Messenger_linux32.tar'
     .pipe $.gzip()
