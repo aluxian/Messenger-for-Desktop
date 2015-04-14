@@ -16,10 +16,3 @@ chmod +x /opt/MessengerForDesktop/Messenger
 # Make shortcut in /usr/share/applications
 cp -f /opt/MessengerForDesktop/messengerfordesktop.desktop /usr/share/applications/
 chmod 644 /usr/share/applications/messengerfordesktop.desktop
-
-read -p "Add a shortcut to Messenger on your Desktop? [yN]" yn
-
-case $yn in
-  [Yy]* ) cp /opt/MessengerForDesktop/messengerfordesktop.desktop $HOME/Desktop;;
-  [Nn]* ) exit;;
-esac
