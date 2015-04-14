@@ -4,12 +4,17 @@ if [ "$(whoami)" != "root" ]; then
 	echo "Run as root if you get 'Permission denied' errors."
 fi
 
-mkdir -p /usr/share/MessengerForDesktop
-yes | cp -rf ./* /usr/share/MessengerForDesktop/
+mkdir -p /opt/MessengerForDesktop
+cp -rf ./* /opt/MessengerForDesktop/
+chmod -R 755 /opt/MessengerForDesktop
+chmod +x /opt/MessengerForDesktop/facebookmessenger.desktop
+cp -f /opt/MessengerForDesktop/facebookmessenger.desktop /usr/share/applications/
+chmod +x /opt/MessengerForDesktop/Messenger
+chmod 644 /usr/share/applications/facebookmessenger.desktop
 
 read -p "Add a shortcut to Messenger on your Desktop? [yN]" yn
 
 case $yn in
-  [Yy]* ) ln -s /usr/share/MessengerForDesktop/Messenger $HOME/Desktop/Messenger;;
+  [Yy]* ) cp /opt/MessengerForDesktop/facebookmessenger.desktop $HOME/Desktop;;
   [Nn]* ) exit;;
 esac

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Facebook Messenger
+Icon=/opt/MessengerForDesktop/icon_1024.png
+Exec=/opt/MessengerForDesktop/Messenger
+Comment=Facebook Messenger
+Categories=Network;
+Terminal=false
