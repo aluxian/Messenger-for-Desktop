@@ -57,6 +57,9 @@ a:hover {
 .center {
   text-align: center;
   margin-top: 1rem;
+}
+
+.mg-bottom {
   margin-bottom: 2rem;
 }
 
