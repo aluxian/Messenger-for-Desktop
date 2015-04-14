@@ -1,19 +1,19 @@
 {
   "main": "app.html",
   "name": "Messenger",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "window": {
     "width": 800,
     "height": 600,
     "title": "Messenger",
     "icon": "icon.png",
-    "toolbar": true
+    "toolbar": false
   },
   "manifestUrl": "https://raw.githubusercontent.com/Aluxian/Facebook-Messenger-Desktop/master/src/package.json",
   "packages": {
-    "osx64": "https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v1.2.1/Messenger.dmg",
-    "win32": "https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v1.2.1/MessengerSetup.exe",
-    "linux32": "https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v1.2.1/Messenger_linux32.run",
-    "linux64": "https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v1.2.1/Messenger_linux64.run"
+    "osx64": "https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v1.2.2/Messenger.dmg",
+    "win32": "https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v1.2.2/MessengerSetup.exe",
+    "linux32": "https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v1.2.2/Messenger_linux32.run",
+    "linux64": "https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v1.2.2/Messenger_linux64.run"
   }
 }
