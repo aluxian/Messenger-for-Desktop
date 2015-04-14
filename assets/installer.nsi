@@ -50,9 +50,7 @@ Section "Uninstall"
   Delete $INSTDIR\libGLESv2.dll
   Delete $INSTDIR\nw.pak
   Delete $INSTDIR\locales\*
-  Delete $INSTDIR\locales\
   Delete $INSTDIR\locales
-  Delete $INSTDIR\
   Delete $INSTDIR
 
   # delete the shortcuts
