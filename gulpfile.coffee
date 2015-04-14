@@ -31,6 +31,11 @@ makeself = (arch) ->
       title = 'Install Messenger for Desktop'
       shelljs.exec "makeself #{src} #{dest} \"#{title}\" ./install.sh"
 
+# Empty the /build and /dist directories
+gulp.task 'clean', ->
+  shelljs.rm '-rf', './build/*'
+  shelljs.rm '-rf', './dist/*'
+
 # Move dependencies required by the app
 gulp.task 'vendor', ->
   gulp.src [
@@ -53,8 +58,8 @@ gulp.task 'build-linux64', ['vendor'], -> build ['linux64']
 
 # Create a DMG for osx64; only works on OS X due to gulp-appdmg
 gulp.task 'release-osx64', ['build-osx64'],  ->
-  shelljs.mkdir 'dist'            # appdmg fails if ./dist doesn't exist
-  shelljs.rm 'dist/Messenger.dmg' # appdmg fails if the dmg already exists
+  shelljs.mkdir '-p', 'dist'            # appdmg fails if ./dist doesn't exist
+  shelljs.rm '-f', 'dist/Messenger.dmg' # appdmg fails if the dmg already exists
 
   gulp.src []
     .pipe $.appdmg
