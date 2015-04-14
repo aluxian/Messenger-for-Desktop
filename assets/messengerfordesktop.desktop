@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.2.2
+Type=Application
+Name=Messenger
+Icon=/opt/MessengerForDesktop/icon_256.png
+Exec=/opt/MessengerForDesktop/Messenger
+Comment=Messenger for Desktop
+Categories=Network;
+Terminal=false
