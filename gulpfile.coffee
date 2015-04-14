@@ -23,7 +23,11 @@ build = (platforms) ->
 
 # Run makeself to create a linux installer
 makeself = (arch) ->
-  gulp.src('assets/install.sh')
+  gulp.src [
+    'assets/install.sh'
+    'assets/icon_256.png'
+    'assets/messengerfordesktop.desktop'
+  ]
     .pipe gulp.dest 'build/Messenger/linux' + arch
     .on 'end', ->
       src = './build/Messenger/linux' + arch

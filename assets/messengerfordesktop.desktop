@@ -1,9 +1,9 @@
 [Desktop Entry]
-Version=1.0
+Version=1.2.2
 Type=Application
-Name=Facebook Messenger
-Icon=/opt/MessengerForDesktop/icon_1024.png
+Name=Messenger
+Icon=/opt/MessengerForDesktop/icon_256.png
 Exec=/opt/MessengerForDesktop/Messenger
-Comment=Facebook Messenger
+Comment=Messenger for Desktop
 Categories=Network;
 Terminal=false
