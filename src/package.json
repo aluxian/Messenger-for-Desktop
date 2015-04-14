@@ -1,13 +1,13 @@
 {
   "main": "app.html",
   "name": "Messenger",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "window": {
     "width": 800,
     "height": 600,
     "title": "Messenger",
     "icon": "icon.png",
-    "toolbar": false
+    "toolbar": true
   },
   "manifestUrl": "https://raw.githubusercontent.com/Aluxian/Facebook-Messenger-Desktop/master/src/package.json",
   "packages": {
