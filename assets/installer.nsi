@@ -40,7 +40,7 @@ SectionEnd
 Section "Uninstall"
 
   # delete the uninstaller
-  Delete $INSTDIR\MessengerUninstaller.exe
+  Delete "$INSTDIR\Uninstall Messenger for Desktop.exe"
 
   # delete the installed files
   Delete $INSTDIR\Messenger.exe
