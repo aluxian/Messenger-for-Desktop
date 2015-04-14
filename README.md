@@ -15,7 +15,7 @@ Bring [messenger.com](https://messenger.com) to your OS X, Windows, Linux or Chr
 ## Extra
 
 * Badge with the number of notifications (OS X and Windows)
-* Native notifications
+* Native notifications on Linux and OSX
 * System tray icon on Windows
 
 ## Build
@@ -28,11 +28,10 @@ Bring [messenger.com](https://messenger.com) to your OS X, Windows, Linux or Chr
     # install dependencies
     npm install
 
-    # optional, read the comment about winIco in gulpfile
-    brew install wine
-
-    # optional; see task `package-win32` in gulpfile
-    brew install makensis
+* **wine**: If you're on OSX/Linux and want to build for Windows, you need [Wine](http://winehq.org/) installed. Wine is required in order
+to set the correct icon for the exe. If you don't have Wine, you can comment out the `winIco` field in `gulpfile`.
+* **makensis**: Required by the `release-win32` task in `gulpfile` to create the Windows installer.
+* **makeself**: Required by the `release-linux{32|64}` tasks in `gulpfile` to create the linux installers.
 
 ### OS X
 
@@ -42,41 +41,24 @@ Bring [messenger.com](https://messenger.com) to your OS X, Windows, Linux or Chr
 
     gulp release-win32
 
-### Linux 32 bit
+### Linux 32/64 bit
 
-    gulp release-linux32
-
-### Linux 64 bit
-
-    gulp release-linux64
+    gulp release-linux{32|64}
 
 Take a look into `gulpfile.coffee` for additional tasks.
 
 ### Chrome
 
-    Switch to the `chrome` branch.
+Switch to the `chrome` branch.
 
 ### Windows Metro
 
-    Switch to the `windows` branch.
-
-## Changelog
-
-    1.2.0
-    - Links open in the browser
-    - OS X: keep the app open when closing the window
-    - The app checks for update when launched
-
-    1.1.0
-    - Badge with the number of unread notifications in the dock/taskbar (OSX/Win)
-
-    1.0.0
-    - First release
+Switch to the `windows` branch.
 
 ## To Do
 
-* Preferences menu ??
-* Launch on OS startup ??
+* Preferences menu
+* Launch on OS startup
 
 ## Contributions
 

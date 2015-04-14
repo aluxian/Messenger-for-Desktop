@@ -1,0 +1,14 @@
+1.2.1
+- Adds tray icon for Windows
+- Adds installer for linux
+
+1.2.0
+- Links open in the browser
+- OS X: keep the app open when closing the window
+- The app checks for update when launched
+
+1.1.0
+- Badge with the number of unread notifications in the dock/taskbar (OSX/Win)
+
+1.0.0
+- First release
