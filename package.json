@@ -12,10 +12,8 @@
     "coffee-script": "=1.9.1",
     "gulp": "=3.8.11",
     "gulp-appdmg": "git://github.com/aluxian/gulp-appdmg.git",
-    "gulp-gzip": "=1.1.0",
     "gulp-load-plugins": "=0.10.0",
     "gulp-node-webkit-builder": "git://github.com/leftstick/gulp-node-webkit-builder.git",
-    "gulp-tar": "=1.4.0",
     "gulp-uglify": "=1.2.0",
     "run-sequence": "=1.0.2",
     "shelljs": "=0.4.0"
