@@ -22,7 +22,11 @@
     var isLinux = process.platform == 'linux';
     var isOSX = process.platform == 'darwin';
     var tray;
-
+    var toolTip = 'Messenger - Unread : ';
+    var EventEmitter = require('events').EventEmitter;
+    var events = new EventEmitter();
+    var notified = true;
+    var checkunread = require('./checkunread');
     // Create the menu
     var menu = new gui.Menu({ type: 'menubar' });
     if (menu.createMacBuiltin) {
@@ -37,7 +41,7 @@
     
     //Creates tray on minimizing the window
 //    
-	tray = new gui.Tray({title : 'Messenger', tooltip: 'Facebook Messenger', icon: 'icon.png'});
+	tray = new gui.Tray({title : 'Messenger', tooltip: toolTip, icon: 'icon.png'});
 	tray.menu = trayMenu;
 
 	trayMenu.items[0].click = function() {
@@ -71,30 +75,25 @@
       policy.ignore();
     });
 
-    
+   var match;
+   var label;
+
     // Listen for DOM load
     window.onload = function() {
-      var app = document.getElementById('app');
-      var titleRegExp = /\((\d)\)/;
       // Watch the iframe every 250ms
-      setInterval(function() {
-        // Sync the title
-        document.title = app.contentDocument.title;
-        // Update the badge
-        var match = titleRegExp.exec(document.title);
-        var label = match && match[1] || '';
-	// setBadgeLabel doesn't work on Linux. Change the icon instead
-	if(isLinux)
-	{
-		if(match)
-			tray.icon = 'icon_unread.png';
-		else
-			tray.icon = 'icon.png';
-	}
-
-        		win.setBadgeLabel(label);
-      }, 250);
+	setInterval(checkunread.checkread, 1000);
     }
+	events.on('unread', function()
+			{
+			if(!notified)
+			{tray.icon = 'icon_unread.png';
+			notified = true;}});
+	events.on('read', function()
+			{
+			if(notified)
+			{tray.icon = 'icon.png';
+			notified = false;}});
+
   </script>
 </head>
 
