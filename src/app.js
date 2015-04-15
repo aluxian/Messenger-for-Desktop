@@ -41,6 +41,7 @@ function checkNewVersion(error, newVersionExists, newManifest) {
 
     if (confirm(updateMessage)) {
       gui.Shell.openExternal(newManifest.packages[platform]);
+      gui.App.quit();
     }
   }
 }
