@@ -1,7 +1,7 @@
 [Desktop Entry]
-Version=1.2.2
+Version=1.0
 Type=Application
-Name={{name}}
+Name=Messenger
 Icon=/opt/MessengerForDesktop/icon_256.png
 Exec=/opt/MessengerForDesktop/Messenger
 Comment=Messenger for Desktop

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Link to the binary
-rm /usr/local/bin/messengerfordesktop
+rm -f /usr/local/bin/messengerfordesktop
 
 # Unity Launcher icon
-rm /usr/share/applications/messengerfordesktop.desktop
+rm -f /usr/share/applications/messengerfordesktop.desktop

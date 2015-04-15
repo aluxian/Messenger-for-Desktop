@@ -4,8 +4,9 @@ runSequence = require 'run-sequence'
 manifest = require './package.json'
 $ = require('gulp-load-plugins')()
 
-# Remove the ./build and ./dist directories
+# Remove directories used by the tasks
 gulp.task 'clean', ->
+  shelljs.rm '-rf', './opt'
   shelljs.rm '-rf', './build'
   shelljs.rm '-rf', './dist'
 
@@ -46,33 +47,30 @@ gulp.task 'pack:win32', ['build:win32'], ->
 
 # Create packages for linux
 [32, 64].forEach (arch) ->
-  gulp.task 'pack:linux' + arch, ['build:linux' + arch], ->
-    gulp.src [
-      './assets-linux/icon_256.png'
-      './assets-linux/messengerfordesktop.desktop'
-    ]
-      .pipe gulp.dest './build/Messenger/linux' + arch
-      .on 'end', ->
-        ['deb', 'rpm'].forEach (target) ->
+  ['deb', 'rpm'].forEach (target) ->
+    gulp.task "pack:linux#{arch}:#{target}", ['build:linux' + arch], ->
+      shelljs.rm '-rf', './opt'
+
+      gulp.src [
+        './assets-linux/icon_256.png'
+        './assets-linux/messengerfordesktop.desktop'
+        './assets-linux/after-install.sh'
+        './assets-linux/after-remove.sh'
+        './build/Messenger/linux' + arch + '/**'
+      ]
+        .pipe gulp.dest './opt/MessengerForDesktop'
+        .on 'end', ->
           port = if arch == 32 then 'i386' else 'amd64'
-          name = manifest.name.toLowerCase()
-          version = manifest.version
-          url = 'https://messengerfordesktop.com'
-          description = 'Beautiful desktop client for Facebook Messenger. Chat without being distracted by your feed or notifications.'
-          afterInstall = './assets-linux/after-install.sh'
-          afterRemove = './assets-linux/after-remove.sh'
-          maintainer = 'Alexandru Rosianu <me@aluxian.com>'
           output = "./dist/Messenger_linux#{arch}.#{target}"
 
-          p1 = "-s dir -t #{target} -a #{port} -n #{name} --after-install #{afterInstall} --after-remove #{afterRemove}"
-          p2 = "--category Chat --url \"#{url}\" --description \"#{description}\" -m \"#{maintainer}\" -p #{output} -v #{version}"
-
-          shelljs.rm '-f', output # it fails if the package already exists
-          shelljs.exec "fpm #{p1} #{p2} ./build/Messenger/linux#{arch}/"
+          shelljs.mkdir '-p', './dist' # it fails if the dir doesn't exist
+          shelljs.rm '-f', output      # it fails if the package already exists
+          
+          shelljs.exec "fpm -s dir -t #{target} -a #{port} -n messengerfordesktop --after-install ./opt/MessengerForDesktop/after-install.sh --after-remove ./opt/MessengerForDesktop/after-remove.sh --license MIT --category Chat --url \"https://messengerfordesktop.com\" --description \"Beautiful desktop client for Facebook Messenger. Chat without being distracted by your feed or notifications.\" -m \"Alexandru Rosianu <me@aluxian.com>\" -p #{output} -v #{manifest.version} ./opt/MessengerForDesktop/"
 
 # Make packages for all platforms
 gulp.task 'pack:all', (callback) ->
-  runSequence 'pack:osx64', 'pack:win32', 'pack:linux32', 'pack:linux64', callback
+  runSequence 'pack:osx64', 'pack:win32', 'pack:linux32:deb', 'pack:linux32:rpm', 'pack:linux64:deb', 'pack:linux64:rpm', callback
 
 # Build osx64 and run it
 gulp.task 'run:osx64', ['build:osx64'], ->

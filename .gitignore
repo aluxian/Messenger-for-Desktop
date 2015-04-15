@@ -1,4 +1,5 @@
-/src/vendor
+/src/vendor/
+/opt/
 build/
 dist/
 cache/
