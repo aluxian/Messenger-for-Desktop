@@ -1,3 +1,6 @@
+1.2.4
+- fixed deb packages, removed rpm ones
+
 1.2.3
 - deb and rpm packages for linux
 

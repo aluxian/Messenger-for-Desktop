@@ -37,7 +37,7 @@ gulp.task 'pack:osx64', ['build:osx64'], ->
   shelljs.rm '-f', './dist/Messenger.dmg' # appdmg fails if the dmg already exists
 
   gulp.src []
-    .pipe $.appdmg
+    .pipe require('gulp-appdmg')
       source: './assets-osx/dmg.json'
       target: './dist/Messenger.dmg'
 
@@ -65,12 +65,12 @@ gulp.task 'pack:win32', ['build:win32'], ->
 
           shelljs.mkdir '-p', './dist' # it fails if the dir doesn't exist
           shelljs.rm '-f', output      # it fails if the package already exists
-          
+
           shelljs.exec "fpm -s dir -t #{target} -a #{port} -n messengerfordesktop --after-install ./opt/MessengerForDesktop/after-install.sh --after-remove ./opt/MessengerForDesktop/after-remove.sh --license MIT --category Chat --url \"https://messengerfordesktop.com\" --description \"Beautiful desktop client for Facebook Messenger. Chat without being distracted by your feed or notifications.\" -m \"Alexandru Rosianu <me@aluxian.com>\" -p #{output} -v #{manifest.version} ./opt/MessengerForDesktop/"
 
 # Make packages for all platforms
 gulp.task 'pack:all', (callback) ->
-  runSequence 'pack:osx64', 'pack:win32', 'pack:linux32:deb', 'pack:linux32:rpm', 'pack:linux64:deb', 'pack:linux64:rpm', callback
+  runSequence 'pack:osx64', 'pack:win32', 'pack:linux32:deb', 'pack:linux64:deb', callback
 
 # Build osx64 and run it
 gulp.task 'run:osx64', ['build:osx64'], ->
