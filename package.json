@@ -11,7 +11,6 @@
   "devDependencies": {
     "coffee-script": "^1.9.1",
     "gulp": "^3.8.11",
-    "gulp-appdmg": "git://github.com/aluxian/gulp-appdmg.git",
     "gulp-github-release": "git://github.com/aluxian/gulp-github-release.git",
     "gulp-load-plugins": "^0.10.0",
     "gulp-node-webkit-builder": "git://github.com/leftstick/gulp-node-webkit-builder.git",
@@ -19,5 +18,8 @@
     "gulp-util": "^3.0.4",
     "run-sequence": "^1.0.2",
     "shelljs": "^0.4.0"
+  },
+  "optionalDependencies": {
+    "gulp-appdmg": "git://github.com/aluxian/gulp-appdmg.git"
   }
 }
