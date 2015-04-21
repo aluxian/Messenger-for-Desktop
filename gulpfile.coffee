@@ -10,29 +10,35 @@ gulp.task 'clean', ->
   shelljs.rm '-rf', './build'
   shelljs.rm '-rf', './dist'
 
-# Move app dependencies into ./src/vendor
-gulp.task 'vendor', ->
-  gulp.src [
-    './node_modules/semver/semver.js'
-  ]
-    .pipe $.uglify()
-    .pipe gulp.dest './src/vendor/'
-
 # Build for each platform; on OSX/Linux, you need Wine installed to build win32 (or remove winIco below)
 ['win32', 'osx64', 'linux32', 'linux64'].forEach (platform) ->
-  gulp.task 'build:' + platform, ['vendor'], ->
+  gulp.task 'build:' + platform, ->
+    if process.argv.indexOf '--toolbar'
+      shelljs.sed '-i', '"toolbar": false', '"toolbar": true', './src/package.json'
+
     gulp.src './src/**'
       .pipe $.nodeWebkitBuilder
         platforms: [platform]
-        winIco: './assets/icon.ico'
-        macIcns: './assets/icon.icns'
+        winIco: './assets-windows/icon.ico'
+        macIcns: './assets-osx/icon.icns'
         macZip: true
         macPlist:
-          NSHumanReadableCopyright: 'Copyright © 2015 aluxian.com'
+          NSHumanReadableCopyright: 'aluxian.com'
           CFBundleIdentifier: 'com.aluxian.messengerfordesktop'
+      .on 'end', ->
+        if process.argv.indexOf '--toolbar'
+          shelljs.sed '-i', '"toolbar": true', '"toolbar": false', './src/package.json'
+
+# Only runs on OSX (requires XCode properly configured)
+gulp.task 'sign:osx64', ['build:osx64'], ->
+  SIGN_IDENTITY = 'Alexandru Rosianu Apps'
+  shelljs.exec 'codesign -v -f -s "' + SIGN_IDENTITY + '" ./build/Messenger/osx64/Messenger.app/Contents/Frameworks/*'
+  shelljs.exec 'codesign -v -f -s "' + SIGN_IDENTITY + '" ./build/Messenger/osx64/Messenger.app'
+  shelljs.exec 'codesign -v --display ./build/Messenger/osx64/Messenger.app'
+  shelljs.exec 'codesign -v --verify ./build/Messenger/osx64/Messenger.app'
 
 # Create a DMG for osx64; only works on OS X because of appdmg
-gulp.task 'pack:osx64', ['build:osx64'], ->
+gulp.task 'pack:osx64', ['sign:osx64'], ->
   shelljs.mkdir '-p', './dist'            # appdmg fails if ./dist doesn't exist
   shelljs.rm '-f', './dist/Messenger.dmg' # appdmg fails if the dmg already exists
 
@@ -64,7 +70,7 @@ gulp.task 'pack:win32', ['build:win32'], ->
           output = "./dist/Messenger_linux#{arch}.#{target}"
 
           shelljs.mkdir '-p', './dist' # it fails if the dir doesn't exist
-          shelljs.rm '-f', output      # it fails if the package already exists
+          shelljs.rm '-f', output # it fails if the package already exists
 
           shelljs.exec "fpm -s dir -t #{target} -a #{port} -n messengerfordesktop --after-install ./opt/MessengerForDesktop/after-install.sh --after-remove ./opt/MessengerForDesktop/after-remove.sh --license MIT --category Chat --url \"https://messengerfordesktop.com\" --description \"Beautiful desktop client for Facebook Messenger. Chat without being distracted by your feed or notifications.\" -m \"Alexandru Rosianu <me@aluxian.com>\" -p #{output} -v #{manifest.version} ./opt/MessengerForDesktop/"
 
@@ -74,6 +80,10 @@ gulp.task 'pack:all', (callback) ->
 
 # Build osx64 and run it
 gulp.task 'run:osx64', ['build:osx64'], ->
+  shelljs.exec 'open ./build/Messenger/osx64/Messenger.app'
+
+# Run osx64 without building
+gulp.task 'open:osx64', ->
   shelljs.exec 'open ./build/Messenger/osx64/Messenger.app'
 
 # Upload release to GitHub

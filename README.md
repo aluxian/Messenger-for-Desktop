@@ -2,7 +2,7 @@
 
 [![Join the chat at https://gitter.im/Aluxian/Facebook-Messenger-Desktop](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Aluxian/Facebook-Messenger-Desktop?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Bring [messenger.com](https://messenger.com) to your OS X, Windows, Linux or Chromebook desktop. Built with [NW.js](http://nwjs.io/).
+Bring [messenger.com](https://messenger.com) to your OS X, Windows or Linux desktop. Built with [NW.js](http://nwjs.io/).
 
 ![Cross-platform screenshot](screenshot.png)
 
@@ -16,7 +16,7 @@ Bring [messenger.com](https://messenger.com) to your OS X, Windows, Linux or Chr
 
 * Badge with the number of notifications (OS X and Windows)
 * Native notifications on Linux and OSX
-* System tray icon on Windows
+* System tray icon on Windows and Linux
 
 ## Build
 
@@ -32,11 +32,10 @@ Bring [messenger.com](https://messenger.com) to your OS X, Windows, Linux or Chr
 to set the correct icon for the exe. If you don't have Wine, you can comment out the `winIco` field in `gulpfile`.
 * **makensis**: Required by the `pack:win32` task in `gulpfile` to create the Windows installer.
 * [**fpm**](https://github.com/jordansissel/fpm): Required by the `pack:linux{32|64}` tasks in `gulpfile` to create the linux installers.
-* **rpmbuild**: Needed to build the .rpm packages for linux.
 
 For OSX:
 
-    brew install rpm makensis rpm
+    brew install wine makensis
     sudo gem install fpm
 
 ### OS X
@@ -52,14 +51,6 @@ For OSX:
     gulp pack:linux{32|64}
 
 Take a look into `gulpfile.coffee` for additional tasks.
-
-### Chrome
-
-Switch to the `chrome` branch.
-
-### Windows Metro
-
-Switch to the `windows` branch.
 
 ## To Do
 

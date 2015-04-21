@@ -5,8 +5,8 @@
     "type": "git",
     "url": "git@github.com:Aluxian/Facebook-Messenger-Desktop.git"
   },
-  "dependencies": {
-    "semver": "^4.3.3"
+  "scripts": {
+    "postinstall": "(cd src && npm install)"
   },
   "devDependencies": {
     "coffee-script": "^1.9.1",
@@ -15,7 +15,6 @@
     "gulp-load-plugins": "^0.10.0",
     "gulp-node-webkit-builder": "git://github.com/leftstick/gulp-node-webkit-builder.git",
     "gulp-uglify": "^1.2.0",
-    "gulp-util": "^3.0.4",
     "run-sequence": "^1.0.2",
     "shelljs": "^0.4.0"
   },
