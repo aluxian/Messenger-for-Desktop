@@ -6,6 +6,7 @@ var platform = require('./utils/platform');
 var updater = require('./utils/updater');
 var menus = require('./utils/menus');
 var windowBehaviour = require('./utils/window-behaviour');
+var themer = require('./utils/themer');
 
 // Check for update
 updater.checkAndPrompt(manifest, window);
@@ -22,7 +23,10 @@ window.onload = function() {
   var app = document.getElementById('app');
   var titleRegExp = /\((\d)\)/;
 
-  // Watch the iframe every 50ms
+  // Load the theming module
+  themer.apply(app.contentDocument);
+
+  // Watch the iframe periodically
   setInterval(function() {
     // Sync the title
     document.title = app.contentDocument.title;
@@ -31,5 +35,5 @@ window.onload = function() {
     var match = titleRegExp.exec(document.title);
     var label = match && match[1] || '';
     win.setBadgeLabel(label);
-  }, 250);
+  }, 50);
 };

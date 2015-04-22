@@ -1,0 +1,197 @@
+/* @source: https://userstyles.org/styles/112397/facebook-messenger-the-dark-side */
+/* #141823 is Messenger's normal text colour, white is normal background colour */
+/* #1E1E1E and #2D2D30 are Visual Studio, don't ask */
+
+body._5s5h {
+	background-color: #141813;  /* this doesn't do shit */
+	color: white;
+}
+
+._36ic, ._5742 {
+	background-color: rgba(255, 255, 255, .05) !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	color: white;
+}
+
+._5743, ._364g, ._hh7 {
+	color: white !important;
+}
+
+label {
+	color: #aaa;
+}
+
+/* convo search box, to field (new message, add people), other inputs? */
+._2y8y, ._4jgt, input._58al {
+	background-color: #2d2d30 !important;
+	color: white !important;
+}
+
+/* fuck placeholder styling */
+input::-moz-placeholder {
+	color: #ccc !important;
+}
+
+input::-webkit-input-placeholder {
+	color: #888 !important;
+}
+
+/* main wrapper */
+._4sp8 {
+	background-color: #1e1e1e;
+	color: white;
+}
+
+/* chat area shit */
+/* message */
+._hh7 {
+	background-color: #2d2d30 !important;
+	color: white !important;
+}
+
+._hh7 a {
+	color: white !important;
+}
+
+._hh7:active, ._-5k ._hh7, ._hh7>span>a:hover {
+	background-color: #333 !important;
+}
+
+/* own message */
+._nd_ ._hh7 {
+	background-color: #004488 !important;
+}
+
+._nd_ ._hh7:active, ._nd_._-5k ._hh7, ._nd_ ._hh7>span>a:hover {
+	background-color: #003377 !important;
+}
+
+/* link info */
+._haj {
+	border-color: rgba(255, 255, 255, .1) !important;
+}
+._haj .__6k, ._haj .__6l {
+	color: white !important;
+}
+
+/* audio message */
+._29_7 ._3czg ._2e-7 ._2e-1, ._29_7 ._3czg ._2e-7 ._2e-2 {
+	background-color: #444 !important;
+}
+._454y ._1mi- {
+	background-color: #2d2d30 !important;
+}
+
+/* typing bubble */
+._1hbw ._5pd7 {
+	background-color: rgba(255, 255, 255, .6) !important;
+}
+
+/* delete bubble button */
+._hw2 ._53ij {
+	background-color: #040404 !important;
+}
+
+/* input bar */
+._4rv3 {
+	border-top-color: rgba(255, 255, 255, .1) !important;
+}
+
+/* convo info */
+._4_j5 {
+	background-color: #2d2d30 !important;
+	border-left-color: rgba(0, 0, 0, 0.5);
+}
+
+/* convo name */
+._3tkx, ._3tkz {
+	color: white !important;
+}
+
+/* user list */
+._5l37 {
+	background-color: #2d2d30 !important;
+}
+
+/* convo list */
+._1enh._4bl7 {
+	/* fix convo list hiders */
+	background-color: #1e1e1e;
+}
+
+/* inactive convo */
+._1ht1 {
+	background-color: #2d2d30 !important;
+}
+
+/* active convo */
+._1ht1._1ht2 {
+	background-color: rgba(127, 127, 127, .05) !important;
+}
+
+/* convo name */
+._1ht6, ._3q34 {
+	color: white !important;
+}
+
+/* timestamp */
+._1ht7 {
+	color: rgba(255, 255, 255, .6) !important;  /* fuck you Chrome, fuck you. */
+}
+
+._1ht3 ._1ht7 {
+	color: #0084ff !important;
+}
+
+/* convo new message */
+._1ht3 ._1htf {
+	color: white !important;
+}
+
+/* search header */
+._5t4c, ._225b {
+	background-color: #1e1e1e !important;
+}
+
+/* that menu though */
+._53ij {
+	background-color: #222 !important;
+}
+
+._256n {
+	color: #ddd !important;
+}
+
+/* messenger dialogs, very important */
+._4-hz, ._4eby, ._4jgp ._4jgu {
+	background-color: #222 !important;
+}
+
+._374c, ._4jgs, ._2c9i ._19jt, ._51l0 .uiInputLabel .__rm + .uiInputLabelLabel {
+	color: #ddd !important;
+}
+
+/* report dialog, even more so */
+/* dialog head */
+._4-i0 {
+	background-color: #333 !important;
+	border-bottom-color: #2e2e2e;
+}
+
+/* dialog heading */
+._4-i0 ._52c9 {
+	color: #ddd !important;
+}
+
+/* dialog body, footer */
+div._4-i2, div._5a8u {
+	background-color: #222 !important;
+}
+
+/* stuff that should be grey */
+._ih3, ._3tl0, ._3tl1 ._10w4, ._1htf, ._497p, ._3x6v, ._2v6o, ._3tky, ._5rh4, ._jf4 ._jf3, ._haj .__6m, ._2y8z,
+._4g0h, ._3xcx, ._225b, ._3q35 {
+	color: rgba(255, 255, 255, .6) !important;
+}

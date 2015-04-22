@@ -1,4 +1,7 @@
+!include "MUI.nsh"
+
 Name "Messenger"
+BrandingText "aluxian.com"
 
 # define the resulting installer's name:
 OutFile "..\dist\MessengerSetup.exe"

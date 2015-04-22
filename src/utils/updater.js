@@ -23,7 +23,7 @@ module.exports = {
   /**
    * Show a dialog to ask the user to update.
    */
-  prompt: function(window, error, newVersionExists, newManifest) {
+  prompt: function(error, newVersionExists, newManifest) {
     if (error) {
       return window.alert('Error while trying to update: ' + error);
     }
@@ -41,7 +41,7 @@ module.exports = {
   /**
    * Check for update and ask the user to update.
    */
-  checkAndPrompt: function(manifest, window) {
-    this.check(manifest, this.prompt.bind(this, window));
+  checkAndPrompt: function(manifest) {
+    this.check(manifest, this.prompt);
   }
 };
