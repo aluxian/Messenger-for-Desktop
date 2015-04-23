@@ -8,6 +8,11 @@ var menus = require('./utils/menus');
 var windowBehaviour = require('./utils/window-behaviour');
 var themer = require('./utils/themer');
 
+// Ensure there's an app shortcut for toast notifications to work on Windows
+if (platform.isWindows) {
+  gui.App.createShortcut(process.env.APPDATA + "\\Microsoft\\Windows\\Start Menu\\Programs\\Messenger.lnk");
+}
+
 // Check for update
 updater.checkAndPrompt(manifest, window);
 
@@ -20,16 +25,19 @@ windowBehaviour.set(win);
 
 // Listen for DOM load
 window.onload = function() {
-  var app = document.getElementById('app');
+  var iframe = document.querySelector('iframe');
   var titleRegExp = /\((\d)\)/;
 
   // Load the theming module
-  themer.apply(app.contentDocument);
+  themer.apply(iframe.contentDocument);
+
+  // Add a context menu
+  menus.injectContextMenu(win, iframe.contentWindow, iframe.contentDocument);
 
   // Watch the iframe periodically
   setInterval(function() {
     // Sync the title
-    document.title = app.contentDocument.title;
+    document.title = iframe.contentDocument.title;
 
     // Update the badge
     var match = titleRegExp.exec(document.title);

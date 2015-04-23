@@ -2,7 +2,7 @@
   "main": "app.html",
   "name": "Messenger",
   "version": "1.2.4",
-  "js-flags": "--harmony",
+  "app-id": "com.aluxian.messengerfordesktop",
   "window": {
     "width": 800,
     "height": 600,
@@ -11,10 +11,11 @@
     "toolbar": false
   },
   "dependencies": {
+    "async": "^0.9.0",
     "request": "^2.55.0",
     "semver": "^4.3.3"
   },
-  "manifestUrl": "https://raw.githubusercontent.com/Aluxian/Facebook-Messenger-Desktop/release/src/package.json",
+  "manifestUrl": "https://raw.githubusercontent.com/Aluxian/Facebook-Messenger-Desktop/master/src/package.json",
   "packages": {
     "osx64": "https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v1.2.4/Messenger.dmg",
     "win32": "https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v1.2.4/MessengerSetup.exe",

@@ -12,18 +12,15 @@ module.exports = {
     });
 
     // Don't quit the app when the window is closed
-    win.on('close', function(quit) {
-      if (quit) {
-        win.close(true);
-      } else {
-        // On Linux, minimize it instead
-        if (platform.isLinux) {
-          win.minimize();
+    if (!platform.isLinux) {
+      win.on('close', function(quit) {
+        if (quit) {
+          win.close(true);
         } else {
           win.hide();
         }
-      }
-    });
+      });
+    }
 
     // Open external urls in the browser
     win.on('new-win-policy', function(frame, url, policy) {
