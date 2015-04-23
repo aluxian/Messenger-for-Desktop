@@ -14,9 +14,10 @@ Bring [messenger.com](https://messenger.com) to your OS X, Windows or Linux desk
 
 ## Extra
 
-* Badge with the number of notifications (OS X and Windows)
-* Native notifications on Linux and OSX
+* Badge with the number of notifications in the dock/taskbar (OS X and Windows)
+* Native notifications (all platforms)
 * System tray icon on Windows and Linux
+* Dark theme
 
 ## Build
 

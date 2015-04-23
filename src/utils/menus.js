@@ -1,7 +1,13 @@
 var gui = window.require('nw.gui');
 var platform = require('./platform');
-var localStorage = require('./local-storage');
+var settings = require('./settings');
 
+/**
+ * The placement of the main settings differs for each platform:
+ * - on OS X they're in the top menu bar
+ * - on Windows they're in the tray icon's menu
+ * - on Linux they're in the right-click context menu
+ */
 module.exports = {
   /**
    * Create the menu bar for the given window, only on OS X.
@@ -25,9 +31,9 @@ module.exports = {
     submenu.insert(new gui.MenuItem({
       type: 'checkbox',
       label: 'Dark Theme',
-      checked: localStorage(window).get('theme') == 'dark',
+      checked: settings.theme == 'dark',
       click: function() {
-        localStorage(window).set('theme', this.checked ? 'dark' : 'default');
+        settings.theme = this.checked ? 'dark' : 'default';
       }
     }), 2);
 
@@ -42,6 +48,10 @@ module.exports = {
       }
     }), 4);
 
+    settings.watch('theme', function(theme) {
+      submenu.items[2].checked = theme == 'dark';
+    });
+
     win.menu = menu;
   },
 
@@ -50,6 +60,30 @@ module.exports = {
    */
   createTrayMenu: function(win) {
     var menu = new gui.Menu();
+
+    menu.append(new gui.MenuItem({
+      type: 'checkbox',
+      label: 'Dark Theme',
+      checked: settings.theme == 'dark',
+      click: function() {
+        settings.theme = this.checked ? 'dark' : 'default';
+      }
+    }));
+
+    menu.append(new gui.MenuItem({
+      type: 'separator'
+    }));
+
+    menu.append(new gui.MenuItem({
+      label: 'Launch Dev Tools',
+      click: function() {
+        win.showDevTools();
+      }
+    }));
+
+    menu.append(new gui.MenuItem({
+      type: 'separator'
+    }));
 
     menu.append(new gui.MenuItem({
       label: 'Open Messenger',
@@ -66,6 +100,10 @@ module.exports = {
       }
     }));
 
+    settings.watch('theme', function(theme) {
+      menu.items[0].checked = theme == 'dark';
+    });
+
     return menu;
   },
 
@@ -73,7 +111,7 @@ module.exports = {
    * Create the tray icon for Windows and Linux.
    */
   loadTrayIcon: function(win) {
-    if (!(platform.isWindows || platform.isLinux)) {
+    if (!platform.isWindows) {
       return;
     }
 
@@ -151,6 +189,32 @@ module.exports = {
         label: "Copy",
         click: function() {
           document.execCommand("copy");
+        }
+      }));
+    }
+
+    if (platform.isLinux) {
+      menu.append(new gui.MenuItem({
+        type: 'separator'
+      }));
+
+      menu.append(new gui.MenuItem({
+        type: 'checkbox',
+        label: 'Dark Theme',
+        checked: settings.theme == 'dark',
+        click: function() {
+          settings.theme = this.checked ? 'dark' : 'default';
+        }
+      }));
+
+      menu.append(new gui.MenuItem({
+        type: 'separator'
+      }));
+
+      menu.append(new gui.MenuItem({
+        label: 'Launch Dev Tools',
+        click: function() {
+          win.showDevTools();
         }
       }));
     }

@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "async": "^0.9.0",
+    "jfs": "^0.2.5",
     "request": "^2.55.0",
     "semver": "^4.3.3"
   },

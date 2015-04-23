@@ -1,4 +1,4 @@
-var localStorage = require('./local-storage');
+var settings = require('./settings');
 var fs = require('fs');
 
 module.exports = {
@@ -37,9 +37,10 @@ module.exports = {
       });
     };
 
-    updateTheme(localStorage(window).get('theme', 'default'));
-    localStorage(window).onChanged('theme', updateTheme);
+    updateTheme(settings.theme);
+    settings.watch('theme', updateTheme);
 
+    // Append  base style
     this.loadBaseStyles(document);
   }
 };
