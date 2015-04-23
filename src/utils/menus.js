@@ -1,6 +1,8 @@
 var gui = window.require('nw.gui');
 var platform = require('./platform');
 var settings = require('./settings');
+var manifest = require('../package.json');
+var updater = require('./updater');
 
 /**
  * The placement of the main settings differs for each platform:
@@ -89,11 +91,24 @@ module.exports = {
     }), 4);
 
     submenu.insert(new gui.MenuItem({
+      label: 'Check for Update',
+      click: function() {
+        updater.check(manifest, function(error, newVersionExists, newManifest) {
+          if (newVersionExists) {
+            updater.prompt(error, newVersionExists, newManifest);
+          } else {
+            window.alert("You're using the latest version, #{manifest.version}.");
+          }
+        });
+      }
+    }), 5);
+
+    submenu.insert(new gui.MenuItem({
       label: 'Launch Dev Tools',
       click: function() {
         win.showDevTools();
       }
-    }), 5);
+    }), 6);
 
     settings.watch('autoHideSidebar', function(autoHideSidebar) {
       submenu.items[2].checked = autoHideSidebar;
@@ -125,6 +140,19 @@ module.exports = {
 
     menu.append(new gui.MenuItem({
       type: 'separator'
+    }));
+
+    menu.append(new gui.MenuItem({
+      label: 'Check for Update',
+      click: function() {
+        updater.check(manifest, function(error, newVersionExists, newManifest) {
+          if (newVersionExists) {
+            updater.prompt(error, newVersionExists, newManifest);
+          } else {
+            window.alert("You're using the latest version, #{manifest.version}.");
+          }
+        });
+      }
     }));
 
     menu.append(new gui.MenuItem({
@@ -267,6 +295,19 @@ module.exports = {
 
     menu.append(new gui.MenuItem({
       type: 'separator'
+    }));
+
+    menu.append(new gui.MenuItem({
+      label: 'Check for Update',
+      click: function() {
+        updater.check(manifest, function(error, newVersionExists, newManifest) {
+          if (newVersionExists) {
+            updater.prompt(error, newVersionExists, newManifest);
+          } else {
+            window.alert("You're using the latest version, #{manifest.version}.");
+          }
+        });
+      }
     }));
 
     menu.append(new gui.MenuItem({
