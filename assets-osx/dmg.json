@@ -1,6 +1,6 @@
 {
   "title": "Messenger",
-  "icon": "icon.icns",
+  "icon": "dmg_icon.icns",
   "background": "dmg_bg.png",
   "icon-size": 80,
   "contents": [
