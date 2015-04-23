@@ -1,0 +1,28 @@
+/* @source: https://userstyles.org/styles/112567/facebook-messanger-nice-tidy-and-more-responsive */
+
+._1enh {
+  -webkit-transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+  -moz-transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+  -o-transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+  transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+  position: relative;
+  z-index: 1000;
+  width: 320px !important;
+  margin-left: -315px;
+  background: white;
+  border-right: 1px solid rgba(0, 0, 0, .10);
+  transform: translate(1px);
+}
+
+._1enh:hover {
+  transform: translate(315px);
+  box-shadow: 0 0 0 3000px rgba(0, 0, 0, .6);
+}
+
+._4sp8 {
+  min-width: 320px;
+}
+
+._1ht3 {
+  background-color: #CFE8FF !important;
+}

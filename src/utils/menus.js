@@ -6,9 +6,50 @@ var settings = require('./settings');
  * The placement of the main settings differs for each platform:
  * - on OS X they're in the top menu bar
  * - on Windows they're in the tray icon's menu
- * - on Linux they're in the right-click context menu
+ * - on all 3 platform, they're also in the right-click context menu
  */
 module.exports = {
+  /**
+   * Create the themes submenu shown in the main one.
+   */
+  createThemesMenu: function(skipChecking) {
+    var menu = new gui.Menu();
+    var themeNames = {
+      'default': 'Default',
+      'mosaic': 'Mosaic',
+      'dark': 'Dark'
+    };
+
+    Object.keys(themeNames).forEach(function(key) {
+      menu.append(new gui.MenuItem({
+        type: 'checkbox',
+        label: themeNames[key],
+        checked: settings.theme == key,
+        click: function() {
+          if (!skipChecking) {
+            menu.items.forEach(function(item) {
+              item.checked = false;
+            });
+
+            this.checked = true;
+          }
+
+          settings.theme = key;
+        }
+      }));
+    });
+
+    if (!skipChecking) {
+      settings.watch('theme', function(theme) {
+        menu.items.forEach(function(item) {
+          item.checked = item.label == themeNames[theme];
+        });
+      });
+    }
+
+    return menu;
+  },
+
   /**
    * Create the menu bar for the given window, only on OS X.
    */
@@ -30,26 +71,32 @@ module.exports = {
 
     submenu.insert(new gui.MenuItem({
       type: 'checkbox',
-      label: 'Dark Theme',
-      checked: settings.theme == 'dark',
+      label: 'Auto-Hide Sidebar',
+      checked: settings.autoHideSidebar,
       click: function() {
-        settings.theme = this.checked ? 'dark' : 'default';
+        settings.autoHideSidebar = this.checked;
       }
     }), 2);
 
+    var themesMenu = this.createThemesMenu();
+    submenu.insert(new gui.MenuItem({
+      label: 'Theme',
+      submenu: themesMenu
+    }), 3);
+
     submenu.insert(new gui.MenuItem({
       type: 'separator'
-    }), 3);
+    }), 4);
 
     submenu.insert(new gui.MenuItem({
       label: 'Launch Dev Tools',
       click: function() {
         win.showDevTools();
       }
-    }), 4);
+    }), 5);
 
-    settings.watch('theme', function(theme) {
-      submenu.items[2].checked = theme == 'dark';
+    settings.watch('autoHideSidebar', function(autoHideSidebar) {
+      submenu.items[2].checked = autoHideSidebar;
     });
 
     win.menu = menu;
@@ -63,11 +110,17 @@ module.exports = {
 
     menu.append(new gui.MenuItem({
       type: 'checkbox',
-      label: 'Dark Theme',
-      checked: settings.theme == 'dark',
+      label: 'Auto-Hide Sidebar',
+      checked: settings.autoHideSidebar,
       click: function() {
-        settings.theme = this.checked ? 'dark' : 'default';
+        settings.autoHideSidebar = this.checked;
       }
+    }));
+
+    var themesMenu = this.createThemesMenu();
+    menu.append(new gui.MenuItem({
+      label: 'Theme',
+      submenu: themesMenu
     }));
 
     menu.append(new gui.MenuItem({
@@ -100,8 +153,8 @@ module.exports = {
       }
     }));
 
-    settings.watch('theme', function(theme) {
-      menu.items[0].checked = theme == 'dark';
+    settings.watch('autoHideSidebar', function(autoHideSidebar) {
+      submenu.items[2].checked = autoHideSidebar;
     });
 
     return menu;
@@ -193,31 +246,35 @@ module.exports = {
       }));
     }
 
-    if (platform.isLinux) {
-      menu.append(new gui.MenuItem({
-        type: 'separator'
-      }));
+    menu.append(new gui.MenuItem({
+      type: 'separator'
+    }));
 
-      menu.append(new gui.MenuItem({
-        type: 'checkbox',
-        label: 'Dark Theme',
-        checked: settings.theme == 'dark',
-        click: function() {
-          settings.theme = this.checked ? 'dark' : 'default';
-        }
-      }));
+    menu.append(new gui.MenuItem({
+      type: 'checkbox',
+      label: 'Auto-Hide Sidebar',
+      checked: settings.autoHideSidebar,
+      click: function() {
+        settings.autoHideSidebar = this.checked;
+      }
+    }));
 
-      menu.append(new gui.MenuItem({
-        type: 'separator'
-      }));
+    var themesMenu = this.createThemesMenu(true);
+    menu.append(new gui.MenuItem({
+      label: 'Theme',
+      submenu: themesMenu
+    }));
 
-      menu.append(new gui.MenuItem({
-        label: 'Launch Dev Tools',
-        click: function() {
-          win.showDevTools();
-        }
-      }));
-    }
+    menu.append(new gui.MenuItem({
+      type: 'separator'
+    }));
+
+    menu.append(new gui.MenuItem({
+      label: 'Launch Dev Tools',
+      click: function() {
+        win.showDevTools();
+      }
+    }));
 
     return menu;
   },

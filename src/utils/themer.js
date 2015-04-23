@@ -10,7 +10,7 @@ module.exports = {
     style.setAttribute('type', 'text/css');
     document.head.appendChild(style);
 
-    fs.readFile('themes/base.css', 'utf-8', function(err, css) {
+    fs.readFile('styles/base.css', 'utf-8', function(err, css) {
       if (err) {
         console.error(err);
       } else {
@@ -20,7 +20,7 @@ module.exports = {
   },
 
   /**
-   * Load the default theme and change it when required.
+   * Load styles in the document..
    */
   apply: function(document) {
     var style = document.createElement('style');
@@ -39,6 +39,28 @@ module.exports = {
 
     updateTheme(settings.theme);
     settings.watch('theme', updateTheme);
+
+    // Auto-Hide style
+    var autoHideStyle = document.createElement('style');
+    autoHideStyle.setAttribute('type', 'text/css');
+    document.head.appendChild(autoHideStyle);
+
+    fs.readFile('styles/auto-hide.css', 'utf-8', function(err, css) {
+      if (err) {
+        console.error(err);
+      } else {
+        var updateAutoHide = function(autoHide) {
+          if (autoHide) {
+            autoHideStyle.innerText = css;
+          } else {
+            autoHideStyle.innerText = '';
+          }
+        };
+
+        updateAutoHide(settings.autoHideSidebar);
+        settings.watch('autoHideSidebar', updateAutoHide);
+      }
+    });
 
     // Append  base style
     this.loadBaseStyles(document);

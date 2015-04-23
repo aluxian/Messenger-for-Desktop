@@ -3,6 +3,7 @@ var path = require('path');
 var gui = window.require('nw.gui');
 
 var DEFAULT_SETTINGS = {
+  autoHideSidebar: false,
   theme: 'default'
 };
 

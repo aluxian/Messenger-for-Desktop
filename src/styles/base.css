@@ -1,0 +1,6 @@
+/* These styles will be appended after the selected theme. */
+
+/* Remove the 'install mobile app' bar */
+#u_0_0 > div > ._s15 {
+  display: none;
+}

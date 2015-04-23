@@ -1,8 +1,8 @@
-# Facebook Messenger (Unofficial)
+# Messenger for Desktop
 
 [![Join the chat at https://gitter.im/Aluxian/Facebook-Messenger-Desktop](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Aluxian/Facebook-Messenger-Desktop?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Bring [messenger.com](https://messenger.com) to your OS X, Windows or Linux desktop. Built with [NW.js](http://nwjs.io/).
+Bring [messenger.com](https://messenger.com) to your OS X, Windows or Linux desktop. Built with [NW.js](http://nwjs.io/). Not affiliated with Facebook.
 
 ![Cross-platform screenshot](screenshot.png)
 
@@ -16,8 +16,9 @@ Bring [messenger.com](https://messenger.com) to your OS X, Windows or Linux desk
 
 * Badge with the number of notifications in the dock/taskbar (OS X and Windows)
 * Native notifications (all platforms)
-* System tray icon on Windows and Linux
-* Dark theme
+* System tray icon on Windows
+* 3 themes: Default, Dark and Mosaic
+* Auto-hide the left sidebar
 
 ## Build
 
@@ -29,34 +30,29 @@ Bring [messenger.com](https://messenger.com) to your OS X, Windows or Linux desk
     # install dependencies
     npm install
 
-* **wine**: If you're on OSX/Linux and want to build for Windows, you need [Wine](http://winehq.org/) installed. Wine is required in order
+* **wine**: If you're on OS X/Linux and want to build for Windows, you need [Wine](http://winehq.org/) installed. Wine is required in order
 to set the correct icon for the exe. If you don't have Wine, you can comment out the `winIco` field in `gulpfile`.
 * **makensis**: Required by the `pack:win32` task in `gulpfile` to create the Windows installer.
 * [**fpm**](https://github.com/jordansissel/fpm): Required by the `pack:linux{32|64}` tasks in `gulpfile` to create the linux installers.
 
-For OSX:
+Quick install on OS X:
 
     brew install wine makensis
     sudo gem install fpm
 
-### OS X
+### OS X: pack the app in a .dmg
 
     gulp pack:osx64
 
-### Windows
+### Windows: create the installer
 
     gulp pack:win32
 
-### Linux 32/64 bit
+### Linux 32/64-bit: pack the app in a .deb
 
     gulp pack:linux{32|64}
 
-Take a look into `gulpfile.coffee` for additional tasks.
-
-## To Do
-
-* Preferences menu
-* Launch on OS startup
+The output is in `./dist`. Take a look in `gulpfile.coffee` for additional tasks.
 
 ## Contributions
 
