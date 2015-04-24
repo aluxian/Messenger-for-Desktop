@@ -92,5 +92,13 @@ gulp.task 'release', (callback) ->
       draft: true
       manifest: manifest
 
+# Change the version of the manifest files
+# Use like this: gulp version --1.2.0
+gulp.task 'version', ->
+  version = process.argv[3].substring(2)
+  shelljs.sed '-i', /"version": ".*",/, '"version": "' + version + '",', './package.json'
+  shelljs.sed '-i', /"version": ".*",/, '"version": "' + version + '",', './src/package.json'
+  shelljs.sed '-i', /download\/v.*\/Messenger/g, 'download/v' + version + '/Messenger', './src/package.json'
+
 # Make packages for all platforms by default
 gulp.task 'default', ['pack:all']
