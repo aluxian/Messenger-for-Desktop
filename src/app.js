@@ -37,15 +37,12 @@ window.onload = function() {
   // Add a context menu
   menus.injectContextMenu(win, iframe.contentWindow, iframe.contentDocument);
 
-  // Watch the iframe periodically
-  var titleRegExp = /\((\d)\)/;
-  setInterval(function() {
-    // Sync the title
-    document.title = iframe.contentDocument.title;
+  // Bind native events to the content window
+  windowBehaviour.bindEvents(win, iframe.contentWindow);
 
-    // Update the badge
-    var match = titleRegExp.exec(document.title);
-    var label = match && match[1] || '';
-    win.setBadgeLabel(label);
-  }, 50);
+  // Watch the iframe periodically to sync the title
+  windowBehaviour.syncTitle(document, iframe.contentDocument);
+
+  // Watch the iframe periodically to sync the badge
+  windowBehaviour.syncBadge();
 };

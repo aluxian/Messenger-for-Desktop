@@ -27,5 +27,44 @@ module.exports = {
       gui.Shell.openExternal(url);
       policy.ignore();
     });
+  },
+
+  /**
+   * Bind the events of the node window to the content window.
+   */
+  bindEvents: function(win, window) {
+    ['focus', 'blur'].forEach(function(name) {
+      win.on(name, function() {
+        window.dispatchEvent(new window.Event(name));
+      });
+    });
+  },
+
+  /**
+   * Sen an interval to sync the title.
+   */
+  syncTitle: function(parentDoc, childDoc) {
+    setInterval(function() {
+      parentDoc.title = childDoc.title;
+    }, 50);
+  },
+
+  /**
+   * Sen an interval to sync the badge.
+   */
+  syncBadge: function(doc) {
+    var notifCountRegex = /\((\d)\)/;
+    var keepStateRegex = /.*messaged you.*/;
+
+    setInterval(function() {
+      if (keepStateRegex.test(doc.title)) {
+        // This prevents the badge from blinking at the same time with the title
+        return;
+      }
+
+      var countMatch = notifCountRegex.exec(doc.title);
+      var label = countMatch && countMatch[1] || '';
+      win.setBadgeLabel(label);
+    }, 50);
   }
 };
