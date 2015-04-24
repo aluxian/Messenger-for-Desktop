@@ -15,10 +15,13 @@ Bring [messenger.com](https://messenger.com) to your OS X, Windows or Linux desk
 ## Extra
 
 * Badge with the number of notifications in the dock/taskbar (OS X and Windows)
+* Auto-launch on OS startup (OS X, Windows)
 * Native notifications (all platforms)
 * System tray icon on Windows
 * 3 themes: Default, Dark and Mosaic
 * Auto-hide the left sidebar
+* Open links in browser or new window
+* Preferences in the right-click context menu (or menu bar for OS X, tray menu for Windows)
 
 ## Build
 
