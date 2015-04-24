@@ -15,7 +15,7 @@ if (platform.isWindows) {
 }
 
 // Check for update
-updater.checkAndPrompt(manifest, window);
+updater.checkAndPrompt(manifest, win);
 
 // Load the app menus
 menus.loadMenuBar(win)
@@ -44,5 +44,5 @@ window.onload = function() {
   windowBehaviour.syncTitle(document, iframe.contentDocument);
 
   // Watch the iframe periodically to sync the badge
-  windowBehaviour.syncBadge();
+  windowBehaviour.syncBadge(win, document);
 };

@@ -23,15 +23,15 @@ module.exports = {
   /**
    * Show a dialog to ask the user to update.
    */
-  prompt: function(error, newVersionExists, newManifest) {
+  prompt: function(win, error, newVersionExists, newManifest) {
     if (error) {
-      return window.alert('Error while trying to update: ' + error);
+      return win.window.alert('Error while trying to update: ' + error);
     }
 
     if (newVersionExists) {
       var updateMessage = 'There\'s a new version available (' + newManifest.version + '). Would you like to download the update now?';
 
-      if (window.confirm(updateMessage)) {
+      if (win.window.confirm(updateMessage)) {
         gui.Shell.openExternal(newManifest.packages[platform.name]);
         gui.App.quit();
       }
@@ -41,7 +41,7 @@ module.exports = {
   /**
    * Check for update and ask the user to update.
    */
-  checkAndPrompt: function(manifest) {
-    this.check(manifest, this.prompt);
+  checkAndPrompt: function(manifest, win) {
+    this.check(manifest, this.prompt.bind(this, win));
   }
 };

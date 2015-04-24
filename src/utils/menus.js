@@ -73,10 +73,12 @@ module.exports = {
       label: 'Check for Updates',
       click: function() {
         updater.check(manifest, function(error, newVersionExists, newManifest) {
-          if (newVersionExists) {
-            updater.prompt(error, newVersionExists, newManifest);
+          if (error) {
+            console.error(error);
+          } else if (newVersionExists) {
+            updater.prompt(win, error, newVersionExists, newManifest);
           } else {
-            window.alert('You\'re using the latest version: ' + manifest.version);
+            win.window.alert('You\'re using the latest version: ' + manifest.version);
           }
         });
       }

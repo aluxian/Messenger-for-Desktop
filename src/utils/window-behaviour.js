@@ -52,7 +52,7 @@ module.exports = {
   /**
    * Sen an interval to sync the badge.
    */
-  syncBadge: function(doc) {
+  syncBadge: function(win, doc) {
     var notifCountRegex = /\((\d)\)/;
     var keepStateRegex = /.*messaged you.*/;
 
