@@ -1,34 +1,134 @@
 var gui = window.require('nw.gui');
+var AutoLaunch = require('auto-launch');
 var platform = require('./platform');
 var settings = require('./settings');
 var manifest = require('../package.json');
 var updater = require('./updater');
 
-/**
- * The placement of the main settings differs for each platform:
- * - on OS X they're in the top menu bar
- * - on Windows they're in the tray icon's menu
- * - on all 3 platform, they're also in the right-click context menu
- */
 module.exports = {
   /**
-   * Create the themes submenu shown in the main one.
+   * The main settings items. Their placement differs for each platform:
+   * - on OS X they're in the top menu bar
+   * - on Windows they're in the tray icon's menu
+   * - on all 3 platform, they're also in the right-click context menu
    */
-  createThemesMenu: function(skipChecking) {
+  settingsItems: function(win, keep) {
+    return [{
+      type: 'checkbox',
+      label: 'Launch on Startup',
+      setting: 'launchOnStartup',
+      platforms: ['osx', 'win'],
+      click: function() {
+        settings.launchOnStartup = this.checked;
+
+        var launcher = new AutoLaunch({
+          name: 'Messenger',
+          isHidden: true
+        });
+
+        launcher.isEnabled(function(enabled) {
+          if (settings.launchOnStartup && !enabled) {
+            launcher.enable(function(error) {
+              if (error) {
+                console.error(error);
+              }
+            });
+          }
+
+          if (!settings.launchOnStartup && enabled) {
+            launcher.disable(function(error) {
+              if (error) {
+                console.error(error);
+              }
+            });
+          }
+        });
+      }
+    }, {
+      type: 'checkbox',
+      label: 'Open Links in the Browser',
+      setting: 'openLinksInBrowser',
+      click: function() {
+        settings.openLinksInBrowser = this.checked;
+        win.removeAllListeners('new-win-policy');
+        win.on('new-win-policy', function(frame, url, policy) {
+          if (settings.openLinksInBrowser) {
+            gui.Shell.openExternal(url);
+            policy.ignore();
+          } else {
+            policy.forceNewWindow();
+          }
+        });
+      }
+    }, {
+      type: 'checkbox',
+      label: 'Auto-Hide Sidebar',
+      setting: 'autoHideSidebar'
+    }, {
+      label: 'Theme',
+      submenu: this.createThemesMenu(keep)
+    }, {
+      type: 'separator'
+    }, {
+      label: 'Check for Updates',
+      click: function() {
+        updater.check(manifest, function(error, newVersionExists, newManifest) {
+          if (newVersionExists) {
+            updater.prompt(error, newVersionExists, newManifest);
+          } else {
+            window.alert('You\'re using the latest version: ' + manifest.version);
+          }
+        });
+      }
+    }, {
+      label: 'Launch Dev Tools',
+      click: win.showDevTools
+    }].map(function(item) {
+      // If the item has a 'setting' property, use some predefined values
+      if (item.setting) {
+        if (!item.hasOwnProperty('checked')) {
+          item.checked = settings[item.setting];
+        }
+
+        if (!item.hasOwnProperty('click')) {
+          item.click = function() {
+            settings[item.setting] = item.checked;
+          };
+        }
+      }
+
+      return item;
+    }).filter(function(item) {
+      // Remove the item if the current platform is not supported
+      return !Array.isArray(item.platforms) || (item.platforms.indexOf(platform.type) != -1);
+    }).map(function(item) {
+      var menuItem = new gui.MenuItem(item);
+      menuItem.setting = item.setting;
+      return menuItem;
+    });
+  },
+
+  /**
+   * Create the themes submenu shown in the main one.
+   *
+   * @param keep If true, then the menu will only be created once and it
+   *             should listen for changes in the settings to update itself.
+   */
+  createThemesMenu: function(keep) {
     var menu = new gui.Menu();
-    var themeNames = {
+    var THEMES = {
       'default': 'Default',
       'mosaic': 'Mosaic',
       'dark': 'Dark'
     };
 
-    Object.keys(themeNames).forEach(function(key) {
+    Object.keys(THEMES).forEach(function(key) {
       menu.append(new gui.MenuItem({
         type: 'checkbox',
-        label: themeNames[key],
+        label: THEMES[key],
         checked: settings.theme == key,
         click: function() {
-          if (!skipChecking) {
+          if (keep) {
             menu.items.forEach(function(item) {
               item.checked = false;
             });
@@ -41,10 +141,10 @@ module.exports = {
       }));
     });
 
-    if (!skipChecking) {
-      settings.watch('theme', function(theme) {
+    if (keep) {
+      settings.watch('theme', function(key) {
         menu.items.forEach(function(item) {
-          item.checked = item.label == themeNames[theme];
+          item.checked = item.label == THEMES[key];
         });
       });
     }
@@ -71,47 +171,18 @@ module.exports = {
       type: 'separator'
     }), 1);
 
-    submenu.insert(new gui.MenuItem({
-      type: 'checkbox',
-      label: 'Auto-Hide Sidebar',
-      checked: settings.autoHideSidebar,
-      click: function() {
-        settings.autoHideSidebar = this.checked;
-      }
-    }), 2);
+    // Add the main settings
+    this.settingsItems(win, true).forEach(function(item, index) {
+      submenu.insert(item, index + 2);
+    });
 
-    var themesMenu = this.createThemesMenu();
-    submenu.insert(new gui.MenuItem({
-      label: 'Theme',
-      submenu: themesMenu
-    }), 3);
-
-    submenu.insert(new gui.MenuItem({
-      type: 'separator'
-    }), 4);
-
-    submenu.insert(new gui.MenuItem({
-      label: 'Check for Update',
-      click: function() {
-        updater.check(manifest, function(error, newVersionExists, newManifest) {
-          if (newVersionExists) {
-            updater.prompt(error, newVersionExists, newManifest);
-          } else {
-            window.alert("You're using the latest version, #{manifest.version}.");
-          }
+    // Watch the items that have a 'setting' property
+    submenu.items.forEach(function(item) {
+      if (item.setting) {
+        settings.watch(item.setting, function(value) {
+          item.checked = value;
         });
       }
-    }), 5);
-
-    submenu.insert(new gui.MenuItem({
-      label: 'Launch Dev Tools',
-      click: function() {
-        win.showDevTools();
-      }
-    }), 6);
-
-    settings.watch('autoHideSidebar', function(autoHideSidebar) {
-      submenu.items[2].checked = autoHideSidebar;
     });
 
     win.menu = menu;
@@ -123,44 +194,10 @@ module.exports = {
   createTrayMenu: function(win) {
     var menu = new gui.Menu();
 
-    menu.append(new gui.MenuItem({
-      type: 'checkbox',
-      label: 'Auto-Hide Sidebar',
-      checked: settings.autoHideSidebar,
-      click: function() {
-        settings.autoHideSidebar = this.checked;
-      }
-    }));
-
-    var themesMenu = this.createThemesMenu();
-    menu.append(new gui.MenuItem({
-      label: 'Theme',
-      submenu: themesMenu
-    }));
-
-    menu.append(new gui.MenuItem({
-      type: 'separator'
-    }));
-
-    menu.append(new gui.MenuItem({
-      label: 'Check for Update',
-      click: function() {
-        updater.check(manifest, function(error, newVersionExists, newManifest) {
-          if (newVersionExists) {
-            updater.prompt(error, newVersionExists, newManifest);
-          } else {
-            window.alert("You're using the latest version, #{manifest.version}.");
-          }
-        });
-      }
-    }));
-
-    menu.append(new gui.MenuItem({
-      label: 'Launch Dev Tools',
-      click: function() {
-        win.showDevTools();
-      }
-    }));
+    // Add the main settings
+    this.settingsItems(win, true).forEach(function(item) {
+      menu.append(item);
+    });
 
     menu.append(new gui.MenuItem({
       type: 'separator'
@@ -181,8 +218,13 @@ module.exports = {
       }
     }));
 
-    settings.watch('autoHideSidebar', function(autoHideSidebar) {
-      submenu.items[2].checked = autoHideSidebar;
+    // Watch the items that have a 'setting' property
+    menu.items.forEach(function(item) {
+      if (item.setting) {
+        settings.watch(item.setting, function(value) {
+          item.checked = value;
+        });
+      }
     });
 
     return menu;
@@ -215,7 +257,7 @@ module.exports = {
   /**
    * Create a context menu for the window and document.
    */
-  createContextMenu: function(win, window, document, event) {
+  createContextMenu: function(win, window, document, targetElement) {
     var menu = new gui.Menu();
 
     menu.append(new gui.MenuItem({
@@ -225,7 +267,7 @@ module.exports = {
       }
     }));
 
-    if (event.currentTarget.type == 'input') {
+    if (targetElement.type == 'input') {
       menu.append(new gui.MenuItem({
         type: 'separator'
       }));
@@ -250,18 +292,20 @@ module.exports = {
           document.execCommand("paste");
         }
       }));
-    } /*else if (event.currentTarget.type == 'a') {
-      menu.append(new gui.MenuItem({
-        type: 'separator'
-      }));
+    }
+    /*else if (targetElement.type == 'a') {
+          menu.append(new gui.MenuItem({
+            type: 'separator'
+          }));
 
-      menu.append(new gui.MenuItem({
-        label: "Copy Link",
-        click: function() {
-          document.execCommand("copy");
-        }
-      }));
-    } */else if (window.getSelection().toString().length > 0) {
+          menu.append(new gui.MenuItem({
+            label: "Copy Link",
+            click: function() {
+              document.execCommand("copy");
+            }
+          }));
+        } */
+    else if (window.getSelection().toString().length > 0) {
       menu.append(new gui.MenuItem({
         type: 'separator'
       }));
@@ -278,44 +322,9 @@ module.exports = {
       type: 'separator'
     }));
 
-    menu.append(new gui.MenuItem({
-      type: 'checkbox',
-      label: 'Auto-Hide Sidebar',
-      checked: settings.autoHideSidebar,
-      click: function() {
-        settings.autoHideSidebar = this.checked;
-      }
-    }));
-
-    var themesMenu = this.createThemesMenu(true);
-    menu.append(new gui.MenuItem({
-      label: 'Theme',
-      submenu: themesMenu
-    }));
-
-    menu.append(new gui.MenuItem({
-      type: 'separator'
-    }));
-
-    menu.append(new gui.MenuItem({
-      label: 'Check for Update',
-      click: function() {
-        updater.check(manifest, function(error, newVersionExists, newManifest) {
-          if (newVersionExists) {
-            updater.prompt(error, newVersionExists, newManifest);
-          } else {
-            window.alert("You're using the latest version, #{manifest.version}.");
-          }
-        });
-      }
-    }));
-
-    menu.append(new gui.MenuItem({
-      label: 'Launch Dev Tools',
-      click: function() {
-        win.showDevTools();
-      }
-    }));
+    this.settingsItems(win, false).forEach(function(item) {
+      menu.append(item);
+    });
 
     return menu;
   },
@@ -326,7 +335,7 @@ module.exports = {
   injectContextMenu: function(win, window, document) {
     document.body.addEventListener('contextmenu', function(event) {
       event.preventDefault();
-      this.createContextMenu(win, window, document, event).popup(event.x, event.y);
+      this.createContextMenu(win, window, document, event.currentTarget).popup(event.x, event.y);
       return false;
     }.bind(this));
   }

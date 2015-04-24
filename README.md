@@ -54,6 +54,10 @@ Quick install on OS X:
 
 The output is in `./dist`. Take a look in `gulpfile.coffee` for additional tasks.
 
+**TIP**: use the `--toolbar` parameter to quickly build the app with the toolbar on. E.g. `gulp build:win32 --toolbar`.
+
+**TIP**: for OS X, use the `run:osx64' task to build the app and run it immediately.
+
 ## Contributions
 
 Contributions are welcome! For feature requests and bug reports please [submit an issue](https://github.com/Aluxian/Facebook-Messenger-Desktop/issues).

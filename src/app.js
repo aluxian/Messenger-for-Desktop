@@ -5,8 +5,9 @@ var manifest = require('./package.json');
 var platform = require('./utils/platform');
 var updater = require('./utils/updater');
 var menus = require('./utils/menus');
-var windowBehaviour = require('./utils/window-behaviour');
 var themer = require('./utils/themer');
+var windowBehaviour = require('./utils/window-behaviour');
+var notification = require('./utils/notification');
 
 // Ensure there's an app shortcut for toast notifications to work on Windows
 if (platform.isWindows) {
@@ -26,15 +27,18 @@ windowBehaviour.set(win);
 // Listen for DOM load
 window.onload = function() {
   var iframe = document.querySelector('iframe');
-  var titleRegExp = /\((\d)\)/;
 
   // Load the theming module
   themer.apply(iframe.contentDocument);
+
+  // Inject a callback in the notification API
+  notification.injectClickCallback(iframe.contentWindow, win);
 
   // Add a context menu
   menus.injectContextMenu(win, iframe.contentWindow, iframe.contentDocument);
 
   // Watch the iframe periodically
+  var titleRegExp = /\((\d)\)/;
   setInterval(function() {
     // Sync the title
     document.title = iframe.contentDocument.title;

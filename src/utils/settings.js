@@ -3,6 +3,8 @@ var path = require('path');
 var gui = window.require('nw.gui');
 
 var DEFAULT_SETTINGS = {
+  launchOnStartup: false,
+  openLinksInBrowser: true,
   autoHideSidebar: false,
   theme: 'default'
 };
