@@ -38,6 +38,12 @@ to set the correct icon for the exe. If you don't have Wine, you can comment out
 * **makensis**: Required by the `pack:win32` task in `gulpfile` to create the Windows installer.
 * [**fpm**](https://github.com/jordansissel/fpm): Required by the `pack:linux{32|64}` tasks in `gulpfile` to create the linux installers.
 
+For OSX you will need to install XQuartz:
+brew install Caskroom/cask/xquartz
+
+You can download and install manually from:
+[https://xquartz.macosforge.org](https://xquartz.macosforge.org)
+
 Quick install on OS X:
 
     brew install wine makensis
