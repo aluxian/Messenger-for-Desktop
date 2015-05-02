@@ -14,6 +14,10 @@ if (platform.isWindows) {
   gui.App.createShortcut(process.env.APPDATA + "\\Microsoft\\Windows\\Start Menu\\Programs\\Messenger.lnk");
 }
 
+// Window state
+windowBehaviour.restoreWindowState(win);
+windowBehaviour.bindWindowStateEvents(win);
+
 // Check for update
 updater.checkAndPrompt(manifest, win);
 

@@ -6,6 +6,7 @@ var DEFAULT_SETTINGS = {
   launchOnStartup: false,
   openLinksInBrowser: true,
   autoHideSidebar: false,
+  windowState: {},
   theme: 'default'
 };
 

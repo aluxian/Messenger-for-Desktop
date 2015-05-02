@@ -8,12 +8,13 @@
     "height": 600,
     "title": "Messenger",
     "icon": "icon.png",
-    "toolbar": false
+    "toolbar": false,
+    "show": false
   },
   "dependencies": {
-    "copy-paste": "^1.1.0",
     "async": "^0.9.0",
     "auto-launch": "^0.1.18",
+    "copy-paste": "^1.1.0",
     "jfs": "^0.2.5",
     "request": "^2.55.0",
     "semver": "^4.3.3"
