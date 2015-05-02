@@ -9,3 +9,17 @@ html, body, iframe {
   height: 100%;
   overflow: hidden;
 }
+
+/* Loader */
+.loader {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -17px;
+  margin-left: -12px;
+}
+
+/* Fade it out until the loader is hidden */
+iframe.fade {
+  opacity: 0.2;
+}

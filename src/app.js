@@ -41,6 +41,10 @@ windowBehaviour.setNewWinPolicy(win);
 // Inject logic into the app when it's loaded
 var iframe = document.querySelector('iframe');
 iframe.onload = function() {
+  // Hide the loader
+  iframe.classList.remove('fade');
+  document.querySelector('.loader').remove();
+
   // Load the theming module
   themer.apply(iframe.contentDocument);
 
