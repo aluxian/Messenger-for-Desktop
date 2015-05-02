@@ -1,6 +1,7 @@
 var gui = window.require('nw.gui');
 var platform = require('./platform');
 var settings = require('./settings');
+var URL = require('url');
 
 module.exports = {
   /**
@@ -23,11 +24,27 @@ module.exports = {
         }
       }.bind(this));
     }
+  },
 
-    // Open external urls in the browser
+  /**
+   * Change the new window policy to open links in the browser or another window.
+   */
+  setNewWinPolicy: function(win) {
+    win.removeAllListeners('new-win-policy');
     win.on('new-win-policy', function(frame, url, policy) {
-      gui.Shell.openExternal(url);
-      policy.ignore();
+      if (settings.openLinksInBrowser) {
+        // Skip opening it through facebook
+        var parsed = URL.parse(url, true);
+        var hostMatches = parsed.hostname.indexOf('facebook.com') > -1 || parsed.hostname.indexOf('messenger.com') > -1;
+        if (hostMatches && parsed.pathname.indexOf('/l.php') > -1 && parsed.query.u) {
+          url = decodeURIComponent(parsed.query.u);
+        }
+
+        gui.Shell.openExternal(url);
+        policy.ignore();
+      } else {
+        policy.forceNewWindow();
+      }
     });
   },
 

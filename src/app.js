@@ -27,6 +27,7 @@ menus.loadTrayIcon(win);
 
 // Adjust the default behaviour of the main window
 windowBehaviour.set(win);
+windowBehaviour.setNewWinPolicy(win);
 
 // Listen for DOM load
 window.onload = function() {

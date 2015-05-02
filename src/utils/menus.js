@@ -3,6 +3,7 @@ var AutoLaunch = require('auto-launch');
 var platform = require('./platform');
 var settings = require('./settings');
 var manifest = require('../package.json');
+var windowBehaviour = require('./window-behaviour');
 var updater = require('./updater');
 
 module.exports = {
@@ -50,15 +51,7 @@ module.exports = {
       setting: 'openLinksInBrowser',
       click: function() {
         settings.openLinksInBrowser = this.checked;
-        win.removeAllListeners('new-win-policy');
-        win.on('new-win-policy', function(frame, url, policy) {
-          if (settings.openLinksInBrowser) {
-            gui.Shell.openExternal(url);
-            policy.ignore();
-          } else {
-            policy.forceNewWindow();
-          }
-        });
+        windowBehaviour.setNewWinPolicy(win);
       }
     }, {
       type: 'checkbox',
