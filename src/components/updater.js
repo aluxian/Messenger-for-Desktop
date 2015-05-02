@@ -25,6 +25,7 @@ module.exports = {
    */
   prompt: function(win, error, newVersionExists, newManifest) {
     if (error) {
+      console.error(error);
       return win.window.alert('Error while trying to update: ' + error);
     }
 

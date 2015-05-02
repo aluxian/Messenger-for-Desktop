@@ -2,13 +2,13 @@ var gui = require('nw.gui');
 var win = gui.Window.get();
 
 var manifest = require('./package.json');
-var platform = require('./utils/platform');
-var updater = require('./utils/updater');
-var menus = require('./utils/menus');
-var themer = require('./utils/themer');
-var settings = require('./utils/settings');
-var windowBehaviour = require('./utils/window-behaviour');
-var notification = require('./utils/notification');
+var platform = require('./components/platform');
+var updater = require('./components/updater');
+var menus = require('./components/menus');
+var themer = require('./components/themer');
+var settings = require('./components/settings');
+var windowBehaviour = require('./components/window-behaviour');
+var notification = require('./components/notification');
 
 // Ensure there's an app shortcut for toast notifications to work on Windows
 if (platform.isWindows) {
