@@ -1,7 +1,7 @@
 var gui = window.require('nw.gui');
 var platform = require('./platform');
 var settings = require('./settings');
-var URL = require('url');
+var utils = require('./utils');
 
 module.exports = {
   /**
@@ -35,13 +35,7 @@ module.exports = {
     win.removeAllListeners('new-win-policy');
     win.on('new-win-policy', function(frame, url, policy) {
       if (settings.openLinksInBrowser) {
-        // Skip opening it through facebook
-        var parsed = URL.parse(url, true);
-        var hostMatches = parsed.hostname.indexOf('facebook.com') > -1 || parsed.hostname.indexOf('messenger.com') > -1;
-        if (hostMatches && parsed.pathname.indexOf('/l.php') > -1 && parsed.query.u) {
-          url = decodeURIComponent(parsed.query.u);
-        }
-
+        url = utils.skipFacebookRedirect(url);
         gui.Shell.openExternal(url);
         policy.ignore();
       } else {

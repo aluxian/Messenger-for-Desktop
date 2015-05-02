@@ -6,6 +6,7 @@ var platform = require('./utils/platform');
 var updater = require('./utils/updater');
 var menus = require('./utils/menus');
 var themer = require('./utils/themer');
+var settings = require('./utils/settings');
 var windowBehaviour = require('./utils/window-behaviour');
 var notification = require('./utils/notification');
 
@@ -13,6 +14,9 @@ var notification = require('./utils/notification');
 if (platform.isWindows) {
   gui.App.createShortcut(process.env.APPDATA + "\\Microsoft\\Windows\\Start Menu\\Programs\\Messenger.lnk");
 }
+
+// Show in taskbar/dock or not
+win.setShowInTaskbar(settings.showInTaskbar);
 
 // Window state
 windowBehaviour.restoreWindowState(win);

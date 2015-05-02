@@ -1,10 +1,12 @@
 var gui = window.require('nw.gui');
 var AutoLaunch = require('auto-launch');
-var platform = require('./platform');
-var settings = require('./settings');
+var clipboard = require('copy-paste');
 var manifest = require('../package.json');
 var windowBehaviour = require('./window-behaviour');
+var platform = require('./platform');
+var settings = require('./settings');
 var updater = require('./updater');
+var utils = require('./utils');
 
 module.exports = {
   /**
@@ -15,6 +17,30 @@ module.exports = {
    */
   settingsItems: function(win, keep) {
     return [{
+      label: 'Reload',
+      click: function() {
+        win.reload();
+      }
+    }, {
+      type: 'checkbox',
+      label: 'Open Links in the Browser',
+      setting: 'openLinksInBrowser',
+      click: function() {
+        settings.openLinksInBrowser = this.checked;
+        windowBehaviour.setNewWinPolicy(win);
+      }
+    }, {
+      type: 'separator'
+    }, {
+      type: 'checkbox',
+      label: 'Show in ' + (platform.isWindows ? 'Taskbar' : 'Dock'),
+      setting: 'showInTaskbar',
+      platforms: ['osx', 'win'],
+      click: function() {
+        settings.showInTaskbar = this.checked;
+        win.setShowInTaskbar(this.checked);
+      }
+    }, {
       type: 'checkbox',
       label: 'Launch on Startup',
       setting: 'launchOnStartup',
@@ -46,13 +72,7 @@ module.exports = {
         });
       }
     }, {
-      type: 'checkbox',
-      label: 'Open Links in the Browser',
-      setting: 'openLinksInBrowser',
-      click: function() {
-        settings.openLinksInBrowser = this.checked;
-        windowBehaviour.setNewWinPolicy(win);
-      }
+      type: 'separator'
     }, {
       type: 'checkbox',
       label: 'Auto-Hide Sidebar',
@@ -257,56 +277,41 @@ module.exports = {
   createContextMenu: function(win, window, document, targetElement) {
     var menu = new gui.Menu();
 
-    menu.append(new gui.MenuItem({
-      label: 'Reload',
-      click: function() {
-        win.reload();
-      }
-    }));
-
     if (targetElement.tagName.toLowerCase() == 'input') {
-      menu.append(new gui.MenuItem({
-        type: 'separator'
-      }));
-
       menu.append(new gui.MenuItem({
         label: "Cut",
         click: function() {
-          document.execCommand("cut");
+          clipboard.copy(targetElement.value);
+          targetElement.value = '';
         }
       }));
 
       menu.append(new gui.MenuItem({
         label: "Copy",
         click: function() {
-          document.execCommand("copy");
+          clipboard.copy(targetElement.value);
         }
       }));
 
       menu.append(new gui.MenuItem({
         label: "Paste",
         click: function() {
-          document.execCommand("paste");
+          clipboard.paste(function(value) {
+            targetElement.value = value;
+          });
         }
       }));
     } else if (targetElement.tagName.toLowerCase() == 'a') {
       menu.append(new gui.MenuItem({
-        type: 'separator'
-      }));
-
-      menu.append(new gui.MenuItem({
         label: "Copy Link",
         click: function() {
-          clipboard.copy(targetElement.href);
+          var url = utils.skipFacebookRedirect(targetElement.href);
+          clipboard.copy(url);
         }
       }));
     } else {
       var selection = window.getSelection().toString();
       if (selection.length > 0) {
-        menu.append(new gui.MenuItem({
-          type: 'separator'
-        }));
-
         menu.append(new gui.MenuItem({
           label: "Copy",
           click: function() {
@@ -315,10 +320,6 @@ module.exports = {
         }));
       }
     }
-
-    menu.append(new gui.MenuItem({
-      type: 'separator'
-    }));
 
     this.settingsItems(win, false).forEach(function(item) {
       menu.append(item);
