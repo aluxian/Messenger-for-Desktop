@@ -29,15 +29,14 @@ menus.loadTrayIcon(win);
 windowBehaviour.set(win);
 windowBehaviour.setNewWinPolicy(win);
 
-// Listen for DOM load
-window.onload = function() {
-  var iframe = document.querySelector('iframe');
-
+// Inject logic into the app when it's loaded
+var iframe = document.querySelector('iframe');
+iframe.onload = function() {
   // Load the theming module
   themer.apply(iframe.contentDocument);
 
   // Inject a callback in the notification API
-  notification.injectClickCallback(iframe.contentWindow, win);
+  notification.inject(iframe.contentWindow, win);
 
   // Add a context menu
   menus.injectContextMenu(win, iframe.contentWindow, iframe.contentDocument);

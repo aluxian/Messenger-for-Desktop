@@ -2,10 +2,10 @@ module.exports = {
   /**
    * Inject a callback in the onclick event.
    */
-  injectClickCallback: function(window, win) {
-    var NativeNotification = window.Notification;
+  inject: function(contentWindow, win) {
+    var NativeNotification = contentWindow.Notification;
 
-    window.Notification = function(title, options) {
+    contentWindow.Notification = function(title, options) {
       options.onclick = (function(defaultOnClick) {
         return function() {
           win.show();
@@ -19,8 +19,8 @@ module.exports = {
       return new NativeNotification(title, options);
     };
 
-    window.Notification.prototype = NativeNotification.prototype;
-    window.Notification.permission = NativeNotification.permission;
-    window.Notification.requestPermission = NativeNotification.requestPermission.bind(window.Notification);
+    contentWindow.Notification.prototype = NativeNotification.prototype;
+    contentWindow.Notification.permission = NativeNotification.permission;
+    contentWindow.Notification.requestPermission = NativeNotification.requestPermission.bind(contentWindow.Notification);
   }
 };

@@ -9,12 +9,14 @@ module.exports = {
    */
   set: function(win) {
     // Show the window when the dock icon is pressed
+    gui.App.removeAllListeners('reopen');
     gui.App.on('reopen', function() {
       win.show();
     });
 
     // Don't quit the app when the window is closed
     if (!platform.isLinux) {
+      win.removeAllListeners('close');
       win.on('close', function(quit) {
         if (quit) {
           this.saveWindowState(win);
@@ -52,18 +54,22 @@ module.exports = {
    * Listen for window state events.
    */
   bindWindowStateEvents: function(win) {
+    win.removeAllListeners('maximize');
     win.on('maximize', function() {
       win.sizeMode = 'maximized';
     });
 
+    win.removeAllListeners('unmaximize');
     win.on('unmaximize', function() {
       win.sizeMode = 'normal';
     });
 
+    win.removeAllListeners('minimize');
     win.on('minimize', function() {
       win.sizeMode = 'minimized';
     });
 
+    win.removeAllListeners('restore');
     win.on('restore', function() {
       win.sizeMode = 'normal';
     });
@@ -74,6 +80,7 @@ module.exports = {
    */
   bindEvents: function(win, contentWindow) {
     ['focus', 'blur'].forEach(function(name) {
+      win.removeAllListeners(name);
       win.on(name, function() {
         contentWindow.dispatchEvent(new contentWindow.Event(name));
       });
