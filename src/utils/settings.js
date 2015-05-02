@@ -6,7 +6,7 @@ var DEFAULT_SETTINGS = {
   launchOnStartup: false,
   openLinksInBrowser: true,
   autoHideSidebar: false,
-  showInTaskbar: true,
+  asMenuBarApp: true,
   windowState: {},
   theme: 'default'
 };

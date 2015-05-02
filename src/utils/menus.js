@@ -16,6 +16,7 @@ module.exports = {
    * - on all 3 platform, they're also in the right-click context menu
    */
   settingsItems: function(win, keep) {
+    var self = this;
     return [{
       label: 'Reload',
       click: function() {
@@ -33,12 +34,19 @@ module.exports = {
       type: 'separator'
     }, {
       type: 'checkbox',
-      label: 'Show in ' + (platform.isWindows ? 'Taskbar' : 'Dock'),
-      setting: 'showInTaskbar',
-      platforms: ['osx', 'win'],
+      label: 'Run as Menu Bar App',
+      setting: 'asMenuBarApp',
+      platforms: ['osx'],
       click: function() {
-        settings.showInTaskbar = this.checked;
-        win.setShowInTaskbar(this.checked);
+        settings.asMenuBarApp = this.checked;
+        win.setShowInTaskbar(!this.checked);
+
+        if (this.checked) {
+          self.loadTrayIcon(win);
+        } else if (win.tray) {
+          win.tray.remove();
+          win.tray = null;
+        }
       }
     }, {
       type: 'checkbox',
@@ -221,7 +229,7 @@ module.exports = {
     }));
 
     menu.append(new gui.MenuItem({
-      label: 'Open Messenger',
+      label: 'Show Messenger',
       click: function() {
         win.show();
         win.focus();
@@ -248,15 +256,11 @@ module.exports = {
   },
 
   /**
-   * Create the tray icon for Windows and Linux.
+   * Create the tray icon.
    */
   loadTrayIcon: function(win) {
-    if (!platform.isWindows) {
-      return;
-    }
-
     var tray = new gui.Tray({
-      icon: 'icon.png'
+      icon: 'icons/icon_' + (platform.isOSX ? 'menubar' : 'tray') + '.png'
     });
 
     tray.on('click', function() {

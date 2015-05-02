@@ -91,7 +91,7 @@ module.exports = {
   },
 
   /**
-   * Sen an interval to sync the badge.
+   * Set an interval to sync the badge.
    */
   syncBadge: function(win, doc) {
     var notifCountRegex = /\((\d)\)/;
@@ -106,6 +106,11 @@ module.exports = {
       var countMatch = notifCountRegex.exec(doc.title);
       var label = countMatch && countMatch[1] || '';
       win.setBadgeLabel(label);
+
+      // Update the tray icon too
+      if (win.tray) {
+        win.tray.icon = 'icons/icon_' + (platform.isOSX ? 'menubar' : 'tray') + (label ? '_alert' : '') + '.png';
+      }
     }, 50);
   },
 

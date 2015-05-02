@@ -15,8 +15,11 @@ if (platform.isWindows) {
   gui.App.createShortcut(process.env.APPDATA + "\\Microsoft\\Windows\\Start Menu\\Programs\\Messenger.lnk");
 }
 
-// Show in taskbar/dock or not
-win.setShowInTaskbar(settings.showInTaskbar);
+// Run as menu bar app
+if (settings.asMenuBarApp) {
+  win.setShowInTaskbar(false);
+  menus.loadTrayIcon(win);
+}
 
 // Window state
 windowBehaviour.restoreWindowState(win);
@@ -27,7 +30,9 @@ updater.checkAndPrompt(manifest, win);
 
 // Load the app menus
 menus.loadMenuBar(win)
-menus.loadTrayIcon(win);
+if (platform.isWindows) {
+  menus.loadTrayIcon(win);
+}
 
 // Adjust the default behaviour of the main window
 windowBehaviour.set(win);
