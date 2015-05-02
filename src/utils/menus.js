@@ -84,7 +84,9 @@ module.exports = {
       }
     }, {
       label: 'Launch Dev Tools',
-      click: win.showDevTools
+      click: function() {
+        win.showDevTools();
+      }
     }].map(function(item) {
       // If the item has a 'setting' property, use some predefined values
       if (item.setting) {
@@ -269,7 +271,7 @@ module.exports = {
       }
     }));
 
-    if (targetElement.type == 'input') {
+    if (targetElement.tagName.toLowerCase() == 'input') {
       menu.append(new gui.MenuItem({
         type: 'separator'
       }));
@@ -294,30 +296,31 @@ module.exports = {
           document.execCommand("paste");
         }
       }));
-    }
-    /*else if (targetElement.type == 'a') {
-          menu.append(new gui.MenuItem({
-            type: 'separator'
-          }));
-
-          menu.append(new gui.MenuItem({
-            label: "Copy Link",
-            click: function() {
-              document.execCommand("copy");
-            }
-          }));
-        } */
-    else if (window.getSelection().toString().length > 0) {
+    } else if (targetElement.tagName.toLowerCase() == 'a') {
       menu.append(new gui.MenuItem({
         type: 'separator'
       }));
 
       menu.append(new gui.MenuItem({
-        label: "Copy",
+        label: "Copy Link",
         click: function() {
-          document.execCommand("copy");
+          clipboard.copy(targetElement.href);
         }
       }));
+    } else {
+      var selection = window.getSelection().toString();
+      if (selection.length > 0) {
+        menu.append(new gui.MenuItem({
+          type: 'separator'
+        }));
+
+        menu.append(new gui.MenuItem({
+          label: "Copy",
+          click: function() {
+            clipboard.copy(selection);
+          }
+        }));
+      }
     }
 
     menu.append(new gui.MenuItem({
@@ -337,7 +340,7 @@ module.exports = {
   injectContextMenu: function(win, window, document) {
     document.body.addEventListener('contextmenu', function(event) {
       event.preventDefault();
-      this.createContextMenu(win, window, document, event.currentTarget).popup(event.x, event.y);
+      this.createContextMenu(win, window, document, event.target).popup(event.x, event.y);
       return false;
     }.bind(this));
   }
