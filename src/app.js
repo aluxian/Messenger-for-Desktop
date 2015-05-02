@@ -37,6 +37,7 @@ if (platform.isWindows) {
 // Adjust the default behaviour of the main window
 windowBehaviour.set(win);
 windowBehaviour.setNewWinPolicy(win);
+windowBehaviour.closeWithEscKey(win, doc); // doesn't seem to work
 
 // Inject logic into the app when it's loaded
 var iframe = document.querySelector('iframe');

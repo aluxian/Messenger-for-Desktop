@@ -29,6 +29,19 @@ module.exports = {
   },
 
   /**
+   * Close the window using the ESC key.
+   */
+  closeWithEscKey: function(win, doc) {
+    doc.onkeyup = function(e) {
+      if (e.keyCode == 27) {
+        e.preventDefault();
+        win.close();
+        return false;
+      }
+    }
+  },
+
+  /**
    * Change the new window policy to open links in the browser or another window.
    */
   setNewWinPolicy: function(win) {
