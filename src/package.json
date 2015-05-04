@@ -3,6 +3,7 @@
   "name": "Messenger",
   "version": "1.3.2",
   "app-id": "com.aluxian.messengerfordesktop",
+  "chromium-args": "--disable-setuid-sandbox",
   "window": {
     "width": 800,
     "height": 600,
