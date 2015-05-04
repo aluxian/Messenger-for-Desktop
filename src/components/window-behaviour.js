@@ -12,6 +12,7 @@ module.exports = {
     gui.App.removeAllListeners('reopen');
     gui.App.on('reopen', function() {
       win.show();
+      win.focus();
     });
 
     // Don't quit the app when the window is closed
@@ -114,7 +115,7 @@ module.exports = {
 
     setInterval(function() {
       parentDoc.title = childDoc.title;
-      
+
       var countMatch = notifCountRegex.exec(childDoc.title);
       var label = countMatch && countMatch[1] || '';
 
@@ -165,5 +166,6 @@ module.exports = {
     }
 
     win.show();
+    win.focus();
   }
 };

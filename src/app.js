@@ -60,5 +60,5 @@ iframe.onload = function() {
   windowBehaviour.bindEvents(win, iframe.contentWindow);
 
   // Watch the iframe periodically to sync the badge and the title
-  windowBehaviour.syncBadgeAndTitle(win, document iframe.contentDocument);
+  windowBehaviour.syncBadgeAndTitle(win, document, iframe.contentDocument);
 };
