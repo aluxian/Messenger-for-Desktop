@@ -12,6 +12,7 @@ module.exports = {
     gui.App.removeAllListeners('reopen');
     gui.App.on('reopen', function() {
       win.show();
+      win.focus();
     });
 
     // Don't quit the app when the window is closed
@@ -95,36 +96,33 @@ module.exports = {
   },
 
   /**
-   * Sen an interval to sync the title.
+   * Set an interval to sync the badge and the title.
    */
-  syncTitle: function(parentDoc, childDoc) {
+  syncBadgeAndTitle: function(win, parentDoc, childDoc) {
+    var notifCountRegex = /\((\d)\)/;
+
     setInterval(function() {
       parentDoc.title = childDoc.title;
-    }, 50);
-  },
 
-  /**
-   * Set an interval to sync the badge.
-   */
-  syncBadge: function(win, doc) {
-    var notifCountRegex = /\((\d)\)/;
-    var keepStateRegex = /.*messaged you.*/;
+      var countMatch = notifCountRegex.exec(childDoc.title);
+      var label = countMatch && countMatch[1] || '';
 
-    setInterval(function() {
-      if (keepStateRegex.test(doc.title)) {
+      if (!label && childDoc.title != 'Messenger') {
+        // Probably it says that someone messaged the user
         // This prevents the badge from blinking at the same time with the title
         return;
       }
 
-      var countMatch = notifCountRegex.exec(doc.title);
-      var label = countMatch && countMatch[1] || '';
       win.setBadgeLabel(label);
 
       // Update the tray icon too
       if (win.tray) {
-        win.tray.icon = 'icons/icon_' + (platform.isOSX ? 'menubar' : 'tray') + (label ? '_alert' : '') + (platform.isOSX ? '.tiff' : '.png');
+        var type = platform.isOSX ? 'menubar' : 'tray';
+        var alert = label ? '_alert' : '';
+        var extension = platform.isOSX ? '.tiff' : '.png';
+        win.tray.icon = 'icons/icon_' + type + alert + extension;
       }
-    }, 50);
+    }, 100);
   },
 
   /**
@@ -159,5 +157,6 @@ module.exports = {
     }
 
     win.show();
+    win.focus();
   }
 };

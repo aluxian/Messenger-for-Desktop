@@ -42,10 +42,6 @@ windowBehaviour.closeWithEscKey(win, document); // doesn't seem to work
 // Inject logic into the app when it's loaded
 var iframe = document.querySelector('iframe');
 iframe.onload = function() {
-  // Hide the loader
-  iframe.classList.remove('fade');
-  document.querySelector('.loader').remove();
-
   // Load the theming module
   themer.apply(iframe.contentDocument);
 
@@ -58,9 +54,6 @@ iframe.onload = function() {
   // Bind native events to the content window
   windowBehaviour.bindEvents(win, iframe.contentWindow);
 
-  // Watch the iframe periodically to sync the title
-  windowBehaviour.syncTitle(document, iframe.contentDocument);
-
-  // Watch the iframe periodically to sync the badge
-  windowBehaviour.syncBadge(win, document);
+  // Watch the iframe periodically to sync the badge and the title
+  windowBehaviour.syncBadgeAndTitle(win, document, iframe.contentDocument);
 };
