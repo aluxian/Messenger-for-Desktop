@@ -58,7 +58,7 @@ module.exports = {
 
         var launcher = new AutoLaunch({
           name: 'Messenger',
-          isHidden: true
+          isHidden: true // hidden on launch - only works on a mac atm
         });
 
         launcher.isEnabled(function(enabled) {
