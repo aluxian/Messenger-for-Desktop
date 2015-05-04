@@ -18,8 +18,3 @@ html, body, iframe {
   margin-top: -17px;
   margin-left: -12px;
 }
-
-/* Fade it out until the loader is hidden */
-iframe.fade {
-  opacity: 0.2;
-}

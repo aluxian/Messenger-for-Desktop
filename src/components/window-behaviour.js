@@ -95,36 +95,42 @@ module.exports = {
   },
 
   /**
-   * Sen an interval to sync the title.
+   * Hide the loader when content starts loading.
    */
-  syncTitle: function(parentDoc, childDoc) {
-    setInterval(function() {
-      parentDoc.title = childDoc.title;
-    }, 50);
+  watchLoadStart: function(loader, iframe) {
+    var interval = setInterval(function() {
+      if (iframe.contentDocument.title) {
+        loader.remove();
+        clearInterval(interval);
+      }
+    }, 100);
   },
 
   /**
-   * Set an interval to sync the badge.
+   * Set an interval to sync the badge and the title.
    */
-  syncBadge: function(win, doc) {
+  syncBadgeAndTitle: function(win, parentDoc, childDoc) {
     var notifCountRegex = /\((\d)\)/;
-    var keepStateRegex = /.*messaged you.*/;
 
     setInterval(function() {
-      if (keepStateRegex.test(doc.title)) {
+      parentDoc.title = childDoc.title;
+      
+      var countMatch = notifCountRegex.exec(childDoc.title);
+      var label = countMatch && countMatch[1] || '';
+
+      if (!label && childDoc.title != 'Messenger') {
+        // Probably it says that someone messaged the user
         // This prevents the badge from blinking at the same time with the title
         return;
       }
 
-      var countMatch = notifCountRegex.exec(doc.title);
-      var label = countMatch && countMatch[1] || '';
       win.setBadgeLabel(label);
 
       // Update the tray icon too
       if (win.tray) {
         win.tray.icon = 'icons/icon_' + (platform.isOSX ? 'menubar' : 'tray') + (label ? '_alert' : '') + '.png';
       }
-    }, 50);
+    }, 100);
   },
 
   /**
