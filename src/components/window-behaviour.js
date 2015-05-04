@@ -122,7 +122,7 @@ module.exports = {
 
       // Update the tray icon too
       if (win.tray) {
-        win.tray.icon = 'icons/icon_' + (platform.isOSX ? 'menubar' : 'tray') + (label ? '_alert' : '') + '.png';
+        win.tray.icon = 'icons/icon_' + (platform.isOSX ? 'menubar' : 'tray') + (label ? '_alert' : '') + (platform.isOSX ? '.tiff' : '.png');
       }
     }, 50);
   },

@@ -258,7 +258,7 @@ module.exports = {
    */
   loadTrayIcon: function(win) {
     var tray = new gui.Tray({
-      icon: 'icons/icon_' + (platform.isOSX ? 'menubar' : 'tray') + '.png'
+      icon: 'icons/icon_' + (platform.isOSX ? 'menubar.tiff' : 'tray.png')
     });
 
     tray.on('click', function() {
