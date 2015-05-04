@@ -230,7 +230,6 @@ module.exports = {
       label: 'Show Messenger',
       click: function() {
         win.show();
-        win.focus();
       }
     }));
 
@@ -263,7 +262,6 @@ module.exports = {
 
     tray.on('click', function() {
       win.show();
-      win.focus();
     });
 
     tray.tooltip = 'Messenger for Desktop';

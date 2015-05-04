@@ -59,6 +59,8 @@ The output is in `./dist`. Take a look in `gulpfile.coffee` for additional tasks
 
 **TIP**: use the `--toolbar` parameter to quickly build the app with the toolbar on. E.g. `gulp build:win32 --toolbar`.
 
+**TIP**: use `gulp build:win32 --noicon` to quickly build the Windows app without the icon.
+
 **TIP**: for OS X, use the `run:osx64` task to build the app and run it immediately.
 
 ## Contributions

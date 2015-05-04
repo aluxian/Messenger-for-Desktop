@@ -2,28 +2,30 @@ module.exports = {
   /**
    * Inject a callback in the onclick event.
    */
-  inject: function(contentWindow, win) {
-    var NativeNotification = contentWindow.Notification;
+  inject: function(targetWindow, win) {
+    var NativeNotification = targetWindow.Notification;
 
-    contentWindow.Notification = function(title, options) {
+    targetWindow.Notification = function(title, options) {
       var defaultOnClick = options.onclick;
       delete options.onclick;
 
       var notif = new NativeNotification(title, options);
-      notif.onclick = function() {
+      notif.addEventListener('click', function() {
+        console.log('custom onclick!');
+
         win.show();
         win.focus();
 
         if (defaultOnClick) {
           defaultOnClick();
         }
-      };
+      });
 
       return notif;
     };
 
-    contentWindow.Notification.prototype = NativeNotification.prototype;
-    contentWindow.Notification.permission = NativeNotification.permission;
-    contentWindow.Notification.requestPermission = NativeNotification.requestPermission.bind(contentWindow.Notification);
+    targetWindow.Notification.prototype = NativeNotification.prototype;
+    targetWindow.Notification.permission = NativeNotification.permission;
+    targetWindow.Notification.requestPermission = NativeNotification.requestPermission.bind(targetWindow.Notification);
   }
 };

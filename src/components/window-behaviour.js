@@ -12,7 +12,6 @@ module.exports = {
     gui.App.removeAllListeners('reopen');
     gui.App.on('reopen', function() {
       win.show();
-      win.focus();
     });
 
     // Don't quit the app when the window is closed
@@ -157,6 +156,5 @@ module.exports = {
     }
 
     win.show();
-    win.focus();
   }
 };
