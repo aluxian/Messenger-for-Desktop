@@ -9,12 +9,3 @@ html, body, iframe {
   height: 100%;
   overflow: hidden;
 }
-
-/* Loader */
-.loader {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  margin-top: -17px;
-  margin-left: -12px;
-}

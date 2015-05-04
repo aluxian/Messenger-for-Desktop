@@ -39,13 +39,8 @@ windowBehaviour.set(win);
 windowBehaviour.setNewWinPolicy(win);
 windowBehaviour.closeWithEscKey(win, document); // doesn't seem to work
 
-// Find the iframe
-var iframe = document.querySelector('iframe');
-
-// Hide the loader when content starts loading
-windowBehaviour.watchLoadStart(document.querySelector('.loader'), iframe);
-
 // Inject logic into the app when it's loaded
+var iframe = document.querySelector('iframe');
 iframe.onload = function() {
   // Load the theming module
   themer.apply(iframe.contentDocument);

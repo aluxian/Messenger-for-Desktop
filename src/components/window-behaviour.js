@@ -96,18 +96,6 @@ module.exports = {
   },
 
   /**
-   * Hide the loader when content starts loading.
-   */
-  watchLoadStart: function(loader, iframe) {
-    var interval = setInterval(function() {
-      if (iframe.contentDocument.title) {
-        loader.remove();
-        clearInterval(interval);
-      }
-    }, 100);
-  },
-
-  /**
    * Set an interval to sync the badge and the title.
    */
   syncBadgeAndTitle: function(win, parentDoc, childDoc) {
