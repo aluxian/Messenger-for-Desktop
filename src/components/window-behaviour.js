@@ -108,11 +108,15 @@ module.exports = {
    */
   syncBadge: function(win, doc) {
     var notifCountRegex = /\((\d)\)/;
-    var keepStateRegex = /.*messaged you.*/;
+    var keepStateRegex = /Messenger/;
 
     setInterval(function() {
-      if (keepStateRegex.test(doc.title)) {
-        // This prevents the badge from blinking at the same time with the title
+      if (!keepStateRegex.test(doc.title)) {
+        /*
+         * This prevents the badge from blinking at the same time with the title,
+         * when the title says “{name} messaged you” and not in the form of
+         * “(1) Messenger”.
+         */
         return;
       }
 
