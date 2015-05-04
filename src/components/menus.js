@@ -35,10 +35,10 @@ module.exports = {
     }, {
       type: 'checkbox',
       label: 'Run as Menu Bar App',
-      setting: 'asMenuBarApp',
+      setting: 'asMenuBarAppOSX',
       platforms: ['osx'],
       click: function() {
-        settings.asMenuBarApp = this.checked;
+        settings.asMenuBarAppOSX = this.checked;
         win.setShowInTaskbar(!this.checked);
 
         if (this.checked) {

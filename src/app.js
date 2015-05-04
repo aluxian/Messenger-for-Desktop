@@ -16,7 +16,7 @@ if (platform.isWindows) {
 }
 
 // Run as menu bar app
-if (settings.asMenuBarApp) {
+if (settings.asMenuBarAppOSX) {
   win.setShowInTaskbar(false);
   menus.loadTrayIcon(win);
 }

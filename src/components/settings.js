@@ -6,7 +6,7 @@ var DEFAULT_SETTINGS = {
   launchOnStartup: false,
   openLinksInBrowser: true,
   autoHideSidebar: false,
-  asMenuBarApp: false,
+  asMenuBarAppOSX: false,
   windowState: {},
   theme: 'default'
 };
