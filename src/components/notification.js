@@ -6,17 +6,20 @@ module.exports = {
     var NativeNotification = contentWindow.Notification;
 
     contentWindow.Notification = function(title, options) {
-      options.onclick = (function(defaultOnClick) {
-        return function() {
-          win.show();
-          win.focus();
+      var defaultOnClick = options.onclick;
+      delete options.onclick;
 
-          if (defaultOnClick) {
-            defaultOnClick();
-          }
-        };
-      })(options.onclick);
-      return new NativeNotification(title, options);
+      var notif = new NativeNotification(title, options);
+      notif.onclick = function() {
+        win.show();
+        win.focus();
+
+        if (defaultOnClick) {
+          defaultOnClick();
+        }
+      };
+
+      return notif;
     };
 
     contentWindow.Notification.prototype = NativeNotification.prototype;
