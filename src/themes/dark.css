@@ -2,20 +2,26 @@
 /* #141823 is Messenger's normal text colour, white is normal background colour */
 /* #1E1E1E and #2D2D30 are Visual Studio, don't ask */
 
-body._5s5h {
+._51l0 body {
 	background-color: #141813;  /* this doesn't do shit */
 	color: white;
+	overflow-y: auto; /* wtf are you doing facebook */
 }
 
-._36ic, ._5742 {
+/* ..., ..., stickers */
+._36ic, ._5742, ._293j, ._5r8a._5r8b {
 	background-color: rgba(255, 255, 255, .05) !important;
+}
+
+._5r8e {
+	border-bottom-color: rgba(0, 0, 0, 0.2);
 }
 
 h1, h2, h3, h4, h5, h6 {
 	color: white;
 }
 
-._5743, ._364g, ._hh7 {
+._5743, ._364g, ._hh7, ._4rph ._4rpj {
 	color: white !important;
 }
 
@@ -99,6 +105,11 @@ input::-webkit-input-placeholder {
 	border-top-color: rgba(255, 255, 255, .1) !important;
 }
 
+/* messenger thumb up stickers */
+[style*="sticker_id=369239263222822"], [style*="sticker_id=369239343222814"], [style*="sticker_id=369239383222810"] {
+	filter: brightness(80%);
+}
+
 /* convo info */
 ._4_j5 {
 	background-color: #2d2d30 !important;
@@ -123,12 +134,17 @@ input::-webkit-input-placeholder {
 
 /* inactive convo */
 ._1ht1 {
-	background-color: #2d2d30 !important;
+	background-color: #222 !important;
+}
+
+/* unread convo */
+._1ht1._1ht3 {
+	background-color: #2e2e30 !important;
 }
 
 /* active convo */
 ._1ht1._1ht2 {
-	background-color: rgba(127, 127, 127, .05) !important;
+	background-color: rgba(255, 255, 255, .05) !important;
 }
 
 /* convo name */
@@ -142,7 +158,7 @@ input::-webkit-input-placeholder {
 }
 
 ._1ht3 ._1ht7 {
-	color: #0084ff !important;
+	color: #0084cc !important;
 }
 
 /* convo new message */
@@ -157,11 +173,25 @@ input::-webkit-input-placeholder {
 
 /* that menu though */
 ._53ij {
-	background-color: #222 !important;
+	background-color: #2e2e30 !important;
 }
 
 ._256n {
 	color: #ddd !important;
+}
+
+._256n:hover {
+	background-color: #0084cc;
+}
+
+/* menu dropdown triangles */
+._1r_9 ._53ik ._53io, ._53ii ._53il ._53io {
+	filter: brightness(20%);
+}
+
+/* misc icons */
+._fl3._gxi, ._4-0h, ._57gs, ._55sg > input + span::before {
+	filter: brightness(75%);
 }
 
 /* messenger dialogs, very important */
