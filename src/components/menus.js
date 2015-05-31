@@ -95,7 +95,7 @@ module.exports = {
       click: function() {
         updater.check(manifest, function(error, newVersionExists, newManifest) {
           if (error || newVersionExists) {
-            updater.prompt(win, error, newVersionExists, newManifest);
+            updater.prompt(win, true, error, newVersionExists, newManifest);
           } else {
             win.window.alert('You\'re using the latest version: ' + manifest.version);
           }
