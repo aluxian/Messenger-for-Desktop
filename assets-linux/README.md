@@ -1,4 +1,4 @@
 # Linux related assets
 
 - `after-install` and `after-remove` scripts
-- `messengerfordesktop.desktop` and `icon_256.png` for the Unity Launcher
+- `messengerfordesktop.desktop` and `MessengerForDesktop_48.png` for launchers

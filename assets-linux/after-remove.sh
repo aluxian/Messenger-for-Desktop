@@ -3,5 +3,5 @@
 # Link to the binary
 rm -f /usr/local/bin/messengerfordesktop
 
-# Unity Launcher icon
+# Launcher files
 rm -f /usr/share/applications/messengerfordesktop.desktop

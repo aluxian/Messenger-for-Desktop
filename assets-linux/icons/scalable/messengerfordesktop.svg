@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="1024px" height="1024px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.2.2 (9983) - http://www.bohemiancoding.com/sketch -->
+    <title>icon@svg</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="3.72289541%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#3FA3FF" offset="0%"></stop>
+            <stop stop-color="#0084FF" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="OS-X" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="icon" sketch:type="MSArtboardGroup">
+            <circle id="Shape" fill="url(#linearGradient-1)" sketch:type="MSShapeGroup" cx="512" cy="512" r="448"></circle>
+            <path d="M558,643 L444,520 L222,643 L466,381 L582,504 L802,381 L558,643 L558,643 Z" id="Path" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+        </g>
+    </g>
+</svg>

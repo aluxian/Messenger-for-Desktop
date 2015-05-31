@@ -2,7 +2,7 @@
 Version=1.0
 Type=Application
 Name=Messenger
-Icon=/opt/MessengerForDesktop/icon_256.png
+Icon=messengerfordesktop
 Exec=/opt/MessengerForDesktop/Messenger
 Comment=Messenger for Desktop
 Categories=Network;Chat;
