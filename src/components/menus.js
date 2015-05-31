@@ -1,7 +1,6 @@
 var gui = window.require('nw.gui');
 var AutoLaunch = require('auto-launch');
 var clipboard = require('copy-paste');
-var manifest = require('../package.json');
 var windowBehaviour = require('./window-behaviour');
 var platform = require('./platform');
 var settings = require('./settings');
@@ -94,11 +93,11 @@ module.exports = {
     }, {
       label: 'Check for Update',
       click: function() {
-        updater.check(manifest, function(error, newVersionExists, newManifest) {
+        updater.check(gui.App.manifest, function(error, newVersionExists, newManifest) {
           if (error || newVersionExists) {
             updater.prompt(win, false, error, newVersionExists, newManifest);
           } else {
-            win.window.alert('You\'re using the latest version: ' + manifest.version);
+            win.window.alert('You\'re using the latest version: ' + gui.App.manifest.version);
           }
         });
       }

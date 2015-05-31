@@ -1,7 +1,6 @@
 var gui = require('nw.gui');
 var win = gui.Window.get();
 
-var manifest = require('./package.json');
 var platform = require('./components/platform');
 var updater = require('./components/updater');
 var menus = require('./components/menus');
@@ -26,7 +25,7 @@ windowBehaviour.restoreWindowState(win);
 windowBehaviour.bindWindowStateEvents(win);
 
 // Check for update
-updater.checkAndPrompt(manifest, win);
+updater.checkAndPrompt(gui.App.manifest, win);
 
 // Load the app menus
 menus.loadMenuBar(win)
