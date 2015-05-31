@@ -256,6 +256,11 @@ module.exports = {
    * Create the tray icon.
    */
   loadTrayIcon: function(win) {
+    if (win.tray) {
+      win.tray.remove();
+      win.tray = null;
+    }
+
     var tray = new gui.Tray({
       icon: 'icons/icon_' + (platform.isOSX ? 'menubar.tiff' : 'tray.png')
     });
