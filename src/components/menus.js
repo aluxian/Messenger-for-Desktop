@@ -20,6 +20,7 @@ module.exports = {
     return [{
       label: 'Reload',
       click: function() {
+        windowBehaviour.saveWindowState(win);
         win.reload();
       }
     }, {
