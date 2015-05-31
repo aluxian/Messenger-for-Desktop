@@ -9,15 +9,15 @@
     "postinstall": "(cd src && npm install)"
   },
   "devDependencies": {
-    "coffee-script": "^1.9.1",
+    "coffee-script": "^1.9.3",
     "gulp": "^3.8.11",
     "gulp-github-release": "git://github.com/aluxian/gulp-github-release.git",
     "gulp-load-plugins": "^0.10.0",
     "gulp-node-webkit-builder": "git://github.com/leftstick/gulp-node-webkit-builder.git",
     "gulp-uglify": "^1.2.0",
     "merge-stream": "^0.1.7",
-    "run-sequence": "^1.0.2",
-    "shelljs": "^0.4.0"
+    "run-sequence": "^1.1.0",
+    "shelljs": "^0.5.0"
   },
   "optionalDependencies": {
     "gulp-appdmg": "git://github.com/aluxian/gulp-appdmg.git"
