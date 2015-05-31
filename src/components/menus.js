@@ -95,7 +95,7 @@ module.exports = {
       click: function() {
         updater.check(manifest, function(error, newVersionExists, newManifest) {
           if (error || newVersionExists) {
-            updater.prompt(win, error, newVersionExists, newManifest);
+            updater.prompt(win, true, error, newVersionExists, newManifest);
           } else {
             win.window.alert('You\'re using the latest version: ' + manifest.version);
           }
@@ -256,6 +256,11 @@ module.exports = {
    * Create the tray icon.
    */
   loadTrayIcon: function(win) {
+    if (win.tray) {
+      win.tray.remove();
+      win.tray = null;
+    }
+
     var tray = new gui.Tray({
       icon: 'icons/icon_' + (platform.isOSX ? 'menubar.tiff' : 'tray.png')
     });
