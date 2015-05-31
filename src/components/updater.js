@@ -28,7 +28,7 @@ module.exports = {
       if (!ignoreError) {
         win.window.alert('Error while trying to update: ' + error);
       }
-      
+
       return;
     }
 
@@ -46,6 +46,6 @@ module.exports = {
    * Check for update and ask the user to update.
    */
   checkAndPrompt: function(manifest, win) {
-    this.check(manifest, this.prompt.bind(this, win, false));
+    this.check(manifest, this.prompt.bind(this, win, true));
   }
 };
