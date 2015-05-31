@@ -9,7 +9,6 @@
   z-index: 1000;
   width: 320px !important;
   margin-left: -315px;
-  background: white;
   border-right: 1px solid rgba(0, 0, 0, .10);
   transform: translate(1px);
 }

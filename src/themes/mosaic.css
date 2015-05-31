@@ -90,7 +90,7 @@ a {
 }
 
 /* Someone's chat message */
-._hh7 {
+._hh7, ._haj {
   background-color: #515151;
   color: #DCDCCC;
 }
@@ -129,4 +129,29 @@ a {
 /* Sidebar user "Facebook profile" text */
 ._3tl0 {
   color: #DCDCCC;
+}
+
+/* Hovering sidebar bg color */
+._1enh {
+  background: #333333;
+}
+
+/* Search results background */
+._11_d._5t4c {
+  background: #3a3a3a;
+}
+
+/* Link-type messages */
+._4_j4 .__6k, .__6l, .__6m {
+  color: #dcdccc !important;
+}
+
+/* a:hover bg color (convo msg) */
+._4_j4 ._nd_ ._hh7>span>a:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+/* Time text */
+._4_j4 time {
+  color: #dcdccc !important;
 }
