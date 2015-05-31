@@ -99,17 +99,23 @@ module.exports = {
    */
   syncBadgeAndTitle: function(win, parentDoc, childDoc) {
     var notifCountRegex = /\((\d)\)/;
+    var defaultTitle = childDoc.title;
 
     setInterval(function() {
       parentDoc.title = childDoc.title;
+      defaultTitle = defaultTitle || childDoc.title;
 
-      var countMatch = notifCountRegex.exec(childDoc.title);
-      var label = countMatch && countMatch[1] || '';
+      var label = '';
 
-      if (!label && childDoc.title != 'Messenger') {
-        // Probably it says that someone messaged the user
-        // This prevents the badge from blinking at the same time with the title
-        return;
+      if (childDoc.title != defaultTitle) {
+        var countMatch = notifCountRegex.exec(childDoc.title);
+        label = countMatch && countMatch[1] || '';
+
+        if (!label) {
+          // Probably it says that someone messaged the user
+          // This prevents the badge from blinking at the same time with the title
+          return;
+        }
       }
 
       win.setBadgeLabel(label);
