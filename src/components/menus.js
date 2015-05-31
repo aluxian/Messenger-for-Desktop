@@ -91,7 +91,7 @@ module.exports = {
     }, {
       type: 'separator'
     }, {
-      label: 'Check for Updates',
+      label: 'Check for Update',
       click: function() {
         updater.check(manifest, function(error, newVersionExists, newManifest) {
           if (error || newVersionExists) {

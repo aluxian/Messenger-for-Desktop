@@ -1,12 +1,12 @@
 gulp = require 'gulp'
 shelljs = require 'shelljs'
+mergeStream = require 'merge-stream'
 runSequence = require 'run-sequence'
 manifest = require './package.json'
 $ = require('gulp-load-plugins')()
 
 # Remove directories used by the tasks
 gulp.task 'clean', ->
-  shelljs.rm '-rf', './opt'
   shelljs.rm '-rf', './build'
   shelljs.rm '-rf', './dist'
 
@@ -19,6 +19,27 @@ gulp.task 'clean', ->
     gulp.src './src/**'
       .pipe $.nodeWebkitBuilder
         platforms: [platform]
+        version: '0.12.2'
+        winIco: if process.argv.indexOf('--noicon') > 0 then undefined else './assets-windows/icon.ico'
+        macIcns: './assets-osx/icon.icns'
+        macZip: true
+        macPlist:
+          NSHumanReadableCopyright: 'aluxian.com'
+          CFBundleIdentifier: 'com.aluxian.messengerfordesktop'
+      .on 'end', ->
+        if process.argv.indexOf('--toolbar') > 0
+          shelljs.sed '-i', '"toolbar": true', '"toolbar": false', './src/package.json'
+
+# Build for each platform; on OSX/Linux, you need Wine installed to build win32 (or remove winIco below)
+['win32', 'osx64', 'linux32', 'linux64'].forEach (platform) ->
+  gulp.task 'build:' + platform, ->
+    if process.argv.indexOf('--toolbar') > 0
+      shelljs.sed '-i', '"toolbar": false', '"toolbar": true', './src/package.json'
+
+    gulp.src './src/**'
+      .pipe $.nodeWebkitBuilder
+        platforms: [platform]
+        version: '0.12.2'
         winIco: if process.argv.indexOf('--noicon') > 0 then undefined else './assets-windows/icon.ico'
         macIcns: './assets-osx/icon.icns'
         macZip: true
@@ -54,24 +75,37 @@ gulp.task 'pack:win32', ['build:win32'], ->
 [32, 64].forEach (arch) ->
   ['deb', 'rpm'].forEach (target) ->
     gulp.task "pack:linux#{arch}:#{target}", ['build:linux' + arch], ->
-      shelljs.rm '-rf', './opt'
+      shelljs.rm '-rf', './build/linux'
 
-      gulp.src [
-        './assets-linux/icon_256.png'
+      move_opt = gulp.src [
         './assets-linux/messengerfordesktop.desktop'
         './assets-linux/after-install.sh'
         './assets-linux/after-remove.sh'
         './build/Messenger/linux' + arch + '/**'
       ]
-        .pipe gulp.dest './opt/MessengerForDesktop'
-        .on 'end', ->
-          port = if arch == 32 then 'i386' else 'amd64'
-          output = "./dist/Messenger_linux#{arch}.#{target}"
+        .pipe gulp.dest './build/linux/opt/MessengerForDesktop'
 
-          shelljs.mkdir '-p', './dist' # it fails if the dir doesn't exist
+      move_png48 = gulp.src './assets-linux/icons/48/messengerfordesktop.png'
+        .pipe gulp.dest './build/linux/usr/share/icons/hicolor/48x48/apps'
+
+      move_png256 = gulp.src './assets-linux/icons/256/messengerfordesktop.png'
+        .pipe gulp.dest './build/linux/usr/share/icons/hicolor/256x256/apps'
+
+      move_svg = gulp.src './assets-linux/icons/scalable/messengerfordesktop.png'
+        .pipe gulp.dest './build/linux/usr/share/icons/hicolor/scalable/apps'
+
+      mergeStream move_opt, move_png48, move_png256, move_svg
+        .on 'end', ->
+          shelljs.cd './build/linux'
+
+          port = if arch == 32 then 'i386' else 'amd64'
+          output = "../../dist/Messenger_linux#{arch}.#{target}"
+
+          shelljs.mkdir '-p', '../../dist' # it fails if the dir doesn't exist
           shelljs.rm '-f', output # it fails if the package already exists
 
-          shelljs.exec "fpm -s dir -t #{target} -a #{port} -n messengerfordesktop --after-install ./opt/MessengerForDesktop/after-install.sh --after-remove ./opt/MessengerForDesktop/after-remove.sh --license MIT --category Chat --url \"https://messengerfordesktop.com\" --description \"Beautiful desktop client for Facebook Messenger. Chat without being distracted by your feed or notifications.\" -m \"Alexandru Rosianu <me@aluxian.com>\" -p #{output} -v #{manifest.version} ./opt/MessengerForDesktop/"
+          shelljs.exec "fpm -s dir -t #{target} -a #{port} -n messengerfordesktop --after-install ./opt/MessengerForDesktop/after-install.sh --after-remove ./opt/MessengerForDesktop/after-remove.sh --license MIT --category Chat --url \"https://messengerfordesktop.com\" --description \"A simple and beautiful app for Facebook Messenger. Chat without distractions on any OS.\" -m \"Alexandru Rosianu <me@aluxian.com>\" -p #{output} -v #{manifest.version} ."
+          shelljs.cd '../..'
 
 # Make packages for all platforms
 gulp.task 'pack:all', (callback) ->

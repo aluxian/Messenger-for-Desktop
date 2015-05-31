@@ -15,6 +15,7 @@
     "gulp-load-plugins": "^0.10.0",
     "gulp-node-webkit-builder": "git://github.com/leftstick/gulp-node-webkit-builder.git",
     "gulp-uglify": "^1.2.0",
+    "merge-stream": "^0.1.7",
     "run-sequence": "^1.0.2",
     "shelljs": "^0.4.0"
   },
