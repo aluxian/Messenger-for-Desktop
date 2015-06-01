@@ -89,7 +89,9 @@ module.exports = {
     ['focus', 'blur'].forEach(function(name) {
       win.removeAllListeners(name);
       win.on(name, function() {
-        contentWindow.dispatchEvent(new contentWindow.Event(name));
+        if (contentWindow.dispatchEvent && contentWindow.Event) {
+          contentWindow.dispatchEvent(new contentWindow.Event(name));
+        }
       });
     });
   },
