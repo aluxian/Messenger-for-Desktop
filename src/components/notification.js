@@ -11,8 +11,6 @@ module.exports = {
 
       var notif = new NativeNotification(title, options);
       notif.addEventListener('click', function() {
-        console.log('custom onclick!');
-
         win.show();
         win.focus();
 

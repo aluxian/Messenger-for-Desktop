@@ -1,8 +1,8 @@
 var gui = window.require('nw.gui');
 var AutoLaunch = require('auto-launch');
 var clipboard = require('copy-paste');
-var manifest = require('../package.json');
 var windowBehaviour = require('./window-behaviour');
+var dispatcher = require('./dispatcher');
 var platform = require('./platform');
 var settings = require('./settings');
 var updater = require('./updater');
@@ -20,6 +20,7 @@ module.exports = {
     return [{
       label: 'Reload',
       click: function() {
+        windowBehaviour.saveWindowState(win);
         win.reload();
       }
     }, {
@@ -93,11 +94,14 @@ module.exports = {
     }, {
       label: 'Check for Update',
       click: function() {
-        updater.check(manifest, function(error, newVersionExists, newManifest) {
+        updater.check(gui.App.manifest, function(error, newVersionExists, newManifest) {
           if (error || newVersionExists) {
-            updater.prompt(win, true, error, newVersionExists, newManifest);
+            updater.prompt(win, false, error, newVersionExists, newManifest);
           } else {
-            win.window.alert('You\'re using the latest version: ' + manifest.version);
+            dispatcher.trigger('win.alert', {
+              win: win,
+              message: 'You’re using the latest version: ' + gui.App.manifest.version
+            });
           }
         });
       }
@@ -262,7 +266,7 @@ module.exports = {
     }
 
     var tray = new gui.Tray({
-      icon: 'icons/icon_' + (platform.isOSX ? 'menubar.tiff' : 'tray.png')
+      icon: 'images/icon_' + (platform.isOSX ? 'menubar.tiff' : 'tray.png')
     });
 
     tray.on('click', function() {

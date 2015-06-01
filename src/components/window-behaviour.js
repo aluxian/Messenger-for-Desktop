@@ -89,7 +89,9 @@ module.exports = {
     ['focus', 'blur'].forEach(function(name) {
       win.removeAllListeners(name);
       win.on(name, function() {
-        contentWindow.dispatchEvent(new contentWindow.Event(name));
+        if (contentWindow.dispatchEvent && contentWindow.Event) {
+          contentWindow.dispatchEvent(new contentWindow.Event(name));
+        }
       });
     });
   },
@@ -99,17 +101,23 @@ module.exports = {
    */
   syncBadgeAndTitle: function(win, parentDoc, childDoc) {
     var notifCountRegex = /\((\d)\)/;
+    var defaultTitle = childDoc.title;
 
     setInterval(function() {
       parentDoc.title = childDoc.title;
+      defaultTitle = defaultTitle || childDoc.title;
 
-      var countMatch = notifCountRegex.exec(childDoc.title);
-      var label = countMatch && countMatch[1] || '';
+      var label = '';
 
-      if (!label && childDoc.title != 'Messenger') {
-        // Probably it says that someone messaged the user
-        // This prevents the badge from blinking at the same time with the title
-        return;
+      if (childDoc.title != defaultTitle) {
+        var countMatch = notifCountRegex.exec(childDoc.title);
+        label = countMatch && countMatch[1] || '';
+
+        if (!label) {
+          // Probably it says that someone messaged the user
+          // This prevents the badge from blinking at the same time with the title
+          return;
+        }
       }
 
       win.setBadgeLabel(label);
@@ -119,7 +127,7 @@ module.exports = {
         var type = platform.isOSX ? 'menubar' : 'tray';
         var alert = label ? '_alert' : '';
         var extension = platform.isOSX ? '.tiff' : '.png';
-        win.tray.icon = 'icons/icon_' + type + alert + extension;
+        win.tray.icon = 'images/icon_' + type + alert + extension;
       }
     }, 100);
   },

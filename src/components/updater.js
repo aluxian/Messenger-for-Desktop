@@ -1,5 +1,6 @@
 var gui = window.require('nw.gui');
 var platform = require('./platform');
+var dispatcher = require('./dispatcher');
 var request = require('request');
 var semver = require('semver');
 
@@ -26,19 +27,28 @@ module.exports = {
   prompt: function(win, ignoreError, error, newVersionExists, newManifest) {
     if (error) {
       if (!ignoreError) {
-        win.window.alert('Error while trying to update: ' + error);
+        dispatcher.trigger('win.alert', {
+          win: win,
+          message: 'Error while trying to update: ' + error
+        });
       }
-      
+
       return;
     }
 
     if (newVersionExists) {
-      var updateMessage = 'There\'s a new version available (' + newManifest.version + '). Would you like to download the update now?';
+      var updateMessage = 'There’s a new version available (' + newManifest.version + '). Would you like to download the update now?';
 
-      if (win.window.confirm(updateMessage)) {
-        gui.Shell.openExternal(newManifest.packages[platform.name]);
-        gui.App.quit();
-      }
+      dispatcher.trigger('win.confirm', {
+        win: win,
+        message: updateMessage,
+        callback: function(result) {
+          if (result) {
+            gui.Shell.openExternal(newManifest.packages[platform.name]);
+            gui.App.quit();
+          }
+        }
+      });
     }
   },
 
@@ -46,6 +56,6 @@ module.exports = {
    * Check for update and ask the user to update.
    */
   checkAndPrompt: function(manifest, win) {
-    this.check(manifest, this.prompt.bind(this, win, false));
+    this.check(manifest, this.prompt.bind(this, win, true));
   }
 };
