@@ -127,7 +127,7 @@ module.exports = {
         var type = platform.isOSX ? 'menubar' : 'tray';
         var alert = label ? '_alert' : '';
         var extension = platform.isOSX ? '.tiff' : '.png';
-        win.tray.icon = 'icons/icon_' + type + alert + extension;
+        win.tray.icon = 'images/icon_' + type + alert + extension;
       }
     }, 100);
   },

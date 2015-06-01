@@ -8,7 +8,7 @@
     "width": 800,
     "height": 600,
     "title": "Messenger",
-    "icon": "icons/icon.png",
+    "icon": "images/icon.png",
     "toolbar": false,
     "show": false
   },
