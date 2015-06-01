@@ -2,6 +2,7 @@ var gui = window.require('nw.gui');
 var AutoLaunch = require('auto-launch');
 var clipboard = require('copy-paste');
 var windowBehaviour = require('./window-behaviour');
+var dispatcher = require('./dispatcher');
 var platform = require('./platform');
 var settings = require('./settings');
 var updater = require('./updater');
@@ -97,7 +98,10 @@ module.exports = {
           if (error || newVersionExists) {
             updater.prompt(win, false, error, newVersionExists, newManifest);
           } else {
-            win.window.alert('You\'re using the latest version: ' + gui.App.manifest.version);
+            dispatcher.trigger('win.alert', {
+              win: win,
+              message: 'You’re using the latest version: ' + gui.App.manifest.version
+            });
           }
         });
       }

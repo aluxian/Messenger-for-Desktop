@@ -8,11 +8,21 @@ var themer = require('./components/themer');
 var settings = require('./components/settings');
 var windowBehaviour = require('./components/window-behaviour');
 var notification = require('./components/notification');
+var dispatcher = require('./components/dispatcher');
 
 // Ensure there's an app shortcut for toast notifications to work on Windows
 if (platform.isWindows) {
   gui.App.createShortcut(process.env.APPDATA + "\\Microsoft\\Windows\\Start Menu\\Programs\\Messenger.lnk");
 }
+
+// Add dispatcher events
+dispatcher.addEventListener('win.alert', function(data) {
+  data.win.window.alert(data.message);
+});
+
+dispatcher.addEventListener('win.confirm', function(data) {
+  data.callback(data.win.window.confirm(data.message));
+});
 
 // Run as menu bar app
 if (settings.asMenuBarAppOSX) {
@@ -56,3 +66,12 @@ iframe.onload = function() {
   // Watch the iframe periodically to sync the badge and the title
   windowBehaviour.syncBadgeAndTitle(win, document, iframe.contentDocument);
 };
+
+// Reload the app periodically until it loads
+var reloadIntervalId = setInterval(function() {
+  if (win.window.navigator.onLine) {
+    clearInterval(reloadIntervalId);
+  } else {
+    win.reload();
+  }
+}, 15 * 1000);
