@@ -1,6 +1,6 @@
 var gui = window.require('nw.gui');
+var clipboard = gui.Clipboard.get();
 var AutoLaunch = require('auto-launch');
-var clipboard = require('copy-paste');
 var windowBehaviour = require('./window-behaviour');
 var dispatcher = require('./dispatcher');
 var platform = require('./platform');
@@ -80,6 +80,10 @@ module.exports = {
           }
         });
       }
+    }, {
+      type: 'checkbox',
+      label: 'Check for Update on Launch',
+      setting: 'checkUpdateOnLaunch'
     }, {
       type: 'separator'
     }, {
@@ -290,7 +294,7 @@ module.exports = {
       menu.append(new gui.MenuItem({
         label: "Cut",
         click: function() {
-          clipboard.copy(targetElement.value);
+          clipboard.set(targetElement.value);
           targetElement.value = '';
         }
       }));
@@ -298,16 +302,14 @@ module.exports = {
       menu.append(new gui.MenuItem({
         label: "Copy",
         click: function() {
-          clipboard.copy(targetElement.value);
+          clipboard.set(targetElement.value);
         }
       }));
 
       menu.append(new gui.MenuItem({
         label: "Paste",
         click: function() {
-          clipboard.paste(function(value) {
-            targetElement.value = value;
-          });
+          targetElement.value = clipboard.get();
         }
       }));
     } else if (targetElement.tagName.toLowerCase() == 'a') {
@@ -315,7 +317,7 @@ module.exports = {
         label: "Copy Link",
         click: function() {
           var url = utils.skipFacebookRedirect(targetElement.href);
-          clipboard.copy(url);
+          clipboard.set(url);
         }
       }));
     } else {
@@ -324,7 +326,7 @@ module.exports = {
         menu.append(new gui.MenuItem({
           label: "Copy",
           click: function() {
-            clipboard.copy(selection);
+            clipboard.set(selection);
           }
         }));
       }

@@ -24,29 +24,27 @@ dispatcher.addEventListener('win.confirm', function(data) {
   data.callback(data.win.window.confirm(data.message));
 });
 
-// Run as menu bar app
-if (settings.asMenuBarAppOSX) {
-  win.setShowInTaskbar(false);
-  menus.loadTrayIcon(win);
-}
-
 // Window state
 windowBehaviour.restoreWindowState(win);
 windowBehaviour.bindWindowStateEvents(win);
 
 // Check for update
-updater.checkAndPrompt(gui.App.manifest, win);
+if (settings.checkUpdateOnLaunch) {
+  updater.checkAndPrompt(gui.App.manifest, win);
+}
+
+// Run as menu bar app
+if (settings.asMenuBarAppOSX) {
+  win.setShowInTaskbar(false);
+}
 
 // Load the app menus
 menus.loadMenuBar(win)
-if (platform.isWindows) {
-  menus.loadTrayIcon(win);
-}
+menus.loadTrayIcon(win);
 
 // Adjust the default behaviour of the main window
 windowBehaviour.set(win);
 windowBehaviour.setNewWinPolicy(win);
-windowBehaviour.closeWithEscKey(win, document); // doesn't seem to work
 
 // Inject logic into the app when it's loaded
 var iframe = document.querySelector('iframe');
@@ -65,6 +63,9 @@ iframe.onload = function() {
 
   // Watch the iframe periodically to sync the badge and the title
   windowBehaviour.syncBadgeAndTitle(win, document, iframe.contentDocument);
+
+  // Listen for ESC key press
+  windowBehaviour.closeWithEscKey(win, iframe.contentDocument);
 };
 
 // Reload the app periodically until it loads
@@ -74,4 +75,4 @@ var reloadIntervalId = setInterval(function() {
   } else {
     win.reload();
   }
-}, 15 * 1000);
+}, 10 * 1000);

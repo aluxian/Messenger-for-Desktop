@@ -16,10 +16,7 @@ gulp.task 'clean', ->
     if process.argv.indexOf('--toolbar') > 0
       shelljs.sed '-i', '"toolbar": false', '"toolbar": true', './src/package.json'
 
-    gulp.src [
-      './src/**'
-      '!./src/node_modules/copy-paste/node_modules/execSync'
-    ]
+    gulp.src './src/**'
       .pipe $.nodeWebkitBuilder
         platforms: [platform]
         version: '0.12.2'
@@ -128,14 +125,6 @@ gulp.task 'release', ['pack:all'], (callback) ->
     .pipe $.githubRelease
       draft: true
       manifest: manifest
-
-# Change the version of the manifest files
-# Use like this: gulp version --1.2.0
-gulp.task 'version', ->
-  version = process.argv[3].substring(2)
-  shelljs.sed '-i', /"version": ".*",/, '"version": "' + version + '",', './package.json'
-  shelljs.sed '-i', /"version": ".*",/, '"version": "' + version + '",', './src/package.json'
-  shelljs.sed '-i', /download\/v.*\/Messenger/g, 'download/v' + version + '/Messenger', './src/package.json'
 
 # Make packages for all platforms by default
 gulp.task 'default', ['pack:all']
