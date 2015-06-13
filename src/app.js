@@ -24,12 +24,6 @@ dispatcher.addEventListener('win.confirm', function(data) {
   data.callback(data.win.window.confirm(data.message));
 });
 
-// Run as menu bar app
-if (settings.asMenuBarAppOSX) {
-  win.setShowInTaskbar(false);
-  menus.loadTrayIcon(win);
-}
-
 // Window state
 windowBehaviour.restoreWindowState(win);
 windowBehaviour.bindWindowStateEvents(win);
@@ -39,11 +33,14 @@ if (settings.checkUpdateOnLaunch) {
   updater.checkAndPrompt(gui.App.manifest, win);
 }
 
+// Run as menu bar app
+if (settings.asMenuBarAppOSX) {
+  win.setShowInTaskbar(false);
+}
+
 // Load the app menus
 menus.loadMenuBar(win)
-if (platform.isWindows) {
-  menus.loadTrayIcon(win);
-}
+menus.loadTrayIcon(win);
 
 // Adjust the default behaviour of the main window
 windowBehaviour.set(win);
