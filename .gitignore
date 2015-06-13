@@ -1,5 +1,4 @@
-/src/vendor/
-build/
-dist/
-cache/
+/build/
+/dist/
+/cache/
 node_modules/

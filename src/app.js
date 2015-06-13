@@ -36,11 +36,14 @@ if (settings.checkUpdateOnLaunch) {
 // Run as menu bar app
 if (settings.asMenuBarAppOSX) {
   win.setShowInTaskbar(false);
+  menus.loadTrayIcon(win);
 }
 
 // Load the app menus
 menus.loadMenuBar(win)
-menus.loadTrayIcon(win);
+if (platform.isLinux || platform.isWindows) {
+  menus.loadTrayIcon(win);
+}
 
 // Adjust the default behaviour of the main window
 windowBehaviour.set(win);
