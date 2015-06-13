@@ -21,9 +21,9 @@
   },
   "manifestUrl": "https://raw.githubusercontent.com/Aluxian/Facebook-Messenger-Desktop/master/src/package.json",
   "packages": {
-    "osx64": "https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v1.4.0/Messenger.dmg",
-    "win32": "https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v1.4.0/MessengerSetup.exe",
-    "linux32": "https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v1.4.0/Messenger_linux32.deb",
-    "linux64": "https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v1.4.0/Messenger_linux64.deb"
+    "osx64": "https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v/Messenger.dmg",
+    "win32": "https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v/MessengerSetup.exe",
+    "linux32": "https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v/Messenger_linux32.deb",
+    "linux64": "https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v/Messenger_linux64.deb"
   }
 }
