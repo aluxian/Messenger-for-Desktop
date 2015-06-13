@@ -78,4 +78,4 @@ var reloadIntervalId = setInterval(function() {
   } else {
     win.reload();
   }
-}, 15 * 1000);
+}, 10 * 1000);
