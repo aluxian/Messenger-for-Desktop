@@ -1,3 +1,12 @@
+1.4.1
+- Show the linux tray icon (not tested)
+- Use native clipboard (nwjs)
+- Reload every 10s until online instead of 15s
+- Close the window with the ESC key #46
+- Fixes sidebar transparency bug #115
+- Allows users to remove the update prompt #127
+- Improves the icon_tray_alert image for Windows
+
 1.4.0
 - Background loading gif
 - Fixes dialog crashes (e.g. when checking for update)
