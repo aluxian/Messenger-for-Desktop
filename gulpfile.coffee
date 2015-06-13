@@ -16,10 +16,7 @@ gulp.task 'clean', ->
     if process.argv.indexOf('--toolbar') > 0
       shelljs.sed '-i', '"toolbar": false', '"toolbar": true', './src/package.json'
 
-    gulp.src [
-      './src/**'
-      '!./src/node_modules/copy-paste/node_modules/execSync'
-    ]
+    gulp.src './src/**'
       .pipe $.nodeWebkitBuilder
         platforms: [platform]
         version: '0.12.2'
