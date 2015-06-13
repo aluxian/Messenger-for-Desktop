@@ -12,6 +12,9 @@
     "toolbar": false,
     "show": false
   },
+  "webkit": {
+    "plugin": true
+  },
   "dependencies": {
     "async": "^1.0.0",
     "auto-launch": "^0.1.18",
