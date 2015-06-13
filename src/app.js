@@ -48,7 +48,6 @@ if (platform.isWindows) {
 // Adjust the default behaviour of the main window
 windowBehaviour.set(win);
 windowBehaviour.setNewWinPolicy(win);
-windowBehaviour.closeWithEscKey(win, document); // doesn't seem to work
 
 // Inject logic into the app when it's loaded
 var iframe = document.querySelector('iframe');
@@ -67,6 +66,9 @@ iframe.onload = function() {
 
   // Watch the iframe periodically to sync the badge and the title
   windowBehaviour.syncBadgeAndTitle(win, document, iframe.contentDocument);
+
+  // Listen for ESC key press
+  windowBehaviour.closeWithEscKey(win, iframe.contentDocument);
 };
 
 // Reload the app periodically until it loads
