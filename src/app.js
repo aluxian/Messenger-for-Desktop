@@ -35,7 +35,9 @@ windowBehaviour.restoreWindowState(win);
 windowBehaviour.bindWindowStateEvents(win);
 
 // Check for update
-updater.checkAndPrompt(gui.App.manifest, win);
+if (settings.checkUpdateOnLaunch) {
+  updater.checkAndPrompt(gui.App.manifest, win);
+}
 
 // Load the app menus
 menus.loadMenuBar(win)

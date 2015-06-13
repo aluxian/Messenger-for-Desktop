@@ -81,6 +81,10 @@ module.exports = {
         });
       }
     }, {
+      type: 'checkbox',
+      label: 'Check for Update on Launch',
+      setting: 'checkUpdateOnLaunch'
+    }, {
       type: 'separator'
     }, {
       type: 'checkbox',
