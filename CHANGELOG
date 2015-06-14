@@ -1,3 +1,6 @@
+1.4.3
+- Don't load the tray icon on Linux (fix)
+
 1.4.2
 - Fixes tray icon always appearing on OSX
 - Enables Chromium plugins (could fix calling crashes)
