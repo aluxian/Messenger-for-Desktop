@@ -168,5 +168,18 @@ module.exports = {
     }
 
     win.show();
+  },
+
+  /**
+   * Reload the app periodically until online.
+   */
+  reloadUntilOnline: function(win) {
+    var reloadIntervalId = setInterval(function() {
+      if (win.window.navigator.onLine) {
+        clearInterval(reloadIntervalId);
+      } else {
+        win.reload();
+      }
+    }, 5 * 1000);
   }
 };
