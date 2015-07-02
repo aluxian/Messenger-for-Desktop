@@ -22,7 +22,7 @@ gulp.task 'pack:win32:installer', ['build:win32', 'sign:win32'], (done) ->
 # Create the win32 portable zip
 gulp.task 'pack:win32:portable', ['build:win32', 'sign:win32'], (done) ->
   gulp.src './build/win32'
-    .pipe zip manifest.name + '-win-portable.zip'
+    .pipe zip manifest.name + '-win32-portable.zip'
     .pipe gulp.dest './dist'
 
 # Pack for all the platforms
