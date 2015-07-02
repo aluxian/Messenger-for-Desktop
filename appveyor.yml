@@ -1,0 +1,38 @@
+init:
+  - git config --global core.autocrlf input
+
+branches:
+  only:
+    - master
+
+environment:
+  nodejs_version: '0.12.4'
+
+cache:
+  - node_modules -> package.json
+  - "%APPDATA%\\npm\\node_modules -> package.json"
+  - "%APPDATA%\\npm-cache"
+
+install:
+  - ps: Install-Product node $env:nodejs_version
+  - npm install -g gulp
+  - npm install
+
+build_script:
+  - node --version
+  - npm --version
+  - gulp pack:win32:installer
+
+artifacts:
+  - path: dist\*
+
+deploy:
+  - provider: GitHub
+    auth_token:
+      secure: 5HXfg0QXRwPIx6Hjad37cMQvzBXXGnlX31Wnq+S7gFQw5cR9QV8BlgwWlFfuHuu2
+    artifact: dist\*
+    draft: true
+    prerelease: false
+    on:
+      branch: master
+      appveyor_repo_tag: true
