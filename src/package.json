@@ -1,0 +1,25 @@
+{
+  "name": "testie",
+  "productName": "Testie",
+  "version": "0.1.0",
+  "description": "An example app.",
+  "main": "./browser/main.js",
+  "dependencies": {
+    "fs-plus": "^2.8.1",
+    "lodash": "^3.9.3",
+    "yargs": "^3.14.0"
+  },
+  "scripts": {
+    "postinstall": "npm dedupe"
+  },
+  "author": "John Doe <john@doe.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/<user>/<repo>.git"
+  },
+  "genericName": "Demo Application",
+  "categories": "GNOME;GTK;Development;Documentation",
+  "section": "misc",
+  "packageName": "com.john.testie",
+  "appCategoryType": "public.app-category.social-networking"
+}

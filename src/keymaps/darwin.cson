@@ -1,0 +1,23 @@
+menu:
+  # App
+  'cmd-h': 'application:hide'
+  'alt-cmd-h': 'application:hide-other-applications'
+  'cmd-,': 'application:show-settings'
+  'cmd-q': 'application:quit'
+
+  # Edit
+  'cmd-z': 'core:undo'
+  'cmd-Z': 'core:redo'
+  'cmd-y': 'core:redo'
+  'cmd-x': 'core:cut'
+  'cmd-c': 'core:copy'
+  'cmd-v': 'core:paste'
+
+  # View
+  'cmd-r': 'window:reload'
+  'alt-cmd-j': 'window:toggle-dev-tools'
+  'cmd-ctrl-f': 'window:toggle-full-screen'
+
+  # Window
+  'cmd-m': 'application:minimize'
+  'alt-cmd-ctrl-m': 'application:zoom'

@@ -1,0 +1,46 @@
+main: [
+  {
+    label: '&File'
+    submenu: [
+      { label: '&Preferences', command: 'application:show-settings' }
+      { label: '&Quit', command: 'application:quit' }
+    ]
+  }
+
+  {
+    label: '&Edit'
+    submenu: [
+      { label: '&Undo', command: 'core:undo' }
+      { label: '&Redo', command: 'core:redo' }
+      { type: 'separator' }
+      { label: '&Cut', command: 'core:cut' }
+      { label: 'C&opy', command: 'core:copy' }
+      { label: '&Paste', command: 'core:paste' }
+      { label: 'Select &All', command: 'core:select-all' }
+    ]
+  }
+
+  {
+    label: '&View'
+    submenu: [
+      { label: '&Reload', command: 'window:reload' }
+      { label: 'Toggle &Full Screen', command: 'window:toggle-full-screen' }
+      {
+        label: 'Developer'
+        submenu: [
+          { label: 'Toggle Developer &Tools', command: 'window:toggle-dev-tools' }
+        ]
+      }
+    ]
+  }
+
+  {
+    label: '&Help'
+    submenu: [
+      { label: "Version ${version}", enabled: false }
+      { type: 'separator' }
+      { label: '&Report Issue', command: 'application:report-issue' }
+      { label: '&Suggest Feature', command: 'application:suggest-feature' }
+    ]
+  }
+]

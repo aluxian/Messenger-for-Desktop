@@ -1,0 +1,20 @@
+menu:
+  # App
+  'ctrl-,': 'application:show-settings'
+  'ctrl-q': 'application:quit'
+
+  # Edit
+  'ctrl-z': 'core:undo'
+  'ctrl-shift-z': 'core:redo'
+  'ctrl-y': 'core:redo'
+  'ctrl-x': 'core:cut'
+  'ctrl-c': 'core:copy'
+  'ctrl-v': 'core:paste'
+  'ctrl-insert': 'core:copy'
+  'shift-insert': 'core:paste'
+  'shift-delete': 'core:cut'
+
+  # View
+  'ctrl-alt-r': 'window:reload'
+  'ctrl-shift-i': 'window:toggle-dev-tools'
+  'F11': 'window:toggle-full-screen'

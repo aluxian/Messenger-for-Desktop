@@ -1,0 +1,64 @@
+main: [
+  {
+    label: '${productName}'
+    submenu: [
+      { label: 'About ${productName}', command: 'application:about' }
+      { label: 'Version ${version}', enabled: false }
+      { label: 'Restart and Install Update', command: 'application:install-update', visible: false }
+      { label: 'Check for Update', command: 'application:check-for-update', visible: false }
+      { label: 'Checking for Update', enabled: false, visible: false }
+      { label: 'Downloading Update', enabled: false, visible: false }
+      { type: 'separator' }
+      { label: 'Preferences...', command: 'application:show-settings' }
+      { type: 'separator' }
+      { label: 'Hide ${productName}', command: 'application:hide' }
+      { label: 'Hide Others', command: 'application:hide-other-applications' }
+      { label: 'Show All', command: 'application:unhide-all-applications' }
+      { type: 'separator' }
+      { label: 'Quit', command: 'application:quit' }
+    ]
+  }
+
+  {
+    label: 'Edit'
+    submenu: [
+      { label: 'Undo', command: 'core:undo' }
+      { label: 'Redo', command: 'core:redo' }
+      { type: 'separator' }
+      { label: 'Cut', command: 'core:cut' }
+      { label: 'Copy', command: 'core:copy' }
+      { label: 'Paste', command: 'core:paste' }
+      { label: 'Select All', command: 'core:select-all' }
+    ]
+  }
+
+  {
+    label: 'View'
+    submenu: [
+      { label: 'Reload', command: 'window:reload' }
+      { label: 'Toggle Full Screen', command: 'window:toggle-full-screen' }
+      {
+        label: 'Developer'
+        submenu: [
+          { label: 'Toggle Developer Tools', command: 'window:toggle-dev-tools' }
+        ]
+      }
+    ]
+  }
+
+  {
+    label: 'Window'
+    submenu: [
+      { label: 'Minimize', command: 'application:minimize' }
+      { label: 'Zoom', command: 'application:zoom' }
+    ]
+  }
+
+  {
+    label: 'Help'
+    submenu: [
+      { label: 'Report Issue', command: 'application:report-issue' }
+      { label: 'Suggest Feature', command: 'application:suggest-feature' }
+    ]
+  }
+]
