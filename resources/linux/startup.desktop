@@ -1,0 +1,8 @@
+[Desktop Entry]
+Terminal=false
+Type=Application
+Name={{ productName }}
+Exec={{ name }} --os-startup
+Icon={{ name }}
+Comment={{ description }}
+X-GNOME-Autostart-enabled=true

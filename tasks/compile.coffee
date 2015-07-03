@@ -2,6 +2,7 @@ gulp = require 'gulp'
 cson = require 'gulp-cson'
 less = require 'gulp-less'
 babel = require 'gulp-babel'
+merge = require 'merge-stream'
 
 # Compile source keymaps
 gulp.task 'compile:keymaps', ->
@@ -29,12 +30,16 @@ gulp.task 'compile:scripts', ->
 
 # Move the rest of the files
 gulp.task 'compile:assets', ->
-  gulp.src [
+  files = gulp.src [
     './src/index.html'
     './src/package.json'
-    './src/node_modules/**/*'
   ]
     .pipe gulp.dest './build/src'
+
+  modules = gulp.src './src/node_modules/**/*'
+    .pipe gulp.dest './build/src/node_modules'
+
+  merge files, modules
 
 # Compile/move everything
 gulp.task 'compile', [

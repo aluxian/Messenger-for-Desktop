@@ -13,13 +13,22 @@
     "postinstall": "npm dedupe"
   },
   "author": "John Doe <john@doe.com>",
+  "homepage": "http://www.example.com",
   "repository": {
     "type": "git",
     "url": "https://github.com/<user>/<repo>.git"
   },
-  "genericName": "Demo Application",
-  "categories": "GNOME;GTK;Development;Documentation",
-  "section": "misc",
-  "packageName": "com.john.testie",
-  "appCategoryType": "public.app-category.social-networking"
+  "darwin": {
+    "bundleId": "com.john.testie",
+    "appCategoryType": "public.app-category.social-networking"
+  },
+  "linux": {
+    "genericName": "Demo Application",
+    "categories": "GNOME;GTK;Development;Documentation;",
+    "section": "misc"
+  },
+  "win": {
+    "companyName": "John Doe Co.",
+    "copyright": "Copyright (C) 2015 John Doe"
+  }
 }

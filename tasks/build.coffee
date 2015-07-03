@@ -1,16 +1,81 @@
 gulp = require 'gulp'
+async = require 'async'
+rcedit = require 'rcedit'
 
-# Build the app for darwin64
-gulp.task 'build:darwin64', ['compile', 'resources:darwin', 'electron:download:darwin64', 'electron:src:darwin64']
+cp = require 'child_process'
+fs = require 'fs-extra'
 
-# Build the app for linux32
-gulp.task 'build:linux32', ['compile', 'resources:linux', 'electron:download:linux32', 'electron:src:linux32']
+manifest = require '../src/package.json'
 
-# Build the app for linux64
-gulp.task 'build:linux64', ['compile', 'resources:linux', 'electron:download:linux64', 'electron:src:linux64']
+# Update icon, plist and rename the binary for darwin64
+gulp.task 'build:darwin64', ['resources:darwin', 'src:darwin64', 'clean:build:darwin64'], (done) ->
+  async.series [
+    (callback) ->
+      fromPath = './build/resources/darwin/icon.icns'
+      toPath = './build/darwin64/Electron.app/Contents/Resources/' + manifest.name + '.icns'
+      fs.copy fromPath, toPath, callback
 
-# Build the app for win32
-gulp.task 'build:win32', ['compile', 'resources:win', 'electron:download:win32', 'electron:src:win32']
+    (callback) ->
+      exeDir = './build/darwin64/Electron.app/Contents/MacOS/'
+      fs.rename exeDir + 'Electron', exeDir + manifest.productName, callback
+
+    (callback) ->
+      plist = './build/darwin64/Electron.app/Contents/Info.plist'
+      args = [
+        '-replace CFBundleName -string "' + manifest.productName + '"'
+        '-replace CFBundleDisplayName -string "' + manifest.productName + '"'
+        '-replace CFBundleExecutable -string "' + manifest.productName + '"'
+        '-replace CFBundleIconFile -string ' + manifest.name + '.icns'
+        '-replace CFBundleIdentifier -string "' + manifest.darwin.bundleId + '"'
+        '-replace CFBundleVersion -string "' + manifest.version + '"'
+        '-insert LSApplicationCategoryType -string "' + manifest.darwin.appCategoryType + '"'
+      ]
+
+      async.each args, (arg, callback) ->
+        cp.exec ['plutil', arg, plist].join(' '), callback
+      , done
+
+    (callback) ->
+      appDir = './build/darwin64/'
+      fs.rename appDir + 'Electron.app', appDir + manifest.productName + '.app', callback
+  ], done
+
+# Rename the binaries and copy assets for linux
+['linux32', 'linux64'].forEach (dist) ->
+  gulp.task 'build:' + dist, ['resources:linux', 'src:' + dist, 'clean:build:' + dist], (done) ->
+    async.series [
+      (callback) ->
+        exeDir = './build/' + dist + '/opt/' + manifest.name + '/'
+        fs.rename exeDir + 'electron', exeDir + manifest.name, done
+
+      (callback) ->
+        fromPath = './build/resources/linux/startup.desktop'
+        toPath = './build/' + dist + '/opt/' + manifest.name + '/startup.desktop'
+        fs.copy fromPath, toPath, callback
+
+      (callback) ->
+
+    ], done
+
+# Update icon, info and rename the binary for win32
+gulp.task 'build:win32', ['resources:win', 'src:win32', 'clean:build:win32'], (done) ->
+  async.series [
+    (callback) ->
+      rcedit './build/win32/electron.exe', {
+        'version-string':
+          ProductName: manifest.productName
+          CompanyName: manifest.win.companyName
+          FileDescription: manifest.description
+          LegalCopyright: manifest.win.copyright
+          OriginalFilename: manifest.productName + '.exe'
+        'file-version': manifest.version
+        'product-version': manifest.version
+        'icon': './build/resources/win/app.ico'
+      }, callback
+
+    (callback) ->
+      fs.rename './build/win32/electron.exe', './build/win32/' + manifest.productName + '.exe', callback
+  ], done
 
 # Build the app for all platforms
 gulp.task 'build', [

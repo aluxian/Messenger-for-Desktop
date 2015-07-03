@@ -2,9 +2,17 @@
 
 This is an example app built with [Electron](http://electron.atom.io/) called Testie.
 
-## Pre-Requisites
+## Build
 
-You need `node` and `npm` installed.
+### Pre-Requisites
+
+You need the following:
+
+* node & npm: I recommend the latest versions.
+* [**fpm**](https://github.com/jordansissel/fpm): Required by the `pack:linux{32|64}:{deb|rpm}` tasks in `gulpfile` to create the Linux packages.
+* [wine](https://www.winehq.org/): Only if you're not on Windows. Required to build for Windows.
+
+### Dependencies
 
     # Install global dependencies
     npm install -g gulp
@@ -12,10 +20,41 @@ You need `node` and `npm` installed.
     # Install local dependencies
     npm install
 
-## Build
+The last command should also install the modules for `./src`. If `./src/node_modules/` doesn't exist then:
 
-## Other tasks
+    cd ./src/
+    npm install
 
+### OS X
+
+    # Pack the app in a .dmg
+    gulp pack:darwin64
+
+This only works on OS X machines.
+
+### Windows
+
+    # Create an installer
+    gulp pack:win32:installer
+
+    # Create a portable zip
+    gulp pack:win32:portable
+
+The installer can only be created on Windows machines until [Squirrel.Windows](https://github.com/Squirrel/Squirrel.Windows) works with [wine](https://www.winehq.org/).
+
+### Linux
+
+    # Create deb
+    gulp pack:linux32:deb
+    gulp pack:linux64:deb
+
+    # Create rpm
+    gulp pack:linux32:rpm
+    gulp pack:linux64:rpm
+
+### Tips
+
+The output is in `./dist`. Take a look at `gulpfile.coffee` for additional tasks.
 
 ## Contributions
 

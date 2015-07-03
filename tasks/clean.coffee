@@ -1,26 +1,48 @@
+fs = require 'fs-extra'
 gulp = require 'gulp'
 del = require 'del'
 
-# Remove the build directory
-gulp.task 'clean:build', (done) ->
-  del './build', done
+manifest = require '../src/package.json'
 
-# Remove the cache directory
-gulp.task 'clean:cache', (done) ->
-  del './cache', done
+# Remove the default_app folder, the default icon and the leftover .app inside the darwin64 build
+gulp.task 'clean:build:darwin64', ['download:darwin64'], (done) ->
+  del [
+    './build/darwin64/' + manifest.productName + '.app'
+    './build/darwin64/Electron.app/Contents/Resources/default_app'
+    './build/darwin64/Electron.app/Contents/Resources/atom.icns'
+  ], done
 
-# Remove the release directory
-gulp.task 'clean:release', (done) ->
-  del './release', done
+# Remove the default_app folder inside the linux builds
+['linux32', 'linux64'].forEach (dist) ->
+  gulp.task 'clean:build:' + dist, ['download:' + dist], (done) ->
+    del './build/' + dist + '/opt/' + manifest.name + '/resources/default_app', done
 
-# Remove the build, cache and release directories
-gulp.task 'clean', [
-  'clean:build'
-  'clean:cache'
-  'clean:release'
+# Remove the default_app folder inside the win32 build
+gulp.task 'clean:build:win32', ['download:win32'], (done) ->
+  del './build/win32/resources/default_app', done
+
+# Clean build for all platforms
+gulp.task 'clean:build', [
+  'clean:build:darwin64'
+  'clean:build:linux32'
+  'clean:build:linux64'
+  'clean:build:win32'
 ]
 
-# Remove the default app inside Electron
-['darwin64', 'linux32', 'linux64', 'win32'].forEach (name) ->
-  gulp.task 'clean:default_app:' + name, (done) ->
-    del './build/' + name + '/resources/default_app', done
+# Clean all the dist files for darwin64 and make sure the dir exists
+gulp.task 'clean:dist:darwin64', (done) ->
+  del './dist/' + manifest.productName + '.dmg', ->
+    fs.ensureDir './dist', done
+
+# Just ensure the dir exists
+['linux32', 'linux64', 'win32'].forEach (dist) ->
+  gulp.task 'clean:dist:' + dist, (done) ->
+    fs.ensureDir './dist', done
+
+# Clean dist for all platforms
+gulp.task 'clean:dist', [
+  'clean:dist:darwin64'
+  'clean:dist:linux32'
+  'clean:dist:linux64'
+  'clean:dist:win32'
+]
