@@ -1,4 +1,5 @@
 import lodash from 'lodash';
+import shell from 'shell';
 
 import BrowserWindow from 'browser-window';
 import EventEmitter from 'events';
@@ -39,6 +40,11 @@ class AppWindow extends EventEmitter {
    */
   createBrowserWindow(settings) {
     const browserWindow = new BrowserWindow(settings);
+
+    browserWindow.webContents.on('new-window', function(event, url) {
+      event.preventDefault();
+      shell.openExternal(url);
+    });
 
     browserWindow.on('closed', (e) => {
       this.emit('closed', e);
