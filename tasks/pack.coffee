@@ -1,4 +1,5 @@
 cp = require 'child_process'
+async = require 'async'
 del = require 'del'
 
 gulp = require 'gulp'
