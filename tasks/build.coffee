@@ -33,6 +33,7 @@ gulp.task 'build:darwin64', ['resources:darwin', 'src:darwin64', 'clean:build:da
         '-replace CFBundleIconFile -string ' + manifest.name + '.icns'
         '-replace CFBundleIdentifier -string "' + manifest.darwin.bundleId + '"'
         '-replace CFBundleVersion -string "' + manifest.version + '"'
+        '-insert NSHumanReadableCopyright -string "' + manifest.darwin.copyright + '"'
         '-insert LSApplicationCategoryType -string "' + manifest.darwin.appCategoryType + '"'
       ]
 

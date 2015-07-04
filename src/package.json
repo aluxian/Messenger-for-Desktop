@@ -21,7 +21,8 @@
   },
   "darwin": {
     "bundleId": "com.john.testie",
-    "appCategoryType": "public.app-category.social-networking"
+    "appCategoryType": "public.app-category.social-networking",
+    "copyright": "Copyright © John Doe & Co, 2015"
   },
   "linux": {
     "genericName": "Demo Application",
@@ -30,7 +31,7 @@
     "vendor": "john.com"
   },
   "win": {
-    "companyName": "John Doe Co.",
-    "copyright": "Copyright (C) 2015 John Doe"
+    "companyName": "John Doe & Co.",
+    "copyright": "Copyright © John Doe & Co, 2015"
   }
 }
