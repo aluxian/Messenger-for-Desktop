@@ -8,6 +8,6 @@ livereload = require 'gulp-livereload'
     gulp.watch './src/menus/**/*', ['compile:' + dist + ':menus']
     gulp.watch './src/styles/**/*', ['compile:' + dist + ':styles']
     gulp.watch './src/scripts/**/*', ['compile:' + dist + ':scripts']
-    gulp.watch './src/index.html', ['compile:' + dist + ':html']
+    gulp.watch './src/html/**/*', ['compile:' + dist + ':html']
     gulp.watch './src/node_modules/**/*', ['compile:' + dist + ':deps']
     gulp.watch './src/package.json', ['compile:' + dist + ':package']
