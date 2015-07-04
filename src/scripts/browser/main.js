@@ -7,7 +7,7 @@ import Application from './application';
 import manifest from '../../package.json';
 
 // Log uncaught exceptions
-process.on('uncaughtException', ::console.error);
+process.on('uncaughtException', (error) => console.error(error.stack));
 
 // Define the CLI and parse arguments
 const argv = yargs
