@@ -1,10 +1,8 @@
-# Electron Starter
+# Electron Super Starter
 
 This is an example app built with [Electron](http://electron.atom.io/) called Testie.
 
-## Build
-
-### Pre-Requisites
+## Pre-Requisites
 
 You need the following:
 
@@ -14,21 +12,23 @@ You need the following:
 
 Quick install on OS X:
 
-    sudo gem install fpm
-    brew install wine rpm
+    $ sudo gem install fpm
+    $ brew install wine rpm
 
 ### Dependencies
 
-    # Install global dependencies
-    npm install -g gulp
+    $ # Install global dependencies
+    $ npm install -g gulp
 
-    # Install local dependencies
-    npm install
+    $ # Install local dependencies
+    $ npm install
 
 The last command should also install the modules for `./src`. If `./src/node_modules/` doesn't exist then:
 
-    cd ./src/
-    npm install
+    $ cd ./src/
+    $ npm install
+
+## Build
 
 ### OS X
 
@@ -63,4 +63,4 @@ The output is in `./dist`. Take a look at `gulpfile.coffee` for additional tasks
 
 ## Contributions
 
-Contributions are welcome! For feature requests and bug reports please [submit an issue](https://github.com/Aluxian/electron-starter/issues).
+Contributions are welcome! For feature requests and bug reports please [submit an issue](https://github.com/Aluxian/electron-super-starter/issues).

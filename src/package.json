@@ -16,7 +16,7 @@
   "homepage": "http://www.example.com",
   "repository": {
     "type": "git",
-    "url": "https://github.com/<user>/<repo>.git"
+    "url": "https://github.com/Aluxian/electron-super-starter.git"
   },
   "crashReporter": {
     "productName": "Testie",

@@ -29,10 +29,10 @@
       { label: 'Community Discussions', command: 'application:open-url', url: 'https://discuss.atom.io/c/electron' }
       { type: 'separator' }
       { label: 'Electron Documentation', command: 'application:open-url', url: 'https://github.com/atom/electron/tree/master/docs#readme' }
-      { label: 'Electron-Starter Documentation', command: 'application:open-url', url: 'https://github.com/Aluxian/electron-starter/wiki' }
+      { label: 'Electron Super Starter Docs', command: 'application:open-url', url: 'https://github.com/Aluxian/electron-super-starter/docs#readme' }
       { type: 'separator' }
-      { label: '&Report Issue', command: 'application:open-url', url: 'https://github.com/Aluxian/electron-starter/issues' }
-      { label: '&Suggest Feature', command: 'application:open-url', url: 'https://github.com/Aluxian/electron-starter/issues' }
+      { label: '&Report Issue', command: 'application:open-url', url: 'https://github.com/Aluxian/electron-super-starter/issues' }
+      { label: '&Suggest Feature', command: 'application:open-url', url: 'https://github.com/Aluxian/electron-super-starter/issues' }
     ]
   }
 ]
