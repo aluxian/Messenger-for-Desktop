@@ -16,7 +16,7 @@ class AppMenu extends EventEmitter {
 
     // Set handlers and create the menu
     this.wireUpCommands(template);
-    this.menu = Menu.buildFromTemplate(this.template);
+    this.menu = Menu.buildFromTemplate(template);
   }
 
   /**
