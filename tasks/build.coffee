@@ -9,7 +9,7 @@ path = require 'path'
 manifest = require '../src/package.json'
 
 # Build for darwin64
-gulp.task 'build:darwin64', ['resources:darwin', 'src:darwin64', 'clean:build:darwin64'], (done) ->
+gulp.task 'build:darwin64', ['resources:darwin', 'compile:darwin64', 'clean:build:darwin64'], (done) ->
   async.series [
     # Move the new icon
     (callback) ->
@@ -47,7 +47,7 @@ gulp.task 'build:darwin64', ['resources:darwin', 'src:darwin64', 'clean:build:da
 
 # Build for linux32 and linux64
 ['linux32', 'linux64'].forEach (dist) ->
-  gulp.task 'build:' + dist, ['resources:linux', 'src:' + dist, 'clean:build:' + dist], (done) ->
+  gulp.task 'build:' + dist, ['resources:linux', 'compile:' + dist, 'clean:build:' + dist], (done) ->
     async.series [
       # Rename the executable
       (callback) ->
@@ -80,7 +80,7 @@ gulp.task 'build:darwin64', ['resources:darwin', 'src:darwin64', 'clean:build:da
     ], done
 
 # Build for win32
-gulp.task 'build:win32', ['resources:win', 'src:win32', 'clean:build:win32'], (done) ->
+gulp.task 'build:win32', ['resources:win', 'compile:win32', 'clean:build:win32'], (done) ->
   async.series [
     # Edit properties of the exe
     (callback) ->

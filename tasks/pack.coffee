@@ -1,23 +1,40 @@
-cp = require 'child_process'
-gulp = require 'gulp'
-
-zip = require 'gulp-zip'
-appdmg = require 'gulp-appdmg'
-
 winInstaller = require 'electron-windows-installer'
+appdmg = require 'appdmg'
+cp = require 'child_process'
+del = require 'del'
+
+gulp = require 'gulp'
+zip = require 'gulp-zip'
+asar = require 'gulp-asar'
 
 manifest = require '../src/package.json'
 secrets = require '../secrets.json'
 
 # Create a dmg for darwin64; only works on OS X because of appdmg
-gulp.task 'pack:darwin64', ['sign:darwin64', 'clean:dist:darwin64'], ->
+gulp.task 'pack:darwin64', ['sign:darwin64', 'clean:dist:darwin64'], (done) ->
   if process.platform isnt 'darwin'
-    return console.warn 'Skipping darwin64 packing; This only works on darwin due to `appdmg`.'
+    console.warn 'Skipping darwin64 packing; This only works on darwin due to `appdmg`.'
+    return done()
 
-  gulp.src []
-    .pipe appdmg
-      source: './build/resources/darwin/dmg.json'
-      target: './dist/' + manifest.productName + '.dmg'
+  async.series [
+    # First, compress the source files into an asar archive
+    (callback) ->
+      gulp.src './build/darwin64/' + manifest.productName + '.app/Contents/Resources/app/**/*'
+        .pipe asar 'app.asar'
+        .pipe gulp.dest './build/darwin64/' + manifest.productName + '.app/Contents/Resources'
+        .on 'end', callback
+
+    # Remove leftovers
+    async.apply del, './build/darwin64/' + manifest.productName + '.app/Contents/Resources/app'
+
+    # Create the dmg
+    (callback) ->
+      appdmg
+        source: './build/resources/darwin/dmg.json'
+        target: './dist/' + manifest.productName + '.dmg'
+      .on 'finish', callback
+      .on 'error', callback
+  ], done
 
 # Create deb and rpm packages for linux32 and linux64
 [32, 64].forEach (arch) ->
@@ -48,10 +65,9 @@ gulp.task 'pack:darwin64', ['sign:darwin64', 'clean:dist:darwin64'], ->
       cp.exec 'fpm ' + args.join(' '), done
 
 # Create the win32 installer; only works on Windows
-gulp.task 'pack:win32:installer', ['build:win32', 'clean:dist:win32'], (done) ->
+gulp.task 'pack:win32:installer', ['build:win32', 'clean:dist:win32'], ->
   if process.platform isnt 'win32'
-    console.warn 'Skipping win32 packing; This only works on Windows due to Squirrel.Windows.'
-    return done()
+    return console.warn 'Skipping win32 packing; This only works on Windows due to Squirrel.Windows.'
 
   winInstaller
     appDirectory: './build/win32'
@@ -62,7 +78,6 @@ gulp.task 'pack:win32:installer', ['build:win32', 'clean:dist:win32'], (done) ->
     setupIcon: './build/resources/win/setup.ico'
     iconUrl: 'https://raw.githubusercontent.com/Aluxian/electron-starter/master/resources/win/app.ico'
     remoteReleases: manifest.repository.url
-  .then done, done
 
 # Create the win32 portable zip
 gulp.task 'pack:win32:portable', ['build:win32', 'clean:dist:win32'], (done) ->

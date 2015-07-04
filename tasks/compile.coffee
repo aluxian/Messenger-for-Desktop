@@ -3,42 +3,73 @@ cson = require 'gulp-cson'
 less = require 'gulp-less'
 babel = require 'gulp-babel'
 mustache = require 'gulp-mustache'
+
+embedlr = require 'gulp-embedlr'
+livereload = require 'gulp-livereload'
+
 manifest = require '../src/package.json'
 
-# Compile source menus
-gulp.task 'compile:menus', ->
-  gulp.src './src/menus/**/*.cson'
-    .pipe mustache manifest
-    .pipe cson()
-    .pipe gulp.dest './build/src/menus'
+[
+  ['darwin64', './build/darwin64/' + manifest.productName + '.app/Contents/Resources/app']
+  ['linux32', './build/linux32/opt/' + manifest.name + '/resources/app']
+  ['linux64', './build/linux64/opt/' + manifest.name + '/resources/app']
+  ['win32', './build/win32/resources/app']
+].forEach (item) ->
+  [dist, dir] = item
 
-# Compile source styles
-gulp.task 'compile:styles', ->
-  gulp.src './src/styles/**/*.less'
-    .pipe less()
-    .pipe gulp.dest './build/src/styles'
+  # Compile menus
+  gulp.task 'compile:' + dist + ':menus', ['clean:build:' + dist], ->
+    gulp.src './src/menus/**/*.cson'
+      .pipe mustache manifest
+      .pipe cson()
+      .pipe gulp.dest dir + '/menus'
 
-# Compile source scripts
-gulp.task 'compile:scripts', ->
-  gulp.src './src/scripts/**/*.js'
-    .pipe babel()
-    .pipe gulp.dest './build/src/scripts'
+  # Compile styles
+  gulp.task 'compile:' + dist + ':styles', ['clean:build:' + dist], ->
+    gulp.src './src/styles/**/*.less'
+      .pipe less()
+      .pipe gulp.dest dir + '/styles'
+      .pipe livereload()
 
-# Move the rest of the files
-gulp.task 'compile:assets', ->
-  gulp.src [
-    './src/index.html'
-    './src/package.json'
-    './src/node_modules/**/*'
-  ], {
-    base: './src'
-  }
-    .pipe gulp.dest './build/src'
+  # Compile scripts
+  gulp.task 'compile:' + dist + ':scripts', ['clean:build:' + dist], ->
+    gulp.src './src/scripts/**/*.js'
+      .pipe babel()
+      .pipe gulp.dest dir + '/scripts'
+      .pipe livereload()
 
-# Compile/move everything
+  # Move index.html
+  gulp.task 'compile:' + dist + ':html', ['clean:build:' + dist], ->
+    gulp.src './src/index.html'
+      .pipe embedlr()
+      .pipe gulp.dest dir
+      .pipe livereload()
+
+  # Move the node modules
+  gulp.task 'compile:' + dist + ':deps', ['clean:build:' + dist], ->
+    gulp.src './src/node_modules/**/*'
+      .pipe gulp.dest dir + '/node_modules'
+      .pipe livereload()
+
+  # Move package.json
+  gulp.task 'compile:' + dist + ':package', ['clean:build:' + dist], ->
+    gulp.src './src/package.json'
+      .pipe gulp.dest dir
+
+  # Compile everything
+  gulp.task 'compile:' + dist, [
+    'compile:' + dist + ':menus'
+    'compile:' + dist + ':styles'
+    'compile:' + dist + ':scripts'
+    'compile:' + dist + ':html'
+    'compile:' + dist + ':deps'
+    'compile:' + dist + ':package'
+  ]
+
+# Compile for all platforms
 gulp.task 'compile', [
-  'compile:menus'
-  'compile:styles'
-  'compile:scripts'
-  'compile:assets'
+  'compile:darwin64'
+  'compile:linux32'
+  'compile:linux64'
+  'compile:win32'
 ]
