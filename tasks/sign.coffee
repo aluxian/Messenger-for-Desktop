@@ -5,9 +5,10 @@ gulp = require 'gulp'
 manifest = require '../src/package.json'
 secrets = require '../secrets.json'
 
+# Sign the darwin64 app
 gulp.task 'sign:darwin64', ['build:darwin64'], (done) ->
   if process.platform isnt 'darwin'
-    console.warn 'Skipping darwin app signing; This only works on darwin due to the `codesign` command.'
+    console.warn 'Skipping darwin64 app signing; This only works on darwin due to the `codesign` command.'
     return done()
 
   async.series [
@@ -28,3 +29,8 @@ gulp.task 'sign:darwin64', ['build:darwin64'], (done) ->
       './build/darwin64/' + manifest.productName + '.app'
     ].join(' ')
   ], done
+
+# Sign everything
+gulp.task 'sign', [
+  'sign:darwin64'
+]
