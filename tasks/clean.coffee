@@ -7,8 +7,8 @@ manifest = require '../src/package.json'
 # Remove the default_app folder and the default icon inside the darwin64 build
 gulp.task 'clean:build:darwin64', ['download:darwin64'], (done) ->
   del [
-    './build/darwin64/Electron.app/Contents/Resources/default_app'
-    './build/darwin64/Electron.app/Contents/Resources/atom.icns'
+    './build/darwin64/' + manifest.productName + '.app/Contents/Resources/default_app'
+    './build/darwin64/' + manifest.productName + '.app/Contents/Resources/atom.icns'
   ], done
 
 # Remove the default_app folder inside the linux builds

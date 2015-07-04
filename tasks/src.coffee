@@ -8,7 +8,7 @@ manifest = require '../src/package.json'
 gulp.task 'src:darwin64', ['compile', 'clean:build:darwin64'], ->
   gulp.src './build/src/**/*'
     .pipe asar 'app.asar'
-    .pipe gulp.dest './build/darwin64/Electron.app/Contents/Resources'
+    .pipe gulp.dest './build/darwin64/' + manifest.productName + '.app/Contents/Resources'
 
 # Copy src files inside the linux builds as an asar archive
 ['linux32', 'linux64'].forEach (dist) ->

@@ -1,8 +1,16 @@
+fs = require 'fs-extra'
 gulp = require 'gulp'
 asar = require 'gulp-asar'
 
 electronDownloader = require 'gulp-electron-downloader'
 manifest = require '../src/package.json'
+
+# Flags to keep track of downloads
+downloaded =
+  darwin64: false
+  linux32: false
+  linux64: false
+  win32: false
 
 # Download the Electron binary for a platform
 [
@@ -14,13 +22,24 @@ manifest = require '../src/package.json'
   [platform, arch, dist, outputDir] = release
 
   gulp.task 'download:' + dist, (done) ->
+    # Skip if already downloaded to speed up auto-reload
+    if downloaded[dist]
+      return done()
+
     electronDownloader
       version: 'v0.29.0'
       cacheDir: './cache'
       outputDir: outputDir
       platform: platform
       arch: arch
-    , done
+    , ->
+      downloaded[dist] = true
+
+      # Also rename the .app on darwin
+      if process.platform is 'darwin'
+        fs.rename './build/' + dist + '/Electron.app', './build/' + dist + '/' + manifest.productName + '.app', done
+      else
+        done()
 
 # Download the Electron binaries for all platforms
 gulp.task 'download', [
