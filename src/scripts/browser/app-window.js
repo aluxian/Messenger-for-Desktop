@@ -33,7 +33,7 @@ class AppWindow extends EventEmitter {
   }
 
   /**
-   * Create a BrowserWindow with the given settings and handle some events.
+   * Create a BrowserWindow with the given settings.
    *
    * @param {Object} settings
    * @return {BrowserWindow}
@@ -41,21 +41,10 @@ class AppWindow extends EventEmitter {
   createBrowserWindow(settings) {
     const browserWindow = new BrowserWindow(settings);
 
+    // Open urls in an external browser
     browserWindow.webContents.on('new-window', function(event, url) {
       event.preventDefault();
       shell.openExternal(url);
-    });
-
-    browserWindow.on('closed', (e) => {
-      this.emit('closed', e);
-    });
-
-    browserWindow.on('devtools-opened', () => {
-      browserWindow.webContents.send('window:toggle-dev-tools', true);
-    });
-
-    browserWindow.on('devtools-closed', () => {
-      browserWindow.webContents.send('window:toggle-dev-tools', false);
     });
 
     return browserWindow;
