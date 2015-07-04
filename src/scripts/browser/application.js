@@ -37,8 +37,7 @@ class Application extends EventEmitter {
 
     // Create and show the main window
     this.mainWindow = new AppWindow();
-    this.mainWindow.loadUrl(`file://${path.resolve('../../default.html')}`);
-    this.mainWindow.show();
+    this.mainWindow.loadUrl(`file://${path.resolve(__dirname, '..', '..', 'html', 'default.html')}`);
   }
 
   /**
