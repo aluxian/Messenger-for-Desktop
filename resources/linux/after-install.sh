@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # Link to the binary
-ln -sf /opt/WhatsAppForDesktop/UnofficialWhatsApp /usr/local/bin/whatsappfordesktop
+ln -sf /opt/{{ name }}/{{ name }} /usr/local/bin/{{ name }}
 
-# Launcher icon
-desktop-file-install /opt/WhatsAppForDesktop/whatsappfordesktop.desktop
+# Create an entry to launch on startup
+mkdir -p $HOME/.config/autostart/
+cp -f /opt/{{ name }}/startup.desktop $HOME/.config/autostart/{{ name }}.desktop

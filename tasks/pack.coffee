@@ -29,14 +29,17 @@ gulp.task 'pack:darwin64', ['sign:darwin64', 'clean:dist:darwin64'], ->
         '--architecture ' + if arch == 32 then 'i386' else 'amd64'
         '--name ' + manifest.name
         '--force' # Overwrite existing packages
-        '--after-install ../resources/linux/after-install.sh'
-        '--after-remove ../resources/linux/after-remove.sh'
-        '--license MIT'
-        '--category ' + manifest.section
+        '--after-install ./build/resources/linux/after-install.sh'
+        '--after-remove ./build/resources/linux/after-remove.sh'
+        '--deb-changelog ./CHANGELOG.md'
+        '--rpm-changelog ./CHANGELOG.md'
+        '--license ' + manifest.license
+        '--category "' + manifest.linux.section + '"'
         '--description "' + manifest.description + '"'
         '--url "' + manifest.homepage + '"'
         '--maintainer "' + manifest.author + '"'
-        '--version ' + manifest.version
+        '--vendor "' + manifest.linux.vendor + '"'
+        '--version "' + manifest.version + '"'
         '--package ' + './dist/' + manifest.name + '-linux' + arch + '.' + target
         '-C ./build/linux' + arch
         '.'

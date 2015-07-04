@@ -12,6 +12,7 @@
   "scripts": {
     "postinstall": "npm dedupe"
   },
+  "license": "MIT",
   "author": "John Doe <john@doe.com>",
   "homepage": "http://www.example.com",
   "repository": {
@@ -25,7 +26,8 @@
   "linux": {
     "genericName": "Demo Application",
     "categories": "GNOME;GTK;Development;Documentation;",
-    "section": "misc"
+    "section": "misc",
+    "vendor": "john.com"
   },
   "win": {
     "companyName": "John Doe Co.",

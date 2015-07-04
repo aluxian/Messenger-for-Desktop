@@ -9,8 +9,13 @@ This is an example app built with [Electron](http://electron.atom.io/) called Te
 You need the following:
 
 * node & npm: I recommend the latest versions.
-* [**fpm**](https://github.com/jordansissel/fpm): Required by the `pack:linux{32|64}:{deb|rpm}` tasks in `gulpfile` to create the Linux packages.
-* [wine](https://www.winehq.org/): Only if you're not on Windows. Required to build for Windows.
+* [**fpm**](https://github.com/jordansissel/fpm): Required by the `pack:linux{32|64}:{deb|rpm}` tasks in `gulpfile` to create the Linux packages. You also need `rpm` to be able to build `rpm` packages.
+* [**wine**](https://www.winehq.org/): Only if you're not on Windows. Required to build for Windows.
+
+Quick install on OS X:
+
+    sudo gem install fpm
+    brew install wine rpm
 
 ### Dependencies
 
