@@ -20,6 +20,7 @@
     "gulp-less": "^3.0.3",
     "gulp-livereload": "^3.8.0",
     "gulp-mustache": "^1.0.2",
+    "gulp-util": "^3.0.6",
     "gulp-zip": "^3.0.2",
     "rcedit": "^0.3.0",
     "require-dir": "^0.3.0"

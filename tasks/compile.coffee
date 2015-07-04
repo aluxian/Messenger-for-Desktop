@@ -1,4 +1,5 @@
 gulp = require 'gulp'
+gutil = require 'gulp-util'
 cson = require 'gulp-cson'
 less = require 'gulp-less'
 babel = require 'gulp-babel'
@@ -23,6 +24,7 @@ manifest = require '../src/package.json'
       .pipe mustache manifest
       .pipe cson()
       .pipe gulp.dest dir + '/menus'
+      .on 'error', gutil.log
 
   # Compile styles
   gulp.task 'compile:' + dist + ':styles', ['clean:build:' + dist], ->
@@ -30,6 +32,7 @@ manifest = require '../src/package.json'
       .pipe less()
       .pipe gulp.dest dir + '/styles'
       .pipe livereload()
+      .on 'error', gutil.log
 
   # Compile scripts
   gulp.task 'compile:' + dist + ':scripts', ['clean:build:' + dist], ->
@@ -37,6 +40,7 @@ manifest = require '../src/package.json'
       .pipe babel()
       .pipe gulp.dest dir + '/scripts'
       .pipe livereload()
+      .on 'error', gutil.log
 
   # Move index.html
   gulp.task 'compile:' + dist + ':html', ['clean:build:' + dist], ->
