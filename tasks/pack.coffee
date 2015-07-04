@@ -1,5 +1,3 @@
-winInstaller = require 'electron-windows-installer'
-appdmg = require 'appdmg'
 cp = require 'child_process'
 del = require 'del'
 
@@ -7,8 +5,9 @@ gulp = require 'gulp'
 zip = require 'gulp-zip'
 asar = require 'gulp-asar'
 
+appdmg = require 'appdmg'
+winInstaller = require 'electron-windows-installer'
 manifest = require '../src/package.json'
-secrets = require '../secrets.json'
 
 # Create a dmg for darwin64; only works on OS X because of appdmg
 gulp.task 'pack:darwin64', ['sign:darwin64', 'clean:dist:darwin64'], (done) ->
@@ -73,8 +72,8 @@ gulp.task 'pack:win32:installer', ['build:win32', 'clean:dist:win32'], ->
     appDirectory: './build/win32'
     outputDirectory: './dist'
     loadingGif: './build/resources/win/install-spinner.gif'
-    certificateFile: secrets.win.certificateFile,
-    certificatePassword: secrets.win.certificatePassword
+    certificateFile: process.env.SIGN_WIN_CERTIFICATE_FILE
+    certificatePassword: process.env.SIGN_WIN_CERTIFICATE_PASSWORD
     setupIcon: './build/resources/win/setup.ico'
     iconUrl: 'https://raw.githubusercontent.com/Aluxian/electron-starter/master/resources/win/app.ico'
     remoteReleases: manifest.repository.url

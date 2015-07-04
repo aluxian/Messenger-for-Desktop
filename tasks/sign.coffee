@@ -3,7 +3,6 @@ async = require 'async'
 gulp = require 'gulp'
 
 manifest = require '../src/package.json'
-secrets = require '../secrets.json'
 
 # Sign the darwin64 app
 gulp.task 'sign:darwin64', ['build:darwin64'], (done) ->
@@ -16,8 +15,8 @@ gulp.task 'sign:darwin64', ['build:darwin64'], (done) ->
       'security'
       'unlock-keychain'
       '-p'
-      secrets.darwin.keychainPassword
-      secrets.darwin.keychainName
+      process.env.SIGN_DARWIN_KEYCHAIN_PASSWORD
+      process.env.SIGN_DARWIN_KEYCHAIN_NAME
     ].join(' ')
 
     async.apply cp.exec, [
@@ -25,7 +24,7 @@ gulp.task 'sign:darwin64', ['build:darwin64'], (done) ->
       '--deep'
       '--force'
       '--verbose'
-      '--sign "' + secrets.darwin.signingIdentity + '"'
+      '--sign "' + process.env.SIGN_DARWIN_IDENTITY + '"'
       './build/darwin64/' + manifest.productName + '.app'
     ].join(' ')
   ], done
