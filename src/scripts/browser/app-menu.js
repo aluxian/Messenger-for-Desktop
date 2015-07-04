@@ -27,12 +27,12 @@ class AppMenu extends EventEmitter {
   }
 
   /**
-   * Create click handlers for menu entries that defined a `command`.
+   * Create click handlers for menu entries that have a defined command.
    *
-   * @param {Array} template
+   * @param {Array} submenu
    */
-  wireUpCommands(template) {
-    template.forEach((item) => {
+  wireUpCommands(submenu) {
+    submenu.forEach((item) => {
       if (item.command) {
         const existingOnClick = item.click;
 
@@ -43,6 +43,10 @@ class AppMenu extends EventEmitter {
             existingOnClick();
           }
         };
+      }
+
+      if (item.submenu) {
+        this.wireUpCommands(item.submenu);
       }
     });
   }
