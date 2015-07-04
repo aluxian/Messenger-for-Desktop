@@ -1,50 +1,38 @@
-main: [
+[
   {
     label: '&File'
     submenu: [
       { label: '&Settings', command: 'application:show-settings' }
-      { label: 'E&xit', command: 'application:quit' }
-    ]
-  }
-
-  {
-    label: '&Edit'
-    submenu: [
-      { label: '&Undo', command: 'core:undo' }
-      { label: '&Redo', command: 'core:redo' }
-      { type: 'separator' }
-      { label: 'Cu&t', command: 'core:cut' }
-      { label: '&Copy', command: 'core:copy' }
-      { label: '&Paste', command: 'core:paste' }
-      { label: 'Select &All', command: 'core:select-all' }
+      { label: 'E&xit', accelerator: 'Ctrl+Q', command: 'application:quit' }
     ]
   }
 
   {
     label: '&View'
     submenu: [
-      { label: '&Reload', command: 'window:reload' }
-      { label: 'Toggle &Full Screen', command: 'window:toggle-full-screen' }
-      {
-        label: 'Developer'
-        submenu: [
-          { label: 'Toggle Developer &Tools', command: 'window:toggle-dev-tools' }
-        ]
-      }
+      { label: '&Reload', accelerator: 'Ctrl+R', command: 'window:reload' }
+      { label: 'Toggle &Full Screen', accelerator: 'F11', command: 'window:toggle-full-screen' }
+      { label: 'Toggle &Developer Tools', accelerator: 'Alt+Ctrl+I', command: 'window:toggle-dev-tools' }
     ]
   }
 
   {
     label: '&Help'
     submenu: [
-      { label: 'Version ${version}', enabled: false }
+      { label: 'Version {{ version }}', enabled: false }
       { label: 'Restart and &Install Update', command: 'application:install-update', visible: false }
       { label: 'Check for &Update', command: 'application:check-for-update', visible: false }
       { label: 'Checking for Update', enabled: false, visible: false }
       { label: 'Downloading Update', enabled: false, visible: false }
       { type: 'separator' }
-      { label: '&Report Issue', command: 'application:report-issue' }
-      { label: '&Suggest Feature', command: 'application:suggest-feature' }
+      { label: 'Electron Website', command: 'application:open-url', url: 'http://electron.atom.io' }
+      { label: 'Community Discussions', command: 'application:open-url', url: 'https://discuss.atom.io/c/electron' }
+      { type: 'separator' }
+      { label: 'Electron Documentation', command: 'application:open-url', url: 'https://github.com/atom/electron/tree/master/docs#readme' }
+      { label: 'Electron-Starter Documentation', command: 'application:open-url', url: 'https://github.com/Aluxian/electron-starter/wiki' }
+      { type: 'separator' }
+      { label: '&Report Issue', command: 'application:open-url', url: 'https://github.com/Aluxian/electron-starter/issues' }
+      { label: '&Suggest Feature', command: 'application:open-url', url: 'https://github.com/Aluxian/electron-starter/issues' }
     ]
   }
 ]

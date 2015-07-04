@@ -2,17 +2,14 @@ gulp = require 'gulp'
 cson = require 'gulp-cson'
 less = require 'gulp-less'
 babel = require 'gulp-babel'
+mustache = require 'gulp-mustache'
 merge = require 'merge-stream'
-
-# Compile source keymaps
-gulp.task 'compile:keymaps', ->
-  gulp.src './src/keymaps/**/*.cson'
-    .pipe cson()
-    .pipe gulp.dest './build/src/keymaps'
+manifest = require '../src/package.json'
 
 # Compile source menus
 gulp.task 'compile:menus', ->
   gulp.src './src/menus/**/*.cson'
+    .pipe mustache manifest
     .pipe cson()
     .pipe gulp.dest './build/src/menus'
 
@@ -43,7 +40,6 @@ gulp.task 'compile:assets', ->
 
 # Compile/move everything
 gulp.task 'compile', [
-  'compile:keymaps'
   'compile:menus'
   'compile:styles'
   'compile:scripts'
