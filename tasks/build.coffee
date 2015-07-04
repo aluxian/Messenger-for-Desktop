@@ -4,6 +4,7 @@ rcedit = require 'rcedit'
 
 cp = require 'child_process'
 fs = require 'fs-extra'
+path = require 'path'
 
 manifest = require '../src/package.json'
 
@@ -20,6 +21,10 @@ gulp.task 'build:darwin64', ['resources:darwin', 'src:darwin64', 'clean:build:da
       fs.rename exeDir + 'Electron', exeDir + manifest.productName, callback
 
     (callback) ->
+      if process.platform isnt 'darwin'
+        console.warn 'Skipping Info.plist configuration; disable this check if you have `plutil` installed.'
+        return callback()
+
       plist = './build/darwin64/Electron.app/Contents/Info.plist'
       args = [
         '-replace CFBundleName -string "' + manifest.productName + '"'
@@ -33,7 +38,7 @@ gulp.task 'build:darwin64', ['resources:darwin', 'src:darwin64', 'clean:build:da
 
       async.each args, (arg, callback) ->
         cp.exec ['plutil', arg, plist].join(' '), callback
-      , done
+      , callback
 
     (callback) ->
       appDir = './build/darwin64/'
@@ -46,15 +51,28 @@ gulp.task 'build:darwin64', ['resources:darwin', 'src:darwin64', 'clean:build:da
     async.series [
       (callback) ->
         exeDir = './build/' + dist + '/opt/' + manifest.name + '/'
-        fs.rename exeDir + 'electron', exeDir + manifest.name, done
+        fs.rename exeDir + 'electron', exeDir + manifest.name, callback
+
+      (callback) ->
+        fromPath = './build/resources/linux/app.desktop'
+        toPath = './build/' + dist + '/usr/share/applications/' + manifest.name + '.desktop'
+        fs.copy fromPath, toPath, callback
 
       (callback) ->
         fromPath = './build/resources/linux/startup.desktop'
         toPath = './build/' + dist + '/opt/' + manifest.name + '/startup.desktop'
         fs.copy fromPath, toPath, callback
 
-      (callback) ->
-
+      async.apply async.waterfall, [
+        async.apply fs.readdir, './build/resources/linux/icons'
+        (files, callback) ->
+          async.map files, (file, callback) ->
+            size = path.basename file, '.png'
+            fromPath = path.join './build/resources/linux/icons', file
+            toPath = './build/' + dist + '/usr/share/icons/hicolor/' + size + 'x' + size + '/apps/' + manifest.name + '.png'
+            fs.copy fromPath, toPath, callback
+          , callback
+      ]
     ], done
 
 # Update icon, info and rename the binary for win32

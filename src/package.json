@@ -3,7 +3,7 @@
   "productName": "Testie",
   "version": "0.1.0",
   "description": "An example app.",
-  "main": "./browser/main.js",
+  "main": "./scripts/browser/main.js",
   "dependencies": {
     "fs-plus": "^2.8.1",
     "lodash": "^3.9.3",

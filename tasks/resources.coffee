@@ -1,6 +1,5 @@
 gulp = require 'gulp'
 mustache = require 'gulp-mustache'
-imagemin = require 'gulp-imagemin'
 
 merge = require 'merge-stream'
 manifest = require '../src/package.json'
@@ -15,7 +14,6 @@ gulp.task 'resources:darwin', ->
     .pipe gulp.dest './build/resources/darwin'
 
   png = gulp.src './resources/darwin/*.png'
-    .pipe imagemin()
     .pipe gulp.dest './build/resources/darwin'
 
   merge dmgConfig, icns, png
@@ -31,16 +29,18 @@ gulp.task 'resources:linux', ->
     .pipe mustache manifest.linux
     .pipe gulp.dest './build/resources/linux'
 
-  icons = gulp.src './resources/linux/icons'
-    .pipe imagemin()
+  scripts = gulp.src './resources/linux/*.sh'
+    .pipe mustache manifest.linux
     .pipe gulp.dest './build/resources/linux'
 
-  merge desktop, icons
+  icons = gulp.src './resources/linux/icons/*.png'
+    .pipe gulp.dest './build/resources/linux/icons'
+
+  merge desktop, scripts, icons
 
 # Move the resources for win32
 gulp.task 'resources:win', ->
   gulp.src './resources/win/**/*'
-    .pipe imagemin()
     .pipe gulp.dest './build/resources/win'
 
 # Move and process all the resources

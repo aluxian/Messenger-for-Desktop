@@ -15,7 +15,6 @@
     "gulp-cson": "^0.3.0",
     "gulp-electron-downloader": "^0.1.1",
     "gulp-github-release": "^1.0.3",
-    "gulp-imagemin": "^2.3.0",
     "gulp-less": "^3.0.3",
     "gulp-mustache": "^1.0.2",
     "gulp-zip": "^3.0.2",

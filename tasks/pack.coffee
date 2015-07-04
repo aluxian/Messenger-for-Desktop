@@ -11,6 +11,9 @@ secrets = require '../secrets.json'
 
 # Create a dmg for darwin64; only works on OS X because of appdmg
 gulp.task 'pack:darwin64', ['sign:darwin64', 'clean:dist:darwin64'], ->
+  if process.platform isnt 'darwin'
+    return console.warn 'Skipping darwin64 packing; This only works on darwin due to `appdmg`.'
+
   gulp.src []
     .pipe appdmg
       source: './build/resources/darwin/dmg.json'
@@ -19,7 +22,7 @@ gulp.task 'pack:darwin64', ['sign:darwin64', 'clean:dist:darwin64'], ->
 # Create deb and rpm packages for linux32 and linux64
 [32, 64].forEach (arch) ->
   ['deb', 'rpm'].forEach (target) ->
-    gulp.task 'pack:linux' + arch + ':' + target, ['build:linux' + arch, 'clean:dist:linux' + arch], ->
+    gulp.task 'pack:linux' + arch + ':' + target, ['build:linux' + arch, 'clean:dist:linux' + arch], (done) ->
       args = [
         '-s dir'
         '-t ' + target
@@ -42,7 +45,11 @@ gulp.task 'pack:darwin64', ['sign:darwin64', 'clean:dist:darwin64'], ->
       cp.exec 'fpm ' + args.join(' '), done
 
 # Create the win32 installer; only works on Windows
-gulp.task 'pack:win32:installer', ['sign:win32', 'clean:dist:win32'], (done) ->
+gulp.task 'pack:win32:installer', ['build:win32', 'clean:dist:win32'], (done) ->
+  if process.platform isnt 'win32'
+    console.warn 'Skipping win32 packing; This only works on Windows due to Squirrel.Windows.'
+    return done()
+
   winInstaller
     appDirectory: './build/win32'
     outputDirectory: './dist'
@@ -55,7 +62,7 @@ gulp.task 'pack:win32:installer', ['sign:win32', 'clean:dist:win32'], (done) ->
   .then done, done
 
 # Create the win32 portable zip
-gulp.task 'pack:win32:portable', ['sign:win32', 'clean:dist:win32'], (done) ->
+gulp.task 'pack:win32:portable', ['build:win32', 'clean:dist:win32'], (done) ->
   gulp.src './build/win32'
     .pipe zip manifest.name + '-win32-portable.zip'
     .pipe gulp.dest './dist'

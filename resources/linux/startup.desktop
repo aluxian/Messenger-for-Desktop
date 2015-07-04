@@ -1,8 +1,11 @@
 [Desktop Entry]
+Name={{ productName }}
+Comment={{ description }}
+GenericName={{ genericName }}
+Exec=/opt/{{ name }}/{{ name }} --os-startup
+Icon={{ name }}
 Terminal=false
 Type=Application
-Name={{ productName }}
-Exec={{ name }} --os-startup
-Icon={{ name }}
-Comment={{ description }}
-X-GNOME-Autostart-enabled=true
+StartupNotify=true
+Categories={{ categories }}
+X-GNOME-Autostart-enabled=false

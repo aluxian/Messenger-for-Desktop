@@ -2,10 +2,9 @@
 Name={{ productName }}
 Comment={{ description }}
 GenericName={{ genericName }}
-Exec={{ name }}
+Exec=/opt/{{ name }}/{{ name }}
 Icon={{ name }}
 Terminal=false
 Type=Application
 StartupNotify=true
 Categories={{ categories }}
-MimeType=text/plain;
