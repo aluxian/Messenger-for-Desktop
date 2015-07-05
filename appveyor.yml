@@ -6,15 +6,16 @@ branches:
     - master
 
 environment:
-  nodejs_version: '0.12.4'
+  NODEJS_VERSION: '0.12.4'
+  SIGNTOOL_PATH: 'C:/Program Files (x86)/Microsoft SDKs/Windows/v7.1A/Bin/SignTool.exe'
 
 cache:
   - "node_modules -> package.json"
-  - "%APPDATA%\\npm\\node_modules -> package.json"
-  - "%APPDATA%\\npm-cache"
+  - "src/node_modules -> src/package.json"
+  - "%APPDATA%/npm-cache"
 
 install:
-  - ps: Install-Product node $env:nodejs_version
+  - ps: Install-Product node $env:NODEJS_VERSION
   - npm install -g gulp
   - npm install
 
