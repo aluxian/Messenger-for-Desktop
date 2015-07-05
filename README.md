@@ -1,6 +1,6 @@
 ![Electron SuperKit Logo](docs/logo.png)
 
-[![Dependency Status](https://david-dm.org/Aluxian/electron-superkit/status.svg)](https://david-dm.org/Aluxian/superkit#info=dependencies)
+[![Dependency Status](https://david-dm.org/Aluxian/electron-superkit/status.svg)](https://david-dm.org/Aluxian/electron-superkit#info=dependencies)
 
 :zap: *An Electron starter kit with super powers.* :zap:
 
