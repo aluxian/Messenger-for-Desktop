@@ -6,7 +6,6 @@ gulp = require 'gulp'
 zip = require 'gulp-zip'
 asar = require 'gulp-asar'
 
-appdmg = require 'appdmg'
 winInstaller = require 'electron-windows-installer'
 manifest = require '../src/package.json'
 
@@ -14,6 +13,12 @@ manifest = require '../src/package.json'
 gulp.task 'pack:darwin64', ['sign:darwin64', 'clean:dist:darwin64'], (done) ->
   if process.platform isnt 'darwin'
     console.warn 'Skipping darwin64 packing; This only works on darwin due to `appdmg` and the `codesign` command.'
+    return done()
+
+  try
+    appdmg = require 'appdmg'
+  catch ex
+    console.warn 'Skipping darwin64 packing; `appdmg` not installed.'
     return done()
 
   for envName in ['SIGN_DARWIN_KEYCHAIN_PASSWORD', 'SIGN_DARWIN_KEYCHAIN_NAME', 'SIGN_DARWIN_IDENTITY']
