@@ -32,12 +32,11 @@ You need the following:
 
 * [**node & npm**](https://nodejs.org/): I recommend the latest versions.
 * [**fpm**](https://github.com/jordansissel/fpm): Required to create deb and rpm packages.
-* [**wine**](https://www.winehq.org/): Only needed if you're not on Windows. Required to customize the Windows executable.
 
 Quickly install all this stuff on OS X:
 
     $ sudo gem install fpm
-    $ brew install node wine rpm
+    $ brew install node rpm
 
 #### Dependencies
 
