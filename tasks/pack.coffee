@@ -122,7 +122,7 @@ gulp.task 'pack:win32:portable', ['build:win32', 'clean:dist:win32'], (done) ->
     # Sign the exe
     (callback) ->
       cp.exec [
-        'signtool'
+        if process.env.SIGNTOOL_PATH then '"' + process.env.SIGNTOOL_PATH + '"' else 'signtool'
         '/f "' + process.env.SIGN_WIN_CERTIFICATE_FILE + '"'
         '/p "' + process.env.SIGN_WIN_CERTIFICATE_PASSWORD + '"'
         '"./build/win32/' + manifest.productName + '.exe"'
