@@ -22,6 +22,7 @@ build_script:
   - node --version
   - npm --version
   - gulp pack:win32:installer
+  - gulp pack:win32:portable
 
 artifacts:
   - path: dist\*

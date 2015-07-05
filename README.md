@@ -124,7 +124,7 @@ Or, if you prefer, create a portable zip. This will also sign the executable:
 
     $ gulp pack:win32:portable
 
-The installer can only be created on Windows machines until [Squirrel.Windows](https://github.com/Squirrel/Squirrel.Windows) works with [wine](https://www.winehq.org/).
+These tasks only work on Windows machines due to their dependencies: [Squirrel.Windows](https://github.com/Squirrel/Squirrel.Windows) and Microsoft's SignTool.
 
 ### Linux
 
