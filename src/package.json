@@ -1,8 +1,8 @@
 {
-  "name": "testie",
-  "productName": "Testie",
-  "version": "0.1.0",
-  "description": "An example app.",
+  "name": "superkit",
+  "productName": "SuperKit",
+  "version": "0.2.0",
+  "description": "An Electron starter kit with super powers.",
   "main": "./scripts/browser/main.js",
   "dependencies": {
     "lodash": "^3.10.0",
@@ -12,30 +12,30 @@
     "postinstall": "npm dedupe"
   },
   "license": "MIT",
-  "author": "John Doe <john@doe.com>",
-  "homepage": "http://www.example.com",
+  "author": "Alexandru Rosianu <me@aluxian.com>",
+  "homepage": "https://github.com/Aluxian/electron-superkit",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Aluxian/electron-super-starter.git"
+    "url": "https://github.com/Aluxian/electron-superkit.git"
   },
   "crashReporter": {
-    "productName": "Testie",
-    "companyName": "John Doe & Co.",
-    "submitUrl": "https://api.john.com/crash"
+    "productName": "SuperKit",
+    "companyName": "Aluxian",
+    "submitUrl": "https://api.example.com/crash"
   },
   "darwin": {
-    "bundleId": "com.john.testie",
-    "appCategoryType": "public.app-category.social-networking",
-    "copyright": "Copyright © John Doe & Co, 2015"
+    "bundleId": "com.aluxian.starterkit",
+    "appCategoryType": "public.app-category.developer-tools",
+    "copyright": "Copyright © Aluxian, 2015"
   },
   "linux": {
     "genericName": "Demo Application",
     "categories": "GNOME;GTK;Development;Documentation;",
     "section": "misc",
-    "vendor": "john.com"
+    "vendor": "aluxian.com"
   },
   "win": {
-    "companyName": "John Doe & Co.",
-    "copyright": "Copyright © John Doe & Co, 2015"
+    "companyName": "Aluxian",
+    "copyright": "Copyright © Aluxian, 2015"
   }
 }

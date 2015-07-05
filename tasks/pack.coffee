@@ -10,11 +10,16 @@ appdmg = require 'appdmg'
 winInstaller = require 'electron-windows-installer'
 manifest = require '../src/package.json'
 
-# Create a dmg for darwin64; only works on OS X because of appdmg
+# Sign the app and create a dmg for darwin64; only works on OS X because of appdmg and codesign
 gulp.task 'pack:darwin64', ['sign:darwin64', 'clean:dist:darwin64'], (done) ->
   if process.platform isnt 'darwin'
-    console.warn 'Skipping darwin64 packing; This only works on darwin due to `appdmg`.'
+    console.warn 'Skipping darwin64 packing; This only works on darwin due to `appdmg` and the `codesign` command.'
     return done()
+
+  for envName in ['SIGN_DARWIN_KEYCHAIN_PASSWORD', 'SIGN_DARWIN_KEYCHAIN_NAME', 'SIGN_DARWIN_IDENTITY']
+    if not process.env[envName]
+      console.warn envName + ' env var not set.'
+      return done()
 
   async.series [
     # First, compress the source files into an asar archive
@@ -26,6 +31,25 @@ gulp.task 'pack:darwin64', ['sign:darwin64', 'clean:dist:darwin64'], (done) ->
 
     # Remove leftovers
     async.apply del, './build/darwin64/' + manifest.productName + '.app/Contents/Resources/app'
+
+    # Unlock the keychain
+    async.apply cp.exec, [
+      'security'
+      'unlock-keychain'
+      '-p'
+      process.env.SIGN_DARWIN_KEYCHAIN_PASSWORD
+      process.env.SIGN_DARWIN_KEYCHAIN_NAME
+    ].join(' ')
+
+    # Sign the app package
+    async.apply cp.exec, [
+      'codesign'
+      '--deep'
+      '--force'
+      '--verbose'
+      '--sign "' + process.env.SIGN_DARWIN_IDENTITY + '"'
+      './build/darwin64/' + manifest.productName + '.app'
+    ].join(' ')
 
     # Create the dmg
     (callback) ->
@@ -67,7 +91,11 @@ gulp.task 'pack:darwin64', ['sign:darwin64', 'clean:dist:darwin64'], (done) ->
 # Create the win32 installer; only works on Windows
 gulp.task 'pack:win32:installer', ['build:win32', 'clean:dist:win32'], ->
   if process.platform isnt 'win32'
-    return console.warn 'Skipping win32 packing; This only works on Windows due to Squirrel.Windows.'
+    return console.warn 'Skipping win32 installer packing; This only works on Windows due to Squirrel.Windows.'
+
+  for envName in ['SIGN_WIN_CERTIFICATE_FILE', 'SIGN_WIN_CERTIFICATE_PASSWORD']
+    if not process.env[envName]
+      return console.warn envName + ' env var not set.'
 
   winInstaller
     appDirectory: './build/win32'
@@ -76,14 +104,37 @@ gulp.task 'pack:win32:installer', ['build:win32', 'clean:dist:win32'], ->
     certificateFile: process.env.SIGN_WIN_CERTIFICATE_FILE
     certificatePassword: process.env.SIGN_WIN_CERTIFICATE_PASSWORD
     setupIcon: './build/resources/win/setup.ico'
-    iconUrl: 'https://raw.githubusercontent.com/Aluxian/electron-super-starter/master/resources/win/app.ico'
+    iconUrl: 'https://raw.githubusercontent.com/Aluxian/electron-superkit/master/resources/win/app.ico'
     remoteReleases: manifest.repository.url
 
 # Create the win32 portable zip
 gulp.task 'pack:win32:portable', ['build:win32', 'clean:dist:win32'], (done) ->
-  gulp.src './build/win32'
-    .pipe zip manifest.name + '-win32-portable.zip'
-    .pipe gulp.dest './dist'
+  if process.platform isnt 'win32'
+    console.warn 'Skipping win32 portable packing; This only works on Windows due to signtool.'
+    return done()
+
+  for envName in ['SIGN_WIN_CERTIFICATE_FILE', 'SIGN_WIN_CERTIFICATE_PASSWORD']
+    if not process.env[envName]
+      console.warn envName + ' env var not set.'
+      return done()
+
+  async.series [
+    # Sign the exe
+    (callback) ->
+      cp.exec [
+        'signtool'
+        '/f "' + process.env.SIGN_WIN_CERTIFICATE_FILE + '"'
+        '/p "' + process.env.SIGN_WIN_CERTIFICATE_PASSWORD + '"'
+        '"./build/win32/' + manifest.productName + '.exe"'
+      ].join(' '), callback
+
+    # Archive the files
+    (callback) ->
+      gulp.src './build/win32'
+        .pipe zip manifest.name + '-win32-portable.zip'
+        .pipe gulp.dest './dist'
+        .on 'end', callback
+  ], done
 
 # Pack for all the platforms
 gulp.task 'pack', [

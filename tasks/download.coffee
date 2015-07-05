@@ -36,8 +36,8 @@ downloaded =
       downloaded[dist] = true
 
       # Also rename the .app on darwin
-      if process.platform is 'darwin'
-        fs.rename './build/' + dist + '/Electron.app', './build/' + dist + '/' + manifest.productName + '.app', done
+      if dist is 'darwin64'
+        fs.rename './build/darwin64/Electron.app', './build/darwin64/' + manifest.productName + '.app', done
       else
         done()
 

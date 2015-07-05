@@ -1,6 +1,6 @@
 {
   "title": "{{ productName }}",
-  "icon": "dmg_icon.icns",
+  "icon": "dmg.icns",
   "background": "dmg_bg.png",
   "icon-size": 80,
   "contents": [
