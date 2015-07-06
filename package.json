@@ -7,7 +7,7 @@
     "beeper": "^1.1.0",
     "coffee-script": "^1.9.3",
     "del": "^1.2.0",
-    "electron-windows-installer": "^1.0.3",
+    "electron-windows-installer": "^1.0.4",
     "fs-extra": "^0.21.0",
     "gulp": "^3.9.0",
     "gulp-asar": "^0.0.2",
