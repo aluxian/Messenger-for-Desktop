@@ -161,7 +161,9 @@ The `&` symbol is a placeholder for `{darwin64,linux32,linux64,win32}`.
 
 ### Code signing
 
-You'll need an Authenticode Code Signing Certificate if you intend to sign your Windows builds. This is not required, but extremely recommended.
+For development/internal use, creating installers without a signature is okay, but for a production app you need to sign your application. Internet Explorer's SmartScreen filter will block your app from being downloaded, and many anti-virus vendors will consider your app as malware unless you obtain a valid cert.
+
+Any certificate valid for "Authenticode Code Signing" will work, but if you get the right kind of code certificate, you can also opt-in to Windows Error Reporting.
 
 If you don't have a certificate, read my blog post about how to get one: [Free code signing certificate for Open-Source Software](http://blog.aluxian.com/free-code-signing-certificate-for-open-source-software/).
 
