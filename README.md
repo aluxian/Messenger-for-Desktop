@@ -28,6 +28,8 @@ Electron SuperKit uses [Gulp](http://gulpjs.com/) to build, sign, pack and publi
 
 ## Install pre-requisites
 
+[![Join the chat at https://gitter.im/Aluxian/electron-superkit](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Aluxian/electron-superkit?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Let's get started! You need the following:
 
 * [**node & npm**](https://nodejs.org/): I recommend the latest versions.
