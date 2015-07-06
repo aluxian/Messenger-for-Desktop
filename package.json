@@ -7,7 +7,7 @@
     "beeper": "^1.1.0",
     "coffee-script": "^1.9.3",
     "del": "^1.2.0",
-    "electron-windows-installer": "^1.0.0",
+    "electron-windows-installer": "^1.0.3",
     "fs-extra": "^0.21.0",
     "gulp": "^3.9.0",
     "gulp-asar": "^0.0.2",
@@ -26,7 +26,7 @@
     "require-dir": "^0.3.0"
   },
   "devDependencies": {
-    "babel-eslint": "^3.1.20",
+    "babel-eslint": "^3.1.21",
     "eslint": "^0.24.0"
   },
   "optionalDependencies": {
