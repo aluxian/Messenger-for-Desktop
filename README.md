@@ -69,7 +69,7 @@ You'll find all your neat stuff inside the `./build` folder. You can also use th
     $ gulp watch:linux64
     $ gulp watch:win32
 
-As you edit files in './src', they will be re-compiled and moved into the `build` folder.
+As you edit files in `./src`, they will be re-compiled and moved into the `build` folder.
 
 ## Pack
 
