@@ -101,6 +101,8 @@ Here's how the tasks depend on each other:
 
 The `&` symbol is a placeholder for `{darwin64,linux32,linux64,win32}`.
 
+If you don't have a code signing certificate, read my blog post: [Free Authenticode signing certificate for Open-Source Software](http://blog.aluxian.com/free-code-signing-certificate-for-open-source-software/).
+
 ## Time to build it!
 
 You'll be doing most of your magic work inside the `src` folder. Use the watch tasks to make development easier. When you're ready, press the red button! Ugh, I mean, run the pack task. Your freshly baked release will be waiting for you in the `dist` folder.
@@ -124,6 +126,8 @@ Or, if you prefer, create a portable zip. This will also sign the executable:
     $ gulp pack:win32:portable
 
 These tasks only work on Windows machines due to their dependencies: [Squirrel.Windows](https://github.com/Squirrel/Squirrel.Windows) and Microsoft's SignTool.
+
+You can also use AppVeyor for Windows builds. Just set a git tag to your commit and upload it. AppVeyor will start the build and create a new GitHub release with the specified tag. You'll also have to replace some secret keys with your own to make it work.
 
 ### Linux
 
