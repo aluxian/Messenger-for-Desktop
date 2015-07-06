@@ -3,7 +3,7 @@ init:
 
 branches:
   only:
-    - master
+    - deploy
 
 environment:
   NODEJS_VERSION: '0.12.4'
@@ -46,5 +46,4 @@ deploy:
     draft: true
     prerelease: false
     on:
-      branch: master
       appveyor_repo_tag: true
