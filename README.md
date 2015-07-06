@@ -1,6 +1,7 @@
 ![Electron SuperKit Logo](docs/logo.png)
 
 [![Dependency Status](https://david-dm.org/Aluxian/electron-superkit/status.svg)](https://david-dm.org/Aluxian/electron-superkit#info=dependencies)
+[![Join the chat at https://gitter.im/Aluxian/electron-superkit](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Aluxian/electron-superkit?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 :zap: *An Electron starter kit with super powers.* :zap:
 
@@ -27,8 +28,6 @@ Electron SuperKit uses [Gulp](http://gulpjs.com/) to build, sign, pack and publi
 > **Note**: The kit is not finished. I'm still working on polishing some features and making some others work. Why not join me? :)
 
 ## Install pre-requisites
-
-[![Join the chat at https://gitter.im/Aluxian/electron-superkit](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Aluxian/electron-superkit?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Let's get started! You need the following:
 
