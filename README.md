@@ -95,7 +95,7 @@ Or, if you prefer, create a portable zip. This will also sign the executable:
 
 These tasks only work on Windows machines due to their dependencies: [Squirrel.Windows](https://github.com/Squirrel/Squirrel.Windows) and Microsoft's SignTool.
 
-If you don't have a Windows machine at hand, you can use AppVeyor. When you push a tagged commit AppVeyor will automatically start the build and create a new GitHub release based on the appveyor.yml config file. You'll have to replace some secret keys in the config with your own to make it work.
+If you don't have a Windows machine at hand, you can use AppVeyor. When you push a tagged commit in a branch named `deploy`, AppVeyor will automatically start the build and create a new GitHub release based on the appveyor.yml config file. You'll have to replace some secret keys in the config with your own to make it work.
 
 ### Linux
 
@@ -128,7 +128,7 @@ Make sure you've installed [fpm](https://github.com/jordansissel/fpm).
 | .env-example                    | You should have these variables in your environment for various tasks.
 | .eslintignore, .eslintrc        | Useful if you use the [linter-eslint](https://atom.io/packages/linter-eslint) plugin for Atom.
 | .gitignore                      | C'mon, you're familiar with this stuff.
-| appveyor.yml                    | This file is used by AppVeyor to know how to build the Windows installer.
+| appveyor.yml                    | This file is used by AppVeyor to know how to build the Windows releases.
 | CHANGELOG.md                    | Write here your changes after each release. If you want to, of course.
 | design.sketch                   | The assets I designed for SuperKit. You can use it as a template to create your own.
 | gulpfile.coffee                 | Just an entry point to tell Gulp where to find our tasks.
