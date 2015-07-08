@@ -9,21 +9,21 @@
 
 Electron SuperKit uses [Gulp](http://gulpjs.com/) to build, sign, pack and publish your awesome apps. All the Electron goodies are included:
 
-- automatic updates (OS X, Windows)
-- crash reporting
-- windows installer
-- debugging & profiling
-- native menus & notifications
+- automatic updates for OS X and Windows (*not finished/not tested*)
+- crash reporting (*not tested*)
+- windows installer (*not fully tested*)
+- debugging & profiling (*not tested*)
+- native menus & notifications (*not tested*)
 
 :fire: Extra:
 
-- dmg installer for OS X
-- deb & rpm packages for Linux
-- write ES6 JavaScript, ship ES5 code
-- write LESS stylesheets, ship CSS code
-- automatically publish releases to GitHub
-- use [AppVeyor](http://www.appveyor.com/) to build Windows releases (no need for a Windows machine)
-- live reload in development
+- dmg installer for OS X (*it works*)
+- deb & rpm packages for Linux (*deb works, rpm not tested*)
+- write ES6 JavaScript, ship ES5 code (*it works*)
+- write LESS stylesheets, ship CSS code (*it works*)
+- automatically publish releases to GitHub (*not tested*)
+- use [AppVeyor](http://www.appveyor.com/) to build Windows releases (no need for a Windows machine) (*not finished*)
+- live reload in development (*doesn't seem to work yet*)
 
 > **Note**: The kit is not finished. I'm still working on polishing some features and making some others work. Why not join me? :)
 
