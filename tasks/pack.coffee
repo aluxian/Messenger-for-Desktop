@@ -74,6 +74,7 @@ gulp.task 'pack:darwin64', ['sign:darwin64', 'clean:dist:darwin64'], (done) ->
         '-s dir'
         '-t ' + target
         '--architecture ' + if arch == 32 then 'i386' else 'x86_64'
+        '--rpm-os linux'
         '--name ' + manifest.name
         '--force' # Overwrite existing files
         '--after-install ./build/resources/linux/after-install.sh'
