@@ -147,6 +147,7 @@ Don't forget to set the vars listed in `.env-example`. You'll need them for some
 | clean:dist:&                    | Remove files in dist and make sure the directory exists.
 | compile:&                       | Compile, process and move your code into the build folder.
 | download:&                      | Download the Electron framework. Cache the files, then unzip them and move them into the build folder.
+| kill:&                          | Kill the app if already running. Depends on the platform it is ran on.
 | pack:&                          | Create the installers/packages. These also handle app signing.
 | publish:github                  | Upload the dist files to GitHub.
 | purge:{build,cache,dist}        | Abolish the chosen directory.

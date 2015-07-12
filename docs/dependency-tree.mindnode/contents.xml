@@ -32,7 +32,7 @@
 				<key>location</key>
 				<string>{0, 0}</string>
 				<key>nodeID</key>
-				<string>710DE769-9537-4EDC-B325-E883F0E12D52</string>
+				<string>8E80590D-3008-4168-9909-FDA47589E6D4</string>
 				<key>strokeColor</key>
 				<string>{0.400, 0.200, 0.000, 1.000}</string>
 				<key>strokeStyle</key>
@@ -55,7 +55,7 @@
 						<key>location</key>
 						<string>{130, 0}</string>
 						<key>nodeID</key>
-						<string>87DDB624-C0C8-4714-8130-AFDF1965B146</string>
+						<string>3A9437C5-449A-41C5-BC8D-1B2409AFB8C7</string>
 						<key>strokeColor</key>
 						<string>{1.000, 0.400, 0.000, 1.000}</string>
 						<key>strokeStyle</key>
@@ -78,7 +78,7 @@
 								<key>location</key>
 								<string>{260, -25}</string>
 								<key>nodeID</key>
-								<string>3DB1EFC4-BED7-4C67-97AF-0B065CC8EAF6</string>
+								<string>3C129957-B7D2-4CF7-A281-274B0B37D345</string>
 								<key>strokeColor</key>
 								<string>{1.000, 0.400, 0.000, 1.000}</string>
 								<key>strokeStyle</key>
@@ -101,7 +101,7 @@
 										<key>location</key>
 										<string>{390, -50}</string>
 										<key>nodeID</key>
-										<string>04D30809-9912-4705-AC70-B6D8E17A6180</string>
+										<string>0F4ACA1F-6C3C-44ED-BB05-18F82CDE183F</string>
 										<key>strokeColor</key>
 										<string>{1.000, 0.400, 0.000, 1.000}</string>
 										<key>strokeStyle</key>
@@ -141,7 +141,7 @@
 										<key>location</key>
 										<string>{390, 0}</string>
 										<key>nodeID</key>
-										<string>DB550C4C-CF5D-4312-BAE7-B54FE21FB70E</string>
+										<string>02791652-D20C-4FC9-826B-B90134D0630A</string>
 										<key>strokeColor</key>
 										<string>{1.000, 0.400, 0.000, 1.000}</string>
 										<key>strokeStyle</key>
@@ -164,7 +164,7 @@
 												<key>location</key>
 												<string>{537, 0}</string>
 												<key>nodeID</key>
-												<string>317CA886-5A93-4379-A2F7-325B375F2051</string>
+												<string>B7CC5573-F3DC-42B1-94E3-1C02C5CAE484</string>
 												<key>strokeColor</key>
 												<string>{1.000, 0.400, 0.000, 1.000}</string>
 												<key>strokeStyle</key>
@@ -187,7 +187,7 @@
 														<key>location</key>
 														<string>{699, 0}</string>
 														<key>nodeID</key>
-														<string>2F52AA11-4B84-4DD6-AF15-6D2D6173B882</string>
+														<string>DC06C707-109C-4F42-A908-69C8DDD99B2C</string>
 														<key>strokeColor</key>
 														<string>{1.000, 0.400, 0.000, 1.000}</string>
 														<key>strokeStyle</key>
@@ -195,7 +195,48 @@
 														<key>strokeWidth</key>
 														<real>2</real>
 														<key>subnodes</key>
-														<array/>
+														<array>
+															<dict>
+																<key>contentAlignment</key>
+																<integer>1</integer>
+																<key>fillColor</key>
+																<string>{1.000, 0.961, 0.863, 1.000}</string>
+																<key>isDecreasingBranchThickness</key>
+																<false/>
+																<key>isDrawingFill</key>
+																<true/>
+																<key>isLeftAligned</key>
+																<false/>
+																<key>location</key>
+																<string>{857, 0}</string>
+																<key>nodeID</key>
+																<string>20DC95DF-A843-44F1-B08B-5482573E3BD9</string>
+																<key>strokeColor</key>
+																<string>{1.000, 0.400, 0.000, 1.000}</string>
+																<key>strokeStyle</key>
+																<integer>0</integer>
+																<key>strokeWidth</key>
+																<real>2</real>
+																<key>subnodes</key>
+																<array/>
+																<key>title</key>
+																<dict>
+																	<key>constrainedWidth</key>
+																	<integer>300</integer>
+																	<key>htmlText</key>
+																	<string>&lt;p style='color: rgba(102, 102, 102, 1.000000); font: 14px "Gill Sans"; -cocoa-font-postscriptname: "GillSans"; '&gt;kill:&amp;amp;&lt;/p&gt;</string>
+																	<key>shrinkToFitContent</key>
+																	<integer>1</integer>
+																	<key>text</key>
+																	<string>{\rtf1\ansi\ansicpg1252\cocoartf1348\cocoasubrtf170
+{\fonttbl\f0\fnil\fcharset0 GillSans;}
+{\colortbl;\red255\green255\blue255;\red102\green102\blue102;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
+
+\f0\fs28 \cf2 kill:&amp;}</string>
+																</dict>
+															</dict>
+														</array>
 														<key>title</key>
 														<dict>
 															<key>constrainedWidth</key>
@@ -281,7 +322,7 @@
 								<key>location</key>
 								<string>{260, 50}</string>
 								<key>nodeID</key>
-								<string>FBACDFFC-944A-43C4-B602-B4FD069BFE5C</string>
+								<string>93ECA66A-F349-457E-B25D-C1EB65B7E35E</string>
 								<key>strokeColor</key>
 								<string>{1.000, 0.400, 0.000, 1.000}</string>
 								<key>strokeStyle</key>
