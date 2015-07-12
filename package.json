@@ -22,6 +22,7 @@
     "gulp-mustache": "^1.0.2",
     "gulp-plumber": "^1.0.1",
     "gulp-zip": "^3.0.2",
+    "open": "0.0.5",
     "rcedit": "^0.3.0",
     "require-dir": "^0.3.0"
   },

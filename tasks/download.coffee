@@ -21,7 +21,7 @@ downloaded =
 ].forEach (release) ->
   [platform, arch, dist, outputDir] = release
 
-  gulp.task 'download:' + dist, (done) ->
+  gulp.task 'download:' + dist, ['kill:' + dist], (done) ->
     # Skip if already downloaded to speed up auto-reload
     if downloaded[dist]
       return done()

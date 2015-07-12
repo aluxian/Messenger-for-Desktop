@@ -73,9 +73,9 @@ gulp.task 'pack:darwin64', ['sign:darwin64', 'clean:dist:darwin64'], (done) ->
       args = [
         '-s dir'
         '-t ' + target
-        '--architecture ' + if arch == 32 then 'i386' else 'amd64'
+        '--architecture ' + if arch == 32 then 'i386' else 'x86_64'
         '--name ' + manifest.name
-        '--force' # Overwrite existing packages
+        '--force' # Overwrite existing files
         '--after-install ./build/resources/linux/after-install.sh'
         '--after-remove ./build/resources/linux/after-remove.sh'
         '--deb-changelog ./CHANGELOG.md'
@@ -87,7 +87,7 @@ gulp.task 'pack:darwin64', ['sign:darwin64', 'clean:dist:darwin64'], (done) ->
         '--maintainer "' + manifest.author + '"'
         '--vendor "' + manifest.linux.vendor + '"'
         '--version "' + manifest.version + '"'
-        '--package ' + './dist/'
+        '--package ' + './dist/' + manifest.name + '-VERSION-ARCH.' + target
         '-C ./build/linux' + arch
         '.'
       ]
