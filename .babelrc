@@ -1,5 +1,4 @@
 {
   "stage": 0,
-  "sourceMaps": "inline",
-  "optional": ["runtime"]
+  "sourceMaps": "inline"
 }
