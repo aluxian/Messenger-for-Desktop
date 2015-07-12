@@ -47,8 +47,9 @@ manifest = require '../src/package.json'
 
   # Move html files
   gulp.task 'compile:' + dist + ':html', ['clean:build:' + dist], ->
-    gulp.src './src/html/**/*'
-      .pipe embedlr()
+    gulp.src './src/html/**/*.html'
+      .pipe embedlr
+        src: 'http://localhost:35729/livereload.js?snipver=1'
       .pipe gulp.dest dir + '/html'
       .pipe livereload()
 

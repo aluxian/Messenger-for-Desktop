@@ -23,7 +23,7 @@ Electron SuperKit uses [Gulp](http://gulpjs.com/) to build, sign, pack and publi
 - write LESS stylesheets, ship CSS code
 - automatically publish releases to GitHub
 - use [AppVeyor](http://www.appveyor.com/) to build Windows releases (no need for a Windows machine) (*not finished*)
-- live reload in development (*doesn't seem to work yet*)
+- live reload in development
 
 > **Note**: The kit is not finished. I'm still working on polishing some features and making some others work. Why not join me? :)
 
