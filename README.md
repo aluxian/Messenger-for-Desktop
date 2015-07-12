@@ -31,7 +31,6 @@ Electron SuperKit uses [Gulp](http://gulpjs.com/) to build, sign, pack and publi
 
 Let's get started! You need the following:
 
-* [**node & npm**](https://nodejs.org/): I recommend the latest versions.
 * [**fpm**](https://github.com/jordansissel/fpm): Required to create deb and rpm packages.
 
 Quickly install all this stuff on OS X:
