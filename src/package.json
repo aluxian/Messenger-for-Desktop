@@ -6,7 +6,7 @@
   "main": "./scripts/browser/main.js",
   "dependencies": {
     "lodash": "^3.10.0",
-    "yargs": "^3.14.0"
+    "yargs": "^3.15.0"
   },
   "scripts": {
     "postinstall": "npm dedupe"
