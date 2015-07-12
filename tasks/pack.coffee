@@ -1,5 +1,6 @@
 cp = require 'child_process'
 async = require 'async'
+chmod = require 'chmod'
 del = require 'del'
 
 gulp = require 'gulp'
@@ -86,7 +87,7 @@ gulp.task 'pack:darwin64', ['sign:darwin64', 'clean:dist:darwin64'], (done) ->
         '--maintainer "' + manifest.author + '"'
         '--vendor "' + manifest.linux.vendor + '"'
         '--version "' + manifest.version + '"'
-        '--package ' + './dist/' + manifest.name + '-linux' + arch + '.' + target
+        '--package ' + './dist/'
         '-C ./build/linux' + arch
         '.'
       ]
