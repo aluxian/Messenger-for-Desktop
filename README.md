@@ -18,25 +18,27 @@ Electron SuperKit uses [Gulp](http://gulpjs.com/) to build, sign, pack and publi
 :fire: Extra:
 
 - dmg installer for OS X
-- deb & rpm packages for Linux (*deb works, rpm not tested*)
+- deb & rpm packages for Linux
 - write ES6 JavaScript, ship ES5 code
 - write LESS stylesheets, ship CSS code
 - automatically publish releases to GitHub
 - use [AppVeyor](http://www.appveyor.com/) to build Windows releases (no need for a Windows machine) (*not finished*)
 - live reload in development
 
-> **Note**: The kit is not finished. I'm still working on polishing some features and making some others work. Why not join me? :)
+Other ideas, not done yet:
+
+- sign the RPM
+
+> **Note**: The kit is not finished. I'm still working on polishing some features and making others work. Why not join me? I'm on Gitter :)
 
 ## Install pre-requisites
 
-Let's get started! You need the following:
+Let's get started! As a basic pre-requisite, you only need node.js and npm.
 
-* [**fpm**](https://github.com/jordansissel/fpm): Required to create deb and rpm packages.
-
-Quickly install all this stuff on OS X:
+If you want to build `deb` and `rpm` packages for Linux, you also need [fpm](https://github.com/jordansissel/fpm). To install it on OS X:
 
     $ sudo gem install fpm
-    $ brew install node rpm
+    $ brew install rpm
 
 ## Install dependencies
 
