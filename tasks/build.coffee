@@ -6,6 +6,7 @@ cp = require 'child_process'
 fs = require 'fs-extra'
 path = require 'path'
 
+utils = require './utils'
 manifest = require '../src/package.json'
 
 # Build for darwin64
@@ -15,12 +16,15 @@ gulp.task 'build:darwin64', ['resources:darwin', 'compile:darwin64', 'clean:buil
     (callback) ->
       fromPath = './build/resources/darwin/icon.icns'
       toPath = './build/darwin64/' + manifest.productName + '.app/Contents/Resources/' + manifest.name + '.icns'
-      fs.copy fromPath, toPath, callback
+      fs.copy fromPath, toPath, utils.log callback, fromPath, '=>', toPath
 
     # Rename the app executable
     (callback) ->
       exeDir = './build/darwin64/' + manifest.productName + '.app/Contents/MacOS/'
-      fs.rename exeDir + 'Electron', exeDir + manifest.productName, callback
+      fromPath = exeDir + 'Electron'
+      toPath = exeDir + manifest.productName
+
+      fs.rename fromPath, toPath, utils.log callback, fromPath, '=>', toPath
 
     # Configure Info.plist
     (callback) ->
@@ -28,12 +32,14 @@ gulp.task 'build:darwin64', ['resources:darwin', 'compile:darwin64', 'clean:buil
         console.warn 'Skipping Info.plist configuration; disable this check if you have `plutil` installed.'
         return callback()
 
-      plist = './build/darwin64/' + manifest.productName + '.app/Contents/Info.plist'
+      appPath = './build/darwin64/' + manifest.productName + '.app'
+      plistPath = appPath + '/Contents/Info.plist'
+
       args = [
         '-replace CFBundleName -string "' + manifest.productName + '"'
         '-replace CFBundleDisplayName -string "' + manifest.productName + '"'
         '-replace CFBundleExecutable -string "' + manifest.productName + '"'
-        '-replace CFBundleIconFile -string ' + manifest.name + '.icns'
+        '-replace CFBundleIconFile -string "' + manifest.name + '.icns"'
         '-replace CFBundleIdentifier -string "' + manifest.darwin.bundleId + '"'
         '-replace CFBundleVersion -string "' + manifest.version + '"'
         '-insert NSHumanReadableCopyright -string "' + manifest.darwin.copyright + '"'
@@ -41,8 +47,11 @@ gulp.task 'build:darwin64', ['resources:darwin', 'compile:darwin64', 'clean:buil
       ]
 
       async.each args, (arg, callback) ->
-        cp.exec ['plutil', arg, plist].join(' '), callback
-      , callback
+        args = ['plutil', arg, plistPath, '&&', 'touch', plistPath]
+        cp.exec args.join(' '), utils.log callback, 'plutil', arg, 'Info.plist && touch Info.plist'
+      , (err) ->
+        return callback err if err
+        cp.exec 'touch ' + appPath, utils.log callback, 'touch', appPath
   ], done
 
 # Build for linux32 and linux64
@@ -52,19 +61,22 @@ gulp.task 'build:darwin64', ['resources:darwin', 'compile:darwin64', 'clean:buil
       # Rename the executable
       (callback) ->
         exeDir = './build/' + dist + '/opt/' + manifest.name + '/'
-        fs.rename exeDir + 'electron', exeDir + manifest.name, callback
+        fromPath = exeDir + 'electron'
+        toPath = exeDir + manifest.name
+
+        fs.rename fromPath, toPath, utils.log callback, fromPath, '=>', toPath
 
       # Move the app's .desktop file
       (callback) ->
         fromPath = './build/resources/linux/app.desktop'
         toPath = './build/' + dist + '/usr/share/applications/' + manifest.name + '.desktop'
-        fs.copy fromPath, toPath, callback
+        fs.copy fromPath, toPath, utils.log callback, fromPath, '=>', toPath
 
       # Move the app's .desktop file to be used on startup
       (callback) ->
         fromPath = './build/resources/linux/startup.desktop'
         toPath = './build/' + dist + '/opt/' + manifest.name + '/startup.desktop'
-        fs.copy fromPath, toPath, callback
+        fs.copy fromPath, toPath, utils.log callback, fromPath, '=>', toPath
 
       # Move icons
       async.apply async.waterfall, [
@@ -74,7 +86,7 @@ gulp.task 'build:darwin64', ['resources:darwin', 'compile:darwin64', 'clean:buil
             size = path.basename file, '.png'
             fromPath = path.join './build/resources/linux/icons', file
             toPath = './build/' + dist + '/usr/share/icons/hicolor/' + size + 'x' + size + '/apps/' + manifest.name + '.png'
-            fs.copy fromPath, toPath, callback
+            fs.copy fromPath, toPath, utils.log callback, fromPath, '=>', toPath
           , callback
       ]
     ], done
@@ -84,7 +96,7 @@ gulp.task 'build:win32', ['resources:win', 'compile:win32', 'clean:build:win32']
   async.series [
     # Edit properties of the exe
     (callback) ->
-      rcedit './build/win32/electron.exe', {
+      properties =
         'version-string':
           ProductName: manifest.productName
           CompanyName: manifest.win.companyName
@@ -94,11 +106,14 @@ gulp.task 'build:win32', ['resources:win', 'compile:win32', 'clean:build:win32']
         'file-version': manifest.version
         'product-version': manifest.version
         'icon': './build/resources/win/app.ico'
-      }, callback
+
+      rcedit './build/win32/electron.exe', properties, utils.log callback, 'rcedit ./build/win32/electron.exe properties', properties
 
     # Rename the exe
     (callback) ->
-      fs.rename './build/win32/electron.exe', './build/win32/' + manifest.productName + '.exe', callback
+      fromPath = './build/win32/electron.exe'
+      toPath = './build/win32/' + manifest.productName + '.exe'
+      fs.rename fromPath, toPath, utils.log callback, fromPath, '=>', toPath
   ], done
 
 # Build the app for all platforms

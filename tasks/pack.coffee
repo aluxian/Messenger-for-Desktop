@@ -1,17 +1,16 @@
 cp = require 'child_process'
 async = require 'async'
-chmod = require 'chmod'
+asar = require 'asar'
 del = require 'del'
 
 gulp = require 'gulp'
 zip = require 'gulp-zip'
-asar = require 'gulp-asar'
 
 winInstaller = require 'electron-windows-installer'
 manifest = require '../src/package.json'
 
 # Sign the app and create a dmg for darwin64; only works on OS X because of appdmg and codesign
-gulp.task 'pack:darwin64', ['sign:darwin64', 'clean:dist:darwin64'], (done) ->
+gulp.task 'pack:darwin64', ['build:darwin64', 'clean:dist:darwin64'], (done) ->
   if process.platform isnt 'darwin'
     console.warn 'Skipping darwin64 packing; This only works on darwin due to `appdmg` and the `codesign` command.'
     return done()
@@ -29,11 +28,9 @@ gulp.task 'pack:darwin64', ['sign:darwin64', 'clean:dist:darwin64'], (done) ->
 
   async.series [
     # First, compress the source files into an asar archive
-    (callback) ->
-      gulp.src './build/darwin64/' + manifest.productName + '.app/Contents/Resources/app/**/*'
-        .pipe asar 'app.asar'
-        .pipe gulp.dest './build/darwin64/' + manifest.productName + '.app/Contents/Resources'
-        .on 'end', callback
+    async.apply asar.createPackage,
+      './build/darwin64/' + manifest.productName + '.app/Contents/Resources/app',
+      './build/darwin64/' + manifest.productName + '.app/Contents/Resources/app.asar'
 
     # Remove leftovers
     async.apply del, './build/darwin64/' + manifest.productName + '.app/Contents/Resources/app'
