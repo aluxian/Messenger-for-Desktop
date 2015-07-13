@@ -21,7 +21,7 @@
   "crashReporter": {
     "productName": "SuperKit",
     "companyName": "Aluxian",
-    "submitUrl": "http://localhost:1127"
+    "submitUrl": "http://localhost:1127/post"
   },
   "darwin": {
     "bundleId": "com.aluxian.starterkit",
