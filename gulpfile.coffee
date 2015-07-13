@@ -98,13 +98,13 @@ gulp.task 'pack:win32', ['build:win32'], ->
         .on 'end', ->
           shelljs.cd './build/linux'
 
-          port = if arch == 32 then 'i386' else 'amd64'
+          port = if arch == 32 then 'i386' else 'x86_64'
           output = "../../dist/Messenger_linux#{arch}.#{target}"
 
           shelljs.mkdir '-p', '../../dist' # it fails if the dir doesn't exist
           shelljs.rm '-f', output # it fails if the package already exists
 
-          shelljs.exec "fpm -s dir -t #{target} -a #{port} -n messengerfordesktop --after-install ./opt/MessengerForDesktop/after-install.sh --after-remove ./opt/MessengerForDesktop/after-remove.sh --license MIT --category Chat --url \"https://messengerfordesktop.com\" --description \"A simple and beautiful app for Facebook Messenger. Chat without distractions on any OS.\" -m \"Alexandru Rosianu <me@aluxian.com>\" -p #{output} -v #{manifest.version} ."
+          shelljs.exec "fpm -s dir -t #{target} -a #{port} --rpm-os linux -n messengerfordesktop --after-install ./opt/MessengerForDesktop/after-install.sh --after-remove ./opt/MessengerForDesktop/after-remove.sh --license MIT --category Chat --url \"https://messengerfordesktop.com\" --description \"A simple and beautiful app for Facebook Messenger. Chat without distractions on any OS.\" -m \"Alexandru Rosianu <me@aluxian.com>\" -p #{output} -v #{manifest.version} ."
           shelljs.cd '../..'
 
 # Make packages for all platforms
