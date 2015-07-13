@@ -1,6 +1,7 @@
 cp = require 'child_process'
 async = require 'async'
 asar = require 'asar'
+path = require 'path'
 del = require 'del'
 
 gulp = require 'gulp'
@@ -90,10 +91,21 @@ gulp.task 'pack:darwin64', ['build:darwin64', 'clean:dist:darwin64'], (done) ->
         '.'
       ]
 
-      cp.exec 'fpm ' + args.join(' '), done
+      async.series [
+        # First, compress the source files into an asar archive
+        async.apply asar.createPackage,
+          './build/linux' + arch + '/opt/' + manifest.name + '/resources/app',
+          './build/linux' + arch + '/opt/' + manifest.name + '/resources/app.asar'
+
+        # Remove leftovers
+        async.apply del, './build/linux' + arch + '/opt/' + manifest.name + '/resources/app'
+
+        # Package the app
+        async.apply cp.exec, 'fpm ' + args.join(' ')
+      ], done
 
 # Create the win32 installer; only works on Windows
-gulp.task 'pack:win32:installer', ['build:win32', 'clean:dist:win32'], ->
+gulp.task 'pack:win32:installer', ['build:win32', 'clean:dist:win32'], (done) ->
   if process.platform isnt 'win32'
     return console.warn 'Skipping win32 installer packing; This only works on Windows due to Squirrel.Windows.'
 
@@ -101,15 +113,26 @@ gulp.task 'pack:win32:installer', ['build:win32', 'clean:dist:win32'], ->
     if not process.env[envName]
       return console.warn envName + ' env var not set.'
 
-  winInstaller
-    appDirectory: './build/win32'
-    outputDirectory: './dist'
-    loadingGif: './build/resources/win/install-spinner.gif'
-    certificateFile: process.env.SIGN_WIN_CERTIFICATE_FILE
-    certificatePassword: process.env.SIGN_WIN_CERTIFICATE_PASSWORD
-    setupIcon: './build/resources/win/setup.ico'
-    iconUrl: 'https://raw.githubusercontent.com/Aluxian/electron-superkit/master/resources/win/app.ico'
-    remoteReleases: manifest.repository.url
+  async.series [
+    # First, compress the source files into an asar archive
+    async.apply asar.createPackage, './build/win32/resources/app', './build/win32/resources/app.asar'
+
+    # Remove leftovers
+    async.apply del, './build/win32/resources/app'
+
+    # Create the installer
+    (callback) ->
+      winInstaller
+        appDirectory: './build/win32'
+        outputDirectory: './dist'
+        loadingGif: './build/resources/win/install-spinner.gif'
+        certificateFile: process.env.SIGN_WIN_CERTIFICATE_FILE
+        certificatePassword: process.env.SIGN_WIN_CERTIFICATE_PASSWORD
+        setupIcon: './build/resources/win/setup.ico'
+        iconUrl: 'https://raw.githubusercontent.com/Aluxian/electron-superkit/master/resources/win/app.ico'
+        remoteReleases: manifest.repository.url
+      .then callback, callback
+  ], done
 
 # Create the win32 portable zip
 gulp.task 'pack:win32:portable', ['build:win32', 'clean:dist:win32'], (done) ->
@@ -123,18 +146,25 @@ gulp.task 'pack:win32:portable', ['build:win32', 'clean:dist:win32'], (done) ->
       return done()
 
   async.series [
+    # First, compress the source files into an asar archive
+    async.apply asar.createPackage, './build/win32/resources/app', './build/win32/resources/app.asar'
+
+    # Remove leftovers
+    async.apply del, './build/win32/resources/app'
+
     # Sign the exe
     (callback) ->
       cp.exec [
         if process.env.SIGNTOOL_PATH then '"' + process.env.SIGNTOOL_PATH + '"' else 'signtool'
-        '/f "' + process.env.SIGN_WIN_CERTIFICATE_FILE + '"'
-        '/p "' + process.env.SIGN_WIN_CERTIFICATE_PASSWORD + '"'
-        '"./build/win32/' + manifest.productName + '.exe"'
+        'sign'
+        '/f ' + process.env.SIGN_WIN_CERTIFICATE_FILE
+        '/p ' + process.env.SIGN_WIN_CERTIFICATE_PASSWORD
+        path.win32.resolve './build/win32/' + manifest.productName + '.exe'
       ].join(' '), callback
 
     # Archive the files
     (callback) ->
-      gulp.src './build/win32'
+      gulp.src './build/win32/**/*'
         .pipe zip manifest.name + '-win32-portable.zip'
         .pipe gulp.dest './dist'
         .on 'end', callback
