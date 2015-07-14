@@ -4,9 +4,11 @@ import app from 'app';
 
 function spawnSquirrel(args, callback) {
   const squirrelExec = path.join(path.dirname(process.execPath), 'Squirrel.exe');
+  console.log('[squirrel-events]', 'spawning', squirrelExec, args);
+
   cp.spawn(squirrelExec, args, { detached: true }).on('close', function(code) {
     if (code) {
-      console.error(squirrelExec, 'exited with code', code);
+      console.error('[squirrel-events]', squirrelExec, 'exited with code', code);
     } else {
       callback();
     }
