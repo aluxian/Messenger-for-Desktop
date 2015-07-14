@@ -9,11 +9,12 @@
 
 Electron SuperKit uses [Gulp](http://gulpjs.com/) to build, sign, pack and publish your awesome apps. All the Electron goodies are included:
 
-- automatic updates for OS X and Windows (*not finished*)
 - native crash reporting
 - windows installer
 - debugging & profiling
 - native menus & notifications
+
+Squirrel updates for OS X and Windows are NOT implemented. Instead, I created a custom updater that just compares the local package.json with a remote one on startup.
 
 :fire: Extra:
 
@@ -28,6 +29,7 @@ Electron SuperKit uses [Gulp](http://gulpjs.com/) to build, sign, pack and publi
 Other ideas, not done yet:
 
 - sign the RPM
+- use a custom logger (bunyan, winston)
 
 > **Note**: The kit is not finished. I'm still working on polishing some features and making others work. Why not join me? I'm on Gitter :)
 
