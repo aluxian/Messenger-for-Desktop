@@ -12,6 +12,9 @@ export default {
         if (reqErr) {
           console.error('[updater]', 'error while checking for update:', reqErr);
           return resolve(false); // ignore errors
+        } else if (response.statusCode !== 200) {
+          console.error('[updater]', manifest.updater.manifestUrl, 'returned status code', response.statusCode, 'and body:', body);
+          return resolve(false); // ignore errors
         }
 
         const newManifest = JSON.parse(body);
