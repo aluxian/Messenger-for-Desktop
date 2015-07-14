@@ -58,7 +58,7 @@
       { label: 'Electron Website', command: 'application:open-url', url: 'http://electron.atom.io' }
       { label: 'Community Discussions', command: 'application:open-url', url: 'https://discuss.atom.io/c/electron' }
       { type: 'separator' }
-      { label: 'Electron Documentation', command: 'application:open-url', url: 'https://github.com/atom/electron/tree/master/docs#readme' }
+      { label: 'Electron Docs', command: 'application:open-url', url: 'https://github.com/atom/electron/tree/master/docs#readme' }
       { label: 'Electron SuperKit Wiki', command: 'application:open-url', url: 'https://github.com/Aluxian/electron-superkit/wiki' }
       { type: 'separator' }
       { label: 'Report Issue', command: 'application:open-url', url: 'https://github.com/Aluxian/electron-superkit/issues' }

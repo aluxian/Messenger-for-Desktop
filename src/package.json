@@ -5,7 +5,10 @@
   "description": "An Electron starter kit with super powers.",
   "main": "./scripts/browser/main.js",
   "dependencies": {
-    "lodash": "^3.10.0",
+    "babel-runtime": "^5.6.19",
+    "mustache": "^2.1.2",
+    "request": "^2.58.0",
+    "semver": "^5.0.0",
     "yargs": "^3.15.0"
   },
   "scripts": {
@@ -22,6 +25,14 @@
     "productName": "SuperKit",
     "companyName": "Aluxian",
     "submitUrl": "http://localhost:1127/post"
+  },
+  "updater": {
+    "manifestUrl": "https://raw.githubusercontent.com/Aluxian/electron-superkit/deploy/src/package.json",
+    "download": {
+      "darwin": "https://github.com/Aluxian/electron-superkit/releases/download/v{{ version }}/{{ productName }}.dmg",
+      "linux": "https://github.com/Aluxian/electron-superkit/releases/download/v{{ version }}/{{ name }}-{{ version }}-{{ arch }}.{{ target }}",
+      "win": "https://github.com/Aluxian/electron-superkit/releases/download/v{{ version }}/{{ productName }}Setup.exe"
+    }
   },
   "darwin": {
     "bundleId": "com.aluxian.starterkit",

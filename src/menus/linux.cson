@@ -20,12 +20,12 @@
     label: '&Help'
     submenu: [
       { label: 'Version {{ version }}', enabled: false }
-      { label: 'Check for Update', command: 'application:open-url', url: 'https://github.com/Aluxian/electron-superkit' }
+      { label: 'Check for Update', command: 'application:check-for-update' }
       { type: 'separator' }
       { label: 'Electron Website', command: 'application:open-url', url: 'http://electron.atom.io' }
       { label: 'Community Discussions', command: 'application:open-url', url: 'https://discuss.atom.io/c/electron' }
       { type: 'separator' }
-      { label: 'Electron Documentation', command: 'application:open-url', url: 'https://github.com/atom/electron/tree/master/docs#readme' }
+      { label: 'Electron Docs', command: 'application:open-url', url: 'https://github.com/atom/electron/tree/master/docs#readme' }
       { label: 'Electron SuperKit Docs', command: 'application:open-url', url: 'https://github.com/Aluxian/electron-superkit/wiki' }
       { type: 'separator' }
       { label: '&Report Issue', command: 'application:open-url', url: 'https://github.com/Aluxian/electron-superkit/issues' }

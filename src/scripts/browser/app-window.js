@@ -1,4 +1,3 @@
-import lodash from 'lodash';
 import shell from 'shell';
 
 import BrowserWindow from 'browser-window';
@@ -10,7 +9,6 @@ class AppWindow extends EventEmitter {
    * Create a browser window based off of some default settings.
    *
    * @param {Object} options
-   * @return {AppWindow}
    */
   constructor(options) {
     super();
@@ -28,7 +26,7 @@ class AppWindow extends EventEmitter {
       }
     };
 
-    this.settings = lodash.extend(defaults, options);
+    this.settings = Object.assign(defaults, options);
     this.window = this.createBrowserWindow(this.settings);
   }
 

@@ -15,8 +15,6 @@ class Application extends EventEmitter {
    *
    * @param {Object} manifest
    * @param {Object} options
-   *
-   * @return {Application}
    */
   constructor(manifest, options) {
     super();

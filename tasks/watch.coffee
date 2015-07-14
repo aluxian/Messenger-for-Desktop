@@ -1,13 +1,11 @@
 cp = require 'child_process'
-path = require 'path'
-open = require 'open'
 gulp = require 'gulp'
 livereload = require 'gulp-livereload'
 manifest = require '../src/package.json'
 
 # Watch files and reload the app on changes
 [
-  ['darwin64', './build/darwin64/' + manifest.productName + '.app']
+  ['darwin64', './build/darwin64/' + manifest.productName + '.app/Contents/MacOS/' + manifest.productName]
   ['linux32', './build/linux32/opt/' + manifest.name + '/' + manifest.name]
   ['linux64', './build/linux64/opt/' + manifest.name + '/' + manifest.name]
   ['win32', './build/win32/' + manifest.productName + '.exe']
@@ -15,12 +13,9 @@ manifest = require '../src/package.json'
   [dist, runnablePath] = item
 
   gulp.task 'watch:' + dist, ['build:' + dist], ->
+    # Start livereload and launch the app
     livereload.listen()
-
-    # Launch the app
-    setTimeout ->
-      open runnablePath
-    , 2500
+    cp.spawn runnablePath
 
     gulp.watch './src/menus/**/*', ['compile:' + dist + ':menus']
     gulp.watch './src/styles/**/*', ['compile:' + dist + ':styles']

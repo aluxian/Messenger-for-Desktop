@@ -5,8 +5,6 @@ class AppMenu extends EventEmitter {
 
   /**
    * Build a menu based on a platform-specific template.
-   *
-   * @return {AppMenu}
    */
   constructor() {
     super();

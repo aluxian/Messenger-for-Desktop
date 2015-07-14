@@ -1,7 +1,9 @@
 cp = require 'child_process'
-async = require 'async'
-asar = require 'asar'
 path = require 'path'
+fs = require 'fs'
+
+asar = require 'asar'
+async = require 'async'
 del = require 'del'
 
 gulp = require 'gulp'
@@ -99,6 +101,9 @@ gulp.task 'pack:darwin64', ['build:darwin64', 'clean:dist:darwin64'], (done) ->
 
         # Remove leftovers
         async.apply del, './build/linux' + arch + '/opt/' + manifest.name + '/resources/app'
+
+        # Create a file with the target name
+        async.apply fs.writeFile, './build/linux' + arch + '/opt/' + manifest.name + '/pkgtarget', target
 
         # Package the app
         async.apply cp.exec, 'fpm ' + args.join(' ')
