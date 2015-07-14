@@ -1,9 +1,10 @@
 import cp from 'child_process';
 import path from 'path';
 import app from 'app';
+import del from 'del';
 
 function spawnSquirrel(args, callback) {
-  const squirrelExec = path.join(path.dirname(process.execPath), 'Squirrel.exe');
+  const squirrelExec = path.join(path.dirname(process.execPath), '..', 'Update.exe');
   console.log('[squirrel-events]', 'spawning', squirrelExec, args);
 
   cp.spawn(squirrelExec, args, { detached: true }).on('close', function(code) {
@@ -22,16 +23,25 @@ export default {
     }
 
     const squirrelCommand = process.argv[1];
+    const execName = path.basename(process.execPath);
+
     switch (squirrelCommand) {
       case '--squirrel-install':
-        spawnSquirrel(['--createShortcut', process.execPath], app.quit);
+        spawnSquirrel(['--createShortcut', execName], app.quit);
         return true;
 
       case '--squirrel-uninstall':
-        spawnSquirrel(['--removeShortcut', process.execPath], app.quit);
+        spawnSquirrel(['--removeShortcut', execName], app.quit);
+
+        // Delete app data leftovers
+        del(app.getPath('userData'));
+
         return true;
 
       case '--squirrel-updated':
+        // Remove previous app dirs
+        del(['../app-*/**', '!../app-' + app.getVersion() + '/**'], { force: true });
+
       case '--squirrel-obsolete':
         app.quit();
         return true;

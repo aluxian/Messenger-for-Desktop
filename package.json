@@ -9,7 +9,7 @@
     "coffee-script": "^1.9.3",
     "colors": "^1.1.2",
     "del": "^1.2.0",
-    "electron-windows-installer": "^1.0.8",
+    "electron-windows-installer": "^1.1.0",
     "fs-extra": "^0.22.1",
     "gulp": "^3.9.0",
     "gulp-babel": "^5.1.0",

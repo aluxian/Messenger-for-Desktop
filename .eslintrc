@@ -10,6 +10,7 @@
   },
   "rules": {
     "quotes": [2, "single"],
-    "no-process-exit": 0
+    "no-process-exit": 0,
+    "no-fallthrough": 0
   }
 }

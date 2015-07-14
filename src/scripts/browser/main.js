@@ -32,7 +32,8 @@ process.on('uncaughtException', error => console.error(error.stack));
     console.log(`${app.getName()} ${app.getVersion()}`);
     console.log(`Electron ${process.versions.electron}`);
     console.log(`Chromium ${process.versions.chrome}`);
-    process.exit(0);
+    app.quit();
+    return;
   }
 
   // Enable the crash reporter

@@ -1,7 +1,7 @@
 {
   "name": "superkit",
   "productName": "SuperKit",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "An Electron starter kit with super powers.",
   "main": "./scripts/browser/main.js",
   "dependencies": {
