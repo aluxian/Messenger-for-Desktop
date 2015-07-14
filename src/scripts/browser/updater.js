@@ -18,10 +18,10 @@ export default {
         const newVersionExists = semver.gt(newManifest.version, manifest.version);
 
         if (!newVersionExists) {
-          console.log('[updater]', 'the app is using the latest version:', manifest.version);
+          console.log('[updater]', 'using the latest version:', manifest.version);
           return resolve(false);
         } else {
-          console.log('[updater]', 'new app version available:', newManifest.version);
+          console.log('[updater]', 'new version available:', newManifest.version);
         }
 
         dialog.showMessageBox({
@@ -49,17 +49,8 @@ export default {
                 return reject(readErr);
               }
 
-              const template = {
-                platform,
-                target,
-                arch: {
-                  ia32: 'i386',
-                  x64: 'x86_64'
-                }[process.arch]
-              };
-
-              let link = newManifest.updater.download.linux;
-              link = mustache.render(link, Object.assign(template, newManifest));
+              let link = newManifest.updater.download.linux[target][process.arch];
+              link = mustache.render(link, newManifest);
 
               console.log('[updater]', 'the user seems to be on a ' + target + '-based linux');
               console.log('[updater]', 'user confirmed update, opening link:', link);

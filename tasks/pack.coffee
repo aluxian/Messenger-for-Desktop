@@ -70,10 +70,17 @@ gulp.task 'pack:darwin64', ['build:darwin64', 'clean:dist:darwin64'], (done) ->
 [32, 64].forEach (arch) ->
   ['deb', 'rpm'].forEach (target) ->
     gulp.task 'pack:linux' + arch + ':' + target, ['build:linux' + arch, 'clean:dist:linux' + arch], (done) ->
+      if arch == 32
+        archName = 'i386'
+      else if target is 'deb'
+        archName = 'amd64'
+      else
+        archName = 'x86_64'
+
       args = [
         '-s dir'
         '-t ' + target
-        '--architecture ' + if arch == 32 then 'i386' else 'x86_64'
+        '--architecture ' + archName
         '--rpm-os linux'
         '--name ' + manifest.name
         '--force' # Overwrite existing files
