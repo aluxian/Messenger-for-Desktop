@@ -1,3 +1,7 @@
+0.2.1
+- More fixes
+- More features
+
 0.2.0
 - New app name
 - Crash reporting
