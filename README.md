@@ -34,12 +34,12 @@ Other ideas, not done yet:
 
 > **Note**: The kit is not finished. I'm still working on polishing some features and making others work. Why not join me? I'm on Gitter :)
 
-## Getting started
+## Getting started :sparkles:
 
 Everything you need to know ~~is~~ should be in the wiki. I'm still working on it, so there might still be some missing pieces. If you need help with anything just ask and I'll write about it.
 
-[Get Started](https://github.com/Aluxian/electron-superkit/wiki/Home)!
+[Get Started](https://github.com/Aluxian/electron-superkit/wiki/Home)
 
-## Contributions
+## Contributions :pray:
 
 Contributions are welcome! For feature requests and bug reports please [submit an issue](https://github.com/Aluxian/electron-superkit/issues) or get in touch with me on [Gitter](https://gitter.im/Aluxian/electron-superkit?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) or Twitter [@aluxian](https://twitter.com/aluxian).
