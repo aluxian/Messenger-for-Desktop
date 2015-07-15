@@ -38,7 +38,7 @@ Other ideas, not done yet:
 
 Everything you need to know ~~is~~ should be in the wiki. I'm still working on it, so there might still be some missing pieces. If you need help with anything just ask and I'll write about it.
 
-Read the [Getting Started](https://github.com/Aluxian/electron-superkit/wiki/Getting-Started) page.
+[Get Started](https://github.com/Aluxian/electron-superkit/wiki/Home)!
 
 ## Contributions
 
