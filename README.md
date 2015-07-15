@@ -92,9 +92,9 @@ Make sure you've installed [fpm](https://github.com/jordansissel/fpm).
 
 This project does not attempt to reverse engineer the WhatsApp API or attempt to reimplement any part of the WhatsApp client. Any communication between the user and WhatsApp servers is handled by WhatsApp Web itself; this is just a native wrapper for WhatsApp Web.
 
-## Contributions
+## Contributions :pray:
 
-Contributions are welcome! For feature requests and bug reports please [submit an issue](https://github.com/Aluxian/Whatsie/issues).
+Contributions are welcome! For feature requests and bug reports please [submit an issue](https://github.com/Aluxian/electron-superkit/issues) or get in touch with me on [Gitter](https://gitter.im/Aluxian/electron-superkit?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) or Twitter [@aluxian](https://twitter.com/aluxian).
 
 ## License
 

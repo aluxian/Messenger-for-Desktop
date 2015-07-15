@@ -14,7 +14,7 @@ export default {
 
           if (alwaysNotify) {
             return dialog.showMessageBox({
-              type: 'error',
+              type: 'warning',
               message: `Error while checking for update. Please contact the developer.`,
               detail: reqErr.toString(),
               buttons: ['OK']
@@ -29,7 +29,7 @@ export default {
 
           if (alwaysNotify) {
             return dialog.showMessageBox({
-              type: 'error',
+              type: 'warning',
               message: `The update server returned status code ${response.statusCode}. Please contact the developer.`,
               detail: body,
               buttons: ['OK']
