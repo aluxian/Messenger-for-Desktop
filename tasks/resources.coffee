@@ -5,7 +5,7 @@ manifest = require '../src/package.json'
 
 # Move and process the resources for darwin64
 gulp.task 'resources:darwin', ->
-  templateFilter = filter '*.json'
+  templateFilter = filter ['*.plist', '*.json']
 
   gulp.src './resources/darwin/**/*'
     .pipe templateFilter

@@ -26,32 +26,16 @@ gulp.task 'build:darwin64', ['resources:darwin', 'compile:darwin64', 'clean:buil
 
       fs.rename fromPath, toPath, utils.log callback, fromPath, '=>', toPath
 
-    # Configure Info.plist
+    # Move the new Info.plist
     (callback) ->
-      if process.platform isnt 'darwin'
-        console.warn 'Skipping Info.plist configuration; disable this check if you have `plutil` installed.'
-        return callback()
+      fromPath = './build/resources/darwin/Info.plist'
+      toPath = './build/darwin64/' + manifest.productName + '.app/Contents/Info.plist'
+      fs.copy fromPath, toPath, utils.log callback, fromPath, '=>', toPath
 
-      appPath = './build/darwin64/' + manifest.productName + '.app'
-      plistPath = appPath + '/Contents/Info.plist'
-
-      args = [
-        '-replace CFBundleName -string "' + manifest.productName + '"'
-        '-replace CFBundleDisplayName -string "' + manifest.productName + '"'
-        '-replace CFBundleExecutable -string "' + manifest.productName + '"'
-        '-replace CFBundleIconFile -string "' + manifest.name + '.icns"'
-        '-replace CFBundleIdentifier -string "' + manifest.darwin.bundleId + '"'
-        '-replace CFBundleVersion -string "' + manifest.version + '"'
-        '-insert NSHumanReadableCopyright -string "' + manifest.darwin.copyright + '"'
-        '-insert LSApplicationCategoryType -string "' + manifest.darwin.appCategoryType + '"'
-      ]
-
-      async.each args, (arg, callback) ->
-        args = ['plutil', arg, plistPath, '&&', 'touch', plistPath]
-        cp.exec args.join(' '), utils.log callback, 'plutil', arg, 'Info.plist && touch Info.plist'
-      , (err) ->
-        return callback err if err
-        cp.exec 'touch ' + appPath, utils.log callback, 'touch', appPath
+    # Touch the .app to refresh it
+    (callback) ->
+      cmd = 'touch ./build/darwin64/' + manifest.productName + '.app'
+      cp.exec cmd, utils.log callback, cmd
   ], done
 
 # Build for linux32 and linux64
