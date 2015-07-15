@@ -93,7 +93,6 @@ gulp.task 'pack:darwin64', ['build:darwin64', 'clean:dist:darwin64'], (done) ->
         '--description "' + manifest.description + '"'
         '--url "' + manifest.homepage + '"'
         '--maintainer "' + manifest.author + '"'
-        '--vendor "' + manifest.linux.vendor + '"'
         '--version "' + manifest.version + '"'
         '--package ' + './dist/' + manifest.name + '-VERSION-ARCH.' + target
         '-C ./build/linux' + arch

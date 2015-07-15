@@ -14,7 +14,7 @@ gulp.task 'build:darwin64', ['resources:darwin', 'compile:darwin64', 'clean:buil
   async.series [
     # Move the new icon
     (callback) ->
-      fromPath = './build/resources/darwin/icon.icns'
+      fromPath = './build/resources/darwin/app.icns'
       toPath = './build/darwin64/' + manifest.productName + '.app/Contents/Resources/' + manifest.name + '.icns'
       fs.copy fromPath, toPath, utils.log callback, fromPath, '=>', toPath
 

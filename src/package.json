@@ -46,16 +46,16 @@
   "darwin": {
     "bundleId": "com.aluxian.starterkit",
     "appCategoryType": "public.app-category.developer-tools",
-    "copyright": "Copyright © Aluxian, 2015"
+    "copyright": "Copyright © Aluxian"
   },
   "linux": {
     "genericName": "Demo Application",
     "categories": "GNOME;GTK;Development;Documentation;",
-    "section": "misc",
-    "vendor": "aluxian.com"
+    "keywords": "Electron;",
+    "section": "web"
   },
   "win": {
     "companyName": "Aluxian",
-    "copyright": "Copyright © Aluxian, 2015"
+    "copyright": "Copyright © Aluxian"
   }
 }
