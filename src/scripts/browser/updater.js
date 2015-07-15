@@ -6,7 +6,7 @@ import request from 'request';
 import semver from 'semver';
 
 export default {
-  checkAndPrompt: function(manifest) {
+  checkAndPrompt: function(manifest, notifyIfExisting) {
     return new Promise(function(resolve, reject) {
       request(manifest.updater.manifestUrl, function(reqErr, response, body) {
         if (reqErr) {
@@ -22,6 +22,15 @@ export default {
 
         if (!newVersionExists) {
           console.log('[updater]', 'using the latest version:', manifest.version);
+
+          if (notifyIfExisting) {
+            dialog.showMessageBox({
+              type: 'info',
+              message: `You're using the latest version: ${newManifest.version}.`,
+              buttons: ['OK']
+            });
+          }
+
           return resolve(false);
         } else {
           console.log('[updater]', 'new version available:', newManifest.version);

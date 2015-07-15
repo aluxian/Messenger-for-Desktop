@@ -7,6 +7,7 @@ import BrowserWindow from 'browser-window';
 
 import AppMenu from './app-menu';
 import AppWindow from './app-window';
+import Updater from './updater';
 
 class Application extends EventEmitter {
 
@@ -46,7 +47,7 @@ class Application extends EventEmitter {
   createMenu() {
     const menu = new AppMenu();
 
-    // Handle general events
+    // Handle application events
     menu.on('application:quit', ::app.quit);
 
     menu.on('application:show-settings', function() {
@@ -57,13 +58,14 @@ class Application extends EventEmitter {
       shell.openExternal(menuItem.url);
     });
 
-    // Handle update events
-    menu.on('application:install-update', function() {
-
-    });
-
-    menu.on('application:check-for-update', function() {
-
+    menu.on('application:check-for-update', () => {
+      Updater.checkAndPrompt(this.manifest, true)
+        .then(function(willUpdate) {
+          if (willUpdate) {
+            app.quit();
+          }
+        })
+        .catch(::console.error);
     });
 
     // Handle window events
