@@ -13,9 +13,13 @@ manifest = require '../src/package.json'
   [dist, runnablePath] = item
 
   gulp.task 'watch:' + dist, ['build:' + dist], ->
-    # Start livereload and launch the app
+    # Start livereload
     livereload.listen()
-    cp.spawn runnablePath
+
+    # Launch the app
+    proc = cp.spawn runnablePath
+    proc.stdout.pipe process.stdout
+    proc.stderr.pipe process.stderr
 
     gulp.watch './src/menus/**/*', ['compile:' + dist + ':menus']
     gulp.watch './src/styles/**/*', ['compile:' + dist + ':styles']
