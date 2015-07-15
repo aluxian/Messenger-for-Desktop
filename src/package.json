@@ -1,8 +1,8 @@
 {
-  "name": "superkit",
-  "productName": "SuperKit",
-  "version": "0.2.2",
-  "description": "An Electron starter kit with super powers.",
+  "name": "whatsie",
+  "productName": "Whatsie",
+  "version": "0.1.0",
+  "description": "A simple & beautiful desktop client for WhatsApp Web.",
   "main": "./scripts/browser/main.js",
   "dependencies": {
     "babel-runtime": "^5.6.20",
@@ -15,47 +15,42 @@
     "postinstall": "npm dedupe"
   },
   "license": "MIT",
-  "author": "Alexandru Rosianu <me@aluxian.com>",
-  "homepage": "https://github.com/Aluxian/electron-superkit",
+  "author": "Alexandru Rosianu",
+  "homepage": "http://whatsie.chat/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Aluxian/electron-superkit.git"
-  },
-  "crashReporter": {
-    "productName": "SuperKit",
-    "companyName": "Aluxian",
-    "submitUrl": "http://localhost:1127/post"
+    "url": "https://github.com/Aluxian/Whatsie.git"
   },
   "updater": {
-    "manifestUrl": "https://raw.githubusercontent.com/Aluxian/electron-superkit/deploy/src/package.json",
+    "manifestUrl": "https://raw.githubusercontent.com/Aluxian/Whatsie/deploy/src/package.json",
     "download": {
-      "darwin": "https://github.com/Aluxian/electron-superkit/releases/download/v{{ version }}/{{ productName }}.dmg",
+      "darwin": "https://github.com/Aluxian/Whatsie/releases/download/v{{ version }}/{{ productName }}.dmg",
       "linux": {
         "deb": {
-          "ia32": "https://github.com/Aluxian/electron-superkit/releases/download/v{{ version }}/{{ name }}-{{ version }}-i386.deb",
-          "x64": "https://github.com/Aluxian/electron-superkit/releases/download/v{{ version }}/{{ name }}-{{ version }}-amd64.deb"
+          "ia32": "https://github.com/Aluxian/Whatsie/releases/download/v{{ version }}/{{ name }}-{{ version }}-i386.deb",
+          "x64": "https://github.com/Aluxian/Whatsie/releases/download/v{{ version }}/{{ name }}-{{ version }}-amd64.deb"
         },
         "rpm": {
-          "ia32": "https://github.com/Aluxian/electron-superkit/releases/download/v{{ version }}/{{ name }}-{{ version }}-i386.rpm",
-          "x64": "https://github.com/Aluxian/electron-superkit/releases/download/v{{ version }}/{{ name }}-{{ version }}-x86_64.rpm"
+          "ia32": "https://github.com/Aluxian/Whatsie/releases/download/v{{ version }}/{{ name }}-{{ version }}-i386.rpm",
+          "x64": "https://github.com/Aluxian/Whatsie/releases/download/v{{ version }}/{{ name }}-{{ version }}-x86_64.rpm"
         }
       },
-      "win": "https://github.com/Aluxian/electron-superkit/releases/download/v{{ version }}/{{ productName }}Setup.exe"
+      "win": "https://github.com/Aluxian/Whatsie/releases/download/v{{ version }}/{{ productName }}Setup.exe"
     }
   },
   "darwin": {
-    "bundleId": "com.aluxian.starterkit",
-    "appCategoryType": "public.app-category.developer-tools",
-    "copyright": "Copyright © Aluxian"
+    "bundleId": "com.aluxian.whatsie",
+    "appCategoryType": "public.app-category.social-networking",
+    "copyright": "Copyright © Alexandru Rosianu"
   },
   "linux": {
-    "genericName": "Demo Application",
-    "categories": "GNOME;GTK;Development;Documentation;",
-    "keywords": "Electron;",
+    "genericName": "Instant Messenger",
+    "categories": "Chat;InstantMessaging;",
+    "keywords": "WhatsApp;",
     "section": "web"
   },
   "win": {
-    "companyName": "Aluxian",
-    "copyright": "Copyright © Aluxian"
+    "companyName": "Alexandru Rosianu",
+    "copyright": "Copyright © Alexandru Rosianu"
   }
 }
