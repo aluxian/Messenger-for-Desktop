@@ -56,12 +56,6 @@ gulp.task 'build:darwin64', ['resources:darwin', 'compile:darwin64', 'clean:buil
         toPath = './build/' + dist + '/usr/share/applications/' + manifest.name + '.desktop'
         fs.copy fromPath, toPath, utils.log callback, fromPath, '=>', toPath
 
-      # Move the app's .desktop file to be used on startup
-      (callback) ->
-        fromPath = './build/resources/linux/startup.desktop'
-        toPath = './build/' + dist + '/opt/' + manifest.name + '/startup.desktop'
-        fs.copy fromPath, toPath, utils.log callback, fromPath, '=>', toPath
-
       # Move icons
       async.apply async.waterfall, [
         async.apply fs.readdir, './build/resources/linux/icons'
