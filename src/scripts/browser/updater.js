@@ -6,15 +6,39 @@ import request from 'request';
 import semver from 'semver';
 
 export default {
-  checkAndPrompt: function(manifest, notifyIfExisting) {
+  checkAndPrompt: function(manifest, alwaysNotify) {
     return new Promise(function(resolve, reject) {
       request(manifest.updater.manifestUrl, function(reqErr, response, body) {
         if (reqErr) {
           console.error('[updater]', 'error while checking for update:', reqErr);
-          return resolve(false); // ignore errors
+
+          if (alwaysNotify) {
+            return dialog.showMessageBox({
+              type: 'error',
+              message: `Error while checking for update. Please contact the developer.`,
+              detail: reqErr.toString(),
+              buttons: ['OK']
+            }, function() {
+              resolve(false);
+            });
+          } else {
+            return resolve(false);
+          }
         } else if (response.statusCode !== 200) {
           console.error('[updater]', manifest.updater.manifestUrl, 'returned status code', response.statusCode, 'and body:', body);
-          return resolve(false); // ignore errors
+
+          if (alwaysNotify) {
+            return dialog.showMessageBox({
+              type: 'error',
+              message: `The update server returned status code ${response.statusCode}. Please contact the developer.`,
+              detail: body,
+              buttons: ['OK']
+            }, function() {
+              resolve(false);
+            });
+          } else {
+            return resolve(false);
+          }
         }
 
         const newManifest = JSON.parse(body);
@@ -23,15 +47,17 @@ export default {
         if (!newVersionExists) {
           console.log('[updater]', 'using the latest version:', manifest.version);
 
-          if (notifyIfExisting) {
-            dialog.showMessageBox({
+          if (alwaysNotify) {
+            return dialog.showMessageBox({
               type: 'info',
               message: `You're using the latest version: ${newManifest.version}.`,
               buttons: ['OK']
+            }, function() {
+              resolve(false);
             });
+          } else {
+            return resolve(false);
           }
-
-          return resolve(false);
         } else {
           console.log('[updater]', 'new version available:', newManifest.version);
         }
