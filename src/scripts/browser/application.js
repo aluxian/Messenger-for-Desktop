@@ -53,7 +53,7 @@ class Application extends EventEmitter {
 
     });
 
-    menu.on('application:open-url', function(event, menuItem) {
+    menu.on('application:open-url', function(menuItem) {
       shell.openExternal(menuItem.url);
     });
 
