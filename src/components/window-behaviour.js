@@ -18,11 +18,14 @@ module.exports = {
     if (!platform.isLinux) {
       win.removeAllListeners('close');
       win.on('close', function(quit) {
-        if (quit) {
+	// Fullscreen apps on OSX must close to prevent black screen
+	if (platform.isOSX && win.isFullscreen) { quit = true; }
+
+        if (quit) {	  
           this.saveWindowState(win);
           win.close(true);
         } else {
-          win.hide();
+	  win.hide();
         }
       }.bind(this));
     }
@@ -145,6 +148,7 @@ module.exports = {
       state.y = win.y;
       state.width = win.width;
       state.height = win.height;
+      state.isFullscreen = win.isFullscreen;
     }
 
     settings.windowState = state;
@@ -158,11 +162,11 @@ module.exports = {
 
     if (state.mode == 'maximized') {
       win.maximize();
-    } else {
+    }
+    else if(!state.isFullscreen) { //Don't restore to fullscreen
       win.resizeTo(state.width, state.height);
       win.moveTo(state.x, state.y);
     }
-
     win.show();
   }
-};
+}
