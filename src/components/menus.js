@@ -94,6 +94,10 @@ module.exports = {
       label: 'Theme',
       submenu: this.createThemesMenu(keep)
     }, {
+      type: 'checkbox',
+      label: 'Close with ESC key',
+      setting: 'closeWithEscKey'
+    }, {
       type: 'separator'
     }, {
       label: 'Check for Update',

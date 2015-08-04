@@ -8,6 +8,7 @@ var DEFAULT_SETTINGS = {
   openLinksInBrowser: true,
   autoHideSidebar: false,
   asMenuBarAppOSX: false,
+  closeWithEscKey: true,
   windowState: {},
   theme: 'default'
 };
