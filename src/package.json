@@ -4,6 +4,7 @@
   "version": "1.4.3",
   "app-id": "com.aluxian.messengerfordesktop",
   "chromium-args": "--disable-setuid-sandbox",
+  "single-instance": true,
   "window": {
     "width": 800,
     "height": 600,
