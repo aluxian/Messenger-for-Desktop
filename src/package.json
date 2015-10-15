@@ -52,5 +52,6 @@
   "win": {
     "companyName": "Alexandru Rosianu",
     "copyright": "Copyright © Alexandru Rosianu"
-  }
+  },
+  "electronVersion": "v0.33.8"
 }

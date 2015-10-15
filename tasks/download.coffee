@@ -26,7 +26,7 @@ downloaded =
       return done()
 
     electronDownloader
-      version: 'v0.29.0'
+      version: manifest.electronVersion
       cacheDir: './cache'
       outputDir: outputDir
       platform: platform
