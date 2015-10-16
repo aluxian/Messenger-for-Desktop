@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleVersion</key>
-	<string>0.1.0</string>
+	<string>{{ version }}</string>
 	<key>LSApplicationCategoryType</key>
 	<string>{{ darwin.appCategoryType }}</string>
 	<key>LSMinimumSystemVersion</key>
