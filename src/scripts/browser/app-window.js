@@ -18,7 +18,6 @@ class AppWindow extends EventEmitter {
       height: 600,
       'web-preferences': {
         'webaudio': true,
-        'web-security': false,
         'use-content-size': true,
         'subpixel-font-scaling': true,
         'direct-write': true,
