@@ -24,21 +24,6 @@ class BaseWindow extends EventEmitter {
     this.window.loadUrl(targetUrl);
   }
 
-  /**
-   * Make the window visible and focus it.
-   */
-  show() {
-    this.window.show();
-  }
-
-  /**
-   * Close the window.
-   */
-  close() {
-    this.window.close();
-    this.window = null;
-  }
-
 }
 
 export default BaseWindow;
