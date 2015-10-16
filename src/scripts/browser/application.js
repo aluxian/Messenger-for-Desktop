@@ -1,8 +1,8 @@
 import app from 'app';
-import path from 'path';
+import filer from './tools/filer';
 
-import DefaultMenu from './menus/default';
-import DefaultWindow from './windows/default';
+import AppMenu from './menus/app';
+import AppWindow from './windows/app';
 import EventEmitter from 'events';
 
 class Application extends EventEmitter {
@@ -19,23 +19,34 @@ class Application extends EventEmitter {
     this.manifest = manifest;
     this.options = options;
 
-    // Create and set the default menu
-    this.menu = new DefaultMenu();
-    this.menu.setEventListeners();
-    this.menu.makeDefault();
+    this.createAppMenu();
+    this.createAppWindow();
 
-    // Create and show the main window
-    this.mainWindow = new DefaultWindow(manifest);
-    this.mainWindow.loadUrl(`file://${path.resolve(__dirname, '..', '..', 'html', 'default.html')}`);
+    this.setEventListeners();
   }
 
+  /**
+   * Create and set the default menu.
+   */
+  createAppMenu() {
+    this.appMenu = new AppMenu();
+    this.appMenu.setEventListeners();
+    this.appMenu.makeDefault();
+  }
+
+  /**
+   * Create and show the main window.
+   */
+  createAppWindow() {
+    this.appWindow = new AppWindow(this.manifest);
+    this.appWindow.loadUrl(filer.getHtmlFile('app.html'));
+  }
+
+  /**
+   * Listen to app events.
+   */
   setEventListeners() {
-    // Quit the app when all the windows are closed, except for darwin
-    app.on('window-all-closed', function() {
-      if (process.platform != 'darwin') {
-        app.quit();
-      }
-    });
+
   }
 
 }

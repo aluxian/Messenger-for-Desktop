@@ -23,8 +23,6 @@ class BaseMenu extends EventEmitter {
 
   /**
    * Create click handlers for menu entries that have a defined command.
-   *
-   * @param {Array} submenu
    */
   wireUpCommands(submenu) {
     submenu.forEach((item) => {

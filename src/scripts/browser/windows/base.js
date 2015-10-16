@@ -8,26 +8,11 @@ class BaseWindow extends EventEmitter {
    *
    * @param {Object} options
    */
-  constructor(options) {
+  constructor(manifest, options) {
     super();
 
-    const defaults = {
-      width: 800,
-      height: 640
-    };
-
-    const settings = Object.assign(defaults, options);
-    this.window = this.createBrowserWindow(settings);
-  }
-
-  /**
-   * Create a BrowserWindow with the given settings.
-   *
-   * @param {Object} settings
-   * @return {BrowserWindow}
-   */
-  createBrowserWindow(settings) {
-    return new BrowserWindow(settings);
+    this.manifest = manifest;
+    this.window = new BrowserWindow(options);
   }
 
   /**

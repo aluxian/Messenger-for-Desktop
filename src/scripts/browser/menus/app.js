@@ -3,10 +3,10 @@ import shell from 'shell';
 
 import BaseMenu from './base';
 
-class DefaultMenu extends BaseMenu {
+class AppMenu extends BaseMenu {
 
-  constructor(template) {
-    const template = require(`../../menus/${process.platform}.json`);
+  constructor() {
+    const template = require(`../../../menus/${process.platform}.json`);
     super(template);
   }
 
@@ -42,12 +42,8 @@ class DefaultMenu extends BaseMenu {
 
   setWindowEventListeners() {
     this.menu.on('window:reload', function() {
+      console.log('reload :(');
       BrowserWindow.getFocusedWindow().reload();
-    });
-
-    this.menu.on('window:toggle-full-screen', function() {
-      const focusedWindow = BrowserWindow.getFocusedWindow();
-      focusedWindow.setFullScreen(!focusedWindow.isFullScreen());
     });
 
     this.menu.on('window:toggle-dev-tools', function() {
@@ -57,4 +53,4 @@ class DefaultMenu extends BaseMenu {
 
 }
 
-export default DefaultMenu;
+export default AppMenu;

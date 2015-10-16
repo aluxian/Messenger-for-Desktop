@@ -38,6 +38,7 @@ process.on('uncaughtException', error => console.error(error.stack || error));
   // Enable the crash reporter
   app.on('will-finish-launching', function() {
     CrashReporter.start(manifest.crashReporter);
+    // start the auto updater
   });
 
   // Check for update and create the main app object
