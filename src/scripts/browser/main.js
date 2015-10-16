@@ -37,7 +37,7 @@ process.on('uncaughtException', error => console.error(error.stack || error));
 
   // Enable the crash reporter
   app.on('will-finish-launching', function() {
-    CrashReporter.start(manifest.crashReporter);
+    CrashReporter.start(manifest.crashReporter); // fix manifest.crashReporter
     // start the auto updater
   });
 
