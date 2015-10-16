@@ -42,7 +42,6 @@ class AppMenu extends BaseMenu {
 
   setWindowEventListeners() {
     this.menu.on('window:reload', function() {
-      console.log('reload :(');
       BrowserWindow.getFocusedWindow().reload();
     });
 
