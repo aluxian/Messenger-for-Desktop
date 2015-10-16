@@ -22,8 +22,8 @@ manifest = require '../src/package.json'
   [dist, dir] = item
 
   handleError = (err) ->
+    console.error err
     beeper()
-    throw err
 
   # Compile menus
   gulp.task 'compile:' + dist + ':menus', ['clean:build:' + dist], ->
