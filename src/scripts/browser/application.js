@@ -21,7 +21,6 @@ class Application extends EventEmitter {
 
     this.createAppMenu();
     this.createAppWindow();
-
     this.setEventListeners();
   }
 
@@ -46,7 +45,9 @@ class Application extends EventEmitter {
    * Listen to app events.
    */
   setEventListeners() {
-
+    app.on('window-all-closed', function() {
+      app.quit();
+    });
   }
 
 }
