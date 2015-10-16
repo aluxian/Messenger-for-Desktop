@@ -21,9 +21,8 @@ manifest = require '../src/package.json'
     proc.stdout.pipe process.stdout
     proc.stderr.pipe process.stderr
 
-    gulp.watch './src/menus/**/*', ['compile:' + dist + ':menus']
+    # Watch files
+    gulp.watch './src/menus/**/*', ['restart:compile:' + dist + ':menus']
     gulp.watch './src/styles/**/*', ['compile:' + dist + ':styles']
     gulp.watch './src/scripts/**/*', ['compile:' + dist + ':scripts']
     gulp.watch './src/html/**/*', ['compile:' + dist + ':html']
-    gulp.watch './src/node_modules/**/*', ['compile:' + dist + ':deps']
-    gulp.watch './src/package.json', ['compile:' + dist + ':package']
