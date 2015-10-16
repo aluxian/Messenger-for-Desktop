@@ -21,27 +21,34 @@ manifest = require '../src/package.json'
 ].forEach (item) ->
   [dist, dir] = item
 
+  handleError = (err) ->
+    beeper()
+    throw err
+
   # Compile menus
   gulp.task 'compile:' + dist + ':menus', ['clean:build:' + dist], ->
     gulp.src './src/menus/**/*.cson'
-      .pipe plumber -> beeper()
+      .pipe plumber handleError
       .pipe mustache manifest
       .pipe cson()
+      .pipe plumber.stop()
       .pipe gulp.dest dir + '/menus'
 
   # Compile styles
   gulp.task 'compile:' + dist + ':styles', ['clean:build:' + dist], ->
     gulp.src './src/styles/**/*.less'
-      .pipe plumber -> beeper()
+      .pipe plumber handleError
       .pipe less()
+      .pipe plumber.stop()
       .pipe gulp.dest dir + '/styles'
       .pipe livereload()
 
   # Compile scripts
   gulp.task 'compile:' + dist + ':scripts', ['clean:build:' + dist], ->
     gulp.src './src/scripts/**/*.js'
-      .pipe plumber -> beeper()
+      .pipe plumber handleError
       .pipe babel()
+      .pipe plumber.stop()
       .pipe gulp.dest dir + '/scripts'
       .pipe livereload()
 
