@@ -1,16 +1,13 @@
 import Menu from 'menu';
 import EventEmitter from 'events';
 
-class AppMenu extends EventEmitter {
+class BaseMenu extends EventEmitter {
 
   /**
    * Build a menu based on a platform-specific template.
    */
-  constructor() {
+  constructor(template) {
     super();
-
-    // Read the template json
-    const template = require(`../../menus/${process.platform}.json`);
 
     // Set handlers and create the menu
     this.wireUpCommands(template);
@@ -51,4 +48,4 @@ class AppMenu extends EventEmitter {
 
 }
 
-export default AppMenu;
+export default BaseMenu;

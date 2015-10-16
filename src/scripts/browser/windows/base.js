@@ -1,9 +1,7 @@
-import shell from 'shell';
-
 import BrowserWindow from 'browser-window';
 import EventEmitter from 'events';
 
-class AppWindow extends EventEmitter {
+class BaseWindow extends EventEmitter {
 
   /**
    * Create a browser window based off of some default settings.
@@ -15,18 +13,11 @@ class AppWindow extends EventEmitter {
 
     const defaults = {
       width: 800,
-      height: 600,
-      'web-preferences': {
-        'webaudio': true,
-        'use-content-size': true,
-        'subpixel-font-scaling': true,
-        'direct-write': true,
-        'plugins': true
-      }
+      height: 640
     };
 
-    this.settings = Object.assign(defaults, options);
-    this.window = this.createBrowserWindow(this.settings);
+    const settings = Object.assign(defaults, options);
+    this.window = this.createBrowserWindow(settings);
   }
 
   /**
@@ -36,15 +27,7 @@ class AppWindow extends EventEmitter {
    * @return {BrowserWindow}
    */
   createBrowserWindow(settings) {
-    const browserWindow = new BrowserWindow(settings);
-
-    // Open urls in an external browser
-    browserWindow.webContents.on('new-window', function(event, url) {
-      event.preventDefault();
-      shell.openExternal(url);
-    });
-
-    return browserWindow;
+    return new BrowserWindow(settings);
   }
 
   /**
@@ -73,4 +56,4 @@ class AppWindow extends EventEmitter {
 
 }
 
-export default AppWindow;
+export default BaseWindow;
