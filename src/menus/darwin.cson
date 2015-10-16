@@ -3,7 +3,6 @@
     label: '{{ productName }}'
     submenu: [
       { label: 'About {{ productName }}', selector: 'orderFrontStandardAboutPanel:' }
-      { label: 'Version {{ version }}', enabled: false }
       { label: 'Check for Update', command: 'application:check-for-update' }
       { type: 'separator' }
       { label: 'Preferences...', command: 'application:show-settings' }
@@ -34,8 +33,7 @@
     label: 'View'
     submenu: [
       { label: 'Reload', accelerator: 'Command+R', command: 'window:reload' }
-      { label: 'Toggle Full Screen', accelerator: 'Ctrl+Command+F', command: 'window:toggle-full-screen' }
-      { label: 'Toggle Developer Tools', accelerator: 'Alt+Command+I', command: 'window:toggle-dev-tools' }
+      { label: 'Developer Tools', accelerator: 'Alt+Command+I', command: 'window:toggle-dev-tools' }
     ]
   }
 
