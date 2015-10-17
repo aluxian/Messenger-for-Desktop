@@ -43,6 +43,7 @@ process.on('uncaughtException', error => console.error(error.stack || error));
 
   // Check for update and create the main app object
   app.on('ready', function() {
+    global.manifest = manifest;
     global.application = new Application(manifest, argv);
     // Updater.checkAndPrompt(manifest, false)
     //   .then(function(willUpdate) {
