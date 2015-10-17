@@ -4,9 +4,7 @@ import EventEmitter from 'events';
 class BaseWindow extends EventEmitter {
 
   /**
-   * Create a browser window based off of some default settings.
-   *
-   * @param {Object} options
+   * Create a browser window based on the given options.
    */
   constructor(manifest, options) {
     super();
@@ -17,8 +15,6 @@ class BaseWindow extends EventEmitter {
 
   /**
    * Load the target url inside the window.
-   *
-   * @param {String} targetUrl
    */
   loadUrl(targetUrl) {
     this.window.loadUrl(targetUrl);
