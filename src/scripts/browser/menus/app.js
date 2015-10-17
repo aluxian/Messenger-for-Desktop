@@ -19,17 +19,17 @@ class AppMenu extends BaseMenu {
   }
 
   setAppEventListeners() {
-    this.menu.on('application:quit', ::app.quit);
+    this.on('application:quit', ::app.quit);
 
-    this.menu.on('application:show-settings', function() {
+    this.on('application:show-settings', function() {
 
     });
 
-    this.menu.on('application:open-url', function(menuItem) {
+    this.on('application:open-url', function(menuItem) {
       shell.openExternal(menuItem.url);
     });
 
-    this.menu.on('application:check-for-update', () => {
+    this.on('application:check-for-update', () => {
       // Updater.checkAndPrompt(this.manifest, true)
       //   .then(function(willUpdate) {
       //     if (willUpdate) {
@@ -41,11 +41,11 @@ class AppMenu extends BaseMenu {
   }
 
   setWindowEventListeners() {
-    this.menu.on('window:reload', function() {
+    this.on('window:reload', function() {
       BrowserWindow.getFocusedWindow().reload();
     });
 
-    this.menu.on('window:toggle-dev-tools', function() {
+    this.on('window:toggle-dev-tools', function() {
       BrowserWindow.getFocusedWindow().toggleDevTools();
     });
   }

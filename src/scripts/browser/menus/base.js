@@ -4,7 +4,7 @@ import EventEmitter from 'events';
 class BaseMenu extends EventEmitter {
 
   /**
-   * Build a menu based on a platform-specific template.
+   * Build the menu based on a platform-specific template.
    */
   constructor(template) {
     super();
