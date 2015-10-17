@@ -9,9 +9,6 @@ class Application extends EventEmitter {
 
   /**
    * Load components and create the main window.
-   *
-   * @param {Object} manifest
-   * @param {Object} options
    */
   constructor(manifest, options) {
     super();
