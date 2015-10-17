@@ -24,6 +24,6 @@ manifest = require '../src/package.json'
     # Watch files
     gulp.watch './src/menus/**/*', ['restart:compile:' + dist + ':menus']
     gulp.watch './src/styles/**/*', ['compile:' + dist + ':styles']
-    gulp.watch './src/scripts/browser/**/*', ['compile:' + dist + ':scripts']
-    gulp.watch './src/scripts/renderer/**/*', ['restart:compile:' + dist + ':scripts']
+    gulp.watch './src/scripts/browser/**/*', ['restart:compile:' + dist + ':scripts']
+    gulp.watch './src/scripts/renderer/**/*', ['compile:' + dist + ':scripts']
     gulp.watch './src/html/**/*', ['compile:' + dist + ':html']
