@@ -45,6 +45,7 @@ class Application extends EventEmitter {
    * Listen to app events.
    */
   setEventListeners() {
+    // Quit the app if all windows are closed
     app.on('window-all-closed', function() {
       app.quit();
     });
