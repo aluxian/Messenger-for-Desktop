@@ -1,6 +1,7 @@
 import app from 'app';
 import shell from 'shell';
 
+import BrowserWindow from 'browser-window';
 import BaseMenu from './base';
 
 class AppMenu extends BaseMenu {
