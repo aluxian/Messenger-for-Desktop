@@ -4,14 +4,11 @@ import BaseWindow from './base';
 
 class AppWindow extends BaseWindow {
 
-  constructor(manifest, options) {
-    const defaults = {
+  constructor(manifest) {
+    super(manifest, {
       width: 800,
-      height: 640
-    };
-
-    const settings = Object.assign(defaults, options);
-    super(manifest, settings);
+      height: 600
+    });
 
     this.initWindow();
   }
