@@ -29,6 +29,10 @@ class AppMenu extends BaseMenu {
     this.on('application:open-url', function(menuItem) {
       shell.openExternal(menuItem.url);
     });
+    
+    this.on('application:updateTheme', function(menuItem) {
+     // shell.openExternal(menuItem.theme);
+    });
 
     this.on('application:check-for-update', () => {
       // Updater.checkAndPrompt(this.manifest, true)

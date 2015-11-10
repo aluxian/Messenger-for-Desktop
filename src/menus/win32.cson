@@ -17,6 +17,16 @@
   }
 
   {
+    label: '&Themes'
+    submenu: [
+      { label: 'Default', command: 'application:updateTheme', theme: 'default' }
+      { label: 'Dark Simple', command: 'application:updateTheme', theme: 'darkSimple' }
+      { label: 'Fluttery', command: 'application:updateTheme', theme: 'fluttery' }
+      { label: 'Minimalism', command: 'application:updateTheme', theme: 'minimalism'}
+    ]
+  }
+
+  {
     label: '&Help'
     submenu: [
       { label: 'Version {{ version }}', enabled: false }
