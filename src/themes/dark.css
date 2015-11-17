@@ -194,7 +194,33 @@ div._4-i2, div._5a8u {
 	color: rgba(255, 255, 255, 1) !important;	
 }
 
-/* Conversation name in infos and adding people
-._2jnv, _4rpj{
-        color: rgba(255, 255, 255, 1) !important;       
+/* Conversation name in infos and adding people */
+._2jnv, ._4rpj{
+    color: rgba(255, 255, 255, 1) !important;       
+}
+
+/* Last active */
+._3eus {
+	color: rgba(145, 145, 145, 1) !important; 
+}
+
+/* Hide button */
+._2ds6 {
+  	opacity: 0.7;
+}
+
+/* Search bar */
+._5iwm ._58al {
+  background: #4A4A4A;
+  color: #fff;
+}
+
+/* Relationship with sby */
+._36zg {
+  color: rgba(255, 255, 255, 1) !important;
+}
+
+._1n-e {
+  color: rgba(128, 128, 128, 1);
+  font-size: 12px;
 }
