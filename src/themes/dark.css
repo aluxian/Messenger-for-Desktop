@@ -224,3 +224,26 @@ div._4-i2, div._5a8u {
   color: rgba(128, 128, 128, 1);
   font-size: 12px;
 }
+
+/* Link in message */
+
+._29_7 ._52mr {
+  background-color: rgb(51, 51, 51);
+  border-bottom-right-radius: 1.3em;
+  border-top-right-radius: 1.3em;
+}
+
+._5i_d .__6m {
+  color: rgba(255, 255, 255, 1);
+  font-size: 12px;
+  font-weight: normal;
+  margin-bottom: 6px;
+  margin-top: 6px;
+}
+
+._4ik5._4ik4 {
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  float: none;
+  color: rgb(242, 242, 242);
+}

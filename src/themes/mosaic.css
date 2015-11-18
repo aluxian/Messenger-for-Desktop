@@ -199,3 +199,16 @@ input::-webkit-input-placeholder {
   color: rgba(128, 128, 128, 1);
   font-size: 12px;
 }
+
+/* Link in message */
+
+._hh7 a {
+  color: rgba(255, 255, 255, 1);
+  text-decoration: underline;
+}
+
+._29_7 ._52mr {
+  background-color: rgb(85, 85, 85);
+  border-bottom-right-radius: 1.3em;
+  border-top-right-radius: 1.3em;
+}
