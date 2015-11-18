@@ -1,5 +1,6 @@
 import app from 'app';
 import shell from 'shell';
+import fs from 'fs';
 
 import BrowserWindow from 'browser-window';
 import BaseMenu from './base';
@@ -31,7 +32,10 @@ class AppMenu extends BaseMenu {
     });
     
     this.on('application:updateTheme', function(menuItem) {
-     // shell.openExternal(menuItem.theme);
+       // var wv = document.getElementById('view');
+      //  wv.insertCSS("body { display:none; }");
+      //console.log("wv is ");
+        //file:"../../../themes/darkSimple.css"});
     });
 
     this.on('application:check-for-update', () => {
