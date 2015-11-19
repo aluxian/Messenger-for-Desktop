@@ -247,3 +247,16 @@ div._4-i2, div._5a8u {
   float: none;
   color: rgb(242, 242, 242);
 }
+
+/* Gifs */
+
+._2f5n {
+  background-color: #2D2D30;
+  border: 1px solid rgba(0, 0, 0, .1);
+  border-width: 0 1px 1px;
+  padding: 6px 12px;
+}
+
+._29ey {
+	color: rgba(255, 255, 255, 0.59) !important;
+}

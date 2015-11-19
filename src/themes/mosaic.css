@@ -212,3 +212,16 @@ input::-webkit-input-placeholder {
   border-bottom-right-radius: 1.3em;
   border-top-right-radius: 1.3em;
 }
+
+/* Gifs */
+
+._2f5n {
+  background-color: #555555;
+  border: 1px solid rgba(0, 0, 0, .1);
+  border-width: 0 1px 1px;
+  padding: 6px 12px;
+}
+
+._29ey {
+  color: rgba(255, 255, 255, 0.59) !important;
+}
