@@ -31,12 +31,12 @@ class AppMenu extends BaseMenu {
       shell.openExternal(menuItem.url);
     });
     
-    this.on('application:updateTheme', function(menuItem) {
-       // var wv = document.getElementById('view');
-      //  wv.insertCSS("body { display:none; }");
-      //console.log("wv is ");
-        //file:"../../../themes/darkSimple.css"});
+    this.on('application:update-theme', function(menuItem) {
+      //var wv = document.getElementById('view');
+      //wv.insertCSS("body { display:none; }");
+      //file:"../../../themes/Fluttery.css";*/
     });
+
 
     this.on('application:check-for-update', () => {
       // Updater.checkAndPrompt(this.manifest, true)

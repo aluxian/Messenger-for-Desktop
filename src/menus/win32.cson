@@ -19,10 +19,10 @@
   {
     label: '&Themes'
     submenu: [
-      { label: 'Default', command: 'application:updateTheme', theme: 'default' }
-      { label: 'Dark Simple', command: 'application:updateTheme', theme: 'darkSimple' }
-      { label: 'Fluttery', command: 'application:updateTheme', theme: 'fluttery' }
-      { label: 'Minimalism', command: 'application:updateTheme', theme: 'minimalism'}
+      { label: 'Default', command: 'application:update-theme', theme: 'default' }
+      { label: 'Dark Simple', command: 'application:update-theme', theme: 'darkSimple' }
+      { label: 'Fluttery', command: 'application:update-theme', theme: 'Fluttery.css'  }
+      { label: 'Minimalism', command: 'application:update-theme', theme: 'minimalism'}
     ]
   }
 
