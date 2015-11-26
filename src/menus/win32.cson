@@ -21,7 +21,7 @@
     submenu: [
       { label: 'Default', command: 'application:update-theme', theme: 'default' }
       { label: 'Dark Simple', command: 'application:update-theme', theme: 'darkSimple' }
-      { label: 'Fluttery', command: 'application:update-theme', theme: 'Fluttery.css'  }
+      { label: 'Fluttery', command: 'application:update-theme', theme: 'Fluttery'  }
       { label: 'Minimalism', command: 'application:update-theme', theme: 'minimalism'}
     ]
   }
