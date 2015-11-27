@@ -23,6 +23,8 @@
       { label: 'Dark Simple', command: 'application:update-theme', theme: 'Dark Simple' }
       { label: 'Fluttery', command: 'application:update-theme', theme: 'Fluttery'  }
       { label: 'Minimalism', command: 'application:update-theme', theme: 'minimalism'}
+      { label: 'Dark Green', command: 'application:update-theme', theme: 'Dark Green'}
+      { label: 'Black', command: 'application:update-theme', theme: 'black'}
     ]
   }
 
