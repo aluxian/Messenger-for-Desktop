@@ -38,16 +38,21 @@ class AppMenu extends BaseMenu {
       //var wv = document.getElementById('view');
       //wv.insertCSS("body { display:none; }");
       //file:"../../../themes/Fluttery.css";*/
-      fs.readFile('src/themes/' + themeFile.theme + '.css', 'utf-8', function(err, cssFile) {
+      //fs.readFile('src/themes/' + themeFile.theme + '.css', 'utf-8', function(err, cssFile) {
+          fs.readFile('src/scripts/renderer/test.js', 'utf-8', function(err, cssFile) {
       if (err) {
         var e = 'console.log("'+err+'")';
         BrowserWindow.getFocusedWindow().webContents.executeJavaScript(e);
       } else {
-        //  BrowserWindow.getFocusedWindow().webContents.executeJavaScript('var wView = document.getElementById("view");wView.executeJavaScript("console.log(document.getElementsByTagName(/"head/")[0])");');
+          var x = "wView";
+          var con = "document.getElementsByTagName('style')[0].innerHTML= '"+cssFile+"'";
+         // BrowserWindow.getFocusedWindow().webContents.executeJavaScript('var wView = document.getElementById("view"); console.log('+x+'); wView.executeJavaScript("'+con+'")');//document.getElementsByTagName(/"head/")[0])");');
+         BrowserWindow.getFocusedWindow().webContents.executeJavaScript(cssFile+'applyTheme("'+themeFile.theme+'");');
+          /*
           BrowserWindow.getFocusedWindow().webContents.executeJavaScript('wView.getElementsByTagName("head")[0].appendChild(wView.createElement("style"))');
   var applyTheme = 'wView.getElementsByTagName("style")[0].innerHTML= "'+ cssFile +'"';
   BrowserWindow.getFocusedWindow().webContents.executeJavaScript(applyTheme);
-  console.log(applyTheme);
+  console.log(applyTheme);*/
       }
   });
     });
