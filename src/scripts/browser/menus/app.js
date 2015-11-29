@@ -32,31 +32,15 @@ class AppMenu extends BaseMenu {
     });
     
     this.on('application:update-theme', function(themeFile) {
-        var x = 'console.log("'+themeFile.theme+'")';
-        BrowserWindow.getFocusedWindow().webContents.executeJavaScript(x);
-        //BrowserWindow.getFocusedWindow().console.log("hello");//BrowserWindow.webContents.getURL();
-      //var wv = document.getElementById('view');
-      //wv.insertCSS("body { display:none; }");
-      //file:"../../../themes/Fluttery.css";*/
-      //fs.readFile('src/themes/' + themeFile.theme + '.css', 'utf-8', function(err, cssFile) {
-          fs.readFile('src/scripts/renderer/test.js', 'utf-8', function(err, cssFile) {
-      if (err) {
-        var e = 'console.log("'+err+'")';
-        BrowserWindow.getFocusedWindow().webContents.executeJavaScript(e);
-      } else {
-          var x = "wView";
-          var con = "document.getElementsByTagName('style')[0].innerHTML= '"+cssFile+"'";
-         // BrowserWindow.getFocusedWindow().webContents.executeJavaScript('var wView = document.getElementById("view"); console.log('+x+'); wView.executeJavaScript("'+con+'")');//document.getElementsByTagName(/"head/")[0])");');
-         BrowserWindow.getFocusedWindow().webContents.executeJavaScript(cssFile+'applyTheme("'+themeFile.theme+'");');
-          /*
-          BrowserWindow.getFocusedWindow().webContents.executeJavaScript('wView.getElementsByTagName("head")[0].appendChild(wView.createElement("style"))');
-  var applyTheme = 'wView.getElementsByTagName("style")[0].innerHTML= "'+ cssFile +'"';
-  BrowserWindow.getFocusedWindow().webContents.executeJavaScript(applyTheme);
-  console.log(applyTheme);*/
-      }
-  });
+        fs.readFile('src/scripts/renderer/theme.js', 'utf-8', function(err, theme_js) {
+            if (err) {
+                var e = 'console.log("Error reading theme file '+err+'")';
+                BrowserWindow.getFocusedWindow().webContents.executeJavaScript(e);
+            }else {
+                BrowserWindow.getFocusedWindow().webContents.executeJavaScript(theme_js+'applyTheme("'+themeFile.theme+'");');
+            }
+        });
     });
-
 
     this.on('application:check-for-update', () => {
       // Updater.checkAndPrompt(this.manifest, true)
@@ -78,31 +62,6 @@ class AppMenu extends BaseMenu {
       BrowserWindow.getFocusedWindow().toggleDevTools();
     });
   }
-/**
- * Reads the theme provided from src/themes/ and applies it to the page.
- */
-applyTheme(themeFile) {
-  fs.readFile('src/themes/' + themeFile + '.css', 'utf-8', function(err, cssFile) {
-      if (err) {
-        console.error(err);
-      } else {
-        pushTheme(cssFile);
-      }
-  });
-               /* webView.executeJavaScript(x);
-                x = 'document.getElementsByTagName("style")[0].innerHTML= ".chat {background-color: #FFFACB;}"';
-                webView.executeJavaScript(x);*/
-}
-
-/**
- * Appropriately applies the provided theme file code to the application.
- */
-pushTheme(theme) {
-  BrowserWindow.getFocusedWindow().webContents.executeJavaScript('var wView = document.getElementById("view");wView.getElementsByTagName("head")[0].appendChild(wView.createElement("style"))');
-  var applyTheme = 'wView.getElementsByTagName("style")[0].innerHTML= "'+ theme +'"';
-  BrowserWindow.getFocusedWindow().webContents.executeJavaScript(applyTheme);
-  console.log(applyTheme);  
-}
 }
 
 export default AppMenu;

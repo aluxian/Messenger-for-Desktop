@@ -40,12 +40,14 @@
   {
     label: 'Themes'
     submenu: [
-      { label: 'Default', command: 'application:update-theme', theme: 'default' }
-      { label: 'Dark Simple', command: 'application:update-theme', theme: 'darkSimple' }
-      { label: 'Fluttery', command: 'application:update-theme', theme: 'Fluttery.css'  }
-      { label: 'Minimalism', command: 'application:update-theme', theme: 'minimalism'}
-      { label: 'Dark Green', command: 'application:update-theme', theme: 'Dark Green'}
-      { label: 'Black', command: 'application:update-theme', theme: 'black'}
+      { label: 'Default', command: 'application:update-theme', theme: 'Default' }
+      { label: 'Black', command: 'application:update-theme', theme: 'Black'}
+      { label: 'Dark Simple', command: 'application:update-theme', theme: 'Dark Green' }
+      { label: 'Dark Simple', command: 'application:update-theme', theme: 'Dark Simple' }
+      { label: 'Dark Simple', command: 'application:update-theme', theme: 'Dark-Skin' }
+      { label: 'Fluttery', command: 'application:update-theme', theme: 'Fluttery'  }
+      { label: 'Dark Green', command: 'application:update-theme', theme: 'Light-Skin'}
+      { label: 'Minimalism', command: 'application:update-theme', theme: 'Minimalism'} 
     ]
   }
 

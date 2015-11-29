@@ -11,9 +11,6 @@ function applyTheme(themeFile) {
         pushTheme(cssFile);
       }
   });
-               /* webView.executeJavaScript(x);
-                x = 'document.getElementsByTagName("style")[0].innerHTML= ".chat {background-color: #FFFACB;}"';
-                webView.executeJavaScript(x);*/
 }
 
 /**
@@ -22,8 +19,7 @@ function applyTheme(themeFile) {
 function pushTheme(theme) {
   webView.executeJavaScript('document.getElementsByTagName("head")[0].appendChild(document.createElement("style"))');
   var applyTheme = 'document.getElementsByTagName("style")[0].innerHTML= "'+ theme +'"';
-  webView.executeJavaScript(applyTheme);
-  console.log(applyTheme);  
+  webView.executeJavaScript(applyTheme); 
 }
 
 
