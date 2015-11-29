@@ -32,7 +32,7 @@ class AppMenu extends BaseMenu {
     });
     
     this.on('application:update-theme', function(themeFile) {
-        fs.readFile('src/scripts/renderer/theme.js', 'utf-8', function(err, theme_js) {
+        fs.readFile('resources/app/scripts/renderer/theme.js', 'utf-8', function(err, theme_js) {
             if (err) {
                 var e = 'console.log("Error reading theme file '+err+'")';
                 BrowserWindow.getFocusedWindow().webContents.executeJavaScript(e);

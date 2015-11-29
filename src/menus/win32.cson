@@ -21,12 +21,9 @@
     submenu: [
       { label: 'Default', command: 'application:update-theme', theme: 'Default' }
       { label: 'Black', command: 'application:update-theme', theme: 'Black'}
-      { label: 'Dark Simple', command: 'application:update-theme', theme: 'Dark Green' }
-      { label: 'Dark Simple', command: 'application:update-theme', theme: 'Dark Simple' }
-      { label: 'Dark Simple', command: 'application:update-theme', theme: 'Dark-Skin' }
+      { label: 'Dark Skin', command: 'application:update-theme', theme: 'Dark-Skin' }
       { label: 'Fluttery', command: 'application:update-theme', theme: 'Fluttery'  }
-      { label: 'Dark Green', command: 'application:update-theme', theme: 'Light-Skin'}
-      { label: 'Minimalism', command: 'application:update-theme', theme: 'Minimalism'} 
+      { label: 'Light Skin', command: 'application:update-theme', theme: 'Light-Skin'}
     ]
   }
 
