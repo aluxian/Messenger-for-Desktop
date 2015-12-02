@@ -31,16 +31,9 @@ class AppMenu extends BaseMenu {
       shell.openExternal(menuItem.url);
     });
 
-    this.on('application:update-theme', function(themeFile) {
-      fs.readFile('resources/app/scripts/renderer/theme.js', 'utf-8', function(err, themeJs) {
-        if (err) {
-          const js = 'console.log("Error reading theme file ' + err + '")';
-          BrowserWindow.getFocusedWindow().webContents.executeJavaScript(js);
-        } else {
-          const js = themeJs + 'applyTheme("' + themeFile.theme + '");';
-          BrowserWindow.getFocusedWindow().webContents.executeJavaScript(js);
-        }
-      });
+    this.on('application:update-theme', function(menuItem) {
+      const js = 'applyTheme("' + menuItem.theme + '");';
+      BrowserWindow.getFocusedWindow().webContents.executeJavaScript(js);
     });
 
     this.on('application:check-for-update', () => {
