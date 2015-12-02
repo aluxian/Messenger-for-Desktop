@@ -30,16 +30,17 @@ class AppMenu extends BaseMenu {
     this.on('application:open-url', function(menuItem) {
       shell.openExternal(menuItem.url);
     });
-    
+
     this.on('application:update-theme', function(themeFile) {
-        fs.readFile('resources/app/scripts/renderer/theme.js', 'utf-8', function(err, theme_js) {
-            if (err) {
-                var e = 'console.log("Error reading theme file '+err+'")';
-                BrowserWindow.getFocusedWindow().webContents.executeJavaScript(e);
-            }else {
-                BrowserWindow.getFocusedWindow().webContents.executeJavaScript(theme_js+'applyTheme("'+themeFile.theme+'");');
-            }
-        });
+      fs.readFile('resources/app/scripts/renderer/theme.js', 'utf-8', function(err, themeJs) {
+        if (err) {
+          const js = 'console.log("Error reading theme file ' + err + '")';
+          BrowserWindow.getFocusedWindow().webContents.executeJavaScript(js);
+        } else {
+          const js = themeJs + 'applyTheme("' + themeFile.theme + '");';
+          BrowserWindow.getFocusedWindow().webContents.executeJavaScript(js);
+        }
+      });
     });
 
     this.on('application:check-for-update', () => {
@@ -62,6 +63,7 @@ class AppMenu extends BaseMenu {
       BrowserWindow.getFocusedWindow().toggleDevTools();
     });
   }
+
 }
 
 export default AppMenu;

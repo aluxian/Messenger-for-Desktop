@@ -5,6 +5,7 @@ const webView = document.getElementById('view');
 // Set a custom UA and load the web app
 webView.setAttribute('useragent', getCleanUserAgent());
 webView.setAttribute('src', 'https://web.whatsapp.com/');
+
 /**
  * Remove the app name and 'Electron' from the user agent.
  */

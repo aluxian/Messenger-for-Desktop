@@ -5,11 +5,11 @@ var fs = require('fs');
  */
 function applyTheme(themeFile) {
   fs.readFile('src/themes/' + themeFile + '.css', 'utf-8', function(err, cssFile) {
-      if (err) {
-        console.error(err);
-      } else {
-        pushTheme(cssFile);
-      }
+    if (err) {
+      console.error(err);
+    } else {
+      pushTheme(cssFile);
+    }
   });
 }
 
@@ -18,8 +18,5 @@ function applyTheme(themeFile) {
  */
 function pushTheme(theme) {
   webView.executeJavaScript('document.getElementsByTagName("head")[0].appendChild(document.createElement("style"))');
-  var applyTheme = 'document.getElementsByTagName("style")[0].innerHTML= "'+ theme +'"';
-  webView.executeJavaScript(applyTheme); 
+  webView.executeJavaScript('document.getElementsByTagName("style")[0].innerHTML= "' + theme + '"');
 }
-
-
