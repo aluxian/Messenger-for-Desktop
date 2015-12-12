@@ -1,5 +1,10 @@
 {
-  "stage": 0,
   "sourceMaps": "inline",
-  "optional": ["runtime"]
+  "presets": [
+    "stage-0",
+    "es2015"
+  ],
+  "plugins": [
+    "transform-runtime"
+  ]
 }
