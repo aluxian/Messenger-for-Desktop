@@ -1,22 +1,32 @@
 import fs from 'fs';
 
 /**
- * Reads the theme provided from src/themes/ and applies it to the page.
+ * Apply a CSS theme file to the app webview.
  */
-window.applyTheme = function(themeFile) {
-  fs.readFile('src/themes/' + themeFile + '.css', 'utf-8', function(err, cssFile) {
+function applyTheme(name) {
+  fs.readFile('./src/themes/' + name + '.css', 'utf-8', function(err, cssFile) {
     if (err) {
-      console.error(err);
-    } else {
-      pushTheme(cssFile);
+      return console.error(err);
     }
-  });
-};
 
-/**
- * Appropriately applies the provided theme file code to the application.
- */
-window.pushTheme = function(theme) {
-  webView.executeJavaScript('document.getElementsByTagName("head")[0].appendChild(document.createElement("style"))');
-  webView.executeJavaScript('document.getElementsByTagName("style")[0].innerHTML= "' + theme + '"');
-};
+    const cleanedCss = cssFile
+      .replace(/"/g, '\\"');
+
+    appWebView.executeJavaScript(
+      `
+      var styleBlockId = "cssTheme";
+      var styleBlock = document.getElementById(styleBlockId);
+
+      if (!styleBlock) {
+        styleBlock = document.createElement("style");
+        styleBlock.id = styleBlockId;
+
+        var head = document.getElementsByTagName("head")[0];
+        head.appendChild(styleBlock);
+      }
+
+      styleBlock.innerHTML= "${cleanedCss}";
+      `
+    );
+  });
+}

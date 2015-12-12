@@ -38,13 +38,13 @@
   }
 
   {
-    label: 'Themes'
+    label: 'Theme'
     submenu: [
-      { label: 'Default', command: 'application:update-theme', theme: 'Default' }
-      { label: 'Black', command: 'application:update-theme', theme: 'Black' }
-      { label: 'Dark Skin', command: 'application:update-theme', theme: 'Dark-Skin' }
-      { label: 'Fluttery', command: 'application:update-theme', theme: 'Fluttery' }
-      { label: 'Light Skin', command: 'application:update-theme', theme: 'Light-Skin' }
+      { label: 'Default', command: 'application:update-theme', theme: 'default' }
+      { label: 'Black', command: 'application:update-theme', theme: 'black' }
+      { label: 'Dark Skin', command: 'application:update-theme', theme: 'dark_skin' }
+      { label: 'Light Skin', command: 'application:update-theme', theme: 'light_skin' }
+      { label: 'Fluttery', command: 'application:update-theme', theme: 'fluttery' }
     ]
   }
 

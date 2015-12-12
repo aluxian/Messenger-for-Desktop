@@ -1,11 +1,11 @@
 import remote from 'remote';
 
 const manifest = remote.getGlobal('manifest');
-const webView = document.getElementById('view');
+const appWebView = document.getElementById('appWebView');
 
 // Set a custom UA and load the web app
-webView.setAttribute('useragent', getCleanUserAgent());
-webView.setAttribute('src', 'https://web.whatsapp.com/');
+appWebView.setAttribute('useragent', getCleanUserAgent());
+appWebView.setAttribute('src', 'https://web.whatsapp.com/');
 
 /**
  * Remove the app name and 'Electron' from the user agent.
