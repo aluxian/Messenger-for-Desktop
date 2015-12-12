@@ -1,5 +1,6 @@
 import app from 'app';
 import shell from 'shell';
+import fs from 'fs';
 
 import BrowserWindow from 'browser-window';
 import BaseMenu from './base';
@@ -28,6 +29,11 @@ class AppMenu extends BaseMenu {
 
     this.on('application:open-url', function(menuItem) {
       shell.openExternal(menuItem.url);
+    });
+
+    this.on('application:update-theme', function(menuItem) {
+      const js = 'applyTheme("' + menuItem.theme + '");';
+      BrowserWindow.getFocusedWindow().webContents.executeJavaScript(js);
     });
 
     this.on('application:check-for-update', () => {

@@ -38,6 +38,17 @@
   }
 
   {
+    label: 'Themes'
+    submenu: [
+      { label: 'Default', command: 'application:update-theme', theme: 'Default' }
+      { label: 'Black', command: 'application:update-theme', theme: 'Black' }
+      { label: 'Dark Skin', command: 'application:update-theme', theme: 'Dark-Skin' }
+      { label: 'Fluttery', command: 'application:update-theme', theme: 'Fluttery' }
+      { label: 'Light Skin', command: 'application:update-theme', theme: 'Light-Skin' }
+    ]
+  }
+
+  {
     label: 'Window'
     submenu: [
       { label: 'Minimize', accelerator: 'Command+M', selector: 'performMiniaturize:' }

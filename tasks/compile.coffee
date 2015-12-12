@@ -52,6 +52,12 @@ manifest = require '../src/package.json'
       .pipe gulp.dest dir + '/scripts'
       .pipe livereload()
 
+  # Move themes
+  gulp.task 'compile:' + dist + ':themes', ['clean:build:' + dist], ->
+    gulp.src './src/themes/**/*.css'
+      .pipe gulp.dest dir + '/themes'
+      .pipe livereload()
+
   # Move html files
   gulp.task 'compile:' + dist + ':html', ['clean:build:' + dist], ->
     gulp.src './src/html/**/*.html'
@@ -76,6 +82,7 @@ manifest = require '../src/package.json'
     'compile:' + dist + ':menus'
     'compile:' + dist + ':styles'
     'compile:' + dist + ':scripts'
+    'compile:' + dist + ':themes'
     'compile:' + dist + ':html'
     'compile:' + dist + ':deps'
     'compile:' + dist + ':package'

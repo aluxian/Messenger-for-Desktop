@@ -1,4 +1,5 @@
-const remote = require('remote');
+import remote from 'remote';
+
 const manifest = remote.getGlobal('manifest');
 const webView = document.getElementById('view');
 
