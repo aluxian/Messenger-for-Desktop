@@ -18,6 +18,10 @@ class BaseWindow extends EventEmitter {
 
     const cleanUA = this.getCleanUserAgent();
     this.window.webContents.setUserAgent(cleanUA);
+
+    this.window.on('closed', () => {
+      this.window = null;
+    });
   }
 
   /**

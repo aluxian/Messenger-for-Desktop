@@ -33,12 +33,18 @@ class AppWindow extends BaseWindow {
       shell.openExternal(url);
     });
 
-    // Apply the saved theme
+    // Restore theme and zoom factor
     this.window.webContents.on('dom-ready', () => {
-      const theme = prefs.get('app:theme', null);
+      const theme = prefs.get('app:theme');
       if (theme) {
         log('restoring theme', theme);
         this.window.webContents.send('apply-theme', theme);
+      }
+
+      const zoomLevel = prefs.get('window:zoom-level');
+      if (zoomLevel) {
+        log('restoring zoom level', zoomLevel);
+        this.window.webContents.send('zoom-level', zoomLevel);
       }
     });
 
@@ -54,7 +60,7 @@ class AppWindow extends BaseWindow {
   saveBounds() {
     log('saving bounds');
     const bounds = this.window.getBounds();
-    prefs.save('window:bounds', bounds);
+    prefs.set('window:bounds', bounds);
   }
 
 }

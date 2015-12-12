@@ -8,34 +8,38 @@
       { label: 'Preferences...', command: 'application:show-settings' }
       { label: 'Services', role: 'services', submenu: [] }
       { type: 'separator' }
-      { label: 'Hide {{ productName }}', accelerator: 'Command+H', role: 'hide' }
-      { label: 'Hide Others', accelerator: 'Command+Shift+H', role: 'hideothers' }
+      { label: 'Hide {{ productName }}', accelerator: 'Cmd+H', role: 'hide' }
+      { label: 'Hide Others', accelerator: 'Cmd+Shift+H', role: 'hideothers' }
       { label: 'Show All', role: 'unhide' }
       { type: 'separator' }
-      { label: 'Quit', accelerator: 'Command+Q', command: 'application:quit' }
+      { label: 'Quit', accelerator: 'Cmd+Q', command: 'application:quit' }
     ]
   }
 
   {
     label: 'Edit'
     submenu: [
-      { label: 'Undo', accelerator: 'Command+Z', role: 'undo' }
-      { label: 'Redo', accelerator: 'Shift+Command+Z', role: 'redo' }
+      { label: 'Undo', accelerator: 'Cmd+Z', role: 'undo' }
+      { label: 'Redo', accelerator: 'Shift+Cmd+Z', role: 'redo' }
       { type: 'separator' }
-      { label: 'Cut', accelerator: 'Command+X', role: 'cut' }
-      { label: 'Copy', accelerator: 'Command+C', role: 'copy' }
-      { label: 'Paste', accelerator: 'Command+V', role: 'paste' }
-      { label: 'Select All', accelerator: 'Command+A', role: 'selectall' }
+      { label: 'Cut', accelerator: 'Cmd+X', role: 'cut' }
+      { label: 'Copy', accelerator: 'Cmd+C', role: 'copy' }
+      { label: 'Paste', accelerator: 'Cmd+V', role: 'paste' }
+      { label: 'Select All', accelerator: 'Cmd+A', role: 'selectall' }
     ]
   }
 
   {
     label: 'View'
     submenu: [
-      { label: 'Reload', accelerator: 'Command+R', command: 'window:reload' }
+      { label: 'Reload', accelerator: 'Cmd+R', command: 'window:reload' }
       { type: 'separator' }
-      { label: 'Toggle Full Screen', accelerator: 'Command+Control+F', command: 'window:toggle-full-screen' }
-      { label: 'Developer Tools', accelerator: 'Alt+Command+I', command: 'window:toggle-dev-tools' }
+      { label: 'Zoom In', accelerator: 'Cmd+Plus', command: 'window:zoom-in' }
+      { label: 'Zoom Out', accelerator: 'Cmd+-', command: 'window:zoom-out' }
+      { label: 'Reset Zoom', accelerator: 'Cmd+0', command: 'window:zoom-reset' }
+      { type: 'separator' }
+      { label: 'Toggle Full Screen', accelerator: 'Cmd+Ctrl+F', command: 'window:toggle-full-screen' }
+      { label: 'Developer Tools', accelerator: 'Alt+Cmd+I', command: 'window:toggle-dev-tools' }
     ]
   }
 
@@ -53,11 +57,11 @@
     label: 'Window'
     role: 'window'
     submenu: [
-      { label: 'Minimize', accelerator: 'Command+M', role: 'minimize' }
-      { label: 'Zoom', accelerator: 'Alt+Command+Control+M', selector: 'zoom:' }
+      { label: 'Minimize', accelerator: 'Cmd+M', role: 'minimize' }
+      { label: 'Zoom', accelerator: 'Alt+Cmd+Ctrl+M', selector: 'zoom:' }
       { type: 'separator' }
-      { label: 'Reset', accelerator: 'Command+Alt+R', command: 'window:reset' }
-      { label: 'Close', accelerator: 'Command+W', role: 'close' }
+      { label: 'Reset', accelerator: 'Cmd+Alt+R', command: 'window:reset' }
+      { label: 'Close', accelerator: 'Cmd+W', role: 'close' }
     ]
   }
 

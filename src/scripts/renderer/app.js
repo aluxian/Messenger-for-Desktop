@@ -6,6 +6,7 @@ import debug from 'debug';
 
   const log = debug('whatsie:app');
   const ipcr = electron.ipcRenderer;
+  const webFrame = electron.webFrame;
 
   // Set the user agent and then load the app
   const webView = document.getElementById('webView');
@@ -19,5 +20,10 @@ import debug from 'debug';
     const count = isNaN(parsed) || !parsed ? null : '' + parsed;
     log('sending notif-count', count);
     ipcr.send('notif-count', count);
+  });
+
+  // Set zoom level
+  ipcr.on('zoom-level', function(event, zoomLevel) {
+    webFrame.setZoomLevel(zoomLevel);
   });
 })();

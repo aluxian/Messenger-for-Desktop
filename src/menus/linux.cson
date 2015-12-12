@@ -11,7 +11,11 @@
     label: '&View'
     submenu: [
       { label: '&Reload', accelerator: 'Ctrl+R', command: 'window:reload' }
-      { label: 'Re&set', accelerator: 'Ctrl+Alt+R', command: 'window:reset' }
+      { label: 'Re&set Window', accelerator: 'Ctrl+Alt+R', command: 'window:reset' }
+      { type: 'separator' }
+      { label: 'Zoom &In', accelerator: 'Ctrl+Plus', command: 'window:zoom-in' }
+      { label: 'Zoom &Out', accelerator: 'Ctrl+-', command: 'window:zoom-out' }
+      { label: 'Reset &Zoom', accelerator: 'Ctrl+0', command: 'window:zoom-reset' }
       { type: 'separator' }
       { label: 'Toggle &Full Screen', accelerator: 'F11', command: 'window:toggle-full-screen' }
       { label: 'Toggle &Developer Tools', accelerator: 'Alt+Ctrl+I', command: 'window:toggle-dev-tools' }

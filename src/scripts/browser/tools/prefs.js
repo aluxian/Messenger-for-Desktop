@@ -13,7 +13,7 @@ export default {
    * Save the given (key, value) pair asynchronously.
    * Return immediately and log errors.
    */
-  save: function(key, value) {
+  set: function(key, value) {
     return db.save(key, value, function(err) {
       if (err) {
         console.error(err);
@@ -27,13 +27,17 @@ export default {
    * Retrieve the value synchronously.
    */
   get: function(key, defaultValue) {
-    return db.getSync(key) || defaultValue;
+    const value = db.getSync(key) || defaultValue;
+    if (value instanceof Error) {
+      return defaultValue;
+    }
+    return value;
   },
 
   /**
    * Remove the given key.
    */
-  delete: function(key) {
+  unset: function(key) {
     return db.delete(key, function(err) {
       if (err) {
         console.error(err);

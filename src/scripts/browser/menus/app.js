@@ -1,6 +1,7 @@
 import app from 'app';
 import shell from 'shell';
 import prefs from '../tools/prefs';
+import {ipcMain} from 'electron';
 import debug from 'debug';
 import fs from 'fs';
 
@@ -57,7 +58,7 @@ class AppMenu extends BaseMenu {
 
     this.on('application:update-theme', function(menuItem) {
       log('application:update-theme', menuItem.theme);
-      prefs.save('app:theme', menuItem.theme);
+      prefs.set('app:theme', menuItem.theme);
       focusedWindow().webContents.send('apply-theme', menuItem.theme);
     });
 
@@ -82,13 +83,34 @@ class AppMenu extends BaseMenu {
       log('window:reset');
       focusedWindow().setSize(800, 600);
       focusedWindow().center();
-      prefs.delete('window:bounds');
+      prefs.unset('window:bounds');
+    });
+
+    this.on('window:zoom-in', function() {
+      log('window:zoom-in');
+      const newLevel = prefs.get('window:zoom-level', 0) + 1;
+      focusedWindow().webContents.send('zoom-level', newLevel);
+      prefs.set('window:zoom-level', newLevel);
+    });
+
+    this.on('window:zoom-out', function() {
+      log('window:zoom-out');
+      const newLevel = prefs.get('window:zoom-level', 0) - 1;
+      focusedWindow().webContents.send('zoom-level', newLevel);
+      prefs.set('window:zoom-level', newLevel);
+    });
+
+    this.on('window:zoom-reset', function() {
+      log('window:zoom-reset');
+      focusedWindow().webContents.send('zoom-level', 0);
+      prefs.unset('window:zoom-level');
     });
 
     this.on('window:toggle-full-screen', function() {
       log('window:toggle-full-screen');
       const focusedWindow = focusedWindow();
-      focusedWindow.setFullScreen(!focusedWindow.isFullScreen());
+      const newState = !focusedWindow.isFullScreen();
+      focusedWindow.setFullScreen(newState);
     });
 
     this.on('window:toggle-dev-tools', function() {
