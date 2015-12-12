@@ -16,7 +16,11 @@ class AppWindow extends BaseWindow {
       height: 600
     });
 
-    super(manifest, bounds);
+    const options = {
+      title: manifest.productName
+    };
+
+    super(manifest, Object.assign(options, bounds));
     this.initWindow();
   }
 
@@ -36,6 +40,11 @@ class AppWindow extends BaseWindow {
         const js = 'applyTheme("' + theme + '");';
         this.window.webContents.executeJavaScript(js);
       }
+    });
+
+    // Listen to window title changes
+    this.window.on('page-title-updated', (event) => {
+      log('window title updated', this.window.getTitle());
     });
 
     // Save the bounds on resize or move
