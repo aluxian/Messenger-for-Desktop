@@ -58,9 +58,7 @@ class AppMenu extends BaseMenu {
     this.on('application:update-theme', function(menuItem) {
       log('application:update-theme', menuItem.theme);
       prefs.save('app:theme', menuItem.theme);
-
-      const js = 'applyTheme("' + menuItem.theme + '");';
-      BrowserWindow.getFocusedWindow().webContents.executeJavaScript(js);
+      focusedWindow().webContents.send('apply-theme', menuItem.theme);
     });
 
     this.on('application:check-for-update', () => {
@@ -77,28 +75,32 @@ class AppMenu extends BaseMenu {
   setWindowEventListeners() {
     this.on('window:reload', function() {
       log('window:reload');
-      BrowserWindow.getFocusedWindow().reload();
+      focusedWindow().reload();
     });
 
     this.on('window:reset', function() {
       log('window:reset');
-      BrowserWindow.getFocusedWindow().setSize(800, 600);
-      BrowserWindow.getFocusedWindow().center();
+      focusedWindow().setSize(800, 600);
+      focusedWindow().center();
       prefs.delete('window:bounds');
     });
 
     this.on('window:toggle-full-screen', function() {
       log('window:toggle-full-screen');
-      const focusedWindow = BrowserWindow.getFocusedWindow();
+      const focusedWindow = focusedWindow();
       focusedWindow.setFullScreen(!focusedWindow.isFullScreen());
     });
 
     this.on('window:toggle-dev-tools', function() {
       log('window:toggle-dev-tools');
-      BrowserWindow.getFocusedWindow().toggleDevTools();
+      focusedWindow().toggleDevTools();
     });
   }
 
+}
+
+function focusedWindow() {
+  return BrowserWindow.getFocusedWindow();
 }
 
 export default AppMenu;

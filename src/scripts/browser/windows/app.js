@@ -38,13 +38,12 @@ class AppWindow extends BaseWindow {
       const theme = prefs.get('app:theme', null);
       if (theme) {
         log('restoring theme', theme);
-        const js = 'applyTheme("' + theme + '");';
-        this.window.webContents.executeJavaScript(js);
+        this.window.webContents.send('apply-theme', theme);
       }
     });
 
     // Save the bounds on resize or move
-    const saveBounds = debounce(::this.saveBounds, 1000);
+    const saveBounds = debounce(::this.saveBounds, 500);
     this.window.on('resize', saveBounds);
     this.window.on('move', saveBounds);
   }

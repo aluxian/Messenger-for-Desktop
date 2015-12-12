@@ -1,6 +1,7 @@
 import app from 'app';
 import filer from './tools/filer';
 import debug from 'debug';
+import {ipcMain} from 'electron';
 
 import AppMenu from './menus/app';
 import AppWindow from './windows/app';
@@ -21,7 +22,9 @@ class Application extends EventEmitter {
 
     this.createAppMenu();
     this.createAppWindow();
+
     this.setEventListeners();
+    this.setIpcEventListeners();
   }
 
   /**
@@ -47,8 +50,25 @@ class Application extends EventEmitter {
   setEventListeners() {
     // Quit the app if all windows are closed
     app.on('window-all-closed', function() {
-      log('window-all-closed, quitting');
+      log('all windows closed, quitting');
       app.quit();
+    });
+  }
+
+  /**
+   * Listen for IPC events.
+   */
+  setIpcEventListeners() {
+    // Guest app notifications count
+    ipcMain.on('notif-count', (event, count) => {
+      log('on notif-count', count);
+      if (app.dock && app.dock.setBadge) {
+        if (count) {
+          app.dock.setBadge(count);
+        } else {
+          app.dock.setBadge('');
+        }
+      }
     });
   }
 
