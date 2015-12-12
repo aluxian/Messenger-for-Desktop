@@ -23,14 +23,38 @@ gulp.task 'build:darwin64', ['resources:darwin', 'compile:darwin64', 'clean:buil
       exeDir = './build/darwin64/' + manifest.productName + '.app/Contents/MacOS/'
       fromPath = exeDir + 'Electron'
       toPath = exeDir + manifest.productName
-
       fs.rename fromPath, toPath, utils.log callback, fromPath, '=>', toPath
+
+    # Rename the helper executables
+    async.apply async.series, ['Helper', 'Helper NP', 'Helper EH'].map (suffix) ->
+      (callback) ->
+        exeDir = './build/darwin64/' + manifest.productName +
+          '.app/Contents/Frameworks/Electron ' + suffix + '.app/Contents/MacOS/'
+        fromPath = exeDir + 'Electron ' + suffix
+        toPath = exeDir + manifest.productName + ' ' + suffix
+        fs.rename fromPath, toPath, utils.log callback, fromPath, '=>', toPath
 
     # Move the new Info.plist
     (callback) ->
-      fromPath = './build/resources/darwin/Info.plist'
+      fromPath = './build/resources/darwin/App.plist'
       toPath = './build/darwin64/' + manifest.productName + '.app/Contents/Info.plist'
       fs.copy fromPath, toPath, utils.log callback, fromPath, '=>', toPath
+
+    # Move the new Info.plist for the helpers
+    async.apply async.series, ['Helper', 'Helper NP', 'Helper EH'].map (name) ->
+      (callback) ->
+        fromPath = './build/resources/darwin/' + name + '.plist'
+        toPath = './build/darwin64/' + manifest.productName +
+          '.app/Contents/Frameworks/Electron ' + name + '.app/Contents/Info.plist'
+        fs.copy fromPath, toPath, utils.log callback, fromPath, '=>', toPath
+
+    # Rename the helper frameworks
+    async.apply async.series, ['Helper', 'Helper NP', 'Helper EH'].map (suffix) ->
+      (callback) ->
+        exeDir = './build/darwin64/' + manifest.productName + '.app/Contents/Frameworks/'
+        fromPath = exeDir + 'Electron ' + suffix + '.app'
+        toPath = exeDir + manifest.productName + ' ' + suffix + '.app'
+        fs.rename fromPath, toPath, utils.log callback, fromPath, '=>', toPath
 
     # Touch the .app to refresh it
     (callback) ->
