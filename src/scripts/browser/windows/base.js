@@ -16,8 +16,8 @@ class BaseWindow extends EventEmitter {
   /**
    * Load the target url inside the window.
    */
-  loadUrl(targetUrl) {
-    this.window.loadUrl(targetUrl);
+  loadURL(targetUrl) {
+    this.window.loadURL(targetUrl);
   }
 
 }

@@ -35,7 +35,7 @@ class Application extends EventEmitter {
    */
   createAppWindow() {
     this.appWindow = new AppWindow(this.manifest);
-    this.appWindow.loadUrl(filer.getHtmlFile('app.html'));
+    this.appWindow.loadURL(filer.getHtmlFile('app.html'));
   }
 
   /**
