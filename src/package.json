@@ -40,7 +40,7 @@
   "linux": {
     "genericName": "Instant Messenger",
     "categories": "Chat;InstantMessaging;",
-    "keywords": "WhatsApp;",
+    "keywords": "WhatsApp;Whats;",
     "section": "web"
   },
   "win": {
