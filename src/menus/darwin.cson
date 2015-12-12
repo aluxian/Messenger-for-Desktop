@@ -33,6 +33,8 @@
     label: 'View'
     submenu: [
       { label: 'Reload', accelerator: 'Command+R', command: 'window:reload' }
+      { label: 'Reset Position & Size', accelerator: 'Command+Alt+R', command: 'window:reset' }
+      { type: 'separator' }
       { label: 'Toggle Full Screen', accelerator: 'Command+Control+F', command: 'window:toggle-full-screen' }
       { label: 'Developer Tools', accelerator: 'Alt+Command+I', command: 'window:toggle-dev-tools' }
     ]

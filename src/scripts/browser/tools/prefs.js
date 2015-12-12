@@ -14,12 +14,12 @@ export default {
    * Return immediately and log errors.
    */
   save: function(key, value) {
-    db.save(key, value, function(err) {
+    return db.save(key, value, function(err) {
       if (err) {
         console.error(err);
+      } else {
+        log('saved', key, '=', JSON.stringify(value));
       }
-
-      log('saved', key, '=', JSON.stringify(value));
     });
   },
 
@@ -28,6 +28,19 @@ export default {
    */
   get: function(key, defaultValue) {
     return db.getSync(key) || defaultValue;
+  },
+
+  /**
+   * Remove the given key.
+   */
+  delete: function(key) {
+    return db.delete(key, function(err) {
+      if (err) {
+        console.error(err);
+      } else {
+        log('removed', key);
+      }
+    });
   }
 
 };
