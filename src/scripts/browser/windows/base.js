@@ -1,5 +1,9 @@
+import debug from 'debug';
+
 import BrowserWindow from 'browser-window';
 import EventEmitter from 'events';
+
+const log = debug('whatsie:BaseWindow');
 
 class BaseWindow extends EventEmitter {
 
@@ -11,6 +15,9 @@ class BaseWindow extends EventEmitter {
 
     this.manifest = manifest;
     this.window = new BrowserWindow(options);
+
+    const cleanUA = this.getCleanUserAgent();
+    this.window.webContents.setUserAgent(cleanUA);
   }
 
   /**
@@ -18,6 +25,16 @@ class BaseWindow extends EventEmitter {
    */
   loadURL(targetUrl) {
     this.window.loadURL(targetUrl);
+  }
+
+  /**
+   * Remove identifiable information (e.g. app name) from the UA string.
+   */
+  getCleanUserAgent() {
+    return this.window.webContents.getUserAgent()
+      .replace(new RegExp(manifest.productName + '/[\\S]*', 'g'), '')
+      .replace(new RegExp('Electron/[\\S]*', 'g'), '')
+      .replace(/[ ]+/g, ' ');
   }
 
 }

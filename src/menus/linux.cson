@@ -11,7 +11,7 @@
     label: '&View'
     submenu: [
       { label: '&Reload', accelerator: 'Ctrl+R', command: 'window:reload' }
-      { label: 'Reset &Position & Size', accelerator: 'Ctrl+Alt+R', command: 'window:reset' }
+      { label: 'Re&set', accelerator: 'Ctrl+Alt+R', command: 'window:reset' }
       { type: 'separator' }
       { label: 'Toggle &Full Screen', accelerator: 'F11', command: 'window:toggle-full-screen' }
       { label: 'Toggle &Developer Tools', accelerator: 'Alt+Ctrl+I', command: 'window:toggle-dev-tools' }

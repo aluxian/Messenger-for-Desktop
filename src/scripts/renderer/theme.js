@@ -13,7 +13,7 @@ function applyTheme(name) {
       .replace(/[\n\r]+/g, '') // replace new lines
       .replace(/"/g, '\\"'); // escape quotation marks
 
-    appWebView.executeJavaScript(
+    webView.executeJavaScript(
       `
       var styleBlockId = "cssTheme";
       var styleBlock = document.getElementById(styleBlockId);

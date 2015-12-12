@@ -17,7 +17,8 @@ class AppWindow extends BaseWindow {
     });
 
     const options = {
-      title: manifest.productName
+      title: manifest.productName,
+      backgroundColor: '#dfdfdf'
     };
 
     super(manifest, Object.assign(options, bounds));
@@ -42,17 +43,15 @@ class AppWindow extends BaseWindow {
       }
     });
 
-    // Listen to window title changes
-    this.window.on('page-title-updated', (event) => {
-      log('window title updated', this.window.getTitle());
-    });
-
     // Save the bounds on resize or move
     const saveBounds = debounce(::this.saveBounds, 1000);
     this.window.on('resize', saveBounds);
     this.window.on('move', saveBounds);
   }
 
+  /**
+   * Persist the current window's state.
+   */
   saveBounds() {
     log('saving bounds');
     const bounds = this.window.getBounds();
