@@ -1,0 +1,342 @@
+/* @source https://userstyles.org/styles/120533/the-dark-and-flat-whatsapp-web */
+
+/* Remove intro image, enable desktop notifications, bubble corner and small line after chat header */
+.butterbar-notification, .message:before, header.pane-chat-header:after {
+  display: none !important;
+}
+
+
+/* Move sidebar scrollbar to the left */
+
+#pane-side {
+  direction: rtl !important;
+}
+
+.chat {
+  direction: ltr !important;
+}
+
+
+/* icons color invert*/
+
+.icon-down, .icon-muted, .icon-download, .icon-x-viewer, .icon-audio-play, .icon-audio-pause, .icon-emoji-input, .btn-media-forward, .icon-status-image, .icon-status-video, .icon-status-dblcheck {
+  filter: invert(100%) !important;
+  -webkit-filter: invert(100%) !important;
+}
+
+
+/* Background */
+
+.app-wrapper, #startup, #wrapper, #wrapper:before {
+  background: #262222 !important;
+}
+
+
+/* Login page */
+
+#window, #platforms {
+  background: #333 !important;
+}
+
+#window *, #platforms * {
+  color: #DDD !important;
+}
+
+.qrcode {
+  border: 16px solid white !important;
+}
+
+
+/* Texts */
+
+.chat-title, .action .button-contact {
+  color: #EEE !important;
+}
+
+.chat-status, .message-text, .msg-search-notfound, .well {
+  color: #CCC !important;
+}
+
+.chat-time, .message-datetime {
+  color: #999 !important;
+}
+
+
+/* Cheaqckboxs */
+
+.checkbox.unchecked {
+  background: #EEE !important;
+}
+
+.checkbox.checked {
+  background: #00BFA5 !important;
+}
+
+
+/***********/
+
+
+/* Sidebar */
+
+
+/***********/
+
+.input-main, .placeholder {
+  color: #BBB !important;
+  padding-right: 20px !important;
+}
+
+.btn-round {
+  background: #00BFA5 !important;
+}
+
+
+/* Top part */
+
+.pane-list-header, .unread-count {
+  background: #348b43 !important;
+}
+
+
+/* Search bar and right sidebar */
+
+.subheader-search, .subheader-search:after, #pane-side, .pane-preview {
+  background: #333 !important;
+}
+
+.cont-input-search, .input-search, .animate-enter1 {
+  background: #DDD !important;
+}
+
+
+/* Chats list */
+
+.chat, .infinite-list-item, .list-title {
+  background: #333 !important;
+}
+
+.chat:after {
+  border-bottom: 1px solid #444 !important;
+}
+
+.active.chat {
+  background: #444 !important;
+}
+
+.hover.chat {
+  background: #666 !important;
+}
+
+
+/* Profile & status */
+
+header.drawer-header-small {
+  background: #348b6f !important;
+  color: #EEE !important;
+}
+
+.drawer-body, .animate-enter2, .animate-enter, .drawer-section-body.chatlist {
+  background: #333 !important;
+}
+
+.input {
+  color: #666 !important;
+}
+
+
+/**************/
+
+
+/* Intro page */
+
+
+/**************/
+
+.pane {
+  background: #444 !important;
+}
+
+.pane-intro:after {
+  border-top: 6px solid #348b43 !important;
+}
+
+
+/* Cut white parts from image */
+
+.intro-image {
+  border-radius: 50%!important;
+}
+
+
+/* Texts */
+
+h1 {
+  color: #EEE !important;
+}
+
+.intro-text {
+  color: #348b43 !important;
+}
+
+
+/*************/
+
+
+/* Chat page */
+
+
+/*************/
+
+
+/* Top bar */
+
+header.pane-chat-header {
+  background: #666 !important;
+}
+
+
+/* Background */
+
+.pane-body, .pane-chat-tile, .msg-unread {
+  background: #444 !important;
+}
+
+
+/* Chat bubble */
+
+.message-in {
+  background: #363636 !important;
+}
+
+.message-out {
+  background: #264441 !important;
+}
+
+.tail {
+  margin-top: 1.5px !important;
+}
+
+.message-system-body {
+  background: #348b43 !important;
+  color: #EEE !important;
+  font-weight: bold !important;
+  text-shadow: none !important;
+}
+
+.msg-unread-body {
+  font-weight: bold !important;
+}
+
+
+/* Remove background from down arrow */
+
+.message .btn-context, .message .btn-context:after {
+  background: none !important;
+}
+
+
+/* Buttom bar */
+
+.block-compose {
+  background: #888!important;
+}
+
+.input-container {
+  background: #EEE !important;
+}
+
+
+/* Emojis */
+
+button.menu-item {
+  background: #AAA !important;
+  transition-duration: .25s !important;
+}
+
+button.menu-item:hover {
+  background: #666 !important;
+}
+
+.menu-tabs-marker {
+  background: #348B6F !important;
+}
+
+.emoji-panel-body {
+  background: #444 !important;
+}
+
+.emojik {
+  border-radius: 4px !important;
+  -webkit-box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.7);
+  box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.7);
+  margin: 6px 4px !important;
+}
+
+
+/**********/
+
+
+/* Others */
+
+
+/**********/
+
+
+/* Dropdowns */
+
+.dropdown {
+  background: #333 !important;
+}
+
+li .ellipsify {
+  color: #EEE !important;
+}
+
+li .ellipsify:hover {
+  background: #444 !important;
+}
+
+
+/* Popups */
+
+.popup {
+  background: #262222 !important;
+}
+
+.popup-title, .btn-plain {
+  color: #EEE !important;
+}
+
+.popup-contents {
+  color: #BBB !important;
+}
+
+.select * {
+  color: #00BFA5 !important;
+}
+
+.popup-controls-item {
+  background: #348b6f !important;
+}
+
+.backdrop {
+  background: rgba(15, 15, 15, 0.65) !important;
+}
+
+
+/*  Image viewer */
+
+.media-panel-header, .media-content {
+  background: #333 !important;
+}
+
+.chat-main {
+  color: #348b43 !important;
+}
+
+
+/* NO BORDERS! */
+
+* {
+  border: none !important;
+}

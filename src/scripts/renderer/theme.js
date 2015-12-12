@@ -9,8 +9,9 @@ function applyTheme(name) {
       return console.error(err);
     }
 
-    const cleanedCss = cssFile
-      .replace(/"/g, '\\"');
+    const css = cssFile
+      .replace(/[\n\r]+/g, '') // replace new lines
+      .replace(/"/g, '\\"'); // escape quotation marks
 
     appWebView.executeJavaScript(
       `
@@ -20,12 +21,11 @@ function applyTheme(name) {
       if (!styleBlock) {
         styleBlock = document.createElement("style");
         styleBlock.id = styleBlockId;
-
-        var head = document.getElementsByTagName("head")[0];
-        head.appendChild(styleBlock);
+        styleBlock.type = "text/css";
+        document.head.appendChild(styleBlock);
       }
 
-      styleBlock.innerHTML= "${cleanedCss}";
+      styleBlock.innerHTML = "${css}";
       `
     );
   });
