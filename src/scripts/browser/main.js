@@ -12,13 +12,13 @@ import manifest from '../../package.json';
 // Log uncaught exceptions
 process.on('uncaughtException', error => console.error(error.stack || error));
 
-(function main() {
+(function() {
   // Check for Squirrel.Windows CLI args
   if (SquirrelEvents.check()) {
     return;
   }
 
-  // Define the CLI and parse arguments
+  // Define the CLI arguments and parse them
   const argv = yargs
     .usage('Usage: $0 [options]')
     .boolean('os-startup').describe('os-startup', 'Flag to indicate the app is being ran by the OS on startup.')
