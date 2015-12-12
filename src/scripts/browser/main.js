@@ -1,5 +1,6 @@
 import app from 'app';
 import yargs from 'yargs';
+import debug from 'debug';
 import path from 'path';
 import fs from 'fs';
 
@@ -11,6 +12,8 @@ import Application from './application';
 
 import manifest from '../../package.json';
 import config from '../../config.json';
+
+const log = debug('whatsie:main');
 
 // Log uncaught exceptions
 process.on('uncaughtException', error => console.error(error.stack || error));
@@ -41,6 +44,7 @@ process.on('uncaughtException', error => console.error(error.stack || error));
 
   // Change the userData path if in portable mode
   if (argv.portable || config.portable) {
+    log('running in portable mode');
     app.setPath('userData', path.join(app.getAppPath(), 'data'));
   }
 
@@ -52,6 +56,7 @@ process.on('uncaughtException', error => console.error(error.stack || error));
 
   // Check for update and create the main app object
   app.on('ready', function() {
+    log('ready, launching app');
     global.manifest = manifest;
     global.application = new Application(manifest, argv);
     // Updater.checkAndPrompt(manifest, false)

@@ -8,8 +8,13 @@ class BaseMenu extends EventEmitter {
    */
   constructor(template) {
     super();
+    this.init(template);
+  }
 
-    // Set handlers and create the menu
+  /**
+   * Set handlers and create the menu
+   */
+  init(template) {
     this.wireUpCommands(template);
     this.menu = Menu.buildFromTemplate(template);
   }

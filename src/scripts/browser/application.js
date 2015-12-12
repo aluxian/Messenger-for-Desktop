@@ -1,9 +1,12 @@
 import app from 'app';
 import filer from './tools/filer';
+import debug from 'debug';
 
 import AppMenu from './menus/app';
 import AppWindow from './windows/app';
 import EventEmitter from 'events';
+
+const log = debug('whatsie:Application');
 
 class Application extends EventEmitter {
 
@@ -44,6 +47,7 @@ class Application extends EventEmitter {
   setEventListeners() {
     // Quit the app if all windows are closed
     app.on('window-all-closed', function() {
+      log('window-all-closed, quitting');
       app.quit();
     });
   }
