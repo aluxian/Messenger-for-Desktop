@@ -1,14 +1,22 @@
 require 'colors'
 
-verbose = '--verbose' in process.argv
+isVerbose = '--verbose' in process.argv
+
+platform = () ->
+  arch = if process.arch == 'ia32' then '32' else '64'
+  process.platform + arch
 
 join = (args) ->
-  str = ''
-  str += ' ' + val for own key, val of args
-  return str.trim()
+  (val for own key, val of args).join ' '
+
+log = (callback, messages...) ->
+  (err) ->
+    if isVerbose
+      status = if err then 'Failed'.red else 'Successful'.green
+      console.log status, join(messages), '|', join(arguments)
+    callback err
 
 module.exports =
-  log: (callback, messages...) -> (err) ->
-    if verbose
-      console.log (if err then 'Failed'.red else 'Successful'.green), join(messages), '|', join(arguments)
-    callback(err)
+  platform: platform
+  join: join
+  log: log

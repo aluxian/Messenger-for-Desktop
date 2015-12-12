@@ -2,6 +2,7 @@ cp = require 'child_process'
 gulp = require 'gulp'
 livereload = require 'gulp-livereload'
 manifest = require '../src/package.json'
+utils = require './utils'
 
 # Watch files and reload the app on changes
 [
@@ -27,3 +28,6 @@ manifest = require '../src/package.json'
     gulp.watch './src/scripts/browser/**/*', ['restart:compile:' + dist + ':scripts']
     gulp.watch './src/scripts/renderer/**/*', ['compile:' + dist + ':scripts']
     gulp.watch './src/html/**/*', ['compile:' + dist + ':html']
+
+# Watch for the current platform by default
+gulp.task 'watch', ['watch:' + utils.platform()]
