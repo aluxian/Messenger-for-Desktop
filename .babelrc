@@ -1,7 +1,0 @@
-{
-  "sourceMaps": "inline",
-  "presets": [
-    "stage-0",
-    "es2015"
-  ]
-}

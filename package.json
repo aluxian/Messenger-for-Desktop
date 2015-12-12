@@ -18,10 +18,12 @@
     "gulp-embedlr": "0.5.2",
     "gulp-filter": "3.0.1",
     "gulp-github-release": "1.0.3",
+    "gulp-if": "2.0.0",
     "gulp-less": "3.0.5",
     "gulp-livereload": "3.8.1",
     "gulp-mustache": "2.1.1",
     "gulp-plumber": "1.0.1",
+    "gulp-sourcemaps": "1.6.0",
     "gulp-zip": "3.0.2",
     "rcedit": "0.3.0",
     "require-dir": "0.3.0"

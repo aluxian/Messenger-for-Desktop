@@ -2,16 +2,19 @@ beeper = require 'beeper'
 
 gulp = require 'gulp'
 plumber = require 'gulp-plumber'
+sourcemaps = require 'gulp-sourcemaps'
 mustache = require 'gulp-mustache'
 
 cson = require 'gulp-cson'
 less = require 'gulp-less'
 babel = require 'gulp-babel'
+gif = require 'gulp-if'
 
 embedlr = require 'gulp-embedlr'
 livereload = require 'gulp-livereload'
 
 manifest = require '../src/package.json'
+args = require './args'
 
 [
   ['darwin64', './build/darwin64/' + manifest.productName + '.app/Contents/Resources/app']
@@ -47,7 +50,13 @@ manifest = require '../src/package.json'
   gulp.task 'compile:' + dist + ':scripts', ['clean:build:' + dist], ->
     gulp.src './src/scripts/**/*.js'
       .pipe plumber handleError
-      .pipe babel()
+      .pipe gif args.dev, sourcemaps.init()
+      .pipe babel
+        presets: [
+          'stage-0'
+          'es2015'
+        ]
+      .pipe gif args.dev, sourcemaps.write()
       .pipe plumber.stop()
       .pipe gulp.dest dir + '/scripts'
       .pipe livereload()

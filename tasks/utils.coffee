@@ -1,6 +1,5 @@
+args = require './args'
 require 'colors'
-
-isVerbose = '--verbose' in process.argv
 
 platform = () ->
   arch = if process.arch == 'ia32' then '32' else '64'
@@ -11,7 +10,7 @@ join = (args) ->
 
 log = (callback, messages...) ->
   (err) ->
-    if isVerbose
+    if args.verbose
       status = if err then 'Failed'.red else 'Successful'.green
       console.log status, join(messages), '|', join(arguments)
     callback err

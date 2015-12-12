@@ -60,6 +60,17 @@ $ gulp build:linux64
 $ gulp build:win32
 ```
 
+For production builds, use the `--prod` flag:
+
+```
+$ gulp build:darwin64 --prod
+$ gulp build:linux32 --prod
+$ gulp build:linux64 --prod
+$ gulp build:win32 --prod
+```
+
+Production builds don't include js sourcemaps.
+
 ### Pack
 
 Package *all* the things!
@@ -70,6 +81,7 @@ Pack the app in a neat .dmg:
 
 ```
 $ gulp pack:darwin64
+$ gulp pack:darwin64 --prod
 ```
 
 This uses [node-appdmg](https://www.npmjs.com/package/appdmg) which works only on OS X machines. There's an issue about making it cross-platform [here](https://github.com/LinusU/node-appdmg/issues/14).
@@ -80,12 +92,14 @@ Create an installer. This will also sign every executable inside the app, and th
 
 ```
 $ gulp pack:win32:installer
+$ gulp pack:win32:installer --prod
 ```
 
 Or, if you prefer, create a portable zip. This will also sign the executable:
 
 ```
 $ gulp pack:win32:portable
+$ gulp pack:win32:portable --prod
 ```
 
 These tasks only work on Windows machines due to their dependencies: [Squirrel.Windows](https://github.com/Squirrel/Squirrel.Windows) and Microsoft's SignTool.
@@ -106,6 +120,15 @@ Create rpm packages:
 ```
 $ gulp pack:linux32:rpm
 $ gulp pack:linux64:rpm
+```
+
+Or for production:
+
+```
+$ gulp pack:linux32:deb --prod
+$ gulp pack:linux64:deb --prod
+$ gulp pack:linux32:rpm --prod
+$ gulp pack:linux64:rpm --prod
 ```
 
 Make sure you've installed [fpm](https://github.com/jordansissel/fpm).
