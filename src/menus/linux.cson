@@ -19,10 +19,10 @@
   {
     label: '&Theme'
     submenu: [
-      { label: 'Default', command: 'application:update-theme', theme: 'default' }
-      { label: 'Grey', command: 'application:update-theme', theme: 'grey' }
-      { label: 'Pure', command: 'application:update-theme', theme: 'pure' }
-      { label: 'Dark', command: 'application:update-theme', theme: 'dark' }
+      { type: 'radio', label: 'Default', command: 'application:update-theme', theme: 'default' }
+      { type: 'radio', label: 'Grey', command: 'application:update-theme', theme: 'grey' }
+      { type: 'radio', label: 'Pure', command: 'application:update-theme', theme: 'pure' }
+      { type: 'radio', label: 'Dark', command: 'application:update-theme', theme: 'dark' }
     ]
   }
 
@@ -32,14 +32,12 @@
       { label: 'Version {{ version }}', enabled: false }
       { label: 'Check for Update', command: 'application:check-for-update' }
       { type: 'separator' }
-      { label: 'Electron Website', command: 'application:open-url', url: 'http://electron.atom.io' }
-      { label: 'Community Discussions', command: 'application:open-url', url: 'https://discuss.atom.io/c/electron' }
+      { label: '&Report Issue', command: 'application:open-url', url: 'https://github.com/Aluxian/Whatsie/issues' }
+      { label: '&Suggest Feature', command: 'application:open-url', url: 'https://github.com/Aluxian/Whatsie/issues' }
+      { label: '&Email Developer', command: 'application:send-email', email: 'me@aluxian.com' }
       { type: 'separator' }
-      { label: 'Electron Docs', command: 'application:open-url', url: 'https://github.com/atom/electron/tree/master/docs#readme' }
-      { label: 'Electron SuperKit Docs', command: 'application:open-url', url: 'https://github.com/Aluxian/electron-superkit/wiki' }
-      { type: 'separator' }
-      { label: '&Report Issue', command: 'application:open-url', url: 'https://github.com/Aluxian/electron-superkit/issues' }
-      { label: '&Suggest Feature', command: 'application:open-url', url: 'https://github.com/Aluxian/electron-superkit/issues' }
+      { label: 'Donate &PayPal', command: 'application:open-url', url: 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=4YVCUBK2QJKBL' }
+      { label: 'Donate &Bitcoins', command: 'application:open-url', url: 'https://www.coinbase.com/checkouts/cf0d7f14d3413fdebcc0de9a2a934fdf' }
     ]
   }
 ]

@@ -2,15 +2,15 @@
   {
     label: '{{ productName }}'
     submenu: [
-      { label: 'About {{ productName }}', selector: 'orderFrontStandardAboutPanel:' }
+      { label: 'About {{ productName }}', role: 'about' }
       { label: 'Check for Update', command: 'application:check-for-update' }
       { type: 'separator' }
       { label: 'Preferences...', command: 'application:show-settings' }
-      { label: 'Services', submenu: [] }
+      { label: 'Services', role: 'services', submenu: [] }
       { type: 'separator' }
-      { label: 'Hide {{ productName }}', accelerator: 'Command+H', selector: 'hide:' }
-      { label: 'Hide Others', accelerator: 'Command+Shift+H', selector: 'hideOtherApplications:' }
-      { label: 'Show All', selector: 'unhideAllApplications:' }
+      { label: 'Hide {{ productName }}', accelerator: 'Command+H', role: 'hide' }
+      { label: 'Hide Others', accelerator: 'Command+Shift+H', role: 'hideothers' }
+      { label: 'Show All', role: 'unhide' }
       { type: 'separator' }
       { label: 'Quit', accelerator: 'Command+Q', command: 'application:quit' }
     ]
@@ -19,13 +19,13 @@
   {
     label: 'Edit'
     submenu: [
-      { label: 'Undo', accelerator: 'Command+Z', selector: 'undo:' }
-      { label: 'Redo', accelerator: 'Shift+Command+Z', selector: 'redo:' }
+      { label: 'Undo', accelerator: 'Command+Z', role: 'undo' }
+      { label: 'Redo', accelerator: 'Shift+Command+Z', role: 'redo' }
       { type: 'separator' }
-      { label: 'Cut', accelerator: 'Command+X', selector: 'cut:' }
-      { label: 'Copy', accelerator: 'Command+C', selector: 'copy:' }
-      { label: 'Paste', accelerator: 'Command+V', selector: 'paste:' }
-      { label: 'Select All', accelerator: 'Command+A', selector: 'selectAll:' }
+      { label: 'Cut', accelerator: 'Command+X', role: 'cut' }
+      { label: 'Copy', accelerator: 'Command+C', role: 'copy' }
+      { label: 'Paste', accelerator: 'Command+V', role: 'paste' }
+      { label: 'Select All', accelerator: 'Command+A', role: 'selectall' }
     ]
   }
 
@@ -41,34 +41,34 @@
   {
     label: 'Theme'
     submenu: [
-      { label: 'Default', command: 'application:update-theme', theme: 'default' }
-      { label: 'Grey', command: 'application:update-theme', theme: 'grey' }
-      { label: 'Pure', command: 'application:update-theme', theme: 'pure' }
-      { label: 'Dark', command: 'application:update-theme', theme: 'dark' }
+      { type: 'radio', label: 'Default', command: 'application:update-theme', theme: 'default' }
+      { type: 'radio', label: 'Grey', command: 'application:update-theme', theme: 'grey' }
+      { type: 'radio', label: 'Pure', command: 'application:update-theme', theme: 'pure' }
+      { type: 'radio', label: 'Dark', command: 'application:update-theme', theme: 'dark' }
     ]
   }
 
   {
     label: 'Window'
+    role: 'window'
     submenu: [
-      { label: 'Minimize', accelerator: 'Command+M', selector: 'performMiniaturize:' }
-      { label: 'Zoom', selector: 'zoom:' }
+      { label: 'Minimize', accelerator: 'Command+M', role: 'minimize' }
+      { label: 'Zoom', accelerator: 'Alt+Command+Control+M', selector: 'zoom:' }
       { type: 'separator' }
-      { label: 'Close', accelerator: 'Command+W', selector: 'performClose:' }
+      { label: 'Close', accelerator: 'Command+W', role: 'close' }
     ]
   }
 
   {
     label: 'Help'
+    role: 'help'
     submenu: [
-      { label: 'Electron Website', command: 'application:open-url', url: 'http://electron.atom.io' }
-      { label: 'Community Discussions', command: 'application:open-url', url: 'https://discuss.atom.io/c/electron' }
+      { label: 'Report Issue', command: 'application:open-url', url: 'https://github.com/Aluxian/Whatsie/issues' }
+      { label: 'Suggest Feature', command: 'application:open-url', url: 'https://github.com/Aluxian/Whatsie/issues' }
+      { label: 'Email Developer', command: 'application:send-email', email: 'me@aluxian.com' }
       { type: 'separator' }
-      { label: 'Electron Docs', command: 'application:open-url', url: 'https://github.com/atom/electron/tree/master/docs#readme' }
-      { label: 'Electron SuperKit Wiki', command: 'application:open-url', url: 'https://github.com/Aluxian/electron-superkit/wiki' }
-      { type: 'separator' }
-      { label: 'Report Issue', command: 'application:open-url', url: 'https://github.com/Aluxian/electron-superkit/issues' }
-      { label: 'Suggest Feature', command: 'application:open-url', url: 'https://github.com/Aluxian/electron-superkit/issues' }
+      { label: 'Donate PayPal', command: 'application:open-url', url: 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=4YVCUBK2QJKBL' }
+      { label: 'Donate Bitcoins', command: 'application:open-url', url: 'https://www.coinbase.com/checkouts/cf0d7f14d3413fdebcc0de9a2a934fdf' }
     ]
   }
 ]
