@@ -72,9 +72,9 @@ manifest = require '../src/package.json'
       .pipe gulp.dest dir + '/node_modules'
       .pipe livereload()
 
-  # Move package.json
-  gulp.task 'compile:' + dist + ':package', ['clean:build:' + dist], ->
-    gulp.src './src/package.json'
+  # Move json files
+  gulp.task 'compile:' + dist + ':json', ['clean:build:' + dist], ->
+    gulp.src './src/*.json'
       .pipe gulp.dest dir
 
   # Compile everything
@@ -85,7 +85,7 @@ manifest = require '../src/package.json'
     'compile:' + dist + ':themes'
     'compile:' + dist + ':html'
     'compile:' + dist + ':deps'
-    'compile:' + dist + ':package'
+    'compile:' + dist + ':json'
   ]
 
 # Compile for all platforms

@@ -1,5 +1,7 @@
 import app from 'app';
 import yargs from 'yargs';
+import path from 'path';
+import fs from 'fs';
 
 import CrashReporter from 'crash-reporter';
 
@@ -8,6 +10,7 @@ import SquirrelEvents from './components/squirrel-events';
 import Application from './application';
 
 import manifest from '../../package.json';
+import config from '../../config.json';
 
 // Log uncaught exceptions
 process.on('uncaughtException', error => console.error(error.stack || error));
@@ -22,6 +25,7 @@ process.on('uncaughtException', error => console.error(error.stack || error));
   const argv = yargs
     .usage('Usage: $0 [options]')
     .boolean('os-startup').describe('os-startup', 'Flag to indicate the app is being ran by the OS on startup.')
+    .boolean('portable').describe('portable', 'Run in portable mode.')
     .boolean('v').alias('v', 'version').describe('v', 'Print the app version.')
     .help('h').alias('h', 'help').describe('h', 'Print this help message.')
     .epilog('Created with <3 by Alexandru Rosianu – http://www.aluxian.com/')
@@ -33,6 +37,11 @@ process.on('uncaughtException', error => console.error(error.stack || error));
     console.log(`Electron ${process.versions.electron}`);
     console.log(`Chromium ${process.versions.chrome}`);
     return app.quit();
+  }
+
+  // Change the userData path if in portable mode
+  if (argv.portable || config.portable) {
+    app.setPath('userData', path.join(app.getAppPath(), 'data'));
   }
 
   // Enable the crash reporter

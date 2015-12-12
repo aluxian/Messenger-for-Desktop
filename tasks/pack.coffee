@@ -125,7 +125,7 @@ gulp.task 'pack:win32:installer', ['build:win32', 'clean:dist:win32'], (done) ->
       return console.warn envName + ' env var not set.'
 
   async.series [
-    # First, compress the source files into an asar archive
+    # Compress the source files into an asar archive
     async.apply asar.createPackage, './build/win32/resources/app', './build/win32/resources/app.asar'
 
     # Remove leftovers
@@ -146,7 +146,7 @@ gulp.task 'pack:win32:installer', ['build:win32', 'clean:dist:win32'], (done) ->
   ], done
 
 # Create the win32 portable zip
-gulp.task 'pack:win32:portable', ['build:win32', 'clean:dist:win32'], (done) ->
+gulp.task 'pack:win32:portable', ['build:win32:portable', 'clean:dist:win32'], (done) ->
   if process.platform isnt 'win32'
     console.warn 'Skipping win32 portable packing; This only works on Windows due to signtool.'
     return done()
@@ -157,7 +157,7 @@ gulp.task 'pack:win32:portable', ['build:win32', 'clean:dist:win32'], (done) ->
       return done()
 
   async.series [
-    # First, compress the source files into an asar archive
+    # Compress the source files into an asar archive
     async.apply asar.createPackage, './build/win32/resources/app', './build/win32/resources/app.asar'
 
     # Remove leftovers
