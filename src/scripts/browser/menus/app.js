@@ -52,6 +52,11 @@ class AppMenu extends BaseMenu {
       BrowserWindow.getFocusedWindow().reload();
     });
 
+    this.on('window:toggle-full-screen', function() {
+      const focusedWindow = BrowserWindow.getFocusedWindow();
+      focusedWindow.setFullScreen(!focusedWindow.isFullScreen());
+    });
+
     this.on('window:toggle-dev-tools', function() {
       BrowserWindow.getFocusedWindow().toggleDevTools();
     });
