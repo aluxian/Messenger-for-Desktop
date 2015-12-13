@@ -8,6 +8,7 @@ import {isFunction} from 'lodash';
 import prefs from '../utils/prefs';
 
 import Menu from 'menu';
+import AppWindow from './app-window';
 import BrowserWindow from 'browser-window';
 import EventEmitter from 'events';
 
@@ -99,8 +100,10 @@ class AppMenu extends EventEmitter {
     });
 
     this.on('window:reset', function() {
-      focusedWindow().setSize(800, 600);
-      focusedWindow().center();
+      const bounds = AppWindow.DEFAULT_BOUNDS;
+      const focusedWindow = focusedWindow();
+      focusedWindow.setSize(bounds.width, bounds.height);
+      focusedWindow.center();
       prefs.unset('window:bounds');
     });
 

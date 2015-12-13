@@ -1,15 +1,15 @@
 import app from 'app';
-import filer from '../utils/filer';
 import debug from 'debug';
+import filer from '../utils/filer';
 import {ipcMain} from 'electron';
 
 import AppMenu from './app-menu';
-import AppWindow from './windows/app';
+import AppWindow from './app-window';
 
 import Menu from 'menu';
 import EventEmitter from 'events';
 
-const log = debug('whatsie:Application');
+const log = debug('whatsie:application');
 
 class Application extends EventEmitter {
 

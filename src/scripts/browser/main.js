@@ -4,10 +4,10 @@ import debug from 'debug';
 import path from 'path';
 import fs from 'fs';
 
-import CrashReporter from 'crash-reporter';
+// import CrashReporter from 'crash-reporter';
+// import Updater from './components/updater';
+// import SquirrelEvents from './components/squirrel-events';
 
-import Updater from './components/updater';
-import SquirrelEvents from './components/squirrel-events';
 import Application from './application';
 
 import manifest from '../../package.json';
@@ -19,9 +19,9 @@ process.on('uncaughtException', error => console.error(error.stack || error));
 
 (function() {
   // Check for Squirrel.Windows CLI args
-  if (SquirrelEvents.check()) {
-    return;
-  }
+  // if (SquirrelEvents.check()) {
+  //   return;
+  // }
 
   // Define the CLI arguments and parse them
   const argv = yargs
@@ -48,10 +48,10 @@ process.on('uncaughtException', error => console.error(error.stack || error));
   }
 
   // Enable the crash reporter
-  app.on('will-finish-launching', function() {
-    CrashReporter.start(manifest.crashReporter); // fix manifest.crashReporter
-    // start the auto updater
-  });
+  // app.on('will-finish-launching', function() {
+  //   CrashReporter.start(manifest.crashReporter); // fix manifest.crashReporter
+  //   // start the auto updater
+  // });
 
   // Check for update and create the main app object
   app.on('ready', function() {
