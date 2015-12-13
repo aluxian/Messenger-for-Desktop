@@ -15,6 +15,18 @@ class AppWindow extends EventEmitter {
     height: 600
   };
 
+  static MAIN_WINDOW = function() {
+    const focusedWindow = BrowserWindow.getFocusedWindow();
+    if (focusedWindow) {
+      return focusedWindow;
+    }
+
+    const mainWindow = BrowserWindow.getAllWindows()[0];
+    if (mainWindow) {
+      return mainWindow;
+    }
+  };
+
   /**
    * Create a browser window based on the given options.
    */
@@ -47,6 +59,7 @@ class AppWindow extends EventEmitter {
     this.window.webContents.on('new-window', ::this.onNewWindow);
     this.window.webContents.on('dom-ready', ::this.onDomReady);
     this.window.on('closed', ::this.onClosed);
+    this.window.on('close', ::this.onClose);
 
     // Save the bounds on resize or move
     const saveBounds = debounce(::this.saveBounds, 500);
@@ -81,6 +94,15 @@ class AppWindow extends EventEmitter {
       log('restoring zoom level', zoomLevel);
       this.window.webContents.send('zoom-level', zoomLevel);
     }
+  }
+
+  /**
+   * Called when the 'close' event is emitted.
+   */
+  onClose(event) {
+    // Just hide the window
+    event.preventDefault();
+    this.window.hide();
   }
 
   /**

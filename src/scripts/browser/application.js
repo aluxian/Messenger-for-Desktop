@@ -8,6 +8,7 @@ import AppWindow from './app-window';
 
 import Menu from 'menu';
 import EventEmitter from 'events';
+import BrowserWindow from 'browser-window';
 
 const log = debug('whatsie:application');
 
@@ -54,6 +55,14 @@ class Application extends EventEmitter {
     app.on('window-all-closed', function() {
       log('all windows closed, quitting');
       app.quit();
+    });
+
+    // Reopen the main window on dock clicks (OS X)
+    app.on('activate', function(event, hasVisibleWindows) {
+      if (!hasVisibleWindows) {
+        const mainWindow = AppWindow.MAIN_WINDOW();
+        mainWindow.show();
+      }
     });
   }
 

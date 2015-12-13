@@ -82,7 +82,8 @@ class AppMenu extends EventEmitter {
     });
 
     this.on('application:update-theme', function(menuItem) {
-      focusedWindow().webContents.send('apply-theme', menuItem.theme);
+      const mainWindow = AppWindow.MAIN_WINDOW();
+      mainWindow.webContents.send('apply-theme', menuItem.theme);
       prefs.set('app:theme', menuItem.theme);
     });
 
@@ -100,47 +101,50 @@ class AppMenu extends EventEmitter {
 
   setWindowEventListeners() {
     this.on('window:reload', function() {
-      focusedWindow().reload();
+      const mainWindow = AppWindow.MAIN_WINDOW();
+      mainWindow.reload();
     });
 
     this.on('window:reset', function() {
       const bounds = AppWindow.DEFAULT_BOUNDS;
-      focusedWindow().setSize(bounds.width, bounds.height);
-      focusedWindow().center();
+      const mainWindow = AppWindow.MAIN_WINDOW();
+      mainWindow.setSize(bounds.width, bounds.height);
+      mainWindow.center();
       prefs.unset('window:bounds');
     });
 
     this.on('window:zoom-in', function() {
       const newLevel = prefs.get('window:zoom-level', 0) + 1;
-      focusedWindow().webContents.send('zoom-level', newLevel);
+      const mainWindow = AppWindow.MAIN_WINDOW();
+      mainWindow.webContents.send('zoom-level', newLevel);
       prefs.set('window:zoom-level', newLevel);
     });
 
     this.on('window:zoom-out', function() {
       const newLevel = prefs.get('window:zoom-level', 0) - 1;
-      focusedWindow().webContents.send('zoom-level', newLevel);
+      const mainWindow = AppWindow.MAIN_WINDOW();
+      mainWindow.webContents.send('zoom-level', newLevel);
       prefs.set('window:zoom-level', newLevel);
     });
 
     this.on('window:zoom-reset', function() {
-      focusedWindow().webContents.send('zoom-level', 0);
+      const mainWindow = AppWindow.MAIN_WINDOW();
+      mainWindow.webContents.send('zoom-level', 0);
       prefs.unset('window:zoom-level');
     });
 
     this.on('window:toggle-full-screen', function() {
-      const newState = !focusedWindow().isFullScreen();
-      focusedWindow().setFullScreen(newState);
+      const mainWindow = AppWindow.MAIN_WINDOW();
+      const newState = !mainWindow.isFullScreen();
+      mainWindow.setFullScreen(newState);
     });
 
     this.on('window:toggle-dev-tools', function() {
-      focusedWindow().toggleDevTools();
+      const mainWindow = AppWindow.MAIN_WINDOW();
+      mainWindow.toggleDevTools();
     });
   }
 
-}
-
-function focusedWindow() {
-  return BrowserWindow.getFocusedWindow();
 }
 
 export default AppMenu;
