@@ -7,11 +7,9 @@
   "dependencies": {
     "debug": "2.2.0",
     "del": "2.2.0",
-    "install": "0.4.1",
     "jfs": "0.2.6",
     "lodash": "3.10.1",
     "mustache": "2.2.0",
-    "npm": "3.5.2",
     "request": "2.67.0",
     "semver": "5.1.0",
     "yargs": "3.31.0"
