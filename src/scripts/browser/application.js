@@ -59,6 +59,7 @@ class Application extends EventEmitter {
 
     // Reopen the main window on dock clicks (OS X)
     app.on('activate', function(event, hasVisibleWindows) {
+      log('activate app, hasVisibleWindows =', hasVisibleWindows)
       if (!hasVisibleWindows) {
         const mainWindow = AppWindow.MAIN_WINDOW();
         mainWindow.show();

@@ -81,6 +81,8 @@ class AppWindow extends EventEmitter {
    * Called when the 'dom-ready' event is emitted.
    */
   onDomReady() {
+    log('onDomReady');
+
     // Restore the default theme
     const theme = prefs.get('app:theme');
     if (theme) {
@@ -101,6 +103,7 @@ class AppWindow extends EventEmitter {
    */
   onClose(event) {
     // Just hide the window
+    log('onClose');
     event.preventDefault();
     this.window.hide();
   }
@@ -110,6 +113,7 @@ class AppWindow extends EventEmitter {
    */
   onClosed() {
     // Remove the internal reference
+    log('onClosed');
     this.window = null;
   }
 

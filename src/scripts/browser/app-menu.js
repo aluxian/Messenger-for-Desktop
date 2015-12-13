@@ -71,7 +71,9 @@ class AppMenu extends EventEmitter {
   }
 
   setAppEventListeners() {
-    this.on('application:quit', ::app.quit);
+    this.on('application:quit', function() {
+      app.exit(0);
+    });
 
     this.on('application:show-settings', function() {
       // TODO
