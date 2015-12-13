@@ -1,34 +1,60 @@
 import app from 'app';
 import shell from 'shell';
-import prefs from '../tools/prefs';
-import {ipcMain} from 'electron';
 import debug from 'debug';
 import fs from 'fs';
 
+import {ipcMain} from 'electron';
+import {isFunction} from 'lodash';
+import prefs from '../utils/prefs';
+
+import Menu from 'menu';
 import BrowserWindow from 'browser-window';
-import BaseMenu from './base';
+import EventEmitter from 'events';
 
-const log = debug('whatsie:AppMenu');
+const log = debug('whatsie:app-menu');
 
-class AppMenu extends BaseMenu {
+class AppMenu extends EventEmitter {
 
+  /**
+   * Build the menu based on a platform-specific template.
+   */
   constructor() {
+    super();
     const template = require(`../../menus/${process.platform}.js`).default;
-    super(template);
-  }
-
-  init(template) {
-    this.restoreTheme(template);
-    super.init(template);
+    this.wireUpTemplate(template);
+    this.menu = Menu.buildFromTemplate(template);
   }
 
   /**
-   * Set the current theme as active in the menu.
+   * Parse template items.
    */
-  restoreTheme(template) {
-    const themeName = prefs.get('app:theme', 'default');
-    const themeMenu = template.find(item => item.label === 'Theme');
-    themeMenu.submenu.find(item => item.theme === themeName).checked = true;
+  wireUpTemplate(submenu, parent) {
+    const that = this;
+    submenu.forEach(item => {
+      item.parent = parent;
+      const handlers = [];
+
+      // Command handler
+      if (item.command) {
+        handlers.push(function() {
+          log('menu item clicked', item.label, item.command);
+          that.emit(item.command, item);
+        });
+      }
+
+      // Restore checked state from prefs
+      if (item.checked == 'pref') {
+        item.checked = prefs.get(item.prefKey, 'default') === item[item.valueKey];
+      }
+
+      item.click = function() {
+        handlers.forEach(handler => handler.call(item));
+      };
+
+      if (item.submenu) {
+        that.wireUpTemplate(item.submenu, item);
+      }
+    });
   }
 
   /**
@@ -43,21 +69,20 @@ class AppMenu extends BaseMenu {
     this.on('application:quit', ::app.quit);
 
     this.on('application:show-settings', function() {
-      log('application:show-settings');
+      // TODO
     });
 
     this.on('application:open-url', function(menuItem) {
-      log('application:open-url', menuItem.url);
       shell.openExternal(menuItem.url);
     });
 
     this.on('application:update-theme', function(menuItem) {
-      log('application:update-theme', menuItem.theme);
-      prefs.set('app:theme', menuItem.theme);
       focusedWindow().webContents.send('apply-theme', menuItem.theme);
+      prefs.set('app:theme', menuItem.theme);
     });
 
     this.on('application:check-for-update', () => {
+      // TODO
       // Updater.checkAndPrompt(this.manifest, true)
       //   .then(function(willUpdate) {
       //     if (willUpdate) {
@@ -70,46 +95,39 @@ class AppMenu extends BaseMenu {
 
   setWindowEventListeners() {
     this.on('window:reload', function() {
-      log('window:reload');
       focusedWindow().reload();
     });
 
     this.on('window:reset', function() {
-      log('window:reset');
       focusedWindow().setSize(800, 600);
       focusedWindow().center();
       prefs.unset('window:bounds');
     });
 
     this.on('window:zoom-in', function() {
-      log('window:zoom-in');
       const newLevel = prefs.get('window:zoom-level', 0) + 1;
       focusedWindow().webContents.send('zoom-level', newLevel);
       prefs.set('window:zoom-level', newLevel);
     });
 
     this.on('window:zoom-out', function() {
-      log('window:zoom-out');
       const newLevel = prefs.get('window:zoom-level', 0) - 1;
       focusedWindow().webContents.send('zoom-level', newLevel);
       prefs.set('window:zoom-level', newLevel);
     });
 
     this.on('window:zoom-reset', function() {
-      log('window:zoom-reset');
       focusedWindow().webContents.send('zoom-level', 0);
       prefs.unset('window:zoom-level');
     });
 
     this.on('window:toggle-full-screen', function() {
-      log('window:toggle-full-screen');
       const focusedWindow = focusedWindow();
       const newState = !focusedWindow.isFullScreen();
       focusedWindow.setFullScreen(newState);
     });
 
     this.on('window:toggle-dev-tools', function() {
-      log('window:toggle-dev-tools');
       focusedWindow().toggleDevTools();
     });
   }

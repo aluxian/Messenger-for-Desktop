@@ -1,10 +1,12 @@
 import app from 'app';
-import filer from './tools/filer';
+import filer from '../utils/filer';
 import debug from 'debug';
 import {ipcMain} from 'electron';
 
-import AppMenu from './menus/app';
+import AppMenu from './app-menu';
 import AppWindow from './windows/app';
+
+import Menu from 'menu';
 import EventEmitter from 'events';
 
 const log = debug('whatsie:Application');
@@ -33,7 +35,7 @@ class Application extends EventEmitter {
   createAppMenu() {
     this.appMenu = new AppMenu();
     this.appMenu.setEventListeners();
-    this.appMenu.makeDefault();
+    Menu.setApplicationMenu(this.appMenu.menu);
   }
 
   /**

@@ -1,5 +1,5 @@
 import shell from 'shell';
-import prefs from '../tools/prefs';
+import prefs from '../../utils/prefs';
 import {debounce} from 'lodash';
 import debug from 'debug';
 

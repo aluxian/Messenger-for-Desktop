@@ -13,7 +13,6 @@ manifest = require '../src/package.json'
 
   # Proxy the compile task then restart the app
   [
-    'compile:' + dist + ':menus',
     'compile:' + dist + ':scripts'
   ].forEach (proxiedTask) ->
     gulp.task 'restart:' + proxiedTask, [proxiedTask], (done) ->

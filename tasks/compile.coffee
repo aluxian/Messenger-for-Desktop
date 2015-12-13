@@ -37,7 +37,10 @@ args = require './args'
 
   # Compile scripts
   gulp.task 'compile:' + dist + ':scripts', ['clean:build:' + dist], ->
-    gulp.src './src/scripts/**/*.js'
+    gulp.src [
+      './src/scripts/**/*.js',
+      './src/menus/**/*.js'
+    ], { base: './src' }
       .pipe plumber handleError
       .pipe gif args.dev, sourcemaps.init()
       .pipe babel
@@ -47,7 +50,7 @@ args = require './args'
         ]
       .pipe gif args.dev, sourcemaps.write()
       .pipe plumber.stop()
-      .pipe gulp.dest dir + '/scripts'
+      .pipe gulp.dest dir
       .pipe livereload()
 
   # Move themes
