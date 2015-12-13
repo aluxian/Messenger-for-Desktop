@@ -5,7 +5,7 @@ import fs from 'fs';
 
 import {ipcMain} from 'electron';
 import {isFunction} from 'lodash';
-import prefs from '../utils/prefs';
+import prefs from './utils/prefs';
 
 import Menu from 'menu';
 import AppWindow from './app-window';

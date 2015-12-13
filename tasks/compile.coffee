@@ -45,8 +45,8 @@ args = require './args'
       .pipe gif args.dev, sourcemaps.init()
       .pipe babel
         presets: [
+          'es2015',
           'stage-0'
-          'es2015'
         ]
       .pipe gif args.dev, sourcemaps.write()
       .pipe plumber.stop()

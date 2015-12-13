@@ -11,7 +11,7 @@ import fs from 'fs';
    * Apply a CSS theme file to the app webview.
    */
   ipcr.on('apply-theme', function(event, name) {
-    if (!name || name == 'default') {
+    if (!name) {
       return;
     }
 

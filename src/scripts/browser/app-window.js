@@ -1,6 +1,6 @@
 import shell from 'shell';
 import debug from 'debug';
-import prefs from '../../utils/prefs';
+import prefs from './utils/prefs';
 import {debounce} from 'lodash';
 
 import BrowserWindow from 'browser-window';
@@ -25,10 +25,10 @@ class AppWindow extends EventEmitter {
     this.initWindow();
   }
 
-  crateWindow() {
+  createWindow() {
     log('creating AppWindow');
 
-    const bounds = prefs.get('window:bounds', DEFAULT_BOUNDS);
+    const bounds = prefs.get('window:bounds', AppWindow.DEFAULT_BOUNDS);
     const defaultOptions = {
       title: this.manifest.productName,
       backgroundColor: '#dfdfdf'

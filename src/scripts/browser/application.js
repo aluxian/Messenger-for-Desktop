@@ -1,6 +1,6 @@
 import app from 'app';
 import debug from 'debug';
-import filer from '../utils/filer';
+import filer from './utils/filer';
 import {ipcMain} from 'electron';
 
 import AppMenu from './app-menu';
