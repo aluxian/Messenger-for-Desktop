@@ -53,21 +53,33 @@ const themeMenu = {
     type: 'radio',
     label: 'Default',
     command: 'application:update-theme',
+    checked: 'pref',
+    prefKey: 'app:theme',
+    valueKey: 'theme',
     theme: 'default'
   }, {
     type: 'radio',
     label: 'Grey',
     command: 'application:update-theme',
+    checked: 'pref',
+    prefKey: 'app:theme',
+    valueKey: 'theme',
     theme: 'grey'
   }, {
     type: 'radio',
     label: 'Pure',
     command: 'application:update-theme',
+    checked: 'pref',
+    prefKey: 'app:theme',
+    valueKey: 'theme',
     theme: 'pure'
   }, {
     type: 'radio',
     label: 'Dark',
     command: 'application:update-theme',
+    checked: 'pref',
+    prefKey: 'app:theme',
+    valueKey: 'theme',
     theme: 'dark'
   }]
 };
