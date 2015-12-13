@@ -27,7 +27,7 @@ utils = require './utils'
     gulp.watch './src/styles/**/*', ['compile:' + dist + ':styles']
     gulp.watch './src/themes/**/*', ['compile:' + dist + ':themes']
     gulp.watch './src/scripts/browser/**/*', ['restart:compile:' + dist + ':scripts']
-    gulp.watch ['./src/scripts/**/*', '!./src/scripts/browser/**/*'], ['compile:' + dist + ':scripts']
+    gulp.watch './src/scripts/renderer/**/*', ['compile:' + dist + ':scripts']
     gulp.watch './src/html/**/*', ['compile:' + dist + ':html']
 
 # Watch for the current platform by default
