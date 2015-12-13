@@ -148,10 +148,6 @@ const windowMenu = {
     accelerator: 'Cmd+M',
     role: 'minimize'
   }, {
-    label: 'Zoom',
-    accelerator: 'Alt+Cmd+Ctrl+M',
-    selector: 'zoom:'
-  }, {
     type: 'separator'
   }, {
     label: 'Reset',

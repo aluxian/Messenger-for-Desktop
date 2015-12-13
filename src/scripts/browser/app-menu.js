@@ -4,7 +4,6 @@ import debug from 'debug';
 import fs from 'fs';
 
 import {ipcMain} from 'electron';
-import {isFunction} from 'lodash';
 import prefs from './utils/prefs';
 
 import Menu from 'menu';
@@ -34,6 +33,11 @@ class AppMenu extends EventEmitter {
     submenu.forEach(item => {
       item.parent = parent;
       const handlers = [];
+
+      // Existing click handler
+      if (item.click) {
+        handlers.push(item.click);
+      }
 
       // Command handler
       if (item.command) {
@@ -101,9 +105,8 @@ class AppMenu extends EventEmitter {
 
     this.on('window:reset', function() {
       const bounds = AppWindow.DEFAULT_BOUNDS;
-      const focusedWindow = focusedWindow();
-      focusedWindow.setSize(bounds.width, bounds.height);
-      focusedWindow.center();
+      focusedWindow().setSize(bounds.width, bounds.height);
+      focusedWindow().center();
       prefs.unset('window:bounds');
     });
 
@@ -125,9 +128,8 @@ class AppMenu extends EventEmitter {
     });
 
     this.on('window:toggle-full-screen', function() {
-      const focusedWindow = focusedWindow();
-      const newState = !focusedWindow.isFullScreen();
-      focusedWindow.setFullScreen(newState);
+      const newState = !focusedWindow().isFullScreen();
+      focusedWindow().setFullScreen(newState);
     });
 
     this.on('window:toggle-dev-tools', function() {
