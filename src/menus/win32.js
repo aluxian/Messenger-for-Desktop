@@ -89,7 +89,7 @@ const helpMenu = {
   }, {
     label: '&Suggest Feature',
     command: 'application:open-url',
-    url: 'https://github.com/Aluxian/Whatsie/issues'
+    url: 'https://github.com/Aluxian/Whatsie/issues/new?labels=request'
   }, {
     type: 'separator'
   }, {
