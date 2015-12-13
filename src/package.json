@@ -51,5 +51,6 @@
     "companyName": "Alexandru Rosianu",
     "copyright": "Copyright © Alexandru Rosianu"
   },
-  "electronVersion": "v0.36.0"
+  "electronVersion": "v0.36.0",
+  "portable": false
 }

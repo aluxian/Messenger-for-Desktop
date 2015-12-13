@@ -11,7 +11,6 @@ import SquirrelEvents from './components/squirrel-events';
 import Application from './application';
 
 import manifest from '../../package.json';
-import config from '../../config.json';
 
 const log = debug('whatsie:main');
 
@@ -43,7 +42,7 @@ process.on('uncaughtException', error => console.error(error.stack || error));
   }
 
   // Change the userData path if in portable mode
-  if (argv.portable || config.portable) {
+  if (argv.portable || manifest.portable) {
     log('running in portable mode');
     app.setPath('userData', path.join(app.getAppPath(), 'data'));
   }

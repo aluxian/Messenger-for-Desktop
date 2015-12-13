@@ -121,12 +121,12 @@ gulp.task 'build:win32', ['resources:win', 'compile:win32', 'clean:build:win32']
 # Build for win32 portable
 gulp.task 'build:win32:portable', ['build:win32'], (done) ->
   async.waterfall [
-    async.apply fs.readFile, './build/win32/resources/app/config.json', 'utf8'
+    async.apply fs.readFile, './build/win32/resources/app/package.json', 'utf8'
     (file, callback) ->
       json = JSON.parse file
       json.portable = true
       text = JSON.stringify json
-      fs.writeFile './build/win32/resources/app/config.json', text, 'utf8', callback
+      fs.writeFile './build/win32/resources/app/package.json', text, 'utf8', callback
   ], done
 
 # Build the app for all platforms

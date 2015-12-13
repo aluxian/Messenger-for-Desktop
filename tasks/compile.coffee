@@ -70,9 +70,9 @@ args = require './args'
       .pipe gulp.dest dir + '/node_modules'
       .pipe livereload()
 
-  # Move json files
-  gulp.task 'compile:' + dist + ':json', ['clean:build:' + dist], ->
-    gulp.src './src/*.json'
+  # Move package.json file
+  gulp.task 'compile:' + dist + ':package', ['clean:build:' + dist], ->
+    gulp.src './src/package.json'
       .pipe gulp.dest dir
 
   # Compile everything
@@ -82,7 +82,7 @@ args = require './args'
     'compile:' + dist + ':themes'
     'compile:' + dist + ':html'
     'compile:' + dist + ':deps'
-    'compile:' + dist + ':json'
+    'compile:' + dist + ':package'
   ]
 
 # Compile for all platforms
