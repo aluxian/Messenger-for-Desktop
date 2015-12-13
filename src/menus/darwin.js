@@ -176,6 +176,10 @@ const helpMenu = {
     command: 'application:open-url',
     url: 'https://github.com/Aluxian/Whatsie/issues/new?labels=request'
   }, {
+    label: 'Gitter Chat',
+    command: 'application:open-url',
+    url: 'https://gitter.im/Aluxian/Whatsie'
+  }, {
     type: 'separator'
   }, {
     label: 'Email Developer',
