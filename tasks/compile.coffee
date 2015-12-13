@@ -3,9 +3,7 @@ beeper = require 'beeper'
 gulp = require 'gulp'
 plumber = require 'gulp-plumber'
 sourcemaps = require 'gulp-sourcemaps'
-mustache = require 'gulp-mustache'
 
-cson = require 'gulp-cson'
 less = require 'gulp-less'
 babel = require 'gulp-babel'
 gif = require 'gulp-if'
@@ -27,15 +25,6 @@ args = require './args'
   handleError = (err) ->
     console.error err
     beeper()
-
-  # Compile menus
-  gulp.task 'compile:' + dist + ':menus', ['clean:build:' + dist], ->
-    gulp.src './src/menus/**/*.cson'
-      .pipe plumber handleError
-      .pipe mustache manifest
-      .pipe cson()
-      .pipe plumber.stop()
-      .pipe gulp.dest dir + '/menus'
 
   # Compile styles
   gulp.task 'compile:' + dist + ':styles', ['clean:build:' + dist], ->
@@ -88,7 +77,6 @@ args = require './args'
 
   # Compile everything
   gulp.task 'compile:' + dist, [
-    'compile:' + dist + ':menus'
     'compile:' + dist + ':styles'
     'compile:' + dist + ':scripts'
     'compile:' + dist + ':themes'

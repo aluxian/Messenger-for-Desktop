@@ -13,7 +13,7 @@ const log = debug('whatsie:AppMenu');
 class AppMenu extends BaseMenu {
 
   constructor() {
-    const template = require(`../../../menus/${process.platform}.json`);
+    const template = require(`../../menus/${process.platform}.js`).default;
     super(template);
   }
 

@@ -13,7 +13,6 @@
     "fs-extra": "0.26.2",
     "gulp": "3.9.0",
     "gulp-babel": "6.1.1",
-    "gulp-cson": "0.3.1",
     "gulp-electron-downloader": "0.1.5",
     "gulp-embedlr": "0.5.2",
     "gulp-filter": "3.0.1",
