@@ -51,11 +51,6 @@ class AppMenu extends BaseMenu {
       shell.openExternal(menuItem.url);
     });
 
-    this.on('application:send-email', function(menuItem) {
-      log('application:send-email', menuItem.email);
-      shell.openExternal('mailto:' + menuItem.email);
-    });
-
     this.on('application:update-theme', function(menuItem) {
       log('application:update-theme', menuItem.theme);
       prefs.set('app:theme', menuItem.theme);

@@ -40,7 +40,9 @@
       { type: 'separator' }
       { label: '&Report Issue', command: 'application:open-url', url: 'https://github.com/Aluxian/Whatsie/issues' }
       { label: '&Suggest Feature', command: 'application:open-url', url: 'https://github.com/Aluxian/Whatsie/issues' }
-      { label: '&Email Developer', command: 'application:send-email', email: 'me@aluxian.com' }
+      { type: 'separator' }
+      { label: '&Email Developer', command: 'application:open-url', url: 'mailto:me@aluxian.com' }
+      { label: '&Tweet Developer', command: 'application:open-url', url: 'https://twitter.com/Aluxian' }
       { type: 'separator' }
       { label: 'Donate &PayPal', command: 'application:open-url', url: 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=4YVCUBK2QJKBL' }
       { label: 'Donate &Bitcoins', command: 'application:open-url', url: 'https://www.coinbase.com/checkouts/cf0d7f14d3413fdebcc0de9a2a934fdf' }
