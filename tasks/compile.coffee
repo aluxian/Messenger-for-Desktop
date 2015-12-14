@@ -35,21 +35,6 @@ args = require './args'
       .pipe gulp.dest dir + '/styles'
       .pipe livereload()
 
-  # Compile menus
-  gulp.task 'compile:' + dist + ':menus', ['clean:build:' + dist], ->
-    gulp.src './src/menus/**/*.js'
-      .pipe plumber handleError
-      .pipe gif args.dev, sourcemaps.init()
-      .pipe babel
-        presets: [
-          'es2015',
-          'stage-0'
-        ]
-      .pipe gif args.dev, sourcemaps.write()
-      .pipe plumber.stop()
-      .pipe gulp.dest dir + '/menus'
-      .pipe livereload()
-
   # Compile scripts
   gulp.task 'compile:' + dist + ':scripts', ['clean:build:' + dist], ->
     gulp.src './src/scripts/**/*.js'
@@ -93,7 +78,6 @@ args = require './args'
   # Compile everything
   gulp.task 'compile:' + dist, [
     'compile:' + dist + ':styles'
-    'compile:' + dist + ':menus'
     'compile:' + dist + ':scripts'
     'compile:' + dist + ':themes'
     'compile:' + dist + ':html'

@@ -23,7 +23,6 @@ utils = require './utils'
     proc.stderr.pipe process.stderr
 
     # Watch files
-    gulp.watch './src/menus/**/*', ['restart:compile:' + dist + ':menus']
     gulp.watch './src/styles/**/*', ['compile:' + dist + ':styles']
     gulp.watch './src/themes/**/*', ['compile:' + dist + ':themes']
     gulp.watch './src/scripts/browser/**/*', ['restart:compile:' + dist + ':scripts']
