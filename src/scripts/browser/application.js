@@ -3,7 +3,7 @@ import debug from 'debug';
 import filer from './utils/filer';
 import {ipcMain} from 'electron';
 
-import AppMenu from './app-menu';
+import menuTemplate from './menus/template';
 import AppWindow from './app-window';
 
 import Menu from 'menu';
@@ -34,9 +34,8 @@ class Application extends EventEmitter {
    * Create and set the default menu.
    */
   createAppMenu() {
-    this.appMenu = new AppMenu();
-    this.appMenu.setEventListeners();
-    Menu.setApplicationMenu(this.appMenu.menu);
+    this.menu = Menu.buildFromTemplate(menuTemplate);
+    Menu.setApplicationMenu(this.menu);
   }
 
   /**
