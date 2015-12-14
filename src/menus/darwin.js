@@ -71,19 +71,26 @@ const editMenu = {
     type: 'separator'
   }, {
     type: 'checkbox',
+    id: 'spell_checker',
     label: 'Spell Checker',
     command: 'application:spell-checker',
     checked: 'pref',
     prefKey: 'app:spell-checker',
-    value: true
+    autoSet: 'checked',
+    value: true,
+    webContentsSendName: 'spell-checker',
+    webContentsSendKey: 'checked'
   }, {
     type: 'checkbox',
     label: 'Auto Correct',
     command: 'application:auto-correct',
-    enabledIf: 'Spell Checker',
+    enabledIfChecked: 'spell_checker',
     checked: 'pref',
     prefKey: 'app:auto-correct',
-    value: true
+    autoSet: 'checked',
+    value: true,
+    webContentsSendName: 'auto-correct',
+    webContentsSendKey: 'checked'
   }]
 };
 
@@ -106,7 +113,12 @@ const viewMenu = {
   }, {
     label: 'Reset Zoom',
     accelerator: 'Cmd+0',
-    command: 'window:zoom-reset'
+    command: 'window:zoom-reset',
+    prefKey: 'window:zoom-level',
+    autoUnset: true,
+    value: 0,
+    webContentsSendName: 'zoom-level',
+    webContentsSendKey: 'value'
   }, {
     type: 'separator'
   }, {
@@ -129,7 +141,10 @@ const themeMenu = {
     checked: 'pref',
     prefKey: 'app:theme',
     valueKey: 'theme',
-    theme: 'default'
+    autoSet: 'theme',
+    theme: 'default',
+    webContentsSendName: 'apply-theme',
+    webContentsSendKey: 'theme'
   }, {
     type: 'radio',
     label: 'Grey',
@@ -137,7 +152,10 @@ const themeMenu = {
     checked: 'pref',
     prefKey: 'app:theme',
     valueKey: 'theme',
-    theme: 'grey'
+    autoSet: 'theme',
+    theme: 'grey',
+    webContentsSendName: 'apply-theme',
+    webContentsSendKey: 'theme'
   }, {
     type: 'radio',
     label: 'Pure',
@@ -145,7 +163,10 @@ const themeMenu = {
     checked: 'pref',
     prefKey: 'app:theme',
     valueKey: 'theme',
-    theme: 'pure'
+    autoSet: 'theme',
+    theme: 'pure',
+    webContentsSendName: 'apply-theme',
+    webContentsSendKey: 'theme'
   }, {
     type: 'radio',
     label: 'Dark',
@@ -153,7 +174,10 @@ const themeMenu = {
     checked: 'pref',
     prefKey: 'app:theme',
     valueKey: 'theme',
-    theme: 'dark'
+    autoSet: 'theme',
+    theme: 'dark',
+    webContentsSendName: 'apply-theme',
+    webContentsSendKey: 'theme'
   }]
 };
 
@@ -169,7 +193,9 @@ const windowMenu = {
   }, {
     label: 'Reset',
     accelerator: 'Cmd+Alt+R',
-    command: 'window:reset'
+    command: 'window:reset',
+    prefKey: 'window:bounds',
+    autoUnset: true
   }, {
     label: 'Close',
     accelerator: 'Cmd+W',

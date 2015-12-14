@@ -4,11 +4,11 @@ import debug from 'debug';
 import fs from 'fs';
 
 import {ipcMain} from 'electron';
+import {isFunction} from 'lodash';
 import prefs from './utils/prefs';
 
 import Menu from 'menu';
 import AppWindow from './app-window';
-import BrowserWindow from 'browser-window';
 import EventEmitter from 'events';
 
 const log = debug('whatsie:app-menu');
@@ -29,56 +29,19 @@ class AppMenu extends EventEmitter {
    * Parse template items.
    */
   wireUpTemplate(submenu, parent) {
-    const that = this;
     submenu.forEach(item => {
-      item.parent = parent;
-      const handlers = [];
+      this.restoreFromPrefs(item, parent);
 
-      // Existing click handler
-      if (item.click) {
-        handlers.push(item.click);
-      }
-
-      // Command handler
-      if (item.command) {
-        handlers.push(function() {
-          log('menu item clicked', item.label, item.command);
-          that.emit(item.command, item);
-        });
-      }
-
-      // Restore checked state from prefs
-      if (item.checked == 'pref') {
-        if (item.valueKey) {
-          item.checked = prefs.get(item.prefKey, 'default') === item[item.valueKey];
-        } else if (item.value) {
-          item.checked = prefs.get(item.prefKey, 'default') === item.value;
-        }
-      }
-
-      // Restore enabled state
-      if (item.enabledIf) {
-        const depItem = parent.submenu.find(i => i.label === item.enabledIf);
-        if (depItem) {
-          // Restore checked state from prefs
-          if (depItem.checked == 'pref') {
-            if (depItem.valueKey) {
-              depItem.checked = prefs.get(depItem.prefKey, 'default') === depItem[depItem.valueKey];
-            } else if (depItem.value) {
-              depItem.checked = prefs.get(depItem.prefKey, 'default') === depItem.value;
-            }
-          }
-
-          item.enabled = depItem.checked;
-        }
-      }
-
-      item.click = function() {
-        handlers.forEach(handler => handler.call(item));
+      item.click = (menuItem, browserWindow) => {
+        log('menu item clicked', item.label, item.command);
+        this.emit(item.command, menuItem, browserWindow);
+        this.autoSendWebContents(menuItem, browserWindow);
+        this.autoSetItem(menuItem);
+        this.autoUnsetItem(menuItem);
       };
 
       if (item.submenu) {
-        that.wireUpTemplate(item.submenu, item);
+        this.wireUpTemplate(item.submenu, item);
       }
     });
   }
@@ -104,29 +67,6 @@ class AppMenu extends EventEmitter {
       shell.openExternal(menuItem.url);
     });
 
-    this.on('application:spell-checker', function(menuItem) {
-      const mainWindow = AppWindow.MAIN_WINDOW();
-      mainWindow.webContents.send('spell-checker', menuItem.checked);
-      prefs.set('app:spell-checker', menuItem.checked);
-
-      // Update items who depend on this one
-      menuItem.parent.submenu
-        .filter(item => item.enabledIf === menuItem.label)
-        .map(item => item.enabled = menuItem.checked);
-    });
-
-    this.on('application:auto-correct', function(menuItem) {
-      const mainWindow = AppWindow.MAIN_WINDOW();
-      mainWindow.webContents.send('auto-correct', menuItem.checked);
-      prefs.set('app:auto-correct', menuItem.checked);
-    });
-
-    this.on('application:update-theme', function(menuItem) {
-      const mainWindow = AppWindow.MAIN_WINDOW();
-      mainWindow.webContents.send('apply-theme', menuItem.theme);
-      prefs.set('app:theme', menuItem.theme);
-    });
-
     this.on('application:check-for-update', () => {
       // TODO
       // Updater.checkAndPrompt(this.manifest, true)
@@ -140,49 +80,87 @@ class AppMenu extends EventEmitter {
   }
 
   setWindowEventListeners() {
-    this.on('window:reload', function() {
-      const mainWindow = AppWindow.MAIN_WINDOW();
-      mainWindow.reload();
+    this.on('window:reload', function(menuItem, browserWindow) {
+      browserWindow.reload();
     });
 
-    this.on('window:reset', function() {
+    this.on('window:reset', function(menuItem, browserWindow) {
       const bounds = AppWindow.DEFAULT_BOUNDS;
-      const mainWindow = AppWindow.MAIN_WINDOW();
-      mainWindow.setSize(bounds.width, bounds.height);
-      mainWindow.center();
-      prefs.unset('window:bounds');
+      browserWindow.setSize(bounds.width, bounds.height);
+      browserWindow.center();
     });
 
-    this.on('window:zoom-in', function() {
+    this.on('window:zoom-in', function(menuItem, browserWindow) {
       const newLevel = prefs.get('window:zoom-level', 0) + 1;
-      const mainWindow = AppWindow.MAIN_WINDOW();
-      mainWindow.webContents.send('zoom-level', newLevel);
+      browserWindow.webContents.send('zoom-level', newLevel);
       prefs.set('window:zoom-level', newLevel);
     });
 
-    this.on('window:zoom-out', function() {
+    this.on('window:zoom-out', function(menuItem, browserWindow) {
       const newLevel = prefs.get('window:zoom-level', 0) - 1;
-      const mainWindow = AppWindow.MAIN_WINDOW();
-      mainWindow.webContents.send('zoom-level', newLevel);
+      browserWindow.webContents.send('zoom-level', newLevel);
       prefs.set('window:zoom-level', newLevel);
     });
 
-    this.on('window:zoom-reset', function() {
-      const mainWindow = AppWindow.MAIN_WINDOW();
-      mainWindow.webContents.send('zoom-level', 0);
-      prefs.unset('window:zoom-level');
+    this.on('window:toggle-full-screen', function(menuItem, browserWindow) {
+      const newState = !browserWindow.isFullScreen();
+      browserWindow.setFullScreen(newState);
     });
 
-    this.on('window:toggle-full-screen', function() {
-      const mainWindow = AppWindow.MAIN_WINDOW();
-      const newState = !mainWindow.isFullScreen();
-      mainWindow.setFullScreen(newState);
+    this.on('window:toggle-dev-tools', function(menuItem, browserWindow) {
+      browserWindow.toggleDevTools();
     });
+  }
 
-    this.on('window:toggle-dev-tools', function() {
-      const mainWindow = AppWindow.MAIN_WINDOW();
-      mainWindow.toggleDevTools();
-    });
+  restoreFromPrefs(item, parent) {
+    this.restoreCheckedStateFromPrefs(item, parent);
+    this.restoreEnabledIfCheckedState(item, parent);
+  }
+
+  restoreEnabledIfCheckedState(item, parent) {
+    if (item.enabled === undefined && item.enabledIfChecked) {
+      const depItem = parent.submenu.find(i => i.id === item.enabledIfChecked);
+      if (depItem) {
+        this.restoreFromPrefs(item, parent);
+        item.enabled = depItem.checked;
+        depItem.click = function(menuItem) {
+          if (depItem.click) {
+            depItem.click.apply(depItem, arguments);
+          }
+
+          console.log('disable item', menuItem);
+        };
+      }
+    }
+  }
+
+  restoreCheckedStateFromPrefs(item, parent) {
+    if (item.checked == 'pref' && item.prefKey) {
+      if (item.valueKey) {
+        item.checked = prefs.get(item.prefKey, 'default') === item[item.valueKey];
+      } else if (item.value) {
+        item.checked = prefs.get(item.prefKey, 'default') === item.value;
+      }
+    }
+  }
+
+  autoSendWebContents(item, browserWindow) {
+    if (item.webContentsSendName && item.webContentsSendKey) {
+      const value = item[item.webContentsSendKey];
+      browserWindow.webContents.send(item.webContentsSendName, value);
+    }
+  }
+
+  autoSetItem(item) {
+    if (item.autoSet && item.prefKey) {
+      prefs.set(item.prefKey, item[item.autoSet]);
+    }
+  }
+
+  autoUnsetItem(item) {
+    if (item.autoUnset && item.prefKey) {
+      prefs.unset(item.prefKey);
+    }
   }
 
 }
