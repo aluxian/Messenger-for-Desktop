@@ -1,6 +1,17 @@
 const fileMenu = {
   label: '&File',
   submenu: [{
+    label: 'Spell &Checker',
+    command: 'application:spell-checker',
+    type: 'checkbox'
+  }, {
+    label: '&Auto Correct',
+    command: 'application:auto-correct',
+    type: 'checkbox',
+    enabled: false
+  }, {
+    type: 'separator'
+  }, {
     label: '&Settings',
     command: 'application:show-settings'
   }, {

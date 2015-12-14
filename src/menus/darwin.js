@@ -67,6 +67,23 @@ const editMenu = {
     label: 'Select All',
     accelerator: 'Cmd+A',
     role: 'selectall'
+  }, {
+    type: 'separator'
+  }, {
+    type: 'checkbox',
+    label: 'Spell Checker',
+    command: 'application:spell-checker',
+    checked: 'pref',
+    prefKey: 'app:spell-checker',
+    value: true
+  }, {
+    type: 'checkbox',
+    label: 'Auto Correct',
+    command: 'application:auto-correct',
+    enabledIf: 'Spell Checker',
+    checked: 'pref',
+    prefKey: 'app:auto-correct',
+    value: true
   }]
 };
 

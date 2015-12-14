@@ -96,6 +96,13 @@ class AppWindow extends EventEmitter {
       log('restoring zoom level', zoomLevel);
       this.window.webContents.send('zoom-level', zoomLevel);
     }
+
+    // Restore spell checker
+    const spellChecker = prefs.get('app:spell-checker');
+    if (spellChecker) {
+      log('restoring spell checker', spellChecker);
+      this.window.webContents.send('spell-checker', spellChecker);
+    }
   }
 
   /**

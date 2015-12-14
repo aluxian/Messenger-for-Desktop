@@ -49,7 +49,28 @@ class AppMenu extends EventEmitter {
 
       // Restore checked state from prefs
       if (item.checked == 'pref') {
-        item.checked = prefs.get(item.prefKey, 'default') === item[item.valueKey];
+        if (item.valueKey) {
+          item.checked = prefs.get(item.prefKey, 'default') === item[item.valueKey];
+        } else if (item.value) {
+          item.checked = prefs.get(item.prefKey, 'default') === item.value;
+        }
+      }
+
+      // Restore enabled state
+      if (item.enabledIf) {
+        const depItem = parent.submenu.find(i => i.label === item.enabledIf);
+        if (depItem) {
+          // Restore checked state from prefs
+          if (depItem.checked == 'pref') {
+            if (depItem.valueKey) {
+              depItem.checked = prefs.get(depItem.prefKey, 'default') === depItem[depItem.valueKey];
+            } else if (depItem.value) {
+              depItem.checked = prefs.get(depItem.prefKey, 'default') === depItem.value;
+            }
+          }
+
+          item.enabled = depItem.checked;
+        }
       }
 
       item.click = function() {
@@ -81,6 +102,23 @@ class AppMenu extends EventEmitter {
 
     this.on('application:open-url', function(menuItem) {
       shell.openExternal(menuItem.url);
+    });
+
+    this.on('application:spell-checker', function(menuItem) {
+      const mainWindow = AppWindow.MAIN_WINDOW();
+      mainWindow.webContents.send('spell-checker', menuItem.checked);
+      prefs.set('app:spell-checker', menuItem.checked);
+
+      // Update items who depend on this one
+      menuItem.parent.submenu
+        .filter(item => item.enabledIf === menuItem.label)
+        .map(item => item.enabled = menuItem.checked);
+    });
+
+    this.on('application:auto-correct', function(menuItem) {
+      const mainWindow = AppWindow.MAIN_WINDOW();
+      mainWindow.webContents.send('auto-correct', menuItem.checked);
+      prefs.set('app:auto-correct', menuItem.checked);
     });
 
     this.on('application:update-theme', function(menuItem) {

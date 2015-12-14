@@ -12,4 +12,17 @@ import debug from 'debug';
   ipcr.on('zoom-level', function(event, zoomLevel) {
     webFrame.setZoomLevel(zoomLevel);
   });
+
+  // Set spell chcker
+  // ipcr.on('spell-checker', function(event, enabled) {
+  //   if (enabled) {
+  //     webFrame.setSpellCheckProvider('en-US', true, {
+  //       spellCheck: function(text) {
+  //         return !(require('spellchecker').isMisspelled(text));
+  //       }
+  //     });
+  //   } else {
+  //
+  //   }
+  // });
 })();
