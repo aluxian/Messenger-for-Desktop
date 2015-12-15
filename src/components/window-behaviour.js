@@ -31,7 +31,7 @@ module.exports = {
    */
   closeWithEscKey: function(win, doc) {
     doc.onkeyup = function(e) {
-      if (e.keyCode == 27) {
+      if (e.keyCode == 27 && settings.closeWithEscKey) {
         e.preventDefault();
         win.close();
         return false;
