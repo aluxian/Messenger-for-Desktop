@@ -39,9 +39,8 @@ a {
 }
 
 /* Top header user status */
-._2v6o {
-  color: inherit;
-  opacity: 0.6;
+._2v6o, ._3oh-, ._3eus {
+  color: rgba(255, 255, 255, .6) !important;
 }
 
 /* People names */
