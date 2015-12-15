@@ -41,7 +41,7 @@ if (settings.asMenuBarAppOSX) {
 
 // Load the app menus
 menus.loadMenuBar(win)
-if (platform.isWindows) {
+if (platform.isWindows || platform.isLinux) {
   menus.loadTrayIcon(win);
 }
 
