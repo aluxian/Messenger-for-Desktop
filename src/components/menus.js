@@ -12,7 +12,7 @@ module.exports = {
   /**
    * The main settings items. Their placement differs for each platform:
    * - on OS X they're in the top menu bar
-   * - on Windows they're in the tray icon's menu
+   * - on Windows and linux they're in the tray icon's menu
    * - on all 3 platform, they're also in the right-click context menu
    */
   settingsItems: function(win, keep) {
