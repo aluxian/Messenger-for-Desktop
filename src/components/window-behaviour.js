@@ -14,6 +14,10 @@ module.exports = {
       win.show();
     });
 
+    gui.App.on('open', function() {
+      win.show();
+    });
+
     // Don't quit the app when the window is closed
       win.removeAllListeners('close');
       win.on('close', function(quit) {
