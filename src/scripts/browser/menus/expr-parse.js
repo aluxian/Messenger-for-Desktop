@@ -1,3 +1,5 @@
+import prefs from '../utils/prefs';
+
 export function setLocal(localKey, valueExpr) {
   return function(item) {
     item[localKey] = valueExpr.apply(this, arguments);
