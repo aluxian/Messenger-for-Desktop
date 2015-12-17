@@ -42,28 +42,41 @@ class Application extends EventEmitter {
    * Create and show the main window.
    */
   createAppWindow() {
-    this.appWindow = new AppWindow(this.manifest);
-    this.appWindow.loadURL(filer.getHtmlFile('app.html'));
+    this.mainWindow = new AppWindow(this.manifest);
+    this.mainWindow.loadURL(filer.getHtmlFile('app.html'));
+    this.mainWindow.on('closed', () => this.mainWindow = null);
   }
 
   /**
    * Listen to app events.
    */
   setEventListeners() {
-    // Quit the app if all windows are closed
-    app.on('window-all-closed', function() {
-      log('all windows closed, quitting');
-      app.quit();
-    });
+    app.on('window-all-closed', ::this.onAllWindowsClosed);
+    app.on('activate', ::this.onActivate);
+  }
 
+  /**
+   * Called when the 'window-all-closed' event is emitted.
+   */
+  onAllWindowsClosed(event) {
+    // Quit the app if all windows are closed
+    log('all windows closed');
+    app.quit();
+  }
+
+  /**
+   * Called when the 'activate' event is emitted.
+   */
+  onActivate(event, hasVisibleWindows) {
     // Reopen the main window on dock clicks (OS X)
-    app.on('activate', function(event, hasVisibleWindows) {
-      log('activate app, hasVisibleWindows =', hasVisibleWindows)
-      if (!hasVisibleWindows) {
-        const mainWindow = AppWindow.MAIN_WINDOW();
-        mainWindow.show();
+    log('activate app, hasVisibleWindows =', hasVisibleWindows)
+    if (!hasVisibleWindows) {
+      if (this.mainWindow) {
+        this.mainWindow.show();
+      } else {
+        this.createAppWindow();
       }
-    });
+    }
   }
 
   /**
@@ -81,10 +94,6 @@ class Application extends EventEmitter {
         }
       }
     });
-  }
-
-  getMainWindow() {
-    return AppWindow.MAIN_WINDOW();
   }
 
 }

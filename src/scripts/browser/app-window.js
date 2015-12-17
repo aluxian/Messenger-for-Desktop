@@ -15,18 +15,6 @@ class AppWindow extends EventEmitter {
     height: 600
   };
 
-  static MAIN_WINDOW = function() {
-    const focusedWindow = BrowserWindow.getFocusedWindow();
-    if (focusedWindow) {
-      return focusedWindow;
-    }
-
-    const mainWindow = BrowserWindow.getAllWindows()[0];
-    if (mainWindow) {
-      return mainWindow;
-    }
-  };
-
   /**
    * Create a browser window based on the given options.
    */
@@ -111,8 +99,11 @@ class AppWindow extends EventEmitter {
   onClose(event) {
     // Just hide the window
     log('onClose');
-    event.preventDefault();
-    this.window.hide();
+    if (process.platform == 'darwin') {
+      event.preventDefault();
+      this.window.hide();
+    }
+    // TODO only on X clicks, not app.quit or cmd+q
   }
 
   /**
@@ -122,6 +113,7 @@ class AppWindow extends EventEmitter {
     // Remove the internal reference
     log('onClosed');
     this.window = null;
+    this.emit('closed');
   }
 
   /**

@@ -10,9 +10,9 @@ export function checkForUpdate() {
   };
 }
 
-export function appExit(code = 0) {
+export function appQuit() {
   return function(menuItem, browserWindow) {
-    app.exit(code);
+    app.exit();
   };
 }
 

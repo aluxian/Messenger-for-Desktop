@@ -34,6 +34,6 @@ export default {
   }, {
     label: 'Quit',
     accelerator: 'Cmd+Q',
-    click: $.appExit()
+    click: $.appQuit()
   }]
 };
