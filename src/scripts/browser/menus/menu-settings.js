@@ -8,7 +8,7 @@ export default {
     label: '&Spell Checker',
     click: $.all(
       $.sendToWebContents('spell-checker', $.key('checked')),
-      $.updateSibling('auto-correct', 'enabled', $.key('checked')), // TODO ensure bound to parent
+      $.updateSibling('auto-correct', 'enabled', $.key('checked')),
       $.setPref('spell-checker', $.key('checked'))
     ),
     parse: $.all(

@@ -20,9 +20,12 @@ export function unsetPref(prefName) {
 
 export function updateSibling(siblingId, siblingKey, valueExpr) {
   return function(item) {
-    const sibling = this.submenu.find(i => i.id === siblingId);
-    if (sibling) {
-      sibling[siblingKey] = valueExpr.apply(this, arguments);
+    const submenu = (this && this.submenu) || (item && item.menu && item.menu.items);
+    if (submenu) {
+      const sibling = submenu.find(i => i.id === siblingId);
+      if (sibling) {
+        sibling[siblingKey] = valueExpr.apply(this, arguments);
+      }
     }
   };
 }
