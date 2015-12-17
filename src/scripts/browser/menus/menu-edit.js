@@ -2,7 +2,7 @@ import $ from './expr';
 
 export default {
   label: 'Edit',
-  platform: 'darwin',
+  platform: $.isDarwin,
   submenu: [{
     label: 'Undo',
     accelerator: 'Cmd+Z',

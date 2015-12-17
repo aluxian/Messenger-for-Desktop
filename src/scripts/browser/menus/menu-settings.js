@@ -2,7 +2,7 @@ import $ from './expr';
 
 export default {
   label: '&Settings',
-  platform: 'nonDarwin',
+  platform: $.isNonDarwin,
   submenu: [{
     type: 'checkbox',
     label: '&Spell Checker',
