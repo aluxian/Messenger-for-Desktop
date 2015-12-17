@@ -1,5 +1,5 @@
 import electron from 'electron';
-import debug from 'debug';
+import debug from 'debug/browser';
 
 (function() {
   const NOTIF_COUNT_REGEX = /\((\d)\)/;

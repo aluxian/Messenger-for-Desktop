@@ -1,4 +1,4 @@
-import debug from 'debug';
+import debug from 'debug/browser';
 
 (function() {
   const log = debug('whatsie:app');

@@ -1,6 +1,6 @@
 import electron from 'electron';
 import spellChecker from 'spellchecker';
-import debug from 'debug';
+import debug from 'debug/browser';
 
 (function() {
   const log = debug('whatsie:events-main');

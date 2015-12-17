@@ -1,5 +1,5 @@
 import electron from 'electron';
-import debug from 'debug';
+import debug from 'debug/browser';
 import fs from 'fs';
 
 (function() {
