@@ -3,6 +3,7 @@ beeper = require 'beeper'
 gulp = require 'gulp'
 plumber = require 'gulp-plumber'
 sourcemaps = require 'gulp-sourcemaps'
+header = require 'gulp-header'
 
 less = require 'gulp-less'
 babel = require 'gulp-babel'
@@ -45,7 +46,9 @@ args = require './args'
           'es2015',
           'stage-0'
         ]
-      .pipe gif args.dev, sourcemaps.write()
+      .pipe gif args.dev, sourcemaps.write
+        sourceRoot: 'src/scripts'
+      .pipe gif args.dev, header 'require(\'source-map-support\').install();\n'
       .pipe plumber.stop()
       .pipe gulp.dest dir + '/scripts'
       .pipe livereload()
