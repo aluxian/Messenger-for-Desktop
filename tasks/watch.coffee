@@ -18,9 +18,8 @@ utils = require './utils'
     livereload.listen()
 
     # Launch the app
-    proc = cp.spawn runnablePath
-    proc.stdout.pipe process.stdout
-    proc.stderr.pipe process.stderr
+    cp.spawn runnablePath,
+      stdio: 'inherit'
 
     # Watch files
     gulp.watch './src/styles/**/*', ['compile:' + dist + ':styles']
