@@ -17,7 +17,7 @@ template = (function parseTemplate(menu, parent) {
 
     // Run parse-time expression
     if (item.parse) {
-      item.parse(item).bind(parent);
+      item.parse.call(parent, item);
     }
 
     // Clean up
