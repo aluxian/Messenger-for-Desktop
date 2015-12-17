@@ -7,7 +7,7 @@ export default {
     type: 'checkbox',
     label: '&Spell Checker',
     click: $.all(
-      $.sendToWebContents('spell-checker', $.key('checked')),
+      $.sendToWebContents('spell-checker', $.key('checked'), $.pref('auto-correct')),
       $.updateSibling('auto-correct', 'enabled', $.key('checked')),
       $.setPref('spell-checker', $.key('checked'))
     ),

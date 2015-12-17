@@ -22,9 +22,10 @@ export function openUrl(url) {
   };
 }
 
-export function sendToWebContents(eventName, valueExpr) {
+export function sendToWebContents(eventName, ...valueExprs) {
   return function(menuItem, browserWindow) {
-    browserWindow.webContents.send(eventName, valueExpr.apply(this, arguments));
+    const values = valueExprs.map(e => e.apply(this, arguments));
+    browserWindow.webContents.send(eventName, ...values);
   };
 }
 

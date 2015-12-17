@@ -4,7 +4,7 @@ import debug from 'debug';
 (function() {
   const NOTIF_COUNT_REGEX = /\((\d)\)/;
 
-  const log = debug('whatsie:local-events');
+  const log = debug('whatsie:events-local');
   const ipcr = electron.ipcRenderer;
 
   const webView = document.getElementById('webView');

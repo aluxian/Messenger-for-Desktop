@@ -1,8 +1,9 @@
 import electron from 'electron';
+import spellChecker from 'spellchecker';
 import debug from 'debug';
 
 (function() {
-  const log = debug('whatsie:main-events');
+  const log = debug('whatsie:events-main');
   const ipcr = electron.ipcRenderer;
 
   const webFrame = electron.webFrame;
@@ -14,15 +15,19 @@ import debug from 'debug';
   });
 
   // Set spell chcker
-  // ipcr.on('spell-checker', function(event, enabled) {
-  //   if (enabled) {
-  //     webFrame.setSpellCheckProvider('en-US', true, {
-  //       spellCheck: function(text) {
-  //         return !(require('spellchecker').isMisspelled(text));
-  //       }
-  //     });
-  //   } else {
-  //
-  //   }
-  // });
+  ipcr.on('spell-checker', function(event, enabled, autoCorrect) {
+    if (enabled) {
+      webFrame.setSpellCheckProvider('en-US', autoCorrect, {
+        spellCheck: function(text) {
+          return !spellChecker.isMisspelled(text);
+        }
+      });
+    } else {
+      webFrame.setSpellCheckProvider('en-US', autoCorrect, {
+        spellCheck: function(text) {
+          return true;
+        }
+      });
+    }
+  });
 })();
