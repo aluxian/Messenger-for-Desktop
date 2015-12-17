@@ -1,9 +1,10 @@
 import manifest from '../../../package.json';
+import platform from '../utils/platform';
 import $ from './expr';
 
 export default {
   label: manifest.productName,
-  platform: $.isDarwin,
+  platform: platform.isDarwin,
   submenu: [{
     label: 'About ' + manifest.productName,
     role: 'about'

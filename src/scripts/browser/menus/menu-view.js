@@ -1,24 +1,27 @@
+import platform from '../utils/platform';
 import $ from './expr';
 
 export default {
   label: '&View',
   submenu: [{
-    label: '&Reload',
-    accelerator: $.accelerator('Cmd+R', 'Ctrl+R'),
+    label: '&Reload Window',
+    accelerator: 'Ctrl+R',
+    platform: platform.isNonDarwin,
     click: $.reloadWindow()
   }, {
     label: 'Re&set Window',
     accelerator: 'Ctrl+Alt+R',
-    platform: $.isNonDarwin,
+    platform: platform.isNonDarwin,
     click: $.all(
       $.resetWindow(),
       $.unsetPref('bounds')
     )
   }, {
-    type: 'separator'
+    type: 'separator',
+    platform: platform.isNonDarwin,
   }, {
     label: 'Zoom In',
-    accelerator: $.accelerator('Cmd+Plus', 'Ctrl+Plus'),
+    accelerator: $.accelerator('Cmd+=', 'Ctrl+='),
     click: $.all(
       $.memoVal('zoom-level', $.sum($.pref('zoom-level', $.val(0)), $.val(1))),
       $.sendToWebContents('zoom-level', $.memoVal('zoom-level')),
@@ -48,7 +51,7 @@ export default {
     accelerator: $.accelerator('Cmd+Ctrl+F', 'F11'),
     click: $.toggleFullScreen()
   }, {
-    label: 'Developer Tools',
+    label: 'Toggle Developer Tools',
     accelerator: $.accelerator('Alt+Cmd+I', 'Alt+Ctrl+I'),
     click: $.toggleDevTools()
   }]
