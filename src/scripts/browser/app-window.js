@@ -72,7 +72,7 @@ class AppWindow extends EventEmitter {
     log('onDomReady');
 
     // Restore the default theme
-    const theme = prefs.get('app:theme');
+    const theme = prefs.get('theme');
     if (theme) {
       log('restoring theme', theme);
       this.window.webContents.send('apply-theme', theme);
@@ -86,7 +86,7 @@ class AppWindow extends EventEmitter {
     }
 
     // Restore spell checker
-    const spellChecker = prefs.get('app:spell-checker');
+    const spellChecker = prefs.get('spell-checker');
     if (spellChecker) {
       log('restoring spell checker', spellChecker);
       this.window.webContents.send('spell-checker', spellChecker);
