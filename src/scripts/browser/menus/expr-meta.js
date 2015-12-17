@@ -1,7 +1,7 @@
 export function all() {
-  const functions = arguments;
+  const exprs = Array.from(arguments);
   return function() {
-    functions.forEach(fn => fn.apply(this, arguments));
+    exprs.forEach(expr => expr.apply(this, arguments));
   };
 }
 

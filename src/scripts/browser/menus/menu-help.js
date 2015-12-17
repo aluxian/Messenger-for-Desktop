@@ -1,3 +1,4 @@
+import manifest from '../../../package.json';
 import $ from './expr';
 
 export default {

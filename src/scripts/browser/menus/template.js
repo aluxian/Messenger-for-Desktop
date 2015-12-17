@@ -1,11 +1,11 @@
-const template = [
-  require('./menu-app'),
-  require('./menu-settings'),
-  require('./menu-edit'),
-  require('./menu-view'),
-  require('./menu-theme'),
-  require('./menu-window'),
-  require('./menu-help')
+let template = [
+  require('./menu-app').default,
+  require('./menu-settings').default,
+  require('./menu-edit').default,
+  require('./menu-view').default,
+  require('./menu-theme').default,
+  require('./menu-window').default,
+  require('./menu-help').default
 ];
 
 template = (function parseTemplate(menu, parent) {

@@ -1,4 +1,4 @@
-import expr from './expr';
+import $ from './expr';
 
 export default {
   label: '&Settings',
