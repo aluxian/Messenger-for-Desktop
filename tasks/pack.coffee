@@ -30,7 +30,12 @@ gulp.task 'pack:darwin64', ['build:darwin64', 'clean:dist:darwin64'], (done) ->
       return done()
 
   async.series [
-    # First, compress the source files into an asar archive
+    # Remove the dev modules
+    async.apply cp.exec, 'npm prune --production', {
+      cwd: './build/darwin64/' + manifest.productName + '.app/Contents/Resources/app'
+    }
+
+    # Compress the source files into an asar archive
     async.apply asar.createPackage,
       './build/darwin64/' + manifest.productName + '.app/Contents/Resources/app',
       './build/darwin64/' + manifest.productName + '.app/Contents/Resources/app.asar'
@@ -100,7 +105,12 @@ gulp.task 'pack:darwin64', ['build:darwin64', 'clean:dist:darwin64'], (done) ->
       ]
 
       async.series [
-        # First, compress the source files into an asar archive
+        # Remove the dev modules
+        async.apply cp.exec, 'npm prune --production', {
+          cwd: './build/linux' + arch + '/opt/' + manifest.name + '/resources/app'
+        }
+
+        # Compress the source files into an asar archive
         async.apply asar.createPackage,
           './build/linux' + arch + '/opt/' + manifest.name + '/resources/app',
           './build/linux' + arch + '/opt/' + manifest.name + '/resources/app.asar'
@@ -125,6 +135,11 @@ gulp.task 'pack:win32:installer', ['build:win32', 'clean:dist:win32'], (done) ->
       return console.warn envName + ' env var not set.'
 
   async.series [
+    # Remove the dev modules
+    async.apply cp.exec, 'npm prune --production', {
+      cwd: './build/win32/resources/app'
+    }
+
     # Compress the source files into an asar archive
     async.apply asar.createPackage, './build/win32/resources/app', './build/win32/resources/app.asar'
 
@@ -157,6 +172,11 @@ gulp.task 'pack:win32:portable', ['build:win32:portable', 'clean:dist:win32'], (
       return done()
 
   async.series [
+    # Remove the dev modules
+    async.apply cp.exec, 'npm prune --production', {
+      cwd: './build/win32/resources/app'
+    }
+
     # Compress the source files into an asar archive
     async.apply asar.createPackage, './build/win32/resources/app', './build/win32/resources/app.asar'
 
