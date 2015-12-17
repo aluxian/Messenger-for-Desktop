@@ -17,7 +17,6 @@ manifest = require '../src/package.json'
   ].forEach (proxiedTask) ->
     gulp.task 'restart:' + proxiedTask, [proxiedTask], (done) ->
       cp.exec killCommand, ->
-        proc = cp.spawn runnablePath
-        proc.stdout.pipe process.stdout
-        proc.stderr.pipe process.stderr
+        cp.spawn runnablePath,
+          stdio: 'inherit'
         done()
