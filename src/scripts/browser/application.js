@@ -83,6 +83,10 @@ class Application extends EventEmitter {
     });
   }
 
+  getMainWindow() {
+    return AppWindow.MAIN_WINDOW();
+  }
+
 }
 
 export default Application;

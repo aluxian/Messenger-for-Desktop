@@ -41,6 +41,25 @@ process.on('uncaughtException', error => console.error(error.stack || error));
     return app.quit();
   }
 
+  // Enforce single instance
+  const isDuplicateInstance = app.makeSingleInstance((argv, cwd) => {
+    if (global.application) {
+      const mainWindow = global.application.getMainWindow();
+      if (mainWindow) {
+        if (mainWindow.isMinimized()) {
+          mainWindow.restore();
+        }
+        mainWindow.focus();
+      }
+    }
+    return true;
+  });
+
+  if (isDuplicateInstance) {
+    log('another instance of the app is already running');
+    return app.quit();
+  }
+
   // Change the userData path if in portable mode
   if (argv.portable || manifest.portable) {
     log('running in portable mode');
