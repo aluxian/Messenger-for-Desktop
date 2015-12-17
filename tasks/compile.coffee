@@ -48,7 +48,7 @@ args = require './args'
         ]
       .pipe gif args.dev, sourcemaps.write
         sourceRoot: 'src/scripts'
-      .pipe gif args.dev, header 'require(\'source-map-support\').install();\n'
+      .pipe gif args.dev, header 'require(\'source-map-support\').install();'
       .pipe plumber.stop()
       .pipe gulp.dest dir + '/scripts'
       .pipe livereload()
