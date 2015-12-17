@@ -19,6 +19,13 @@ export default {
   }, {
     type: 'separator'
   }, {
+    type: 'checkbox',
+    label: 'Float on Top',
+    accelerator: 'Cmd+Ctrl+F',
+    click: $.floatOnTop($.key('checked'))
+  }, {
+    type: 'separator'
+  }, {
     label: 'Minimize',
     accelerator: 'Cmd+M',
     role: 'minimize'

@@ -18,7 +18,16 @@ export default {
     )
   }, {
     type: 'separator',
+    platform: platform.isNonDarwin
+  }, {
+    type: 'checkbox',
+    label: '&Float Window on Top',
+    accelerator: 'Ctrl+Shift+F',
     platform: platform.isNonDarwin,
+    click: $.floatOnTop($.key('checked'))
+  }, {
+    type: 'separator',
+    platform: platform.isNonDarwin
   }, {
     label: 'Zoom In',
     accelerator: $.accelerator('Cmd+=', 'Ctrl+='),

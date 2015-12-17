@@ -11,7 +11,9 @@ export default {
         $.sendToWebContents('apply-theme', $.key('theme')),
         $.setPref('theme', $.key('theme'))
       ),
-      parse: $.setLocal('checked', $.eq($.pref('theme', $.val('default')), $.key('theme')))
+      parse: $.all(
+        $.setLocal('checked', $.eq($.pref('theme', $.val('default')), $.key('theme')))
+      )
     };
   })
 };

@@ -55,3 +55,10 @@ export function toggleDevTools() {
     browserWindow.toggleDevTools();
   };
 }
+
+export function floatOnTop(flagExpr) {
+  return function(menuItem, browserWindow) {
+    const flag = flagExpr.apply(this, arguments);
+    browserWindow.setAlwaysOnTop(flag);
+  };
+}
