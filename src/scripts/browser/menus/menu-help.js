@@ -39,7 +39,7 @@ export default {
     label: 'Donate &PayPal',
     click: $.openUrl('https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=4YVCUBK2QJKBL')
   }, {
-    label: 'Donate &Bitcoins',
+    label: 'Donate &Bitcoin',
     click: $.openUrl('https://www.coinbase.com/checkouts/cf0d7f14d3413fdebcc0de9a2a934fdf')
   }]
 };

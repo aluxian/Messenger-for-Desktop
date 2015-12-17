@@ -72,7 +72,7 @@ class Application extends EventEmitter {
     log('activate app, hasVisibleWindows =', hasVisibleWindows)
     if (!hasVisibleWindows) {
       if (this.mainWindow) {
-        this.mainWindow.show();
+        this.mainWindow.window.show();
       } else {
         this.createAppWindow();
       }
