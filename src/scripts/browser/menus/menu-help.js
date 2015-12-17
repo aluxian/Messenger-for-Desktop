@@ -19,11 +19,11 @@ export default {
     label: 'Gitter &Chat',
     click: $.openUrl('https://gitter.im/Aluxian/Whatsie')
   }, {
-    label: '&Report Issue',
-    click: $.openUrl('https://github.com/Aluxian/Whatsie/issues')
-  }, {
     label: '&Suggest Feature',
     click: $.openUrl('https://github.com/Aluxian/Whatsie/issues/new?labels=request')
+  }, {
+    label: '&Report Issue',
+    click: $.openUrl('https://github.com/Aluxian/Whatsie/issues')
   }, {
     type: 'separator'
   }, {
