@@ -1,4 +1,4 @@
-// Set the user agent and load the app
-const webView = document.getElementById('webView');
-webView.setAttribute('useragent', navigator.userAgent);
-webView.setAttribute('src', 'https://web.whatsapp.com/');
+import '../scripts/renderer/webview';
+import '../scripts/renderer/webview-listeners';
+import '../scripts/renderer/webview-events';
+import '../scripts/renderer/theme';

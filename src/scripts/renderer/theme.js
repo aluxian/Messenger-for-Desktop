@@ -1,7 +1,6 @@
 import {ipcRenderer as ipcr} from 'electron';
+import webView from './webview';
 import fs from 'fs';
-
-const webView = document.getElementById('webView');
 
 /**
  * Apply a CSS theme file to the app webview.

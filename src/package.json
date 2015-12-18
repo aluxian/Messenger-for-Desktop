@@ -3,6 +3,7 @@
   "productName": "Whatsie",
   "version": "2.0.0",
   "description": "A simple & beautiful desktop client for WhatsApp Web.",
+  "wvUrl": "https://web.whatsapp.com/",
   "main": "./scripts/browser/main.js",
   "dependencies": {
     "babel-runtime": "6.3.19",

@@ -1,5 +1,12 @@
-// Log console messages
+import {ipcRenderer as ipcr} from 'electron';
+import remote from 'remote';
+
 const webView = document.getElementById('webView');
-webView.addEventListener('console-message', function(event) {
-  log(event.message);
-});
+const manifest = remote.getGlobal('manifest');
+
+// Set the user agent and load the app
+log('loading', manifest.wvUrl);
+webView.setAttribute('useragent', navigator.userAgent);
+webView.setAttribute('src', manifest.wvUrl);
+
+export default webView;
