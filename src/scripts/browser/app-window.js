@@ -40,9 +40,13 @@ class AppWindow extends EventEmitter {
     const cleanUA = this.getCleanUserAgent();
     this.window.webContents.setUserAgent(cleanUA);
 
-    // Bind events to local methods
+    // Bind webContents events to local methods
     this.window.webContents.on('new-window', ::this.onNewWindow);
     this.window.webContents.on('dom-ready', ::this.onDomReady);
+
+    // Bind events to local methods
+    this.window.on('enter-full-screen', ::this.onEnterFullScreen);
+    this.window.on('leave-full-screen', ::this.onLeaveFullScreen);
     this.window.on('closed', ::this.onClosed);
     this.window.on('close', ::this.onClose);
 
@@ -50,6 +54,10 @@ class AppWindow extends EventEmitter {
     const saveBounds = debounce(::this.saveBounds, 500);
     this.window.on('resize', saveBounds);
     this.window.on('move', saveBounds);
+
+    // Restore full screen state
+    const isFullScreen = prefs.get('full-screen', false);
+    this.window.setFullScreen(isFullScreen);
   }
 
   /**
@@ -92,6 +100,22 @@ class AppWindow extends EventEmitter {
       log('restoring spell checker', spellChecker);
       this.window.webContents.send('spell-checker', spellChecker);
     }
+  }
+
+  /**
+   * Called when the 'enter-full-screen' event is emitted.
+   */
+  onEnterFullScreen(event) {
+    // Save in prefs
+    prefs.set('full-screen', true);
+  }
+
+  /**
+   * Called when the 'leave-full-screen' event is emitted.
+   */
+  onLeaveFullScreen(event) {
+    // Save in prefs
+    prefs.set('full-screen', false);
   }
 
   /**
