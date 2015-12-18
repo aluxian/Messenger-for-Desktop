@@ -81,7 +81,7 @@ gulp.task 'pack:darwin64', ['build:darwin64', 'clean:dist:darwin64'], (done) ->
       else
         archName = 'x86_64'
 
-      args = [
+      fpmArgs = [
         '-s dir'
         '-t ' + target
         '--architecture ' + archName
@@ -92,6 +92,7 @@ gulp.task 'pack:darwin64', ['build:darwin64', 'clean:dist:darwin64'], (done) ->
         '--after-remove ./build/resources/linux/after-remove.sh'
         '--deb-changelog ./CHANGELOG.md'
         '--rpm-changelog ./CHANGELOG.md'
+        '--depends libappindicator1'
         '--license ' + manifest.license
         '--category "' + manifest.linux.section + '"'
         '--description "' + manifest.description + '"'
@@ -120,7 +121,7 @@ gulp.task 'pack:darwin64', ['build:darwin64', 'clean:dist:darwin64'], (done) ->
         async.apply fs.writeFile, './build/linux' + arch + '/opt/' + manifest.name + '/pkgtarget', target
 
         # Package the app
-        async.apply cp.exec, 'fpm ' + args.join(' ')
+        async.apply cp.exec, 'fpm ' + fpmArgs.join(' ')
       ], done
 
 # Create the win32 installer; only works on Windows
