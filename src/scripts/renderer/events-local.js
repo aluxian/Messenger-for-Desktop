@@ -5,6 +5,7 @@ import debug from 'debug/browser';
   const NOTIF_COUNT_REGEX = /\((\d)\)/;
 
   const log = debug('whatsie:events-local');
+  const logWV = debug('whatsie:webview');
   const ipcr = electron.ipcRenderer;
 
   const webView = document.getElementById('webView');
@@ -22,5 +23,10 @@ import debug from 'debug/browser';
   webView.addEventListener('new-window', function(event) {
     log('sending open-url', event.url);
     ipcr.send('open-url', event.url, event.options);
+  });
+
+  // Log console messages
+  webView.addEventListener('console-message', function(event) {
+    logWV(event.message);
   });
 })();
