@@ -1,45 +1,40 @@
-import electron from 'electron';
-import debug from 'debug/browser';
+import {ipcRenderer as ipcr} from 'electron';
 import fs from 'fs';
 
-(function() {
-  const webView = document.getElementById('webView');
-  const log = debug('whatsie:theme');
-  const ipcr = electron.ipcRenderer;
+const webView = document.getElementById('webView');
 
-  /**
-   * Apply a CSS theme file to the app webview.
-   */
-  ipcr.on('apply-theme', function(event, name) {
-    if (!name) {
-      return;
+/**
+ * Apply a CSS theme file to the app webview.
+ */
+ipcr.on('apply-theme', function(event, name) {
+  if (!name) {
+    return;
+  }
+
+  log('applying theme', name);
+  fs.readFile('./src/themes/' + name + '.css', 'utf-8', function(err, cssFile) {
+    if (err) {
+      return console.error(err);
     }
 
-    log('applying theme', name);
-    fs.readFile('./src/themes/' + name + '.css', 'utf-8', function(err, cssFile) {
-      if (err) {
-        return console.error(err);
+    const css = cssFile
+      .replace(/[\n\r]+/g, '') // replace new lines
+      .replace(/"/g, '\\"'); // escape quotation marks
+
+    webView.executeJavaScript(
+      `
+      var styleBlockId = "cssTheme";
+      var styleBlock = document.getElementById(styleBlockId);
+
+      if (!styleBlock) {
+        styleBlock = document.createElement("style");
+        styleBlock.id = styleBlockId;
+        styleBlock.type = "text/css";
+        document.head.appendChild(styleBlock);
       }
 
-      const css = cssFile
-        .replace(/[\n\r]+/g, '') // replace new lines
-        .replace(/"/g, '\\"'); // escape quotation marks
-
-      webView.executeJavaScript(
-        `
-        var styleBlockId = "cssTheme";
-        var styleBlock = document.getElementById(styleBlockId);
-
-        if (!styleBlock) {
-          styleBlock = document.createElement("style");
-          styleBlock.id = styleBlockId;
-          styleBlock.type = "text/css";
-          document.head.appendChild(styleBlock);
-        }
-
-        styleBlock.innerHTML = "${css}";
-        `
-      );
-    });
+      styleBlock.innerHTML = "${css}";
+      `
+    );
   });
-})();
+});
