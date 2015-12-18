@@ -61,15 +61,11 @@ args = require './args'
           'transform-runtime'
         ]
       .pipe sourcemaps.write {sourceRoot: 'src/scripts/browser'}
-      .pipe header """
-                   require('source-map-support').install();
-                   var filename = require('path').basename(__filename);
-                   var log = require('debug')('#{manifest.name}:' + require('path').basename(__filename));
-                   log.log = console.log.bind(console);
-                   var logError = require('debug')('#{manifest.name}:' + require('path').basename(__filename));
-                   logError.log = console.error.bind(console);
-                   filename = undefined;
-                   """.replace(/\n/g, '')
+      .pipe header [
+        "require('source-map-support').install();"
+        "var log = require('debug')('#{manifest.name}:' + require('path').basename(__filename, '.js'));"
+        "logError.log = console.error.bind(console);"
+      ].join('')
       .pipe plumber.stop()
       .pipe gulp.dest dir + '/scripts/browser'
 

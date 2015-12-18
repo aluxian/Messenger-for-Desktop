@@ -16,7 +16,6 @@ import fs from 'fs';
     }
 
     log('applying theme', name);
-
     fs.readFile('./src/themes/' + name + '.css', 'utf-8', function(err, cssFile) {
       if (err) {
         return console.error(err);
