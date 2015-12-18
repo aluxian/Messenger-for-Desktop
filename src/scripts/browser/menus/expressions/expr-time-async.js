@@ -7,7 +7,7 @@ import prefs from '../../utils/prefs';
 export function watchPref(prefKey, getExprs) {
   return function(findMenuItem) {
     prefs.watch(prefKey, newValue => {
-      findMenuItem((menuItem, browserWindow) => {
+      findMenuItem(() => {
         const exprs = getExprs(newValue);
         for (let expr of exprs) {
           expr.apply(this, arguments);

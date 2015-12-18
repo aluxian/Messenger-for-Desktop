@@ -16,7 +16,7 @@ export function setLocal(localKey, valueExpr) {
  * Sets a preference key.
  */
 export function setPref(prefName, valueExpr) {
-  return function(item) {
+  return function() {
     prefs.set(prefName, valueExpr.apply(this, arguments));
   };
 }
@@ -25,7 +25,7 @@ export function setPref(prefName, valueExpr) {
  * Unsets a preference key.
  */
 export function unsetPref(prefName) {
-  return function(item) {
+  return function() {
     prefs.unset(prefName);
   };
 }

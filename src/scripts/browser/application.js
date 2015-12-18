@@ -89,7 +89,7 @@ class Application extends EventEmitter {
   /**
    * Called when the 'window-all-closed' event is emitted.
    */
-  onAllWindowsClosed(event) {
+  onAllWindowsClosed() {
     // Quit the app if all windows are closed
     log('all windows closed');
     app.quit();
@@ -125,7 +125,7 @@ class Application extends EventEmitter {
   /**
    * Called when the 'click' event is emitted on the tray menu.
    */
-  onTrayClick(event) {
+  onTrayClick() {
     // Show the main window
     log('tray click');
     if (this.mainWindow) {

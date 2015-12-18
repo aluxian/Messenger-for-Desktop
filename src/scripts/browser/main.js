@@ -1,7 +1,6 @@
 import app from 'app';
 import yargs from 'yargs';
 import path from 'path';
-import fs from 'fs';
 
 // import CrashReporter from 'crash-reporter';
 // import Updater from './components/updater';
@@ -39,7 +38,7 @@ process.on('uncaughtException', error => console.error(error.stack || error));
   }
 
   // Enforce single instance
-  const isDuplicateInstance = app.makeSingleInstance((argv, cwd) => {
+  const isDuplicateInstance = app.makeSingleInstance(() => {
     if (global.application) {
       const mainWindow = global.application.mainWindow;
       if (mainWindow) {

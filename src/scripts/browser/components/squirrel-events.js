@@ -41,6 +41,8 @@ export default {
       case '--squirrel-updated':
         // Remove previous app dirs
         del(['../app-*/**', '!../app-' + app.getVersion() + '/**'], { force: true });
+        app.quit();
+        return true;
 
       case '--squirrel-obsolete':
         app.quit();

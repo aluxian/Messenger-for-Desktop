@@ -26,7 +26,7 @@ ipcr.on('spell-checker', function(event, enabled, autoCorrect) {
     });
   } else {
     webFrame.setSpellCheckProvider('en-US', autoCorrect, {
-      spellCheck: function(text) {
+      spellCheck: function() {
         return true;
       }
     });

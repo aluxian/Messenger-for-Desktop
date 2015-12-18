@@ -1,4 +1,3 @@
-import {ipcRenderer as ipcr} from 'electron';
 import remote from 'remote';
 
 const webView = document.getElementById('webView');

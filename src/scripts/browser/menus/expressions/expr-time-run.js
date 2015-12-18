@@ -1,4 +1,3 @@
-import prefs from '../../utils/prefs';
 import shell from 'shell';
 import app from 'app';
 
@@ -7,19 +6,19 @@ import AppWindow from '../../app-window';
 // TODO add comments
 
 export function checkForUpdate() {
-  return function(menuItem, browserWindow) {
+  return function() {
     // TODO
   };
 }
 
 export function appQuit() {
-  return function(menuItem, browserWindow) {
+  return function() {
     app.exit(0);
   };
 }
 
 export function openUrl(url) {
-  return function(menuItem, browserWindow) {
+  return function() {
     shell.openExternal(url);
   };
 }
@@ -66,7 +65,7 @@ export function floatOnTop(flagExpr) {
 }
 
 export function showInTray(flagExpr) {
-  return function(menuItem, browserWindow) {
+  return function() {
     const app = global.application;
     if (app) {
       const show = flagExpr.apply(this, arguments);
@@ -80,7 +79,7 @@ export function showInTray(flagExpr) {
 }
 
 export function showInDock(flagExpr) {
-  return function(menuItem, browserWindow) {
+  return function() {
     if (app.dock) {
       const show = flagExpr.apply(this, arguments);
       if (show) {

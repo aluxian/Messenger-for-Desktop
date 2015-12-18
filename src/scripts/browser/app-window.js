@@ -15,7 +15,7 @@ class AppWindow extends EventEmitter {
   /**
    * Create a browser window based on the given options.
    */
-  constructor(manifest, options) {
+  constructor(manifest) {
     super();
     this.manifest = manifest;
     this.createWindow();
@@ -105,7 +105,7 @@ class AppWindow extends EventEmitter {
   /**
    * Called when the 'enter-full-screen' event is emitted.
    */
-  onEnterFullScreen(event) {
+  onEnterFullScreen() {
     // Save in prefs
     prefs.set('full-screen', true);
   }
@@ -113,7 +113,7 @@ class AppWindow extends EventEmitter {
   /**
    * Called when the 'leave-full-screen' event is emitted.
    */
-  onLeaveFullScreen(event) {
+  onLeaveFullScreen() {
     // Save in prefs
     prefs.set('full-screen', false);
   }
@@ -166,7 +166,7 @@ class AppWindow extends EventEmitter {
    */
   getCleanUserAgent() {
     return this.window.webContents.getUserAgent()
-      .replace(new RegExp(manifest.productName + '/[\\S]*', 'g'), '')
+      .replace(new RegExp(this.manifest.productName + '/[\\S]*', 'g'), '')
       .replace(new RegExp('Electron/[\\S]*', 'g'), '')
       .replace(/[ ]+/g, ' ');
   }
