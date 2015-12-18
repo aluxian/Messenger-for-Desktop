@@ -19,7 +19,6 @@
     "gulp-filter": "3.0.1",
     "gulp-github-release": "1.0.3",
     "gulp-header": "1.7.1",
-    "gulp-if": "2.0.0",
     "gulp-imagemin": "2.4.0",
     "gulp-less": "3.0.5",
     "gulp-livereload": "3.8.1",

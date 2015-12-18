@@ -8,7 +8,6 @@ header = require 'gulp-header'
 
 less = require 'gulp-less'
 babel = require 'gulp-babel'
-gif = require 'gulp-if'
 
 embedlr = require 'gulp-embedlr'
 livereload = require 'gulp-livereload'
@@ -48,11 +47,37 @@ args = require './args'
       .pipe gulp.dest dir + '/styles'
       .pipe livereload()
 
-  # Compile scripts
-  gulp.task 'compile:' + dist + ':scripts', ['clean:build:' + dist], ->
-    gulp.src './src/scripts/**/*.js'
+  # Compile browser scripts
+  gulp.task 'compile:' + dist + ':scripts:browser', ['clean:build:' + dist], ->
+    gulp.src './src/scripts/browser/**/*.js'
       .pipe plumber handleError
-      .pipe gif args.dev, sourcemaps.init()
+      .pipe sourcemaps.init()
+      .pipe babel
+        presets: [
+          'es2015'
+          'stage-0'
+        ]
+        plugins: [
+          'transform-runtime'
+        ]
+      .pipe sourcemaps.write {sourceRoot: 'src/scripts/browser'}
+      .pipe header """
+                   require('source-map-support').install();
+                   var filename = require('path').basename(__filename);
+                   var log = require('debug')('#{manifest.name}:' + require('path').basename(__filename));
+                   log.log = console.log.bind(console);
+                   var logError = require('debug')('#{manifest.name}:' + require('path').basename(__filename));
+                   logError.log = console.error.bind(console);
+                   filename = undefined;
+                   """.replace(/\n/g, '')
+      .pipe plumber.stop()
+      .pipe gulp.dest dir + '/scripts/browser'
+
+  # Compile renderer scripts
+  gulp.task 'compile:' + dist + ':scripts:renderer', ['clean:build:' + dist], ->
+    gulp.src './src/scripts/renderer/**/*.js'
+      .pipe plumber handleError
+      .pipe sourcemaps.init()
       .pipe babel
         presets: [
           'es2015',
@@ -61,11 +86,9 @@ args = require './args'
         plugins: [
           'transform-runtime'
         ]
-      .pipe gif args.dev, sourcemaps.write
-        sourceRoot: 'src/scripts'
-      .pipe gif args.dev, header 'require(\'source-map-support\').install();'
+      .pipe sourcemaps.write {sourceRoot: 'src/scripts/renderer'}
       .pipe plumber.stop()
-      .pipe gulp.dest dir + '/scripts'
+      .pipe gulp.dest dir + '/scripts/renderer'
       .pipe livereload()
 
   # Move themes
@@ -97,7 +120,8 @@ args = require './args'
   gulp.task 'compile:' + dist, [
     'compile:' + dist + ':styles'
     'compile:' + dist + ':images'
-    'compile:' + dist + ':scripts'
+    'compile:' + dist + ':scripts:browser'
+    'compile:' + dist + ':scripts:renderer'
     'compile:' + dist + ':themes'
     'compile:' + dist + ':html'
     'compile:' + dist + ':deps'

@@ -1,11 +1,8 @@
 import prefs from '../../utils/prefs';
-import debug from 'debug';
 import shell from 'shell';
 import app from 'app';
 
 import AppWindow from '../../app-window';
-
-const log = debug('whatsie:expr-click');
 
 // TODO add comments
 

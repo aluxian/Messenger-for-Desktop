@@ -1,6 +1,5 @@
 import app from 'app';
 import shell from 'shell';
-import debug from 'debug';
 import filer from './utils/filer';
 import prefs from './utils/prefs';
 import {ipcMain} from 'electron';
@@ -14,8 +13,6 @@ import Tray from 'tray';
 import EventEmitter from 'events';
 import BrowserWindow from 'browser-window';
 import AppWindow from './app-window';
-
-const log = debug('whatsie:application');
 
 class Application extends EventEmitter {
 

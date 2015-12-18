@@ -1,10 +1,7 @@
 import prefs from '../../utils/prefs';
 import {findItemById, findMenu} from './utils';
-import debug from 'debug';
 
 import BrowserWindow from 'browser-window';
-
-const log = debug('whatsie:expr-parse');
 
 /**
  * Set a key of the item with the given value.

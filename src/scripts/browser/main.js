@@ -1,6 +1,5 @@
 import app from 'app';
 import yargs from 'yargs';
-import debug from 'debug';
 import path from 'path';
 import fs from 'fs';
 
@@ -11,8 +10,6 @@ import fs from 'fs';
 import Application from './application';
 
 import manifest from '../../package.json';
-
-const log = debug('whatsie:main');
 
 // Log uncaught exceptions
 process.on('uncaughtException', error => console.error(error.stack || error));

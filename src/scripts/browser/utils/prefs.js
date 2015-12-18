@@ -1,9 +1,7 @@
 import app from 'app';
 import Store from 'jfs';
 import path from 'path';
-import debug from 'debug';
 
-const log = debug('whatsie:prefs');
 const prefsPath = path.join(app.getPath('userData'), 'prefs.json');
 const db = new Store(prefsPath);
 const watchers = {};

@@ -1,6 +1,4 @@
 import prefs from '../../utils/prefs';
-import debug from 'debug';
-const log = debug('whatsie:expr-common');
 
 /**
  * Set a watcher on the given pref key.

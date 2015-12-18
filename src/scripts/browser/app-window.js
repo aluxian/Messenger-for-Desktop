@@ -1,12 +1,9 @@
 import shell from 'shell';
-import debug from 'debug';
 import prefs from './utils/prefs';
 import {debounce} from 'lodash';
 
 import BrowserWindow from 'browser-window';
 import EventEmitter from 'events';
-
-const log = debug('whatsie:app-window');
 
 class AppWindow extends EventEmitter {
 

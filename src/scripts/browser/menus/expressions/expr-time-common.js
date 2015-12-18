@@ -1,6 +1,3 @@
-import debug from 'debug';
-const log = debug('whatsie:expr-common');
-
 /**
  * Updates the value of a sibling item's key.
  */
