@@ -12,7 +12,7 @@ export function checkForUpdate() {
 
 export function appQuit() {
   return function(menuItem, browserWindow) {
-    app.exit();
+    app.exit(0);
   };
 }
 
