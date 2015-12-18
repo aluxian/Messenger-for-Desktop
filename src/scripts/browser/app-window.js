@@ -25,7 +25,7 @@ class AppWindow extends EventEmitter {
   createWindow() {
     log('creating AppWindow');
 
-    const bounds = prefs.get('window:bounds', AppWindow.DEFAULT_BOUNDS);
+    const bounds = prefs.get('window-bounds', AppWindow.DEFAULT_BOUNDS);
     const defaultOptions = {
       title: this.manifest.productName,
       backgroundColor: '#dfdfdf'
@@ -145,9 +145,13 @@ class AppWindow extends EventEmitter {
    * Persist the current window's state.
    */
   saveBounds() {
+    if (this.window.isFullScreen()) {
+      return;
+    }
+
     log('saving bounds');
     const bounds = this.window.getBounds();
-    prefs.set('window:bounds', bounds);
+    prefs.set('window-bounds', bounds);
   }
 
   /**
