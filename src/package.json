@@ -5,6 +5,7 @@
   "description": "A simple & beautiful desktop client for WhatsApp Web.",
   "main": "./scripts/browser/main.js",
   "dependencies": {
+    "babel-runtime": "6.3.19",
     "debug": "2.2.0",
     "del": "2.2.0",
     "jfs": "0.2.6",

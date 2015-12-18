@@ -46,6 +46,9 @@ args = require './args'
           'es2015',
           'stage-0'
         ]
+        plugins: [
+          'transform-runtime'
+        ]
       .pipe gif args.dev, sourcemaps.write
         sourceRoot: 'src/scripts'
       .pipe gif args.dev, header 'require(\'source-map-support\').install();'
