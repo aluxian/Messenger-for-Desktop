@@ -17,4 +17,10 @@ import debug from 'debug/browser';
     log('sending notif-count', count);
     ipcr.send('notif-count', count);
   });
+
+  // Handle url clicks
+  webView.addEventListener('new-window', function(event) {
+    log('sending open-url', event.url);
+    ipcr.send('open-url', event.url, event.options);
+  });
 })();

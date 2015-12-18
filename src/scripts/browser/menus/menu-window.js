@@ -24,6 +24,16 @@ export default {
     accelerator: 'Cmd+Ctrl+F',
     click: $.floatOnTop($.key('checked'))
   }, {
+    type: 'checkbox',
+    label: 'Open Links in Browser',
+    accelerator: 'Cmd+Ctrl+B',
+    click: $.all(
+      $.setPref('links-in-browser', $.key('checked'))
+    ),
+    parse: $.all(
+      $.setLocal('checked', $.pref('links-in-browser', $.val(true)))
+    )
+  }, {
     type: 'separator'
   }, {
     label: 'Minimize',

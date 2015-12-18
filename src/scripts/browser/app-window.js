@@ -60,9 +60,13 @@ class AppWindow extends EventEmitter {
    */
   onNewWindow(event, url) {
     // Open urls in an external browser
-    log('opening url externally', url);
-    event.preventDefault();
-    shell.openExternal(url);
+    if (prefs.get('links-in-browser', true)) {
+      log('opening url externally', url);
+      event.preventDefault();
+      shell.openExternal(url);
+    } else {
+      log('opening url in-app', url);
+    }
   }
 
   /**

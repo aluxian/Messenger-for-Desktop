@@ -1,14 +1,15 @@
 import app from 'app';
+import shell from 'shell';
 import debug from 'debug';
 import filer from './utils/filer';
-import {ipcMain} from 'electron';
-
+import prefs from './utils/prefs';
 import menuTemplate from './menus/template';
-import AppWindow from './app-window';
+import {ipcMain} from 'electron';
 
 import Menu from 'menu';
 import EventEmitter from 'events';
 import BrowserWindow from 'browser-window';
+import AppWindow from './app-window';
 
 const log = debug('whatsie:application');
 
@@ -83,15 +84,27 @@ class Application extends EventEmitter {
    * Listen for IPC events.
    */
   setIpcEventListeners() {
-    // Guest app notifications count
+    // Notifications count
     ipcMain.on('notif-count', (event, count) => {
-      log('on notif-count', count);
+      log('on renderer notif-count', count);
       if (app.dock && app.dock.setBadge) {
         if (count) {
           app.dock.setBadge(count);
         } else {
           app.dock.setBadge('');
         }
+      }
+    });
+
+    // Request to open an url
+    ipcMain.on('open-url', (event, url, options) => {
+      if (prefs.get('links-in-browser', true)) {
+        log('on renderer open-url, externally', url);
+        shell.openExternal(url);
+      } else {
+        log('on renderer open-url, new window', url);
+        const newWindow = new BrowserWindow(options);
+        newWindow.loadURL(url);
       }
     });
   }
