@@ -25,8 +25,8 @@ function set(key, value) {
  * Retrieve the value synchronously.
  */
 function get(key, defaultValue) {
-  const value = db.getSync(key) || defaultValue;
-  if (value instanceof Error) {
+  const value = db.getSync(key);
+  if (value == undefined || value instanceof Error) {
     return defaultValue;
   }
   return value;
