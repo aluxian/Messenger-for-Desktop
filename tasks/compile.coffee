@@ -3,6 +3,7 @@ beeper = require 'beeper'
 gulp = require 'gulp'
 plumber = require 'gulp-plumber'
 sourcemaps = require 'gulp-sourcemaps'
+imagemin = require 'gulp-imagemin'
 header = require 'gulp-header'
 
 less = require 'gulp-less'
@@ -29,6 +30,17 @@ args = require './args'
 
   # Compile styles
   gulp.task 'compile:' + dist + ':styles', ['clean:build:' + dist], ->
+    gulp.src [
+      './src/images/**/*.png',
+      './src/images/**/*.jpg'
+    ]
+      .pipe plumber handleError
+      .pipe imagemin()
+      .pipe plumber.stop()
+      .pipe gulp.dest dir + '/images'
+
+  # Compile styles
+  gulp.task 'compile:' + dist + ':images', ['clean:build:' + dist], ->
     gulp.src './src/styles/**/*.less'
       .pipe plumber handleError
       .pipe less()
@@ -84,6 +96,7 @@ args = require './args'
   # Compile everything
   gulp.task 'compile:' + dist, [
     'compile:' + dist + ':styles'
+    'compile:' + dist + ':images'
     'compile:' + dist + ':scripts'
     'compile:' + dist + ':themes'
     'compile:' + dist + ':html'

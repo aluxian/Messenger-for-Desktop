@@ -3,10 +3,14 @@ import shell from 'shell';
 import debug from 'debug';
 import filer from './utils/filer';
 import prefs from './utils/prefs';
-import menuTemplate from './menus/template';
 import {ipcMain} from 'electron';
+import path from 'path';
+
+import menuTemplate from './menus/main';
+import trayTemplate from './menus/tray';
 
 import Menu from 'menu';
+import Tray from 'tray';
 import EventEmitter from 'events';
 import BrowserWindow from 'browser-window';
 import AppWindow from './app-window';
@@ -27,22 +31,51 @@ class Application extends EventEmitter {
     this.createAppMenu();
     this.createAppWindow();
 
-    this.setEventListeners();
+    this.setAppEventListeners();
     this.setIpcEventListeners();
+
+    // Restore the tray menu
+    if (prefs.get('show-tray', false)) {
+      this.createTrayMenu();
+    }
   }
 
   /**
    * Create and set the default menu.
    */
   createAppMenu() {
+    if (this.menu) {
+      return;
+    }
+
     this.menu = Menu.buildFromTemplate(menuTemplate);
     Menu.setApplicationMenu(this.menu);
+    log('app menu created');
+  }
+
+  /**
+   * Create and set the default menu.
+   */
+  createTrayMenu() {
+    if (this.tray) {
+      return;
+    }
+
+    this.trayMenu = Menu.buildFromTemplate(trayTemplate);
+    this.tray = new Tray(path.join(__dirname, '..', '..', 'images', 'icon_tray.png'));
+    this.tray.setContextMenu(this.trayMenu);
+    this.setTrayEventListeners();
+    log('tray menu created');
   }
 
   /**
    * Create and show the main window.
    */
   createAppWindow() {
+    if (this.mainWindow) {
+      return;
+    }
+
     this.mainWindow = new AppWindow(this.manifest);
     this.mainWindow.loadURL(filer.getHtmlFile('app.html'));
     this.mainWindow.on('closed', () => this.mainWindow = null);
@@ -51,7 +84,7 @@ class Application extends EventEmitter {
   /**
    * Listen to app events.
    */
-  setEventListeners() {
+  setAppEventListeners() {
     app.on('window-all-closed', ::this.onAllWindowsClosed);
     app.on('activate', ::this.onActivate);
   }
@@ -70,13 +103,36 @@ class Application extends EventEmitter {
    */
   onActivate(event, hasVisibleWindows) {
     // Reopen the main window on dock clicks (OS X)
-    log('activate app, hasVisibleWindows =', hasVisibleWindows)
+    log('activate app, hasVisibleWindows =', hasVisibleWindows);
     if (!hasVisibleWindows) {
       if (this.mainWindow) {
         this.mainWindow.window.show();
       } else {
         this.createAppWindow();
       }
+    }
+  }
+
+  /**
+   * Listen for tray events.
+   */
+  setTrayEventListeners() {
+    if (!this.tray) {
+      return;
+    }
+
+    // Bind events
+    this.tray.on('click', ::this.onTrayClick);
+  }
+
+  /**
+   * Called when the 'click' event is emitted on the tray menu.
+   */
+  onTrayClick(event) {
+    // Show the main window
+    log('tray click');
+    if (this.mainWindow) {
+      this.mainWindow.show();
     }
   }
 
@@ -107,6 +163,19 @@ class Application extends EventEmitter {
         newWindow.loadURL(url);
       }
     });
+  }
+
+  /**
+   * Hide and destroy the tray menu.
+   */
+  destroyTrayMenu() {
+    if (!this.tray) {
+      return;
+    }
+
+    this.trayMenu = null;
+    this.tray.destroy();
+    this.tray = null;
   }
 
 }
