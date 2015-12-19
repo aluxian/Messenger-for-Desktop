@@ -17,3 +17,10 @@ ipcr.on('spell-checker', function(event, enabled, autoCorrect) {
 ipcr.on('call-webview-method', function(event, method, ...args) {
   webView[method](...args);
 });
+
+/**
+ * Add the selected misspelling to the dictionary.
+ */
+ipcr.on('add-selection-to-dictionary', function() {
+  webView.send('add-selection-to-dictionary');
+});
