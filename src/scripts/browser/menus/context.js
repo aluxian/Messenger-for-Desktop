@@ -6,7 +6,7 @@ function create(opt, browserWindow) {
   const webContents = browserWindow.webContents;
   const menu = new Menu();
 
-  if (opt.isMisspelling) {
+  if (opt.targetIsEditable && opt.isMisspelling) {
     for (let i = 0; i < opt.corrections.length && i < 5; i++) {
       menu.append(new MenuItem({
         label: 'Correct: ' + opt.corrections[i],
