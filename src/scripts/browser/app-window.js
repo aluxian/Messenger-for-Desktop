@@ -86,8 +86,9 @@ class AppWindow extends EventEmitter {
     const theme = prefs.get('theme');
     if (theme) {
       log('restoring theme', theme);
-      const css = files.getThemeCss(theme);
-      this.window.webContents.send('fwd-webview', 'apply-theme', css);
+      files.getThemeCss(theme, css => {
+        this.window.webContents.send('fwd-webview', 'apply-theme', css);
+      });
     }
 
     // Restore the default zoom level

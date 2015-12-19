@@ -79,9 +79,11 @@ export function unmemo(keyName) {
 /**
  * Gets the css content of the given theme.
  */
-export function themeCss(nameExpr) {
+export function themeCss(nameExpr, callback) {
   return function() {
     const theme = nameExpr.apply(this, arguments);
-    return files.getThemeCss(theme);
+    files.getThemeCss(theme, css => {
+      callback(css).apply(this, arguments);
+    });
   };
 }
