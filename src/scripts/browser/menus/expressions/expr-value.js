@@ -1,4 +1,5 @@
 import prefs from '../../utils/prefs';
+import files from '../../utils/files';
 
 // Temporary store
 const memoStore = {};
@@ -72,5 +73,15 @@ export function memo(keyName, valueExpr) {
 export function unmemo(keyName) {
   return function() {
     delete memoStore[keyName];
+  };
+}
+
+/**
+ * Gets the css content of the given theme.
+ */
+export function themeCss(nameExpr) {
+  return function() {
+    const theme = nameExpr.apply(this, arguments);
+    return files.getThemeCss(theme);
   };
 }

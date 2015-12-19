@@ -8,7 +8,7 @@ export default {
       label: theme,
       theme: theme.toLowerCase(),
       click: $.all(
-        $.sendToWebContents('apply-theme', $.key('theme')),
+        $.sendToWebView('apply-theme', $.themeCss($.key('theme'))),
         $.setPref('theme', $.key('theme'))
       ),
       parse: $.all(

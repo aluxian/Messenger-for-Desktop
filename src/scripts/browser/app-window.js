@@ -1,5 +1,6 @@
 import shell from 'shell';
 import prefs from './utils/prefs';
+import files from './utils/files';
 import {debounce} from 'lodash';
 
 import BrowserWindow from 'browser-window';
@@ -85,7 +86,8 @@ class AppWindow extends EventEmitter {
     const theme = prefs.get('theme');
     if (theme) {
       log('restoring theme', theme);
-      this.window.webContents.send('apply-theme', theme);
+      const css = files.getThemeCss(theme);
+      this.window.webContents.send('fwd-webview', 'apply-theme', css);
     }
 
     // Restore the default zoom level

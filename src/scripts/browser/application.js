@@ -1,6 +1,6 @@
 import app from 'app';
 import shell from 'shell';
-import filer from './utils/filer';
+import filePaths from './utils/filePaths';
 import prefs from './utils/prefs';
 import {ipcMain} from 'electron';
 import path from 'path';
@@ -75,7 +75,7 @@ class Application extends EventEmitter {
     }
 
     this.mainWindow = new AppWindow(this.manifest);
-    this.mainWindow.loadURL(filer.getHtmlFile('app.html'));
+    this.mainWindow.loadURL(filePaths.getHtmlFile('app.html'));
     this.mainWindow.on('closed', () => this.mainWindow = null);
   }
 
