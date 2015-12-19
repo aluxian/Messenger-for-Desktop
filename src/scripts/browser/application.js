@@ -7,6 +7,7 @@ import path from 'path';
 
 import menuTemplate from './menus/main';
 import trayTemplate from './menus/tray';
+import contextMenu from './menus/context';
 
 import Menu from 'menu';
 import Tray from 'tray';
@@ -170,6 +171,15 @@ class Application extends EventEmitter {
         log('on renderer open-url, new window', url);
         const newWindow = new BrowserWindow(options);
         newWindow.loadURL(url);
+      }
+    });
+
+    // Handle context menu opens
+    ipcMain.on('context-menu', (event, options) => {
+      const menu = contextMenu.create(options, this.mainWindow.window);
+      if (menu) {
+        log('opening context menu');
+        menu.popup(this.mainWindow.window);
       }
     });
   }

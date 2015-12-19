@@ -1,7 +1,5 @@
 import {webFrame, ipcRenderer as ipcr} from 'electron';
-import contextMenu from './preload-context-menu';
 import spellChecker from 'spellchecker';
-import remote from 'remote';
 
 /**
  * Custom logger. The implicit one doesn't work in preload.
@@ -35,9 +33,14 @@ ipcr.on('spell-checker', function(event, enabled, autoCorrect) {
   }
 });
 
-// Listen for context menu requests
-window.addEventListener('contextmenu', function(event) {
-  log('opening context menu');
-  const menu = contextMenu.create(event);
-  menu.popup(remote.getCurrentWindow());
-});
+// Forward context menu opens
+document.addEventListener('contextmenu', function(event) {
+  log('seding context-menu');
+  ipcr.send('context-menu', {
+    hasSelection: !!document.getSelection().toString(),
+    targetIsEditable: event.target.isContentEditable,
+    targetIsLink: event.target.tagName == 'A',
+    href: event.target.href
+  });
+  event.preventDefault();
+}, false);
