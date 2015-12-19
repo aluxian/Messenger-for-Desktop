@@ -7,7 +7,7 @@ function create(opt, browserWindow) {
   const menu = new Menu();
 
   if (opt.isMisspelling) {
-    for (let i = 0; i < opt.corrections.length && i < 3; i++) {
+    for (let i = 0; i < opt.corrections.length && i < 5; i++) {
       menu.append(new MenuItem({
         label: 'Correct: ' + opt.corrections[i],
         click: () => webContents.send('call-webview-method', 'replaceMisspelling', opt.corrections[i])
