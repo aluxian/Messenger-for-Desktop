@@ -4,7 +4,6 @@ import path from 'path';
 
 const prefsPath = path.join(app.getPath('userData'), 'prefs.json');
 const db = new Store(prefsPath);
-const watchers = {};
 
 /**
  * Save the given (key, value) pair asynchronously.
@@ -18,14 +17,6 @@ function set(key, value) {
       log('set', key, '=', JSON.stringify(value));
     }
   });
-
-  // Notify watchers
-  if (Array.isArray(watchers[key])) {
-    log('notifying watchers', key, value);
-    for (let watcher of watchers[key]) {
-      watcher(value);
-    }
-  }
 }
 
 /**
@@ -53,26 +44,6 @@ function unset(key) {
 }
 
 /**
- * Call the callback every time the key changes.
- */
-function watch(key, cb) {
-  if (!Array.isArray(watchers[key])) {
-    watchers[key] = [];
-  }
-  watchers[key].push(cb);
-}
-
-/**
- * Remove the callback from the key's watchers.
- */
-function unwatch(key, cb) {
-  if (Array.isArray(watchers[key])) {
-    const pos = watchers[key].indexOf(cb);
-    watchers[key].splice(pos, 1);
-  }
-}
-
-/**
  * Remove all the keys.
  */
 function clear() {
@@ -90,7 +61,5 @@ export default {
   set,
   get,
   unset,
-  watch,
-  unwatch,
   clear
 };

@@ -41,17 +41,16 @@ export default {
     accelerator: 'Cmd+Shift+M',
     click: $.all(
       $.showInTray($.key('checked')),
+      $.updateSibling('show-dock', 'enabled', $.key('checked')),
+      $.updateMenuItem('tray', 'show-tray')($.key('checked'))(checked => $.all(
+        $.setLocal('checked', $.val(checked)),
+        $.updateSibling('show-dock', 'enabled', $.val(checked))
+      )),
       $.setPref('show-tray', $.key('checked'))
     ),
     parse: $.all(
       $.setLocal('checked', $.pref('show-tray', $.val(false))),
-      $.updateSibling('show-dock', 'enabled', $.key('checked')),
-      $.menu('main')(
-        $.watchPref('show-tray', newValue => $.all(
-          $.setLocal('checked', $.val(newValue)),
-          $.updateSibling('show-dock', 'enabled', $.val(newValue))
-        ))
-      )
+      $.updateSibling('show-dock', 'enabled', $.key('checked'))
     )
   }, {
     id: 'show-dock',
@@ -60,18 +59,17 @@ export default {
     accelerator: 'Cmd+Shift+D',
     click: $.all(
       $.showInDock($.key('checked')),
+      $.updateSibling('show-tray', 'enabled', $.key('checked')),
+      $.updateMenuItem('tray', 'show-dock')($.key('checked'))(checked => $.all(
+        $.setLocal('checked', $.val(checked)),
+        $.updateSibling('show-tray', 'enabled', $.val(checked))
+      )),
       $.setPref('show-dock', $.key('checked'))
     ),
     parse: $.all(
       $.setLocal('checked', $.pref('show-dock', $.val(true))),
       $.updateSibling('show-tray', 'enabled', $.key('checked')),
-      $.showInDock($.key('checked')),
-      $.menu('main')(
-        $.watchPref('show-dock', newValue => $.all(
-          $.setLocal('checked', $.val(newValue)),
-          $.updateSibling('show-tray', 'enabled', $.val(newValue))
-        ))
-      )
+      $.showInDock($.key('checked'))
     )
   }, {
     type: 'separator'
