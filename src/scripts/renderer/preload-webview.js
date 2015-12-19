@@ -33,6 +33,20 @@ ipcr.on('spell-checker', function(event, enabled, autoCorrect) {
   }
 });
 
+// Insert the given theme css into the DOM
+ipcr.on('apply-theme', function(event, css) {
+  let styleBlock = document.getElementById('cssTheme');
+
+  if (!styleBlock) {
+    styleBlock = document.createElement('style');
+    styleBlock.id = 'cssTheme';
+    styleBlock.type = 'text/css';
+    document.head.appendChild(styleBlock);
+  }
+
+  styleBlock.innerHTML = css;
+});
+
 // Add the selected misspelling to the dictionary
 ipcr.on('add-selection-to-dictionary', function() {
   spellChecker.add(document.getSelection().toString());
