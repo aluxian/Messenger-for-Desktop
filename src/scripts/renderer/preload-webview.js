@@ -1,8 +1,10 @@
 import {webFrame, ipcRenderer as ipcr} from 'electron';
+import contextMenu from './preload-context-menu';
 import spellChecker from 'spellchecker';
+import remote from 'remote';
 
 /**
- * Custom logger. The implicit one doens't work inside preload.
+ * Custom logger. The implicit one doesn't work in preload.
  */
 const log = function(...messages) {
   console.log('DEBUG: ' + messages.join(' '));
@@ -31,4 +33,11 @@ ipcr.on('spell-checker', function(event, enabled, autoCorrect) {
       }
     });
   }
+});
+
+// Listen for context menu requests
+window.addEventListener('contextmenu', function(event) {
+  log('opening context menu');
+  const menu = contextMenu.create(event);
+  menu.popup(remote.getCurrentWindow());
 });
