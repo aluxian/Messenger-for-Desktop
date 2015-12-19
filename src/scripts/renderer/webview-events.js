@@ -5,7 +5,16 @@ import webView from './webview';
  * Forward a message to the webview.
  */
 ipcr.on('fwd-webview', function(event, channel, ...args) {
-  webView.send(channel, ...args);
+  if (!webView.isLoading()) {
+    webView.send(channel, ...args);
+  } else {
+    const onLoaded = function() {
+      webView.send(channel, ...args);
+      webView.removeEventListener('dom-ready', onLoaded);
+    };
+
+    webView.addEventListener('dom-ready', onLoaded);
+  }
 });
 
 /**
