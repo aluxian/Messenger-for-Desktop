@@ -28,7 +28,8 @@ class AppWindow extends EventEmitter {
     const bounds = prefs.get('window-bounds', AppWindow.DEFAULT_BOUNDS);
     const defaultOptions = {
       title: this.manifest.productName,
-      backgroundColor: '#dfdfdf'
+      backgroundColor: '#dfdfdf',
+      show: false
     };
 
     const options = Object.assign(defaultOptions, bounds);
@@ -100,6 +101,9 @@ class AppWindow extends EventEmitter {
       log('restoring spell checker', spellChecker);
       this.window.webContents.send('spell-checker', spellChecker);
     }
+
+    // Show the window
+    this.window.show();
   }
 
   /**
@@ -122,13 +126,12 @@ class AppWindow extends EventEmitter {
    * Called when the 'close' event is emitted.
    */
   onClose(event) {
-    // Just hide the window
+    // Just hide the window, unless it's force closed
     log('onClose');
-    if (process.platform == 'darwin') {
+    if (!this.forceClose && process.platform == 'darwin') {
       event.preventDefault();
       this.window.hide();
     }
-    // TODO only on X clicks, not app.quit or cmd+q
   }
 
   /**

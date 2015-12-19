@@ -13,7 +13,7 @@ export function checkForUpdate() {
 
 export function appQuit() {
   return function() {
-    app.exit(0);
+    app.quit();
   };
 }
 

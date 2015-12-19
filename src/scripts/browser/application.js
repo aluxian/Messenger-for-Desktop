@@ -82,8 +82,20 @@ class Application extends EventEmitter {
    * Listen to app events.
    */
   setAppEventListeners() {
+    app.on('before-quit', ::this.onBeforeQuit);
     app.on('window-all-closed', ::this.onAllWindowsClosed);
     app.on('activate', ::this.onActivate);
+  }
+
+  /**
+   * Called when the 'before-quit' event is emitted.
+   */
+  onBeforeQuit() {
+    // Close the main window instead of hiding it
+    log('before quit');
+    if (this.mainWindow) {
+      this.mainWindow.forceClose = true;
+    }
   }
 
   /**
