@@ -1,3 +1,12 @@
+1.4.4
+- Load tray icon on Linux (Still some bugs)
+- Add WM_CLASS for linux (#285)
+- Change header color (#276)
+- Single instance now running at the same time
+- Add minimum window size
+- Add close with escape key setting
+- Fix build directory on windows
+
 1.4.3
 - Don't load the tray icon on Linux (fix)
 
