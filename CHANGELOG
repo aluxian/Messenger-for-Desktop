@@ -1,3 +1,6 @@
+1.4.5
+- Fix a faulty ;
+
 1.4.4
 - Load tray icon on Linux (Still some bugs)
 - Add WM_CLASS for linux (#285)
