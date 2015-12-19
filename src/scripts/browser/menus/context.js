@@ -16,7 +16,10 @@ function create(opt, browserWindow) {
 
     menu.append(new MenuItem({
       label: 'Add to Dictionary', // TODO: Hunspell doesn't remember these
-      click: () => webContents.send('fwd-webview', 'add-selection-to-dictionary')
+      click: () => {
+        webContents.send('fwd-webview', 'add-selection-to-dictionary');
+        webContents.send('call-webview-method', 'replaceMisspelling', opt.selection.trim());
+      }
     }));
 
     menu.append(new MenuItem({
