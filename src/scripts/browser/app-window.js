@@ -92,14 +92,14 @@ class AppWindow extends EventEmitter {
     const zoomLevel = prefs.get('zoom-level');
     if (zoomLevel) {
       log('restoring zoom level', zoomLevel);
-      this.window.webContents.send('zoom-level', zoomLevel);
+      this.window.webContents.send('fwd-webview', 'zoom-level', zoomLevel);
     }
 
     // Restore spell checker
     const spellChecker = prefs.get('spell-checker');
     if (spellChecker) {
       log('restoring spell checker', spellChecker);
-      this.window.webContents.send('spell-checker', spellChecker);
+      this.window.webContents.send('fwd-webview', 'spell-checker', spellChecker);
     }
 
     // Show the window

@@ -36,7 +36,7 @@ export default {
     type: 'checkbox',
     label: 'Check Spelling While Typing',
     click: $.all(
-      $.sendToWebContents('spell-checker', $.key('checked'), $.pref('auto-correct')),
+      $.sendToWebView('spell-checker', $.key('checked'), $.pref('auto-correct')),
       $.updateSibling('auto-correct', 'enabled', $.key('checked')),
       $.setPref('spell-checker', $.key('checked'))
     ),
@@ -49,7 +49,7 @@ export default {
     type: 'checkbox',
     label: 'Auto Correct Spelling Mistakes',
     click: $.all(
-      $.sendToWebContents('auto-correct', $.key('checked')),
+      $.sendToWebView('spell-checker', $.pref('spell-checker'), $.key('checked')),
       $.setPref('auto-correct', $.key('checked'))
     ),
     parse: $.all(

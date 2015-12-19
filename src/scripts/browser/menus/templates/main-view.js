@@ -25,7 +25,7 @@ export default {
     accelerator: P('Cmd+=', 'Ctrl+='),
     click: $.all(
       $.memo('zoom-level', $.sum($.pref('zoom-level', $.val(0)), $.val(1))),
-      $.sendToWebContents('zoom-level', $.memo('zoom-level')),
+      $.sendToWebView('zoom-level', $.memo('zoom-level')),
       $.setPref('zoom-level', $.memo('zoom-level')),
       $.unmemo('zoom-level')
     )
@@ -34,7 +34,7 @@ export default {
     accelerator: P('Cmd+-', 'Ctrl+-'),
     click: $.all(
       $.memo('zoom-level', $.sum($.pref('zoom-level', $.val(0)), $.val(-1))),
-      $.sendToWebContents('zoom-level', $.memo('zoom-level')),
+      $.sendToWebView('zoom-level', $.memo('zoom-level')),
       $.setPref('zoom-level', $.memo('zoom-level')),
       $.unmemo('zoom-level')
     )
@@ -42,7 +42,7 @@ export default {
     label: 'Reset Zoom',
     accelerator: P('Cmd+0', 'Ctrl+0'),
     click: $.all(
-      $.sendToWebContents('zoom-level', $.val(0)),
+      $.sendToWebView('zoom-level', $.val(0)),
       $.unsetPref('zoom-level')
     )
   }, {

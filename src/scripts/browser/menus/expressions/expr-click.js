@@ -41,6 +41,16 @@ export function sendToWebContents(channel, ...valueExprs) {
 }
 
 /**
+ * Send a message directly to the webview.
+ */
+export function sendToWebView(channel, ...valueExprs) {
+  return function(menuItem, browserWindow) {
+    const values = valueExprs.map(e => e.apply(this, arguments));
+    browserWindow.webContents.send('fwd-webview', channel, ...values);
+  };
+}
+
+/**
  * Reload the browser window.
  */
 export function reloadWindow() {

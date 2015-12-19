@@ -1,14 +1,9 @@
 import {ipcRenderer as ipcr} from 'electron';
 import webView from './webview';
 
-// Set zoom level
-ipcr.on('zoom-level', function(event, zoomLevel) {
-  webView.send('zoom-level', zoomLevel);
-});
-
-// Set spell checker
-ipcr.on('spell-checker', function(event, enabled, autoCorrect) {
-  webView.send('spell-checker', enabled, autoCorrect);
+// Forward a message to the webview.
+ipcr.on('fwd-webview', function(event, channel, ...args) {
+  webView.send(channel, ...args);
 });
 
 /**
@@ -16,11 +11,4 @@ ipcr.on('spell-checker', function(event, enabled, autoCorrect) {
  */
 ipcr.on('call-webview-method', function(event, method, ...args) {
   webView[method](...args);
-});
-
-/**
- * Add the selected misspelling to the dictionary.
- */
-ipcr.on('add-selection-to-dictionary', function() {
-  webView.send('add-selection-to-dictionary');
 });
