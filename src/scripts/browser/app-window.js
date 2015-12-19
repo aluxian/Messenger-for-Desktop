@@ -89,7 +89,7 @@ class AppWindow extends EventEmitter {
     }
 
     // Restore the default zoom level
-    const zoomLevel = prefs.get('window:zoom-level');
+    const zoomLevel = prefs.get('zoom-level');
     if (zoomLevel) {
       log('restoring zoom level', zoomLevel);
       this.window.webContents.send('zoom-level', zoomLevel);
