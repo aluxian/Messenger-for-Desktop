@@ -1,6 +1,7 @@
 import manifest from '../../../../package.json';
 import platform from '../../utils/platform';
 import $ from '../expressions';
+import os from 'os';
 
 export default {
   label: '&Help',
@@ -24,7 +25,17 @@ export default {
     click: $.openUrl('https://github.com/Aluxian/Whatsie/issues/new?labels=request')
   }, {
     label: '&Report Issue',
-    click: $.openUrl('https://github.com/Aluxian/Whatsie/issues')
+    click: $.openUrl('https://github.com/Aluxian/Whatsie/issues/new?labels=bug&body=' + encodeURIComponent([
+      '**What is your issue?**',
+      '',
+      '',
+      '**What are the steps to reproduce it?**',
+      '',
+      '',
+      '--',
+      manifest.productName + ' v' + manifest.version,
+      [process.platform, process.arch, os.release()].join(' ')
+    ].join('\n')))
   }, {
     type: 'separator'
   }, {
