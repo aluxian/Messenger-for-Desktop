@@ -8,18 +8,21 @@ applyPromise = (fn, args...) ->
       .then (results...) -> cb null, results...
       .catch cb
 
-applySpawn = (cmd, args, opts = {}) ->
+applySpawn = (cmd, params, opts = {}) ->
   (cb) ->
     opts.stdio = if args.verbose then 'inherit' else 'ignore'
-    proc = cp.spawn cmd, args, opts
+    child = cp.spawn cmd, params, opts
     if cb
       errored = false
-      proc.on 'error', (err) ->
+      child.on 'error', (err) ->
         errored = true
         cb(err)
-      proc.on 'close', (code) ->
+      child.on 'close', (code) ->
         unless errored
-          cb (if code then "`#{cmd}` exited with code #{code}" else null)
+          if code
+            cb "`#{cmd} #{params.join(' ')}` exited with code #{code}"
+          else
+            cb null
 
 platform = () ->
   if process.platform == 'win32'
