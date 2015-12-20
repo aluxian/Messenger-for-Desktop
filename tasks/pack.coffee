@@ -1,4 +1,5 @@
 path = require 'path'
+args = require './args'
 fs = require 'fs'
 
 asar = require 'asar'
@@ -97,6 +98,8 @@ gulp.task 'pack:darwin64', ['build:darwin64', 'clean:dist:darwin64'], (done) ->
         manifest.name
         '--force' # Overwrite existing files
         '--rpm-sign' # Requires "~/RPM-GPG-KEY-#{manifest.name}"
+        '--rpm-auto-add-directories'
+        if args.verbose then '--verbose' else null
         '--after-install'
         './build/resources/linux/after-install.sh'
         '--after-remove'
@@ -124,7 +127,7 @@ gulp.task 'pack:darwin64', ['build:darwin64', 'clean:dist:darwin64'], (done) ->
         '-C'
         './build/linux' + arch
         '.'
-      ]
+      ].filter (a) -> a?
 
       async.series [
         # Remove the dev modules
