@@ -3,7 +3,6 @@ beeper = require 'beeper'
 gulp = require 'gulp'
 plumber = require 'gulp-plumber'
 sourcemaps = require 'gulp-sourcemaps'
-imagemin = require 'gulp-imagemin'
 header = require 'gulp-header'
 
 less = require 'gulp-less'
@@ -27,17 +26,6 @@ args = require './args'
   handleError = (err) ->
     console.error err
     beeper()
-
-  # Compile styles
-  gulp.task 'compile:' + dist + ':styles', ['clean:build:' + dist], ->
-    gulp.src [
-      './src/images/**/*.png',
-      './src/images/**/*.jpg'
-    ]
-      .pipe plumber handleError
-      .pipe imagemin()
-      .pipe plumber.stop()
-      .pipe gulp.dest dir + '/images'
 
   # Compile styles
   gulp.task 'compile:' + dist + ':images', ['clean:build:' + dist], ->
@@ -96,6 +84,14 @@ args = require './args'
       .pipe gulp.dest dir + '/themes'
       .pipe livereload()
 
+  # Move images
+  gulp.task 'compile:' + dist + ':styles', ['clean:build:' + dist], ->
+    gulp.src [
+      './src/images/**/*.png',
+      './src/images/**/*.jpg'
+    ]
+      .pipe gulp.dest dir + '/images'
+
   # Move html files
   gulp.task 'compile:' + dist + ':html', ['clean:build:' + dist], ->
     gulp.src './src/html/**/*.html'
@@ -118,10 +114,10 @@ args = require './args'
   # Compile everything
   gulp.task 'compile:' + dist, [
     'compile:' + dist + ':styles'
-    'compile:' + dist + ':images'
     'compile:' + dist + ':scripts:browser'
     'compile:' + dist + ':scripts:renderer'
     'compile:' + dist + ':themes'
+    'compile:' + dist + ':images'
     'compile:' + dist + ':html'
     'compile:' + dist + ':deps'
     'compile:' + dist + ':package'
