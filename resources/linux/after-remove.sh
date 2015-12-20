@@ -1,4 +1,4 @@
 #!/bin/bash
 
 # Delete the link to the binary
-rm -f /usr/local/bin/{{ name }}
+rm -f /usr/bin/{{ name }}
