@@ -88,6 +88,7 @@ gulp.task 'pack:darwin64', ['build:darwin64', 'clean:dist:darwin64'], (done) ->
         '--rpm-os linux'
         '--name ' + manifest.name
         '--force' # Overwrite existing files
+        '--rpm-sign' # Requires "~/RPM-GPG-KEY-#{manifest.name}"
         '--after-install ./build/resources/linux/after-install.sh'
         '--after-remove ./build/resources/linux/after-remove.sh'
         '--deb-changelog ./CHANGELOG.md'
