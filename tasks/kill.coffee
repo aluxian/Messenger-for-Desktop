@@ -15,6 +15,8 @@ lock.killTask ||= { skip: {} }
   [dist, killCommand] = item
 
   gulp.task 'kill:' + dist, (done) ->
-    return done() if lock.killTask.skip[dist]
-    lock.killTask.skip[dist] = true
-    (applySpawn killCommand)(done)
+    if lock.killTask.skip[dist]
+      done()
+    else
+      lock.killTask.skip[dist] = true
+      (applySpawn killCommand)(done)

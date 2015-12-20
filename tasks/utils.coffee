@@ -13,9 +13,13 @@ applySpawn = (cmd, opts = {}) ->
     opts.stdio = if args.verbose then 'inherit' else 'ignore'
     proc = cp.spawn cmd, opts
     if cb
-      proc.on 'error', cb
+      errored = false
+      proc.on 'error', (err) ->
+        errored = true
+        cb(err)
       proc.on 'close', (code) ->
-        cb (if code then "`#{cmd}` exited with code #{code}" else null)
+        unless errored
+          cb (if code then "`#{cmd}` exited with code #{code}" else null)
 
 platform = () ->
   arch = if process.arch == 'ia32' then '32' else '64'
