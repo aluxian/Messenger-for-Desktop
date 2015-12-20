@@ -34,6 +34,10 @@ gulp.task 'pack:darwin64', ['build:darwin64', 'clean:dist:darwin64'], (done) ->
     applySpawn 'npm', ['prune', '--production'],
       cwd: './build/darwin64/' + manifest.productName + '.app/Contents/Resources/app'
 
+    # Deduplicate dependencies
+    applySpawn 'npm', ['dedupe'],
+      cwd: './build/darwin64/' + manifest.productName + '.app/Contents/Resources/app'
+
     # Compress the source files into an asar archive
     async.apply asar.createPackage,
       './build/darwin64/' + manifest.productName + '.app/Contents/Resources/app',
@@ -127,6 +131,10 @@ gulp.task 'pack:darwin64', ['build:darwin64', 'clean:dist:darwin64'], (done) ->
         applySpawn 'npm', ['prune', '--production'],
           cwd: './build/linux' + arch + '/opt/' + manifest.name + '/resources/app'
 
+        # Deduplicate dependencies
+        applySpawn 'npm', ['dedupe'],
+          cwd: './build/linux' + arch + '/opt/' + manifest.name + '/resources/app'
+
         # Compress the source files into an asar archive
         async.apply asar.createPackage,
           './build/linux' + arch + '/opt/' + manifest.name + '/resources/app',
@@ -154,6 +162,10 @@ gulp.task 'pack:win32:installer', ['build:win32', 'clean:dist:win32'], (done) ->
   async.series [
     # Remove the dev modules
     applySpawn 'npm', ['prune', '--production'],
+      cwd: './build/win32/resources/app'
+
+    # Deduplicate dependencies
+    applySpawn 'npm', ['dedupe'],
       cwd: './build/win32/resources/app'
 
     # Compress the source files into an asar archive
@@ -192,7 +204,10 @@ gulp.task 'pack:win32:portable', ['build:win32:portable', 'clean:dist:win32'], (
     applySpawn 'npm', ['prune', '--production'],
       cwd: './build/win32/resources/app'
 
-    # Compress the source files into an asar archive
+    # Deduplicate dependencies
+    applySpawn 'npm', ['dedupe'],
+      cwd: './build/win32/resources/app'
+
     async.apply asar.createPackage, './build/win32/resources/app', './build/win32/resources/app.asar'
 
     # Remove leftovers

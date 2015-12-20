@@ -20,9 +20,6 @@
   "devDependencies": {
     "source-map-support": "0.4.0"
   },
-  "scripts": {
-    "postinstall": "npm dedupe"
-  },
   "updater": {
     "manifestUrl": "https://raw.githubusercontent.com/Aluxian/Whatsie/deploy/src/package.json",
     "download": {
