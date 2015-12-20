@@ -55,6 +55,9 @@
     "companyName": "Alexandru Rosianu",
     "copyright": "Copyright © Alexandru Rosianu"
   },
+  "license": "MIT",
+  "author": "Alexandru Rosianu <me@aluxian.com>",
+  "homepage": "http://whatsie.chat/",
   "electronVersion": "v0.36.1",
   "portable": false
 }

@@ -95,7 +95,7 @@ gulp.task 'pack:darwin64', ['build:darwin64', 'clean:dist:darwin64'], (done) ->
         '--deb-changelog ./CHANGELOG.md'
         '--rpm-changelog ./CHANGELOG.md'
         '--depends libappindicator1'
-        '--license ' + manifest.license
+        '--license "' + manifest.license + '"'
         '--category "' + manifest.linux.section + '"'
         '--description "' + manifest.description + '"'
         '--url "' + manifest.homepage + '"'
