@@ -34,13 +34,14 @@ export default {
         spawnSquirrel(['--removeShortcut', execName], app.quit);
 
         // Delete app data leftovers
-        del(app.getPath('userData'));
+        del(app.getPath('userData')).catch(::console.error);
 
         return true;
 
       case '--squirrel-updated':
         // Remove previous app dirs
-        del(['../app-*/**', '!../app-' + app.getVersion() + '/**'], { force: true });
+        const dirs = ['../app-*/**', '!../app-' + app.getVersion() + '/**'];
+        del(dirs, { force: true }).catch(::console.error);
         app.quit();
         return true;
 

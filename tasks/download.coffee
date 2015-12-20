@@ -1,5 +1,5 @@
-fs = require 'fs-extra'
 gulp = require 'gulp'
+fs = require 'fs-extra-promise'
 
 electronDownloader = require 'gulp-electron-downloader'
 manifest = require '../src/package.json'

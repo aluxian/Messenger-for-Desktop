@@ -12,7 +12,7 @@
     "colors": "1.1.2",
     "del": "2.2.0",
     "electron-windows-installer": "1.1.0",
-    "fs-extra": "0.26.2",
+    "fs-extra-promise": "0.3.1",
     "gulp": "3.9.0",
     "gulp-babel": "6.1.1",
     "gulp-electron-downloader": "0.1.5",

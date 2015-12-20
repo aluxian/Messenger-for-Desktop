@@ -1,6 +1,12 @@
 args = require './args'
 require 'colors'
 
+applyPromise = (fn, args...) ->
+  (cb) ->
+    fn args...
+      .then (results...) -> cb null, results...
+      .catch cb
+
 platform = () ->
   arch = if process.arch == 'ia32' then '32' else '64'
   process.platform + arch
@@ -16,6 +22,7 @@ log = (callback, messages...) ->
     callback err
 
 module.exports =
+  applyPromise: applyPromise
   platform: platform
   join: join
   log: log

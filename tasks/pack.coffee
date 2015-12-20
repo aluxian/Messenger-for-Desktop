@@ -9,6 +9,7 @@ del = require 'del'
 gulp = require 'gulp'
 zip = require 'gulp-zip'
 
+{applyPromise} = require './utils'
 winInstaller = require 'electron-windows-installer'
 manifest = require '../src/package.json'
 
@@ -40,7 +41,7 @@ gulp.task 'pack:darwin64', ['build:darwin64', 'clean:dist:darwin64'], (done) ->
       './build/darwin64/' + manifest.productName + '.app/Contents/Resources/app.asar'
 
     # Remove leftovers
-    async.apply del, './build/darwin64/' + manifest.productName + '.app/Contents/Resources/app'
+    applyPromise del, './build/darwin64/' + manifest.productName + '.app/Contents/Resources/app'
 
     # Unlock the keychain
     async.apply cp.exec, [
@@ -116,7 +117,7 @@ gulp.task 'pack:darwin64', ['build:darwin64', 'clean:dist:darwin64'], (done) ->
           './build/linux' + arch + '/opt/' + manifest.name + '/resources/app.asar'
 
         # Remove leftovers
-        async.apply del, './build/linux' + arch + '/opt/' + manifest.name + '/resources/app'
+        applyPromise del, './build/linux' + arch + '/opt/' + manifest.name + '/resources/app'
 
         # Create a file with the target name
         async.apply fs.writeFile, './build/linux' + arch + '/opt/' + manifest.name + '/pkgtarget', target
@@ -143,7 +144,7 @@ gulp.task 'pack:win32:installer', ['build:win32', 'clean:dist:win32'], (done) ->
     async.apply asar.createPackage, './build/win32/resources/app', './build/win32/resources/app.asar'
 
     # Remove leftovers
-    async.apply del, './build/win32/resources/app'
+    applyPromise del, './build/win32/resources/app'
 
     # Create the installer
     (callback) ->
@@ -179,7 +180,7 @@ gulp.task 'pack:win32:portable', ['build:win32:portable', 'clean:dist:win32'], (
     async.apply asar.createPackage, './build/win32/resources/app', './build/win32/resources/app.asar'
 
     # Remove leftovers
-    async.apply del, './build/win32/resources/app'
+    applyPromise del, './build/win32/resources/app'
 
     # Sign the exe
     (callback) ->

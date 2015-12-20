@@ -1,24 +1,24 @@
-fs = require 'fs-extra'
+fs = require 'fs-extra-promise'
 gulp = require 'gulp'
 del = require 'del'
 
 manifest = require '../src/package.json'
 
 # Remove the default_app folder and the default icon inside the darwin64 build
-gulp.task 'clean:build:darwin64', ['download:darwin64'], (done) ->
+gulp.task 'clean:build:darwin64', ['download:darwin64'], ->
   del [
     './build/darwin64/' + manifest.productName + '.app/Contents/Resources/default_app'
     './build/darwin64/' + manifest.productName + '.app/Contents/Resources/atom.icns'
-  ], done
+  ]
 
 # Remove the default_app folder inside the linux builds
 ['linux32', 'linux64'].forEach (dist) ->
-  gulp.task 'clean:build:' + dist, ['download:' + dist], (done) ->
-    del './build/' + dist + '/opt/' + manifest.name + '/resources/default_app', done
+  gulp.task 'clean:build:' + dist, ['download:' + dist], ->
+    del './build/' + dist + '/opt/' + manifest.name + '/resources/default_app'
 
 # Remove the default_app folder inside the win32 build
-gulp.task 'clean:build:win32', ['download:win32'], (done) ->
-  del './build/win32/resources/default_app', done
+gulp.task 'clean:build:win32', ['download:win32'], ->
+  del './build/win32/resources/default_app'
 
 # Clean build for all platforms
 gulp.task 'clean:build', [
@@ -29,14 +29,14 @@ gulp.task 'clean:build', [
 ]
 
 # Clean all the dist files for darwin64 and make sure the dir exists
-gulp.task 'clean:dist:darwin64', (done) ->
-  del './dist/' + manifest.productName + '.dmg', ->
-    fs.ensureDir './dist', done
+gulp.task 'clean:dist:darwin64', ->
+  del './dist/' + manifest.productName + '.dmg'
+    .then -> fs.ensureDirAsync './dist'
 
-# Just ensure the dir exists
+# Just ensure the dir exists (dist files are overwritten)
 ['linux32', 'linux64', 'win32'].forEach (dist) ->
-  gulp.task 'clean:dist:' + dist, (done) ->
-    fs.ensureDir './dist', done
+  gulp.task 'clean:dist:' + dist, ->
+    fs.ensureDirAsync './dist'
 
 # Clean dist for all platforms
 gulp.task 'clean:dist', [

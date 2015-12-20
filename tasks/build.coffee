@@ -3,7 +3,7 @@ async = require 'async'
 rcedit = require 'rcedit'
 
 cp = require 'child_process'
-fs = require 'fs-extra'
+fs = require 'fs-extra-promise'
 path = require 'path'
 
 utils = require './utils'
