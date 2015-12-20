@@ -166,11 +166,17 @@ $ dpkg -i whatsie.deb
 
 ### Rpm package
 
-Import the gpg key and install:
+Either double click and install or:
+
+```
+$ rpm -ivh whatsie.rpm
+```
+
+The package is signed with my GPG key. To check the signature:
 
 ```
 $ rpm --import https://raw.githubusercontent.com/Aluxian/Whatsie/master/RPM-GPG-KEY-whatsie
-$ rpm -ivh whatsie.rpm
+$ rpm -K whatsie.rpm
 ```
 
 Note to WhatsApp
