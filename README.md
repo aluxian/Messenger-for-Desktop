@@ -21,13 +21,13 @@ $ brew install rpm
 
 ### Install dependencies
 
-:white_check_mark: Global dependencies:
+Global dependencies:
 
 ```
 $ npm install -g gulp
 ```
 
-:white_check_mark: Local dependencies:
+Local dependencies:
 
 ```
 $ npm install
@@ -69,11 +69,19 @@ $ gulp build:linux64 --prod
 $ gulp build:win32 --prod
 ```
 
-Production builds don't include js sourcemaps.
+Or set `NODE_ENV=production`. Production builds don't include javascript sourcemaps or dev modules.
+
+### Debug logs
+
+
+To see debug messages:
+
+```
+export DEBUG=whatsie:*
+```
 
 ### Pack
 
-Package *all* the things!
 
 #### OS X
 
@@ -138,7 +146,7 @@ Note to WhatsApp
 
 This project does not attempt to reverse engineer the WhatsApp API or attempt to reimplement any part of the WhatsApp client. Any communication between the user and WhatsApp servers is handled by WhatsApp Web itself; this is just a native wrapper for WhatsApp Web.
 
-Contributions :pray:
+Contributions
 --------------------
 
 Contributions are welcome! For feature requests and bug reports please [submit an issue](https://github.com/Aluxian/electron-superkit/issues) or get in touch with me on [Gitter](https://gitter.im/Aluxian/electron-superkit?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) or Twitter [@aluxian](https://twitter.com/aluxian).
