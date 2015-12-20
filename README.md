@@ -141,6 +141,33 @@ $ gulp pack:linux64:rpm --prod
 
 Make sure you've installed [fpm](https://github.com/jordansissel/fpm).
 
+Release installation
+--------------------
+
+### OS X
+
+Open the `dmg` and copy the app into ``/Applications`.
+
+### Windows
+
+Run the installer and follow the steps.
+
+### Deb package
+
+Either double click and install or:
+
+```
+dpkg -i whatsie.deb
+```
+
+### Rpm package
+
+Either double click and install or:
+
+```
+rpm -ivh whatsie.rpm
+```
+
 Note to WhatsApp
 ----------------
 
