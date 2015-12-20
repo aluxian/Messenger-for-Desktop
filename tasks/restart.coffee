@@ -1,4 +1,4 @@
-cp = require 'child_process'
+{applySpawn} = require './utils'
 gulp = require 'gulp'
 
 manifest = require '../src/package.json'
@@ -17,7 +17,10 @@ manifest = require '../src/package.json'
     'compile:' + dist + ':scripts:renderer'
   ].forEach (proxiedTask) ->
     gulp.task 'restart:' + proxiedTask, [proxiedTask], (done) ->
-      cp.exec killCommand, ->
-        cp.spawn runnablePath,
-          stdio: 'inherit'
-        done()
+      cb = (err) ->
+        if error
+          done err
+        else
+          applySpawn runnablePath
+          done null
+      (applySpawn killCommand)(cb)

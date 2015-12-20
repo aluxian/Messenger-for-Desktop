@@ -1,4 +1,3 @@
-cp = require 'child_process'
 path = require 'path'
 fs = require 'fs'
 
@@ -9,7 +8,7 @@ del = require 'del'
 gulp = require 'gulp'
 zip = require 'gulp-zip'
 
-{applyPromise} = require './utils'
+{applyPromise, applySpawn} = require './utils'
 winInstaller = require 'electron-windows-installer'
 manifest = require '../src/package.json'
 
@@ -32,7 +31,7 @@ gulp.task 'pack:darwin64', ['build:darwin64', 'clean:dist:darwin64'], (done) ->
 
   async.series [
     # Remove the dev modules
-    async.apply cp.exec, 'npm prune --production',
+    applySpawn 'npm prune --production',
       cwd: './build/darwin64/' + manifest.productName + '.app/Contents/Resources/app'
 
     # Compress the source files into an asar archive
@@ -44,7 +43,7 @@ gulp.task 'pack:darwin64', ['build:darwin64', 'clean:dist:darwin64'], (done) ->
     applyPromise del, './build/darwin64/' + manifest.productName + '.app/Contents/Resources/app'
 
     # Unlock the keychain
-    async.apply cp.exec, [
+    applySpawn [
       'security'
       'unlock-keychain'
       '-p'
@@ -53,7 +52,7 @@ gulp.task 'pack:darwin64', ['build:darwin64', 'clean:dist:darwin64'], (done) ->
     ].join(' ')
 
     # Sign the app package
-    async.apply cp.exec, [
+    applySpawn [
       'codesign'
       '--deep'
       '--force'
@@ -108,7 +107,7 @@ gulp.task 'pack:darwin64', ['build:darwin64', 'clean:dist:darwin64'], (done) ->
 
       async.series [
         # Remove the dev modules
-        async.apply cp.exec, 'npm prune --production',
+        applySpawn 'npm prune --production',
           cwd: './build/linux' + arch + '/opt/' + manifest.name + '/resources/app'
 
         # Compress the source files into an asar archive
@@ -123,7 +122,7 @@ gulp.task 'pack:darwin64', ['build:darwin64', 'clean:dist:darwin64'], (done) ->
         async.apply fs.writeFile, './build/linux' + arch + '/opt/' + manifest.name + '/pkgtarget', target
 
         # Package the app
-        async.apply cp.exec, 'fpm ' + fpmArgs.join(' ')
+        applySpawn 'fpm ' + fpmArgs.join(' ')
       ], done
 
 # Create the win32 installer; only works on Windows
@@ -137,7 +136,7 @@ gulp.task 'pack:win32:installer', ['build:win32', 'clean:dist:win32'], (done) ->
 
   async.series [
     # Remove the dev modules
-    async.apply cp.exec, 'npm prune --production',
+    applySpawn 'npm prune --production',
       cwd: './build/win32/resources/app'
 
     # Compress the source files into an asar archive
@@ -173,7 +172,7 @@ gulp.task 'pack:win32:portable', ['build:win32:portable', 'clean:dist:win32'], (
 
   async.series [
     # Remove the dev modules
-    async.apply cp.exec, 'npm prune --production',
+    applySpawn 'npm prune --production',
       cwd: './build/win32/resources/app'
 
     # Compress the source files into an asar archive
@@ -184,13 +183,14 @@ gulp.task 'pack:win32:portable', ['build:win32:portable', 'clean:dist:win32'], (
 
     # Sign the exe
     (callback) ->
-      cp.exec [
+      cmd = [
         if process.env.SIGNTOOL_PATH then '"' + process.env.SIGNTOOL_PATH + '"' else 'signtool'
         'sign'
         '/f ' + process.env.SIGN_WIN_CERTIFICATE_FILE
         '/p ' + process.env.SIGN_WIN_CERTIFICATE_PASSWORD
         path.win32.resolve './build/win32/' + manifest.productName + '.exe'
-      ].join(' '), callback
+      ].join(' ')
+      (applySpawn cmd)(callback)
 
     # Archive the files
     (callback) ->

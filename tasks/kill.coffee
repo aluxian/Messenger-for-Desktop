@@ -1,7 +1,8 @@
-cp = require 'child_process'
+{applySpawn} = require './utils'
 gulp = require 'gulp'
 
 manifest = require '../src/package.json'
+
 lock = require './lock'
 lock.killTask ||= { skip: {} }
 
@@ -16,4 +17,4 @@ lock.killTask ||= { skip: {} }
   gulp.task 'kill:' + dist, (done) ->
     return done() if lock.killTask.skip[dist]
     lock.killTask.skip[dist] = true
-    cp.exec killCommand, -> done()
+    (applySpawn killCommand)(done)

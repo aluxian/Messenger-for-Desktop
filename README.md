@@ -60,28 +60,32 @@ $ gulp build:linux64
 $ gulp build:win32
 ```
 
-For production builds, use the `--prod` flag:
+For production builds, set `NODE_ENV=production` or use the `--prod` flag. Production builds don't include javascript sourcemaps or dev modules.
 
 ```
 $ gulp build:darwin64 --prod
 $ gulp build:linux32 --prod
-$ gulp build:linux64 --prod
-$ gulp build:win32 --prod
+$ NODE_ENV=production gulp build:linux64
+$ NODE_ENV=production gulp build:win32
 ```
 
-Or set `NODE_ENV=production`. Production builds don't include javascript sourcemaps or dev modules.
+To see detailed logs, run every gulp task with the `--verbose` flag.
 
-### Debug logs
+### App debug logs
 
-
-To see debug messages:
+To see debug messages while running the app, set the `DEBUG` env var. This will print logs from the main process.
 
 ```
 export DEBUG=whatsie:*
 ```
 
-### Pack
+To enable the renderer logs launch the app, open the dev tools then type in the console:
 
+```
+localStorage.debug='whatsie:*'
+```
+
+### Pack
 
 #### OS X
 
@@ -141,8 +145,8 @@ $ gulp pack:linux64:rpm --prod
 
 Make sure you've installed [fpm](https://github.com/jordansissel/fpm).
 
-Release installation
---------------------
+Installation
+------------
 
 ### OS X
 

@@ -2,7 +2,7 @@ gulp = require 'gulp'
 async = require 'async'
 rcedit = require 'rcedit'
 
-cp = require 'child_process'
+{applySpawn} = require './utils'
 fs = require 'fs-extra-promise'
 path = require 'path'
 
@@ -59,7 +59,7 @@ gulp.task 'build:darwin64', ['resources:darwin', 'compile:darwin64', 'clean:buil
     # Touch the .app to refresh it
     (callback) ->
       cmd = 'touch ./build/darwin64/' + manifest.productName + '.app'
-      cp.exec cmd, utils.log callback, cmd
+      (applySpawn cmd)(utils.log callback, cmd)
   ], done
 
 # Build for linux32 and linux64
