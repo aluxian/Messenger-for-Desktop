@@ -146,7 +146,7 @@ Release installation
 
 ### OS X
 
-Open the `dmg` and copy the app into ``/Applications`.
+Open the `dmg` and copy the app into `/Applications`.
 
 ### Windows
 
@@ -157,15 +157,16 @@ Run the installer and follow the steps.
 Either double click and install or:
 
 ```
-dpkg -i whatsie.deb
+$ dpkg -i whatsie.deb
 ```
 
 ### Rpm package
 
-Either double click and install or:
+Import the gpg key and install:
 
 ```
-rpm -ivh whatsie.rpm
+$ rpm --import https://raw.githubusercontent.com/Aluxian/Whatsie/master/RPM-GPG-KEY-whatsie
+$ rpm -ivh whatsie.rpm
 ```
 
 Note to WhatsApp
@@ -176,4 +177,4 @@ This project does not attempt to reverse engineer the WhatsApp API or attempt to
 Contributions
 --------------------
 
-Contributions are welcome! For feature requests and bug reports please [submit an issue](https://github.com/Aluxian/electron-superkit/issues) or get in touch with me on [Gitter](https://gitter.im/Aluxian/electron-superkit?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) or Twitter [@aluxian](https://twitter.com/aluxian).
+Contributions are welcome! For feature requests and bug reports please [submit an issue](https://github.com/Aluxian/Whatsie/issues/new?labels=bug) or get in touch with me on [Gitter](https://gitter.im/Aluxian/Whatsie) or Twitter [@aluxian](https://twitter.com/aluxian).
