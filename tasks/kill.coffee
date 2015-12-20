@@ -19,4 +19,9 @@ lock.killTask ||= { skip: {} }
       done()
     else
       lock.killTask.skip[dist] = true
-      (applySpawn killCommand)(done)
+      cb = (err) ->
+        if err.code is 'ENOENT'
+          done()
+        else
+          done err
+      (applySpawn killCommand)(cb)
