@@ -31,7 +31,7 @@ gulp.task 'pack:darwin64', ['build:darwin64', 'clean:dist:darwin64'], (done) ->
 
   async.series [
     # Remove the dev modules
-    applySpawn 'npm prune --production',
+    applySpawn 'npm', ['prune', '--production'],
       cwd: './build/darwin64/' + manifest.productName + '.app/Contents/Resources/app'
 
     # Compress the source files into an asar archive
@@ -43,23 +43,22 @@ gulp.task 'pack:darwin64', ['build:darwin64', 'clean:dist:darwin64'], (done) ->
     applyPromise del, './build/darwin64/' + manifest.productName + '.app/Contents/Resources/app'
 
     # Unlock the keychain
-    applySpawn [
-      'security'
+    applySpawn 'security', [
       'unlock-keychain'
       '-p'
       process.env.SIGN_DARWIN_KEYCHAIN_PASSWORD
       process.env.SIGN_DARWIN_KEYCHAIN_NAME
-    ].join(' ')
+    ]
 
     # Sign the app package
-    applySpawn [
-      'codesign'
+    applySpawn 'codesign', [
       '--deep'
       '--force'
       '--verbose'
-      '--sign "' + process.env.SIGN_DARWIN_IDENTITY + '"'
+      '--sign'
+      process.env.SIGN_DARWIN_IDENTITY
       './build/darwin64/' + manifest.productName + '.app'
-    ].join(' ')
+    ]
 
     # Create the dmg
     (callback) ->
@@ -82,32 +81,50 @@ gulp.task 'pack:darwin64', ['build:darwin64', 'clean:dist:darwin64'], (done) ->
         archName = 'x86_64'
 
       fpmArgs = [
-        '-s dir'
-        '-t ' + target
-        '--architecture ' + archName
-        '--rpm-os linux'
-        '--name ' + manifest.name
+        '-s'
+        'dir'
+        '-t'
+        target
+        '--architecture'
+        archName
+        '--rpm-os'
+        'linux'
+        '--name'
+        manifest.name
         '--force' # Overwrite existing files
         '--rpm-sign' # Requires "~/RPM-GPG-KEY-#{manifest.name}"
-        '--after-install ./build/resources/linux/after-install.sh'
-        '--after-remove ./build/resources/linux/after-remove.sh'
-        '--deb-changelog ./CHANGELOG.md'
-        '--rpm-changelog ./CHANGELOG.md'
-        '--depends libappindicator1'
-        '--license "' + manifest.license + '"'
-        '--category "' + manifest.linux.section + '"'
-        '--description "' + manifest.description + '"'
-        '--url "' + manifest.homepage + '"'
-        '--maintainer "' + manifest.author + '"'
-        '--version "' + manifest.version + '"'
-        '--package ' + './dist/' + manifest.name + '-VERSION-ARCH.' + target
-        '-C ./build/linux' + arch
+        '--after-install'
+        './build/resources/linux/after-install.sh'
+        '--after-remove'
+        './build/resources/linux/after-remove.sh'
+        '--deb-changelog'
+        './CHANGELOG.md'
+        '--rpm-changelog'
+        './CHANGELOG.md'
+        '--depends'
+        'libappindicator1'
+        '--license'
+        manifest.license
+        '--category'
+        manifest.linux.section
+        '--description'
+        manifest.description
+        '--url'
+        manifest.homepage
+        '--maintainer'
+        manifest.author
+        '--version'
+        manifest.version
+        '--package'
+        './dist/' + manifest.name + '-VERSION-ARCH.' + target
+        '-C'
+        './build/linux' + arch
         '.'
       ]
 
       async.series [
         # Remove the dev modules
-        applySpawn 'npm prune --production',
+        applySpawn 'npm', ['prune', '--production'],
           cwd: './build/linux' + arch + '/opt/' + manifest.name + '/resources/app'
 
         # Compress the source files into an asar archive
@@ -122,7 +139,7 @@ gulp.task 'pack:darwin64', ['build:darwin64', 'clean:dist:darwin64'], (done) ->
         async.apply fs.writeFile, './build/linux' + arch + '/opt/' + manifest.name + '/pkgtarget', target
 
         # Package the app
-        applySpawn 'fpm ' + fpmArgs.join(' ')
+        applySpawn 'fpm', fpmArgs
       ], done
 
 # Create the win32 installer; only works on Windows
@@ -136,7 +153,7 @@ gulp.task 'pack:win32:installer', ['build:win32', 'clean:dist:win32'], (done) ->
 
   async.series [
     # Remove the dev modules
-    applySpawn 'npm prune --production',
+    applySpawn 'npm', ['prune', '--production'],
       cwd: './build/win32/resources/app'
 
     # Compress the source files into an asar archive
@@ -172,7 +189,7 @@ gulp.task 'pack:win32:portable', ['build:win32:portable', 'clean:dist:win32'], (
 
   async.series [
     # Remove the dev modules
-    applySpawn 'npm prune --production',
+    applySpawn 'npm', ['prune', '--production'],
       cwd: './build/win32/resources/app'
 
     # Compress the source files into an asar archive
@@ -183,14 +200,16 @@ gulp.task 'pack:win32:portable', ['build:win32:portable', 'clean:dist:win32'], (
 
     # Sign the exe
     (callback) ->
-      cmd = [
-        if process.env.SIGNTOOL_PATH then '"' + process.env.SIGNTOOL_PATH + '"' else 'signtool'
+      cmd = process.env.SIGNTOOL_PATH || 'signtool'
+      args = [
         'sign'
-        '/f ' + process.env.SIGN_WIN_CERTIFICATE_FILE
-        '/p ' + process.env.SIGN_WIN_CERTIFICATE_PASSWORD
+        '/f'
+        process.env.SIGN_WIN_CERTIFICATE_FILE
+        '/p'
+        process.env.SIGN_WIN_CERTIFICATE_PASSWORD
         path.win32.resolve './build/win32/' + manifest.productName + '.exe'
-      ].join(' ')
-      (applySpawn cmd)(callback)
+      ]
+      (applySpawn cmd, args)(callback)
 
     # Archive the files
     (callback) ->

@@ -58,8 +58,9 @@ gulp.task 'build:darwin64', ['resources:darwin', 'compile:darwin64', 'clean:buil
 
     # Touch the .app to refresh it
     (callback) ->
-      cmd = 'touch ./build/darwin64/' + manifest.productName + '.app'
-      (applySpawn cmd)(utils.log callback, cmd)
+      cmd = 'touch'
+      args = ['./build/darwin64/' + manifest.productName + '.app']
+      (applySpawn cmd, args)(utils.log callback, cmd, args...)
   ], done
 
 # Build for linux32 and linux64

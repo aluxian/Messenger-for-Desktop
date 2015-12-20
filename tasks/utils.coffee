@@ -8,10 +8,10 @@ applyPromise = (fn, args...) ->
       .then (results...) -> cb null, results...
       .catch cb
 
-applySpawn = (cmd, opts = {}) ->
+applySpawn = (cmd, args, opts = {}) ->
   (cb) ->
     opts.stdio = if args.verbose then 'inherit' else 'ignore'
-    proc = cp.spawn cmd, opts
+    proc = cp.spawn cmd, args, opts
     if cb
       errored = false
       proc.on 'error', (err) ->
@@ -22,8 +22,14 @@ applySpawn = (cmd, opts = {}) ->
           cb (if code then "`#{cmd}` exited with code #{code}" else null)
 
 platform = () ->
-  arch = if process.arch == 'ia32' then '32' else '64'
-  process.platform + arch
+  if process.platform == 'win32'
+    process.platform
+  else
+    arch = if process.arch == 'ia32' then '32' else '64'
+    process.platform + arch
+
+isCurrentDist = (dist) ->
+  dist == platform()
 
 join = (args) ->
   (val for own key, val of args).join ' '
@@ -39,5 +45,6 @@ module.exports =
   applyPromise: applyPromise
   applySpawn: applySpawn
   platform: platform
+  isCurrentDist: isCurrentDist
   join: join
   log: log
