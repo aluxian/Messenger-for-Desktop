@@ -51,6 +51,7 @@ class AppWindow extends EventEmitter {
     this.window.on('leave-full-screen', ::this.onLeaveFullScreen);
     this.window.on('closed', ::this.onClosed);
     this.window.on('close', ::this.onClose);
+    this.window.on('focus', ::this.onFocus);
 
     // Save the bounds on resize or move
     const saveBounds = debounce(::this.saveBounds, 500);
@@ -127,6 +128,16 @@ class AppWindow extends EventEmitter {
   }
 
   /**
+   * Called when the 'closed' event is emitted.
+   */
+  onClosed() {
+    // Remove the internal reference
+    log('onClosed');
+    this.window = null;
+    this.emit('closed');
+  }
+
+  /**
    * Called when the 'close' event is emitted.
    */
   onClose(event) {
@@ -139,13 +150,21 @@ class AppWindow extends EventEmitter {
   }
 
   /**
-   * Called when the 'closed' event is emitted.
+   * Called when the 'focus' event is emitted.
    */
-  onClosed() {
-    // Remove the internal reference
-    log('onClosed');
-    this.window = null;
-    this.emit('closed');
+  onFocus() {
+    // Also focus the webview
+    log('onFocus');
+    this.window.webContents.send('call-webview-method', 'focus');
+  }
+
+  /**
+   * Called when the 'blur' event is emitted.
+   */
+  onBlur() {
+    // Also blur the webview
+    log('onBlur');
+    this.window.webContents.send('call-webview-method', 'blur');
   }
 
   /**
