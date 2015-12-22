@@ -1,4 +1,5 @@
 {applySpawn, isCurrentDist} = require './utils'
+args = require './args'
 gulp = require 'gulp'
 
 manifest = require '../src/package.json'
@@ -16,11 +17,15 @@ lock.killTask ||= { skip: {} }
 
   gulp.task 'kill:' + dist, (done) ->
     if lock.killTask.skip[dist] or not isCurrentDist(dist)
+      if args.verbose
+        console.log 'kill skipped (lock or platforms do not match)'
       done()
     else
       lock.killTask.skip[dist] = true
       cb = (err) ->
         if err.code == 'ENOENT' or err.code == 1
+          if args.verbose
+            console.error err
           done()
         else
           done err
