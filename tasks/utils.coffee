@@ -61,7 +61,7 @@ log = (callback, messages...) ->
   (err) ->
     if args.verbose
       status = if err then 'Failed'.red else 'Successful'.green
-      console.log status, join(messages), '|', join(arguments)
+      console.log status, join(messages)
     callback err
 
 module.exports =
