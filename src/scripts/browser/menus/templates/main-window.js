@@ -21,7 +21,6 @@ export default {
   }, {
     type: 'checkbox',
     label: 'Float on Top',
-    accelerator: 'Cmd+Ctrl+F',
     click: $.floatOnTop($.key('checked'))
   }, {
     type: 'checkbox',
@@ -38,7 +37,6 @@ export default {
     id: 'show-tray',
     type: 'checkbox',
     label: 'Show in the Menu Bar',
-    accelerator: 'Cmd+Shift+M',
     click: $.all(
       $.showInTray($.key('checked')),
       $.updateSibling('show-dock', 'enabled', $.key('checked')),
@@ -56,7 +54,6 @@ export default {
     id: 'show-dock',
     type: 'checkbox',
     label: 'Show in the Dock',
-    accelerator: 'Cmd+Shift+D',
     click: $.all(
       $.showInDock($.key('checked')),
       $.updateSibling('show-tray', 'enabled', $.key('checked')),
