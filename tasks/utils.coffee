@@ -24,6 +24,12 @@ applySpawn = (cmd, params, opts = {}) ->
           else
             cb null
 
+applyIf = (cond, fn) ->
+  if cond
+    fn
+  else
+    (cb) -> cb(null)
+
 platform = () ->
   if process.platform == 'win32'
     process.platform
@@ -47,6 +53,7 @@ log = (callback, messages...) ->
 module.exports =
   applyPromise: applyPromise
   applySpawn: applySpawn
+  applyIf: applyIf
   platform: platform
   isCurrentDist: isCurrentDist
   join: join

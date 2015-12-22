@@ -9,7 +9,7 @@ del = require 'del'
 gulp = require 'gulp'
 zip = require 'gulp-zip'
 
-{applyPromise, applySpawn} = require './utils'
+{applyPromise, applySpawn, applyIf} = require './utils'
 winInstaller = require 'electron-windows-installer'
 manifest = require '../src/package.json'
 
@@ -32,11 +32,11 @@ gulp.task 'pack:darwin64', ['build:darwin64', 'clean:dist:darwin64'], (done) ->
 
   async.series [
     # Remove the dev modules
-    applySpawn 'npm', ['prune', '--production'],
+    applyIf args.prod, applySpawn 'npm', ['prune', '--production'],
       cwd: './build/darwin64/' + manifest.productName + '.app/Contents/Resources/app'
 
     # Deduplicate dependencies
-    applySpawn 'npm', ['dedupe'],
+    applyIf args.prod, applySpawn 'npm', ['dedupe'],
       cwd: './build/darwin64/' + manifest.productName + '.app/Contents/Resources/app'
 
     # Compress the source files into an asar archive
@@ -140,11 +140,11 @@ gulp.task 'pack:darwin64', ['build:darwin64', 'clean:dist:darwin64'], (done) ->
 
       async.series [
         # Remove the dev modules
-        applySpawn 'npm', ['prune', '--production'],
+        applyIf args.prod, applySpawn 'npm', ['prune', '--production'],
           cwd: './build/linux' + arch + '/opt/' + manifest.name + '/resources/app'
 
         # Deduplicate dependencies
-        applySpawn 'npm', ['dedupe'],
+        applyIf args.prod, applySpawn 'npm', ['dedupe'],
           cwd: './build/linux' + arch + '/opt/' + manifest.name + '/resources/app'
 
         # Compress the source files into an asar archive
@@ -173,11 +173,11 @@ gulp.task 'pack:win32:installer', ['build:win32', 'clean:dist:win32'], (done) ->
 
   async.series [
     # Remove the dev modules
-    applySpawn 'npm', ['prune', '--production'],
+    applyIf args.prod, applySpawn 'npm', ['prune', '--production'],
       cwd: './build/win32/resources/app'
 
     # Deduplicate dependencies
-    applySpawn 'npm', ['dedupe'],
+    applyIf args.prod, applySpawn 'npm', ['dedupe'],
       cwd: './build/win32/resources/app'
 
     # Compress the source files into an asar archive
@@ -213,11 +213,11 @@ gulp.task 'pack:win32:portable', ['build:win32:portable', 'clean:dist:win32'], (
 
   async.series [
     # Remove the dev modules
-    applySpawn 'npm', ['prune', '--production'],
+    applyIf args.prod, applySpawn 'npm', ['prune', '--production'],
       cwd: './build/win32/resources/app'
 
     # Deduplicate dependencies
-    applySpawn 'npm', ['dedupe'],
+    applyIf args.prod, applySpawn 'npm', ['dedupe'],
       cwd: './build/win32/resources/app'
 
     async.apply asar.createPackage, './build/win32/resources/app', './build/win32/resources/app.asar'
