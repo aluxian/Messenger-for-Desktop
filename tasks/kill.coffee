@@ -16,16 +16,18 @@ lock.killTask ||= { skip: {} }
   [dist, killCmd, killArgs] = item
 
   gulp.task 'kill:' + dist, (done) ->
-    if lock.killTask.skip[dist] or not isCurrentDist(dist)
-      if args.verbose
-        console.log 'kill skipped (lock or platforms do not match)'
+    if lock.killTask.skip[dist]
+      console.log 'kill skipped (lock)' if args.verbose
+      done()
+    else if not isCurrentDist(dist)
+      console.log 'kill skipped (platforms don\'t match)' if args.verbose
       done()
     else
+      console.log 'killing app' if args.verbose
       lock.killTask.skip[dist] = true
       cb = (err) ->
         if err.code == 'ENOENT' or err.code == 1
-          if args.verbose
-            console.error err
+          console.error err if args.verbose
           done()
         else
           done err

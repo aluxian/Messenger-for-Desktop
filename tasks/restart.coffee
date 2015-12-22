@@ -1,4 +1,5 @@
 {applySpawn} = require './utils'
+args = require './args'
 gulp = require 'gulp'
 
 manifest = require '../src/package.json'
@@ -14,13 +15,13 @@ manifest = require '../src/package.json'
   # Proxy the compile task then restart the app
   [
     'compile:' + dist + ':scripts:browser'
-    'compile:' + dist + ':scripts:renderer'
   ].forEach (proxiedTask) ->
     gulp.task 'restart:' + proxiedTask, [proxiedTask], (done) ->
       cb = (err) ->
         if error
           done err
         else
-          applySpawn runnablePath, []
+          console.log 're-spawning app' if args.verbose
+          (applySpawn runnablePath, [])()
           done null
       (applySpawn killCmd, killArgs)(cb)

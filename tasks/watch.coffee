@@ -1,8 +1,8 @@
-cp = require 'child_process'
 gulp = require 'gulp'
 livereload = require 'gulp-livereload'
 manifest = require '../src/package.json'
-utils = require './utils'
+{platform, applySpawn} = require './utils'
+args = require './args'
 
 # Watch files and reload the app on changes
 [
@@ -18,8 +18,8 @@ utils = require './utils'
     livereload.listen()
 
     # Launch the app
-    cp.spawn runnablePath,
-      stdio: 'inherit'
+    console.log 'initial spawn' if args.verbose
+    (applySpawn runnablePath, [])()
 
     # Watch files
     gulp.watch './src/styles/**/*', ['compile:' + dist + ':styles']
@@ -29,4 +29,4 @@ utils = require './utils'
     gulp.watch './src/html/**/*', ['compile:' + dist + ':html']
 
 # Watch for the current platform by default
-gulp.task 'watch', ['watch:' + utils.platform()]
+gulp.task 'watch', ['watch:' + platform()]
