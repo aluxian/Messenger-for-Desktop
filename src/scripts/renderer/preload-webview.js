@@ -54,7 +54,7 @@ ipcr.on('add-selection-to-dictionary', function() {
 
 // Forward context menu opens
 document.addEventListener('contextmenu', function(event) {
-  log('seding context-menu');
+  log('sending context-menu');
   event.preventDefault();
 
   const selection = document.getSelection().toString();
