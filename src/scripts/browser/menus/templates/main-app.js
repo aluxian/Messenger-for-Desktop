@@ -14,6 +14,16 @@ export default {
   }, {
     type: 'separator'
   }, {
+    type: 'checkbox',
+    label: 'Anonymous Statistics',
+    click: $.all(
+      $.setPref('analytics', $.key('checked')),
+      $.reloadWindow()
+    ),
+    parse: $.all(
+      $.setLocal('checked', $.pref('analytics', $.val(true)))
+    )
+  }, {
     label: 'Services',
     role: 'services',
     submenu: []

@@ -9,7 +9,7 @@ del = require 'del'
 gulp = require 'gulp'
 zip = require 'gulp-zip'
 
-{applyPromise, applySpawn, applyIf} = require './utils'
+{applyPromise, applySpawn, applyIf, updateManifest} = require './utils'
 winInstaller = require 'electron-windows-installer'
 manifest = require '../src/package.json'
 
@@ -31,6 +31,13 @@ gulp.task 'pack:darwin64', ['build:darwin64', 'clean:dist:darwin64'], (done) ->
       return done()
 
   async.series [
+    # Update package.json
+    (cb) ->
+      jsonPath = './build/darwin64/' + manifest.productName + '.app/Contents/Resources/app/packge.json'
+      updateManifest jsonPath, (manifest) ->
+        manifest.distrib = 'darwin64:dmg'
+      , cb
+
     # Remove the dev modules
     applyIf args.prod, applySpawn 'npm', ['prune', '--production'],
       cwd: './build/darwin64/' + manifest.productName + '.app/Contents/Resources/app'
@@ -139,6 +146,13 @@ gulp.task 'pack:darwin64', ['build:darwin64', 'clean:dist:darwin64'], (done) ->
       ].filter (a) -> a?
 
       async.series [
+        # Update package.json
+        (cb) ->
+          jsonPath = './build/linux' + arch + '/opt/' + manifest.name + '/resources/app/packge.json'
+          updateManifest jsonPath, (manifest) ->
+            manifest.distrib = 'linux' + arch + ':' + target
+          , cb
+
         # Remove the dev modules
         applyIf args.prod, applySpawn 'npm', ['prune', '--production'],
           cwd: './build/linux' + arch + '/opt/' + manifest.name + '/resources/app'
@@ -172,6 +186,10 @@ gulp.task 'pack:win32:installer', ['build:win32', 'clean:dist:win32'], (done) ->
       return console.warn envName + ' env var not set.'
 
   async.series [
+    # Update package.json
+    async.apply updateManifest, './build/win32/resources/app/packge.json', (manifest) ->
+      manifest.distrib = 'win32:installer'
+
     # Remove the dev modules
     applyIf args.prod, applySpawn 'npm', ['prune', '--production'],
       cwd: './build/win32/resources/app'
@@ -201,7 +219,7 @@ gulp.task 'pack:win32:installer', ['build:win32', 'clean:dist:win32'], (done) ->
   ], done
 
 # Create the win32 portable zip
-gulp.task 'pack:win32:portable', ['build:win32:portable', 'clean:dist:win32'], (done) ->
+gulp.task 'pack:win32:portable', ['build:win32', 'clean:dist:win32'], (done) ->
   if process.platform isnt 'win32'
     console.warn 'Skipping win32 portable packing; This only works on Windows due to signtool.'
     return done()
@@ -212,6 +230,11 @@ gulp.task 'pack:win32:portable', ['build:win32:portable', 'clean:dist:win32'], (
       return done()
 
   async.series [
+    # Update package.json
+    async.apply updateManifest, './build/win32/resources/app/packge.json', (manifest) ->
+      manifest.portable = true
+      manifest.distrib = 'win32:portable'
+
     # Remove the dev modules
     applyIf args.prod, applySpawn 'npm', ['prune', '--production'],
       cwd: './build/win32/resources/app'
@@ -220,6 +243,7 @@ gulp.task 'pack:win32:portable', ['build:win32:portable', 'clean:dist:win32'], (
     applyIf args.prod, applySpawn 'npm', ['dedupe'],
       cwd: './build/win32/resources/app'
 
+    # Compress the source files into an asar archive
     async.apply asar.createPackage, './build/win32/resources/app', './build/win32/resources/app.asar'
 
     # Remove leftovers

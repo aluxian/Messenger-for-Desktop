@@ -1,6 +1,18 @@
 args = require './args'
+async = require 'async'
 cp = require 'child_process'
+fs = require 'fs'
 require 'colors'
+
+updateManifest = (jsonPath, updateFn, done) ->
+  async.waterfall [
+    async.apply fs.readFile, jsonPath, 'utf8'
+    (file, callback) ->
+      json = JSON.parse file
+      updateFn json
+      text = JSON.stringify json
+      fs.writeFile jsonPath, text, 'utf8', callback
+  ], done
 
 applyPromise = (fn, args...) ->
   (cb) ->
@@ -20,7 +32,9 @@ applySpawn = (cmd, params, opts = {}) ->
       child.on 'close', (code) ->
         unless errored
           if code
-            cb "`#{cmd} #{params.join(' ')}` exited with code #{code}"
+            err = new Error "`#{cmd} #{params.join(' ')}` exited with code #{code}"
+            err.code = code
+            cb err
           else
             cb null
 
@@ -51,6 +65,7 @@ log = (callback, messages...) ->
     callback err
 
 module.exports =
+  updateManifest: updateManifest
   applyPromise: applyPromise
   applySpawn: applySpawn
   applyIf: applyIf

@@ -20,7 +20,8 @@ lock.killTask ||= { skip: {} }
     else
       lock.killTask.skip[dist] = true
       cb = (err) ->
-        if err.code == 'ENOENT'
+        if err.code == 'ENOENT' or err.code == 1
+          console.error err
           done()
         else
           done err
