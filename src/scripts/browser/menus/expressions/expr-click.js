@@ -71,6 +71,19 @@ export function resetWindow() {
 }
 
 /**
+ * Show (and focus) the window.
+ */
+export function showWindow() {
+  return function(menuItem, browserWindow) {
+    if (browserWindow) {
+      browserWindow.show();
+    } else if (global.application && global.application.mainWindow) {
+      global.application.mainWindow.window.show();
+    }
+  };
+}
+
+/**
  * Toggle whether the window is in full screen or not.
  */
 export function toggleFullScreen() {

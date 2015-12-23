@@ -32,6 +32,9 @@ export default [{
 }, {
   type: 'separator'
 }, {
+  label: 'Show ' + manifest.productName,
+  click: $.showWindow()
+}, {
   label: 'Quit ' + manifest.productName,
   click: $.appQuit()
 }];

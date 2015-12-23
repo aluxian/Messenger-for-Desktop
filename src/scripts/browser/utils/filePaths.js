@@ -27,5 +27,12 @@ export default {
    */
   getStylePath: function(name) {
     return path.resolve(__dirname, '..', '..', '..', 'styles', name + '.css');
+  },
+
+  /**
+   * @return the image's path
+   */
+  getImagePath: function(name) {
+    return path.resolve(__dirname, '..', '..', '..', 'images', name);
   }
 };

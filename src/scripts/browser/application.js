@@ -1,9 +1,9 @@
 import app from 'app';
 import shell from 'shell';
 import filePaths from './utils/filePaths';
+import platform from './utils/platform';
 import prefs from './utils/prefs';
 import {ipcMain} from 'electron';
-import path from 'path';
 
 import menuTemplate from './menus/main';
 import trayTemplate from './menus/tray';
@@ -60,7 +60,23 @@ class Application extends EventEmitter {
     }
 
     this.trayMenu = Menu.buildFromTemplate(trayTemplate);
-    this.tray = new Tray(path.join(__dirname, '..', '..', 'images', 'icon_tray.png'));
+
+    if (platform.isDarwin) {
+      this.tray = new Tray(filePaths.getImagePath('trayBlackTemplate.png'));
+      this.tray.setPressedImage(filePaths.getImagePath('trayWhiteTemplate.png'));
+
+      // Show the notifications count
+      if (this.notifCount) {
+        this.tray.setTitle(this.notifCount);
+      }
+    } else {
+      if (this.notifCount) {
+        this.tray = new Tray(filePaths.getImagePath('trayAlert.png'));
+      } else {
+        this.tray = new Tray(filePaths.getImagePath('tray.png'));
+      }
+    }
+
     this.tray.setContextMenu(this.trayMenu);
     this.setTrayEventListeners();
     log('tray menu created');
@@ -113,7 +129,7 @@ class Application extends EventEmitter {
    */
   onActivate(event, hasVisibleWindows) {
     // Reopen the main window on dock clicks (OS X)
-    log('activate app, hasVisibleWindows =', hasVisibleWindows);
+    log('activate app, hasVisibleWindows', hasVisibleWindows);
     if (!hasVisibleWindows) {
       if (this.mainWindow) {
         this.mainWindow.window.show();
@@ -133,6 +149,7 @@ class Application extends EventEmitter {
 
     // Bind events
     this.tray.on('click', ::this.onTrayClick);
+    this.tray.on('right-click', ::this.onTrayRightClick);
   }
 
   /**
@@ -142,7 +159,18 @@ class Application extends EventEmitter {
     // Show the main window
     log('tray click');
     if (this.mainWindow) {
-      this.mainWindow.show();
+      this.mainWindow.window.show();
+    }
+  }
+
+  /**
+   * Called when the 'right-click' event is emitted on the tray menu.
+   */
+  onTrayRightClick() {
+    // Show the main window
+    log('tray right-click');
+    if (platform.isDarwin && this.mainWindow) {
+      this.mainWindow.window.show();
     }
   }
 
@@ -153,11 +181,29 @@ class Application extends EventEmitter {
     // Notifications count
     ipcMain.on('notif-count', (event, count) => {
       log('on renderer notif-count', count);
+      this.notifCount = count;
+
+      // Set icon badge
       if (app.dock && app.dock.setBadge) {
         if (count) {
           app.dock.setBadge(count);
         } else {
           app.dock.setBadge('');
+        }
+      }
+
+      // Update tray
+      if (platform.isDarwin) {
+        if (this.tray) {
+          if (count) {
+            this.tray.setTitle(count || '');
+          }
+        }
+      } else {
+        if (count) {
+          this.tray.setImage(filePaths.getImagePath('trayAlert.png'));
+        } else {
+          this.tray.setImage(filePaths.getImagePath('tray.png'));
         }
       }
     });
