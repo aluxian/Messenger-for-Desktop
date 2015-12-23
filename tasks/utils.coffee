@@ -22,7 +22,8 @@ applyPromise = (fn, args...) ->
 
 applySpawn = (cmd, params, opts = {}) ->
   (cb) ->
-    opts.stdio = if args.verbose then 'inherit' else 'ignore'
+    unless opts.stdio
+      opts.stdio = if args.verbose then 'inherit' else 'ignore'
     child = cp.spawn cmd, params, opts
     if cb
       errored = false
