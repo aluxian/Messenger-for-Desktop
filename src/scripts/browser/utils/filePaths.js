@@ -20,5 +20,12 @@ export default {
    */
   getThemePath: function(name) {
     return path.resolve(__dirname, '..', '..', '..', 'themes', name + '.css');
+  },
+
+  /**
+   * @return the style's css path
+   */
+  getStylePath: function(name) {
+    return path.resolve(__dirname, '..', '..', '..', 'styles', name + '.css');
   }
 };

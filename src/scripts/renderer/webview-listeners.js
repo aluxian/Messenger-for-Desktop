@@ -1,5 +1,8 @@
 import {ipcRenderer as ipcr} from 'electron';
 import webView from './webview';
+import remote from 'remote';
+
+const files = remote.require('../browser/utils/files').default;
 
 // Log console messages
 webView.addEventListener('console-message', function(event) {
@@ -26,6 +29,12 @@ webView.addEventListener('page-title-updated', function() {
 webView.addEventListener('new-window', function(event) {
   log('sending open-url', event.url);
   ipcr.send('open-url', event.url, event.options);
+});
+
+// Inject custom css
+webView.addEventListener('dom-ready', function() {
+  log('dom-ready injecting custom css');
+  files.getStyleCss('mini', css => webView.insertCSS(css));
 });
 
 export default webView;

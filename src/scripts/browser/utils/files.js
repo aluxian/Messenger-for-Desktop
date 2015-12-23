@@ -14,5 +14,19 @@ export default {
         callback(css);
       }
     });
+  },
+
+  /**
+   * @return the css of the file
+   */
+  getStyleCss: function(style, callback) {
+    const stylePath = filePaths.getStylePath(style);
+    fs.readFile(stylePath, 'utf-8', function(err, css) {
+      if (err) {
+        console.error(err);
+      } else {
+        callback(css);
+      }
+    });
   }
 };
