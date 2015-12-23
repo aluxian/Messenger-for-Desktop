@@ -1,0 +1,85 @@
+@media screen and (max-height: 500px) {
+  // Restore fluid height
+  .app {
+    min-height: initial !important;
+  }
+}
+
+@media screen and (max-width: 648px) {
+  // Restore fluid width
+  .app {
+    min-width: initial !important;
+  }
+
+  // Hide sidebar header and search bar
+  .pane-header.pane-list-header, .search-container {
+    display: none;
+  }
+
+  // Hide chat body in the sidebar
+  .pane-list .chat-body {
+    display: none;
+  }
+
+  // Fixed sidebar width
+  .pane-list {
+    min-width: 77px !important;
+    width: 77px !important;
+  }
+
+  // Remove chat avatar margin
+  .chat-avatar {
+    margin-right: 0;
+  }
+
+  // Chat and intro pane fluid width
+  .pane-chat, .pane-intro {
+    width: 100% !important;
+  }
+
+  // Hide intro image
+  .pane-intro .intro-image {
+    display: none;
+  }
+
+  // Hide avatar in the chat view
+  .pane-chat .chat-avatar {
+    display: none;
+  }
+
+  // Make avatar smaller (drawer)
+  .drawer .avatar.avatar-l {
+    width: 160px;
+    height: 160px;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  // Better wrapping when recording a message
+  .input-placeholder {
+    overflow: hidden;
+    white-space: pre;
+    text-overflow: ellipsis;
+    width: 100%;
+    height: 20px;
+  }
+}
+
+@media screen and (max-width: 440px) {
+  .icon.btn-emoji, .input-container {
+    opacity: 1;
+  }
+
+  // When recording a message
+  .ptt-open {
+    // Hide other blocks
+    .icon.btn-emoji, .input-container {
+      margin: 0;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      width: 0 !important;
+      max-width: 0;
+      opacity: 0;
+    }
+  }
+}

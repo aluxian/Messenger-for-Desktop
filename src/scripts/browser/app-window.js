@@ -29,6 +29,9 @@ class AppWindow extends EventEmitter {
     const defaultOptions = {
       title: this.manifest.productName,
       backgroundColor: '#dfdfdf',
+      useContentSize: true,
+      minWidth: 355,
+      minHeight: 355,
       show: false
     };
 
