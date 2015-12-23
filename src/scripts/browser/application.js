@@ -188,19 +188,15 @@ class Application extends EventEmitter {
       this.notifCount = count;
 
       // Set icon badge
-      if (app.dock && app.dock.setBadge) {
-        if (count) {
-          app.dock.setBadge(count);
-        } else {
-          app.dock.setBadge('');
-        }
+      if (app.dock && app.dock.setBadge && prefs.get('notifications-badge', true)) {
+        app.dock.setBadge(count);
       }
 
       // Update tray
       if (platform.isDarwin) {
         if (this.tray) {
           if (count) {
-            this.tray.setTitle(count || '');
+            this.tray.setTitle(count);
           }
         }
       } else {

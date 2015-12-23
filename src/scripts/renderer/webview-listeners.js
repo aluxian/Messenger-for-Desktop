@@ -21,7 +21,7 @@ webView.addEventListener('console-message', function(event) {
 webView.addEventListener('page-title-updated', function() {
   const matches = /\(([\d]+)\)/.exec(webView.getTitle());
   const parsed = parseInt(matches && matches[1], 10);
-  const count = isNaN(parsed) || !parsed ? null : '' + parsed;
+  const count = isNaN(parsed) || !parsed ? '' : '' + parsed;
   log('sending notif-count', count);
   ipcr.send('notif-count', count);
 });

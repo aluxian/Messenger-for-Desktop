@@ -32,6 +32,16 @@ export default {
       $.setLocal('checked', $.pref('links-in-browser', $.val(true)))
     )
   }, {
+    type: 'checkbox',
+    label: 'Notifications Badge in Dock',
+    click: $.all(
+      $.setPref('notifications-badge', $.key('checked')),
+      $.hideDockBadge($.key('checked'))
+    ),
+    parse: $.all(
+      $.setLocal('checked', $.pref('notifications-badge', $.val(true)))
+    )
+  }, {
     type: 'separator'
   }, {
     id: 'show-tray',

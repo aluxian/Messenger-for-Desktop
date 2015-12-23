@@ -170,3 +170,15 @@ export function launchOnStartupHidden(hiddenExpr) {
     autoLaunch.enable(hidden);
   };
 }
+
+/**
+ * If flag is true, the dock badge will be hidden.
+ */
+export function hideDockBadge(flagExpr) {
+  return function() {
+    const flag = flagExpr.apply(this, arguments);
+    if (flag && app.dock && app.dock.setBadge) {
+      app.dock.setBadge('');
+    }
+  };
+}
