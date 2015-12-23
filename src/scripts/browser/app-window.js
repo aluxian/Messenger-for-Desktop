@@ -1,6 +1,5 @@
 import shell from 'shell';
 import prefs from './utils/prefs';
-import files from './utils/files';
 import {debounce} from 'lodash';
 
 import BrowserWindow from 'browser-window';
@@ -81,33 +80,8 @@ class AppWindow extends EventEmitter {
    * Called when the 'dom-ready' event is emitted.
    */
   onDomReady() {
-    log('onDomReady');
-
-    // Restore the default theme
-    const theme = prefs.get('theme');
-    if (theme) {
-      log('restoring theme', theme);
-      files.getThemeCss(theme, css => {
-        this.window.webContents.send('fwd-webview', 'apply-theme', css);
-      });
-    }
-
-    // Restore the default zoom level
-    const zoomLevel = prefs.get('zoom-level');
-    if (zoomLevel) {
-      log('restoring zoom level', zoomLevel);
-      this.window.webContents.send('fwd-webview', 'zoom-level', zoomLevel);
-    }
-
-    // Restore spell checker and auto correct
-    const spellChecker = prefs.get('spell-checker');
-    if (spellChecker) {
-      log('restoring spell checker', spellChecker);
-      const autoCorrect = prefs.get('auto-correct');
-      this.window.webContents.send('fwd-webview', 'spell-checker', spellChecker, autoCorrect);
-    }
-
     // Show the window
+    log('onDomReady');
     this.window.show();
   }
 
