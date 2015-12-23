@@ -28,7 +28,7 @@ args = require './args'
     beeper()
 
   # Compile styles
-  gulp.task 'compile:' + dist + ':images', ['clean:build:' + dist], ->
+  gulp.task 'compile:' + dist + ':styles', ['clean:build:' + dist], ->
     gulp.src './src/styles/**/*.less'
       .pipe plumber handleError
       .pipe less()
@@ -85,7 +85,7 @@ args = require './args'
       .pipe livereload()
 
   # Move images
-  gulp.task 'compile:' + dist + ':styles', ['clean:build:' + dist], ->
+  gulp.task 'compile:' + dist + ':images', ['clean:build:' + dist], ->
     gulp.src [
       './src/images/**/*.png',
       './src/images/**/*.jpg'
