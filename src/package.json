@@ -11,6 +11,7 @@
     "del": "2.2.0",
     "jfs": "0.2.6",
     "lodash": "3.10.1",
+    "mousetrap": "1.5.3",
     "mustache": "2.2.0",
     "request": "2.67.0",
     "semver": "5.1.0",
