@@ -22,7 +22,7 @@ export default {
     platform: platform.isNonDarwin
   }, {
     label: 'Zoom In',
-    accelerator: P('Cmd+=', 'Ctrl+='),
+    accelerator: 'CmdOrCtrl+=',
     click: $.all(
       $.memo('zoom-level', $.sum($.pref('zoom-level', $.val(0)), $.val(1))),
       $.sendToWebView('zoom-level', $.memo('zoom-level')),
@@ -31,7 +31,7 @@ export default {
     )
   }, {
     label: 'Zoom Out',
-    accelerator: P('Cmd+-', 'Ctrl+-'),
+    accelerator: 'CmdOrCtrl+-',
     click: $.all(
       $.memo('zoom-level', $.sum($.pref('zoom-level', $.val(0)), $.val(-1))),
       $.sendToWebView('zoom-level', $.memo('zoom-level')),
@@ -40,7 +40,7 @@ export default {
     )
   }, {
     label: 'Reset Zoom',
-    accelerator: P('Cmd+0', 'Ctrl+0'),
+    accelerator: 'CmdOrCtrl+0',
     click: $.all(
       $.sendToWebView('zoom-level', $.val(0)),
       $.unsetPref('zoom-level')
@@ -53,7 +53,7 @@ export default {
     click: $.toggleFullScreen()
   }, {
     label: 'Toggle &Developer Tools',
-    accelerator: P('Alt+Cmd+I', 'Alt+Ctrl+I'),
+    accelerator: 'Alt+CmdOrCtrl+I',
     click: $.toggleDevTools()
   }]
 };
