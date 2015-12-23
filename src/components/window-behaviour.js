@@ -165,6 +165,9 @@ module.exports = {
       win.moveTo(state.x, state.y);
     }
 
-    win.show();
+	if(!settings.startMinimized)
+    	win.show();
+	 else
+		win.hide();
   }
 };

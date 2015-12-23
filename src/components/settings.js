@@ -9,6 +9,7 @@ var DEFAULT_SETTINGS = {
   autoHideSidebar: false,
   asMenuBarAppOSX: false,
   closeWithEscKey: true,
+  startMinimized: false,
   windowState: {},
   theme: 'default'
 };
