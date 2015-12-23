@@ -179,7 +179,9 @@ class Application extends EventEmitter {
       const menu = contextMenu.create(options, this.mainWindow.window);
       if (menu) {
         log('opening context menu');
-        menu.popup(this.mainWindow.window);
+        setTimeout(() => {
+          menu.popup(this.mainWindow.window);
+        }, 50);
       }
     });
   }
