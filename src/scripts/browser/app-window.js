@@ -82,7 +82,9 @@ class AppWindow extends EventEmitter {
   onDomReady() {
     // Show the window
     log('onDomReady');
-    this.window.show();
+    if (!this.window.isVisible()) {
+      this.window.show();
+    }
   }
 
   /**
