@@ -2,7 +2,7 @@ gulp = require 'gulp'
 async = require 'async'
 rcedit = require 'rcedit'
 
-{applySpawn} = require './utils'
+{platform, applySpawn} = require './utils'
 fs = require 'fs-extra-promise'
 path = require 'path'
 
@@ -81,6 +81,12 @@ gulp.task 'build:darwin64', ['resources:darwin', 'compile:darwin64', 'clean:buil
         toPath = './build/' + dist + '/usr/share/applications/' + manifest.name + '.desktop'
         fs.copy fromPath, toPath, utils.log callback, fromPath, '=>', toPath
 
+      # Move the app's startup.desktop file
+      (callback) ->
+        fromPath = './build/resources/linux/startup.desktop'
+        toPath = './build/' + dist + '/etc/xdg/autostart/' + manifest.name + '.desktop'
+        fs.copy fromPath, toPath, utils.log callback, fromPath, '=>', toPath
+
       # Move icons
       async.apply async.waterfall, [
         async.apply fs.readdir, './build/resources/linux/icons'
@@ -119,10 +125,5 @@ gulp.task 'build:win32', ['resources:win', 'compile:win32', 'clean:build:win32']
       fs.rename fromPath, toPath, utils.log callback, fromPath, '=>', toPath
   ], done
 
-# Build the app for all platforms
-gulp.task 'build', [
-  'build:darwin64'
-  'build:linux32'
-  'build:linux64'
-  'build:win32'
-]
+# Build for the current platform by default
+gulp.task 'build', ['build:' + platform()]

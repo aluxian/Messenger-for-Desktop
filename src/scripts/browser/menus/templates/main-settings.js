@@ -18,6 +18,31 @@ export default {
     type: 'separator'
   }, {
     type: 'checkbox',
+    label: 'Launch on Startup',
+    click: $.all(
+      $.launchOnStartup($.key('checked'), $.pref('startup-hidden')),
+      $.updateSibling('startup-hidden', 'enabled', $.key('checked')),
+      $.setPref('launch-startup', $.key('checked'))
+    ),
+    parse: $.all(
+      $.setLocal('checked', $.pref('launch-startup', $.val(false))),
+      $.updateSibling('startup-hidden', 'enabled', $.key('checked'))
+    )
+  }, {
+    id: 'startup-hidden',
+    type: 'checkbox',
+    label: 'Start Hidden on Startup',
+    click: $.all(
+      $.ifTrue($.val(platform.isDarwin), $.launchOnStartupHidden($.key('checked'))),
+      $.setPref('startup-hidden', $.key('checked')),
+    ),
+    parse: $.all(
+      $.setLocal('checked', $.pref('startup-hidden', $.val(false)))
+    )
+  }, {
+    type: 'separator'
+  }, {
+    type: 'checkbox',
     label: 'Check &Spelling While Typing',
     click: $.all(
       $.sendToWebView('spell-checker', $.key('checked'), $.pref('auto-correct')),

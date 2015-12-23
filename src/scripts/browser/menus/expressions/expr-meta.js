@@ -12,12 +12,14 @@ export function all(...exprs) {
 /**
  * The equivalent of an 'if' statement.
  */
-export function iff(condExpr, trueExpr, falseExpr) {
+export function ifTrue(condExpr, trueExpr, falseExpr) {
   return function() {
     const cond = condExpr.apply(this, arguments);
     if (cond) {
-      trueExpr.apply(this, arguments);
-    } else {
+      if (trueExpr) {
+        trueExpr.apply(this, arguments);
+      }
+    } else if (falseExpr) {
       falseExpr.apply(this, arguments);
     }
   };

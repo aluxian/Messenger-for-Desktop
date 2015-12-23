@@ -15,9 +15,12 @@ class AppWindow extends EventEmitter {
   /**
    * Create a browser window based on the given options.
    */
-  constructor(manifest) {
+  constructor(manifest, customOptions = {}) {
     super();
+
     this.manifest = manifest;
+    this.customOptions = customOptions;
+
     this.createWindow();
     this.initWindow();
   }
@@ -85,7 +88,7 @@ class AppWindow extends EventEmitter {
   onDomReady() {
     // Show the window
     log('onDomReady');
-    if (!this.window.isVisible()) {
+    if (!this.customOptions.startHidden && !this.window.isVisible()) {
       this.window.show();
     }
   }

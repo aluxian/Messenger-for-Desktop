@@ -12,8 +12,6 @@ export default {
     label: 'Check for Update',
     click: $.checkForUpdate()
   }, {
-    type: 'separator'
-  }, {
     type: 'checkbox',
     label: 'Anonymous Statistics',
     click: $.all(
@@ -23,6 +21,33 @@ export default {
     parse: $.all(
       $.setLocal('checked', $.pref('analytics', $.val(true)))
     )
+  }, {
+    type: 'separator'
+  }, {
+    type: 'checkbox',
+    label: 'Launch on Startup',
+    click: $.all(
+      $.launchOnStartup($.key('checked'), $.pref('startup-hidden')),
+      $.updateSibling('startup-hidden', 'enabled', $.key('checked')),
+      $.setPref('launch-startup', $.key('checked'))
+    ),
+    parse: $.all(
+      $.setLocal('checked', $.pref('launch-startup', $.val(false))),
+      $.updateSibling('startup-hidden', 'enabled', $.key('checked'))
+    )
+  }, {
+    id: 'startup-hidden',
+    type: 'checkbox',
+    label: 'Start Hidden on Startup',
+    click: $.all(
+      $.ifTrue($.val(platform.isDarwin), $.launchOnStartupHidden($.key('checked'))),
+      $.setPref('startup-hidden', $.key('checked')),
+    ),
+    parse: $.all(
+      $.setLocal('checked', $.pref('startup-hidden', $.val(false)))
+    )
+  }, {
+    type: 'separator'
   }, {
     label: 'Services',
     role: 'services',

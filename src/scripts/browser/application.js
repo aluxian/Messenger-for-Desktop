@@ -90,7 +90,11 @@ class Application extends EventEmitter {
       return;
     }
 
-    this.mainWindow = new AppWindow(this.manifest);
+    const options = {
+      startHidden: this.options.osStartup && prefs.get('startup-hidden', false)
+    };
+
+    this.mainWindow = new AppWindow(this.manifest, options);
     this.mainWindow.loadURL(filePaths.getHtmlFile('app.html'));
     this.mainWindow.on('closed', () => this.mainWindow = null);
   }

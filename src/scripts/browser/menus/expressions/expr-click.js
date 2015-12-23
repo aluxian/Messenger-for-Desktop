@@ -1,3 +1,4 @@
+import autoLaunch from '../../components/auto-launch';
 import shell from 'shell';
 import app from 'app';
 
@@ -142,5 +143,30 @@ export function showInDock(flagExpr) {
         app.dock.hide();
       }
     }
+  };
+}
+
+/**
+ * Whether the app should launch automatically when the OS starts.
+ */
+export function launchOnStartup(enabledExpr, hiddenExpr) {
+  return function() {
+    const enabled = enabledExpr.apply(this, arguments);
+    if (enabled) {
+      const hidden = hiddenExpr.apply(this, arguments);
+      autoLaunch.enable(hidden);
+    } else {
+      autoLaunch.disable();
+    }
+  };
+}
+
+/**
+ * Whether the app should launch hidden when the OS starts.
+ */
+export function launchOnStartupHidden(hiddenExpr) {
+  return function() {
+    const hidden = hiddenExpr.apply(this, arguments);
+    autoLaunch.enable(hidden);
   };
 }
