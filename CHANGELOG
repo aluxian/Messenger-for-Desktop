@@ -1,3 +1,8 @@
+1.4.6
+- Add option to hide window on startup
+- Auto-startup now avaible for linux
+- The app will now inform users of my releases
+
 1.4.5
 - Fix a faulty ;
 
