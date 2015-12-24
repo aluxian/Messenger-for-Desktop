@@ -56,14 +56,28 @@ class DarwinNativeNotifier extends BaseNativeNotifier {
     this.emit('notif-activated', payload);
   }
 
-  fireNotification({title, subtitle, body, tag = title, canReply, onClick}) {
+  fireNotification({title, subtitle, body, tag = title, canReply, icon, onClick}) {
     // Create
     const notification = $.NSUserNotification('alloc')('init');
     notification('setTitle', $.NSString('stringWithUTF8String', title));
     notification('setIdentifier', $.NSString('stringWithUTF8String', tag + ''));
-    if (subtitle) notification('setSubtitle', $.NSString('stringWithUTF8String', subtitle));
-    if (body) notification('setInformativeText', $.NSString('stringWithUTF8String', body));
     notification('setHasReplyButton', !!canReply);
+
+    if (subtitle) {
+      const str = $.NSString('stringWithUTF8String', subtitle);
+      notification('setSubtitle', str);
+    }
+
+    if (body) {
+      const str = $.NSString('stringWithUTF8String', body);
+      notification('setInformativeText', str);
+    }
+
+    if (icon) {
+      const contentImageUrl = $.NSURL('URLWithString', $(icon));
+      const contentImage = $.NSImage('alloc')('initByReferencingURL', contentImageUrl);
+      notification('setContentImage', contentImage); // TODO: download icon in bg
+    }
 
     // Deliver
     log('delivering notification', JSON.stringify({title, subtitle, body, tag, canReply, onClick}));

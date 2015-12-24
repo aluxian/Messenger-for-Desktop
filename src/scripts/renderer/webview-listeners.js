@@ -31,7 +31,11 @@ webView.addEventListener('new-window', function(event) {
 // Listen for dom-ready
 webView.addEventListener('dom-ready', function() {
   log('dom-ready');
-  webView.openDevTools();
+
+  // Open dev tools when debugging
+  if (window.localStorage.debug) {
+    webView.openDevTools();
+  }
 
   // Inject custom css
   log('injecting custom css');
