@@ -1,34 +1,32 @@
-import shell from 'shell';
-import prefs from './utils/prefs';
+import filePaths from '../utils/filePaths';
+import prefs from '../utils/prefs';
 import {debounce} from 'lodash';
+import shell from 'shell';
 
 import BrowserWindow from 'browser-window';
 import EventEmitter from 'events';
 
-class AppWindow extends EventEmitter {
+class MainWindowManager extends EventEmitter {
 
   static DEFAULT_BOUNDS = {
     width: 800,
     height: 600
   };
 
-  /**
-   * Create a browser window based on the given options.
-   */
-  constructor(manifest, customOptions = {}) {
+  constructor(manifest, options) {
     super();
 
     this.manifest = manifest;
-    this.customOptions = customOptions;
+    this.options = options;
 
-    this.createWindow();
-    this.initWindow();
+    this.forceClose = false;
+    this.startHidden = options.osStartup && prefs.get('startup-hidden', false);
   }
 
   createWindow() {
-    log('creating AppWindow');
+    log('creating main window');
 
-    const bounds = prefs.get('window-bounds', AppWindow.DEFAULT_BOUNDS);
+    const bounds = prefs.get('window-bounds', MainWindowManager.DEFAULT_BOUNDS);
     const defaultOptions = {
       title: this.manifest.productName,
       backgroundColor: '#dfdfdf',
@@ -66,6 +64,9 @@ class AppWindow extends EventEmitter {
     // Restore full screen state
     const isFullScreen = prefs.get('full-screen', false);
     this.window.setFullScreen(isFullScreen);
+
+    // Finally, load the app html
+    this.window.loadURL(filePaths.getHtmlFile('app.html'));
   }
 
   /**
@@ -88,7 +89,7 @@ class AppWindow extends EventEmitter {
   onDomReady() {
     // Show the window
     log('onDomReady');
-    if (!this.customOptions.startHidden && !this.window.isVisible()) {
+    if (!this.startHidden && !this.window.isVisible()) {
       this.window.show();
     }
   }
@@ -163,13 +164,6 @@ class AppWindow extends EventEmitter {
   }
 
   /**
-   * Load the target url inside the window.
-   */
-  loadURL(targetUrl) {
-    this.window.loadURL(targetUrl);
-  }
-
-  /**
    * Remove identifiable information (e.g. app name) from the UA string.
    */
   getCleanUserAgent() {
@@ -181,4 +175,4 @@ class AppWindow extends EventEmitter {
 
 }
 
-export default AppWindow;
+export default MainWindowManager;

@@ -73,6 +73,7 @@ process.on('uncaughtException', error => console.error(error.stack || error));
     log('ready, launching app');
     global.manifest = manifest;
     global.application = new Application(manifest, argv);
+    global.application.init();
     // Updater.checkAndPrompt(manifest, false)
     //   .then(function(willUpdate) {
     //     if (willUpdate) {

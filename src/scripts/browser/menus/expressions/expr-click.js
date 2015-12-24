@@ -1,8 +1,7 @@
-import autoLaunch from '../../components/auto-launch';
 import shell from 'shell';
 import app from 'app';
 
-import AppWindow from '../../app-window';
+import AppWindowManager from '../../managers/main-window-manager';
 
 /**
  * Check for update.
@@ -65,7 +64,7 @@ export function reloadWindow() {
  */
 export function resetWindow() {
   return function(menuItem, browserWindow) {
-    const bounds = AppWindow.DEFAULT_BOUNDS;
+    const bounds = AppWindowManager.DEFAULT_BOUNDS;
     browserWindow.setSize(bounds.width, bounds.height);
     browserWindow.center();
   };
@@ -118,14 +117,11 @@ export function floatOnTop(flagExpr) {
  */
 export function showInTray(flagExpr) {
   return function() {
-    const app = global.application;
-    if (app) {
-      const show = flagExpr.apply(this, arguments);
-      if (show) {
-        app.createTrayMenu();
-      } else {
-        app.destroyTrayMenu();
-      }
+    const show = flagExpr.apply(this, arguments);
+    if (show) {
+      global.application.trayManager.create();
+    } else {
+      global.application.trayManager.destroy();
     }
   };
 }
@@ -154,9 +150,9 @@ export function launchOnStartup(enabledExpr, hiddenExpr) {
     const enabled = enabledExpr.apply(this, arguments);
     if (enabled) {
       const hidden = hiddenExpr.apply(this, arguments);
-      autoLaunch.enable(hidden);
+      global.application.autoLauncher.enable(hidden);
     } else {
-      autoLaunch.disable();
+      global.application.autoLauncher.disable();
     }
   };
 }
@@ -167,7 +163,7 @@ export function launchOnStartup(enabledExpr, hiddenExpr) {
 export function launchOnStartupHidden(hiddenExpr) {
   return function() {
     const hidden = hiddenExpr.apply(this, arguments);
-    autoLaunch.enable(hidden);
+    global.application.autoLauncher.enable(hidden);
   };
 }
 

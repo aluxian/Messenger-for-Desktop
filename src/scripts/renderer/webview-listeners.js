@@ -7,14 +7,10 @@ const files = remote.require('../browser/utils/files').default;
 
 // Log console messages
 webView.addEventListener('console-message', function(event) {
-  const msg = event.message;
-  const label = 'DEBUG: ';
-
-  if (msg.indexOf(label) === 0) {
-    log('WV', msg.replace(label, ''));
-  } else {
-    console.log('WV:', event.message);
-  }
+  const msg = event.message.replace(/%c/g, '');
+  const fwNormal = 'font-weight: normal;';
+  const fwBold = 'font-weight: bold;';
+  console.log('%cWV:%c ' + msg, fwBold, fwNormal);
 });
 
 // Listen for title changes to update the badge
@@ -35,6 +31,7 @@ webView.addEventListener('new-window', function(event) {
 // Listen for dom-ready
 webView.addEventListener('dom-ready', function() {
   log('dom-ready');
+  webView.openDevTools();
 
   // Inject custom css
   log('injecting custom css');

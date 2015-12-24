@@ -1,248 +1,45 @@
-import app from 'app';
-import shell from 'shell';
-import filePaths from './utils/filePaths';
-import platform from './utils/platform';
-import prefs from './utils/prefs';
-import {ipcMain} from 'electron';
-
-import menuTemplate from './menus/main';
-import trayTemplate from './menus/tray';
-import contextMenu from './menus/context';
-
-import Menu from 'menu';
-import Tray from 'tray';
 import EventEmitter from 'events';
-import BrowserWindow from 'browser-window';
-import AppWindow from './app-window';
+
+import MainWindowManager from './managers/main-window-manager';
+import MainMenuManager from './managers/main-menu-manager';
+
+import AutoLauncher from './components/auto-launcher';
+import NativeNotifier from './components/native-notifier';
+import NotifManager from './managers/notif-manager';
+import TrayManager from './managers/tray-manager';
+
+import AppListenersManager from './managers/app-listeners-manager';
+import IpcListenersManager from './managers/ipc-listeners-manager';
 
 class Application extends EventEmitter {
 
-  /**
-   * Load components and create the main window.
-   */
   constructor(manifest, options) {
     super();
-
     this.manifest = manifest;
     this.options = options;
-
-    this.createAppMenu();
-    this.createAppWindow();
-
-    this.setAppEventListeners();
-    this.setIpcEventListeners();
-
-    // Restore the tray menu
-    if (prefs.get('show-tray', false)) {
-      this.createTrayMenu();
-    }
   }
 
-  /**
-   * Create and set the default menu.
-   */
-  createAppMenu() {
-    if (this.menu) {
-      return;
-    }
+  init() {
+    // Create the main app window
+    this.mainWindowManager = new MainWindowManager(this.manifest, this.options);
+    this.mainWindowManager.createWindow();
+    this.mainWindowManager.initWindow();
 
-    this.menu = Menu.buildFromTemplate(menuTemplate);
-    Menu.setApplicationMenu(this.menu);
-    log('app menu created');
-  }
+    // Create and set the main menu
+    this.menuManager = new MainMenuManager();
+    this.menuManager.create();
+    this.menuManager.set();
 
-  /**
-   * Create and set the default menu.
-   */
-  createTrayMenu() {
-    if (this.tray) {
-      return;
-    }
+    // Others
+    this.notifManager = new NotifManager();
+    this.trayManager = new TrayManager(this.mainWindowManager, this.notifManager);
+    this.nativeNotifier = new NativeNotifier();
+    this.autoLauncher = new AutoLauncher();
 
-    this.trayMenu = Menu.buildFromTemplate(trayTemplate);
-
-    if (platform.isDarwin) {
-      this.tray = new Tray(filePaths.getImagePath('trayBlackTemplate.png'));
-      this.tray.setPressedImage(filePaths.getImagePath('trayWhiteTemplate.png'));
-
-      // Show the notifications count
-      if (this.notifCount) {
-        this.tray.setTitle(this.notifCount);
-      }
-    } else {
-      if (this.notifCount) {
-        this.tray = new Tray(filePaths.getImagePath('trayAlert.png'));
-      } else {
-        this.tray = new Tray(filePaths.getImagePath('tray.png'));
-      }
-    }
-
-    this.tray.setContextMenu(this.trayMenu);
-    this.setTrayEventListeners();
-    log('tray menu created');
-  }
-
-  /**
-   * Create and show the main window.
-   */
-  createAppWindow() {
-    if (this.mainWindow) {
-      return;
-    }
-
-    const options = {
-      startHidden: this.options.osStartup && prefs.get('startup-hidden', false)
-    };
-
-    this.mainWindow = new AppWindow(this.manifest, options);
-    this.mainWindow.loadURL(filePaths.getHtmlFile('app.html'));
-    this.mainWindow.on('closed', () => this.mainWindow = null);
-  }
-
-  /**
-   * Listen to app events.
-   */
-  setAppEventListeners() {
-    app.on('before-quit', ::this.onBeforeQuit);
-    app.on('window-all-closed', ::this.onAllWindowsClosed);
-    app.on('activate', ::this.onActivate);
-  }
-
-  /**
-   * Called when the 'before-quit' event is emitted.
-   */
-  onBeforeQuit() {
-    // Close the main window instead of hiding it
-    log('before quit');
-    if (this.mainWindow) {
-      this.mainWindow.forceClose = true;
-    }
-  }
-
-  /**
-   * Called when the 'window-all-closed' event is emitted.
-   */
-  onAllWindowsClosed() {
-    // Quit the app if all windows are closed
-    log('all windows closed');
-    app.quit();
-  }
-
-  /**
-   * Called when the 'activate' event is emitted.
-   */
-  onActivate(event, hasVisibleWindows) {
-    // Reopen the main window on dock clicks (OS X)
-    log('activate app, hasVisibleWindows', hasVisibleWindows);
-    if (!hasVisibleWindows) {
-      if (this.mainWindow) {
-        this.mainWindow.window.show();
-      } else {
-        this.createAppWindow();
-      }
-    }
-  }
-
-  /**
-   * Listen for tray events.
-   */
-  setTrayEventListeners() {
-    if (!this.tray) {
-      return;
-    }
-
-    // Bind events
-    this.tray.on('click', ::this.onTrayClick);
-    this.tray.on('right-click', ::this.onTrayRightClick);
-  }
-
-  /**
-   * Called when the 'click' event is emitted on the tray menu.
-   */
-  onTrayClick() {
-    // Show the main window
-    log('tray click');
-    if (this.mainWindow) {
-      this.mainWindow.window.show();
-    }
-  }
-
-  /**
-   * Called when the 'right-click' event is emitted on the tray menu.
-   */
-  onTrayRightClick() {
-    // Show the main window
-    log('tray right-click');
-    if (platform.isDarwin && this.mainWindow) {
-      this.mainWindow.window.show();
-    }
-  }
-
-  /**
-   * Listen for IPC events.
-   */
-  setIpcEventListeners() {
-    // Notifications count
-    ipcMain.on('notif-count', (event, count) => {
-      log('on renderer notif-count', count);
-      this.notifCount = count;
-
-      // Set icon badge
-      if (app.dock && app.dock.setBadge && prefs.get('notifications-badge', true)) {
-        app.dock.setBadge(count);
-      }
-
-      // Update tray
-      if (platform.isDarwin) {
-        if (this.tray) {
-          if (count) {
-            this.tray.setTitle(count);
-          }
-        }
-      } else {
-        if (count) {
-          this.tray.setImage(filePaths.getImagePath('trayAlert.png'));
-        } else {
-          this.tray.setImage(filePaths.getImagePath('tray.png'));
-        }
-      }
-    });
-
-    // Request to open an url
-    ipcMain.on('open-url', (event, url, options) => {
-      if (prefs.get('links-in-browser', true)) {
-        log('on renderer open-url, externally', url);
-        shell.openExternal(url);
-      } else {
-        log('on renderer open-url, new window', url);
-        const newWindow = new BrowserWindow(options);
-        newWindow.loadURL(url);
-      }
-    });
-
-    // Handle context menu opens
-    ipcMain.on('context-menu', (event, options) => {
-      const menu = contextMenu.create(options, this.mainWindow.window);
-      if (menu) {
-        log('opening context menu');
-        setTimeout(() => {
-          menu.popup(this.mainWindow.window);
-        }, 50);
-      }
-    });
-  }
-
-  /**
-   * Hide and destroy the tray menu.
-   */
-  destroyTrayMenu() {
-    if (!this.tray) {
-      return;
-    }
-
-    this.trayMenu = null;
-    this.tray.destroy();
-    this.tray = null;
+    // Listeners
+    new AppListenersManager(this.mainWindowManager).set();
+    new IpcListenersManager(this.notifManager, this.trayManager,
+      this.mainWindowManager, this.nativeNotifier).set();
   }
 
 }

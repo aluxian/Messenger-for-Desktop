@@ -1,13 +1,6 @@
 import {webFrame, ipcRenderer as ipcr} from 'electron';
 import spellChecker from 'spellchecker';
 
-/**
- * Custom logger. The implicit one doesn't work in preload.
- */
-const log = function(...messages) {
-  console.log('DEBUG: ' + messages.join(' '));
-};
-
 // Set zoom level
 ipcr.on('zoom-level', function(event, zoomLevel) {
   log('zoom level', zoomLevel);
@@ -51,24 +44,3 @@ ipcr.on('apply-theme', function(event, css) {
 ipcr.on('add-selection-to-dictionary', function() {
   spellChecker.add(document.getSelection().toString());
 });
-
-// Forward context menu opens
-document.addEventListener('contextmenu', function(event) {
-  log('sending context-menu');
-  event.preventDefault();
-
-  const selection = document.getSelection().toString();
-  const trimmedText = selection.trim();
-  const isMisspelling = !trimmedText.includes(' ') && spellChecker.isMisspelled(trimmedText);
-  const corrections = isMisspelling ? spellChecker.getCorrectionsForMisspelling(trimmedText) : [];
-
-  ipcr.send('context-menu', {
-    selection: selection,
-    hasSelection: !!selection,
-    targetIsEditable: event.target.isContentEditable,
-    targetIsLink: event.target.tagName == 'A',
-    isMisspelling: isMisspelling,
-    corrections: corrections,
-    href: event.target.href
-  });
-}, false);

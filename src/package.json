@@ -15,6 +15,7 @@
     "lodash": "3.10.1",
     "mousetrap": "1.5.3",
     "mustache": "2.2.0",
+    "nodobjc": "2.1.0",
     "request": "2.67.0",
     "semver": "5.1.0",
     "spellchecker": "3.1.3",

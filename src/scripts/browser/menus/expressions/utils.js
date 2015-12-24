@@ -20,6 +20,6 @@ export function findMenu(menuType) {
     case 'main':
       return Menu.getApplicationMenu();
     case 'tray':
-      return global.application.trayMenu;
+      return global.application.trayManager.tray;
   }
 }

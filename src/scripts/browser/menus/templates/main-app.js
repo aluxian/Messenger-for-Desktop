@@ -12,16 +12,6 @@ export default {
     label: 'Check for Update',
     click: $.checkForUpdate()
   }, {
-    type: 'checkbox',
-    label: 'Anonymous Statistics',
-    click: $.all(
-      $.setPref('analytics', $.key('checked')),
-      $.reloadWindow()
-    ),
-    parse: $.all(
-      $.setLocal('checked', $.pref('analytics', $.val(true)))
-    )
-  }, {
     type: 'separator'
   }, {
     type: 'checkbox',
@@ -45,6 +35,16 @@ export default {
     ),
     parse: $.all(
       $.setLocal('checked', $.pref('startup-hidden', $.val(false)))
+    )
+  }, {
+    type: 'checkbox',
+    label: 'Anonymous Statistics',
+    click: $.all(
+      $.setPref('analytics', $.key('checked')),
+      $.reloadWindow()
+    ),
+    parse: $.all(
+      $.setLocal('checked', $.pref('analytics', $.val(true)))
     )
   }, {
     type: 'separator'
