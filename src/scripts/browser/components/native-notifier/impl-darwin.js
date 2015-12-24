@@ -37,11 +37,13 @@ class DarwinNativeNotifier extends BaseNativeNotifier {
 
   didActivateNotification(self, cmd, center, notif) {
     const type = parseInt(notif('activationType').toString(), 10);
-    const tag = notif('identifier').toString();
+    const identifier = notif('identifier').toString();
+    const tag = identifier.split(':::')[0];
 
     const payload = {
       tag: tag,
-      type: DarwinNativeNotifier.ACTIVATION_TYPES[type]
+      type: DarwinNativeNotifier.ACTIVATION_TYPES[type],
+      identifier: identifier
     };
 
     if (payload.type == 'replied') {
@@ -57,10 +59,12 @@ class DarwinNativeNotifier extends BaseNativeNotifier {
   }
 
   fireNotification({title, subtitle, body, tag = title, canReply, icon, onClick}) {
+    const identifier = tag + ':::' + Date.now();
+
     // Create
     const notification = $.NSUserNotification('alloc')('init');
     notification('setTitle', $.NSString('stringWithUTF8String', title));
-    notification('setIdentifier', $.NSString('stringWithUTF8String', tag + ''));
+    notification('setIdentifier', $.NSString('stringWithUTF8String', identifier));
     notification('setHasReplyButton', !!canReply);
 
     if (subtitle) {
