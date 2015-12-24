@@ -55,5 +55,11 @@ export default {
     label: 'Toggle &Developer Tools',
     accelerator: 'Alt+CmdOrCtrl+I',
     click: $.toggleDevTools()
+  }, {
+    type: 'separator'
+  }, {
+    label: 'New Conversation',
+    accelerator: 'CmdOrCtrl+N',
+    click: $.sendToWebView('new-conversation')
   }]
 };

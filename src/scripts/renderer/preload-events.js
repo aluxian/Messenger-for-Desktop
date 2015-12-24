@@ -44,3 +44,15 @@ ipcr.on('apply-theme', function(event, css) {
 ipcr.on('add-selection-to-dictionary', function() {
   spellChecker.add(document.getSelection().toString());
 });
+
+// Simulate a click on the 'New chat' button
+ipcr.on('new-conversation', function() {
+  const newChatButton = document.querySelector('button.icon-chat');
+  if (newChatButton) {
+    newChatButton.click();
+  }
+  const inputSearch = document.querySelector('input.input-search');
+  if (inputSearch) {
+    inputSearch.focus();
+  }
+});
