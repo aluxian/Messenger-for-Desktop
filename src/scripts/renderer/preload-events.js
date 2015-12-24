@@ -56,3 +56,72 @@ ipcr.on('new-conversation', function() {
     inputSearch.focus();
   }
 });
+
+// Switch to next/previous conversation
+ipcr.on('switch-conversation', function(event, indexDelta) {
+  function navigateConversation(delta) {
+    const chatListElem = document.querySelectorAll('.infinite-list-item');
+    if (!chatListElem || !chatListElem.length) {
+      return;
+    }
+
+    let found = false;
+    const chatList = Array.from(chatListElem).sort(function(a, b) {
+      return parseInt(b.style.zIndex, 10) - parseInt(a.style.zIndex, 10);
+    });
+
+    for (let [i, item] of chatList.entries()) {
+      const active = isItemActive(item);
+      if (active) {
+        const nextIndex = getDeltaIndex(i, delta, chatList);
+        if (nextIndex != -1) {
+          makeInactive(chatList[i]);
+          makeActive(chatList[nextIndex]);
+        }
+        found = true;
+        break;
+      }
+    }
+
+    if (!found) {
+      if (delta > 0) {
+        makeActive(chatList[0]);
+      } else {
+        makeActive(chatList[chatList.length - 1]);
+      }
+    }
+  }
+
+  function getDeltaIndex(index, delta, chatList) {
+    let deltaIndex = index + delta;
+    if (deltaIndex < 0) {
+      deltaIndex = -1;
+    }
+    if (deltaIndex >= chatList.length) {
+      deltaIndex = -1;
+    }
+    return deltaIndex;
+  }
+
+  function isItemActive(item) {
+    const chat = item.querySelector('.chat');
+    return chat && chat.classList.contains('active');
+  }
+
+  function makeInactive(item) {
+    const chat = item.querySelector('.chat');
+    if (chat) {
+      chat.classList.remove('active');
+    }
+  }
+
+  function makeActive(item) {
+    const chat = item.querySelector('.chat');
+    if (chat) {
+      chat.classList.add('active');
+      chat.click();
+    }
+  }
+
+  navigateConversation(indexDelta);
+});

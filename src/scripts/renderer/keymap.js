@@ -1,16 +1,18 @@
 import Mousetrap from 'mousetrap';
 import webView from './webview';
 
-log('binding keyboard keymap');
+log('binding keyboard shortcuts');
 
 // Previous chat
 Mousetrap.bind(['command+up', 'ctrl+up'], function() {
-  console.log('UP!'); // TODO
+  log('previous conversation');
+  webView.send('switch-conversation', -1);
   return false;
 });
 
 // Next chat
 Mousetrap.bind(['command+down', 'ctrl+down'], function() {
-  console.log('DOWN!'); // TODO
+  log('next conversation');
+  webView.send('switch-conversation', +1);
   return false;
 });
