@@ -13,6 +13,8 @@ machine:
     - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.6 10
     - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 20
     - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.9 20
+    - sudo apt-get install ruby-dev gcc make rpm
+    - sudo gem install fpm
 
 dependencies:
   post:
