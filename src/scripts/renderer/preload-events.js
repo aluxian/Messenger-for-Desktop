@@ -57,6 +57,14 @@ ipcr.on('new-conversation', function() {
   }
 });
 
+// Focus the 'Search or start a new chat' input field
+ipcr.on('search-chats', function() {
+  const inputSearch = document.querySelector('input.input-search');
+  if (inputSearch) {
+    inputSearch.focus();
+  }
+});
+
 // Switch to next/previous conversation
 ipcr.on('switch-conversation', function(event, indexDelta) {
   function navigateConversation(delta) {

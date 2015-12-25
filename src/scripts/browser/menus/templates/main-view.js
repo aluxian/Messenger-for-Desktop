@@ -61,5 +61,9 @@ export default {
     label: 'New Conversation',
     accelerator: 'CmdOrCtrl+N',
     click: $.sendToWebView('new-conversation')
+  }, {
+    label: 'Search Chats',
+    accelerator: 'CmdOrCtrl+F',
+    click: $.sendToWebView('search-chats')
   }]
 };
