@@ -16,8 +16,8 @@ machine:
 
 dependencies:
   post:
-    - gulp download:linux32
-    - gulp download:linux64
+    - gulp download:linux32 --verbose
+    - gulp download:linux64 --verbose
   cache_directories:
     - cache
     - src/node_modules
@@ -26,7 +26,7 @@ test:
   pre:
     - cp RPM-GPG-KEY-whatsie ~/
   post:
-    - gulp pack:linux32:deb
-    - gulp pack:linux32:rpm
-    - gulp pack:linux64:deb
-    - gulp pack:linux64:rpm
+    - gulp pack:linux32:deb --verbose
+    - gulp pack:linux32:rpm --verbose
+    - gulp pack:linux64:deb --verbose
+    - gulp pack:linux64:rpm --verbose
