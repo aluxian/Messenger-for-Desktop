@@ -18,7 +18,7 @@ downloaded =
   ['linux', 'x64', 'linux64', './build/linux64/opt/' + manifest.name]
   ['win32', 'ia32', 'win32', './build/win32']
 ].forEach (release) ->
-  [platform, arch, dist, outputDir] = release
+  [platformName, arch, dist, outputDir] = release
 
   gulp.task 'download:' + dist, ['kill:' + dist], (done) ->
     # Skip if already downloaded to speed up auto-reload
@@ -29,7 +29,7 @@ downloaded =
       version: manifest.electronVersion
       cacheDir: './cache'
       outputDir: outputDir
-      platform: platform
+      platform: platformName
       arch: arch
     , ->
       downloaded[dist] = true
