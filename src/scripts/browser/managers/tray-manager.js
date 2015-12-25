@@ -74,7 +74,10 @@ class TrayManager extends EventEmitter {
     // Show the main window
     log('tray click');
     if (this.mainWindowManager) {
-      this.mainWindowManager.window.show();
+      const mainWindow = this.mainWindowManager.window;
+      if (mainWindow && !mainWindow.isFocused()) {
+        mainWindow.show();
+      }
     }
   }
 
@@ -84,8 +87,11 @@ class TrayManager extends EventEmitter {
   onRightClick() {
     // Show the main window
     log('tray right-click');
-    if (platform.isDarwin && this.mainWindowManager) {
-      this.mainWindowManager.window.show();
+    if (platform.isDarwin) {
+      const mainWindow = this.mainWindowManager.window;
+      if (mainWindow && !mainWindow.isFocused()) {
+        mainWindow.show();
+      }
     }
   }
 
