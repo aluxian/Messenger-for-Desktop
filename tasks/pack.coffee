@@ -92,11 +92,6 @@ gulp.task 'pack:darwin64', ['build:darwin64', 'clean:dist:darwin64'], (done) ->
       else
         archName = 'x86_64'
 
-      # Increment iteration number
-      iterPath = path.join __dirname, '..', '.iteration'
-      iterNum = (parseInt fs.readFileSync(iterPath, 'utf8'), 10) + 1
-      fs.writeFileSync iterPath, "#{iterNum}\n", 'utf8'
-
       fpmArgs = [
         '-s'
         'dir'
@@ -137,7 +132,7 @@ gulp.task 'pack:darwin64', ['build:darwin64', 'clean:dist:darwin64'], (done) ->
         '--version'
         manifest.version
         '--iteration'
-        "#{iterNum}"
+        process.env.CIRCLE_BUILD_NUM || '1'
         '--package'
         './dist/' + manifest.name + '-VERSION-ARCH.' + target
         '-C'
