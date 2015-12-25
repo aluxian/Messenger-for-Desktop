@@ -101,7 +101,7 @@ args = require './args'
       .pipe livereload()
 
   # Move the node modules
-  gulp.task 'compile:' + dist + ':deps', ['clean:build:' + dist, 'rebuild:' + dist], ->
+  gulp.task 'compile:' + dist + ':deps', ['clean:build:' + dist], ->
     gulp.src './src/node_modules/**/*'
       .pipe gulp.dest dir + '/node_modules'
       .pipe livereload()
