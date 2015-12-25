@@ -34,7 +34,12 @@ window.Notification = (function(Html5Notification) {
 
       // Send the reply
       if (payload.response) {
-        log('REPLY:', payload.response); // TODO
+        log('sending reply', payload.response);
+        setTimeout(function() {
+          if (typeReply(payload.response)) {
+            sendReply();
+          }
+        }, 50);
       }
     };
 
@@ -45,3 +50,26 @@ window.Notification = (function(Html5Notification) {
 
   return Object.assign(Notification, Html5Notification);
 })(window.Notification);
+
+function typeReply(replyText) {
+  const event = document.createEvent('TextEvent');
+  event.initTextEvent('textInput', true, true, window, replyText, 0, 'en-US');
+  const inputField = document.querySelector('div.input');
+  if (inputField) {
+    inputField.focus();
+    return inputField.dispatchEvent(event);
+  }
+  return false;
+}
+
+function sendReply() {
+  const event = new MouseEvent('click', {
+    view: window,
+    bubbles: true,
+    cancelable: true
+  });
+  const sendButton = document.querySelector('.icon.btn-icon.icon-send');
+  if (sendButton) {
+    sendButton.dispatchEvent(event);
+  }
+}
