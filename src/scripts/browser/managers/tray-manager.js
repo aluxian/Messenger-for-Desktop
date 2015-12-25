@@ -20,6 +20,11 @@ class TrayManager extends EventEmitter {
     if (prefs.get('show-tray', false)) {
       this.create();
     }
+
+    // Always display it on Windows
+    if (platform.isWin) {
+      this.create();
+    }
   }
 
   /**
