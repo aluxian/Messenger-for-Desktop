@@ -33,7 +33,7 @@ gulp.task 'pack:darwin64', ['build:darwin64', 'clean:dist:darwin64'], (done) ->
   async.series [
     # Update package.json
     (cb) ->
-      jsonPath = './build/darwin64/' + manifest.productName + '.app/Contents/Resources/app/packge.json'
+      jsonPath = './build/darwin64/' + manifest.productName + '.app/Contents/Resources/app/package.json'
       updateManifest jsonPath, (manifest) ->
         manifest.distrib = 'darwin64:dmg'
       , cb
@@ -148,7 +148,7 @@ gulp.task 'pack:darwin64', ['build:darwin64', 'clean:dist:darwin64'], (done) ->
       async.series [
         # Update package.json
         (cb) ->
-          jsonPath = './build/linux' + arch + '/opt/' + manifest.name + '/resources/app/packge.json'
+          jsonPath = './build/linux' + arch + '/opt/' + manifest.name + '/resources/app/package.json'
           updateManifest jsonPath, (manifest) ->
             manifest.distrib = 'linux' + arch + ':' + target
           , cb
@@ -187,7 +187,7 @@ gulp.task 'pack:win32:installer', ['build:win32', 'clean:dist:win32'], (done) ->
 
   async.series [
     # Update package.json
-    async.apply updateManifest, './build/win32/resources/app/packge.json', (manifest) ->
+    async.apply updateManifest, './build/win32/resources/app/package.json', (manifest) ->
       manifest.distrib = 'win32:installer'
 
     # Remove the dev modules
@@ -231,7 +231,7 @@ gulp.task 'pack:win32:portable', ['build:win32', 'clean:dist:win32'], (done) ->
 
   async.series [
     # Update package.json
-    async.apply updateManifest, './build/win32/resources/app/packge.json', (manifest) ->
+    async.apply updateManifest, './build/win32/resources/app/package.json', (manifest) ->
       manifest.portable = true
       manifest.distrib = 'win32:portable'
 
