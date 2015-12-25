@@ -1,10 +1,12 @@
 import manifest from '../../../../package.json';
+import platform from '../../utils/platform';
 import $ from '../expressions';
 
 export default [{
   id: 'show-tray',
   type: 'checkbox',
   label: 'Show in the Menu Bar',
+  platform: platform.isDarwin,
   checked: true,
   click: $.all(
     $.showInTray($.key('checked')),
@@ -19,6 +21,7 @@ export default [{
   id: 'show-dock',
   type: 'checkbox',
   label: 'Show in the Dock',
+  platform: platform.isDarwin,
   checked: true,
   click: $.all(
     $.showInDock($.key('checked')),
