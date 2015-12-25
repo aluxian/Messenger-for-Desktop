@@ -2,6 +2,7 @@ gulp = require 'gulp'
 filter = require 'gulp-filter'
 mustache = require 'gulp-mustache'
 manifest = require '../src/package.json'
+{platformOnly} = require './utils'
 
 # Move and process the resources for darwin64
 gulp.task 'resources:darwin', ->
@@ -33,9 +34,5 @@ gulp.task 'resources:win', ->
   gulp.src './resources/win/**/*'
     .pipe gulp.dest './build/resources/win'
 
-# Move and process all the resources
-gulp.task 'resources', [
-  'resources:darwin'
-  'resources:linux'
-  'resources:win'
-]
+# Move and process resources for the current platform by default
+gulp.task 'resources', ['resources:' + platformOnly()]

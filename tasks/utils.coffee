@@ -52,6 +52,12 @@ platform = () ->
     arch = if process.arch == 'ia32' then '32' else '64'
     process.platform + arch
 
+platformOnly = () ->
+  if process.platform == 'win32'
+    'win'
+  else
+    process.platform
+
 isCurrentDist = (dist) ->
   dist == platform()
 
@@ -71,6 +77,7 @@ module.exports =
   applySpawn: applySpawn
   applyIf: applyIf
   platform: platform
+  platformOnly: platformOnly
   isCurrentDist: isCurrentDist
   join: join
   log: log

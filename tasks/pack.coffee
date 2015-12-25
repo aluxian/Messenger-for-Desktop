@@ -9,7 +9,7 @@ del = require 'del'
 gulp = require 'gulp'
 zip = require 'gulp-zip'
 
-{applyPromise, applySpawn, applyIf, updateManifest} = require './utils'
+{applyPromise, applySpawn, applyIf, updateManifest, platform} = require './utils'
 winInstaller = require 'electron-windows-installer'
 manifest = require '../src/package.json'
 
@@ -270,11 +270,8 @@ gulp.task 'pack:win32:portable', ['build:win32', 'clean:dist:win32'], (done) ->
         .on 'end', callback
   ], done
 
-# Pack for all the platforms
-gulp.task 'pack', [
-  'pack:darwin64'
-  'pack:linux32'
-  'pack:linux64'
-  'pack:win32:installer'
-  'pack:win32:portable'
-]
+# Pack for the current platform by default
+if process.platform == 'win32'
+  gulp.task 'pack', ['pack:' + platform() + ':installer']
+else
+  gulp.task 'pack', ['pack:' + platform()]

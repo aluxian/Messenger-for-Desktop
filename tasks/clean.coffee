@@ -1,4 +1,5 @@
 fs = require 'fs-extra-promise'
+{platform} = require './utils'
 gulp = require 'gulp'
 del = require 'del'
 
@@ -20,13 +21,8 @@ gulp.task 'clean:build:darwin64', ['download:darwin64'], ->
 gulp.task 'clean:build:win32', ['download:win32'], ->
   del './build/win32/resources/default_app'
 
-# Clean build for all platforms
-gulp.task 'clean:build', [
-  'clean:build:darwin64'
-  'clean:build:linux32'
-  'clean:build:linux64'
-  'clean:build:win32'
-]
+# Clean build dist for the current platform by default
+gulp.task 'clean:build', ['clean:build:' + platform()]
 
 # Clean all the dist files for darwin64 and make sure the dir exists
 gulp.task 'clean:dist:darwin64', ->
@@ -38,10 +34,5 @@ gulp.task 'clean:dist:darwin64', ->
   gulp.task 'clean:dist:' + dist, ->
     fs.ensureDirAsync './dist'
 
-# Clean dist for all platforms
-gulp.task 'clean:dist', [
-  'clean:dist:darwin64'
-  'clean:dist:linux32'
-  'clean:dist:linux64'
-  'clean:dist:win32'
-]
+# Clean dist for the current platform by default
+gulp.task 'clean:dist', ['clean:dist:' + platform()]

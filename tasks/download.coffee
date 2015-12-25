@@ -1,6 +1,6 @@
 gulp = require 'gulp'
 fs = require 'fs-extra-promise'
-
+{platform} = require './utils'
 electronDownloader = require 'gulp-electron-downloader'
 manifest = require '../src/package.json'
 
@@ -40,10 +40,5 @@ downloaded =
       else
         done()
 
-# Download the Electron binaries for all platforms
-gulp.task 'download', [
-  'download:darwin64'
-  'download:linux32'
-  'download:linux64'
-  'download:win32'
-]
+# Download for the current platform by default
+gulp.task 'download', ['download:' + platform()]

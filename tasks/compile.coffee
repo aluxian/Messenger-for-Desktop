@@ -11,7 +11,7 @@ gif = require 'gulp-if'
 
 embedlr = require 'gulp-embedlr'
 livereload = require 'gulp-livereload'
-
+{platform} = require './utils'
 manifest = require '../src/package.json'
 args = require './args'
 
@@ -123,10 +123,5 @@ args = require './args'
     'compile:' + dist + ':package'
   ]
 
-# Compile for all platforms
-gulp.task 'compile', [
-  'compile:darwin64'
-  'compile:linux32'
-  'compile:linux64'
-  'compile:win32'
-]
+# Compile for the current platform by default
+gulp.task 'compile', ['compile:' + platform()]
