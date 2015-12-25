@@ -3,6 +3,7 @@ fs = require 'fs-extra-promise'
 {platform} = require './utils'
 electronDownloader = require 'gulp-electron-downloader'
 manifest = require '../src/package.json'
+args = require './args'
 
 # Flags to keep track of downloads
 downloaded =
@@ -23,6 +24,8 @@ downloaded =
   gulp.task 'download:' + dist, ['kill:' + dist], (done) ->
     # Skip if already downloaded to speed up auto-reload
     if downloaded[dist]
+      if args.verbose
+        console.log 'already downloaded, skipping'
       return done()
 
     electronDownloader
