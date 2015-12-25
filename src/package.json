@@ -1,7 +1,7 @@
 {
   "name": "whatsie",
   "productName": "Whatsie",
-  "version": "2.0.0",
+  "version": "1.0.0",
   "description": "A simple & beautiful desktop client for WhatsApp Web.",
   "wvUrl": "https://web.whatsapp.com/",
   "main": "./scripts/browser/main.js",
@@ -28,7 +28,7 @@
     "nodobjc": "2.1.0"
   },
   "updater": {
-    "manifestUrl": "https://raw.githubusercontent.com/Aluxian/Whatsie/deploy/src/package.json",
+    "manifestUrl": "https://raw.githubusercontent.com/Aluxian/Whatsie/master/src/package.json",
     "download": {
       "darwin": "https://github.com/Aluxian/Whatsie/releases/download/v{{ version }}/{{ productName }}.dmg",
       "linux": {
