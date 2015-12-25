@@ -10,6 +10,9 @@ machine:
     version: 0.12.0
 
 dependencies:
+  post:
+    - gulp download:linux32
+    - gulp download:linux64
   cache_directories:
     - cache
     - src/node_modules
