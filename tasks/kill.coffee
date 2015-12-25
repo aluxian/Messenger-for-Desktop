@@ -19,7 +19,7 @@ lock.killTask ||= { skip: {} }
     if lock.killTask.skip[dist]
       console.log 'kill skipped (lock)' if args.verbose
       done()
-    else if process.platform.indexOf(platformOnly) < 0
+    else if process.platform.indexOf(platformOnly()) < 0
       console.log 'kill skipped (platforms don\'t match)' if args.verbose
       done()
     else
