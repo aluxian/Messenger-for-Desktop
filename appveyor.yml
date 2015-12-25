@@ -15,11 +15,6 @@ environment:
   AWS_SECRET_ACCESS_KEY:
     secure: zP4aGkRtRqZIKZ2tM2q//6dC4SfzKdxDBGTSV3AEbpUnDDco/uMy9ZU1cmVEQigk
 
-cache:
-  - "node_modules -> package.json"
-  - "src\\node_modules -> src\\package.json"
-  - "%APPDATA%\\npm-cache"
-
 install:
   - npm install -g npm@2
   - set PATH=%APPDATA%\npm;%PATH%
