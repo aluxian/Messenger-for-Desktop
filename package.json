@@ -11,6 +11,7 @@
     "coffee-script": "1.10.0",
     "colors": "1.1.2",
     "del": "2.2.0",
+    "electron-rebuild": "1.0.2",
     "electron-windows-installer": "1.1.0",
     "fs-extra-promise": "0.3.1",
     "gulp": "3.9.0",

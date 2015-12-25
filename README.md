@@ -179,20 +179,6 @@ $ rpm --import https://raw.githubusercontent.com/Aluxian/Whatsie/master/RPM-GPG-
 $ rpm -K whatsie.rpm
 ```
 
-Module version mismatch
------------------------
-
-If you get `Module version mismatch` errors, you need to rebuild some modules:
-
-```
-cd src
-export npm_config_disturl=https://atom.io/download/atom-shell
-export npm_config_target=0.33.1   # change to the version in package.json
-export npm_config_arch=x64        # change accordingly
-export npm_config_runtime=electron
-HOME=~/.electron-gyp npm install nodobjc spellchecker
-```
-
 Note to WhatsApp
 ----------------
 
