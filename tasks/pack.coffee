@@ -104,7 +104,6 @@ gulp.task 'pack:darwin64', ['build:darwin64', 'clean:dist:darwin64'], (done) ->
         '--name'
         manifest.name
         '--force' # Overwrite existing files
-        '--rpm-sign' # Requires "~/RPM-GPG-KEY-#{manifest.name}"
         '--rpm-auto-add-directories'
         if args.verbose then '--verbose' else null
         '--after-install'
