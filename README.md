@@ -15,8 +15,8 @@ Build
 If you want to build `deb` and `rpm` packages for Linux, you also need [fpm](https://github.com/jordansissel/fpm). To install it on OS X:
 
 ```
-$ sudo gem install fpm
-$ brew install rpm
+sudo gem install fpm
+brew install rpm
 ```
 
 ### Install dependencies
@@ -24,20 +24,28 @@ $ brew install rpm
 Global dependencies:
 
 ```
-$ npm install -g gulp
+npm install -g gulp
 ```
 
 Local dependencies:
 
 ```
-$ npm install
+npm install
 ```
 
 The last command should also install the modules for `./src`. If `./src/node_modules/` doesn't exist then:
 
 ```
-$ cd ./src
-$ npm install
+cd ./src
+npm install
+```
+
+### Native modules
+
+The app uses native modules. Make sure you rebuild the modules before building the app:
+
+```
+gulp rebuild:<32|64>
 ```
 
 ### Build and watch
@@ -45,31 +53,25 @@ $ npm install
 During development you can use the `watch` tasks, which have live reload. As you edit files in `./src`, they will be re-compiled and moved into the `build` folder:
 
 ```
-$ gulp watch:darwin64
-$ gulp watch:linux32
-$ gulp watch:linux64
-$ gulp watch:win32
+gulp watch:<darwin64|linux32|linux64|win32>
 ```
 
 If you want to build it just one time, use `build`:
 
 ```
-$ gulp build:darwin64
-$ gulp build:linux32
-$ gulp build:linux64
-$ gulp build:win32
+gulp build:<darwin64|linux32|linux64|win32>
 ```
 
 For production builds, set `NODE_ENV=production` or use the `--prod` flag. Production builds don't include javascript sourcemaps or dev modules.
 
 ```
-$ gulp build:darwin64 --prod
-$ gulp build:linux32 --prod
-$ NODE_ENV=production gulp build:linux64
-$ NODE_ENV=production gulp build:win32
+gulp build:<darwin64|linux32|linux64|win32> --prod
+NODE_ENV=production gulp build:<darwin64|linux32|linux64|win32>
 ```
 
 To see detailed logs, run every gulp task with the `--verbose` flag.
+
+If you don't specify a platform when running a task, the task will run for the current platform.
 
 ### App debug logs
 
@@ -92,8 +94,7 @@ localStorage.debug='whatsie:*'
 Pack the app in a neat .dmg:
 
 ```
-$ gulp pack:darwin64
-$ gulp pack:darwin64 --prod
+gulp pack:darwin64 [--prod]
 ```
 
 This uses [node-appdmg](https://www.npmjs.com/package/appdmg) which works only on OS X machines. There's an issue about making it cross-platform [here](https://github.com/LinusU/node-appdmg/issues/14).
@@ -103,15 +104,13 @@ This uses [node-appdmg](https://www.npmjs.com/package/appdmg) which works only o
 Create an installer. This will also sign every executable inside the app, and the setup exe itself:
 
 ```
-$ gulp pack:win32:installer
-$ gulp pack:win32:installer --prod
+gulp pack:win32:installer [--prod]
 ```
 
 Or, if you prefer, create a portable zip. This will also sign the executable:
 
 ```
-$ gulp pack:win32:portable
-$ gulp pack:win32:portable --prod
+gulp pack:win32:portable [--prod]
 ```
 
 These tasks only work on Windows machines due to their dependencies: [Squirrel.Windows](https://github.com/Squirrel/Squirrel.Windows) and Microsoft's SignTool.
@@ -120,27 +119,10 @@ If you don't have a Windows machine at hand, you can use AppVeyor. When you push
 
 #### Linux
 
-Create deb packages:
+Create deb/rpm packages:
 
 ```
-$ gulp pack:linux32:deb
-$ gulp pack:linux64:deb
-```
-
-Create rpm packages:
-
-```
-$ gulp pack:linux32:rpm
-$ gulp pack:linux64:rpm
-```
-
-Or for production:
-
-```
-$ gulp pack:linux32:deb --prod
-$ gulp pack:linux64:deb --prod
-$ gulp pack:linux32:rpm --prod
-$ gulp pack:linux64:rpm --prod
+gulp pack:<linux32|linux64>:<deb|rpm> [--prod]
 ```
 
 Make sure you've installed [fpm](https://github.com/jordansissel/fpm).
@@ -161,7 +143,7 @@ Run the installer and follow the steps.
 Either double click and install or:
 
 ```
-$ dpkg -i whatsie.deb
+dpkg -i whatsie.deb
 ```
 
 ### Rpm package
@@ -169,14 +151,7 @@ $ dpkg -i whatsie.deb
 Either double click and install or:
 
 ```
-$ rpm -ivh whatsie.rpm
-```
-
-The package is signed with my GPG key. To check the signature:
-
-```
-$ rpm --import https://raw.githubusercontent.com/Aluxian/Whatsie/master/RPM-GPG-KEY-whatsie
-$ rpm -K whatsie.rpm
+rpm -ivh whatsie.rpm
 ```
 
 Note to WhatsApp

@@ -1,31 +1,20 @@
 gulp = require 'gulp'
-{platform} = require './utils'
+{applySpawn} = require './utils'
 manifest = require '../src/package.json'
-rebuild = require 'electron-rebuild'
-args = require './args'
-path = require 'path'
 
-electronPath = '...'
-electronVersion = manifest.electronVersion.substr 1
+[
+  ['32', 'ia32']
+  ['64', 'x64']
+].forEach (item) ->
+  [dist, arch] = item
 
-['darwin64', 'linux32', 'linux64', 'win32'].forEach (dist) ->
-  gulp.task 'rebuild:' + dist, ['download:' + dist], ->
-    rebuild.shouldRebuildNativeModules electronPath, electronVersion
-      .then (shouldBuild) ->
-        if args.verbose
-          console.log 'should build', shouldBuild
-        if shouldBuild
-          arch = if dist.indexOf('32') >= 0 then 'ia32' else 'x64'
-          modulesPath = path.resolve __dirname, '..', 'src', 'node_modules'
-          if args.verbose
-            console.log 'installing headers', electronVersion, arch
-          rebuild.installNodeHeaders electronVersion, null, null, arch
-            .then () ->
-              if args.verbose
-                console.log 'building', electronVersion, modulesPath
-              rebuild.rebuildNativeModules electronVersion, modulesPath
-        else
-          true
-
-# Rebuild for the current platform by default
-gulp.task 'rebuild', ['rebuild:' + platform()]
+  # Rebuild native node modules
+  gulp.task 'rebuild:' + dist, (done) ->
+    process.env.npm_config_disturl = 'https://atom.io/download/atom-shell'
+    process.env.npm_config_target = manifest.electronVersion
+    process.env.npm_config_arch = arch
+    process.env.npm_config_runtime = 'electron'
+    process.env.HOME = '~/.electron-gyp'
+    options =
+      env: process.env
+    (applySpawn 'npm', ['install'], options)(done)
