@@ -34,7 +34,8 @@ downloaded =
       outputDir: outputDir
       platform: platformName
       arch: arch
-    , ->
+    , (err) ->
+      return done err if err
       downloaded[dist] = true
 
       # Also rename the .app on darwin
