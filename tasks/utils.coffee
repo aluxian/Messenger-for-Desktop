@@ -58,9 +58,6 @@ platformOnly = () ->
   else
     process.platform
 
-isCurrentDist = (dist) ->
-  dist == platform()
-
 join = (args) ->
   (val for own key, val of args).join ' '
 
@@ -78,6 +75,5 @@ module.exports =
   applyIf: applyIf
   platform: platform
   platformOnly: platformOnly
-  isCurrentDist: isCurrentDist
   join: join
   log: log

@@ -1,4 +1,4 @@
-{applySpawn, isCurrentDist} = require './utils'
+{applySpawn, platformOnly} = require './utils'
 args = require './args'
 gulp = require 'gulp'
 
@@ -19,7 +19,7 @@ lock.killTask ||= { skip: {} }
     if lock.killTask.skip[dist]
       console.log 'kill skipped (lock)' if args.verbose
       done()
-    else if not isCurrentDist(dist)
+    else if not platformOnly in process.platform
       console.log 'kill skipped (platforms don\'t match)' if args.verbose
       done()
     else
