@@ -27,6 +27,9 @@ dependencies:
 test:
   pre:
     - cp RPM-GPG-KEY-whatsie ~/
+    - aws s3 cp --region eu-west-1 s3://aluxian/certificates/AR23736BFC.asc ~/AR23736BFC.asc
+    - gpg --import ~/RPM-GPG-KEY-whatsie
+    - gpg --allow-secret-key-import --import ~/AR23736BFC.asc
   post:
     - gulp pack:linux32:deb --verbose
     - gulp pack:linux32:rpm --verbose
