@@ -138,8 +138,11 @@ export function showWindow() {
   return function(menuItem, browserWindow) {
     if (browserWindow) {
       browserWindow.show();
-    } else if (global.application && global.application.mainWindow) {
-      global.application.mainWindow.window.show();
+    } else {
+      const windowManager = global.application.mainWindowManager;
+      if (windowManager.window) {
+        windowManager.window.show();
+      }
     }
   };
 }

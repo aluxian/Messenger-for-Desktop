@@ -40,7 +40,7 @@ process.on('uncaughtException', error => console.error(error.stack || error));
   // Enforce single instance
   const isDuplicateInstance = app.makeSingleInstance(() => {
     if (global.application) {
-      const mainWindow = global.application.mainWindow;
+      const mainWindow = global.application.mainWindowManager.window;
       if (mainWindow) {
         if (mainWindow.isMinimized()) {
           mainWindow.restore();
