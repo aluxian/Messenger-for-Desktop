@@ -30,6 +30,7 @@ install:
 build_script:
   - node --version
   - npm --version
+  - gulp rebuild:32
   - gulp pack:win32:installer
   - gulp pack:win32:portable
 
