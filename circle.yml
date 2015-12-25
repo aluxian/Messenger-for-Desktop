@@ -1,0 +1,24 @@
+general:
+  branches:
+    only:
+      - deploy
+  artifacts:
+    - dist
+
+machine:
+  node:
+    version: 0.12.0
+
+dependencies:
+  cache_directories:
+    - cache
+    - src/node_modules
+
+test:
+  pre:
+    - cp RPM-GPG-KEY-whatsie ~/
+  post:
+    - gulp pack:linux32:deb
+    - gulp pack:linux32:rpm
+    - gulp pack:linux64:deb
+    - gulp pack:linux64:rpm
