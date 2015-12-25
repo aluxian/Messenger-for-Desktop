@@ -4,5 +4,10 @@
  */
 export default {
   impl: global.application.nativeNotifier.impl,
-  fireNotification: ::global.application.nativeNotifier.fireNotification
+  fireNotification: function() {
+    const fireNotification = global.application.nativeNotifier.fireNotification;
+    if (fireNotification) {
+      fireNotification.apply(this, arguments);
+    }
+  }
 };
