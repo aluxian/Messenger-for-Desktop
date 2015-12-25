@@ -1,4 +1,5 @@
 import filePaths from '../utils/filePaths';
+import platform from '../utils/platform';
 import prefs from '../utils/prefs';
 import {debounce} from 'lodash';
 import shell from 'shell';
@@ -126,7 +127,7 @@ class MainWindowManager extends EventEmitter {
   onClose(event) {
     // Just hide the window, unless it's force closed
     log('onClose');
-    if (!this.forceClose && process.platform == 'darwin') {
+    if (!this.forceClose && (platform.isDarwin || platform.isWin)) {
       event.preventDefault();
       this.window.hide();
     }
