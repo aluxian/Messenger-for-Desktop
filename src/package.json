@@ -30,7 +30,6 @@
   "updater": {
     "manifestUrl": "https://raw.githubusercontent.com/Aluxian/Whatsie/master/src/package.json",
     "download": {
-      "darwin": "https://github.com/Aluxian/Whatsie/releases/download/v{{ version }}/{{ productName }}.dmg",
       "linux": {
         "deb": {
           "ia32": "https://github.com/Aluxian/Whatsie/releases/download/v{{ version }}/{{ name }}-{{ version }}-i386.deb",
@@ -40,8 +39,7 @@
           "ia32": "https://github.com/Aluxian/Whatsie/releases/download/v{{ version }}/{{ name }}-{{ version }}-i386.rpm",
           "x64": "https://github.com/Aluxian/Whatsie/releases/download/v{{ version }}/{{ name }}-{{ version }}-x86_64.rpm"
         }
-      },
-      "win": "https://github.com/Aluxian/Whatsie/releases/download/v{{ version }}/{{ productName }}Setup.exe"
+      }
     }
   },
   "darwin": {
