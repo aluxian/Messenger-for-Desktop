@@ -94,7 +94,10 @@ gulp.task 'build:darwin64', ['resources:darwin', 'compile:darwin64', 'clean:buil
           async.map files, (file, callback) ->
             size = path.basename file, '.png'
             fromPath = path.join './build/resources/linux/icons', file
-            toPath = './build/' + dist + '/usr/share/icons/hicolor/' + size + 'x' + size + '/apps/' + manifest.name + '.png'
+            toPath = path.join.apply path, [
+              './build/' + dist + '/usr/share/icons/hicolor/'
+              size + 'x' + size + '/apps/' + manifest.name + '.png'
+            ]
             fs.copy fromPath, toPath, utils.log callback, fromPath, '=>', toPath
           , callback
       ]
