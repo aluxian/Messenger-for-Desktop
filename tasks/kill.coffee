@@ -26,7 +26,7 @@ lock.killTask ||= { skip: {} }
       console.log 'killing app' if args.verbose
       lock.killTask.skip[dist] = true
       cb = (err) ->
-        if err.code == 'ENOENT' or err.code == 1
+        if err.code == 'ENOENT' or err.code == 1 or err.code == 128
           console.error err if args.verbose
           done()
         else
