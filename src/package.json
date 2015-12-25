@@ -29,16 +29,14 @@
   },
   "updater": {
     "manifestUrl": "https://raw.githubusercontent.com/Aluxian/Whatsie/master/src/package.json",
-    "download": {
-      "linux": {
-        "deb": {
-          "ia32": "https://github.com/Aluxian/Whatsie/releases/download/v{{ version }}/{{ name }}-{{ version }}-i386.deb",
-          "x64": "https://github.com/Aluxian/Whatsie/releases/download/v{{ version }}/{{ name }}-{{ version }}-amd64.deb"
-        },
-        "rpm": {
-          "ia32": "https://github.com/Aluxian/Whatsie/releases/download/v{{ version }}/{{ name }}-{{ version }}-i386.rpm",
-          "x64": "https://github.com/Aluxian/Whatsie/releases/download/v{{ version }}/{{ name }}-{{ version }}-x86_64.rpm"
-        }
+    "linux": {
+      "deb": {
+        "ia32": "https://github.com/Aluxian/Whatsie/releases/download/v2.0.0/Whatsie-2.0.0-i386.deb",
+        "x64": "https://github.com/Aluxian/Whatsie/releases/download/v2.0.0/Whatsie-2.0.0-amd64.deb"
+      },
+      "rpm": {
+        "ia32": "https://github.com/Aluxian/Whatsie/releases/download/v2.0.0/Whatsie-2.0.0-i386.rpm",
+        "x64": "https://github.com/Aluxian/Whatsie/releases/download/v2.0.0/Whatsie-2.0.0-x86_64.rpm"
       }
     }
   },
