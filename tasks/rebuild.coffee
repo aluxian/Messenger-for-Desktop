@@ -15,7 +15,7 @@ electronVersion = manifest.electronVersion.substr 1
         if args.verbose
           console.log 'should build', shouldBuild
         if shouldBuild
-          arch = if '32' in dist then 'ia32' else 'x64'
+          arch = if dist.indexOf('32') >= 0 then 'ia32' else 'x64'
           modulesPath = path.resolve __dirname, '..', 'src', 'node_modules'
           if args.verbose
             console.log 'installing headers', electronVersion, arch
