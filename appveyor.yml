@@ -17,10 +17,11 @@ environment:
 
 install:
   - npm cache clean
-  - npm install -g npm@2
+  - npm install -g npm@3
   - set PATH=%APPDATA%\npm;%PATH%
   - aws s3 cp --region eu-west-1 s3://aluxian/certificates/foss_ar.pfx C:/foss_ar.pfx
   - npm install -g gulp
+  - npm install publish-release
   - npm cache clean && npm install
 
 build_script:
