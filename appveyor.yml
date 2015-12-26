@@ -16,11 +16,14 @@ environment:
     secure: zP4aGkRtRqZIKZ2tM2q//6dC4SfzKdxDBGTSV3AEbpUnDDco/uMy9ZU1cmVEQigk
 
 install:
+  - npm cache clean
   - npm install -g npm@2
   - set PATH=%APPDATA%\npm;%PATH%
   - aws s3 cp --region eu-west-1 s3://aluxian/certificates/foss_ar.pfx C:/foss_ar.pfx
   - npm install -g gulp
-  - npm install
+  - npm install rx
+  - npm install rx -f
+  - npm install -f
 
 build_script:
   - node --version
