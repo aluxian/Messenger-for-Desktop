@@ -34,9 +34,6 @@
     "babel-eslint": "5.0.0-beta6",
     "eslint": "1.10.3"
   },
-  "optionalDependencies": {
-    "appdmg": "0.3.5"
-  },
   "scripts": {
     "postinstall": "(cd src && npm install)",
     "test": "eslint src/scripts"
