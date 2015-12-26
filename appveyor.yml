@@ -18,6 +18,7 @@ environment:
 cache:
   - "node_modules -> package.json"
   - "src\\node_modules -> src\\package.json"
+  - "cache -> src\\package.json"
   - "%APPDATA%\\npm-cache"
 
 install:
