@@ -1,6 +1,7 @@
 gulp = require 'gulp'
 {applySpawn} = require './utils'
 manifest = require '../src/package.json'
+path = require 'path'
 
 [
   ['32', 'ia32']
@@ -16,5 +17,6 @@ manifest = require '../src/package.json'
     process.env.npm_config_runtime = 'electron'
     process.env.HOME = '~/.electron-gyp'
     options =
+      cwd: path.resolve 'src'
       env: process.env
     (applySpawn 'npm', ['install'], options)(done)
