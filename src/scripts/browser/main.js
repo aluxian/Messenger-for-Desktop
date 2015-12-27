@@ -59,6 +59,7 @@ process.on('uncaughtException', error => console.error(error.stack || error));
   // Change the userData path if in portable mode
   if (argv.portable || manifest.portable) {
     log('running in portable mode');
+    log('setPath', path.join(app.getAppPath(), 'data'));
     app.setPath('userData', path.join(app.getAppPath(), 'data'));
   }
 
