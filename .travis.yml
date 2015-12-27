@@ -41,8 +41,6 @@ deploy:
   file:
     - dist/Whatsie.dmg
   skip_cleanup: true
-  on:
-    tags: true
 
 cache:
   directories:
