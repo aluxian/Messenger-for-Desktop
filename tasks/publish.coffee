@@ -3,7 +3,7 @@ githubRelease = require 'gulp-github-release'
 manifest = require '../src/package.json'
 
 # Upload every file in ./dist to GitHub
-gulp.task 'publish:github', ['pack'], ->
+gulp.task 'publish:github', ->
   if not process.env.GITHUB_TOKEN
     return console.warn 'GITHUB_TOKEN env var not set.'
 
@@ -11,6 +11,7 @@ gulp.task 'publish:github', ['pack'], ->
     .pipe githubRelease
       token: process.env.GITHUB_TOKEN
       manifest: manifest
+      reuseRelease: true
       draft: true
 
 # TODO: Upload to PPA

@@ -1,76 +1,78 @@
-import platform from '../../utils/platform';
-import request from 'request';
-import semver from 'semver';
-import dialog from 'dialog';
+// import platform from '../../utils/platform';
+// import request from 'request';
+// import semver from 'semver';
+// import dialog from 'dialog';
 import shell from 'shell';
 import app from 'app';
 
 import AppWindowManager from '../../managers/main-window-manager';
 
-import manifest from '../../../../package.json';
+// import manifest from '../../../../package.json';
 
 /**
  * Check for update.
  */
 export function checkForUpdate() {
   return function() {
-    if (platform.isLinux) {
-      const options = {
-        url: manifest.updater.manifestUrl,
-        json: true
-      };
+    // https://github.com/atom/electron/blob/master/docs/api/auto-updater.md
 
-      log('checking for update', JSON.stringify(options));
-      request(options, function(err, response, newManifest) {
-        if (err) {
-          log('update error while getting new manifest', err);
-          dialog.showMessageBox({
-            type: 'warning',
-            message: 'Error while checking for update.',
-            detail: err.message,
-            buttons: ['OK']
-          }, function() {});
-          return;
-        }
-
-        if (response.statusCode < 200 || response.statusCode >= 300) {
-          log('update error statusCode', response.statusCode);
-          dialog.showMessageBox({
-            type: 'warning',
-            message: 'Error while checking for update.',
-            detail: response.statusMessage,
-            buttons: ['OK']
-          }, function() {});
-          return;
-        }
-
-        const newVersionExists = semver.gt(newManifest.version, manifest.version);
-        if (newVersionExists) {
-          log('new version exists', newManifest.version);
-          dialog.showMessageBox({
-            type: 'info',
-            message: 'A new version is available: ' + newManifest.version,
-            detail: 'Use your package manager to update, or click Download to get the new package.',
-            buttons: ['OK', 'Download']
-          }, function(response) {
-            log('new version exists dialog response', response);
-            if (response === 1) {
-              const packageType = manifest.distrib.split('-')[1];
-              const downloadUrl = newManifest.updater.linux[packageType][process.arch]
-                .replace('%VERSION%', newManifest.version);
-              shell.openExternal(downloadUrl);
-            }
-          });
-        } else {
-          log('app version up to date');
-          dialog.showMessageBox({
-            type: 'info',
-            message: 'You\'re using the latest version: ' + newManifest.version,
-            buttons: ['OK']
-          }, function() {});
-        }
-      });
-    }
+    // if (platform.isLinux) {
+    //   const options = {
+    //     url: manifest.updater.manifestUrl,
+    //     json: true
+    //   };
+    //
+    //   log('checking for update', JSON.stringify(options));
+    //   request(options, function(err, response, newManifest) {
+    //     if (err) {
+    //       log('update error while getting new manifest', err);
+    //       dialog.showMessageBox({
+    //         type: 'warning',
+    //         message: 'Error while checking for update.',
+    //         detail: err.message,
+    //         buttons: ['OK']
+    //       }, function() {});
+    //       return;
+    //     }
+    //
+    //     if (response.statusCode < 200 || response.statusCode >= 300) {
+    //       log('update error statusCode', response.statusCode);
+    //       dialog.showMessageBox({
+    //         type: 'warning',
+    //         message: 'Error while checking for update.',
+    //         detail: response.statusMessage,
+    //         buttons: ['OK']
+    //       }, function() {});
+    //       return;
+    //     }
+    //
+    //     const newVersionExists = semver.gt(newManifest.version, manifest.version);
+    //     if (newVersionExists) {
+    //       log('new version exists', newManifest.version);
+    //       dialog.showMessageBox({
+    //         type: 'info',
+    //         message: 'A new version is available: ' + newManifest.version,
+    //         detail: 'Use your package manager to update, or click Download to get the new package.',
+    //         buttons: ['OK', 'Download']
+    //       }, function(response) {
+    //         log('new version exists dialog response', response);
+    //         if (response === 1) {
+    //           const packageType = manifest.distrib.split('-')[1];
+    //           const downloadUrl = newManifest.updater.linux[packageType][process.arch]
+    //             .replace('%VERSION%', newManifest.version);
+    //           shell.openExternal(downloadUrl);
+    //         }
+    //       });
+    //     } else {
+    //       log('app version up to date');
+    //       dialog.showMessageBox({
+    //         type: 'info',
+    //         message: 'You\'re using the latest version: ' + newManifest.version,
+    //         buttons: ['OK']
+    //       }, function() {});
+    //     }
+    //   });
+    // }
   };
 }
 

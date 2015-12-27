@@ -29,6 +29,10 @@
   },
   "updater": {
     "manifestUrl": "https://raw.githubusercontent.com/Aluxian/Whatsie/master/src/package.json",
+    "squirrelUrl": {
+      "darwin": "https://updates.whatsie.chat/update/osx/%CURRENT_VERSION%",
+      "win32": "https://updates.whatsie.chat/update/win32/%VERSION%"
+    },
     "linux": {
       "deb": {
         "ia32": "https://github.com/Aluxian/Whatsie/releases/download/v%VERSION%/Whatsie-%VERSION%-i386.deb",

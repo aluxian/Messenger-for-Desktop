@@ -19,7 +19,7 @@
     "gulp-electron-downloader": "Aluxian/gulp-electron-downloader",
     "gulp-embedlr": "0.5.2",
     "gulp-filter": "3.0.1",
-    "gulp-github-release": "1.0.3",
+    "gulp-github-release": "1.1.0",
     "gulp-header": "1.7.1",
     "gulp-if": "2.0.0",
     "gulp-less": "3.0.5",
