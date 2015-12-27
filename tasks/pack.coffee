@@ -207,7 +207,7 @@ gulp.task 'pack:win32:installer', ['build:win32', 'clean:dist:win32'], (done) ->
         certificateFile: process.env.SIGN_WIN_CERTIFICATE_FILE
         certificatePassword: process.env.SIGN_WIN_CERTIFICATE_PASSWORD
         setupIcon: './build/resources/win/setup.ico'
-        iconUrl: 'https://raw.githubusercontent.com/Aluxian/electron-superkit/master/resources/win/app.ico'
+        iconUrl: 'https://raw.githubusercontent.com/Aluxian/Whatsie/master/resources/win/app.ico'
         remoteReleases: manifest.repository.url
       .then callback, callback
   ], done

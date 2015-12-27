@@ -119,7 +119,9 @@ gulp.task 'build:win32', ['resources:win', 'compile:win32', 'clean:build:win32']
         'product-version': manifest.version
         'icon': './build/resources/win/app.ico'
 
-      rcedit './build/win32/electron.exe', properties, utils.log callback, 'rcedit ./build/win32/electron.exe properties', properties
+      exePath = './build/win32/electron.exe'
+      logMessage = 'rcedit ./build/win32/electron.exe properties'
+      rcedit exePath, properties, utils.log callback, logMessage, JSON.stringify(properties)
 
     # Rename the exe
     (callback) ->
