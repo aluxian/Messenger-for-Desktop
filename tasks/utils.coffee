@@ -1,6 +1,6 @@
 args = require './args'
 async = require 'async'
-cp = require 'child_process'
+spawn = require 'cross-spawn-async'
 fs = require 'fs'
 require 'colors'
 
@@ -24,7 +24,7 @@ applySpawn = (cmd, params, opts = {}) ->
   (cb) ->
     unless opts.stdio
       opts.stdio = if args.verbose then 'inherit' else 'ignore'
-    child = cp.spawn cmd, params, opts
+    child = spawn cmd, params, opts
     if cb
       errored = false
       child.on 'error', (err) ->
