@@ -1,7 +1,7 @@
 {
   "name": "whatsie",
   "dependencies": {
-    "asar": "0.8.3",
+    "asar": "0.9.0",
     "async": "1.5.0",
     "babel-plugin-default-import-checker": "1.0.8",
     "babel-plugin-transform-runtime": "6.3.13",
@@ -12,7 +12,7 @@
     "colors": "1.1.2",
     "cross-spawn-async": "2.1.1",
     "del": "2.2.0",
-    "electron-windows-installer": "1.1.0",
+    "electron-windows-installer": "1.2.0",
     "fs-extra-promise": "0.3.1",
     "gulp": "3.9.0",
     "gulp-babel": "6.1.1",
@@ -24,7 +24,7 @@
     "gulp-if": "2.0.0",
     "gulp-less": "3.0.5",
     "gulp-livereload": "3.8.1",
-    "gulp-mustache": "2.1.1",
+    "gulp-mustache": "2.2.0",
     "gulp-plumber": "1.0.1",
     "gulp-sourcemaps": "1.6.0",
     "gulp-zip": "3.0.2",
