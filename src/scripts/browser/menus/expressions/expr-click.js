@@ -56,7 +56,8 @@ export function checkForUpdate() {
             log('new version exists dialog response', response);
             if (response === 1) {
               const packageType = manifest.distrib.split('-')[1];
-              const downloadUrl = newManifest.updater.linux[packageType][process.arch];
+              const downloadUrl = newManifest.updater.linux[packageType][process.arch]
+                .replace('%VERSION%', newManifest.version);
               shell.openExternal(downloadUrl);
             }
           });
