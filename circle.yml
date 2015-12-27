@@ -27,8 +27,8 @@ dependencies:
 test:
   post:
     - gulp rebuild:32
-    - gulp pack:linux32:deb --verbose
-    - gulp pack:linux32:rpm --verbose
+    - gulp pack:linux32:deb --prod --verbose
+    - gulp pack:linux32:rpm --prod --verbose
     - gulp rebuild:64
-    - gulp pack:linux64:deb --verbose
-    - gulp pack:linux64:rpm --verbose
+    - gulp pack:linux64:deb --prod --verbose
+    - gulp pack:linux64:rpm --prod --verbose

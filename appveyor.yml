@@ -32,8 +32,8 @@ build_script:
   - node --version
   - npm --version
   - gulp rebuild:32 --verbose
-  - gulp pack:win32:portable --verbose
-  - gulp pack:win32:installer --verbose
+  - gulp pack:win32:portable --prod --verbose
+  - gulp pack:win32:installer --prod --verbose
 
 test: off
 
