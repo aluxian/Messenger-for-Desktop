@@ -1,0 +1,60 @@
+os:
+  - osx
+
+git:
+  depth: 10
+
+branches:
+  only:
+    - deploy
+
+compiler: clang
+
+sudo: false
+
+before_install:
+  - pip install --user awscli && export PATH=$PATH:~/.local/bin/
+
+install:
+  - git clone https://github.com/creationix/nvm.git /tmp/.nvm
+  - source /tmp/.nvm/nvm.sh
+  - nvm install 0.12
+  - nvm use 0.12
+  - npm install -g gulp
+  - npm install
+
+before_script:
+  - aws s3 cp --region eu-west-1 s3://aluxian/certificates/armacdev.p12 armacdev.p12
+  - security create-keychain -p travis $SIGN_DARWIN_KEYCHAIN_NAME
+  - security default-keychain -s $SIGN_DARWIN_KEYCHAIN_NAME
+  - security unlock-keychain -p travis $SIGN_DARWIN_KEYCHAIN_NAME
+  - security set-keychain-settings -t 3600 -u $SIGN_DARWIN_KEYCHAIN_NAME
+  - security import armacdev.p12 -P $SIGN_DARWIN_KEYCHAIN_PASSWORD -T /usr/bin/codesign
+
+script:
+  - gulp rebuild:64 --verbose
+  - gulp pack:darwin64 --verbose
+
+deploy:
+  provider: releases
+  api_key: $GITHUB_TOKEN
+  file:
+    - dist/Whatsie.dmg
+  skip_cleanup: true
+  on:
+    tags: true
+
+cache:
+  directories:
+    - node_modules
+    - src/node_modules
+    - cache
+
+addons:
+  apt:
+    packages:
+    - git
+    - build-essential
+    - python-virtualenv
+    - libgnome-keyring-dev
+    - fakeroot
