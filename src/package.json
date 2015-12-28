@@ -30,7 +30,7 @@
     "manifestUrl": "https://raw.githubusercontent.com/Aluxian/Whatsie/master/src/package.json",
     "squirrelUrl": {
       "darwin": "https://updates.whatsie.chat/update/osx/%CURRENT_VERSION%",
-      "win32": "https://updates.whatsie.chat/update/win32/%VERSION%"
+      "win32": "https://updates.whatsie.chat/update/win32/:version"
     },
     "linux": {
       "deb": {
@@ -59,7 +59,8 @@
   },
   "win": {
     "companyName": "Alexandru Rosianu",
-    "copyright": "Copyright © Alexandru Rosianu"
+    "copyright": "Copyright © Alexandru Rosianu",
+    "userModelId": "com.squirrel.whatsie.Whatsie"
   },
   "license": "MIT",
   "author": "Alexandru Rosianu <me@aluxian.com>",

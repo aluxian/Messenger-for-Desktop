@@ -92,16 +92,22 @@ import manifest from '../../package.json';
     app.on('will-finish-launching', function() {
       log('will finish launching');
 
-      log('starting crash reporter');
-      CrashReporter.start({
+      // Crash reporter
+      const reporterOptions = {
         productName: manifest.productName,
         companyName: manifest.win.companyName,
         submitURL: manifest.crashReporter.url,
         autoSubmit: true
-      });
+      };
+      log('starting crash reporter', JSON.stringify(reporterOptions));
+      CrashReporter.start(reporterOptions);
 
+      // Auto updater
       log('starting auto updater');
-      // AutoUpdater
+      app.setAppUserModelId(manifest.win.userModelId);
+      const feedUrl = manifest.updater.squirrelUrl[process.platform]
+        .replace(/%CURRENT_VERSION%/g, manifest.version);
+      AutoUpdater.setFeedURL(feedUrl);
     });
   } else {
     log('mas release');
