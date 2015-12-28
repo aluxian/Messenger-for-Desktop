@@ -1,4 +1,6 @@
+import platform from './platform';
 import path from 'path';
+import app from 'app';
 
 export default {
   /**
@@ -34,5 +36,20 @@ export default {
    */
   getImagePath: function(name) {
     return path.resolve(__dirname, '..', '..', '..', 'images', name);
+  },
+
+  /**
+   * On Darwin: the path to the .app
+   * On Windows: the path to the dir of Whatsie.exe
+   * On Linux: the path to the dir of whatsie (the exec)
+   * @return the directory where the app is ran from
+   */
+  getAppDir: function() {
+    const exeDir = path.dirname(app.getPath('exe'));
+    if (platform.isDarwin) {
+      return path.join(exeDir, '..', '..');
+    } else {
+      return exeDir;
+    }
   }
 };

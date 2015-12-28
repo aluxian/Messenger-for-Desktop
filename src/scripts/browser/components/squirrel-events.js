@@ -1,3 +1,4 @@
+import filePaths from '../utils/filePaths';
 import cp from 'child_process';
 import path from 'path';
 import app from 'app';
@@ -24,7 +25,7 @@ class SquirrelEvents {
   }
 
   spawnSquirrel(args, callback) {
-    const squirrelExec = path.join(path.dirname(app.getPath('exe')), 'Update.exe');
+    const squirrelExec = path.join(filePaths.getAppDir(), 'Update.exe');
     log('spawning', squirrelExec, args);
 
     const child = cp.spawn(squirrelExec, args, { detached: true });

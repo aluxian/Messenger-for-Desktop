@@ -2,6 +2,8 @@ import app from 'app';
 import yargs from 'yargs';
 import path from 'path';
 
+import filePaths from './utils/filePaths';
+
 // import CrashReporter from 'crash-reporter';
 // import Updater from './components/updater';
 import SquirrelEvents from './components/squirrel-events';
@@ -9,9 +11,6 @@ import SquirrelEvents from './components/squirrel-events';
 import Application from './application';
 
 import manifest from '../../package.json';
-
-// Log uncaught exceptions
-process.on('uncaughtException', error => console.error(error.stack || error));
 
 (function() {
   // Define the CLI arguments and parse them
@@ -71,8 +70,9 @@ process.on('uncaughtException', error => console.error(error.stack || error));
   // Change the userData path if in portable mode
   if (argv.portable || manifest.portable) {
     log('running in portable mode');
-    log('setPath', path.join(app.getAppPath(), 'data'));
-    app.setPath('userData', path.join(app.getAppPath(), 'data'));
+    const userDataPath = path.join(filePaths.getAppDir(), 'data');
+    log('set userData path', userDataPath);
+    app.setPath('userData', userDataPath);
   }
 
   // Enable the crash reporter

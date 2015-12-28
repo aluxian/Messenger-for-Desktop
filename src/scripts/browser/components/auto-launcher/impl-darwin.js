@@ -1,8 +1,7 @@
 import manifest from '../../../../package.json';
+import filePaths from '../../utils/filePaths';
 import appleScript from 'applescript';
 import async from 'async';
-import path from 'path';
-import app from 'app';
 
 import BaseAutoLauncher from './base';
 
@@ -10,7 +9,7 @@ class DarwinAutoLauncher extends BaseAutoLauncher {
 
   enable(hidden = false, callback) {
     const props = {
-      path: path.resolve(path.dirname(app.getPath('exe')), '..', '..'),
+      path: filePaths.getAppDir(),
       name: manifest.productName,
       hidden: hidden
     };
