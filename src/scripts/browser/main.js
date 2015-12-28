@@ -1,4 +1,5 @@
 import filePaths from './utils/filePaths';
+import dialog from 'dialog';
 import yargs from 'yargs';
 import path from 'path';
 import app from 'app';
@@ -9,6 +10,15 @@ import SquirrelEvents from './components/squirrel-events';
 import Application from './application';
 
 import manifest from '../../package.json';
+
+// Handle uncaught exceptions
+process.on('uncaughtException', function(ex) {
+  console.error('uncaught exception', ex);
+  const isProdRelease = manifest.distrib != 'unset';
+  if (isProdRelease) {
+    dialog.showErrorBox('JavaScript error in the main process', ex.stack);
+  }
+});
 
 (function() {
   // Define the CLI arguments and parse them
