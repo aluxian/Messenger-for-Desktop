@@ -106,7 +106,7 @@ args = require './args'
       .pipe gulp.dest dir + '/node_modules'
       .pipe livereload()
 
-  # Move package.json file
+  # Move package.json
   gulp.task 'compile:' + dist + ':package', ['clean:build:' + dist], ->
     gulp.src './src/package.json'
       .pipe gulp.dest dir
