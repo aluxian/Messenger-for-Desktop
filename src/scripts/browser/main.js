@@ -1,13 +1,11 @@
-import app from 'app';
+import filePaths from './utils/filePaths';
 import yargs from 'yargs';
 import path from 'path';
+import app from 'app';
 
-import filePaths from './utils/filePaths';
-
-// import CrashReporter from 'crash-reporter';
-// import Updater from './components/updater';
+import CrashReporter from 'crash-reporter';
+import AutoUpdater from './components/auto-updater';
 import SquirrelEvents from './components/squirrel-events';
-
 import Application from './application';
 
 import manifest from '../../package.json';
@@ -75,26 +73,31 @@ import manifest from '../../package.json';
     app.setPath('userData', userDataPath);
   }
 
-  // Enable the crash reporter
-  // app.on('will-finish-launching', function() {
-  //   CrashReporter.start(manifest.crashReporter); // fix manifest.crashReporter
-  //   // start the auto updater
-  // });
+  // Enable the crash reporter and auto updater
+  if (!process.mas) {
+    app.on('will-finish-launching', function() {
+      log('will finish launching');
 
-  // Check for update and create the main app object
+      log('starting crash reporter');
+      CrashReporter.start({
+        productName: manifest.productName,
+        companyName: manifest.win.companyName,
+        submitURL: manifest.crashReporter.url,
+        autoSubmit: true
+      });
+
+      log('starting auto updater');
+      // AutoUpdater
+    });
+  } else {
+    log('mas release');
+  }
+
+  // Create the main app object and init
   app.on('ready', function() {
     log('ready, launching app');
     global.manifest = manifest;
     global.application = new Application(manifest, argv);
     global.application.init();
-    // Updater.checkAndPrompt(manifest, false)
-    //   .then(function(willUpdate) {
-    //     if (willUpdate) {
-    //       return app.quit();
-    //     }
-    //
-    //     global.application = new Application(manifest, argv);
-    //   })
-    //   .catch(::console.error);
   });
 })();

@@ -43,6 +43,9 @@
       }
     }
   },
+  "crashReporter": {
+    "url": "https://crashes.whatsie.chat:7777/"
+  },
   "darwin": {
     "bundleId": "com.aluxian.whatsie",
     "appCategoryType": "public.app-category.social-networking",
