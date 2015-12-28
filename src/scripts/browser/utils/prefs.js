@@ -1,6 +1,7 @@
-import app from 'app';
+import defaults from './prefs-defaults';
 import Store from 'jfs';
 import path from 'path';
+import app from 'app';
 
 const prefsPath = path.join(app.getPath('userData'), 'prefs.json');
 const db = new Store(prefsPath);
@@ -22,10 +23,10 @@ function set(key, value) {
 /**
  * Retrieve the value synchronously.
  */
-function get(key, defaultValue) {
+function get(key) {
   const value = db.getSync(key);
   if (value == undefined || value instanceof Error) {
-    return defaultValue;
+    return defaults[key];
   }
   return value;
 }

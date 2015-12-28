@@ -50,7 +50,7 @@ class IpcListenersManager extends EventEmitter {
     this.notifManager.unreadCount = count;
 
     // Set icon badge
-    if (app.dock && app.dock.setBadge && prefs.get('notifications-badge', true)) {
+    if (app.dock && app.dock.setBadge && prefs.get('show-notifications-badge')) {
       app.dock.setBadge(count);
     }
 
@@ -62,7 +62,7 @@ class IpcListenersManager extends EventEmitter {
    * Called when the 'open-url' event is received.
    */
   onOpenUrl(event, url, options) {
-    if (prefs.get('links-in-browser', true)) {
+    if (prefs.get('links-in-browser')) {
       log('on renderer open-url, externally', url);
       shell.openExternal(url);
     } else {

@@ -18,12 +18,12 @@ export default {
     type: 'checkbox',
     label: 'Launch on Startup',
     click: $.all(
-      $.launchOnStartup($.key('checked'), $.pref('startup-hidden')),
+      $.launchOnStartup($.key('checked'), $.pref('launch-startup-hidden')),
       $.updateSibling('startup-hidden', 'enabled', $.key('checked')),
       $.setPref('launch-startup', $.key('checked'))
     ),
     parse: $.all(
-      $.setLocal('checked', $.pref('launch-startup', $.val(false))),
+      $.setLocal('checked', $.pref('launch-startup')),
       $.updateSibling('startup-hidden', 'enabled', $.key('checked'))
     )
   }, {
@@ -32,20 +32,20 @@ export default {
     label: 'Start Hidden on Startup',
     click: $.all(
       $.ifTrue($.val(platform.isDarwin), $.launchOnStartupHidden($.key('checked'))),
-      $.setPref('startup-hidden', $.key('checked')),
+      $.setPref('launch-startup-hidden', $.key('checked')),
     ),
     parse: $.all(
-      $.setLocal('checked', $.pref('startup-hidden', $.val(false)))
+      $.setLocal('checked', $.pref('launch-startup-hidden'))
     )
   }, {
     type: 'checkbox',
     label: 'Anonymous Statistics',
     click: $.all(
-      $.setPref('track-analytics', $.key('checked')),
+      $.setPref('analytics-track', $.key('checked')),
       $.reloadWindow()
     ),
     parse: $.all(
-      $.setLocal('checked', $.pref('track-analytics', $.val(true)))
+      $.setLocal('checked', $.pref('analytics-track'))
     )
   }, {
     type: 'separator'

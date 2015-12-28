@@ -21,13 +21,13 @@ class MainWindowManager extends EventEmitter {
     this.options = options;
 
     this.forceClose = false;
-    this.startHidden = options.osStartup && prefs.get('startup-hidden', false);
+    this.startHidden = options.osStartup && prefs.get('launch-startup-hidden');
   }
 
   createWindow() {
     log('creating main window');
 
-    const bounds = prefs.get('window-bounds', MainWindowManager.DEFAULT_BOUNDS);
+    const bounds = prefs.get('window-bounds');
     const defaultOptions = {
       title: this.manifest.productName,
       backgroundColor: '#dfdfdf',
@@ -63,7 +63,7 @@ class MainWindowManager extends EventEmitter {
     this.window.on('move', saveBounds);
 
     // Restore full screen state
-    const isFullScreen = prefs.get('full-screen', false);
+    const isFullScreen = prefs.get('window-full-screen');
     this.window.setFullScreen(isFullScreen);
 
     // Finally, load the app html
@@ -75,7 +75,7 @@ class MainWindowManager extends EventEmitter {
    */
   onNewWindow(event, url) {
     // Open urls in an external browser
-    if (prefs.get('links-in-browser', true)) {
+    if (prefs.get('links-in-browser')) {
       log('opening url externally', url);
       event.preventDefault();
       shell.openExternal(url);
@@ -100,7 +100,7 @@ class MainWindowManager extends EventEmitter {
    */
   onEnterFullScreen() {
     // Save in prefs
-    prefs.set('full-screen', true);
+    prefs.set('window-full-screen', true);
   }
 
   /**
@@ -108,7 +108,7 @@ class MainWindowManager extends EventEmitter {
    */
   onLeaveFullScreen() {
     // Save in prefs
-    prefs.set('full-screen', false);
+    prefs.set('window-full-screen', false);
   }
 
   /**

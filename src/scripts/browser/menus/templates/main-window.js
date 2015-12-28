@@ -29,17 +29,17 @@ export default {
       $.setPref('links-in-browser', $.key('checked'))
     ),
     parse: $.all(
-      $.setLocal('checked', $.pref('links-in-browser', $.val(true)))
+      $.setLocal('checked', $.pref('links-in-browser'))
     )
   }, {
     type: 'checkbox',
     label: 'Notifications Badge in Dock',
     click: $.all(
-      $.setPref('notifications-badge', $.key('checked')),
+      $.setPref('show-notifications-badge', $.key('checked')),
       $.hideDockBadge($.key('checked'))
     ),
     parse: $.all(
-      $.setLocal('checked', $.pref('notifications-badge', $.val(true)))
+      $.setLocal('checked', $.pref('show-notifications-badge'))
     )
   }, {
     type: 'separator'
@@ -57,7 +57,7 @@ export default {
       $.setPref('show-tray', $.key('checked'))
     ),
     parse: $.all(
-      $.setLocal('checked', $.pref('show-tray', $.val(false))),
+      $.setLocal('checked', $.pref('show-tray')),
       $.updateSibling('show-dock', 'enabled', $.key('checked'))
     )
   }, {
@@ -74,7 +74,7 @@ export default {
       $.setPref('show-dock', $.key('checked'))
     ),
     parse: $.all(
-      $.setLocal('checked', $.pref('show-dock', $.val(true))),
+      $.setLocal('checked', $.pref('show-dock')),
       $.updateSibling('show-tray', 'enabled', $.key('checked')),
       $.showInDock($.key('checked'))
     )

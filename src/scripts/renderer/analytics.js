@@ -3,7 +3,7 @@ import remote from 'remote';
 const manifest = remote.getGlobal('manifest');
 const analytics = remote.require('../browser/utils/analytics');
 const prefs = remote.require('../browser/utils/prefs').default;
-const trackAnalytics = prefs.get('track-analytics', true);
+const trackAnalytics = prefs.get('analytics-track');
 
 if (trackAnalytics) {
   log('enabling google analytics');

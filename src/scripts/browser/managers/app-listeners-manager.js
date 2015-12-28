@@ -42,7 +42,7 @@ class AppListenersManager extends EventEmitter {
     app.quit();
 
     // Inform the user the app is still running
-    if (platform.isWin && !prefs.get('quit-behaviour-taught', false)) {
+    if (platform.isWin && !prefs.get('quit-behaviour-taught')) {
       this.trayManager.tray.displayBalloon({
         title: 'Whatsie',
         content: 'Whatsie keeps running in the tray until you quit it.'

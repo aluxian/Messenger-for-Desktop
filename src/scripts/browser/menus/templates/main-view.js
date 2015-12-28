@@ -24,7 +24,7 @@ export default {
     label: 'Zoom In',
     accelerator: 'CmdOrCtrl+=',
     click: $.all(
-      $.memo('zoom-level', $.sum($.pref('zoom-level', $.val(0)), $.val(1))),
+      $.memo('zoom-level', $.sum($.pref('zoom-level'), $.val(1))),
       $.sendToWebView('zoom-level', $.memo('zoom-level')),
       $.setPref('zoom-level', $.memo('zoom-level')),
       $.unmemo('zoom-level')
@@ -33,7 +33,7 @@ export default {
     label: 'Zoom Out',
     accelerator: 'CmdOrCtrl+-',
     click: $.all(
-      $.memo('zoom-level', $.sum($.pref('zoom-level', $.val(0)), $.val(-1))),
+      $.memo('zoom-level', $.sum($.pref('zoom-level'), $.val(-1))),
       $.sendToWebView('zoom-level', $.memo('zoom-level')),
       $.setPref('zoom-level', $.memo('zoom-level')),
       $.unmemo('zoom-level')

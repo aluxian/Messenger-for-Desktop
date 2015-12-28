@@ -12,7 +12,7 @@ export default {
         $.setPref('theme', $.key('theme'))
       ),
       parse: $.all(
-        $.setLocal('checked', $.eq($.pref('theme', $.val('default')), $.key('theme')))
+        $.setLocal('checked', $.eq($.pref('theme'), $.key('theme')))
       )
     };
   })

@@ -25,13 +25,9 @@ export function key(localKey) {
 /**
  * Returns the pref value for the given key.
  */
-export function pref(prefName, defaultValueExpr) {
+export function pref(prefName) {
   return function() {
-    let defaultValue = undefined;
-    if (defaultValueExpr) {
-      defaultValue = defaultValueExpr.apply(this, arguments);
-    }
-    return prefs.get(prefName, defaultValue);
+    return prefs.get(prefName);
   };
 }
 

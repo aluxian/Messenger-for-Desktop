@@ -17,7 +17,7 @@ class TrayManager extends EventEmitter {
     this.notifManager = notifManager;
 
     // Restore the tray menu from prefs
-    if (prefs.get('show-tray', false)) {
+    if (prefs.get('show-tray')) {
       this.create();
     }
 

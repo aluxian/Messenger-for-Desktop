@@ -8,11 +8,11 @@ export default {
     type: 'checkbox',
     label: 'Anonymous Statistics',
     click: $.all(
-      $.setPref('track-analytics', $.key('checked')),
+      $.setPref('analytics-track', $.key('checked')),
       $.reloadWindow()
     ),
     parse: $.all(
-      $.setLocal('checked', $.pref('track-analytics', $.val(true)))
+      $.setLocal('checked', $.pref('analytics-track'))
     )
   }, {
     type: 'separator'
@@ -20,12 +20,12 @@ export default {
     type: 'checkbox',
     label: 'Launch on Startup',
     click: $.all(
-      $.launchOnStartup($.key('checked'), $.pref('startup-hidden')),
+      $.launchOnStartup($.key('checked'), $.pref('launch-startup-hidden')),
       $.updateSibling('startup-hidden', 'enabled', $.key('checked')),
       $.setPref('launch-startup', $.key('checked'))
     ),
     parse: $.all(
-      $.setLocal('checked', $.pref('launch-startup', $.val(false))),
+      $.setLocal('checked', $.pref('launch-startup')),
       $.updateSibling('startup-hidden', 'enabled', $.key('checked'))
     )
   }, {
@@ -34,10 +34,10 @@ export default {
     label: 'Start Hidden on Startup',
     click: $.all(
       $.ifTrue($.val(platform.isDarwin), $.launchOnStartupHidden($.key('checked'))),
-      $.setPref('startup-hidden', $.key('checked')),
+      $.setPref('launch-startup-hidden', $.key('checked')),
     ),
     parse: $.all(
-      $.setLocal('checked', $.pref('startup-hidden', $.val(false)))
+      $.setLocal('checked', $.pref('launch-startup-hidden'))
     )
   }, {
     type: 'separator'
@@ -45,24 +45,24 @@ export default {
     type: 'checkbox',
     label: 'Check &Spelling While Typing',
     click: $.all(
-      $.sendToWebView('spell-checker', $.key('checked'), $.pref('auto-correct')),
-      $.updateSibling('auto-correct', 'enabled', $.key('checked')),
+      $.sendToWebView('spell-checker', $.key('checked'), $.pref('spell-checker-auto-correct')),
+      $.updateSibling('spell-checker-auto-correct', 'enabled', $.key('checked')),
       $.setPref('spell-checker', $.key('checked'))
     ),
     parse: $.all(
-      $.setLocal('checked', $.pref('spell-checker', $.val(false))),
-      $.updateSibling('auto-correct', 'enabled', $.key('checked'))
+      $.setLocal('checked', $.pref('spell-checker')),
+      $.updateSibling('spell-checker-auto-correct', 'enabled', $.key('checked'))
     )
   }, {
-    id: 'auto-correct',
+    id: 'spell-checker-auto-correct',
     type: 'checkbox',
     label: '&Auto Correct Spelling Mistakes',
     click: $.all(
       $.sendToWebView('spell-checker', $.pref('spell-checker'), $.key('checked')),
-      $.setPref('auto-correct', $.key('checked'))
+      $.setPref('spell-checker-auto-correct', $.key('checked'))
     ),
     parse: $.all(
-      $.setLocal('checked', $.pref('auto-correct', $.val(false)))
+      $.setLocal('checked', $.pref('spell-checker-auto-correct'))
     )
   }, {
     type: 'separator'
@@ -78,7 +78,7 @@ export default {
       $.setPref('links-in-browser', $.key('checked'))
     ),
     parse: $.all(
-      $.setLocal('checked', $.pref('links-in-browser', $.val(true)))
+      $.setLocal('checked', $.pref('links-in-browser'))
     )
   }]
 };

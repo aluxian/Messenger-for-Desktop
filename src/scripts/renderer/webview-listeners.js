@@ -60,7 +60,7 @@ webView.addEventListener('dom-ready', function() {
   // Restore spell checker and auto correct
   const spellChecker = prefs.get('spell-checker');
   if (spellChecker) {
-    const autoCorrect = prefs.get('auto-correct');
+    const autoCorrect = prefs.get('spell-checker-auto-correct');
     log('restoring spell checker', spellChecker, 'auto correct', autoCorrect);
     webView.send('spell-checker', spellChecker, autoCorrect);
   }
