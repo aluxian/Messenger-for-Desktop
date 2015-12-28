@@ -1,10 +1,11 @@
 import remote from 'remote';
 
 const manifest = remote.getGlobal('manifest');
+const analytics = remote.require('../browser/utils/analytics');
 const prefs = remote.require('../browser/utils/prefs').default;
-const analytics = prefs.get('analytics', false);
+const trackAnalytics = prefs.get('track-analytics', true);
 
-if (analytics) {
+if (trackAnalytics) {
   log('enabling google analytics');
 
   /* eslint-disable semi */
@@ -14,12 +15,14 @@ if (analytics) {
   })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
   /* eslint-enable semi */
 
-  /* eslint-disable no-undef */
-  ga('create', manifest.gaPropertyId, 'auto');
-  ga('set', 'dimension1', manifest.version);
-  ga('set', 'dimension2', manifest.distrib);
-  ga('send', 'pageview');
-  /* eslint-enable no-undef */
+  window.ga('create', {
+    trackingId: manifest.gaPropertyId,
+    cookieDomain: 'auto',
+    userId: analytics.getUserId()
+  });
+  window.ga('set', 'dimension1', manifest.version);
+  window.ga('set', 'dimension2', manifest.distrib);
+  window.ga('send', 'pageview');
 
   log('reported dimensions:', {
     version: manifest.version,

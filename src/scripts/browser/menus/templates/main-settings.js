@@ -8,11 +8,11 @@ export default {
     type: 'checkbox',
     label: 'Anonymous Statistics',
     click: $.all(
-      $.setPref('analytics', $.key('checked')),
+      $.setPref('track-analytics', $.key('checked')),
       $.reloadWindow()
     ),
     parse: $.all(
-      $.setLocal('checked', $.pref('analytics', $.val(true)))
+      $.setLocal('checked', $.pref('track-analytics', $.val(true)))
     )
   }, {
     type: 'separator'
