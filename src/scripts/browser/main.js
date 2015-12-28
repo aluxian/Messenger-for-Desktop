@@ -43,6 +43,10 @@ import manifest from '../../package.json';
       type: 'string',
       description: 'Squirrel.Windows flag, called before updating to a new version.'
     })
+    .option('squirrel-firstrun', {
+      type: 'boolean',
+      description: 'Squirrel.Windows flag, called only once after installation.'
+    })
     .help('help', 'Print this help message.').alias('help', 'h')
     .epilog('Created with <3 by Alexandru Rosianu – http://www.aluxian.com/')
     .argv;
