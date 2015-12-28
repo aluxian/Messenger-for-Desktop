@@ -11,6 +11,7 @@ export default {
     platform: platform.isNonDarwin,
     enabled: false
   }, {
+    id: 'check-for-update',
     label: 'Check for &Update',
     platform: platform.isNonDarwin,
     click: $.checkForUpdate()

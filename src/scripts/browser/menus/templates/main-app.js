@@ -9,6 +9,7 @@ export default {
     label: 'About ' + manifest.productName,
     role: 'about'
   }, {
+    id: 'check-for-update',
     label: 'Check for Update',
     click: $.checkForUpdate()
   }, {
