@@ -10,7 +10,6 @@
     "async": "1.5.0",
     "babel-runtime": "6.3.19",
     "debug": "2.2.0",
-    "del": "2.2.0",
     "jfs": "0.2.6",
     "lodash": "3.10.1",
     "mousetrap": "1.5.3",

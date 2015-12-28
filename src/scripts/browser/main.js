@@ -4,7 +4,7 @@ import path from 'path';
 
 // import CrashReporter from 'crash-reporter';
 // import Updater from './components/updater';
-// import SquirrelEvents from './components/squirrel-events';
+import SquirrelEvents from './components/squirrel-events';
 
 import Application from './application';
 
@@ -14,20 +14,32 @@ import manifest from '../../package.json';
 process.on('uncaughtException', error => console.error(error.stack || error));
 
 (function() {
-  // Check for Squirrel.Windows CLI args
-  // if (SquirrelEvents.check()) {
-  //   return;
-  // }
-
   // Define the CLI arguments and parse them
   const argv = yargs
     .usage('Usage: $0 [options]')
-    .boolean('os-startup').describe('os-startup', 'Flag to indicate the app is being ran by the OS on startup.')
-    .boolean('portable').describe('portable', 'Run in portable mode.')
-    .boolean('v').alias('v', 'version').describe('v', 'Print the app version.')
-    .help('h').alias('h', 'help').describe('h', 'Print this help message.')
+    .boolean('os-startup')
+    .boolean('portable')
+    .boolean('version').alias('version', 'v')
+    .boolean('squirrel-install')
+    .boolean('squirrel-uninstall')
+    .boolean('squirrel-updated')
+    .boolean('squirrel-obsolete')
+    .help('h').alias('h', 'help')
+    .describe('os-startup', 'Flag to indicate the app is being ran by the OS on startup.')
+    .describe('portable', 'Run in portable mode.')
+    .describe('version', 'Print the app version.')
+    .describe('squirrel-install', 'Squirrel.Windows flag, called when the app is installed.')
+    .describe('squirrel-updated', 'Squirrel.Windows flag, called after the app is updated.')
+    .describe('squirrel-uninstall', 'Squirrel.Windows flag, called when the app is uninstalled.')
+    .describe('squirrel-obsolete', 'Squirrel.Windows flag, called before updating to a new version.')
+    .describe('h', 'Print this help message.')
     .epilog('Created with <3 by Alexandru Rosianu – http://www.aluxian.com/')
     .argv;
+
+  // Check for Squirrel.Windows CLI args
+  if (process.platform == 'win32' && SquirrelEvents.check(argv)) {
+    return;
+  }
 
   // Print the version and exit
   if (argv.version) {

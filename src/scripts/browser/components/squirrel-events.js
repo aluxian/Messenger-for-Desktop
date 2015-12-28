@@ -1,55 +1,42 @@
 import cp from 'child_process';
 import path from 'path';
 import app from 'app';
-import del from 'del';
 
-function spawnSquirrel(args, callback) {
-  const squirrelExec = path.join(path.dirname(process.execPath), '..', 'Update.exe');
-  console.log('[squirrel-events]', 'spawning', squirrelExec, args);
+class SquirrelEvents {
 
-  cp.spawn(squirrelExec, args, { detached: true }).on('close', function(code) {
-    if (code) {
-      console.error('[squirrel-events]', squirrelExec, 'exited with code', code);
-    } else {
-      callback();
-    }
-  });
-}
-
-export default {
-  check: function() {
-    if (process.platform !== 'win32') {
-      return false;
+  check(options) {
+    if (options.squirrelInstall) {
+      this.spawnSquirrel(['--createShortcut', app.getPath('exe')], app.quit);
+      return true;
     }
 
-    const squirrelCommand = process.argv[1];
-    const execName = path.basename(process.execPath);
+    if (options.squirrelUpdated || options.squirrelObsolete) {
+      app.quit();
+      return true;
+    }
 
-    switch (squirrelCommand) {
-      case '--squirrel-install':
-        spawnSquirrel(['--createShortcut', execName], app.quit);
-        return true;
-
-      case '--squirrel-uninstall':
-        spawnSquirrel(['--removeShortcut', execName], app.quit);
-
-        // Delete app data leftovers
-        del(app.getPath('userData')).catch(::console.error);
-
-        return true;
-
-      case '--squirrel-updated':
-        // Remove previous app dirs
-        const dirs = ['../app-*/**', '!../app-' + app.getVersion() + '/**'];
-        del(dirs, { force: true }).catch(::console.error);
-        app.quit();
-        return true;
-
-      case '--squirrel-obsolete':
-        app.quit();
-        return true;
+    if (options.squirrelUninstall) {
+      this.spawnSquirrel(['--removeShortcut', app.getPath('exe')], app.quit);
+      return true;
     }
 
     return false;
   }
-};
+
+  spawnSquirrel(args, callback) {
+    const squirrelExec = path.join(path.dirname(app.getPath('exe')), 'Update.exe');
+    log('spawning', squirrelExec, args);
+
+    const child = cp.spawn(squirrelExec, args, { detached: true });
+    child.on('close', function(code) {
+      if (code) {
+        console.error(squirrelExec, 'exited with code', code);
+      } else {
+        callback();
+      }
+    });
+  }
+
+}
+
+export default new SquirrelEvents();

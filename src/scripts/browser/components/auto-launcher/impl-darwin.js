@@ -10,7 +10,7 @@ class DarwinAutoLauncher extends BaseAutoLauncher {
 
   enable(hidden = false, callback) {
     const props = {
-      path: path.resolve(app.getPath('exe'), '..', '..', '..'),
+      path: path.resolve(path.dirname(app.getPath('exe')), '..', '..'),
       name: manifest.productName,
       hidden: hidden
     };
