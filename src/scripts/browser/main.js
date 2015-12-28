@@ -14,22 +14,36 @@ import manifest from '../../package.json';
   // Define the CLI arguments and parse them
   const argv = yargs
     .usage('Usage: $0 [options]')
-    .boolean('os-startup')
-    .boolean('portable')
-    .boolean('version').alias('version', 'v')
-    .boolean('squirrel-install')
-    .boolean('squirrel-uninstall')
-    .boolean('squirrel-updated')
-    .boolean('squirrel-obsolete')
-    .help('h').alias('h', 'help')
-    .describe('os-startup', 'Flag to indicate the app is being ran by the OS on startup.')
-    .describe('portable', 'Run in portable mode.')
-    .describe('version', 'Print the app version.')
-    .describe('squirrel-install', 'Squirrel.Windows flag, called when the app is installed.')
-    .describe('squirrel-updated', 'Squirrel.Windows flag, called after the app is updated.')
-    .describe('squirrel-uninstall', 'Squirrel.Windows flag, called when the app is uninstalled.')
-    .describe('squirrel-obsolete', 'Squirrel.Windows flag, called before updating to a new version.')
-    .describe('h', 'Print this help message.')
+    .option('os-startup', {
+      type: 'boolean',
+      description: 'Flag to indicate the app is being ran by the OS on startup.'
+    })
+    .option('portable', {
+      type: 'boolean',
+      description: 'Run in portable mode.'
+    })
+    .option('version', {
+      type: 'boolean',
+      description: 'Print the app version.',
+      alias: 'v'
+    })
+    .option('squirrel-install', {
+      type: 'string',
+      description: 'Squirrel.Windows flag, called when the app is installed.'
+    })
+    .option('squirrel-uninstall', {
+      type: 'string',
+      description: 'Squirrel.Windows flag, called after the app is updated.'
+    })
+    .option('squirrel-updated', {
+      type: 'string',
+      description: 'Squirrel.Windows flag, called when the app is uninstalled.'
+    })
+    .option('squirrel-obsolete', {
+      type: 'string',
+      description: 'Squirrel.Windows flag, called before updating to a new version.'
+    })
+    .help('help', 'Print this help message.').alias('help', 'h')
     .epilog('Created with <3 by Alexandru Rosianu – http://www.aluxian.com/')
     .argv;
 
