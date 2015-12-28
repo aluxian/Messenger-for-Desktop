@@ -44,7 +44,7 @@
     }
   },
   "crashReporter": {
-    "url": "https://crashes.whatsie.chat:7777/"
+    "url": "https://crashes.whatsie.chat/"
   },
   "darwin": {
     "bundleId": "com.aluxian.whatsie",
