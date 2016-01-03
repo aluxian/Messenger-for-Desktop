@@ -6,7 +6,9 @@
     "es6": true
   },
   "globals": {
-    "log": true
+    "log": true,
+    "logError": true,
+    "logFatal": true
   },
   "rules": {
     "no-alert": 0,

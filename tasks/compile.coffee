@@ -38,6 +38,12 @@ args = require './args'
 
   # Compile browser scripts
   gulp.task 'compile:' + dist + ':scripts:browser', ['clean:build:' + dist], ->
+    logHeader = [
+      "var log = require.main.require('./utils/logger').debugLogger(__filename);"
+      "var logError = require.main.require('./utils/logger').errorLogger(__filename, false);"
+      "var logFatal = require.main.require('./utils/logger').errorLogger(__filename, true);"
+    ].join ''
+
     gulp.src './src/scripts/browser/**/*.js'
       .pipe plumber handleError
       .pipe gif args.dev, sourcemaps.init()
@@ -52,13 +58,18 @@ args = require './args'
         ]
       .pipe gif args.dev, sourcemaps.write {sourceRoot: 'src/scripts/browser'}
       .pipe gif args.dev, header "require('source-map-support').install();"
-      .pipe header "var log = require('debug')('#{manifest.name}:'" +
-        " + require('path').basename(__filename, '.js'));"
+      .pipe header logHeader
       .pipe plumber.stop()
       .pipe gulp.dest dir + '/scripts/browser'
 
   # Compile renderer scripts
   gulp.task 'compile:' + dist + ':scripts:renderer', ['clean:build:' + dist], ->
+    logHeader = [
+      "var log = require.main.require('./logger').debugLogger(__filename);"
+      "var logError = require.main.require('./logger').errorLogger(__filename, false);"
+      "var logFatal = require.main.require('./logger').errorLogger(__filename, true);"
+    ].join ''
+
     gulp.src './src/scripts/renderer/**/*.js'
       .pipe plumber handleError
       .pipe gif args.dev, sourcemaps.init()
@@ -72,8 +83,7 @@ args = require './args'
           'default-import-checker'
         ]
       .pipe gif args.dev, sourcemaps.write {sourceRoot: 'src/scripts/renderer'}
-      .pipe header "var log = require('debug/browser')('#{manifest.name}:'" +
-        " + require('path').basename(__filename, '.js'));"
+      .pipe header logHeader
       .pipe plumber.stop()
       .pipe gulp.dest dir + '/scripts/renderer'
       .pipe livereload()

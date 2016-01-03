@@ -4,6 +4,7 @@ const manifest = remote.getGlobal('manifest');
 const analytics = remote.require('../browser/utils/analytics');
 const prefs = remote.require('../browser/utils/prefs').default;
 const trackAnalytics = prefs.get('analytics-track');
+let ga = null;
 
 if (trackAnalytics) {
   log('enabling google analytics');
@@ -15,19 +16,26 @@ if (trackAnalytics) {
   })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
   /* eslint-enable semi */
 
-  window.ga('create', {
+  const gaOptions = {
+    userId: analytics.getUserId(),
     trackingId: manifest.gaPropertyId,
     cookieDomain: 'auto',
-    userId: analytics.getUserId()
-  });
-  window.ga('set', 'dimension1', manifest.version);
-  window.ga('set', 'dimension2', manifest.distrib);
-  window.ga('send', 'pageview');
+    forceSSL: true,
+    appId: manifest.name,
+    appName: manifest.productName,
+    appVersion: manifest.version,
+    appInstallerId: manifest.distrib
+  };
 
-  log('reported dimensions:', {
-    version: manifest.version,
-    distrib: manifest.distrib
+  log('creating ga instance', JSON.stringify(gaOptions));
+  ga = window.ga;
+
+  ga('create', gaOptions);
+  ga('send', 'screenview', {
+    screenName: 'main'
   });
 } else {
   log('google analytics disabled');
 }
+
+export default ga;
