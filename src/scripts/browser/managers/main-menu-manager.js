@@ -25,7 +25,8 @@ class MainMenuManager extends EventEmitter {
   setAutoUpdaterListeners() {
     const checkUpdateItem = findItemById(this.menu.items, 'check-for-update');
     if (!checkUpdateItem) {
-      return console.error(new Error('menu item check-for-update not found'));
+      logError(new Error('menu item check-for-update not found'));
+      return;
     }
 
     AutoUpdater.on('error', () => {

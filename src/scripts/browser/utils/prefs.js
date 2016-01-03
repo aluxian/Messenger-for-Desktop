@@ -13,7 +13,7 @@ const db = new Store(prefsPath);
 function set(key, value) {
   db.save(key, value, function(err) {
     if (err) {
-      console.error(err);
+      logError(err);
     } else {
       log('set', key, '=', JSON.stringify(value));
     }
@@ -44,7 +44,7 @@ function getDefault(key) {
 function unset(key) {
   db.delete(key, function(err) {
     if (err) {
-      console.error(err);
+      logError(err);
     } else {
       log('unset', key);
     }
@@ -57,7 +57,7 @@ function unset(key) {
 function clear() {
   db.all(function(err, valuesMap) {
     if (err) {
-      console.error(err);
+      logError(err);
     } else {
       log('unsetting all keys');
       Object.keys(valuesMap).forEach(unset);

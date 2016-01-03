@@ -31,7 +31,7 @@ class SquirrelEvents {
     const child = cp.spawn(squirrelExec, args, { detached: true });
     child.on('close', function(code) {
       if (code) {
-        console.error(squirrelExec, 'exited with code', code);
+        logError(squirrelExec, 'exited with code', code);
       } else {
         callback();
       }

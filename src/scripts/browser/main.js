@@ -16,7 +16,7 @@ process.on('uncaughtException', function(ex) {
   const isSignatureEx = ex.message == 'Could not get code signature for running application';
   const isDevRelease = manifest.distrib == 'unset';
   if (isDevRelease && isSignatureEx) {
-    console.error('uncaught exception', ex.message);
+    logError('uncaught exception', ex.message);
   } else {
     dialog.showErrorBox('JavaScript error in the main process', ex.stack);
   }

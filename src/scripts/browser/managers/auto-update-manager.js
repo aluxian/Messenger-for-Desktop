@@ -27,7 +27,7 @@ export default AutoUpdateManager;
   //
   //   autoUpdater.on 'error', (event, message) =>
   //     @setState(ErrorState)
-  //     console.error "Error Downloading Update: #{message}"
+  //     logError "Error Downloading Update: #{message}"
   //
   //   autoUpdater.setFeedUrl @feedUrl
   //
@@ -115,7 +115,7 @@ export default AutoUpdateManager;
 
 
 
-  // 
+  //
   // import platform from '../../utils/platform';
   // import request from 'request';
   // import semver from 'semver';

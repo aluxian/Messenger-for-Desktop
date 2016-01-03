@@ -9,7 +9,7 @@ export default {
     const themePath = filePaths.getThemePath(theme);
     fs.readFile(themePath, 'utf-8', function(err, css) {
       if (err) {
-        console.error(err);
+        logError(err);
       } else {
         callback(css);
       }
@@ -23,7 +23,7 @@ export default {
     const stylePath = filePaths.getStylePath(style);
     fs.readFile(stylePath, 'utf-8', function(err, css) {
       if (err) {
-        console.error(err);
+        logError(err);
       } else {
         callback(css);
       }
