@@ -29,20 +29,10 @@
     "nodobjc": "2.1.0"
   },
   "updater": {
-    "manifestUrl": "https://raw.githubusercontent.com/Aluxian/Whatsie/master/src/package.json",
+    "latestReleaseUrl": "https://api.github.com/repos/Aluxian/Whatsie/releases/latest",
     "squirrelUrl": {
       "darwin": "https://updates.whatsie.chat/update/osx/%CURRENT_VERSION%",
       "win32": "https://updates.whatsie.chat/update/win32/:version"
-    },
-    "linux": {
-      "deb": {
-        "ia32": "https://github.com/Aluxian/Whatsie/releases/download/v%VERSION%/Whatsie-%VERSION%-i386.deb",
-        "x64": "https://github.com/Aluxian/Whatsie/releases/download/v%VERSION%/Whatsie-%VERSION%-amd64.deb"
-      },
-      "rpm": {
-        "ia32": "https://github.com/Aluxian/Whatsie/releases/download/v%VERSION%/Whatsie-%VERSION%-i386.rpm",
-        "x64": "https://github.com/Aluxian/Whatsie/releases/download/v%VERSION%/Whatsie-%VERSION%-x86_64.rpm"
-      }
     }
   },
   "crashReporter": {

@@ -29,9 +29,10 @@ class MainMenuManager extends EventEmitter {
       return;
     }
 
-    AutoUpdater.on('error', () => {
+    AutoUpdater.on('error', (ex) => {
       checkUpdateItem.label = 'Check for &Update';
       checkUpdateItem.enabled = true;
+      logError('auto updater error', ex);
     });
 
     AutoUpdater.on('checking-for-update', () => {

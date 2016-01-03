@@ -7,29 +7,28 @@ import EventEmitter from 'events';
 
 class AutoUpdater extends EventEmitter {
 
-  setFeedURL(manifestUrl) {
-    log('set feed url', manifestUrl);
-    this.manifestUrl = manifestUrl;
+  setFeedURL(latestReleaseUrl) {
+    log('set feed url', latestReleaseUrl);
+    this.latestReleaseUrl = latestReleaseUrl;
   }
 
   checkForUpdates() {
-    if (!this.manifestUrl) {
-      log('Update URL is not set');
-      this.emit('error', new Error('Update URL is not set'));
+    if (!this.latestReleaseUrl) {
+      this.emit('error', new Error('Latest release URL is not set'));
       return;
     }
 
     const options = {
-      url: this.manifestUrl,
+      url: this.latestReleaseUrl,
       json: true
     };
 
     log('checking for update', options);
     this.emit('checking-for-update');
 
-    request(options, (err, response, newManifest) => {
+    request(options, (err, response, release) => {
       if (err) {
-        log('update error while getting new manifest', err);
+        log('update error while getting release json', err);
         this.emit('error', err);
         return;
       }
@@ -40,9 +39,11 @@ class AutoUpdater extends EventEmitter {
         return;
       }
 
-      const newVersionExists = semver.gt(newManifest.version, manifest.version);
+      const newVersion = release.tag_name.substr(1);
+      const newVersionExists = semver.gt(newVersion, manifest.version);
+
       if (newVersionExists) {
-        log('update available', newManifest.version);
+        log('update available', newVersion);
         this.emit('update-available');
       } else {
         log('app version up to date', manifest.version);

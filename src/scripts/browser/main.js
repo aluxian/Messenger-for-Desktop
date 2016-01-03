@@ -1,4 +1,5 @@
 import filePaths from './utils/file-paths';
+import platform from './utils/platform';
 import dialog from 'dialog';
 import yargs from 'yargs';
 import path from 'path';
@@ -121,10 +122,17 @@ process.on('uncaughtException', function(ex) {
 
       // Auto updater
       log('starting auto updater');
-      app.setAppUserModelId(manifest.win.userModelId);
-      const feedUrl = manifest.updater.squirrelUrl[process.platform]
-        .replace(/%CURRENT_VERSION%/g, manifest.version);
-      AutoUpdater.setFeedURL(feedUrl);
+      if (platform.isLinux) {
+        AutoUpdater.setFeedURL(manifest.latestReleaseUrl);
+      } else {
+        if (platform.isWin) {
+          app.setAppUserModelId(manifest.win.userModelId);
+        }
+
+        const feedUrl = manifest.updater.squirrelUrl[process.platform]
+          .replace(/%CURRENT_VERSION%/g, manifest.version);
+        AutoUpdater.setFeedURL(feedUrl);
+      }
     });
   } else {
     log('mas release');
