@@ -6,7 +6,7 @@ export default {
   platform: platform.isNonDarwin,
   submenu: [{
     type: 'checkbox',
-    label: 'Anonymous Statistics',
+    label: 'Report Errors and Stats',
     click: $.all(
       $.setPref('analytics-track', $.key('checked')),
       $.reloadWindow()

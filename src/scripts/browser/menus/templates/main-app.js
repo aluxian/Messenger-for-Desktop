@@ -39,7 +39,7 @@ export default {
     )
   }, {
     type: 'checkbox',
-    label: 'Anonymous Statistics',
+    label: 'Report Errors and Stats',
     click: $.all(
       $.setPref('analytics-track', $.key('checked')),
       $.reloadWindow()
