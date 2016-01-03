@@ -26,9 +26,16 @@ function set(key, value) {
 function get(key) {
   const value = db.getSync(key);
   if (value == undefined || value instanceof Error) {
-    return defaults[key];
+    return getDefault(key);
   }
   return value;
+}
+
+/**
+ * Retrieve the value value.
+ */
+function getDefault(key) {
+  return defaults[key];
 }
 
 /**
@@ -61,6 +68,7 @@ function clear() {
 export default {
   set,
   get,
+  getDefault,
   unset,
   clear
 };

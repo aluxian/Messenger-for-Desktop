@@ -1,5 +1,3 @@
-import MainWindowManager from '../managers/main-window-manager';
-
 export default {
   'analytics-track': true,
   'analytics-uid': undefined,
@@ -12,7 +10,10 @@ export default {
   'spell-checker': false,
   'spell-checker-auto-correct': false,
   'theme': 'default',
-  'window-bounds': MainWindowManager.DEFAULT_BOUNDS,
+  'window-bounds': {
+    width: 800,
+    height: 600
+  },
   'window-full-screen': false,
   'zoom-level': 0
 };

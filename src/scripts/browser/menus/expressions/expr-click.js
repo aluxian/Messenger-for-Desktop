@@ -1,8 +1,8 @@
+import prefs from '../../utils/prefs';
 import shell from 'shell';
 import app from 'app';
 
 import AutoUpdater from '../../components/auto-updater';
-import MainWindowManager from '../../managers/main-window-manager';
 
 /**
  * Check for update.
@@ -65,7 +65,7 @@ export function reloadWindow() {
  */
 export function resetWindow() {
   return function(menuItem, browserWindow) {
-    const bounds = MainWindowManager.DEFAULT_BOUNDS;
+    const bounds = prefs.getDefault('window-bounds');
     browserWindow.setSize(bounds.width, bounds.height);
     browserWindow.center();
   };

@@ -9,11 +9,6 @@ import EventEmitter from 'events';
 
 class MainWindowManager extends EventEmitter {
 
-  static DEFAULT_BOUNDS = {
-    width: 800,
-    height: 600
-  };
-
   constructor(manifest, options) {
     super();
 
