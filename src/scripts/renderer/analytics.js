@@ -27,7 +27,7 @@ if (trackAnalytics) {
     appInstallerId: manifest.distrib
   };
 
-  log('creating ga instance', JSON.stringify(gaOptions));
+  log('creating ga instance', gaOptions);
   ga = window.ga;
 
   ga('create', gaOptions);

@@ -24,7 +24,7 @@ class AutoUpdater extends EventEmitter {
       json: true
     };
 
-    log('checking for update', JSON.stringify(options));
+    log('checking for update', options);
     this.emit('checking-for-update');
 
     request(options, (err, response, newManifest) => {

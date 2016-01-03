@@ -84,7 +84,7 @@ class DarwinNativeNotifier extends BaseNativeNotifier {
     }
 
     // Deliver
-    log('delivering notification', JSON.stringify({title, subtitle, body, tag, canReply, onClick}));
+    log('delivering notification', {title, subtitle, body, tag, canReply, onClick});
     this.center('deliverNotification', notification);
 
     // Click callback

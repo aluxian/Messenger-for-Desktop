@@ -129,7 +129,7 @@ export default AutoUpdateManager;
   //     json: true
   //   };
   //
-  //   log('checking for update', JSON.stringify(options));
+  //   log('checking for update', options);
   //   request(options, function(err, response, newManifest) {
   //     if (err) {
   //       log('update error while getting new manifest', err);

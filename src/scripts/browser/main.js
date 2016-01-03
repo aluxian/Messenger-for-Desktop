@@ -115,7 +115,8 @@ process.on('uncaughtException', function(ex) {
         submitURL: manifest.crashReporter.url,
         autoSubmit: true
       };
-      log('starting crash reporter', JSON.stringify(reporterOptions));
+
+      log('starting crash reporter', reporterOptions);
       CrashReporter.start(reporterOptions);
 
       // Auto updater
