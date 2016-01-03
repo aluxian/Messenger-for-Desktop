@@ -1,4 +1,4 @@
-import filePaths from '../utils/filePaths';
+import filePaths from '../utils/file-paths';
 import platform from '../utils/platform';
 import prefs from '../utils/prefs';
 import {debounce} from 'lodash';

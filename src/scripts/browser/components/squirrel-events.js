@@ -1,4 +1,4 @@
-import filePaths from '../utils/filePaths';
+import filePaths from '../utils/file-paths';
 import cp from 'child_process';
 import path from 'path';
 import app from 'app';

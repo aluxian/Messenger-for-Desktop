@@ -1,4 +1,4 @@
-import filePaths from '../utils/filePaths';
+import filePaths from '../utils/file-paths';
 import platform from '../utils/platform';
 import template from '../menus/tray';
 import prefs from '../utils/prefs';

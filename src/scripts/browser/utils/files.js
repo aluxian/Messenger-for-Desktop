@@ -1,4 +1,4 @@
-import filePaths from './filePaths';
+import filePaths from './file-paths';
 import fs from 'fs';
 
 export default {

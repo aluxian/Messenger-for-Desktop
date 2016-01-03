@@ -1,4 +1,4 @@
-import filePaths from './utils/filePaths';
+import filePaths from './utils/file-paths';
 import dialog from 'dialog';
 import yargs from 'yargs';
 import path from 'path';

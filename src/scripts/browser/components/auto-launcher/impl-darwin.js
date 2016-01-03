@@ -1,5 +1,5 @@
 import manifest from '../../../../package.json';
-import filePaths from '../../utils/filePaths';
+import filePaths from '../../utils/file-paths';
 import appleScript from 'applescript';
 import async from 'async';
 
