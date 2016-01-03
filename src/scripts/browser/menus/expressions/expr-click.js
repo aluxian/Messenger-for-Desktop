@@ -2,7 +2,7 @@ import shell from 'shell';
 import app from 'app';
 
 import AutoUpdater from '../../components/auto-updater';
-import AppWindowManager from '../../managers/main-window-manager';
+import MainWindowManager from '../../managers/main-window-manager';
 
 /**
  * Check for update.
@@ -65,7 +65,7 @@ export function reloadWindow() {
  */
 export function resetWindow() {
   return function(menuItem, browserWindow) {
-    const bounds = AppWindowManager.DEFAULT_BOUNDS;
+    const bounds = MainWindowManager.DEFAULT_BOUNDS;
     browserWindow.setSize(bounds.width, bounds.height);
     browserWindow.center();
   };
