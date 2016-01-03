@@ -38,10 +38,15 @@ args = require './args'
 
   # Compile browser scripts
   gulp.task 'compile:' + dist + ':scripts:browser', ['clean:build:' + dist], ->
-    logHeader = [
-      "var log = require.main.require('./utils/logger').debugLogger(__filename);"
-      "var logError = require.main.require('./utils/logger').errorLogger(__filename, false);"
-      "var logFatal = require.main.require('./utils/logger').errorLogger(__filename, true);"
+    loggerHeader = [
+      "if (__filename.indexOf('logger.js') == -1)"
+      "{"
+      "var __LOGGER = require.main.require('./utils/logger');"
+      "var log = __LOGGER.debugLogger(__filename);"
+      "var logError = __LOGGER.errorLogger(__filename, false);"
+      "var logFatal = __LOGGER.errorLogger(__filename, true);"
+      "__LOGGER = undefined;"
+      "}"
     ].join ''
 
     gulp.src './src/scripts/browser/**/*.js'
@@ -58,16 +63,21 @@ args = require './args'
         ]
       .pipe gif args.dev, sourcemaps.write {sourceRoot: 'src/scripts/browser'}
       .pipe gif args.dev, header "require('source-map-support').install();"
-      .pipe header logHeader
+      .pipe header loggerHeader
       .pipe plumber.stop()
       .pipe gulp.dest dir + '/scripts/browser'
 
   # Compile renderer scripts
   gulp.task 'compile:' + dist + ':scripts:renderer', ['clean:build:' + dist], ->
-    logHeader = [
-      "var log = require.main.require('./logger').debugLogger(__filename);"
-      "var logError = require.main.require('./logger').errorLogger(__filename, false);"
-      "var logFatal = require.main.require('./logger').errorLogger(__filename, true);"
+    loggerHeader = [
+      "if (__filename.indexOf('logger.js') == -1)"
+      "{"
+      "var __LOGGER = require.main.require('../scripts/renderer/logger');"
+      "var log = __LOGGER.debugLogger(__filename);"
+      "var logError = __LOGGER.errorLogger(__filename, false);"
+      "var logFatal = __LOGGER.errorLogger(__filename, true);"
+      "__LOGGER = undefined;"
+      "}"
     ].join ''
 
     gulp.src './src/scripts/renderer/**/*.js'
@@ -83,7 +93,7 @@ args = require './args'
           'default-import-checker'
         ]
       .pipe gif args.dev, sourcemaps.write {sourceRoot: 'src/scripts/renderer'}
-      .pipe header logHeader
+      .pipe header loggerHeader
       .pipe plumber.stop()
       .pipe gulp.dest dir + '/scripts/renderer'
       .pipe livereload()
