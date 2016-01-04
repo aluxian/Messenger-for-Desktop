@@ -262,7 +262,7 @@ gulp.task 'pack:win32:portable', ['build:win32', 'clean:dist:win32'], (done) ->
     # Archive the files
     (callback) ->
       gulp.src './build/win32/**/*'
-        .pipe zip manifest.name + '-win32-portable.zip'
+        .pipe zip manifest.name + '-' + manifest.version + '-win32-portable.zip'
         .pipe gulp.dest './dist'
         .on 'end', callback
   ], done
