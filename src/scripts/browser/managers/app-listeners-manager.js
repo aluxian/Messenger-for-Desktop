@@ -6,9 +6,10 @@ import EventEmitter from 'events';
 
 class AppListenersManager extends EventEmitter {
 
-  constructor(mainWindowManager, trayManager) {
+  constructor(mainWindowManager, autoUpdateManager, trayManager) {
     super();
     this.mainWindowManager = mainWindowManager;
+    this.autoUpdateManager = autoUpdateManager;
     this.trayManager = trayManager;
   }
 
@@ -17,6 +18,7 @@ class AppListenersManager extends EventEmitter {
    */
   set() {
     app.on('before-quit', ::this.onBeforeQuit);
+    app.on('will-quit', ::this.onWillQuit);
     app.on('window-all-closed', ::this.onAllWindowsClosed);
     app.on('activate', ::this.onActivate);
   }
@@ -29,6 +31,18 @@ class AppListenersManager extends EventEmitter {
     log('before quit');
     if (this.mainWindowManager) {
       this.mainWindowManager.forceClose = true;
+    }
+  }
+
+  /**
+   * Called when the 'will-quit' event is emitted.
+   */
+  onWillQuit(event) {
+    // Update the app before actually quitting
+    log('will quit');
+    if (this.autoUpdateManager.state == this.autoUpdateManager.states.UPDATE_DOWNLOADED) {
+      event.preventDefault();
+      this.autoUpdateManager.quitAndInstall();
     }
   }
 

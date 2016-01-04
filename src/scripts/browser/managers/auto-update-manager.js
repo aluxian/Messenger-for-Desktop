@@ -21,6 +21,7 @@ class AutoUpdateManager extends EventEmitter {
     this.manifest = manifest;
     this.enabled = !process.mas;
     this.state = states.IDLE;
+    this.states = states;
   }
 
   init() {
@@ -156,6 +157,10 @@ class AutoUpdateManager extends EventEmitter {
       AutoUpdater.once('update-not-available', ::this.onCheckUpdateNotAvailable);
       AutoUpdater.once('error', ::this.onCheckError);
     }
+  }
+
+  quitAndInstall() {
+    AutoUpdater.quitAndInstall();
   }
 
 }
