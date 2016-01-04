@@ -40,7 +40,7 @@ build_script:
 deploy_script:
   - gulp publish:github
 
-test:
+test_script:
   - npm test
 
 artifacts:
