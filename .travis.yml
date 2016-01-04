@@ -34,13 +34,7 @@ before_script:
 script:
   - gulp rebuild:64 --prod --verbose
   - gulp pack:darwin64 --prod --verbose
-
-deploy:
-  provider: releases
-  api_key: $GITHUB_TOKEN
-  file:
-    - dist/Whatsie.dmg
-  skip_cleanup: true
+  - gulp publish:github
 
 cache:
   directories:

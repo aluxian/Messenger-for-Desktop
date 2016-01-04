@@ -32,3 +32,4 @@ test:
     - gulp rebuild:64
     - gulp pack:linux64:deb --prod --verbose
     - gulp pack:linux64:rpm --prod --verbose
+    - gulp publish:github

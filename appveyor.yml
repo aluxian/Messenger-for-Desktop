@@ -1,3 +1,5 @@
+clone_depth: 10
+
 init:
   - git config --global core.autocrlf input
 
@@ -28,12 +30,15 @@ install:
   - npm install -g gulp
   - npm install
 
-build_script:
-  - node --version
-  - npm --version
+before_build:
   - gulp rebuild:32 --verbose
+
+build_script:
   - gulp pack:win32:portable --prod --verbose
   - gulp pack:win32:installer --prod --verbose
+
+deploy_script:
+  - gulp publish:github
 
 test:
   - npm test
