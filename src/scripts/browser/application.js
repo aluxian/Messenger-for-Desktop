@@ -1,4 +1,3 @@
-import AutoUpdater from './components/auto-updater';
 import EventEmitter from 'events';
 
 import MainWindowManager from './managers/main-window-manager';
@@ -27,19 +26,24 @@ class Application extends EventEmitter {
     this.mainWindowManager.createWindow();
     this.mainWindowManager.initWindow();
 
+    // Enable the auto updater
+    this.autoUpdateManager = new AutoUpdateManager();
+    if (this.autoUpdateManager.enabled) {
+      this.autoUpdateManager.init();
+      this.autoUpdateManager.scheduleUpdateChecks();
+    }
+
     // Create and set the main menu
     this.menuManager = new MainMenuManager();
     this.menuManager.create();
-    this.menuManager.set();
-
-    if (AutoUpdater.enabled) {
+    this.menuManager.setDefault();
+    if (this.autoUpdateManager.enabled) {
       this.menuManager.setAutoUpdaterListeners();
     }
 
     // Others
     this.notifManager = new NotifManager();
     this.trayManager = new TrayManager(this.mainWindowManager, this.notifManager);
-    this.autoUpdateManager = new AutoUpdateManager();
     this.nativeNotifier = new NativeNotifier();
     this.autoLauncher = new AutoLauncher();
 

@@ -1,12 +1,10 @@
 import filePaths from './utils/file-paths';
-import platform from './utils/platform';
 import dialog from 'dialog';
 import yargs from 'yargs';
 import path from 'path';
 import app from 'app';
 
 import CrashReporter from 'crash-reporter';
-import AutoUpdater from './components/auto-updater';
 import SquirrelEvents from './components/squirrel-events';
 import Application from './application';
 
@@ -17,7 +15,7 @@ process.on('uncaughtException', function(ex) {
   const isSignatureEx = ex.message == 'Could not get code signature for running application';
   const isDevRelease = manifest.distrib == 'unset';
   if (isDevRelease && isSignatureEx) {
-    logError('uncaught exception', ex.message);
+    logFatal('uncaught exception', ex.message);
   } else {
     dialog.showErrorBox('JavaScript error in the main process', ex.stack);
   }
@@ -104,7 +102,7 @@ process.on('uncaughtException', function(ex) {
     app.setPath('userData', userDataPath);
   }
 
-  // Enable the crash reporter and auto updater
+  // Enable the crash reporter
   if (!process.mas) {
     app.on('will-finish-launching', function() {
       log('will finish launching');
@@ -119,20 +117,6 @@ process.on('uncaughtException', function(ex) {
 
       log('starting crash reporter', reporterOptions);
       CrashReporter.start(reporterOptions);
-
-      // Auto updater
-      log('starting auto updater');
-      if (platform.isLinux) {
-        AutoUpdater.setFeedURL(manifest.latestReleaseUrl);
-      } else {
-        if (platform.isWin) {
-          app.setAppUserModelId(manifest.win.userModelId);
-        }
-
-        const feedUrl = manifest.updater.squirrelUrl[process.platform]
-          .replace(/%CURRENT_VERSION%/g, manifest.version);
-        AutoUpdater.setFeedURL(feedUrl);
-      }
     });
   } else {
     log('mas release');

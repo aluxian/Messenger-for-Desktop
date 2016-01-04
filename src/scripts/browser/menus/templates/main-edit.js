@@ -3,7 +3,7 @@ import $ from '../expressions';
 
 export default {
   label: 'Edit',
-  platform: platform.isDarwin,
+  allow: platform.isDarwin,
   submenu: [{
     label: 'Undo',
     accelerator: 'Cmd+Z',

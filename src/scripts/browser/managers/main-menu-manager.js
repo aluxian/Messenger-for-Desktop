@@ -15,7 +15,7 @@ class MainMenuManager extends EventEmitter {
     }
   }
 
-  set() {
+  setDefault() {
     if (this.menu) {
       Menu.setApplicationMenu(this.menu);
       log('app menu set');
@@ -29,10 +29,9 @@ class MainMenuManager extends EventEmitter {
       return;
     }
 
-    AutoUpdater.on('error', (ex) => {
+    AutoUpdater.on('error', () => {
       checkUpdateItem.label = 'Check for &Update';
       checkUpdateItem.enabled = true;
-      logError('auto updater error', ex);
     });
 
     AutoUpdater.on('checking-for-update', () => {
@@ -42,7 +41,7 @@ class MainMenuManager extends EventEmitter {
 
     AutoUpdater.on('update-available', () => {
       if (platform.isLinux) {
-        checkUpdateItem.label = 'Check for &Update';
+        checkUpdateItem.label = 'Download &Update';
         checkUpdateItem.enabled = true;
       } else {
         checkUpdateItem.label = 'Downloading &Update...';

@@ -3,7 +3,7 @@ import $ from '../expressions';
 
 export default {
   label: '&Settings',
-  platform: platform.isNonDarwin,
+  allow: platform.isNonDarwin,
   submenu: [{
     type: 'checkbox',
     label: 'Report Errors and Stats',

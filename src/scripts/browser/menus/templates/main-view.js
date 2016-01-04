@@ -7,19 +7,19 @@ export default {
   submenu: [{
     label: '&Reload Window',
     accelerator: 'Ctrl+R',
-    platform: platform.isNonDarwin,
+    allow: platform.isNonDarwin,
     click: $.reloadWindow()
   }, {
     label: 'Re&set Window',
     accelerator: 'Ctrl+Alt+R',
-    platform: platform.isNonDarwin,
+    allow: platform.isNonDarwin,
     click: $.all(
       $.resetWindow(),
       $.unsetPref('bounds')
     )
   }, {
     type: 'separator',
-    platform: platform.isNonDarwin
+    allow: platform.isNonDarwin
   }, {
     label: 'Zoom In',
     accelerator: 'CmdOrCtrl+=',

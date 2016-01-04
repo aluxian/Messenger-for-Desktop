@@ -4,13 +4,14 @@ import $ from '../expressions';
 
 export default {
   label: manifest.productName,
-  platform: platform.isDarwin,
+  allow: platform.isDarwin,
   submenu: [{
     label: 'About ' + manifest.productName,
     role: 'about'
   }, {
     id: 'check-for-update',
     label: 'Check for Update',
+    allow: global.application.autoUpdateManager.enabled,
     click: $.checkForUpdate()
   }, {
     type: 'separator'

@@ -6,7 +6,7 @@ export default [{
   id: 'show-tray',
   type: 'checkbox',
   label: 'Show in the Menu Bar',
-  platform: platform.isDarwin,
+  allow: platform.isDarwin,
   checked: true,
   click: $.all(
     $.showInTray($.key('checked')),
@@ -21,7 +21,7 @@ export default [{
   id: 'show-dock',
   type: 'checkbox',
   label: 'Show in the Dock',
-  platform: platform.isDarwin,
+  allow: platform.isDarwin,
   checked: true,
   click: $.all(
     $.showInDock($.key('checked')),

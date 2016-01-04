@@ -3,7 +3,7 @@ import $ from '../expressions';
 
 export default {
   label: 'Window',
-  platform: platform.isDarwin,
+  allow: platform.isDarwin,
   role: 'window',
   submenu: [{
     label: 'Reload',

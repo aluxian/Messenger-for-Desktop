@@ -8,16 +8,16 @@ export default {
   role: 'help',
   submenu: [{
     label: 'Version ' + manifest.version,
-    platform: platform.isNonDarwin,
+    allow: platform.isNonDarwin,
     enabled: false
   }, {
     id: 'check-for-update',
     label: 'Check for &Update',
-    platform: platform.isNonDarwin,
+    allow: platform.isNonDarwin && global.application.autoUpdateManager.enabled,
     click: $.checkForUpdate()
   }, {
     type: 'separator',
-    platform: platform.isNonDarwin
+    allow: platform.isNonDarwin
   }, {
     label: 'Gitter &Chat',
     click: $.openUrl('https://gitter.im/Aluxian/Whatsie')

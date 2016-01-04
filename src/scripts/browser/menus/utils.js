@@ -9,7 +9,7 @@ export function P(darwin, linux, win) {
 export function parseTemplate(menu, parent) {
   return menu.filter(item => {
     // Filter by platform
-    if (item.platform !== undefined && !item.platform) {
+    if (item.allow !== undefined && !item.allow) {
       return false;
     }
 
@@ -20,7 +20,7 @@ export function parseTemplate(menu, parent) {
 
     // Clean up
     delete item.parse;
-    delete item.platform;
+    delete item.allow;
 
     // Parse submenu items
     if (Array.isArray(item.submenu)) {

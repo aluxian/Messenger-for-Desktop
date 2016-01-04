@@ -2,14 +2,12 @@ import prefs from '../../utils/prefs';
 import shell from 'shell';
 import app from 'app';
 
-import AutoUpdater from '../../components/auto-updater';
-
 /**
  * Check for update.
  */
 export function checkForUpdate() {
   return function() {
-    AutoUpdater.checkForUpdates();
+    global.application.autoUpdateManager.onClick();
   };
 }
 
