@@ -3,8 +3,8 @@
 [![Dependency Status](https://david-dm.org/Aluxian/Whatsie/status.svg)](https://david-dm.org/Aluxian/Whatsie#info=dependencies) [![Join the chat at gitter.im/Aluxian/Whatsie](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Aluxian/Whatsie)
 
 - OS X [![OS X build](https://travis-ci.org/Aluxian/Whatsie.svg)](https://travis-ci.org/Aluxian/Whatsie)
-- Windows [![Windows build](https://ci.appveyor.com/api/projects/status/t9nvllbmy6h54o5t/branch/deploy?svg=true)](https://ci.appveyor.com/project/Aluxian/whatsie/branch/master)
-- Linux [![Linux builds](https://circleci.com/gh/Aluxian/Whatsie/tree/deploy.svg?style=svg)](https://circleci.com/gh/Aluxian/Whatsie/tree/master)
+- Windows [![Windows build](https://ci.appveyor.com/api/projects/status/6vborc92ob25kqe0?svg=true)](https://ci.appveyor.com/project/Aluxian/whatsie/branch/master)
+- Linux [![Linux builds](https://circleci.com/gh/Aluxian/Whatsie/tree/master.svg?style=svg)](https://circleci.com/gh/Aluxian/Whatsie/tree/master)
 
 A simple & beautiful app for [WhatsApp Web](https://web.whatsapp.com/) which runs on OS X, Windows and Linux. Not affiliated with WhatsApp or Facebook. This is **NOT** an official product.
 
