@@ -35,7 +35,8 @@ build_script:
   - gulp pack:win32:portable --prod --verbose
   - gulp pack:win32:installer --prod --verbose
 
-test: off
+test:
+  - npm test
 
 artifacts:
   - path: dist\*
