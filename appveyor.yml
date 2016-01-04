@@ -38,7 +38,7 @@ build_script:
   - gulp pack:win32:installer --prod --verbose
 
 deploy_script:
-  - gulp publish:github
+  - gulp publish:github --verbose
 
 test_script:
   - npm test

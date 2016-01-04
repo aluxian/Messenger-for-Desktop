@@ -35,7 +35,7 @@ script:
   - npm test
   - gulp rebuild:64 --prod --verbose
   - gulp pack:darwin64 --prod --verbose
-  - gulp publish:github
+  - gulp publish:github --verbose
 
 cache:
   directories:
