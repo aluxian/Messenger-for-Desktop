@@ -16,6 +16,8 @@ environment:
     secure: un4e1Apf/PIHv/duLtXtk4j4AIgorOKxvMhxhoUd4N8=
   AWS_SECRET_ACCESS_KEY:
     secure: zP4aGkRtRqZIKZ2tM2q//6dC4SfzKdxDBGTSV3AEbpUnDDco/uMy9ZU1cmVEQigk
+  GITHUB_TOKEN:
+    secure: VgebEox3uOMipNS2O/GeWXLpfqPcIp3hUstSLsaL0YpHvxG95FVzQLuI3IbahvFH
 
 cache:
   - "node_modules -> package.json"
