@@ -30,26 +30,6 @@ gulp.task 'clean', ->
         if process.argv.indexOf('--toolbar') > 0
           shelljs.sed '-i', '"toolbar": true', '"toolbar": false', './src/package.json'
 
-# Build for each platform; on OSX/Linux, you need Wine installed to build win32 (or remove winIco below)
-['win32', 'osx64', 'linux32', 'linux64'].forEach (platform) ->
-  gulp.task 'build:' + platform, ->
-    if process.argv.indexOf('--toolbar') > 0
-      shelljs.sed '-i', '"toolbar": false', '"toolbar": true', './src/package.json'
-
-    gulp.src './src/**'
-      .pipe $.nwBuilder
-        platforms: [platform]
-        version: '0.12.2'
-        winIco: if process.argv.indexOf('--noicon') > 0 then undefined else './assets-windows/icon.ico'
-        macIcns: './assets-osx/icon.icns'
-        macZip: true
-        macPlist:
-          NSHumanReadableCopyright: 'aluxian.com'
-          CFBundleIdentifier: 'com.aluxian.messengerfordesktop'
-      .on 'end', ->
-        if process.argv.indexOf('--toolbar') > 0
-          shelljs.sed '-i', '"toolbar": true', '"toolbar": false', './src/package.json'
-
 # Only runs on OSX (requires XCode properly configured)
 gulp.task 'sign:osx64', ['build:osx64'], ->
   shelljs.exec 'codesign -v -f -s "Alexandru Rosianu Apps" ./build/Messenger/osx64/Messenger.app/Contents/Frameworks/*'
