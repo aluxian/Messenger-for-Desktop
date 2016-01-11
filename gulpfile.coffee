@@ -17,7 +17,7 @@ gulp.task 'clean', ->
       shelljs.sed '-i', '"toolbar": false', '"toolbar": true', './src/package.json'
 
     gulp.src './src/**'
-      .pipe $.nodeWebkitBuilder
+      .pipe $.nwBuilder
         platforms: [platform]
         version: '0.12.2'
         winIco: if process.argv.indexOf('--noicon') > 0 then undefined else './assets-windows/icon.ico'
@@ -37,7 +37,7 @@ gulp.task 'clean', ->
       shelljs.sed '-i', '"toolbar": false', '"toolbar": true', './src/package.json'
 
     gulp.src './src/**'
-      .pipe $.nodeWebkitBuilder
+      .pipe $.nwBuilder
         platforms: [platform]
         version: '0.12.2'
         winIco: if process.argv.indexOf('--noicon') > 0 then undefined else './assets-windows/icon.ico'
