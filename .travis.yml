@@ -13,7 +13,10 @@ compiler: clang
 sudo: false
 
 install:
-  - pip install --user awscli && export PATH=$PATH:~/.local/bin/
+  - curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
+  - unzip awscli-bundle.zip
+  - ./awscli-bundle/install -b ~/bin/aws
+  - export PATH=~/bin:$PATH
   - git clone https://github.com/creationix/nvm.git /tmp/.nvm
   - source /tmp/.nvm/nvm.sh
   - nvm install 0.12
