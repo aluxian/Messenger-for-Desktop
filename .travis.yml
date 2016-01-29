@@ -12,10 +12,8 @@ compiler: clang
 
 sudo: false
 
-before_install:
-  - pip install --user awscli && export PATH=$PATH:~/.local/bin/
-
 install:
+  - pip install --user awscli && export PATH=$PATH:~/.local/bin/
   - git clone https://github.com/creationix/nvm.git /tmp/.nvm
   - source /tmp/.nvm/nvm.sh
   - nvm install 0.12
