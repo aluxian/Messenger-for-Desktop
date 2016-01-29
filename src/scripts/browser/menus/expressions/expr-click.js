@@ -64,7 +64,7 @@ export function reloadWindow() {
 export function resetWindow() {
   return function(menuItem, browserWindow) {
     const bounds = prefs.getDefault('window-bounds');
-    browserWindow.setSize(bounds.width, bounds.height);
+    browserWindow.setSize(bounds.width, bounds.height, true);
     browserWindow.center();
   };
 }
