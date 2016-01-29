@@ -45,6 +45,7 @@
     "copyright": "Copyright © Alexandru Rosianu"
   },
   "linux": {
+    "vendor": "Alexandru Rosianu",
     "genericName": "Instant Messenger",
     "categories": "Chat;InstantMessaging;",
     "keywords": "WhatsApp;Whats;",

@@ -127,7 +127,7 @@ gulp.task 'pack:darwin64', ['build:darwin64', 'clean:dist:darwin64'], (done) ->
         '--maintainer'
         manifest.author
         '--vendor'
-        'Aluxian Apps'
+        manifest.linux.vendor
         '--version'
         manifest.version
         '--iteration'
