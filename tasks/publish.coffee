@@ -1,6 +1,14 @@
 gulp = require 'gulp'
+path = require 'path'
+fs = require 'fs'
+
+async = require 'async'
 githubRelease = require 'gulp-github-release'
+request = require 'request'
+
 manifest = require '../src/package.json'
+mainManifest = require '../package.json'
+args = require './args'
 
 # Upload every file in ./dist to GitHub
 gulp.task 'publish:github', ->
@@ -14,4 +22,48 @@ gulp.task 'publish:github', ->
       reuseRelease: true
       draft: true
 
-# TODO: Upload to PPA
+# Upload deb and RPM packages to Bintray
+['deb', 'rpm'].forEach (dist) ->
+  gulp.task 'publish:bintray:' + dist, (done) ->
+    if not process.env.BINTRAY_API_KEY
+      return console.warn 'BINTRAY_API_KEY env var not set.'
+
+    arch64Name = if dist == 'deb' then 'amd64' else 'x86_64'
+    tasks = [
+      ['./dist/' + manifest.name + '-' + manifest.version + '-' + arch64Name + '.' + dist, arch64Name]
+      ['./dist/' + manifest.name + '-' + manifest.version + '-i386.' + dist, 'i386']
+    ].map (item) ->
+      [srcPath, archType] = item
+
+      host = 'https://api.bintray.com'
+      subject = mainManifest.bintray.subject
+      filePath = path.basename(srcPath)
+      distrib = ''
+
+      if dist == 'deb'
+        distrib = mainManifest.bintray.distributions[dist].map((a) -> a.join ',').join ','
+        poolPath = 'pool/main/' + manifest.productName[0] + '/'
+        filePath = poolPath + manifest.productName + '/' + filePath
+
+      opts =
+        url: host + '/content/' + subject + '/' + dist + '/' + filePath
+        auth:
+          user: subject
+          pass: process.env.BINTRAY_API_KEY
+        headers:
+          'X-Bintray-Package': manifest.productName
+          'X-Bintray-Version': manifest.version
+          'X-Bintray-Publish': 1
+          'X-Bintray-Debian-Distribution': distrib
+          'X-Bintray-Debian-Component': 'main'
+          'X-Bintray-Debian-Architecture': archType
+
+      (cb) ->
+        console.log 'Uploading', srcPath if args.verbose
+        fs.createReadStream srcPath
+          .pipe request.put opts, (err, res, body) ->
+            if not err
+              console.log body if args.verbose
+            cb(err)
+
+    async.series tasks, done

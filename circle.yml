@@ -33,3 +33,5 @@ test:
     - gulp pack:linux64:deb --prod --verbose
     - gulp pack:linux64:rpm --prod --verbose
     - gulp publish:github --verbose
+    - gulp publish:bintray:deb --verbose
+    - gulp publish:bintray:rpm --verbose

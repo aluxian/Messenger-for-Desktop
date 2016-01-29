@@ -29,6 +29,7 @@
     "gulp-sourcemaps": "1.6.0",
     "gulp-zip": "3.0.2",
     "rcedit": "0.3.0",
+    "request": "2.69.0",
     "require-dir": "0.3.0"
   },
   "devDependencies": {
@@ -48,6 +49,33 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/Aluxian/Whatsie.git"
+  },
+  "bintray": {
+    "subject": "aluxian",
+    "distributions": {
+      "deb": [
+        [
+          "jessie",
+          "wheezy",
+          "squeeze"
+        ],
+        [
+          "xenial",
+          "wily",
+          "vivid",
+          "utopic",
+          "trusty",
+          "saucy",
+          "raring",
+          "quantal",
+          "precise",
+          "oneiric",
+          "natty",
+          "maverick",
+          "lucid"
+        ]
+      ]
+    }
   },
   "bugs": {
     "url": "https://github.com/Aluxian/Whatsie/issues"
