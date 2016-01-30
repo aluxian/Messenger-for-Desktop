@@ -13,8 +13,7 @@ export default {
     label: 'Reset',
     accelerator: 'Cmd+Alt+R',
     click: $.all(
-      $.resetWindow(),
-      $.unsetPref('bounds')
+      $.resetWindow()
     )
   }, {
     type: 'separator'

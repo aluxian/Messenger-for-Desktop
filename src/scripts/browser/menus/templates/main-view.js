@@ -14,8 +14,7 @@ export default {
     accelerator: 'Ctrl+Alt+R',
     allow: platform.isNonDarwin,
     click: $.all(
-      $.resetWindow(),
-      $.unsetPref('bounds')
+      $.resetWindow()
     )
   }, {
     type: 'separator',
