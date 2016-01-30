@@ -1,0 +1,7 @@
+#bintray--aluxian-rpm - packages by aluxian from Bintray
+[bintray--aluxian-rpm]
+name=bintray--aluxian-rpm
+baseurl=http://dl.bintray.com/aluxian/rpm
+gpgcheck=1
+gpgkey=https://bintray.com/user/downloadSubjectPublicKey?username=aluxian
+enabled=1
