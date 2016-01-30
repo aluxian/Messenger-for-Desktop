@@ -135,11 +135,15 @@ Installation
 
 ### OS X
 
-Open the `dmg` and copy the app into `/Applications`.
+Open the `dmg` and copy the app into `/Applications`. The app will update automatically.
 
-### Windows
+### Windows Installer
 
-Run the installer and follow the steps.
+Run the installer and follow the steps. The app will update automatically.
+
+### Windows Portable Zip
+
+Download the zip, extract it and run the app. The app will NOT update automatically.
 
 ### Deb package
 
@@ -149,12 +153,29 @@ Either double click and install or:
 dpkg -i whatsie.deb
 ```
 
+You can also use `apt`:
+
+```
+gpg --keyserver subkeys.pgp.net --recv-keys 1537994D
+gpg --export --armor 1537994D | sudo apt-key add -
+sudo apt-get update
+sudo apt-get install whatsie
+```
+
 ### Rpm package
 
 Either double click and install or:
 
 ```
 rpm -ivh whatsie.rpm
+```
+
+You can also use `yum`:
+
+```
+sudo wget https://bintray.com/aluxian/rpm/rpm -O /etc/yum.repos.d/bintray-aluxian-rpm.repo
+sudo yum install whatsie.i386     # for 32-bit distros
+sudo yum install whatsie.x86_64   # for 64-bit distros
 ```
 
 Note to WhatsApp
