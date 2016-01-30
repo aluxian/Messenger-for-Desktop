@@ -30,7 +30,7 @@ before_script:
   - security default-keychain -s $SIGN_DARWIN_KEYCHAIN_NAME
   - security unlock-keychain -p travis $SIGN_DARWIN_KEYCHAIN_NAME
   - security set-keychain-settings -t 3600 -u $SIGN_DARWIN_KEYCHAIN_NAME
-  - security import armacdev.p12 -P $SIGN_DARWIN_KEYCHAIN_PASSWORD -T /usr/bin/codesign
+  - security import armacdev.p12 -f x509 -P $SIGN_DARWIN_KEYCHAIN_PASSWORD -T /usr/bin/codesign
   - security find-identity
 
 script:
