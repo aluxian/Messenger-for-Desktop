@@ -38,10 +38,8 @@ gulp.task 'publish:github', ->
       host = 'https://api.bintray.com'
       subject = mainManifest.bintray.subject
       filePath = path.basename(srcPath)
-      distrib = ''
 
       if dist == 'deb'
-        distrib = mainManifest.bintray.distributions[dist].map((a) -> a.join ',').join ','
         poolPath = 'pool/main/' + manifest.productName[0] + '/'
         filePath = poolPath + manifest.productName + '/' + filePath
 
@@ -54,7 +52,7 @@ gulp.task 'publish:github', ->
           'X-Bintray-Package': manifest.productName
           'X-Bintray-Version': manifest.version
           'X-Bintray-Publish': 1
-          'X-Bintray-Debian-Distribution': distrib
+          'X-Bintray-Debian-Distribution': 'stable'
           'X-Bintray-Debian-Component': 'main'
           'X-Bintray-Debian-Architecture': archType
 
