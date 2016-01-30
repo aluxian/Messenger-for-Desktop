@@ -12,6 +12,7 @@ export function debugLogger(filename) {
 export function errorLogger(filename, fatal) {
   const fakePagePath = filename.replace(app.getAppPath(), '');
   return function(...args) {
+    args = args.map(a => a instanceof Error ? a.stack : a);
     console.error(`[${fakePagePath}]`, ...args);
     const analytics = require('./analytics').default;
     if (analytics) {
