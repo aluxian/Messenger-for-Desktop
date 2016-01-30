@@ -40,8 +40,8 @@ gulp.task 'publish:github', ->
       filePath = path.basename(srcPath)
 
       if dist == 'deb'
-        poolPath = 'pool/main/' + manifest.productName[0] + '/'
-        filePath = poolPath + manifest.productName + '/' + filePath
+        poolPath = 'pool/main/' + manifest.name[0] + '/'
+        filePath = poolPath + manifest.name + '/' + filePath
 
       opts =
         url: host + '/content/' + subject + '/' + dist + '/' + filePath
@@ -49,7 +49,7 @@ gulp.task 'publish:github', ->
           user: subject
           pass: process.env.BINTRAY_API_KEY
         headers:
-          'X-Bintray-Package': manifest.productName
+          'X-Bintray-Package': manifest.name
           'X-Bintray-Version': manifest.version
           'X-Bintray-Publish': 1
           'X-Bintray-Debian-Distribution': 'stable'
