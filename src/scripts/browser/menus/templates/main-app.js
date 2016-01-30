@@ -11,7 +11,7 @@ export default {
   }, {
     id: 'check-for-update',
     label: 'Check for Update',
-    allow: global.application.autoUpdateManager.enabled,
+    allow: !process.mas,
     click: $.checkForUpdate()
   }, {
     type: 'separator'
