@@ -4,7 +4,7 @@ import uuid from 'node-uuid';
 import prefs from './prefs';
 
 const trackAnalytics = prefs.get('analytics-track');
-let analytics = null;
+let analytics = {};
 
 export function getUserId() {
   let uid = prefs.get('analytics-uid');

@@ -13,7 +13,7 @@ export function errorLogger(filename, fatal) {
   const fakePagePath = filename.replace(app.getAppPath(), '');
   return function(...args) {
     console.error(`[${fakePagePath}]`, ...args);
-    const analytics = require('./analytics');
+    const analytics = require('./analytics').default;
     if (analytics) {
       analytics
         .pageview(fakePagePath)
