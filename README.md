@@ -8,10 +8,73 @@
 
 A simple & beautiful app for [WhatsApp Web](https://web.whatsapp.com/) which runs on OS X, Windows and Linux. Not affiliated with WhatsApp or Facebook. This is **NOT** an official product.
 
-:zap: *Created with [Electron SuperKit](https://github.com/Aluxian/electron-superkit), an Electron starter kit with super powers.* :zap:
+# How to install
 
-Build
+### OS X
+
+1. Download [Whatsie.dmg][LR]
+2. Open it and drag the app into the `Applications` folder
+3. Done!
+
+The app will update automatically.
+
+### Windows
+
+#### Installer
+
+1. Download [WhatsieSetup.exe][LR]
+2. Run the installer, wait until it finishes
+3. Done!
+
+The app will update automatically.
+
+#### Portable
+
+1. Download [whatsie-x.x.x-win32-portable.zip][LR]
+2. Extract the zip and run the app
+3. Done!
+
+The app will NOT update automatically, but you can still check for updates.
+
+### Deb-based Linux
+
+1. Download [whatsie-x.x.x-xxx.deb][LR]
+2. Double click and install or run `dpkg -i whatsie.deb`
+
+You can also use `apt`:
+
+```
+gpg --keyserver subkeys.pgp.net --recv-keys 1537994D
+gpg --export --armor 1537994D | sudo apt-key add -
+sudo apt-get update
+sudo apt-get install whatsie
+```
+
+The app will NOT update automatically, but you can still check for updates.
+
+### RPM-based Linux
+
+1. Download [whatsie-x.x.x-xxx.rpm][LR]
+2. Double click and install or run `rpm -ivh whatsie.rpm`
+
+You can also use `yum`:
+
+```
+sudo wget https://bintray.com/aluxian/rpm/rpm -O \
+  /etc/yum.repos.d/bintray-aluxian-rpm.repo
+sudo yum install whatsie.i386     # for 32-bit distros
+sudo yum install whatsie.x86_64   # for 64-bit distros
+```
+
+The app will NOT update automatically, but you can still check for updates.
+
 -----
+
+# For Developers
+
+-----
+
+# Build
 
 ### Install pre-requisites
 
@@ -130,60 +193,12 @@ gulp pack:<linux32|linux64>:<deb|rpm> [--prod]
 
 Make sure you've installed [fpm](https://github.com/jordansissel/fpm).
 
-Installation
-------------
-
-### OS X
-
-Open the `dmg` and copy the app into `/Applications`. The app will update automatically.
-
-### Windows Installer
-
-Run the installer and follow the steps. The app will update automatically.
-
-### Windows Portable Zip
-
-Download the zip, extract it and run the app. The app will NOT update automatically.
-
-### Deb package
-
-Either double click and install or:
-
-```
-dpkg -i whatsie.deb
-```
-
-You can also use `apt`:
-
-```
-gpg --keyserver subkeys.pgp.net --recv-keys 1537994D
-gpg --export --armor 1537994D | sudo apt-key add -
-sudo apt-get update
-sudo apt-get install whatsie
-```
-
-### Rpm package
-
-Either double click and install or:
-
-```
-rpm -ivh whatsie.rpm
-```
-
-You can also use `yum`:
-
-```
-sudo wget https://bintray.com/aluxian/rpm/rpm -O /etc/yum.repos.d/bintray-aluxian-rpm.repo
-sudo yum install whatsie.i386     # for 32-bit distros
-sudo yum install whatsie.x86_64   # for 64-bit distros
-```
-
-Note to WhatsApp
-----------------
+# Note to WhatsApp
 
 This project does not attempt to reverse engineer the WhatsApp API or attempt to reimplement any part of the WhatsApp client. Any communication between the user and WhatsApp servers is handled by WhatsApp Web itself; this is just a native wrapper for WhatsApp Web.
 
-Contributions
---------------------
+# Contributions
 
 Contributions are welcome! For feature requests and bug reports please [submit an issue](https://github.com/Aluxian/Whatsie/issues/new?labels=bug) or get in touch with me on [Gitter](https://gitter.im/Aluxian/Whatsie) or Twitter [@aluxian](https://twitter.com/aluxian).
+
+[LR]: https://github.com/Aluxian/Whatsie/releases/latest
