@@ -16,7 +16,7 @@ manifest = require '../src/package.json'
   # Start the app without any building
   gulp.task 'start:' + dist, ->
     console.log 'starting app' if args.verbose
-    (applySpawn runnablePath, [], {stdio: 'inherit'})()
+    applySpawn(runnablePath, [], {stdio: 'inherit'})()
 
 # Start for the current platform by default
 gulp.task 'start', ['start:' + platform()]

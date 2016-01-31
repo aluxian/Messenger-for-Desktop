@@ -19,7 +19,7 @@ args = require './args'
 
     # Launch the app
     console.log 'initial spawn' if args.verbose
-    (applySpawn runnablePath, [], {stdio: 'inherit'})()
+    applySpawn(runnablePath, [], {stdio: 'inherit'})()
 
     # Watch files
     gulp.watch './src/styles/**/*', ['compile:' + dist + ':styles']

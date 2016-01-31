@@ -31,4 +31,4 @@ lock.killTask ||= { skip: {} }
           done()
         else
           done err
-      (applySpawn killCmd, killArgs)(cb)
+      applySpawn(killCmd, killArgs)(cb)

@@ -257,7 +257,7 @@ gulp.task 'pack:win32:portable', ['build:win32', 'clean:dist:win32'], (done) ->
         process.env.SIGN_WIN_CERTIFICATE_PASSWORD
         path.win32.resolve './build/win32/' + manifest.productName + '.exe'
       ]
-      (applySpawn cmd, args)(callback)
+      applySpawn(cmd, args)(callback)
 
     # Archive the files
     (callback) ->

@@ -19,4 +19,4 @@ path = require 'path'
     options =
       cwd: path.resolve 'src'
       env: process.env
-    (applySpawn 'npm', ['install'], options)(done)
+    applySpawn('npm', ['install'], options)(done)
