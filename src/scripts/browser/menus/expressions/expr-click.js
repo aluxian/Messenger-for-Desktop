@@ -152,9 +152,17 @@ export function launchOnStartup(enabledExpr, hiddenExpr) {
     const enabled = enabledExpr.apply(this, arguments);
     if (enabled) {
       const hidden = hiddenExpr.apply(this, arguments);
-      global.application.autoLauncher.enable(hidden);
+      global.application.autoLauncher.enable(hidden, function(err) {
+        if (err) {
+          logError('Could not enable auto-launcher', err);
+        }
+      });
     } else {
-      global.application.autoLauncher.disable();
+      global.application.autoLauncher.disable(function(err) {
+        if (err) {
+          logError('Could not disable auto-launcher', err);
+        }
+      });
     }
   };
 }
@@ -165,7 +173,11 @@ export function launchOnStartup(enabledExpr, hiddenExpr) {
 export function launchOnStartupHidden(hiddenExpr) {
   return function() {
     const hidden = hiddenExpr.apply(this, arguments);
-    global.application.autoLauncher.enable(hidden);
+    global.application.autoLauncher.enable(hidden, function(err) {
+      if (err) {
+        logError('Could not enable auto-launcher', err);
+      }
+    });
   };
 }
 

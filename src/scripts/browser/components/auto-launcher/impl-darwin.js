@@ -17,16 +17,14 @@ class DarwinAutoLauncher extends BaseAutoLauncher {
     const cmd = [
       'tell application "System Events" to',
       'make login item at end with properties',
-      JSON.stringify(props)
+      JSON.stringify(props).replace(/"(\w+)":/g, '$1:')
     ].join(' ');
 
-    async.series([
-      this.disable,
-      (cb) => {
-        log('making system login item with properties', props);
-        appleScript.execString(cmd, cb);
-      }
-    ], callback);
+    this.disable(function() {
+      // ignored err
+      log('making system login item with cmd', cmd);
+      appleScript.execString(cmd, callback);
+    });
   }
 
   disable(callback) {
@@ -37,7 +35,7 @@ class DarwinAutoLauncher extends BaseAutoLauncher {
       name
     ].join(' ');
 
-    log('removing system login item', name);
+    log('removing system login item with cmd', cmd);
     appleScript.execString(cmd, callback);
   }
 
@@ -47,7 +45,7 @@ class DarwinAutoLauncher extends BaseAutoLauncher {
       'get the name of every login item'
     ].join(' ');
 
-    log('querying system login items');
+    log('querying system login items with cmd', cmd);
     appleScript.execString(cmd, function(err, items) {
       const enabled = Array.isArray(items) && items.includes(manifest.productName);
       callback(err, enabled);
