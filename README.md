@@ -150,7 +150,13 @@ export DEBUG=whatsie:*
 To enable the renderer logs launch the app, open the dev tools then type in the console:
 
 ```
-localStorage.debug='whatsie:*'
+localStorage.debug = 'whatsie:*';
+```
+
+If you want to automatically open the webview dev tools, type this in the main dev tools console:
+
+```
+localStorage.debugDevTools = true;
 ```
 
 ### Pack
