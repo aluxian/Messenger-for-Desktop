@@ -1,8 +1,15 @@
 import $ from '../expressions';
 
+const themes = [
+  'Default',
+  'Pure',
+  'Grey',
+  'Dark'
+];
+
 export default {
   label: 'Theme',
-  submenu: ['Default', 'Grey', 'Pure', 'Dark'].map(theme => {
+  submenu: themes.map(theme => {
     return {
       type: 'radio',
       label: theme,
