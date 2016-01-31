@@ -68,11 +68,7 @@ sudo yum install whatsie.x86_64   # for 64-bit distros
 
 The app will NOT update automatically, but you can still check for updates.
 
------
-
 # For Developers
-
------
 
 # Build
 
