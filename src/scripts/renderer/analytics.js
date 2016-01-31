@@ -27,13 +27,13 @@ if (trackAnalytics) {
     appInstallerId: manifest.distrib
   };
 
-  log('creating ga instance', gaOptions);
   ga = window.ga;
-
   ga('create', gaOptions);
   ga('send', 'screenview', {
     screenName: 'main'
   });
+
+  log('created ga instance', gaOptions);
 } else {
   log('google analytics disabled');
 }
