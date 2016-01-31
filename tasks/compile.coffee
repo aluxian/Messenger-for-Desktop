@@ -41,7 +41,7 @@ args = require './args'
     loggerHeader = [
       "if (__filename.indexOf('logger.js') == -1)"
       "{"
-      "var __LOGGER = require.main.require('./utils/logger');"
+      "var __LOGGER = require(require('app').getAppPath() + '/scripts/browser/utils/logger');"
       "var log = __LOGGER.debugLogger(__filename);"
       "var logError = __LOGGER.errorLogger(__filename, false);"
       "var logFatal = __LOGGER.errorLogger(__filename, true);"
@@ -72,7 +72,7 @@ args = require './args'
     loggerHeader = [
       "if (__filename.indexOf('logger.js') == -1)"
       "{"
-      "var __LOGGER = require.main.require('../scripts/renderer/logger');"
+      "var __LOGGER = require(require('remote').app.getAppPath() + '/scripts/renderer/logger');"
       "var log = __LOGGER.debugLogger(__filename);"
       "var logError = __LOGGER.errorLogger(__filename, false);"
       "var logFatal = __LOGGER.errorLogger(__filename, true);"
