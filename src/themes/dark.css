@@ -86,6 +86,7 @@ input::-webkit-input-placeholder {
 /* input bar */
 ._4rv3 {
 	border-top-color: rgba(255, 255, 255, .1) !important;
+	background-color: rgba(0, 0, 0, 0.95) !important;
 }
 /* messenger thumb up stickers */
 [style*="sticker_id=369239263222822"], [style*="sticker_id=369239343222814"], [style*="sticker_id=369239383222810"] {
