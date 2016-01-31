@@ -13,7 +13,7 @@ export default {
   }, {
     id: 'check-for-update',
     label: 'Check for &Update',
-    allow: platform.isNonDarwin && global.application.autoUpdateManager.enabled,
+    allow: platform.isNonDarwin,
     click: $.checkForUpdate()
   }, {
     type: 'separator',
