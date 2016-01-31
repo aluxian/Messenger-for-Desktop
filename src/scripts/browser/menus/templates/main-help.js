@@ -26,7 +26,7 @@ export default {
     click: $.openUrl('https://github.com/Aluxian/Whatsie/issues/new?labels=request')
   }, {
     label: '&Report Issue',
-    click: $.openUrl('https://github.com/Aluxian/Whatsie/issues/new?labels=bug&body=' + encodeURIComponent([
+    click: $.openUrl('https://github.com/Aluxian/Whatsie/issues/new?body=' + encodeURIComponent([
       '**What is your issue?**',
       '',
       '',
