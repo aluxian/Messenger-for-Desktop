@@ -20,10 +20,12 @@ class DarwinAutoLauncher extends BaseAutoLauncher {
       JSON.stringify(props)
     ].join(' ');
 
-    log('making system login item with properties', props);
     async.series([
       this.disable,
-      async.apply(appleScript.execString, cmd)
+      (cb) => {
+        log('making system login item with properties', props);
+        appleScript.execString(cmd, cb);
+      }
     ], callback);
   }
 
