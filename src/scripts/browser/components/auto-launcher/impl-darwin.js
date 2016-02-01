@@ -1,7 +1,6 @@
 import manifest from '../../../../package.json';
 import filePaths from '../../utils/file-paths';
 import appleScript from 'applescript';
-import async from 'async';
 
 import BaseAutoLauncher from './base';
 
