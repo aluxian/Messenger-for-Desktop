@@ -13,7 +13,7 @@ machine:
     - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.6 10
     - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 20
     - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.9 20
-    - sudo apt-get install libc6-dev-i386 gcc-4.9-multilib g++-4.9-multilib ruby-dev gcc make rpm
+    - sudo apt-get install libc6-dev-i386 gcc-4.9-multilib g++-4.9-multilib ruby-dev make rpm
     - rvmsudo gem install fpm
 
 dependencies:
@@ -32,6 +32,11 @@ test:
     - gulp rebuild:64 --verbose
     - gulp pack:linux64:deb --prod --verbose
     - gulp pack:linux64:rpm --prod --verbose
-    - gulp publish:github --verbose
-    - gulp publish:bintray:deb --verbose
-    - gulp publish:bintray:rpm --verbose
+
+deployment:
+  production:
+    branch: deploy
+    commands:
+      - gulp publish:github --verbose
+      - gulp publish:bintray:deb --verbose
+      - gulp publish:bintray:rpm --verbose
