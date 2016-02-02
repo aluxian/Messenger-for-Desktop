@@ -20,7 +20,7 @@ class DarwinAutoLauncher extends BaseAutoLauncher {
     ].join(' ');
 
     this.disable(function() {
-      // ignored err
+      // ignore err
       log('making system login item with cmd', cmd);
       appleScript.execString(cmd, callback);
     });
