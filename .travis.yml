@@ -26,15 +26,14 @@ install:
 
 before_script:
   - aws s3 cp --region eu-west-1 s3://aluxian/certificates/armacdev.cer armacdev.cer
-  - sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -activate -configure -access -off -restart -agent -privs -all -allowAccessFor -allUsers
-  # - security create-keychain -p travis $SIGN_DARWIN_KEYCHAIN_NAME
-  # - security default-keychain -s $SIGN_DARWIN_KEYCHAIN_NAME
-  # - security unlock-keychain -p travis $SIGN_DARWIN_KEYCHAIN_NAME
-  # - security set-keychain-settings -t 3600 -u $SIGN_DARWIN_KEYCHAIN_NAME
-  # - security import armacdev.cer -P $SIGN_DARWIN_KEYCHAIN_PASSWORD -T /usr/bin/codesign
-  # - security find-certificate -a
-  # - security find-identity
-  # - security find-identity -p codesigning
+  - security create-keychain -p travis $SIGN_DARWIN_KEYCHAIN_NAME
+  - security default-keychain -s $SIGN_DARWIN_KEYCHAIN_NAME
+  - security unlock-keychain -p travis $SIGN_DARWIN_KEYCHAIN_NAME
+  - security set-keychain-settings -t 3600 -u $SIGN_DARWIN_KEYCHAIN_NAME
+  - security import armacdev.cer -P $SIGN_DARWIN_KEYCHAIN_PASSWORD -T /usr/bin/codesign
+  - security find-certificate -a
+  - security find-identity
+  - security find-identity -p codesigning
 
 script:
   - npm test
