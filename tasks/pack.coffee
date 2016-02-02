@@ -67,6 +67,8 @@ gulp.task 'pack:darwin64', ['build:darwin64', 'clean:dist:darwin64'], (done) ->
       '--deep'
       '--force'
       '--verbose'
+      '--keychain'
+      process.env.SIGN_DARWIN_KEYCHAIN_NAME
       '--sign'
       process.env.SIGN_DARWIN_IDENTITY
       './build/darwin64/' + manifest.productName + '.app'
