@@ -4,9 +4,9 @@ os:
 git:
   depth: 10
 
-# branches:
-#   only:
-#     - deploy
+branches:
+  only:
+    - deploy
 
 compiler: clang
 
