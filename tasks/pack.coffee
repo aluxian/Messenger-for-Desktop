@@ -78,7 +78,7 @@ gulp.task 'pack:darwin64', ['build:darwin64', 'clean:dist:darwin64'], (done) ->
     (callback) ->
       appdmg
         source: './build/resources/darwin/dmg.json'
-        target: './dist/' + manifest.productName + '.dmg'
+        target: './dist/' + manifest.name + '-' + manifest.version + '.dmg'
       .on 'finish', callback
       .on 'error', callback
   ], done
