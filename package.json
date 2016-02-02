@@ -33,7 +33,7 @@
     "require-dir": "0.3.0"
   },
   "devDependencies": {
-    "babel-eslint": "5.0.0-beta8",
+    "babel-eslint": "5.0.0-beta9",
     "eslint": "1.10.3"
   },
   "optionalDependencies": {
