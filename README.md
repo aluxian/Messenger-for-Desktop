@@ -12,7 +12,7 @@ A simple & beautiful app for [WhatsApp Web](https://web.whatsapp.com/) which run
 
 ### OS X
 
-1. Download [Whatsie.dmg][LR]
+1. Download [whatsie-x.x.x.dmg][LR]
 2. Open it and drag the app into the `Applications` folder
 3. Done!
 
@@ -22,7 +22,7 @@ The app will update automatically.
 
 #### Installer
 
-1. Download [WhatsieSetup.exe][LR]
+1. Download [whatsie-x.x.x-win32-setup.exe][LR]
 2. Run the installer, wait until it finishes
 3. Done!
 
@@ -38,7 +38,7 @@ The app will NOT update automatically, but you can still check for updates.
 
 ### Deb-based Linux
 
-1. Download [whatsie-x.x.x-xxx.deb][LR]
+1. Download [whatsie-x.x.x-arch.deb][LR]
 2. Double click and install or run `dpkg -i whatsie.deb`
 
 You can also use `apt`:
@@ -54,7 +54,7 @@ The app will NOT update automatically, but you can still check for updates.
 
 ### RPM-based Linux
 
-1. Download [whatsie-x.x.x-xxx.rpm][LR]
+1. Download [whatsie-x.x.x-arcb.rpm][LR]
 2. Double click and install or run `rpm -ivh whatsie.rpm`
 
 You can also use `yum`:
