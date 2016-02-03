@@ -14,7 +14,6 @@ A simple & beautiful app for [WhatsApp Web](https://web.whatsapp.com/) which run
 
 1. Download [whatsie-x.x.x.dmg][LR]
 2. Open it and drag the app into the `Applications` folder
-3. Done!
 
 The app will update automatically.
 
@@ -24,7 +23,6 @@ The app will update automatically.
 
 1. Download [whatsie-x.x.x-win32-setup.exe][LR]
 2. Run the installer, wait until it finishes
-3. Done!
 
 The app will update automatically.
 
@@ -32,14 +30,15 @@ The app will update automatically.
 
 1. Download [whatsie-x.x.x-win32-portable.zip][LR]
 2. Extract the zip and run the app
-3. Done!
 
 The app will NOT update automatically, but you can still check for updates.
 
 ### Deb-based Linux
 
 1. Download [whatsie-x.x.x-arch.deb][LR]
-2. Double click and install or run `dpkg -i whatsie.deb`
+2. Double click and install or run `dpkg -i whatsie-x.x.x-arch.deb`
+
+The app will NOT update automatically, but you can still check for updates.
 
 You can also use `apt`:
 
@@ -50,12 +49,12 @@ sudo apt-get update
 sudo apt-get install whatsie
 ```
 
-The app will NOT update automatically, but you can still check for updates.
-
 ### RPM-based Linux
 
-1. Download [whatsie-x.x.x-arcb.rpm][LR]
-2. Double click and install or run `rpm -ivh whatsie.rpm`
+1. Download [whatsie-x.x.x-arch.rpm][LR]
+2. Double click and install or run `rpm -ivh whatsie-x.x.x-arch.rpm`
+
+The app will NOT update automatically, but you can still check for updates.
 
 You can also use `yum`:
 
@@ -65,8 +64,6 @@ sudo wget https://bintray.com/aluxian/rpm/rpm -O \
 sudo yum install whatsie.i386     # for 32-bit distros
 sudo yum install whatsie.x86_64   # for 64-bit distros
 ```
-
-The app will NOT update automatically, but you can still check for updates.
 
 # For Developers
 
