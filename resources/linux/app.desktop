@@ -2,10 +2,11 @@
 Name={{ productName }}
 Comment={{ description }}
 GenericName={{ genericName }}
-Exec=/opt/{{ name }}/{{ name }}
+Exec=/opt/{{ name }}/{{ name }} %U
 Icon={{ name }}
 Terminal=false
 Type=Application
 StartupNotify=true
+StartupWMClass={{ name }}
 Keywords={{ keywords }}
 Categories={{ categories }}
