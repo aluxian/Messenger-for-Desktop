@@ -115,7 +115,7 @@ process.on('uncaughtException', function(ex) {
         autoSubmit: true
       };
 
-      log('starting crash reporter', reporterOptions);
+      log('starting crash reporter', JSON.stringify(reporterOptions));
       CrashReporter.start(reporterOptions);
     });
   } else {
