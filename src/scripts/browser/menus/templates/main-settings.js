@@ -20,7 +20,7 @@ export default {
     type: 'checkbox',
     label: 'Launch on Startup',
     click: $.all(
-      $.launchOnStartup($.key('checked'), $.pref('launch-startup-hidden')),
+      $.launchOnStartup($.key('checked')),
       $.updateSibling('startup-hidden', 'enabled', $.key('checked')),
       $.setPref('launch-startup', $.key('checked'))
     ),
@@ -33,7 +33,6 @@ export default {
     type: 'checkbox',
     label: 'Start Hidden on Startup',
     click: $.all(
-      $.ifTrue($.val(platform.isDarwin), $.launchOnStartupHidden($.key('checked'))),
       $.setPref('launch-startup-hidden', $.key('checked')),
     ),
     parse: $.all(

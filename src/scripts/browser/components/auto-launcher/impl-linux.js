@@ -25,7 +25,7 @@ class LinuxAutoLauncher extends BaseAutoLauncher {
     ], callback);
   }
 
-  enable(hidden = false, callback) {
+  enable(callback) {
     this.setKey('true', callback);
   }
 

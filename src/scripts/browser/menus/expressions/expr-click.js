@@ -147,12 +147,11 @@ export function showInDock(flagExpr) {
 /**
  * Whether the app should launch automatically when the OS starts.
  */
-export function launchOnStartup(enabledExpr, hiddenExpr) {
+export function launchOnStartup(enabledExpr) {
   return function() {
     const enabled = enabledExpr.apply(this, arguments);
     if (enabled) {
-      const hidden = hiddenExpr.apply(this, arguments);
-      global.application.autoLauncher.enable(hidden, function(err) {
+      global.application.autoLauncher.enable(function(err) {
         if (err) {
           logError('Could not enable auto-launcher', err);
         }
@@ -164,20 +163,6 @@ export function launchOnStartup(enabledExpr, hiddenExpr) {
         }
       });
     }
-  };
-}
-
-/**
- * Whether the app should launch hidden when the OS starts.
- */
-export function launchOnStartupHidden(hiddenExpr) {
-  return function() {
-    const hidden = hiddenExpr.apply(this, arguments);
-    global.application.autoLauncher.enable(hidden, function(err) {
-      if (err) {
-        logError('Could not enable auto-launcher', err);
-      }
-    });
   };
 }
 

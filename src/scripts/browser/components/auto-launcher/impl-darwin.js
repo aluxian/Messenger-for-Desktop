@@ -1,54 +1,48 @@
+import Plist from 'launchd.plist';
 import manifest from '../../../../package.json';
-import filePaths from '../../utils/file-paths';
-import appleScript from 'applescript';
+
+import app from 'app';
+import path from 'path';
+import fs from 'fs';
 
 import BaseAutoLauncher from './base';
 
 class DarwinAutoLauncher extends BaseAutoLauncher {
 
-  enable(hidden = false, callback) {
-    const props = {
-      path: filePaths.getAppDir(),
-      name: manifest.productName,
-      hidden: hidden
-    };
-
-    const cmd = [
-      'tell application "System Events" to',
-      'make login item at end with properties',
-      JSON.stringify(props).replace(/"(\w+)":/g, '$1:')
-    ].join(' ');
-
-    this.disable(function() {
-      // ignore err
-      log('making system login item with cmd', cmd);
-      appleScript.execString(cmd, callback);
-    });
+  enable(callback) {
+    log('writing login plist');
+    fs.writeFile(this.getPlistPath(), this.buildPlist(), callback);
   }
 
   disable(callback) {
-    const name = '"' + manifest.productName + '"';
-    const cmd = [
-      'tell application "System Events" to',
-      'delete login item',
-      name
-    ].join(' ');
-
-    log('removing system login item with cmd', cmd);
-    appleScript.execString(cmd, callback);
+    log('removing login plist');
+    fs.unlink(this.getPlistPath(), callback);
   }
 
   isEnabled(callback) {
-    const cmd = [
-      'tell application "System Events" to',
-      'get the name of every login item'
-    ].join(' ');
-
-    log('querying system login items with cmd', cmd);
-    appleScript.execString(cmd, function(err, items) {
-      const enabled = Array.isArray(items) && items.includes(manifest.productName);
-      callback(err, enabled);
+    log('checking login plist access');
+    fs.access(this.getPlistPath(), fs.R_OK | fs.W_OK, (err) => {
+      if (err) {
+        log('login plist access error', err);
+        callback(null, false);
+      } else {
+        callback(null, true);
+      }
     });
+  }
+
+  getPlistPath() {
+    const plistName = manifest.darwin.bundleId + '.plist';
+    return path.join(app.getPath('home'), 'Library', 'LaunchAgents', plistName);
+  }
+
+  buildPlist() {
+    const plist = new Plist();
+    plist.setLabel(manifest.darwin.bundleId);
+    plist.setProgram(app.getPath('exe'));
+    plist.setProgramArgs(['--os-startup', '--', '--os-startup']);
+    plist.setRunAtLoad(true);
+    return plist.build();
   }
 
 }

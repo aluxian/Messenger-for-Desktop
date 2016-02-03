@@ -2,7 +2,7 @@ import EventEmitter from 'events';
 
 class BaseAutoLauncher extends EventEmitter {
 
-  enable(hidden = false, callback) {
+  enable(callback) {
     callback(new Error('Not implemented'));
   }
 
