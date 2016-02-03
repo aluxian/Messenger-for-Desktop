@@ -13,7 +13,7 @@ export function errorLogger(filename, fatal) {
   const fakePagePath = filename.replace(app.getAppPath(), '');
   return function(...args) {
     args = args.map(a => a instanceof Error ? a.stack : a);
-    console.error(`[${fakePagePath}]`, ...args);
+    console.error(`[${new Date().toUTCString()}] ${fakePagePath}:`, ...args);
     const analytics = require('./analytics').default;
     if (analytics) {
       analytics
