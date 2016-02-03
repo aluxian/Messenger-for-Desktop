@@ -36,7 +36,7 @@ The app will NOT update automatically, but you can still check for updates.
 ### Deb-based Linux
 
 1. Download [whatsie-x.x.x-arch.deb][LR]
-2. Double click and install or run `dpkg -i whatsie-x.x.x-arch.deb`
+2. Double click and install, or run `dpkg -i whatsie-x.x.x-arch.deb`
 
 The app will NOT update automatically, but you can still check for updates.
 
@@ -52,7 +52,7 @@ sudo apt-get install whatsie
 ### RPM-based Linux
 
 1. Download [whatsie-x.x.x-arch.rpm][LR]
-2. Double click and install or run `rpm -ivh whatsie-x.x.x-arch.rpm`
+2. Double click and install, or run `rpm -ivh whatsie-x.x.x-arch.rpm`
 
 The app will NOT update automatically, but you can still check for updates.
 
