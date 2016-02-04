@@ -164,3 +164,16 @@ a {
 ._3eus {
   color: #DCDCCC !important;
 }
+
+/* input bar */
+._4rv3 {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+._17w2 {
+    color: rgba(255, 255, 255, 1) !important;
+}
+
+._3eus {
+    color: rgba(255, 255, 255, .4) !important;
+}
