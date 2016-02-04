@@ -54,3 +54,6 @@ addons:
     - python-virtualenv
     - libgnome-keyring-dev
     - fakeroot
+
+notifications:
+  email: false
