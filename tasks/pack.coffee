@@ -202,12 +202,20 @@ gulp.task 'pack:win32:installer', ['build:win32', 'clean:dist:win32'], (done) ->
 
     # Create the installer
     (callback) ->
+      signParams = [
+        '/t'
+        'http://timestamp.verisign.com/scripts/timstamp.dll'
+        '/f'
+        process.env.SIGN_WIN_CERTIFICATE_FILE
+        '/p'
+        process.env.SIGN_WIN_CERTIFICATE_PASSWORD
+      ]
+
       winInstaller
         appDirectory: './build/win32'
         outputDirectory: './dist'
         loadingGif: './build/resources/win/install-spinner.gif'
-        certificateFile: process.env.SIGN_WIN_CERTIFICATE_FILE
-        certificatePassword: process.env.SIGN_WIN_CERTIFICATE_PASSWORD
+        signWithParams: signParams.join ' '
         setupIcon: './build/resources/win/setup.ico'
         iconUrl: 'https://raw.githubusercontent.com/Aluxian/Whatsie/master/resources/win/app.ico'
         remoteReleases: manifest.repository.url
@@ -254,6 +262,8 @@ gulp.task 'pack:win32:portable', ['build:win32', 'clean:dist:win32'], (done) ->
       cmd = process.env.SIGNTOOL_PATH || 'signtool'
       args = [
         'sign'
+        '/t'
+        'http://timestamp.verisign.com/scripts/timstamp.dll'
         '/f'
         process.env.SIGN_WIN_CERTIFICATE_FILE
         '/p'
