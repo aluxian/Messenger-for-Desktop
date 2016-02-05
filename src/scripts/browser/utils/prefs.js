@@ -26,7 +26,11 @@ function set(key, value) {
 function get(key) {
   const value = db.getSync(key);
   if (value == undefined || value instanceof Error) {
-    return getDefault(key);
+    const defaultValue = getDefault(key);
+    if (defaultValue === undefined) {
+      logFatal('default value for', key, 'is undefined');
+    }
+    return defaultValue;
   }
   return value;
 }
