@@ -33,7 +33,8 @@ export default [{
     $.setPref('show-dock', $.key('checked'))
   )
 }, {
-  type: 'separator'
+  type: 'separator',
+  allow: platform.isDarwin
 }, {
   label: 'Show ' + manifest.productName,
   click: $.showWindow()
