@@ -45,6 +45,7 @@ You can also use `apt`:
 ```
 gpg --keyserver subkeys.pgp.net --recv-keys 1537994D
 gpg --export --armor 1537994D | sudo apt-key add -
+echo "deb https://dl.bintray.com/aluxian/deb stable main" | sudo tee -a /etc/apt/sources.list
 sudo apt-get update
 sudo apt-get install whatsie
 ```
