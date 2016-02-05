@@ -9,9 +9,9 @@ branches:
 
 environment:
   SIGNTOOL_PATH: 'C:/Program Files (x86)/Microsoft SDKs/Windows/v7.1A/Bin/SignTool.exe'
-  SIGN_WIN_CERTIFICATE_FILE: 'C:/foss_ar.pfx'
+  SIGN_WIN_CERTIFICATE_FILE: 'C:/foss_ar_sha2.pfx'
   SIGN_WIN_CERTIFICATE_PASSWORD:
-    secure: jSzK3q/iNcNyh9w93N8O0w==
+    secure: jZHktkydPALqcwx36cBY1g==
   AWS_ACCESS_KEY_ID:
     secure: un4e1Apf/PIHv/duLtXtk4j4AIgorOKxvMhxhoUd4N8=
   AWS_SECRET_ACCESS_KEY:
