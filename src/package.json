@@ -32,8 +32,8 @@
   "updater": {
     "latestReleaseUrl": "https://api.github.com/repos/Aluxian/Whatsie/releases/latest",
     "squirrelUrl": {
-      "darwin": "https://updates.whatsie.chat/update/osx/%CURRENT_VERSION%",
-      "win32": "https://updates.whatsie.chat/update/win32/:version"
+      "darwin": "https://updates.whatsie.chat/update/darwin?version=%CURRENT_VERSION%",
+      "win32": "https://updates.whatsie.chat/update/win32"
     }
   },
   "crashReporter": {
