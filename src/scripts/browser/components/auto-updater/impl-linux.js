@@ -18,17 +18,30 @@ class AutoUpdater extends EventEmitter {
       return;
     }
 
+    const packageType = manifest.distrib.split(':')[1];
+    let arch = null;
+
+    if (packageType == 'deb') {
+      arch = process.platform == 'ia32' ? 'i386' : 'amd64';
+    } else {
+      arch = process.platform == 'ia32' ? 'i386' : 'x86_64';
+    }
+
     const options = {
       url: this.latestReleaseUrl,
+      query: {
+        pkg: packageType,
+        arch: arch
+      },
       json: true
     };
 
     log('checking for update', options);
     this.emit('checking-for-update');
 
-    request(options, (err, response, release) => {
+    request(options, (err, response, json) => {
       if (err) {
-        log('update error while getting release json', err);
+        log('update error while getting json', err);
         this.emit('error', err);
         return;
       }
@@ -39,11 +52,9 @@ class AutoUpdater extends EventEmitter {
         return;
       }
 
-      const newVersion = release.tag_name.substr(1);
+      const newVersion = json.version;
       const newVersionExists = semver.gt(newVersion, manifest.version);
-
-      const packageType = manifest.distrib.split('-')[1];
-      const downloadUrl = this.extractDownloadUrl(release, packageType);
+      const downloadUrl = json.url;
 
       if (newVersionExists) {
         log('update available', newVersion);
@@ -53,20 +64,6 @@ class AutoUpdater extends EventEmitter {
         this.emit('update-not-available');
       }
     });
-  }
-
-  extractDownloadUrl(release, packageType) {
-    let arch = null;
-
-    if (packageType == 'deb') {
-      arch = process.platform == 'ia32' ? 'i386' : 'amd64';
-    } else {
-      arch = process.platform == 'ia32' ? 'i386' : 'x86_64';
-    }
-
-    const suffix = '-' + arch + '.' + packageType;
-    const asset = release.assets.find(asset => asset.includes(suffix));
-    return asset.browser_download_url;
   }
 
   quitAndInstall() {
