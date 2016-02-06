@@ -32,17 +32,14 @@ class AutoUpdateManager extends EventEmitter {
   }
 
   setFeedUrl() {
-    if (platform.isLinux) {
-      AutoUpdater.setFeedURL(this.manifest.latestReleaseUrl);
-    } else {
-      if (platform.isWin) {
-        app.setAppUserModelId(this.manifest.win.userModelId);
-      }
-
-      const feedUrl = this.manifest.updater.squirrelUrl[process.platform]
-        .replace(/%CURRENT_VERSION%/g, this.manifest.version);
-      AutoUpdater.setFeedURL(feedUrl);
+    if (platform.isWin) {
+      app.setAppUserModelId(this.manifest.win.userModelId);
     }
+
+    const feedUrl = this.manifest.updater.urls[process.platform]
+      .replace(/%CURRENT_VERSION%/g, this.manifest.version);
+
+    AutoUpdater.setFeedURL(feedUrl);
   }
 
   setErrorListener() {

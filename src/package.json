@@ -30,10 +30,10 @@
     "nodobjc": "2.1.0"
   },
   "updater": {
-    "latestReleaseUrl": "https://api.github.com/repos/Aluxian/Whatsie/releases/latest",
-    "squirrelUrl": {
+    "urls": {
       "darwin": "https://updates.whatsie.chat/update/darwin?version=%CURRENT_VERSION%",
-      "win32": "https://updates.whatsie.chat/update/win32"
+      "win32": "https://updates.whatsie.chat/update/win32",
+      "linux": "https://updates.whatsie.chat/update/linux"
     }
   },
   "crashReporter": {
