@@ -207,13 +207,6 @@ gulp.task 'pack:win32:installer', ['build:win32', 'clean:dist:win32'], (done) ->
     # Remove leftovers
     applyPromise del, './build/win32/resources/app'
 
-    # Create the update archive
-    (callback) ->
-      gulp.src './build/win32/**/*'
-        .pipe zip manifest.name + '-' + manifest.version + '-win32-update.zip'
-        .pipe gulp.dest './dist'
-        .on 'end', callback
-
     # Create the installer
     (callback) ->
       signParams = [
