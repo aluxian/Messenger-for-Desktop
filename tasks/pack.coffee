@@ -32,11 +32,11 @@ gulp.task 'pack:darwin64', ['build:darwin64', 'clean:dist:darwin64'], (done) ->
 
   async.series [
     # Update package.json
-    (cb) ->
+    (callback) ->
       jsonPath = './build/darwin64/' + manifest.productName + '.app/Contents/Resources/app/package.json'
       updateManifest jsonPath, (manifest) ->
         manifest.distrib = 'darwin64:dmg'
-      , cb
+      , callback
 
     # Remove the dev modules
     applyIf args.prod, applySpawn 'npm', ['prune', '--production'],
@@ -75,11 +75,11 @@ gulp.task 'pack:darwin64', ['build:darwin64', 'clean:dist:darwin64'], (done) ->
     ]
 
     # Create the update archive
-    (callback) ->
-      gulp.src './build/darwin64/' + manifest.productName + '.app'
-        .pipe zip manifest.name + '-' + manifest.version + '-osx-update.zip'
-        .pipe gulp.dest './dist'
-        .on 'end', callback
+    applySpawn 'zip', [
+      '-r9'
+      '../../dist/' + manifest.name + '-' + manifest.version + '-osx-update.zip'
+      manifest.productName + '.app'
+    ], {cwd: './build/darwin64'}
 
     # Create the dmg
     (callback) ->
@@ -150,11 +150,11 @@ gulp.task 'pack:darwin64', ['build:darwin64', 'clean:dist:darwin64'], (done) ->
 
       async.series [
         # Update package.json
-        (cb) ->
+        (callback) ->
           jsonPath = './build/linux' + arch + '/opt/' + manifest.name + '/resources/app/package.json'
           updateManifest jsonPath, (manifest) ->
             manifest.distrib = 'linux' + arch + ':' + target
-          , cb
+          , callback
 
         # Remove the dev modules
         applyIf args.prod, applySpawn 'npm', ['prune', '--production'],

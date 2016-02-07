@@ -24,6 +24,8 @@ applySpawn = (cmd, params, opts = {}) ->
   (cb) ->
     unless opts.stdio
       opts.stdio = if args.verbose then 'inherit' else 'ignore'
+    if args.verbose
+      console.log 'spawning', cmd
     child = spawn cmd, params, opts
     if cb
       errored = false
