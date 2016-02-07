@@ -39,6 +39,7 @@ class AppListenersManager extends EventEmitter {
     log('will quit');
     if (this.autoUpdateManager.state == this.autoUpdateManager.states.UPDATE_DOWNLOADED) {
       event.preventDefault();
+      this.autoUpdateManager.state = this.autoUpdateManager.states.IDLE;
       this.autoUpdateManager.quitAndInstall();
     }
   }
