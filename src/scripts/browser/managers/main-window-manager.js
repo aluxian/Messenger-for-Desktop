@@ -132,7 +132,7 @@ class MainWindowManager extends EventEmitter {
       this.window.hide();
     }
 
-    if (platform.isWin && prefs.get('show-tray')) {
+    if (platform.isWin && !this.forceClose && prefs.get('show-tray')) {
       event.preventDefault();
       this.window.hide();
 
