@@ -7,17 +7,17 @@ class SquirrelEvents {
 
   check(options) {
     if (options.squirrelInstall) {
-      this.spawnSquirrel(['--createShortcut', app.getPath('exe')], app.quit);
+      this.spawnSquirrel(['--createShortcut', app.getPath('exe')], app.exit);
       return true;
     }
 
     if (options.squirrelUpdated || options.squirrelObsolete) {
-      app.quit();
+      app.exit(0);
       return true;
     }
 
     if (options.squirrelUninstall) {
-      this.spawnSquirrel(['--removeShortcut', app.getPath('exe')], app.quit);
+      this.spawnSquirrel(['--removeShortcut', app.getPath('exe')], app.exit);
       return true;
     }
 
@@ -32,9 +32,8 @@ class SquirrelEvents {
     child.on('close', function(code) {
       if (code) {
         logError(squirrelExec, 'exited with code', code);
-      } else {
-        callback();
       }
+      callback(code || 0);
     });
   }
 
