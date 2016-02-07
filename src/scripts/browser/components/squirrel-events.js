@@ -32,7 +32,7 @@ class SquirrelEvents {
   }
 
   spawnSquirrel(args, callback) {
-    const squirrelExec = path.join(filePaths.getAppDir(), 'Update.exe');
+    const squirrelExec = path.resolve(filePaths.getAppDir(), '..', 'Update.exe');
     log('spawning', squirrelExec, args);
 
     const child = cp.spawn(squirrelExec, args, { detached: true });
