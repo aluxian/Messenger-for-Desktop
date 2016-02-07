@@ -6,7 +6,6 @@ import app from 'app';
 
 import CrashReporter from 'crash-reporter';
 import SquirrelEvents from './components/squirrel-events';
-import Application from './application';
 
 import manifest from '../../package.json';
 
@@ -126,6 +125,8 @@ process.on('uncaughtException', function(ex) {
   app.on('ready', function() {
     log('ready, launching app');
     global.manifest = manifest;
+    global.options = argv;
+    const Application = require('./application').default;
     global.application = new Application(manifest, argv);
     global.application.init();
   });
