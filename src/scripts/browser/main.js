@@ -63,6 +63,7 @@ process.on('uncaughtException', function(ex) {
 
   // Check for Squirrel.Windows CLI args
   if (process.platform == 'win32' && SquirrelEvents.check(argv)) {
+    log('Squirrel.Windows event detected');
     return;
   }
 
