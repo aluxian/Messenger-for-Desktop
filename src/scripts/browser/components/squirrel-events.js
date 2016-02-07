@@ -3,6 +3,8 @@ import cp from 'child_process';
 import path from 'path';
 import app from 'app';
 
+import AutoLauncher from './auto-launcher';
+
 class SquirrelEvents {
 
   check(options) {
@@ -17,7 +19,12 @@ class SquirrelEvents {
     }
 
     if (options.squirrelUninstall) {
-      this.spawnSquirrel(['--removeShortcut', app.getPath('exe')], app.exit);
+      AutoLauncher.disable(function(err) {
+        if (err) {
+          logError(err);
+        }
+        this.spawnSquirrel(['--removeShortcut', app.getPath('exe')], app.exit);
+      });
       return true;
     }
 
