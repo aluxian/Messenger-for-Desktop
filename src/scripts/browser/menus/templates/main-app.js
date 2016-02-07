@@ -14,10 +14,22 @@ export default {
     allow: !process.mas,
     click: $.checkForUpdate()
   }, {
-    type: 'separator'
+    type: 'checkbox',
+    label: 'Report Stats and Errors',
+    click: $.all(
+      $.setPref('analytics-track', $.key('checked')),
+      $.reloadWindow()
+    ),
+    parse: $.all(
+      $.setLocal('checked', $.pref('analytics-track'))
+    )
+  }, {
+    type: 'separator',
+    allow: !process.mas
   }, {
     type: 'checkbox',
     label: 'Launch on Startup',
+    allow: !process.mas,
     click: $.all(
       $.launchOnStartup($.key('checked')),
       $.updateSibling('startup-hidden', 'enabled', $.key('checked')),
@@ -31,21 +43,12 @@ export default {
     id: 'startup-hidden',
     type: 'checkbox',
     label: 'Start Hidden on Startup',
+    allow: !process.mas,
     click: $.all(
       $.setPref('launch-startup-hidden', $.key('checked')),
     ),
     parse: $.all(
       $.setLocal('checked', $.pref('launch-startup-hidden'))
-    )
-  }, {
-    type: 'checkbox',
-    label: 'Report Stats and Errors',
-    click: $.all(
-      $.setPref('analytics-track', $.key('checked')),
-      $.reloadWindow()
-    ),
-    parse: $.all(
-      $.setLocal('checked', $.pref('analytics-track'))
     )
   }, {
     type: 'separator'
