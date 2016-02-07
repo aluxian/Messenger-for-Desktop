@@ -15,10 +15,12 @@ export default {
       $.setLocal('checked', $.pref('analytics-track'))
     )
   }, {
-    type: 'separator'
+    type: 'separator',
+    allow: !global.options.portable
   }, {
     type: 'checkbox',
     label: 'Launch on Startup',
+    allow: !global.options.portable,
     click: $.all(
       $.launchOnStartup($.key('checked')),
       $.updateSibling('startup-hidden', 'enabled', $.key('checked')),
@@ -32,6 +34,7 @@ export default {
     id: 'startup-hidden',
     type: 'checkbox',
     label: 'Start Hidden on Startup',
+    allow: !global.options.portable,
     click: $.all(
       $.setPref('launch-startup-hidden', $.key('checked')),
     ),
