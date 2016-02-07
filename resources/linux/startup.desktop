@@ -2,7 +2,7 @@
 Name={{ productName }}
 Comment={{ description }}
 GenericName={{ genericName }}
-Exec=/opt/{{ name }}/{{ name }} --os-startup
+Exec=/opt/{{ name }}/{{ name }} -- --os-startup
 Icon={{ name }}
 Terminal=false
 Type=Application
