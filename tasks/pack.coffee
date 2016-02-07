@@ -284,7 +284,7 @@ gulp.task 'pack:win32:installer', ['build:win32', 'clean:dist:win32'], (done) ->
         signWithParams: signParams.join ' '
         setupIcon: './build/resources/win/setup.ico'
         iconUrl: 'https://raw.githubusercontent.com/Aluxian/Whatsie/master/resources/win/app.ico'
-        remoteReleases: manifest.repository.url
+        remoteReleases: manifest.updater.urls.win32
         copyright: manifest.win.copyright
         setupExe: manifest.name + '-' + manifest.version + '-win32-setup.exe'
         noMsi: true
