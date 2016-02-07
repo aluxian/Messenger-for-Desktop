@@ -5,7 +5,7 @@ import $ from '../expressions';
 export default {
   label: '&View',
   submenu: [{
-    label: '&Reload Window',
+    label: '&Reload',
     accelerator: 'Ctrl+R',
     allow: platform.isNonDarwin,
     click: $.reloadWindow()
