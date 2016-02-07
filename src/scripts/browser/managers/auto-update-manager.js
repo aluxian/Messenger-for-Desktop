@@ -7,7 +7,7 @@ import app from 'app';
 import AutoUpdater from '../components/auto-updater';
 import EventEmitter from 'events';
 
-const states = keyMirror({
+const STATES = keyMirror({
   IDLE: null,
   UPDATE_CHECKING: null,
   UPDATE_AVAILABLE: null,
@@ -16,12 +16,13 @@ const states = keyMirror({
 
 class AutoUpdateManager extends EventEmitter {
 
-  constructor(manifest) {
+  constructor(manifest, options) {
     super();
     this.manifest = manifest;
+    this.options = options;
     this.enabled = !process.mas;
-    this.state = states.IDLE;
-    this.states = states;
+    this.state = STATES.IDLE;
+    this.states = STATES;
   }
 
   init() {
@@ -32,12 +33,15 @@ class AutoUpdateManager extends EventEmitter {
   }
 
   setFeedUrl() {
-    if (platform.isWin) {
-      app.setAppUserModelId(this.manifest.win.userModelId);
-    }
-
     const feedUrl = this.manifest.updater.urls[process.platform]
       .replace(/%CURRENT_VERSION%/g, this.manifest.version);
+
+    if (platform.isWin) {
+      app.setAppUserModelId(this.manifest.win.userModelId);
+      if (this.options.portable) {
+        feedUrl += '/portable';
+      }
+    }
 
     AutoUpdater.setFeedURL(feedUrl);
   }
@@ -50,41 +54,41 @@ class AutoUpdateManager extends EventEmitter {
 
   setStateListeners() {
     AutoUpdater.on('error', () => {
-      this.state = states.IDLE;
+      this.state = STATES.IDLE;
     });
 
     AutoUpdater.on('checking-for-update', () => {
-      this.state = states.UPDATE_CHECKING;
+      this.state = STATES.UPDATE_CHECKING;
     });
 
     AutoUpdater.on('update-available', () => {
-      this.state = states.UPDATE_AVAILABLE;
+      this.state = STATES.UPDATE_AVAILABLE;
     });
 
     AutoUpdater.on('update-not-available', () => {
-      this.state = states.IDLE;
+      this.state = STATES.IDLE;
     });
 
     AutoUpdater.on('update-downloaded', () => {
-      this.state = states.UPDATE_DOWNLOADED;
+      this.state = STATES.UPDATE_DOWNLOADED;
     });
   }
 
   onClick() {
     switch (this.state) {
-      case states.IDLE:
+      case STATES.IDLE:
         this.checkForUpdate(false);
         break;
 
-      case states.UPDATE_AVAILABLE:
-        if (platform.isLinux) {
+      case STATES.UPDATE_AVAILABLE:
+        if (platform.isLinux || platform.isWin && this.options.portable) {
           this.onCheckUpdateAvailable();
         } else {
           logError('unexpected check-for-update click in state', this.state);
         }
         break;
 
-      case states.UPDATE_DOWNLOADED:
+      case STATES.UPDATE_DOWNLOADED:
         AutoUpdater.quitAndInstall();
         break;
 
@@ -99,6 +103,17 @@ class AutoUpdateManager extends EventEmitter {
         type: 'info',
         message: 'A new version is available: ' + newVersion,
         detail: 'Use your package manager to update, or click Download to get the new package.',
+        buttons: ['OK', 'Download']
+      }, function(response) {
+        if (response === 1) {
+          shell.openExternal(downloadUrl);
+        }
+      });
+    } else if (platform.isWin && this.options.portable) {
+      dialog.showMessageBox({
+        type: 'info',
+        message: 'A new version is available: ' + newVersion,
+        detail: 'Click Download to get a portable zip with the new version.',
         buttons: ['OK', 'Download']
       }, function(response) {
         if (response === 1) {
