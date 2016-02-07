@@ -75,11 +75,14 @@ gulp.task 'pack:darwin64', ['build:darwin64', 'clean:dist:darwin64'], (done) ->
     ]
 
     # Create the update archive
-    applySpawn 'zip', [
-      '-r9'
-      '../../dist/' + manifest.name + '-' + manifest.version + '-osx-update.zip'
-      manifest.productName + '.app'
-    ], {cwd: './build/darwin64'}
+    applySpawn 'ditto', [
+      '-c'
+      '-k'
+      '--sequesterRsrc'
+      '--keepParent'
+      './build/darwin64/' + manifest.productName + '.app'
+      './dist/' + manifest.name + '-' + manifest.version + '-osx-update.zip'
+    ]
 
     # Create the dmg
     (callback) ->
