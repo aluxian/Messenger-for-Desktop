@@ -38,19 +38,19 @@ process.on('uncaughtException', function(ex) {
       alias: 'v'
     })
     .option('squirrel-install', {
-      type: 'string',
+      type: 'boolean',
       description: 'Squirrel.Windows flag, called when the app is installed.'
     })
     .option('squirrel-uninstall', {
-      type: 'string',
+      type: 'boolean',
       description: 'Squirrel.Windows flag, called after the app is updated.'
     })
     .option('squirrel-updated', {
-      type: 'string',
+      type: 'boolean',
       description: 'Squirrel.Windows flag, called when the app is uninstalled.'
     })
     .option('squirrel-obsolete', {
-      type: 'string',
+      type: 'boolean',
       description: 'Squirrel.Windows flag, called before updating to a new version.'
     })
     .option('squirrel-firstrun', {
