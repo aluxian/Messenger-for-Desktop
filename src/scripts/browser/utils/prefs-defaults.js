@@ -1,3 +1,5 @@
+import platform from './platform';
+
 export default {
   'analytics-track': true,
   'analytics-uid': null,
@@ -6,7 +8,7 @@ export default {
   'links-in-browser': true,
   'quit-behaviour-taught': false,
   'show-notifications-badge': true,
-  'show-tray': false,
+  'show-tray': platform.isWin,
   'show-dock': true,
   'spell-checker': false,
   'spell-checker-auto-correct': false,

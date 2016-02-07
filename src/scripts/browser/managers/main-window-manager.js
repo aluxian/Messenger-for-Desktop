@@ -124,14 +124,20 @@ class MainWindowManager extends EventEmitter {
    * Called when the 'close' event is emitted.
    */
   onClose(event) {
-    // Just hide the window, unless it's force closed
+    // Just hide the window, unless it's force closed (or not running in the tray)
     log('onClose');
-    if (!this.forceClose && (platform.isDarwin || platform.isWin)) {
+
+    if (platform.isDarwin && !this.forceClose) {
+      event.preventDefault();
+      this.window.hide();
+    }
+
+    if (platform.isWin && prefs.get('show-tray')) {
       event.preventDefault();
       this.window.hide();
 
       // Inform the user the app is still running
-      if (platform.isWin && !prefs.get('quit-behaviour-taught')) {
+      if (!prefs.get('quit-behaviour-taught')) {
         this.trayManager.tray.displayBalloon({
           title: 'Whatsie',
           content: 'Whatsie will keep running in the tray until you quit it.'

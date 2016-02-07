@@ -6,7 +6,7 @@ export default {
   allow: platform.isNonDarwin,
   submenu: [{
     type: 'checkbox',
-    label: 'Report Stats and Errors',
+    label: '&Report Stats and Errors',
     click: $.all(
       $.setPref('analytics-track', $.key('checked')),
       $.reloadWindow()
@@ -19,7 +19,7 @@ export default {
     allow: !global.options.portable
   }, {
     type: 'checkbox',
-    label: 'Launch on Startup',
+    label: '&Launch on Startup',
     allow: !global.options.portable,
     click: $.all(
       $.launchOnStartup($.key('checked')),
@@ -33,7 +33,7 @@ export default {
   }, {
     id: 'startup-hidden',
     type: 'checkbox',
-    label: 'Start Hidden on Startup',
+    label: 'Start &Hidden on Startup',
     allow: !global.options.portable,
     click: $.all(
       $.setPref('launch-startup-hidden', $.key('checked')),
@@ -73,6 +73,16 @@ export default {
     label: '&Float on Top',
     accelerator: 'Ctrl+Shift+F',
     click: $.floatOnTop($.key('checked'))
+  }, {
+    type: 'checkbox',
+    label: 'Show in &Tray',
+    click: $.all(
+      $.showInTray($.key('checked')),
+      $.setPref('show-tray', $.key('checked'))
+    ),
+    parse: $.all(
+      $.setLocal('checked', $.pref('show-tray')),
+    )
   }, {
     type: 'checkbox',
     label: 'Open Links in &Browser',
