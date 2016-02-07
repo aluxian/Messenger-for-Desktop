@@ -1,16 +1,13 @@
-import platform from '../utils/platform';
-import prefs from '../utils/prefs';
 import app from 'app';
 
 import EventEmitter from 'events';
 
 class AppListenersManager extends EventEmitter {
 
-  constructor(mainWindowManager, autoUpdateManager, trayManager) {
+  constructor(mainWindowManager, autoUpdateManager) {
     super();
     this.mainWindowManager = mainWindowManager;
     this.autoUpdateManager = autoUpdateManager;
-    this.trayManager = trayManager;
   }
 
   /**
@@ -27,7 +24,7 @@ class AppListenersManager extends EventEmitter {
    * Called when the 'before-quit' event is emitted.
    */
   onBeforeQuit() {
-    // Close the main window instead of hiding it
+    // Set a flag to close the main window instead of hiding it
     log('before quit');
     if (this.mainWindowManager) {
       this.mainWindowManager.forceClose = true;
@@ -50,19 +47,9 @@ class AppListenersManager extends EventEmitter {
    * Called when the 'window-all-closed' event is emitted.
    */
   onAllWindowsClosed() {
-    log('all windows closed');
-
     // Quit the app if all windows are closed
+    log('all windows closed');
     app.quit();
-
-    // Inform the user the app is still running
-    if (platform.isWin && !prefs.get('quit-behaviour-taught')) {
-      this.trayManager.tray.displayBalloon({
-        title: 'Whatsie',
-        content: 'Whatsie keeps running in the tray until you quit it.'
-      });
-      prefs.set('quit-behaviour-taught', true);
-    }
   }
 
   /**

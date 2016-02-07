@@ -19,6 +19,10 @@ class MainWindowManager extends EventEmitter {
     this.startHidden = options.osStartup && prefs.get('launch-startup-hidden');
   }
 
+  setTrayManager(trayManager) {
+    this.trayManager = trayManager;
+  }
+
   createWindow() {
     log('creating main window');
 
@@ -125,6 +129,15 @@ class MainWindowManager extends EventEmitter {
     if (!this.forceClose && (platform.isDarwin || platform.isWin)) {
       event.preventDefault();
       this.window.hide();
+
+      // Inform the user the app is still running
+      if (platform.isWin && !prefs.get('quit-behaviour-taught')) {
+        this.trayManager.tray.displayBalloon({
+          title: 'Whatsie',
+          content: 'Whatsie will keep running in the tray until you quit it.'
+        });
+        prefs.set('quit-behaviour-taught', true);
+      }
     }
   }
 

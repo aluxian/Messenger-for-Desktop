@@ -44,12 +44,12 @@ class Application extends EventEmitter {
     // Others
     this.notifManager = new NotifManager();
     this.trayManager = new TrayManager(this.mainWindowManager, this.notifManager);
+    this.mainWindowManager.setTrayManager(this.trayManager);
     this.nativeNotifier = new NativeNotifier();
     this.autoLauncher = new AutoLauncher();
 
     // Listeners
-    new AppListenersManager(this.mainWindowManager, this.autoUpdateManager,
-      this.trayManager).set();
+    new AppListenersManager(this.mainWindowManager, this.autoUpdateManager).set();
     new IpcListenersManager(this.notifManager, this.trayManager,
       this.mainWindowManager, this.nativeNotifier).set();
   }
