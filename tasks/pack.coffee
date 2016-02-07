@@ -1,3 +1,4 @@
+request = require 'request'
 path = require 'path'
 args = require './args'
 fs = require 'fs'
@@ -277,19 +278,27 @@ gulp.task 'pack:win32:installer', ['build:win32', 'clean:dist:win32'], (done) ->
         process.env.SIGN_WIN_CERTIFICATE_PASSWORD
       ]
 
-      winInstaller
-        appDirectory: './build/win32'
-        outputDirectory: './dist'
-        loadingGif: './build/resources/win/install-spinner.gif'
-        signWithParams: signParams.join ' '
-        setupIcon: './build/resources/win/setup.ico'
-        iconUrl: 'https://raw.githubusercontent.com/Aluxian/Whatsie/master/resources/win/app.ico'
-        remoteReleases: manifest.updater.urls.win32
-        copyright: manifest.win.copyright
-        setupExe: manifest.name + '-' + manifest.version + '-win32-setup.exe'
-        noMsi: true
-        arch: 'ia32'
-      .then callback, callback
+      request {url: manifest.updater.urls.win32}, (err, res, body) ->
+        remoteReleasesUrl = manifest.updater.urls.win32
+
+        if err || res.statusCode < 200 || res.statusCode >= 300
+          console.log 'Creating installer without remote releases url because of',
+            'error', err, 'statusCode', res.statusCode, 'body', res.body
+          remoteReleasesUrl = undefined
+
+        winInstaller
+          appDirectory: './build/win32'
+          outputDirectory: './dist'
+          loadingGif: './build/resources/win/install-spinner.gif'
+          signWithParams: signParams.join ' '
+          setupIcon: './build/resources/win/setup.ico'
+          iconUrl: 'https://raw.githubusercontent.com/Aluxian/Whatsie/master/resources/win/app.ico'
+          remoteReleases: remoteReleasesUrl
+          copyright: manifest.win.copyright
+          setupExe: manifest.name + '-' + manifest.version + '-win32-setup.exe'
+          noMsi: true
+          arch: 'ia32'
+        .then callback, callback
   ], done
 
 # Create the win32 portable zip
