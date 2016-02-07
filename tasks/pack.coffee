@@ -14,7 +14,7 @@ winInstaller = require 'electron-windows-installer'
 manifest = require '../src/package.json'
 
 # Sign the app and create a dmg for darwin64; only works on OS X because of appdmg and codesign
-gulp.task 'pack:darwin64', ['build:darwin64', 'clean:dist:darwin64'], (done) ->
+gulp.task 'pack:darwin64:dmg', ['build:darwin64', 'clean:dist:darwin64'], (done) ->
   if process.platform isnt 'darwin'
     console.warn 'Skipping darwin64 packing; This only works on darwin due to `appdmg` and the `codesign` command.'
     return done()
@@ -74,16 +74,6 @@ gulp.task 'pack:darwin64', ['build:darwin64', 'clean:dist:darwin64'], (done) ->
       './build/darwin64/' + manifest.productName + '.app'
     ]
 
-    # Create the update archive
-    applySpawn 'ditto', [
-      '-c'
-      '-k'
-      '--sequesterRsrc'
-      '--keepParent'
-      './build/darwin64/' + manifest.productName + '.app'
-      './dist/' + manifest.name + '-' + manifest.version + '-osx-update.zip'
-    ]
-
     # Create the dmg
     (callback) ->
       appdmg
@@ -91,6 +81,72 @@ gulp.task 'pack:darwin64', ['build:darwin64', 'clean:dist:darwin64'], (done) ->
         target: './dist/' + manifest.name + '-' + manifest.version + '-osx.dmg'
       .on 'finish', callback
       .on 'error', callback
+  ], done
+
+# Sign the app and create a zip for darwin64; only works on OS X because of codesign
+gulp.task 'pack:darwin64:zip', ['build:darwin64', 'clean:dist:darwin64'], (done) ->
+  if process.platform isnt 'darwin'
+    console.warn 'Skipping darwin64 packing; This only works on darwin due to the `codesign` command.'
+    return done()
+
+  for envName in ['SIGN_DARWIN_KEYCHAIN_PASSWORD', 'SIGN_DARWIN_KEYCHAIN_NAME', 'SIGN_DARWIN_IDENTITY']
+    if not process.env[envName]
+      console.warn envName + ' env var not set.'
+      return done()
+
+  async.series [
+    # Update package.json
+    (callback) ->
+      jsonPath = './build/darwin64/' + manifest.productName + '.app/Contents/Resources/app/package.json'
+      updateManifest jsonPath, (manifest) ->
+        manifest.distrib = 'darwin64:zip'
+      , callback
+
+    # Remove the dev modules
+    applyIf args.prod, applySpawn 'npm', ['prune', '--production'],
+      cwd: './build/darwin64/' + manifest.productName + '.app/Contents/Resources/app'
+
+    # Deduplicate dependencies
+    applyIf args.prod, applySpawn 'npm', ['dedupe'],
+      cwd: './build/darwin64/' + manifest.productName + '.app/Contents/Resources/app'
+
+    # Compress the source files into an asar archive
+    async.apply asar.createPackage,
+      './build/darwin64/' + manifest.productName + '.app/Contents/Resources/app',
+      './build/darwin64/' + manifest.productName + '.app/Contents/Resources/app.asar'
+
+    # Remove leftovers
+    applyPromise del, './build/darwin64/' + manifest.productName + '.app/Contents/Resources/app'
+
+    # Unlock the keychain
+    applySpawn 'security', [
+      'unlock-keychain'
+      '-p'
+      process.env.SIGN_DARWIN_KEYCHAIN_PASSWORD
+      process.env.SIGN_DARWIN_KEYCHAIN_NAME
+    ]
+
+    # Sign the app package
+    applySpawn 'codesign', [
+      '--deep'
+      '--force'
+      '--verbose'
+      '--keychain'
+      process.env.SIGN_DARWIN_KEYCHAIN_NAME
+      '--sign'
+      process.env.SIGN_DARWIN_IDENTITY
+      './build/darwin64/' + manifest.productName + '.app'
+    ]
+
+    # Create the archive
+    applySpawn 'ditto', [
+      '-c'
+      '-k'
+      '--sequesterRsrc'
+      '--keepParent'
+      './build/darwin64/' + manifest.productName + '.app'
+      './dist/' + manifest.name + '-' + manifest.version + '-osx.zip'
+    ]
   ], done
 
 # Create deb and rpm packages for linux32 and linux64
