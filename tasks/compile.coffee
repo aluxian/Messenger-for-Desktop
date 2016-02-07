@@ -3,6 +3,7 @@ beeper = require 'beeper'
 gulp = require 'gulp'
 plumber = require 'gulp-plumber'
 sourcemaps = require 'gulp-sourcemaps'
+rename = require 'gulp-rename'
 header = require 'gulp-header'
 
 less = require 'gulp-less'
@@ -101,6 +102,8 @@ args = require './args'
   # Move themes
   gulp.task 'compile:' + dist + ':themes', ['clean:build:' + dist], ->
     gulp.src './src/themes/**/*.css'
+      .pipe rename (path) ->
+        path.basename = path.basename.toLowerCase()
       .pipe gulp.dest dir + '/themes'
       .pipe livereload()
 

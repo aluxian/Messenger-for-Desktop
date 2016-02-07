@@ -26,6 +26,7 @@
     "gulp-livereload": "3.8.1",
     "gulp-mustache": "2.2.0",
     "gulp-plumber": "1.0.1",
+    "gulp-rename": "1.2.2",
     "gulp-sourcemaps": "1.6.0",
     "gulp-zip": "3.1.0",
     "rcedit": "0.4.0",
