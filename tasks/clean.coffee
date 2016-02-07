@@ -26,7 +26,7 @@ gulp.task 'clean:build', ['clean:build:' + platform()]
 
 # Clean all the dist files for darwin64 and make sure the dir exists
 gulp.task 'clean:dist:darwin64', ->
-  del './dist/**'
+  del './dist/' + manifest.productName + '.dmg'
     .then -> fs.ensureDirAsync './dist'
 
 # Just ensure the dir exists (dist files are overwritten)

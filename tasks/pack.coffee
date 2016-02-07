@@ -85,7 +85,7 @@ gulp.task 'pack:darwin64:dmg', ['build:darwin64', 'clean:dist:darwin64'], (done)
   ], done
 
 # Sign the app and create a zip for darwin64; only works on OS X because of codesign
-gulp.task 'pack:darwin64:zip', ['build:darwin64', 'clean:dist:darwin64'], (done) ->
+gulp.task 'pack:darwin64:zip', ['build:darwin64'], (done) ->
   if process.platform isnt 'darwin'
     console.warn 'Skipping darwin64 packing; This only works on darwin due to the `codesign` command.'
     return done()
