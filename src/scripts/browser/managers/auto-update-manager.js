@@ -33,7 +33,7 @@ class AutoUpdateManager extends EventEmitter {
   }
 
   setFeedUrl() {
-    const feedUrl = this.manifest.updater.urls[process.platform]
+    let feedUrl = this.manifest.updater.urls[process.platform]
       .replace(/%CURRENT_VERSION%/g, this.manifest.version);
 
     if (platform.isWin) {
