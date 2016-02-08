@@ -62,6 +62,7 @@ process.on('uncaughtException', function(ex) {
     .argv;
 
   log('cli args parsed', options);
+  global.options = options;
 
   // Check for Squirrel.Windows CLI args
   if (process.platform == 'win32' && SquirrelEvents.check(options)) {
@@ -127,8 +128,6 @@ process.on('uncaughtException', function(ex) {
   // Create the main app object and init
   app.on('ready', function() {
     log('ready, launching app');
-    global.manifest = manifest;
-    global.options = options;
     const Application = require('./application').default;
     global.application = new Application(manifest, options);
     global.application.init();
