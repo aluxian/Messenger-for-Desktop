@@ -98,6 +98,9 @@ class MainWindowManager extends EventEmitter {
    * Called when the 'enter-full-screen' event is emitted.
    */
   onEnterFullScreen() {
+    if (platform.isLinux) {
+      return; // this event isn't triggered correctly on linux
+    }
     // Save in prefs
     prefs.set('window-full-screen', true);
   }
@@ -106,6 +109,9 @@ class MainWindowManager extends EventEmitter {
    * Called when the 'leave-full-screen' event is emitted.
    */
   onLeaveFullScreen() {
+    if (platform.isLinux) {
+      return; // this event isn't triggered correctly on linux
+    }
     // Save in prefs
     prefs.set('window-full-screen', false);
   }
