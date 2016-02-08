@@ -62,6 +62,7 @@ process.on('uncaughtException', function(ex) {
     .argv;
 
   log('cli args parsed', options);
+  global.manifest = manifest;
   global.options = options;
 
   // Check for Squirrel.Windows CLI args
