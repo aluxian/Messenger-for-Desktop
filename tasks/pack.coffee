@@ -183,8 +183,12 @@ gulp.task 'pack:darwin64:zip', ['build:darwin64'], (done) ->
         './CHANGELOG.deb'
         '--rpm-changelog'
         './CHANGELOG.rpm'
-        '--depends'
-        'libappindicator1'
+        '--deb-recommends'
+        'lsb-release'
+        '--deb-suggests'
+        'libgnome-keyring0'
+        '--deb-suggests'
+        'gir1.2-gnomekeyring-1.0'
         '--license'
         manifest.license
         '--category'
@@ -207,6 +211,35 @@ gulp.task 'pack:darwin64:zip', ['build:darwin64'], (done) ->
         './build/linux' + arch
         '.'
       ].filter (a) -> a?
+
+      deps = []
+      depsInsertIndex = fpmArgs.indexOf '--deb-recommends'
+
+      if target == 'deb'
+        deps = [
+          'libappindicator1'
+          'gconf2'
+          'gconf-service'
+          'libgtk2.0-0'
+          'libudev0 | libudev1'
+          'libgcrypt11 | libgcrypt20'
+          'libnotify4'
+          'libxtst6'
+          'libnss3'
+          'python'
+          'gvfs-bin'
+          'xdg-utils'
+          'libcap2'
+        ]
+      else
+        deps = [
+          'lsb-core-noarch'
+          'libappindicator1'
+        ]
+
+      for dep in deps
+        fpmArgs.splice depsInsertIndex, 0, dep
+        fpmArgs.splice depsInsertIndex, 0, '--depends'
 
       async.series [
         # Update package.json
