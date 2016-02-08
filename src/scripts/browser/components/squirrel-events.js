@@ -9,12 +9,12 @@ class SquirrelEvents {
 
   check(options) {
     if (options.squirrelInstall) {
-      this.spawnSquirrel(['--createShortcut', app.getPath('exe')], app.exit);
+      this.spawnSquirrel(['--createShortcut', app.getPath('exe')], this.eventHandled);
       return true;
     }
 
     if (options.squirrelUpdated || options.squirrelObsolete) {
-      app.exit(0);
+      setTimeout(this.eventHandled);
       return true;
     }
 
@@ -23,7 +23,7 @@ class SquirrelEvents {
         if (err) {
           logError(err);
         }
-        this.spawnSquirrel(['--removeShortcut', app.getPath('exe')], app.exit);
+        this.spawnSquirrel(['--removeShortcut', app.getPath('exe')], this.eventHandled);
       });
       return true;
     }
@@ -42,6 +42,10 @@ class SquirrelEvents {
       }
       callback(code || 0);
     });
+  }
+
+  eventHandled(exitCode = 0) {
+    app.exit(exitCode);
   }
 
 }
