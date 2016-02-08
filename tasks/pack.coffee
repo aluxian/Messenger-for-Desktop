@@ -234,7 +234,6 @@ gulp.task 'pack:darwin64:zip', ['build:darwin64'], (done) ->
         ]
       else
         deps = [
-          'lsb-core-noarch'
           'libappindicator1'
         ]
 
