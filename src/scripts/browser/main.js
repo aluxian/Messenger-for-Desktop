@@ -22,7 +22,7 @@ process.on('uncaughtException', function(ex) {
 
 (function() {
   // Define the CLI arguments and parse them
-  const argv = yargs
+  const options = yargs
     .usage('Usage: $0 [options]')
     .option('os-startup', {
       type: 'boolean',
@@ -61,14 +61,16 @@ process.on('uncaughtException', function(ex) {
     .epilog('Created with <3 by Alexandru Rosianu – http://www.aluxian.com/')
     .argv;
 
+  log('cli args parsed', options);
+
   // Check for Squirrel.Windows CLI args
-  if (process.platform == 'win32' && SquirrelEvents.check(argv)) {
+  if (process.platform == 'win32' && SquirrelEvents.check(options)) {
     log('Squirrel.Windows event detected');
     return;
   }
 
   // Print the version and exit
-  if (argv.version) {
+  if (options.version) {
     console.log(`${app.getName()} ${app.getVersion()}`);
     console.log(`Electron ${process.versions.electron}`);
     console.log(`Chromium ${process.versions.chrome}`);
@@ -95,7 +97,7 @@ process.on('uncaughtException', function(ex) {
   }
 
   // Change the userData path if in portable mode
-  if (argv.portable || manifest.portable) {
+  if (options.portable || manifest.portable) {
     log('running in portable mode');
     const userDataPath = path.join(filePaths.getAppDir(), 'data');
     log('set userData path', userDataPath);
@@ -126,9 +128,9 @@ process.on('uncaughtException', function(ex) {
   app.on('ready', function() {
     log('ready, launching app');
     global.manifest = manifest;
-    global.options = argv;
+    global.options = options;
     const Application = require('./application').default;
-    global.application = new Application(manifest, argv);
+    global.application = new Application(manifest, options);
     global.application.init();
   });
 })();
