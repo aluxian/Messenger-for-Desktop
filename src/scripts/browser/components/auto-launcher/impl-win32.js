@@ -12,7 +12,7 @@ class Win32AutoLauncher extends BaseAutoLauncher {
   });
 
   enable(callback) {
-    const cmd = '"' + app.getPath('exe') + '" -- --os-startup';
+    const cmd = '"' + app.getPath('exe') + '" --os-startup';
     log('setting registry key for', manifest.productName, 'value', cmd);
     Win32AutoLauncher.REG_KEY.set(manifest.productName, Winreg.REG_SZ, cmd, callback);
   }

@@ -40,7 +40,7 @@ class DarwinAutoLauncher extends BaseAutoLauncher {
     const plist = new Plist();
     plist.setLabel(manifest.darwin.bundleId);
     plist.setProgram(app.getPath('exe'));
-    plist.setProgramArgs(['--os-startup', '--', '--os-startup']);
+    plist.setProgramArgs(['--os-startup']);
     plist.setRunAtLoad(true);
     return plist.build();
   }
