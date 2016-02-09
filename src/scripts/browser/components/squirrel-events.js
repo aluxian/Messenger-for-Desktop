@@ -19,7 +19,7 @@ class SquirrelEvents {
     }
 
     if (options.squirrelUninstall) {
-      AutoLauncher.disable(function(err) {
+      new AutoLauncher().disable(function(err) {
         if (err) {
           logError(err);
         }
