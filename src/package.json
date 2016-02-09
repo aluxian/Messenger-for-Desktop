@@ -9,6 +9,7 @@
     "async": "1.5.2",
     "babel-runtime": "6.3.19",
     "debug": "2.2.0",
+    "del": "2.2.0",
     "jfs": "0.2.6",
     "keymirror": "0.1.1",
     "launchd.plist": "0.0.1",

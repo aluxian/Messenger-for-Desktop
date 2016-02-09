@@ -1,8 +1,10 @@
 import filePaths from '../utils/file-paths';
 import cp from 'child_process';
 import app from 'app';
+import del from 'del';
 
 import AutoLauncher from './auto-launcher';
+import manifest from '../../../package.json';
 
 class SquirrelEvents {
 
@@ -18,11 +20,19 @@ class SquirrelEvents {
     }
 
     if (options.squirrelUninstall) {
+      // Remove auto-launch registry key
       new AutoLauncher().disable(function(err) {
         if (err) {
           logError(err);
         }
-        this.spawnSquirrel(['--removeShortcut', app.getPath('exe')], this.eventHandled);
+        // Remove leftover user data
+        del(app.getPath('userData'))
+          .catch(logError)
+          .then(() => {
+            // Remove shortcuts
+            const args = ['--removeShortcut', manifest.productName + '.exe'];
+            this.spawnSquirrel(args, this.eventHandled);
+          });
       });
       return true;
     }
