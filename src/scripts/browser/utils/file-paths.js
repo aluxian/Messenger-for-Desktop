@@ -51,5 +51,12 @@ export default {
     } else {
       return exeDir;
     }
+  },
+
+  /**
+   * @return the path to Update.exe created by Squirrel.Windows
+   */
+  getSquirrelUpdateExe: function() {
+    return path.resolve(this.getAppDir(), '..', 'Update.exe');
   }
 };

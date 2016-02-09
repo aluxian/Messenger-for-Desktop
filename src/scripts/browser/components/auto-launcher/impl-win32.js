@@ -1,6 +1,6 @@
 import manifest from '../../../../package.json';
+import filePaths from '../../utils/file-paths';
 import Winreg from 'winreg';
-import app from 'app';
 
 import BaseAutoLauncher from './base';
 
@@ -12,7 +12,9 @@ class Win32AutoLauncher extends BaseAutoLauncher {
   });
 
   enable(callback) {
-    const cmd = '"' + app.getPath('exe') + '" --os-startup';
+    const updateExePath = filePaths.getSquirrelUpdateExe();
+    const cmd = `"${updateExePath}" --processStart ` +
+      `"${manifest.productName}.exe" --process-start-args "--os-startup"`;
     log('setting registry key for', manifest.productName, 'value', cmd);
     Win32AutoLauncher.REG_KEY.set(manifest.productName, Winreg.REG_SZ, cmd, callback);
   }
