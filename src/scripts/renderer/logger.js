@@ -17,7 +17,7 @@ export function errorLogger(filename, fatal) {
   const namespace = namespaceOf(filename);
   return function(...args) {
     console.error(`[${fakePagePath}]`, ...args);
-    const ga = require('./analytics');
+    const ga = require('./analytics').default;
     if (ga) {
       ga('set', {
         page: fakePagePath,
