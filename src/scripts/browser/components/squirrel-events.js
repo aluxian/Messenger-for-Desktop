@@ -21,7 +21,7 @@ class SquirrelEvents {
 
     if (options.squirrelUninstall) {
       // Remove auto-launch registry key
-      new AutoLauncher().disable(function(err) {
+      new AutoLauncher().disable((err) => {
         if (err) {
           logError(err);
         }
