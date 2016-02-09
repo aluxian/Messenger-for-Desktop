@@ -62,8 +62,12 @@ class MainWindowManager extends EventEmitter {
     this.window.on('move', saveBounds);
 
     // Restore full screen state
-    const isFullScreen = prefs.get('window-full-screen');
-    this.window.setFullScreen(isFullScreen);
+    if (!platform.isLinux) {
+      const isFullScreen = prefs.get('window-full-screen');
+      this.window.setFullScreen(isFullScreen);
+      // doesn't work correctly on Linux: setFullScreen makes
+      // the app full screen even if it's called with false
+    }
 
     // Finally, load the app html
     this.window.loadURL(filePaths.getHtmlFile('app.html'));
