@@ -55,6 +55,7 @@ class MainWindowManager extends EventEmitter {
     this.window.on('closed', ::this.onClosed);
     this.window.on('close', ::this.onClose);
     this.window.on('focus', ::this.onFocus);
+    this.window.on('blur', ::this.onBlur);
 
     // Save the bounds on resize or move
     const saveBounds = debounce(::this.saveBounds, 500);
