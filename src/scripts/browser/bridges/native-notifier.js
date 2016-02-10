@@ -3,7 +3,7 @@
  * Accessing global.application.nativeNotifier directly doens't work.
  */
 export default {
-  impl: global.application.nativeNotifier.impl,
+  isImplemented: !!global.application.nativeNotifier.isImplemented,
   fireNotification: function() {
     const fireNotification = global.application.nativeNotifier.fireNotification;
     if (fireNotification) {

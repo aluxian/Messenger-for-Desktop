@@ -9,7 +9,7 @@ class DarwinNativeNotifier extends BaseNativeNotifier {
     super();
 
     // Flag that this notifier has been implemented
-    this.impl = true;
+    this.isImplemented = true;
 
     // Obj-C imports
     $.framework('Foundation');

@@ -8,8 +8,8 @@ window.Notification = (function(Html5Notification) {
   log('extending HTML5 Notification');
 
   const Notification = function(title, options) {
-    if (!nativeNotifier.impl) {
-      log('showing html5 notification');
+    if (!nativeNotifier.isImplemented) {
+      log('showing html5 notification', title, options);
       return new Html5Notification(title, options);
     }
 
