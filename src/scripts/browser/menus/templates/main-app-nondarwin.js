@@ -1,10 +1,18 @@
+import manifest from '../../../../package.json';
 import platform from '../../utils/platform';
 import $ from '../expressions';
 
 export default {
-  label: '&Settings',
+  label: '&App',
   allow: platform.isNonDarwin,
   submenu: [{
+    label: 'Version ' + manifest.version,
+    enabled: false
+  }, {
+    id: 'check-for-update',
+    label: 'Check for &Update',
+    click: $.checkForUpdate()
+  }, {
     type: 'checkbox',
     label: '&Report Stats and Errors',
     click: $.all(
@@ -92,5 +100,11 @@ export default {
     parse: $.all(
       $.setLocal('checked', $.pref('links-in-browser'))
     )
+  }, {
+    type: 'separator'
+  }, {
+    label: '&Quit',
+    accelerator: 'Alt+F4',
+    click: $.appQuit()
   }]
 };

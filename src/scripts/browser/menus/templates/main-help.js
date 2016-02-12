@@ -1,5 +1,4 @@
 import manifest from '../../../../package.json';
-import platform from '../../utils/platform';
 import $ from '../expressions';
 import os from 'os';
 
@@ -7,18 +6,6 @@ export default {
   label: '&Help',
   role: 'help',
   submenu: [{
-    label: 'Version ' + manifest.version,
-    allow: platform.isNonDarwin,
-    enabled: false
-  }, {
-    id: 'check-for-update',
-    label: 'Check for &Update',
-    allow: platform.isNonDarwin,
-    click: $.checkForUpdate()
-  }, {
-    type: 'separator',
-    allow: platform.isNonDarwin
-  }, {
     label: 'Gitter &Chat',
     click: $.openUrl('https://gitter.im/Aluxian/Whatsie')
   }, {
