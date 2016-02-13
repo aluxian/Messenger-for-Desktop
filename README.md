@@ -8,11 +8,11 @@
 
 A simple & beautiful desktop client for [WhatsApp Web](https://web.whatsapp.com/). Chat without distractions on Windows, OS X and Linux. Not affiliated with WhatsApp or Facebook. This is **NOT** an official product.
 
-# How to install
+## How to install
 
 ### OS X
 
-1. Download [whatsie-x.x.x.dmg][LR]
+1. Download [whatsie-x.x.x-osx.dmg][LR] or [whatsie-x.x.x-osx.zip][LR]
 2. Open it and drag the app into the `Applications` folder
 
 The app will update automatically.
@@ -68,7 +68,7 @@ sudo yum install whatsie.x86_64   # for 64-bit distros
 
 # For Developers
 
-# Build
+## Build
 
 ### Install pre-requisites
 
@@ -193,11 +193,11 @@ gulp pack:<linux32|linux64>:<deb|rpm> [--prod]
 
 Make sure you've installed [fpm](https://github.com/jordansissel/fpm).
 
-# Note to WhatsApp
+## Note to WhatsApp
 
 This project does not attempt to reverse engineer the WhatsApp API or attempt to reimplement any part of the WhatsApp client. Any communication between the user and WhatsApp servers is handled by WhatsApp Web itself; this is just a native wrapper for WhatsApp Web.
 
-# Contributions
+## Contributions
 
 Contributions are welcome! For feature requests and bug reports please [submit an issue](https://github.com/Aluxian/Whatsie/issues/new?labels=bug) or get in touch with me on [Gitter](https://gitter.im/Aluxian/Whatsie) or Twitter [@aluxian](https://twitter.com/aluxian).
 
