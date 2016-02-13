@@ -1,5 +1,11 @@
+whatsie (2.0.1) main; urgency=low
+
+ * Dummy release to test the updating process.
+
+ -- Alexandru Rosianu <me@aluxian.com>  Fri, 12 Feb 2016 10:58:55 +0200
+
 whatsie (2.0.0) unstable; urgency=low
 
  * Initial release.
 
--- Alexandru Rosianu <me@aluxian.com>  Sun, 20 Dec 2015 21:26:04 +0200
+ -- Alexandru Rosianu <me@aluxian.com>  Sun, 20 Dec 2015 21:26:04 +0200
