@@ -13,7 +13,7 @@ A simple & beautiful desktop client for [WhatsApp Web](https://web.whatsapp.com/
 ### OS X
 
 1. Download [whatsie-x.x.x-osx.dmg][LR] or [whatsie-x.x.x-osx.zip][LR]
-2. Open it and drag the app into the `Applications` folder
+2. Open or unzip the file and drag the app into the `Applications` folder
 
 The app will update automatically.
 
