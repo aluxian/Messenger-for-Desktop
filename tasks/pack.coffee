@@ -337,7 +337,7 @@ gulp.task 'pack:win32:installer', ['build:win32', 'clean:dist:win32'], (done) ->
         process.env.SIGN_WIN_CERTIFICATE_PASSWORD
       ]
 
-      remoteReleasesUrl = manifest.updater.urls.win32
+      remoteReleasesUrl = manifest.updater.urls.win32 + '/raw'
       releasesUrl = manifest.updater.urls.win32 + '/RELEASES'
 
       request {url: releasesUrl}, (err, res, body) ->
