@@ -1,0 +1,6 @@
+{
+  "max_line_length" : {
+    "level" : "error",
+    "value" : 140
+  }
+}
