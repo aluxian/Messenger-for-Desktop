@@ -337,9 +337,10 @@ gulp.task 'pack:win32:installer', ['build:win32', 'clean:dist:win32'], (done) ->
         process.env.SIGN_WIN_CERTIFICATE_PASSWORD
       ]
 
-      request {url: manifest.updater.urls.win32}, (err, res, body) ->
-        remoteReleasesUrl = manifest.updater.urls.win32
+      remoteReleasesUrl = manifest.updater.urls.win32
+      releasesUrl = manifest.updater.urls.win32 + '/RELEASES'
 
+      request {url: releasesUrl}, (err, res, body) ->
         if err || res.statusCode < 200 || res.statusCode >= 300
           console.log 'Creating installer without remote releases url because of',
             'error', err, 'statusCode', res.statusCode, 'body', res.body
