@@ -341,7 +341,7 @@ gulp.task 'pack:win32:installer', ['build:win32', 'clean:dist:win32'], (done) ->
       releasesUrl = manifest.updater.urls.win32 + '/RELEASES'
 
       request {url: releasesUrl}, (err, res, body) ->
-        if err || res.statusCode < 200 || res.statusCode >= 300
+        if err || res.statusCode < 200 || res.statusCode >= 400
           console.log 'Creating installer without remote releases url because of',
             'error', err, 'statusCode', res.statusCode, 'body', res.body
           remoteReleasesUrl = undefined
