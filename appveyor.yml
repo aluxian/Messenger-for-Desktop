@@ -33,6 +33,7 @@ install:
   - npm install
 
 before_build:
+  - npm test
   - gulp rebuild:32 --verbose
 
 build_script:
@@ -41,9 +42,6 @@ build_script:
 
 deploy_script:
   - gulp publish:github --verbose
-
-test_script:
-  - npm test
 
 artifacts:
   - path: dist\*
