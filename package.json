@@ -3,7 +3,7 @@
   "version": "1.4.6",
   "repository": {
     "type": "git",
-    "url": "git@github.com:Aluxian/Facebook-Messenger-Desktop.git"
+    "url": "git@github.com:Sytten/Facebook-Messenger-Desktop.git"
   },
   "scripts": {
     "postinstall": "(cd src && npm install)"
