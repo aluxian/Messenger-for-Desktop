@@ -19,11 +19,11 @@
     "plugin": true
   },
   "dependencies": {
-    "async": "^1.0.0",
-    "auto-launch": "^1.0.1",
-    "jfs": "^0.2.5",
-    "request": "^2.56.0",
-    "semver": "^4.3.5"
+    "async": "^1.5.2",
+    "auto-launch": "^1.1.1",
+    "jfs": "^0.2.6",
+    "request": "^2.69.0",
+    "semver": "^5.1.0"
   },
   "manifestUrl": "https://raw.githubusercontent.com/Sytten/Facebook-Messenger-Desktop/master/src/package.json",
   "packages": {
