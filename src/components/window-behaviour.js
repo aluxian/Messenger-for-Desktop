@@ -49,6 +49,10 @@ module.exports = {
   setNewWinPolicy: function(win) {
     win.removeAllListeners('new-win-policy');
     win.on('new-win-policy', function(frame, url, policy) {
+      if (url == 'about:blank') {
+        return policy.ignore(); // Ignore about:blank URLs
+      }
+
       if (settings.openLinksInBrowser) {
         url = utils.skipFacebookRedirect(url);
         gui.Shell.openExternal(url);
@@ -165,9 +169,23 @@ module.exports = {
       win.moveTo(state.x, state.y);
     }
 
-	if(!settings.startMinimized)
-    	win.show();
-	 else
-		win.hide();
+<<<<<<< HEAD
+    if(!settings.startMinimized)
+      win.show();
+    else
+      win.hide();
+  },
+
+  /**
+   * Reload the app periodically until online.
+   */
+  reloadUntilOnline: function(win) {
+    var reloadIntervalId = setInterval(function() {
+      if (win.window.navigator.onLine) {
+        clearInterval(reloadIntervalId);
+      } else {
+        win.reload();
+      }
+    }, 5 * 1000);
   }
 };
