@@ -169,7 +169,6 @@ module.exports = {
       win.moveTo(state.x, state.y);
     }
 
-<<<<<<< HEAD
     if(!settings.startMinimized)
       win.show();
     else
