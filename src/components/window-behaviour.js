@@ -34,10 +34,16 @@ module.exports = {
    * Close the window using the ESC key.
    */
   closeWithEscKey: function(win, doc) {
-    doc.onkeyup = function(e) {
+    doc.onkeydown = function(e) {
       if (e.keyCode == 27 && settings.closeWithEscKey) {
         e.preventDefault();
-        win.close();
+
+        var imagePopUp = doc.querySelectorAll('._n8._3qx._1j1h.uiLayer._3qw');
+
+        if(imagePopUp.length > 0)
+          return false;
+        else
+          win.close();
         return false;
       }
     }
