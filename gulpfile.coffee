@@ -17,29 +17,9 @@ gulp.task 'clean', ->
       shelljs.sed '-i', '"toolbar": false', '"toolbar": true', './src/package.json'
 
     gulp.src './src/**'
-      .pipe $.nodeWebkitBuilder
+      .pipe $.nwBuilder
         platforms: [platform]
-        version: '0.12.2'
-        winIco: if process.argv.indexOf('--noicon') > 0 then undefined else './assets-windows/icon.ico'
-        macIcns: './assets-osx/icon.icns'
-        macZip: true
-        macPlist:
-          NSHumanReadableCopyright: 'aluxian.com'
-          CFBundleIdentifier: 'com.aluxian.messengerfordesktop'
-      .on 'end', ->
-        if process.argv.indexOf('--toolbar') > 0
-          shelljs.sed '-i', '"toolbar": true', '"toolbar": false', './src/package.json'
-
-# Build for each platform; on OSX/Linux, you need Wine installed to build win32 (or remove winIco below)
-['win32', 'osx64', 'linux32', 'linux64'].forEach (platform) ->
-  gulp.task 'build:' + platform, ->
-    if process.argv.indexOf('--toolbar') > 0
-      shelljs.sed '-i', '"toolbar": false', '"toolbar": true', './src/package.json'
-
-    gulp.src './src/**'
-      .pipe $.nodeWebkitBuilder
-        platforms: [platform]
-        version: '0.12.2'
+        version: '0.12.3'
         winIco: if process.argv.indexOf('--noicon') > 0 then undefined else './assets-windows/icon.ico'
         macIcns: './assets-osx/icon.icns'
         macZip: true
@@ -69,6 +49,7 @@ gulp.task 'pack:osx64', ['sign:osx64'], ->
 
 # Create a nsis installer for win32; must have `makensis` installed
 gulp.task 'pack:win32', ['build:win32'], ->
+   shelljs.mkdir '-p', './dist'            # makensis fails if ./dist doesn't exist
    shelljs.exec 'makensis ./assets-windows/installer.nsi'
 
 # Create packages for linux

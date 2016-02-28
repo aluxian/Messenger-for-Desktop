@@ -14,8 +14,11 @@ module.exports = {
       win.show();
     });
 
+    gui.App.on('open', function() {
+      win.show();
+    });
+
     // Don't quit the app when the window is closed
-    if (!platform.isLinux) {
       win.removeAllListeners('close');
       win.on('close', function(quit) {
         if (quit) {
@@ -25,7 +28,6 @@ module.exports = {
           win.hide();
         }
       }.bind(this));
-    }
   },
 
   /**
@@ -33,7 +35,7 @@ module.exports = {
    */
   closeWithEscKey: function(win, doc) {
     doc.onkeyup = function(e) {
-      if (e.keyCode == 27) {
+      if (e.keyCode == 27 && settings.closeWithEscKey) {
         e.preventDefault();
         win.close();
         return false;
@@ -167,7 +169,11 @@ module.exports = {
       win.moveTo(state.x, state.y);
     }
 
-    win.show();
+<<<<<<< HEAD
+    if(!settings.startMinimized)
+      win.show();
+    else
+      win.hide();
   },
 
   /**

@@ -12,7 +12,7 @@ module.exports = {
   /**
    * The main settings items. Their placement differs for each platform:
    * - on OS X they're in the top menu bar
-   * - on Windows they're in the tray icon's menu
+   * - on Windows and linux they're in the tray icon's menu
    * - on all 3 platform, they're also in the right-click context menu
    */
   settingsItems: function(win, keep) {
@@ -53,13 +53,11 @@ module.exports = {
       type: 'checkbox',
       label: 'Launch on Startup',
       setting: 'launchOnStartup',
-      platforms: ['osx', 'win'],
       click: function() {
         settings.launchOnStartup = this.checked;
 
         var launcher = new AutoLaunch({
           name: 'Messenger',
-          isHidden: true // hidden on launch - only works on a mac atm
         });
 
         launcher.isEnabled(function(enabled) {
@@ -94,6 +92,14 @@ module.exports = {
       label: 'Theme',
       submenu: this.createThemesMenu(keep)
     }, {
+      type: 'checkbox',
+      label: 'Close with ESC key',
+      setting: 'closeWithEscKey'
+    }, {
+      type: 'checkbox',
+      label: 'Start minimized',
+      setting: 'startMinimized'
+    },	{
       type: 'separator'
     }, {
       label: 'Check for Update',
