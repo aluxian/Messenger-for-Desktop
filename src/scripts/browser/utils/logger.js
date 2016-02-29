@@ -1,4 +1,5 @@
 import manifest from '../../../package.json';
+import filePaths from './file-paths';
 import stripAnsi from 'strip-ansi';
 import mkdirp from 'mkdirp';
 import debug from 'debug';
@@ -11,7 +12,7 @@ const fileLogEnabled = process.env.DEBUG && !process.mas;
 let fileLogStream = null;
 
 if (fileLogEnabled) {
-  const fileLogsDir = path.join(app.getPath('userData'), 'logs');
+  const fileLogsDir = path.join(filePaths.getAppDir(), 'logs');
   mkdirp.sync(fileLogsDir);
 
   const fileLogPath = path.join(fileLogsDir, Date.now() + '.log');
