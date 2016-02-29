@@ -67,7 +67,7 @@
     "url": "https://github.com/Aluxian/Whatsie.git"
   },
   "gaPropertyId": "UA-71663849-2",
-  "electronVersion": "v0.36.7",
+  "electronVersion": "v0.36.9",
   "distrib": "unset",
   "portable": false
 }
