@@ -1,3 +1,10 @@
+whatsie (2.0.2) main; urgency=low
+
+ * Fixes for the auto updater.
+ * Improved logging.
+
+ -- Alexandru Rosianu <me@aluxian.com>  Mon, 29 Feb 2016 15:32:11 +0200
+
 whatsie (2.0.1) main; urgency=low
 
  * Dummy release to test the updating process.
