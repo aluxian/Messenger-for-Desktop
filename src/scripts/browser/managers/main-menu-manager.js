@@ -12,6 +12,8 @@ class MainMenuManager extends EventEmitter {
     if (!this.menu) {
       this.menu = Menu.buildFromTemplate(template);
       log('app menu created');
+    } else {
+      log('app menu already created');
     }
   }
 
@@ -19,6 +21,8 @@ class MainMenuManager extends EventEmitter {
     if (this.menu) {
       Menu.setApplicationMenu(this.menu);
       log('app menu set');
+    } else {
+      logError(new Error('menu not created'));
     }
   }
 
@@ -30,16 +34,19 @@ class MainMenuManager extends EventEmitter {
     }
 
     AutoUpdater.on('error', () => {
+      log('auto updater on error');
       checkUpdateItem.label = 'Check for &Update';
       checkUpdateItem.enabled = true;
     });
 
     AutoUpdater.on('checking-for-update', () => {
+      log('auto updater on checking-for-update');
       checkUpdateItem.label = 'Checking for &Update...';
       checkUpdateItem.enabled = false;
     });
 
     AutoUpdater.on('update-available', () => {
+      log('auto updater on update-available');
       if (platform.isLinux) {
         checkUpdateItem.label = 'Download &Update';
         checkUpdateItem.enabled = true;
@@ -50,11 +57,13 @@ class MainMenuManager extends EventEmitter {
     });
 
     AutoUpdater.on('update-not-available', () => {
+      log('auto updater on update-not-available');
       checkUpdateItem.label = 'Check for &Update';
       checkUpdateItem.enabled = true;
     });
 
     AutoUpdater.on('update-downloaded', () => {
+      log('auto updater on update-downloaded');
       checkUpdateItem.label = 'Restart and Install &Update';
       checkUpdateItem.enabled = true;
     });

@@ -43,6 +43,7 @@ class AutoUpdateManager extends EventEmitter {
       }
     }
 
+    log('updater feed url:', feedUrl);
     AutoUpdater.setFeedURL(feedUrl);
   }
 
@@ -74,7 +75,7 @@ class AutoUpdateManager extends EventEmitter {
     });
   }
 
-  onClick() {
+  handleMenuItemClick() {
     switch (this.state) {
       case STATES.IDLE:
         this.checkForUpdate(false);

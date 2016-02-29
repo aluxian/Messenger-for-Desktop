@@ -7,7 +7,7 @@ import app from 'app';
  */
 export function checkForUpdate() {
   return function() {
-    global.application.autoUpdateManager.onClick();
+    global.application.autoUpdateManager.handleMenuItemClick();
   };
 }
 
