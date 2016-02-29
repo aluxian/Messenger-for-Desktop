@@ -34,5 +34,12 @@ gulp.task 'clean:dist:darwin64', ->
   gulp.task 'clean:dist:' + dist, ->
     fs.ensureDirAsync './dist'
 
+# Remove packages from previous releases
+gulp.task 'clean:prev-releases:win32', ->
+  del [
+    './dist/' + manifest.name + '-*-full.nupkg'
+    '!./dist/' + manifest.name + '-' + manifest.version + '-full.nupkg'
+  ]
+
 # Clean dist for the current platform by default
 gulp.task 'clean:dist', ['clean:dist:' + platform()]

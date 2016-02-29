@@ -41,6 +41,7 @@ build_script:
   - gulp pack:win32:installer --prod --verbose
 
 deploy_script:
+  - gulp clean:prev-releases:win32 --verbose
   - gulp publish:github --verbose
 
 artifacts:
