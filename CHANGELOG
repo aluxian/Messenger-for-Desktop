@@ -1,3 +1,10 @@
+1.4.7
+- Fix dark theme
+- Fix mosaic theme
+- Fix bug where esc would close the window instead of the full screen image
+- Apply fixes from old development branch
+- Update dependencies
+
 1.4.6
 - Add option to hide window on startup
 - Auto-startup now avaible for linux

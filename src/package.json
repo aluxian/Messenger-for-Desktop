@@ -1,7 +1,7 @@
 {
   "main": "app.html",
   "name": "Messenger",
-  "version": "1.4.6",
+  "version": "1.4.7",
   "app-id": "com.aluxian.messengerfordesktop",
   "chromium-args": "--disable-setuid-sandbox",
   "single-instance": true,
@@ -27,9 +27,9 @@
   },
   "manifestUrl": "https://raw.githubusercontent.com/Sytten/Facebook-Messenger-Desktop/master/src/package.json",
   "packages": {
-    "osx64": "https://github.com/Sytten/Facebook-Messenger-Desktop/releases/download/v1.4.6/Messenger.dmg",
-    "win32": "https://github.com/Sytten/Facebook-Messenger-Desktop/releases/download/v1.4.6/MessengerSetup.exe",
-    "linux32": "https://github.com/Sytten/Facebook-Messenger-Desktop/releases/download/v1.4.6/Messenger_linux32.deb",
-    "linux64": "https://github.com/Sytten/Facebook-Messenger-Desktop/releases/download/v1.4.6/Messenger_linux64.deb"
+    "osx64": "https://github.com/Sytten/Facebook-Messenger-Desktop/releases/download/v1.4.7/Messenger.dmg",
+    "win32": "https://github.com/Sytten/Facebook-Messenger-Desktop/releases/download/v1.4.7/MessengerSetup.exe",
+    "linux32": "https://github.com/Sytten/Facebook-Messenger-Desktop/releases/download/v1.4.7/Messenger_linux32.deb",
+    "linux64": "https://github.com/Sytten/Facebook-Messenger-Desktop/releases/download/v1.4.7/Messenger_linux64.deb"
   }
 }
