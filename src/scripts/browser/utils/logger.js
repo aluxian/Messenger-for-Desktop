@@ -1,5 +1,4 @@
 import manifest from '../../../package.json';
-import filePaths from './file-paths';
 import stripAnsi from 'strip-ansi';
 import mkdirp from 'mkdirp';
 import debug from 'debug';
@@ -8,10 +7,15 @@ import util from 'util';
 import app from 'app';
 import fs from 'fs';
 
-const fileLogEnabled = process.env.DEBUG && !process.mas;
 let fileLogStream = null;
+let fileLogInit = false;
 
-if (fileLogEnabled) {
+function isFileLogEnabled() {
+  return process.env.DEBUG && !process.mas;
+}
+
+function initFileLogging() {
+  const filePaths = require('./file-paths').default;
   const fileLogsDir = path.join(filePaths.getAppDir(), 'logs');
   mkdirp.sync(fileLogsDir);
 
@@ -24,6 +28,7 @@ if (fileLogEnabled) {
   });
 
   console.log('DEBUG is truthy, saving logs to', '"' + fileLogPath + '"');
+  fileLogInit = true;
 }
 
 export function debugLogger(filename) {
@@ -32,6 +37,10 @@ export function debugLogger(filename) {
   const logger = debug(namespace);
   logger.log = function() {
     console.error.apply(console, arguments);
+
+    if (isFileLogEnabled() && !fileLogInit) {
+      initFileLogging();
+    }
     if (fileLogStream) {
       fileLogStream.write(stripAnsi(util.format.apply(util, arguments)) + '\n');
     }
@@ -47,6 +56,10 @@ export function errorLogger(filename, fatal) {
 
     const errorPrefix = `[${new Date().toUTCString()}] ${fakePagePath}:`;
     console.error(errorPrefix, argsMessage);
+
+    if (isFileLogEnabled() && !fileLogInit) {
+      initFileLogging();
+    }
     if (fileLogStream) {
       fileLogStream.write(errorPrefix + ' ' + argsMessage + '\n');
     }
