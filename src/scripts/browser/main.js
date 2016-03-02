@@ -65,13 +65,13 @@ process.on('uncaughtException', function(ex) {
     .epilog('Created with <3 by Alexandru Rosianu – http://www.aluxian.com/')
     .argv;
 
-  log('cli args parsed', options);
   global.manifest = manifest;
   global.options = options;
 
   options.portable = options.portable || !!manifest.portable;
   options.debug = options.debug || !!process.env.DEBUG;
 
+  log('cli args parsed', options);
   if (options.debug) {
     log('debug mode enabled');
   }
