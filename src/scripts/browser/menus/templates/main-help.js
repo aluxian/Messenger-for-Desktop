@@ -21,7 +21,8 @@ export default {
       '',
       '',
       '--',
-      manifest.productName + ' v' + manifest.version,
+      manifest.productName + ' v' + manifest.version + ' ('
+        + manifest.distrib + ', ' + manifest.buildNum + ')',
       [process.platform, process.arch, os.release()].join(' ')
     ].join('\n')))
   }, {
