@@ -1,5 +1,6 @@
 * Mon Feb 29 2016 Alexandru Rosianu <me@aluxian.com> 2.0.2
 - Fixes for the auto updater.
+- Include build number in releases.
 - Improved logging.
 
 * Fri Feb 12 2016 Alexandru Rosianu <me@aluxian.com> 2.0.1

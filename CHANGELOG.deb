@@ -1,6 +1,7 @@
 whatsie (2.0.2) main; urgency=low
 
  * Fixes for the auto updater.
+ * Include build number in releases.
  * Improved logging.
 
  -- Alexandru Rosianu <me@aluxian.com>  Mon, 29 Feb 2016 15:32:11 +0200

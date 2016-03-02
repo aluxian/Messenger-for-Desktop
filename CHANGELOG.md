@@ -1,6 +1,7 @@
 ### 2.0.2
 
 - Fixes for the auto updater.
+- Include build number in releases.
 - Improved logging.
 
 ### 2.0.1
