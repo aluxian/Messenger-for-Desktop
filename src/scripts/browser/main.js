@@ -1,4 +1,3 @@
-import filePaths from './utils/file-paths';
 import dialog from 'dialog';
 import yargs from 'yargs';
 import path from 'path';
@@ -33,6 +32,10 @@ process.on('uncaughtException', function(ex) {
       type: 'boolean',
       description: 'Run in portable mode.'
     })
+    .option('debug', {
+      type: 'boolean',
+      description: 'Run in debug mode.'
+    })
     .option('version', {
       type: 'boolean',
       description: 'Print the app version.',
@@ -65,6 +68,13 @@ process.on('uncaughtException', function(ex) {
   log('cli args parsed', options);
   global.manifest = manifest;
   global.options = options;
+
+  options.portable = options.portable || !!manifest.portable;
+  options.debug = options.debug || !!process.env.DEBUG;
+
+  if (options.debug) {
+    log('debug mode enabled');
+  }
 
   // Check for Squirrel.Windows CLI args
   if (process.platform == 'win32' && SquirrelEvents.check(options)) {
@@ -100,8 +110,9 @@ process.on('uncaughtException', function(ex) {
   }
 
   // Change the userData path if in portable mode
-  if (options.portable || manifest.portable) {
+  if (options.portable) {
     log('running in portable mode');
+    const filePaths = require('./utils/file-paths').default;
     const userDataPath = path.join(filePaths.getAppDir(), 'data');
     log('set userData path', userDataPath);
     app.setPath('userData', userDataPath);

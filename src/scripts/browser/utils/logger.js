@@ -11,7 +11,7 @@ let fileLogStream = null;
 let fileLogInit = false;
 
 function isFileLogEnabled() {
-  return process.env.DEBUG && !process.mas;
+  return global.options.debug && !process.mas;
 }
 
 function initFileLogging() {
@@ -27,7 +27,7 @@ function initFileLogging() {
     fileLogStream = null;
   });
 
-  console.log('DEBUG is truthy, saving logs to', '"' + fileLogPath + '"');
+  console.log('saving logs to', '"' + fileLogPath + '"');
   fileLogInit = true;
 }
 
