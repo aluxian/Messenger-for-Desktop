@@ -29,7 +29,7 @@ class AutoUpdater extends EventEmitter {
 
     const options = {
       url: this.latestReleaseUrl,
-      query: {
+      qs: {
         pkg: packageType,
         arch: arch
       },
