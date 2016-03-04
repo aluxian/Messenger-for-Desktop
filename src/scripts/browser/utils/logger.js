@@ -9,26 +9,37 @@ import fs from 'fs';
 
 let fileLogStream = null;
 let fileLogInit = false;
+let duringInit = false;
 
 function isFileLogEnabled() {
   return global.options.debug && !process.mas;
 }
 
 function initFileLogging() {
-  const filePaths = require('./file-paths').default;
-  const fileLogsDir = path.join(filePaths.getAppDir(), 'logs');
-  mkdirp.sync(fileLogsDir);
+  if (duringInit) {
+    return;
+  }
+  duringInit = true;
 
-  const fileLogPath = path.join(fileLogsDir, Date.now() + '.log');
-  fileLogStream = fs.createWriteStream(null, {fd: fs.openSync(fileLogPath, 'a')});
+  try {
+    const fileLogsDir = path.join(app.getPath('userData'), 'logs');
+    mkdirp.sync(fileLogsDir);
 
-  process.on('exit', (code) => {
-    fileLogStream.end('process exited with code ' + code + '\n');
-    fileLogStream = null;
-  });
+    const fileLogPath = path.join(fileLogsDir, Date.now() + '.log');
+    fileLogStream = fs.createWriteStream(null, {fd: fs.openSync(fileLogPath, 'a')});
 
-  console.log('saving logs to', '"' + fileLogPath + '"');
-  fileLogInit = true;
+    process.on('exit', (code) => {
+      fileLogStream.end('process exited with code ' + code + '\n');
+      fileLogStream = null;
+    });
+
+    console.log(`saving logs to "${fileLogPath}"`);
+    fileLogInit = true;
+    duringInit = false;
+  } catch(ex) {
+    duringInit = false;
+    throw ex;
+  }
 }
 
 export function debugLogger(filename) {

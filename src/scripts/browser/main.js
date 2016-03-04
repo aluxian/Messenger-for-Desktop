@@ -1,3 +1,4 @@
+import filePaths from './utils/file-paths';
 import dialog from 'dialog';
 import yargs from 'yargs';
 import path from 'path';
@@ -35,6 +36,10 @@ process.on('uncaughtException', function(ex) {
     .option('debug', {
       type: 'boolean',
       description: 'Run in debug mode.'
+    })
+    .option('mas', {
+      type: 'boolean',
+      description: 'Run in Mac App Store release mode.'
     })
     .option('version', {
       type: 'boolean',
@@ -112,7 +117,6 @@ process.on('uncaughtException', function(ex) {
   // Change the userData path if in portable mode
   if (options.portable) {
     log('running in portable mode');
-    const filePaths = require('./utils/file-paths').default;
     const userDataPath = path.join(filePaths.getAppDir(), 'data');
     log('set userData path', userDataPath);
     app.setPath('userData', userDataPath);
