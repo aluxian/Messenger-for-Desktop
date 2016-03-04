@@ -22,9 +22,9 @@ class AutoUpdater extends EventEmitter {
     let arch = null;
 
     if (packageType == 'deb') {
-      arch = process.platform == 'ia32' ? 'i386' : 'amd64';
+      arch = process.arch == 'ia32' ? 'i386' : 'amd64';
     } else {
-      arch = process.platform == 'ia32' ? 'i386' : 'x86_64';
+      arch = process.arch == 'ia32' ? 'i386' : 'x86_64';
     }
 
     const options = {
