@@ -1,4 +1,5 @@
 import filePaths from '../utils/file-paths';
+import async from 'async';
 import cp from 'child_process';
 import app from 'app';
 import del from 'del';
@@ -20,19 +21,12 @@ class SquirrelEvents {
     }
 
     if (options.squirrelUninstall) {
-      // Remove auto-launch registry key
-      new AutoLauncher().disable((err) => {
-        if (err) {
-          logError(err);
-        }
-        // Remove leftover user data
-        del(app.getPath('userData'))
-          .catch(logError)
-          .then(() => {
-            // Remove shortcuts
-            const args = ['--removeShortcut', manifest.productName + '.exe'];
-            this.spawnSquirrel(args, this.eventHandled);
-          });
+      async.series([
+        this.teardownAutoLauncherRegKey,
+        this.teardownLeftoverUserData,
+        this.teardownShortcuts
+      ], function() {
+        log('teardown complete');
       });
       return true;
     }
@@ -55,6 +49,32 @@ class SquirrelEvents {
 
   eventHandled(exitCode = 0) {
     app.exit(exitCode);
+  }
+
+  teardownAutoLauncherRegKey(cb) {
+    new AutoLauncher().disable((err) => {
+      if (err) {
+        logError(err);
+      }
+      cb();
+    });
+  }
+
+  teardownLeftoverUserData(cb) {
+    del(app.getPath('userData'))
+      .catch((err) => {
+        logError(err);
+        cb();
+      })
+      .then(() => {
+        cb();
+      });
+  }
+
+  teardownShortcuts(cb) {
+    const args = ['--removeShortcut', manifest.productName + '.exe'];
+    this.spawnSquirrel(args, this.eventHandled);
+    cb();
   }
 
 }
