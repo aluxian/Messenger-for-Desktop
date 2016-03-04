@@ -3,11 +3,29 @@ import shell from 'shell';
 import app from 'app';
 
 /**
- * Check for update.
+ * Call the handler for the check-for-update event.
  */
-export function checkForUpdate() {
+export function cfuCheckForUpdate() {
   return function() {
-    global.application.autoUpdateManager.handleMenuItemClick();
+    global.application.autoUpdateManager.handleMenuCheckForUpdate();
+  };
+}
+
+/**
+ * Call the handler for the update-available event.
+ */
+export function cfuUpdateAvailable() {
+  return function() {
+    global.application.autoUpdateManager.handleMenuUpdateAvailable();
+  };
+}
+
+/**
+ * Call the handler for the update-downloaded event.
+ */
+export function cfuUpdateDownloaded() {
+  return function() {
+    global.application.autoUpdateManager.handleMenuUpdateDownloaded();
   };
 }
 

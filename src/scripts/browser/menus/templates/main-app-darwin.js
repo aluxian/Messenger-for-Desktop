@@ -9,10 +9,28 @@ export default {
     label: 'About ' + manifest.productName,
     role: 'about'
   }, {
-    id: 'check-for-update',
+    id: 'cfu-check-for-update',
     label: 'Check for Update',
     allow: !process.mas,
-    click: $.checkForUpdate()
+    click: $.cfuCheckForUpdate()
+  }, {
+    id: 'cfu-checking-for-update',
+    label: 'Checking for Update...',
+    allow: !process.mas,
+    enabled: false,
+    visible: false
+  }, {
+    id: 'cfu-update-available',
+    label: 'Downloading Update...',
+    allow: !process.mas,
+    enabled: false,
+    visible: false
+  }, {
+    id: 'cfu-update-downloaded',
+    label: 'Restart and Install Update',
+    allow: !process.mas,
+    visible: false,
+    click: $.cfuUpdateDownloaded()
   }, {
     type: 'checkbox',
     label: 'Report Stats and Errors',

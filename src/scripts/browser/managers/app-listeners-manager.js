@@ -38,6 +38,7 @@ class AppListenersManager extends EventEmitter {
     // Update the app before actually quitting
     log('will quit');
     if (this.autoUpdateManager.state == this.autoUpdateManager.states.UPDATE_DOWNLOADED) {
+      log('has update downloaded, installing it before quitting');
       event.preventDefault();
       this.autoUpdateManager.state = this.autoUpdateManager.states.IDLE;
       this.autoUpdateManager.quitAndInstall();

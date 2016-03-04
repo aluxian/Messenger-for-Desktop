@@ -9,9 +9,31 @@ export default {
     label: 'Version ' + manifest.version,
     enabled: false
   }, {
-    id: 'check-for-update',
+    id: 'cfu-check-for-update',
     label: 'Check for &Update',
-    click: $.checkForUpdate()
+    click: $.cfuCheckForUpdate()
+  }, {
+    id: 'cfu-checking-for-update',
+    label: 'Checking for &Update...',
+    enabled: false,
+    visible: false
+  }, {
+    id: 'cfu-update-available',
+    label: 'Download &Update',
+    allow: platform.isLinux,
+    visible: false,
+    click: $.cfuUpdateAvailable()
+  }, {
+    id: 'cfu-update-available',
+    label: 'Downloading &Update...',
+    allow: platform.isWin,
+    enabled: false,
+    visible: false
+  }, {
+    id: 'cfu-update-downloaded',
+    label: 'Restart and Install &Update',
+    visible: false,
+    click: $.cfuUpdateDownloaded()
   }, {
     type: 'checkbox',
     label: '&Report Stats and Errors',

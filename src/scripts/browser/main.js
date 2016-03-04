@@ -1,4 +1,5 @@
 import filePaths from './utils/file-paths';
+import platform from './utils/platform';
 import dialog from 'dialog';
 import yargs from 'yargs';
 import path from 'path';
@@ -120,6 +121,12 @@ process.on('uncaughtException', function(ex) {
     const userDataPath = path.join(filePaths.getAppDir(), 'data');
     log('set userData path', userDataPath);
     app.setPath('userData', userDataPath);
+  }
+
+  // Set the Windows user model ID
+  if (platform.isWin) {
+    log('setting user model id', this.manifest.win.userModelId);
+    app.setAppUserModelId(this.manifest.win.userModelId);
   }
 
   // Enable the crash reporter

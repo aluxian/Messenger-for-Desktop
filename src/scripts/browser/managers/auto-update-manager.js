@@ -2,7 +2,6 @@ import platform from '../utils/platform';
 import keyMirror from 'keymirror';
 import dialog from 'dialog';
 import shell from 'shell';
-import app from 'app';
 
 import AutoUpdater from '../components/auto-updater';
 import EventEmitter from 'events';
@@ -16,86 +15,78 @@ const STATES = keyMirror({
 
 class AutoUpdateManager extends EventEmitter {
 
-  constructor(manifest, options) {
+  constructor(manifest, options, mainWindowManager) {
     super();
+
     this.manifest = manifest;
     this.options = options;
+    this.mainWindowManager = mainWindowManager;
+
     this.enabled = !process.mas;
     this.state = STATES.IDLE;
     this.states = STATES;
+
+    this.latestVersion = null;
+    this.latestDownloadUrl = null;
   }
 
   init() {
     log('starting auto updater');
-    this.setFeedUrl();
-    this.setErrorListener();
-    this.setStateListeners();
+    this.initFeedUrl();
+    this.initErrorListener();
+    this.initStateListeners();
+    this.initVersionListener();
   }
 
-  setFeedUrl() {
+  initFeedUrl() {
     let feedUrl = this.manifest.updater.urls[process.platform]
       .replace(/%CURRENT_VERSION%/g, this.manifest.version);
 
-    if (platform.isWin) {
-      app.setAppUserModelId(this.manifest.win.userModelId);
-      if (this.options.portable) {
-        feedUrl += '/portable';
-      }
+    if (this.options.portable) {
+      feedUrl += '/portable';
     }
 
     log('updater feed url:', feedUrl);
     AutoUpdater.setFeedURL(feedUrl);
   }
 
-  setErrorListener() {
-    AutoUpdater.on('error', ex => {
+  initErrorListener() {
+    AutoUpdater.on('error', (ex) => {
       logError('auto updater error', ex);
     });
   }
 
-  setStateListeners() {
-    AutoUpdater.on('error', () => {
-      this.state = STATES.IDLE;
-    });
+  initStateListeners() {
+    const eventToStateMap = {
+      'error': STATES.IDLE,
+      'checking-for-update': STATES.UPDATE_CHECKING,
+      'update-available': STATES.UPDATE_AVAILABLE,
+      'update-not-available': STATES.IDLE,
+      'update-downloaded': STATES.UPDATE_DOWNLOADED
+    };
 
-    AutoUpdater.on('checking-for-update', () => {
-      this.state = STATES.UPDATE_CHECKING;
-    });
+    for (let [eventName, state] of Object.entries(eventToStateMap)) {
+      AutoUpdater.on(eventName, () => this.state = state);
+    }
+  }
 
-    AutoUpdater.on('update-available', () => {
-      this.state = STATES.UPDATE_AVAILABLE;
-    });
-
-    AutoUpdater.on('update-not-available', () => {
-      this.state = STATES.IDLE;
-    });
-
-    AutoUpdater.on('update-downloaded', () => {
-      this.state = STATES.UPDATE_DOWNLOADED;
+  initVersionListener() {
+    AutoUpdater.on('update-available', (newVersion, downloadUrl) => {
+      this.latestVersion = newVersion;
+      this.latestDownloadUrl = downloadUrl;
     });
   }
 
-  handleMenuItemClick() {
-    switch (this.state) {
-      case STATES.IDLE:
-        this.checkForUpdate(false);
-        break;
+  handleMenuCheckForUpdate() {
+    this.checkForUpdate(false);
+  }
 
-      case STATES.UPDATE_AVAILABLE:
-        if (platform.isLinux || platform.isWin && this.options.portable) {
-          this.onCheckUpdateAvailable();
-        } else {
-          logError('unexpected check-for-update click in state', this.state);
-        }
-        break;
+  handleMenuUpdateAvailable() {
+    this.onCheckUpdateAvailable(this.latestVersion, this.latestDownloadUrl);
+  }
 
-      case STATES.UPDATE_DOWNLOADED:
-        AutoUpdater.quitAndInstall();
-        break;
-
-      default:
-        logError('unknown state', this.state);
-    }
+  handleMenuUpdateDownloaded() {
+    this.quitAndInstall();
   }
 
   onCheckUpdateAvailable(newVersion, downloadUrl) {
@@ -173,7 +164,12 @@ class AutoUpdateManager extends EventEmitter {
   }
 
   quitAndInstall() {
-    AutoUpdater.quitAndInstall();
+    if (this.mainWindowManager) {
+      this.mainWindowManager.forceClose = true;
+      AutoUpdater.quitAndInstall();
+    } else {
+      logError(new Error('cannot quit to install update'));
+    }
   }
 
 }

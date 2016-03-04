@@ -27,7 +27,7 @@ class Application extends EventEmitter {
     this.mainWindowManager.initWindow();
 
     // Enable the auto updater
-    this.autoUpdateManager = new AutoUpdateManager(this.manifest, this.options);
+    this.autoUpdateManager = new AutoUpdateManager(this.manifest, this.options, this.mainWindowManager);
     if (this.autoUpdateManager.enabled) {
       this.autoUpdateManager.init();
       this.autoUpdateManager.scheduleUpdateChecks();
