@@ -29,7 +29,7 @@ function initFileLogging() {
     fileLogStream = fs.createWriteStream(null, {fd: fs.openSync(fileLogPath, 'a')});
 
     process.on('exit', (code) => {
-      fileLogStream.end('process exited with code ' + code + '\n');
+      fileLogStream.end('process exited with code ' + code + '\r\n');
       fileLogStream = null;
     });
 
@@ -53,7 +53,7 @@ export function debugLogger(filename) {
       initFileLogging();
     }
     if (fileLogStream) {
-      fileLogStream.write(stripAnsi(util.format.apply(util, arguments)) + '\n');
+      fileLogStream.write(stripAnsi(util.format.apply(util, arguments)) + '\r\n');
     }
   };
   return logger;
@@ -72,7 +72,7 @@ export function errorLogger(filename, fatal) {
       initFileLogging();
     }
     if (fileLogStream) {
-      fileLogStream.write(errorPrefix + ' ' + argsMessage + '\n');
+      fileLogStream.write(errorPrefix + ' ' + argsMessage + '\r\n');
     }
 
     const analytics = require('./analytics').default;
