@@ -144,9 +144,9 @@ class AutoUpdateManager extends EventEmitter {
   }
 
   removeCheckListeners() {
-    AutoUpdater.removeListener('update-available', ::this.onCheckUpdateAvailable);
-    AutoUpdater.removeListener('update-not-available', ::this.onCheckUpdateNotAvailable);
-    AutoUpdater.removeListener('error', ::this.onCheckError);
+    AutoUpdater.removeListener('update-available', this.onCheckUpdateAvailable);
+    AutoUpdater.removeListener('update-not-available', this.onCheckUpdateNotAvailable);
+    AutoUpdater.removeListener('error', this.onCheckError);
   }
 
   scheduleUpdateChecks() {
@@ -157,9 +157,9 @@ class AutoUpdateManager extends EventEmitter {
   checkForUpdate(silent = true) {
     AutoUpdater.checkForUpdates();
     if (!silent) {
-      AutoUpdater.once('update-available', ::this.onCheckUpdateAvailable);
-      AutoUpdater.once('update-not-available', ::this.onCheckUpdateNotAvailable);
-      AutoUpdater.once('error', ::this.onCheckError);
+      AutoUpdater.once('update-available', this.onCheckUpdateAvailable);
+      AutoUpdater.once('update-not-available', this.onCheckUpdateNotAvailable);
+      AutoUpdater.once('error', this.onCheckError);
     }
   }
 
