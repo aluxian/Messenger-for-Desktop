@@ -98,6 +98,7 @@ class AutoUpdateManager extends EventEmitter {
         buttons: ['OK', 'Download']
       }, function(response) {
         if (response === 1) {
+          log('user clicked Download, opening url', downloadUrl);
           shell.openExternal(downloadUrl);
         }
       });
@@ -109,6 +110,7 @@ class AutoUpdateManager extends EventEmitter {
         buttons: ['OK', 'Download']
       }, function(response) {
         if (response === 1) {
+          log('user clicked Download, opening url', downloadUrl);
           shell.openExternal(downloadUrl);
         }
       });

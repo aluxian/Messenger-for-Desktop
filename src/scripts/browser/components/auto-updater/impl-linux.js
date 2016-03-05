@@ -57,7 +57,7 @@ class AutoUpdater extends EventEmitter {
       const downloadUrl = json.url;
 
       if (newVersionExists) {
-        log('update available', newVersion);
+        log('update available', newVersion, downloadUrl);
         this.emit('update-available', newVersion, downloadUrl);
       } else {
         log('app version up to date', manifest.version);
