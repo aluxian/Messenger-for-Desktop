@@ -61,12 +61,13 @@ class SquirrelEvents {
   }
 
   teardownLeftoverUserData(cb) {
-    del(app.getPath('userData'))
+    del(app.getPath('userData'), { force: true })
       .catch((err) => {
         logError(err);
         cb();
       })
-      .then(() => {
+      .then((paths) => {
+        log('deleted', paths);
         cb();
       });
   }
