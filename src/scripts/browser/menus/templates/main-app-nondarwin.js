@@ -20,13 +20,13 @@ export default {
   }, {
     id: 'cfu-update-available',
     label: 'Download &Update',
-    allow: platform.isLinux,
+    allow: platform.isLinux || global.options.portable,
     visible: false,
     click: $.cfuUpdateAvailable()
   }, {
     id: 'cfu-update-available',
     label: 'Downloading &Update...',
-    allow: platform.isWin,
+    allow: !platform.isLinux && !global.options.portable,
     enabled: false,
     visible: false
   }, {

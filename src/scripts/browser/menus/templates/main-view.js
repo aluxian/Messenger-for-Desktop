@@ -1,5 +1,4 @@
 import platform from '../../utils/platform';
-import {P} from './utils';
 import $ from '../expressions';
 
 export default {
@@ -48,7 +47,7 @@ export default {
     type: 'separator'
   }, {
     label: 'Toggle &Full Screen',
-    accelerator: P('Cmd+Ctrl+F', 'F11'),
+    accelerator: platform.isDarwin ? 'Cmd+Ctrl+F' : 'F11',
     click: $.toggleFullScreen()
   }, {
     label: 'Toggle &Developer Tools',

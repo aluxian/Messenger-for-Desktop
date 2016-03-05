@@ -14,7 +14,7 @@ class MainMenuManager extends EventEmitter {
 
   create() {
     if (!this.menu) {
-      this.menu = Menu.buildFromTemplate(template);
+      this.menu = Menu.buildFromTemplate(template());
       log('app menu created');
     } else {
       log('app menu already created');
