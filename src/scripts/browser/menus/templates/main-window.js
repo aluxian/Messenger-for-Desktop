@@ -12,9 +12,7 @@ export default {
   }, {
     label: 'Reset',
     accelerator: 'Cmd+Alt+R',
-    click: $.all(
-      $.resetWindow()
-    )
+    click: $.resetWindow()
   }, {
     type: 'separator'
   }, {
@@ -24,12 +22,8 @@ export default {
   }, {
     type: 'checkbox',
     label: 'Open Links in Browser',
-    click: $.all(
-      $.setPref('links-in-browser', $.key('checked'))
-    ),
-    parse: $.all(
-      $.setLocal('checked', $.pref('links-in-browser'))
-    )
+    click: $.setPref('links-in-browser', $.key('checked')),
+    parse: $.setLocal('checked', $.pref('links-in-browser'))
   }, {
     type: 'checkbox',
     label: 'Notifications Badge in Dock',

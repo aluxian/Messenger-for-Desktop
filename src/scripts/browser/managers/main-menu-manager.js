@@ -1,4 +1,4 @@
-import {findItemById} from '../menus/expressions/utils';
+import {findItemById} from '../menus/utils';
 import template from '../menus/main';
 
 import Menu from 'menu';

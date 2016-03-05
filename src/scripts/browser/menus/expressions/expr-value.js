@@ -1,9 +1,6 @@
 import prefs from '../../utils/prefs';
 import files from '../../utils/files';
 
-// Temporary store
-const memoStore = {};
-
 /**
  * Wrapper for a raw value.
  */
@@ -46,29 +43,6 @@ export function sum(value1Expr, value2Expr) {
 export function eq(value1Expr, value2Expr) {
   return function() {
     return value1Expr.apply(this, arguments) === value2Expr.apply(this, arguments);
-  };
-}
-
-/**
- * If valueExpr is given, it stores the value in a local object.
- * Otherwise, it retrives the stored value for the key.
- */
-export function memo(keyName, valueExpr) {
-  return function() {
-    if (valueExpr) {
-      memoStore[keyName] = valueExpr.apply(this, arguments);
-    } else {
-      return memoStore[keyName];
-    }
-  };
-}
-
-/**
- * Removes the key from the locally stored values object.
- */
-export function unmemo(keyName) {
-  return function() {
-    delete memoStore[keyName];
   };
 }
 

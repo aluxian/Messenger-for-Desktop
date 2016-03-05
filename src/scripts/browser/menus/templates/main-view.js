@@ -12,9 +12,7 @@ export default {
     label: 'Re&set Window',
     accelerator: 'Ctrl+Alt+R',
     allow: platform.isNonDarwin,
-    click: $.all(
-      $.resetWindow()
-    )
+    click: $.resetWindow()
   }, {
     type: 'separator',
     allow: platform.isNonDarwin
@@ -22,19 +20,15 @@ export default {
     label: 'Zoom In',
     accelerator: 'CmdOrCtrl+=',
     click: $.all(
-      $.memo('zoom-level', $.sum($.pref('zoom-level'), $.val(1))),
-      $.sendToWebView('zoom-level', $.memo('zoom-level')),
-      $.setPref('zoom-level', $.memo('zoom-level')),
-      $.unmemo('zoom-level')
+      $.setPref('zoom-level', $.sum($.pref('zoom-level'), $.val(1))),
+      $.sendToWebView('zoom-level', $.pref('zoom-level'))
     )
   }, {
     label: 'Zoom Out',
     accelerator: 'CmdOrCtrl+-',
     click: $.all(
-      $.memo('zoom-level', $.sum($.pref('zoom-level'), $.val(-1))),
-      $.sendToWebView('zoom-level', $.memo('zoom-level')),
-      $.setPref('zoom-level', $.memo('zoom-level')),
-      $.unmemo('zoom-level')
+      $.setPref('zoom-level', $.sum($.pref('zoom-level'), $.val(-1))),
+      $.sendToWebView('zoom-level', $.pref('zoom-level'))
     )
   }, {
     label: 'Reset Zoom',

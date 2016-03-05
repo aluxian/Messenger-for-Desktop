@@ -1,5 +1,5 @@
+import {findItemById, findMenu} from '../utils';
 import prefs from '../../utils/prefs';
-import {findItemById, findMenu} from './utils';
 
 import BrowserWindow from 'browser-window';
 

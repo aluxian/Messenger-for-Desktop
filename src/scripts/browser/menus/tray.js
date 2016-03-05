@@ -1,4 +1,6 @@
 import {parseTemplate} from './utils';
 
-const template = require('./templates/tray').default;
-export default parseTemplate(template, null);
+export default function() {
+  const template = require('./templates/tray').default;
+  return parseTemplate(template, null);
+}

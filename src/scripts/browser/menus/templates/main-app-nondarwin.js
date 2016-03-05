@@ -37,13 +37,8 @@ export default {
   }, {
     type: 'checkbox',
     label: '&Report Stats and Errors',
-    click: $.all(
-      $.setPref('analytics-track', $.key('checked')),
-      $.reloadWindow()
-    ),
-    parse: $.all(
-      $.setLocal('checked', $.pref('analytics-track'))
-    )
+    click: $.setPref('analytics-track', $.key('checked')),
+    parse: $.setLocal('checked', $.pref('analytics-track'))
   }, {
     type: 'separator',
     allow: !global.options.portable
@@ -65,12 +60,8 @@ export default {
     type: 'checkbox',
     label: 'Start &Hidden on Startup',
     allow: !global.options.portable,
-    click: $.all(
-      $.setPref('launch-startup-hidden', $.key('checked')),
-    ),
-    parse: $.all(
-      $.setLocal('checked', $.pref('launch-startup-hidden'))
-    )
+    click: $.setPref('launch-startup-hidden', $.key('checked')),
+    parse: $.setLocal('checked', $.pref('launch-startup-hidden'))
   }, {
     type: 'separator'
   }, {
@@ -116,12 +107,8 @@ export default {
   }, {
     type: 'checkbox',
     label: 'Open Links in &Browser',
-    click: $.all(
-      $.setPref('links-in-browser', $.key('checked'))
-    ),
-    parse: $.all(
-      $.setLocal('checked', $.pref('links-in-browser'))
-    )
+    click: $.setPref('links-in-browser', $.key('checked')),
+    parse: $.setLocal('checked', $.pref('links-in-browser'))
   }, {
     type: 'separator'
   }, {

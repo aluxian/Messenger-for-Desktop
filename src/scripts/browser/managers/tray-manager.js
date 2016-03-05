@@ -46,7 +46,7 @@ class TrayManager extends EventEmitter {
       }
     }
 
-    this.menu = Menu.buildFromTemplate(template);
+    this.menu = Menu.buildFromTemplate(template());
     this.tray.setContextMenu(this.menu);
     this.setEventListeners();
     log('tray menu created');
