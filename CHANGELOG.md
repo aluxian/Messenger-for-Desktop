@@ -1,3 +1,8 @@
+### 2.0.3
+
+- Upgrades Electron to v0.36.10.
+- Upgrades dependencies.
+
 ### 2.0.2
 
 - Fixes for the auto updater.

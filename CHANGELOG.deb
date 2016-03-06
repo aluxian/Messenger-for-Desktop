@@ -1,3 +1,10 @@
+whatsie (2.0.3) main; urgency=low
+
+ * Upgrades Electron to v0.36.10.
+ * Upgrades dependencies.
+
+ -- Alexandru Rosianu <me@aluxian.com>  Sun, 6 Mar 2016 11:07:12 +0200
+
 whatsie (2.0.2) main; urgency=low
 
  * Fixes for the auto updater.
