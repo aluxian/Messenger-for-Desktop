@@ -152,23 +152,23 @@ class AutoUpdateManager extends EventEmitter {
     if (!silent) {
       const onCheck = {};
 
-      const removeListeners = function() {
+      const removeListeners = () => {
         AutoUpdater.removeListener('update-available', onCheck.updateAvailable);
         AutoUpdater.removeListener('update-not-available', onCheck.updateNotAvailable);
         AutoUpdater.removeListener('error', onCheck.error);
       };
 
-      onCheck.updateAvailable = function() {
+      onCheck.updateAvailable = () => {
         this.onCheckUpdateAvailable.apply(this, arguments);
         removeListeners();
       };
 
-      onCheck.updateNotAvailable = function() {
+      onCheck.updateNotAvailable = () => {
         this.onCheckUpdateNotAvailable.apply(this, arguments);
         removeListeners();
       };
 
-      onCheck.error = function() {
+      onCheck.error = () => {
         this.onCheckError.apply(this, arguments);
         removeListeners();
       };
