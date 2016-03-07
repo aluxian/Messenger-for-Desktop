@@ -122,7 +122,6 @@ class AutoUpdateManager extends EventEmitter {
         buttons: ['OK']
       }, function() {});
     }
-    this.removeCheckListeners();
   }
 
   onCheckUpdateNotAvailable() {
@@ -132,7 +131,6 @@ class AutoUpdateManager extends EventEmitter {
       detail: 'You\'re using the latest version: ' + this.manifest.version,
       buttons: ['OK']
     }, function() {});
-    this.removeCheckListeners();
   }
 
   onCheckError(err) {
@@ -142,13 +140,6 @@ class AutoUpdateManager extends EventEmitter {
       detail: err.message,
       buttons: ['OK']
     }, function() {});
-    this.removeCheckListeners();
-  }
-
-  removeCheckListeners() {
-    AutoUpdater.removeListener('update-available', this.onCheckUpdateAvailable);
-    AutoUpdater.removeListener('update-not-available', this.onCheckUpdateNotAvailable);
-    AutoUpdater.removeListener('error', this.onCheckError);
   }
 
   scheduleUpdateChecks() {
@@ -159,9 +150,32 @@ class AutoUpdateManager extends EventEmitter {
   checkForUpdate(silent = true) {
     AutoUpdater.checkForUpdates();
     if (!silent) {
-      AutoUpdater.once('update-available', this.onCheckUpdateAvailable);
-      AutoUpdater.once('update-not-available', this.onCheckUpdateNotAvailable);
-      AutoUpdater.once('error', this.onCheckError);
+      const onCheck = {};
+
+      const removeListeners = function() {
+        AutoUpdater.removeListener('update-available', onCheck.updateAvailable);
+        AutoUpdater.removeListener('update-not-available', onCheck.updateNotAvailable);
+        AutoUpdater.removeListener('error', onCheck.error);
+      };
+
+      onCheck.updateAvailable = function() {
+        this.onCheckUpdateAvailable.apply(this, arguments);
+        removeListeners();
+      };
+
+      onCheck.updateNotAvailable = function() {
+        this.onCheckUpdateNotAvailable.apply(this, arguments);
+        removeListeners();
+      };
+
+      onCheck.error = function() {
+        this.onCheckError.apply(this, arguments);
+        removeListeners();
+      };
+
+      AutoUpdater.once('update-available', onCheck.updateAvailable);
+      AutoUpdater.once('update-not-available', onCheck.updateNotAvailable);
+      AutoUpdater.once('error', onCheck.error);
     }
   }
 
