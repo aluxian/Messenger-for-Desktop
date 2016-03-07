@@ -1,9 +1,3 @@
-whatsie (2.0.4) main; urgency=low
-
- * Dummy release to test the auto updater.
-
- -- Alexandru Rosianu <me@aluxian.com>  Mon, 7 Mar 2016 13:01:31 +0200
-
 whatsie (2.0.3) main; urgency=low
 
  * Upgrades Electron to v0.36.10.
