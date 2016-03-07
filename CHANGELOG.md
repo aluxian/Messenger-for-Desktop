@@ -1,3 +1,7 @@
+### 2.0.4
+
+- Dummy release to test the auto updater.
+
 ### 2.0.3
 
 - Upgrades Electron to v0.36.10.
