@@ -22,9 +22,9 @@ class SquirrelEvents {
 
     if (options.squirrelUninstall) {
       async.series([
-        this.teardownAutoLauncherRegKey,
-        this.teardownLeftoverUserData,
-        this.teardownShortcuts
+        ::this.teardownAutoLauncherRegKey,
+        ::this.teardownLeftoverUserData,
+        ::this.teardownShortcuts
       ], function() {
         log('teardown complete');
       });
