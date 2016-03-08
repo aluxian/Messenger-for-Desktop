@@ -5,6 +5,7 @@ export default {
   'analytics-uid': null,
   'launch-startup': false,
   'launch-startup-hidden': true,
+  'launch-quit': false,
   'links-in-browser': true,
   'quit-behaviour-taught': false,
   'show-notifications-badge': true,

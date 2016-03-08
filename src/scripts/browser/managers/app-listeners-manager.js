@@ -1,3 +1,4 @@
+import prefs from '../utils/prefs';
 import app from 'app';
 
 import EventEmitter from 'events';
@@ -37,10 +38,12 @@ class AppListenersManager extends EventEmitter {
   onWillQuit(event) {
     // Update the app before actually quitting
     log('will quit');
-    if (this.autoUpdateManager.state == this.autoUpdateManager.states.UPDATE_DOWNLOADED) {
+    const hasUpdate = this.autoUpdateManager.state == this.autoUpdateManager.states.UPDATE_DOWNLOADED;
+    const isUpdating = this.mainWindowManager.updateInProgress;
+    if (hasUpdate && !isUpdating) {
       log('has update downloaded, installing it before quitting');
       event.preventDefault();
-      this.autoUpdateManager.state = this.autoUpdateManager.states.IDLE;
+      prefs.setSync('launch-quit', true);
       this.autoUpdateManager.quitAndInstall();
     }
   }

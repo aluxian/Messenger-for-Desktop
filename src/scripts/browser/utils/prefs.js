@@ -21,6 +21,19 @@ function set(key, value) {
 }
 
 /**
+ * Save the given (key, value) pair synchronously.
+ * Returns immediately and logs errors.
+ */
+function setSync(key, value) {
+  try {
+    db.saveSync(key, value);
+    log('set', key, '=', JSON.stringify(value));
+  } catch (ex) {
+    logError(ex);
+  }
+}
+
+/**
  * Retrieve the value synchronously.
  */
 function get(key) {
@@ -43,7 +56,7 @@ function getDefault(key) {
 }
 
 /**
- * Remove the given key.
+ * Remove the given key asynchronously.
  */
 function unset(key) {
   db.delete(key, function(err) {
@@ -53,6 +66,18 @@ function unset(key) {
       log('unset', key);
     }
   });
+}
+
+/**
+ * Remove the given key synchronously.
+ */
+function unsetSync(key) {
+  try {
+    db.delete(key);
+    log('unset', key);
+  } catch (ex) {
+    logError(ex);
+  }
 }
 
 /**
@@ -71,8 +96,10 @@ function clear() {
 
 export default {
   set,
+  setSync,
   get,
   getDefault,
   unset,
+  unsetSync,
   clear
 };

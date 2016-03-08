@@ -16,6 +16,7 @@ class MainWindowManager extends EventEmitter {
     this.options = options;
 
     this.forceClose = false;
+    this.updateInProgress = false;
     this.startHidden = options.osStartup && prefs.get('launch-startup-hidden');
   }
 
@@ -123,9 +124,9 @@ class MainWindowManager extends EventEmitter {
 
   /**
    * Called when the 'closed' event is emitted.
+   * Remove the internal reference to the window.
    */
   onClosed() {
-    // Remove the internal reference
     log('onClosed');
     this.window = null;
     this.emit('closed');
@@ -135,14 +136,21 @@ class MainWindowManager extends EventEmitter {
    * Called when the 'close' event is emitted.
    */
   onClose(event) {
-    // Just hide the window, unless it's force closed (or not running in the tray)
+    // Just hide the window unless...
     log('onClose');
 
+    // The app is being updated
+    if (this.updateInProgress) {
+      return;
+    }
+
+    // Or the window is force closed (app quitting)
     if (platform.isDarwin && !this.forceClose) {
       event.preventDefault();
       this.window.hide();
     }
 
+    // Or the app is not running in the tray.
     if (platform.isWin && !this.forceClose && prefs.get('show-tray')) {
       event.preventDefault();
       this.window.hide();

@@ -118,7 +118,7 @@ class AutoUpdateManager extends EventEmitter {
       dialog.showMessageBox({
         type: 'info',
         message: 'A new version is available.',
-        detail: 'It\'ll be automatically downloaded in the background.',
+        detail: 'It will be downloaded in the background.',
         buttons: ['OK']
       }, function() {});
     }
@@ -181,7 +181,7 @@ class AutoUpdateManager extends EventEmitter {
 
   quitAndInstall() {
     if (this.mainWindowManager) {
-      this.mainWindowManager.forceClose = true;
+      this.mainWindowManager.updateInProgress = true;
       AutoUpdater.quitAndInstall();
     } else {
       logError(new Error('cannot quit to install update'));

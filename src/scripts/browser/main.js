@@ -1,5 +1,6 @@
 import filePaths from './utils/file-paths';
 import platform from './utils/platform';
+import prefs from './utils/prefs';
 import dialog from 'dialog';
 import yargs from 'yargs';
 import path from 'path';
@@ -86,6 +87,13 @@ process.on('uncaughtException', function(ex) {
   if (process.platform == 'win32' && SquirrelEvents.check(options)) {
     log('Squirrel.Windows event detected');
     return;
+  }
+
+  // Quit the app immediately if this pref is set
+  if (prefs.get('launch-quit')) {
+    log('launch-quit pref is true, quitting');
+    prefs.unsetSync('launch-quit');
+    return app.quit();
   }
 
   // Print the version and exit
