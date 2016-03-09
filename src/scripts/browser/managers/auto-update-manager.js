@@ -148,6 +148,7 @@ class AutoUpdateManager extends EventEmitter {
   }
 
   checkForUpdate(silent = true) {
+    log('checking for update...');
     AutoUpdater.checkForUpdates();
     if (!silent) {
       const onCheck = {};
