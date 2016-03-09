@@ -11,6 +11,7 @@ class SquirrelEvents {
 
   check(options) {
     if (options.squirrelInstall) {
+      log('creating shortcuts');
       this.spawnSquirrel(['--createShortcut', app.getPath('exe')], this.eventHandled);
       return true;
     }
@@ -52,6 +53,7 @@ class SquirrelEvents {
   }
 
   teardownAutoLauncherRegKey(cb) {
+    log('removing reg keys');
     new AutoLauncher().disable((err) => {
       if (err) {
         logError(err);
@@ -61,6 +63,7 @@ class SquirrelEvents {
   }
 
   teardownLeftoverUserData(cb) {
+    log('removing leftover user data');
     del(app.getPath('userData'), { force: true })
       .catch((err) => {
         logError(err);
@@ -73,6 +76,7 @@ class SquirrelEvents {
   }
 
   teardownShortcuts(cb) {
+    log('removing shortcuts');
     const args = ['--removeShortcut', manifest.productName + '.exe'];
     this.spawnSquirrel(args, this.eventHandled);
     cb();
