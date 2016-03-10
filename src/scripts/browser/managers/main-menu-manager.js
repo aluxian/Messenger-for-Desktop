@@ -45,7 +45,7 @@ class MainMenuManager extends EventEmitter {
 
     for (let [eventName, itemId] of Object.entries(eventToIdMap)) {
       AutoUpdater.on(eventName, () => {
-        log('auto updater on:', eventName);
+        log('auto updater on:', eventName, 'params:', ...arguments);
         this.cfuVisibleItem.visible = false;
         this.cfuVisibleItem = findItemById(this.menu.items, itemId);
         this.cfuVisibleItem.visible = true;

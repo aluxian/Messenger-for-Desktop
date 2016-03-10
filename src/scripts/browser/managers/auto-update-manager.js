@@ -90,6 +90,7 @@ class AutoUpdateManager extends EventEmitter {
   }
 
   onCheckUpdateAvailable(newVersion, downloadUrl) {
+    log('onCheckUpdateAvailable', ...arguments);
     if (platform.isLinux) {
       dialog.showMessageBox({
         type: 'info',
@@ -125,6 +126,7 @@ class AutoUpdateManager extends EventEmitter {
   }
 
   onCheckUpdateNotAvailable() {
+    log('onCheckUpdateNotAvailable', ...arguments);
     dialog.showMessageBox({
       type: 'info',
       message: 'No update available.',
@@ -134,6 +136,7 @@ class AutoUpdateManager extends EventEmitter {
   }
 
   onCheckError(err) {
+    log('onCheckError', ...arguments);
     dialog.showMessageBox({
       type: 'warning',
       message: 'Error while checking for update.',

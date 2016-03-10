@@ -1,3 +1,4 @@
+import manifest from '../../../package.json';
 import filePaths from '../utils/file-paths';
 import platform from '../utils/platform';
 import prefs from '../utils/prefs';
@@ -158,8 +159,8 @@ class MainWindowManager extends EventEmitter {
       // Inform the user the app is still running
       if (!prefs.get('quit-behaviour-taught')) {
         this.trayManager.tray.displayBalloon({
-          title: 'Whatsie',
-          content: 'Whatsie will keep running in the tray until you quit it.'
+          title: manifest.productName,
+          content: manifest.productName + ' will keep running in the tray until you quit it.'
         });
         prefs.set('quit-behaviour-taught', true);
       }
@@ -204,7 +205,7 @@ class MainWindowManager extends EventEmitter {
     return this.window.webContents.getUserAgent()
       .replace(new RegExp(this.manifest.productName + '/[\\S]*', 'g'), '')
       .replace(new RegExp('Electron/[\\S]*', 'g'), '')
-      .replace(/[ ]+/g, ' ');
+      .replace(new RegExp('\\s+', 'g'), '');
   }
 
 }
