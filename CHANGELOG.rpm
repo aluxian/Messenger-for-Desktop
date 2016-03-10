@@ -1,5 +1,6 @@
 * Mon Mar 7 2016 Alexandru Rosianu <me@aluxian.com> 2.0.4
-- Dummy release to test the auto updater.
+- Fixes OS X auto updater.
+- Improved logging.
 
 * Sun Mar 6 2016 Alexandru Rosianu <me@aluxian.com> 2.0.3
 - Upgrades Electron to v0.36.10.

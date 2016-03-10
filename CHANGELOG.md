@@ -1,6 +1,7 @@
 ### 2.0.4
 
-- Dummy release to test the auto updater.
+- Fixes OS X auto updater.
+- Improved logging.
 
 ### 2.0.3
 
