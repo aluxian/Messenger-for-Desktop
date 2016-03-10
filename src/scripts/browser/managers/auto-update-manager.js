@@ -90,7 +90,7 @@ class AutoUpdateManager extends EventEmitter {
   }
 
   onCheckUpdateAvailable(newVersion, downloadUrl) {
-    log('onCheckUpdateAvailable', ...arguments);
+    log('onCheckUpdateAvailable', 'newVersion:', newVersion, 'downloadUrl:', downloadUrl);
     if (platform.isLinux) {
       dialog.showMessageBox({
         type: 'info',
@@ -119,24 +119,24 @@ class AutoUpdateManager extends EventEmitter {
       dialog.showMessageBox({
         type: 'info',
         message: 'A new version is available.',
-        detail: 'It will be downloaded in the background.',
+        detail: 'It will start downloading in the background.',
         buttons: ['OK']
       }, function() {});
     }
   }
 
   onCheckUpdateNotAvailable() {
-    log('onCheckUpdateNotAvailable', ...arguments);
+    log('onCheckUpdateNotAvailable');
     dialog.showMessageBox({
       type: 'info',
       message: 'No update available.',
-      detail: 'You\'re using the latest version: ' + this.manifest.version,
+      detail: 'You are using the latest version: ' + this.manifest.version,
       buttons: ['OK']
     }, function() {});
   }
 
   onCheckError(err) {
-    log('onCheckError', ...arguments);
+    log('onCheckError:', err);
     dialog.showMessageBox({
       type: 'warning',
       message: 'Error while checking for update.',
