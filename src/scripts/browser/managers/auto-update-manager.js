@@ -138,7 +138,7 @@ class AutoUpdateManager extends EventEmitter {
   onCheckError(err) {
     log('onCheckError:', err);
     dialog.showMessageBox({
-      type: 'warning',
+      type: 'error',
       message: 'Error while checking for update.',
       detail: err.message,
       buttons: ['OK']
