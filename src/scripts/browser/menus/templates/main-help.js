@@ -14,10 +14,13 @@ export default {
     label: 'Gitter &Chat',
     click: $.openUrl('https://gitter.im/Aluxian/Whatsie')
   }, {
-    label: '&Suggest Feature',
+    label: '&Write a Review',
+    click: $.openUrl('https://aluxian.typeform.com/to/s0wi5P')
+  }, {
+    label: '&Suggest a Feature',
     click: $.openUrl('https://github.com/Aluxian/Whatsie/issues/new?labels=request')
   }, {
-    label: '&Report Issue',
+    label: '&Report an Issue',
     click: $.openUrl('https://github.com/Aluxian/Whatsie/issues/new?body=' + encodeURIComponent([
       '**What is your issue?**',
       '',
