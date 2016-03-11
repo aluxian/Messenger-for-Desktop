@@ -1,6 +1,4 @@
-import manifest from '../../../../package.json';
 import $ from '../expressions';
-import os from 'os';
 
 export default {
   label: '&Help',
@@ -18,21 +16,10 @@ export default {
     click: $.openUrl('https://aluxian.typeform.com/to/s0wi5P')
   }, {
     label: '&Suggest a Feature',
-    click: $.openUrl('https://github.com/Aluxian/Whatsie/issues/new?labels=request')
+    click: $.openUrl('https://aluxian.typeform.com/to/adWvdX')
   }, {
     label: '&Report an Issue',
-    click: $.openUrl('https://github.com/Aluxian/Whatsie/issues/new?body=' + encodeURIComponent([
-      '**What is your issue?**',
-      '',
-      '',
-      '**What are the steps to reproduce it?**',
-      '',
-      '',
-      '--',
-      manifest.productName + ' v' + manifest.version + ' ('
-        + manifest.distrib + ', ' + manifest.buildNum + ')',
-      [process.platform, process.arch, os.release()].join(' ')
-    ].join('\n')))
+    click: $.openUrl('https://aluxian.typeform.com/to/A30zq7')
   }, {
     type: 'separator'
   }, {
