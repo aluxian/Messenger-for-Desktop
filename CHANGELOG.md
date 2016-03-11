@@ -1,3 +1,7 @@
+### 2.0.5
+
+- Adds support for raffles.
+
 ### 2.0.4
 
 - Fixes OS X auto updater.

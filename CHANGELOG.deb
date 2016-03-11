@@ -1,3 +1,9 @@
+whatsie (2.0.5) main; urgency=low
+
+ * Adds support for raffles.
+
+ -- Alexandru Rosianu <me@aluxian.com>  Fri, 11 Mar 2016 17:03:29 +0200
+
 whatsie (2.0.4) main; urgency=low
 
  * Fixes OS X auto updater.

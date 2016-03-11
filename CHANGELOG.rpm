@@ -1,3 +1,6 @@
+* Fri Mar 11 2016 Alexandru Rosianu <me@aluxian.com> 2.0.5
+- Adds support for raffles.
+
 * Mon Mar 7 2016 Alexandru Rosianu <me@aluxian.com> 2.0.4
 - Fixes OS X auto updater.
 - Improved logging.
