@@ -8,6 +8,7 @@ export default {
   'launch-quit': false,
   'links-in-browser': true,
   'quit-behaviour-taught': false,
+  'raffle-code': null,
   'show-notifications-badge': true,
   'show-tray': platform.isWin,
   'show-dock': true,

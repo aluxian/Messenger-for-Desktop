@@ -1,4 +1,7 @@
+import manifest from '../../../../package.json';
+import raffle from '../../components/raffle';
 import prefs from '../../utils/prefs';
+import dialog from 'dialog';
 import shell from 'shell';
 import app from 'app';
 
@@ -193,5 +196,32 @@ export function hideDockBadge(flagExpr) {
     if (flag && app.dock && app.dock.setBadge) {
       app.dock.setBadge('');
     }
+  };
+}
+
+/**
+ * Show a dialog with information about giveaways.
+ */
+export function openRaffleDialog() {
+  const code = raffle.getCode();
+  return function() {
+    dialog.showMessageBox({
+      type: 'info',
+      buttons: ['OK', 'Join the giveaway'],
+      message: 'Your Raffle Code is: ' + code,
+      detail: [
+        'Don\'t know what this is about?',
+        '',
+        'From time to time, I organize giveaways in order to make the app more popular and give prizes to the users. The more people use my app, the happier I am! So if you\'d like to join the giveaway, click Join below.',
+        '',
+        'Note: giveaways happen regularly, but if there are none right now, please check back later. Good luck!'
+      ].join('\n')
+    }, function(response) {
+      if (response === 1) {
+        const url = manifest.raffleUrl;
+        log('user clicked "Join the giveaway", opening url', url);
+        shell.openExternal(url);
+      }
+    });
   };
 }

@@ -6,6 +6,11 @@ export default {
   label: '&Help',
   role: 'help',
   submenu: [{
+    label: 'Ra&ffle Code',
+    click: $.openRaffleDialog()
+  }, {
+    type: 'separator'
+  }, {
     label: 'Gitter &Chat',
     click: $.openUrl('https://gitter.im/Aluxian/Whatsie')
   }, {
