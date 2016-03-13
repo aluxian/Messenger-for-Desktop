@@ -1,13 +1,11 @@
-import filePaths from './utils/file-paths';
-import platform from './utils/platform';
-import prefs from './utils/prefs';
 import dialog from 'dialog';
 import yargs from 'yargs';
 import path from 'path';
 import app from 'app';
 
-import CrashReporter from 'crash-reporter';
-import SquirrelEvents from './components/squirrel-events';
+import filePaths from './utils/file-paths';
+import platform from './utils/platform';
+import prefs from './utils/prefs';
 
 import manifest from '../../package.json';
 
@@ -84,9 +82,12 @@ process.on('uncaughtException', function(ex) {
   }
 
   // Check for Squirrel.Windows CLI args
-  if (process.platform == 'win32' && SquirrelEvents.check(options)) {
-    log('Squirrel.Windows event detected');
-    return;
+  if (process.platform == 'win32') {
+    const SquirrelEvents = require('./components/squirrel-events').default;
+    if (SquirrelEvents.check(options)) {
+      log('Squirrel.Windows event detected');
+      return;
+    }
   }
 
   // Quit the app immediately if this pref is set
@@ -139,20 +140,25 @@ process.on('uncaughtException', function(ex) {
 
   // Enable the crash reporter
   if (!process.mas) {
-    app.on('will-finish-launching', function() {
-      log('will finish launching');
+    if (manifest.crashReporter && manifest.crashReporter.url) {
+      app.on('will-finish-launching', function() {
+        log('will finish launching');
 
-      // Crash reporter
-      const reporterOptions = {
-        productName: manifest.productName,
-        companyName: manifest.win.companyName,
-        submitURL: manifest.crashReporter.url,
-        autoSubmit: true
-      };
+        // Crash reporter
+        const reporterOptions = {
+          productName: manifest.productName,
+          companyName: manifest.win.companyName,
+          submitURL: manifest.crashReporter.url,
+          autoSubmit: true
+        };
 
-      log('starting crash reporter', JSON.stringify(reporterOptions));
-      CrashReporter.start(reporterOptions);
-    });
+        log('starting crash reporter', JSON.stringify(reporterOptions));
+        const CrashReporter = require('crash-reporter');
+        CrashReporter.start(reporterOptions);
+      });
+    } else {
+      log('crash reporter url not configured');
+    }
   } else {
     log('mas release');
   }
