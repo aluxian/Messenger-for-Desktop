@@ -157,15 +157,32 @@ localStorage.debugDevTools = true;
 
 #### OS X
 
+You'll need to set these env vars:
+
+```
+SIGN_DARWIN_IDENTITY
+SIGN_DARWIN_KEYCHAIN_NAME
+SIGN_DARWIN_KEYCHAIN_PASSWORD
+```
+
 Pack the app in a neat .dmg:
 
 ```
 gulp pack:darwin64 [--prod]
 ```
 
-This uses [node-appdmg](https://www.npmjs.com/package/appdmg) which works only on OS X machines. There's an issue about making it cross-platform [here](https://github.com/LinusU/node-appdmg/issues/14).
+This uses [node-appdmg](https://www.npmjs.com/package/appdmg) which works only on OS X machines.
 
 #### Windows
+
+You'll need to set these env vars:
+
+```
+SIGNTOOL_PATH=
+SIGN_WIN_CERTIFICATE_FILE=
+SIGN_WIN_CERTIFICATE_PASSWORD=
+GITHUB_TOKEN (optional, in case you get errors from GitHub)
+```
 
 Create an installer. This will also sign every executable inside the app, and the setup exe itself:
 
@@ -180,8 +197,6 @@ gulp pack:win32:portable [--prod]
 ```
 
 These tasks only work on Windows machines due to their dependencies: [Squirrel.Windows](https://github.com/Squirrel/Squirrel.Windows) and Microsoft's SignTool.
-
-If you don't have a Windows machine at hand, you can use AppVeyor. When you push a tagged commit in a branch named `deploy`, AppVeyor will automatically start the build and upload the release files as artifacts. You'll be able to download the artifacts from your AppVeyor dashboard. You have to replace some secret keys in `appveyor.yml` to make it work.
 
 #### Linux
 
