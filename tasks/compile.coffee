@@ -3,6 +3,7 @@ beeper = require 'beeper'
 gulp = require 'gulp'
 plumber = require 'gulp-plumber'
 sourcemaps = require 'gulp-sourcemaps'
+mustache = require 'gulp-mustache'
 rename = require 'gulp-rename'
 header = require 'gulp-header'
 
@@ -118,6 +119,7 @@ args = require './args'
   # Move html files
   gulp.task 'compile:' + dist + ':html', ['clean:build:' + dist], ->
     gulp.src './src/html/**/*.html'
+      .pipe mustache manifest
       .pipe embedlr
         src: 'http://localhost:35729/livereload.js?snipver=1'
       .pipe gulp.dest dir + '/html'
