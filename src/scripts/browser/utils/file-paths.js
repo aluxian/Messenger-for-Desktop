@@ -40,8 +40,8 @@ export default {
 
   /**
    * On Darwin: the path to the .app
-   * On Windows: the path to the dir of Whatsie.exe
-   * On Linux: the path to the dir of whatsie (the exec)
+   * On Windows: the path to the dir of the app executable
+   * On Linux: the path to the dir of the app executable
    * @return the directory where the app is ran from
    */
   getAppDir: function() {
