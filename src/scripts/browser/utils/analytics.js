@@ -18,7 +18,7 @@ export function getUserId() {
   return uid;
 }
 
-if (trackAnalytics) {
+if (trackAnalytics && manifest.gaPropertyId) {
   log('creating universal analytics instance');
   analytics = ua(manifest.gaPropertyId, {
     userId: getUserId(),

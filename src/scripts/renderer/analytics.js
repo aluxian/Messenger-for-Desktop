@@ -6,7 +6,7 @@ const prefs = remote.require('../browser/utils/prefs').default;
 const trackAnalytics = prefs.get('analytics-track');
 let ga = null;
 
-if (trackAnalytics) {
+if (trackAnalytics && manifest.gaPropertyId) {
   log('enabling google analytics');
 
   /* eslint-disable semi */
