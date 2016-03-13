@@ -13,6 +13,7 @@ zip = require 'gulp-zip'
 {applyPromise, applySpawn, applyIf, updateManifest, platform} = require './utils'
 winInstaller = require 'electron-windows-installer'
 manifest = require '../src/package.json'
+mainManifest = require '../package.json'
 
 # Sign the app and create a dmg for darwin64; only works on OS X because of appdmg and codesign
 gulp.task 'pack:darwin64:dmg', ['build:darwin64', 'clean:dist:darwin64'], (done) ->
@@ -356,7 +357,7 @@ gulp.task 'pack:win32:installer', ['build:win32', 'clean:dist:win32'], (done) ->
           loadingGif: './build/resources/win/install-spinner.gif'
           signWithParams: signParams.join ' '
           setupIcon: './build/resources/win/setup.ico'
-          iconUrl: 'https://raw.githubusercontent.com/Aluxian/Whatsie/master/resources/win/app.ico'
+          iconUrl: mainManifest.icon.url
           remoteReleases: remoteReleasesUrl
           copyright: manifest.win.copyright
           setupExe: manifest.name + '-' + manifest.version + '-win32-setup.exe'
