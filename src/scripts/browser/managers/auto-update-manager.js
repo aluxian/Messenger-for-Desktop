@@ -1,4 +1,5 @@
 import platform from '../utils/platform';
+import prefs from '../utils/prefs';
 import keyMirror from 'keymirror';
 import dialog from 'dialog';
 import shell from 'shell';
@@ -22,7 +23,7 @@ class AutoUpdateManager extends EventEmitter {
     this.options = options;
     this.mainWindowManager = mainWindowManager;
 
-    this.enabled = !process.mas;
+    this.enabled = !process.mas && prefs.get('auto-check-update');
     this.state = STATES.IDLE;
     this.states = STATES;
 
@@ -89,6 +90,23 @@ class AutoUpdateManager extends EventEmitter {
     this.quitAndInstall();
   }
 
+  setAutoCheck(check) {
+    if (this.enabled === check) {
+      log('update checker already', check ? 'enabled' : 'disabled');
+      return; // same state
+    }
+
+    this.enabled = !process.mas && check;
+    if (this.enabled) { // disabled -> enabled
+      log('enabling auto update checker');
+      this.scheduleUpdateChecks();
+    } else if (this.scheduledCheckerId) {  // enabled -> disabled
+      log('disabling auto update checker');
+      clearInterval(this.scheduledCheckerId);
+      this.scheduledCheckerId = null;
+    }
+  }
+
   onCheckUpdateAvailable(newVersion, downloadUrl) {
     log('onCheckUpdateAvailable', 'newVersion:', newVersion, 'downloadUrl:', downloadUrl);
     if (platform.isLinux) {
@@ -146,7 +164,9 @@ class AutoUpdateManager extends EventEmitter {
   }
 
   scheduleUpdateChecks() {
-    setInterval(::this.checkForUpdate, 1000 * 60 * 60 * 4); // 4 hours
+    const checkInterval = 1000 * 60 * 60 * 4; // 4 hours
+    log('scheduling update checks every', checkInterval, 'ms');
+    this.scheduledCheckerId = setInterval(::this.checkForUpdate, checkInterval);
     this.checkForUpdate();
   }
 

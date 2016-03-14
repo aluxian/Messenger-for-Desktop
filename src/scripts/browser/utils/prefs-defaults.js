@@ -3,6 +3,7 @@ import platform from './platform';
 export default {
   'analytics-track': true,
   'analytics-uid': null,
+  'auto-check-update': true,
   'launch-startup': false,
   'launch-startup-hidden': true,
   'launch-quit': false,

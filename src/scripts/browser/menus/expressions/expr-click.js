@@ -33,6 +33,16 @@ export function cfuUpdateDownloaded() {
 }
 
 /**
+ * Enable or disable automatic checks for update.
+ */
+export function checkForUpdateAuto(valueExpr) {
+  return function() {
+    const check = valueExpr.apply(this, arguments);
+    global.application.autoUpdateManager.setAutoCheck(check);
+  };
+}
+
+/**
  * Quit the app.
  */
 export function appQuit() {

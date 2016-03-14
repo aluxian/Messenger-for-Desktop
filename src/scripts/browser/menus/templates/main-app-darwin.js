@@ -33,6 +33,14 @@ export default {
     click: $.cfuUpdateDownloaded()
   }, {
     type: 'checkbox',
+    label: 'Check for Update Automatically',
+    click: $.all(
+      $.checkForUpdateAuto($.key('checked')),
+      $.setPref('auto-check-update', $.key('checked'))
+    ),
+    parse: $.setLocal('checked', $.pref('auto-check-update'))
+  }, {
+    type: 'checkbox',
     label: 'Report Stats and Errors',
     click: $.setPref('analytics-track', $.key('checked')),
     parse: $.setLocal('checked', $.pref('analytics-track'))
