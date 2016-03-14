@@ -1,6 +1,7 @@
+import SpellChecker from 'spellchecker';
 import platform from './platform';
 
-export default {
+const defaults = {
   'analytics-track': true,
   'analytics-uid': null,
   'auto-check-update': true,
@@ -13,8 +14,9 @@ export default {
   'show-notifications-badge': true,
   'show-tray': platform.isWin,
   'show-dock': true,
-  'spell-checker': false,
+  'spell-checker-check': false,
   'spell-checker-auto-correct': false,
+  'spell-checker-language': defaultSpellCheckerLanguage,
   'theme': 'default',
   'window-bounds': {
     width: 800,
@@ -22,4 +24,40 @@ export default {
   },
   'window-full-screen': false,
   'zoom-level': 0
+};
+
+function get(key) {
+  let def = defaults[key];
+  if (typeof def === 'function') {
+    def = def();
+    defaults[key] = def;
+  }
+  return def;
+}
+
+function defaultSpellCheckerLanguage() {
+  let spellCheckerLanguage = 'en_US';
+
+  const envLang = process.env.LANG;
+  if (envLang) {
+    spellCheckerLanguage = envLang.split('.')[0];
+  }
+
+  const availableLanguages = SpellChecker.getAvailableDictionaries();
+  if (!availableLanguages.length || availableLanguages.includes(spellCheckerLanguage)) {
+    return spellCheckerLanguage;
+  }
+
+  if (spellCheckerLanguage.includes('_')) {
+    spellCheckerLanguage = spellCheckerLanguage.split('_')[0];
+    if (availableLanguages.includes(spellCheckerLanguage)) {
+      return spellCheckerLanguage;
+    }
+  }
+
+  return availableLanguages[0];
+}
+
+export default {
+  get
 };

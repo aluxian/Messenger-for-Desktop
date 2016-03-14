@@ -1,6 +1,28 @@
+import SpellChecker from 'spellchecker';
+
+import languageCodes from '../../utils/language-codes';
 import manifest from '../../../../package.json';
 import platform from '../../utils/platform';
+import prefs from '../../utils/prefs';
 import $ from '../expressions';
+
+const spellCheckerLanguage = prefs.get('spell-checker-language');
+const availableLanguages = SpellChecker.getAvailableDictionaries()
+  .map((langCode) => {
+    return {
+      code: langCode,
+      name: languageCodes[langCode] || langCode
+    };
+  })
+  .sort((a, b) => {
+    if (a.name < b.name) {
+      return -1;
+    } else if (a.name > b.name) {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
 
 export default {
   label: '&App',
@@ -76,25 +98,44 @@ export default {
     type: 'checkbox',
     label: 'Check &Spelling While Typing',
     click: $.all(
-      $.sendToWebView('spell-checker', $.key('checked'), $.pref('spell-checker-auto-correct')),
+      $.sendToWebView('spell-checker', $.key('checked'), $.pref('spell-checker-auto-correct'), $.pref('spell-checker-language')),
       $.updateSibling('spell-checker-auto-correct', 'enabled', $.key('checked')),
-      $.setPref('spell-checker', $.key('checked'))
+      $.updateSibling('spell-checker-language', 'enabled', $.key('checked')),
+      $.setPref('spell-checker-check', $.key('checked'))
     ),
     parse: $.all(
-      $.setLocal('checked', $.pref('spell-checker')),
-      $.updateSibling('spell-checker-auto-correct', 'enabled', $.key('checked'))
+      $.setLocal('checked', $.pref('spell-checker-check'))
     )
   }, {
     id: 'spell-checker-auto-correct',
     type: 'checkbox',
     label: '&Auto Correct Spelling Mistakes',
     click: $.all(
-      $.sendToWebView('spell-checker', $.pref('spell-checker'), $.key('checked')),
+      $.sendToWebView('spell-checker', $.pref('spell-checker-check'), $.key('checked'), $.pref('spell-checker-language')),
       $.setPref('spell-checker-auto-correct', $.key('checked'))
     ),
     parse: $.all(
+      $.setLocal('enabled', $.pref('spell-checker-check')),
       $.setLocal('checked', $.pref('spell-checker-auto-correct'))
     )
+  }, {
+    id: 'spell-checker-language',
+    label: 'Spell Checker Language',
+    submenu: availableLanguages.map(lang => {
+      return {
+        type: 'radio',
+        label: lang.name,
+        langCode: lang.code,
+        checked: spellCheckerLanguage === lang.code,
+        click: $.all(
+          $.ifTrue(
+            $.pref('spell-checker-check'),
+            $.sendToWebView('spell-checker', $.pref('spell-checker-check'), $.pref('spell-checker-auto-correct'), $.key('langCode'))
+          ),
+          $.setPref('spell-checker-language', $.key('langCode'))
+        )
+      };
+    })
   }, {
     type: 'separator'
   }, {

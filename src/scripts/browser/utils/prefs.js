@@ -52,7 +52,7 @@ function get(key) {
  * Retrieve the value value.
  */
 function getDefault(key) {
-  return defaults[key];
+  return defaults.get(key);
 }
 
 /**

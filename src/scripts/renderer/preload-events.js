@@ -1,5 +1,6 @@
 import {webFrame, ipcRenderer as ipcr} from 'electron';
-import spellChecker from 'spellchecker';
+import SpellChecker from 'spellchecker';
+import path from 'path';
 
 // Set zoom level
 ipcr.on('zoom-level', function(event, zoomLevel) {
@@ -8,17 +9,34 @@ ipcr.on('zoom-level', function(event, zoomLevel) {
 });
 
 // Set spell checker
-ipcr.on('spell-checker', function(event, enabled, autoCorrect) {
+ipcr.on('spell-checker', function(event, enabled, autoCorrect, langCode) {
+  // Taken from https://github.com/atom/node-spellchecker/blob/master/lib/spellchecker.js
+  function getDictionaryPath() {
+    let dict = path.join(__dirname, '..', 'node_modules', 'spellchecker', 'vendor', 'hunspell_dictionaries');
+    try {
+      // HACK: Special case being in an asar archive
+      const unpacked = dict.replace('.asar' + path.sep, '.asar.unpacked' + path.sep);
+      if (require('fs').statSyncNoException(unpacked)) {
+        dict = unpacked;
+      }
+    } catch (ex) {
+      // ignore
+    }
+    return dict;
+  }
+
+  const chromiumLangCode = langCode.replace('_', '-');
   autoCorrect = !!autoCorrect;
-  log('spell checker enabled:', enabled, 'auto correct:', autoCorrect);
+  log('spell checker enabled:', enabled, 'auto correct:', autoCorrect, 'lang code:', langCode);
   if (enabled) {
-    webFrame.setSpellCheckProvider('en-US', autoCorrect, {
+    SpellChecker.setDictionary(langCode, getDictionaryPath());
+    webFrame.setSpellCheckProvider(chromiumLangCode, autoCorrect, {
       spellCheck: function(text) {
-        return !spellChecker.isMisspelled(text);
+        return !SpellChecker.isMisspelled(text);
       }
     });
   } else {
-    webFrame.setSpellCheckProvider('en-US', autoCorrect, {
+    webFrame.setSpellCheckProvider(chromiumLangCode, autoCorrect, {
       spellCheck: function() {
         return true;
       }
@@ -42,7 +60,7 @@ ipcr.on('apply-theme', function(event, css) {
 
 // Add the selected misspelling to the dictionary
 ipcr.on('add-selection-to-dictionary', function() {
-  spellChecker.add(document.getSelection().toString());
+  SpellChecker.add(document.getSelection().toString());
 });
 
 // Simulate a click on the 'New chat' button

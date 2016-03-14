@@ -58,11 +58,12 @@ webView.addEventListener('dom-ready', function() {
   }
 
   // Restore spell checker and auto correct
-  const spellChecker = prefs.get('spell-checker');
-  if (spellChecker) {
+  const spellCheckerCheck = prefs.get('spell-checker-check');
+  if (spellCheckerCheck) {
     const autoCorrect = prefs.get('spell-checker-auto-correct');
-    log('restoring spell checker', spellChecker, 'auto correct', autoCorrect);
-    webView.send('spell-checker', spellChecker, autoCorrect);
+    const langCode = prefs.get('spell-checker-language');
+    log('restoring spell checker', spellCheckerCheck, 'auto correct', autoCorrect, 'lang code', langCode);
+    webView.send('spell-checker', spellCheckerCheck, autoCorrect, langCode);
   }
 });
 
