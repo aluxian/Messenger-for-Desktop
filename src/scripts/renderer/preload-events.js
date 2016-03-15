@@ -28,6 +28,7 @@ ipcr.on('spell-checker', function(event, enabled, autoCorrect, langCode) {
   const chromiumLangCode = langCode.replace('_', '-');
   autoCorrect = !!autoCorrect;
   log('spell checker enabled:', enabled, 'auto correct:', autoCorrect, 'lang code:', langCode);
+
   if (enabled) {
     SpellChecker.setDictionary(langCode, getDictionaryPath());
     webFrame.setSpellCheckProvider(chromiumLangCode, autoCorrect, {
