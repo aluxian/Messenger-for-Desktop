@@ -5,9 +5,10 @@
 export default {
   isImplemented: !!global.application.nativeNotifier.isImplemented,
   fireNotification: function() {
-    const fireNotification = global.application.nativeNotifier.fireNotification;
+    const nativeNotifier = global.application.nativeNotifier;
+    const fireNotification = nativeNotifier.fireNotification;
     if (fireNotification) {
-      fireNotification.apply(this, arguments);
+      fireNotification.apply(nativeNotifier, arguments);
     }
   }
 };
