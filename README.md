@@ -147,7 +147,13 @@ To enable the renderer logs launch the app, open the dev tools then type in the 
 localStorage.debug = 'whatsie:*';
 ```
 
-If you want to automatically open the webview dev tools, type this in the main dev tools console:
+To open the webview dev tools, type this in the main dev tools console:
+
+```
+wv.openDevTools();
+```
+
+If you want to automatically open the webview dev tools, type this:
 
 ```
 localStorage.debugDevTools = true;

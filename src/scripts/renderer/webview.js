@@ -1,6 +1,6 @@
 import remote from 'remote';
 
-const webView = document.getElementById('webView');
+const webView = document.getElementById('wv');
 const manifest = remote.getGlobal('manifest');
 
 // Set the user agent and load the app
