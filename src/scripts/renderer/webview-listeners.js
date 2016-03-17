@@ -67,4 +67,20 @@ webView.addEventListener('dom-ready', function() {
   }
 });
 
+// Listen for did-finish-load
+webView.addEventListener('did-finish-load', function() {
+  // Hide the loading splash screen
+  const loadingSplashDiv = document.querySelector('.loader');
+  loadingSplashDiv.style.opacity = 0;
+  setTimeout(function() {
+    loadingSplashDiv.style.display = 'none';
+  }, 250);
+});
+
+// Animate the splash screen into view
+document.addEventListener('DOMContentLoaded', function() {
+  const loadingSplashDiv = document.querySelector('.loader');
+  loadingSplashDiv.style.opacity = 1;
+});
+
 export default webView;
