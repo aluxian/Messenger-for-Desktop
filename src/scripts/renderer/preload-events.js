@@ -102,7 +102,6 @@ ipcr.on('switch-conversation', function(event, indexDelta) {
       if (active) {
         const nextIndex = getDeltaIndex(i, delta, chatList);
         if (nextIndex != -1) {
-          makeInactive(chatList[i]);
           makeActive(chatList[nextIndex]);
         }
         found = true;
@@ -135,18 +134,10 @@ ipcr.on('switch-conversation', function(event, indexDelta) {
     return chat && chat.classList.contains('active');
   }
 
-  function makeInactive(item) {
-    const chat = item.querySelector('.chat');
-    if (chat) {
-      chat.classList.remove('active');
-    }
-  }
-
   function makeActive(item) {
     const chat = item.querySelector('.chat');
     if (chat) {
-      chat.classList.add('active');
-      chat.click();
+      log('make active', chat);
     }
   }
 
