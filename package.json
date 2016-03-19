@@ -12,7 +12,7 @@
     "colors": "1.1.2",
     "cross-spawn-async": "2.1.9",
     "del": "2.2.0",
-    "electron-windows-installer": "1.2.4",
+    "electron-windows-installer": "1.2.5",
     "fs-extra-promise": "0.3.1",
     "gulp": "3.9.1",
     "gulp-babel": "6.1.2",
