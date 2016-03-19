@@ -1,8 +1,7 @@
 # Messenger for Desktop
+**If you like this fork, please consider giving me a star!**
 
 [![Join the chat at https://gitter.im/Sytten/Facebook-Messenger-Desktop](https://badges.gitter.im/Sytten/Facebook-Messenger-Desktop.svg)](https://gitter.im/Sytten/Facebook-Messenger-Desktop?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
-[![Join the chat at gitter.im/Aluxian/Facebook-Messenger-Desktop](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Aluxian/Facebook-Messenger-Desktop?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Downloads](https://img.shields.io/github/downloads/Sytten/Facebook-Messenger-Desktop/latest/total.svg)](https://github.com/Sytten/Facebook-Messenger-Desktop/releases/latest)
 
 Bring [messenger.com](https://messenger.com) to your OS X, Windows or Linux desktop. Built with [NW.js](http://nwjs.io/). Not affiliated with Facebook.
