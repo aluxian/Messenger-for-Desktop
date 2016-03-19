@@ -174,7 +174,7 @@ SIGN_DARWIN_KEYCHAIN_PASSWORD
 Pack the app in a neat .dmg:
 
 ```
-gulp pack:darwin64 [--prod]
+gulp pack:darwin64:<dmg:zip> [--prod]
 ```
 
 This uses [node-appdmg](https://www.npmjs.com/package/appdmg) which works only on OS X machines.
