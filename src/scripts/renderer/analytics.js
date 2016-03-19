@@ -1,41 +1,69 @@
 import remote from 'remote';
+import path from 'path';
 
 const manifest = remote.getGlobal('manifest');
-const analytics = remote.require('../browser/utils/analytics');
 const prefs = remote.require('../browser/utils/prefs').default;
+const browserAnalytics = remote.require('../browser/utils/analytics');
+
+const activeTheme = prefs.get('theme');
 const trackAnalytics = prefs.get('analytics-track');
-let ga = null;
+const userId = browserAnalytics.getUserId();
+const siteId = 1;
 
-if (trackAnalytics && manifest.gaPropertyId) {
-  log('enabling google analytics');
+let piwikTracker = null;
 
-  /* eslint-disable semi */
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-  /* eslint-enable semi */
+if (trackAnalytics && manifest.piwik) {
+  log('enabling piwik analytics');
 
-  const gaOptions = {
-    userId: analytics.getUserId(),
-    trackingId: manifest.gaPropertyId,
-    cookieDomain: 'auto',
-    forceSSL: true,
-    appId: manifest.name,
-    appName: manifest.productName,
-    appVersion: manifest.version,
-    appInstallerId: manifest.distrib
+  // Configure
+  window.piwikAsyncInit = function() {
+    try {
+      piwikTracker = window.Piwik.getTracker();
+      piwikTracker.setDocumentTitle(document.title);
+      piwikTracker.setTrackerUrl(manifest.piwik.serverUrl + '/piwik.php');
+      piwikTracker.setCustomVariable(1, 'AppVersion', manifest.version, 'visit');
+      piwikTracker.setCustomVariable(2, 'AppDistrib', manifest.distrib, 'visit');
+      piwikTracker.setCustomVariable(3, 'Theme', activeTheme, 'visit');
+      piwikTracker.setCustomUrl(getCustomUrl());
+      piwikTracker.setUserId(userId);
+      piwikTracker.setSiteId(siteId);
+      piwikTracker.trackPageView();
+      log('piwik analytics instance created');
+    } catch (err) {
+      log(err);
+    }
   };
 
-  ga = window.ga;
-  ga('create', gaOptions);
-  ga('send', 'screenview', {
-    screenName: 'main'
-  });
-
-  log('created ga instance', gaOptions);
+  // Load the tracking lib
+  const scriptElem = document.createElement('script');
+  scriptElem.type = 'text/javascript';
+  scriptElem.async = true;
+  scriptElem.defer = true;
+  scriptElem.src = manifest.piwik.serverUrl + '/piwik.js';
+  document.head.appendChild(scriptElem);
 } else {
-  log('google analytics disabled');
+  log('piwik analytics disabled');
 }
 
-export default ga;
+function getCustomUrl() {
+  const pathname = document.location.pathname;
+  const appDirPath = remote.app.getAppPath();
+  const indexOfAppDir = pathname.indexOf(appDirPath);
+  let customPath = null;
+
+  if (indexOfAppDir > -1) {
+    customPath = pathname.replace(appDirPath, '');
+  } else {
+    customPath = path.join('/raw', pathname);
+  }
+
+  return path.join(manifest.piwik.baseUrl, customPath);
+}
+
+function getTracker() {
+  return piwikTracker;
+}
+
+export default {
+  getTracker
+};

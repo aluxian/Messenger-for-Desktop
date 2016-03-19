@@ -53,7 +53,8 @@ class AutoUpdateManager extends EventEmitter {
 
   initErrorListener() {
     AutoUpdater.on('error', (ex) => {
-      logError('auto updater error', ex);
+      log('auto updater error');
+      logError(ex);
     });
   }
 

@@ -1,10 +1,7 @@
-import manifest from '../../../package.json';
-import ua from 'universal-analytics';
 import uuid from 'node-uuid';
 import prefs from './prefs';
 
 const trackAnalytics = prefs.get('analytics-track');
-let analytics = null;
 
 export function getUserId() {
   let uid = prefs.get('analytics-uid');
@@ -18,14 +15,20 @@ export function getUserId() {
   return uid;
 }
 
-if (trackAnalytics && manifest.gaPropertyId) {
-  log('creating universal analytics instance');
-  analytics = ua(manifest.gaPropertyId, {
-    userId: getUserId(),
-    https: true
-  });
-} else {
-  log('universal analytics disabled');
+function send(name, ...args) {
+  if (!trackAnalytics) {
+    return;
+  }
+  const browserWindow = global.application.mainWindowManager.window;
+  if (browserWindow) {
+    browserWindow.webContents.send('track-analytics', name, args);
+  }
 }
 
-export default analytics;
+function bind(name) {
+  return send.bind(null, name);
+}
+
+export default {
+  trackEvent: bind('trackEvent')
+};

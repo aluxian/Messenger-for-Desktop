@@ -42,6 +42,11 @@ function initFileLogging() {
   }
 }
 
+function namespaceOf(filename) {
+  const name = path.basename(filename, '.js');
+  return manifest.name + ':' + name;
+}
+
 export function debugLogger(filename) {
   const name = path.basename(filename, '.js');
   const namespace = manifest.name + ':' + name;
@@ -61,26 +66,34 @@ export function debugLogger(filename) {
 
 export function errorLogger(filename, fatal) {
   const fakePagePath = filename.replace(app.getAppPath(), '');
-  return function(...args) {
-    args = args.map(a => a instanceof Error ? a.stack : a);
-    const argsMessage = stripAnsi(util.format.apply(util, args));
-
+  const namespace = namespaceOf(filename);
+  return function(ex) {
     const errorPrefix = `[${new Date().toUTCString()}] ${fakePagePath}:`;
-    console.error(errorPrefix, argsMessage);
+    console.error(errorPrefix, ...arguments);
 
     if (isFileLogEnabled() && !fileLogInit) {
       initFileLogging();
     }
-    if (fileLogStream) {
-      fileLogStream.write(errorPrefix + ' ' + argsMessage + '\r\n');
+
+    if (ex instanceof Error) {
+      const analytics = require('./analytics').default;
+      if (analytics) {
+        analytics.trackEvent(
+          'Exceptions',
+          fatal ? 'FatalError' : 'Error',
+          ex.name,
+          `[${namespace}]: ${ex.message}`
+        );
+      }
+      // TODO: send to errbit
     }
 
-    const analytics = require('./analytics').default;
-    if (analytics) {
-      analytics
-        .pageview(fakePagePath)
-        .exception(argsMessage, fatal)
-        .send();
+    if (fileLogStream) {
+      if (ex instanceof Error) {
+        fileLogStream.write(errorPrefix + ' ' + ex.name + ' ' + ex.message + ' ' + ex.stack + '\r\n');
+      } else {
+        fileLogStream.write(errorPrefix + ' ' + arguments + '\r\n');
+      }
     }
   };
 }

@@ -1,4 +1,5 @@
 import manifest from '../../../../package.json';
+import analyticsTracker from '../../utils/analytics';
 import raffle from '../../components/raffle';
 import prefs from '../../utils/prefs';
 import dialog from 'dialog';
@@ -184,13 +185,15 @@ export function launchOnStartup(enabledExpr) {
     if (enabled) {
       global.application.autoLauncher.enable(function(err) {
         if (err) {
-          logError('Could not enable auto-launcher', err);
+          log('could not enable auto-launcher');
+          logError(err);
         }
       });
     } else {
       global.application.autoLauncher.disable(function(err) {
         if (err) {
-          logError('Could not disable auto-launcher', err);
+          log('could not disable auto-launcher');
+          logError(err);
         }
       });
     }
@@ -235,3 +238,17 @@ export function openRaffleDialog() {
     });
   };
 }
+
+// Analytics
+export const analytics = {
+
+  /**
+   * Track an event.
+   */
+  trackEvent: function(...args) {
+    return function() {
+      analyticsTracker.trackEvent(...args);
+    };
+  }
+
+};

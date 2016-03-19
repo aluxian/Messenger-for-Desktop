@@ -15,18 +15,19 @@ export function debugLogger(filename) {
 export function errorLogger(filename, fatal) {
   const fakePagePath = filename.replace(app.getAppPath(), '');
   const namespace = namespaceOf(filename);
-  return function(...args) {
-    console.error(`[${fakePagePath}]`, ...args);
-    const ga = require('./analytics').default;
-    if (ga) {
-      ga('set', {
-        page: fakePagePath,
-        title: namespace
-      });
-      ga('send', 'exception', {
-        exDescription: args.join(' '),
-        exFatal: fatal
-      });
+  return function(ex, ...args) {
+    console.error(`[${fakePagePath}]`, ex, ...args);
+    if (ex instanceof Error) {
+      const analytics = require('./analytics').getTracker();
+      if (analytics) {
+        analytics.trackEvent(
+          'Exceptions',
+          fatal ? 'FatalError' : 'Error',
+          ex.name,
+          `[${namespace}]: ${ex.message}`
+        );
+      }
+      // TODO: send exception to errbit
     }
   };
 }
