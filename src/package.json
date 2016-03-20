@@ -8,6 +8,8 @@
   "window": {
     "width": 800,
     "height": 600,
+    "min_width": 317,
+    "min_height": 200,
     "title": "Messenger",
     "icon": "images/icon.png",
     "toolbar": false,
