@@ -39,6 +39,7 @@ gulp.task 'pack:darwin64:dmg', ['build:darwin64', 'clean:dist:darwin64'], (done)
       updateManifest jsonPath, (manifest) ->
         manifest.distrib = 'darwin64:dmg'
         manifest.buildNum = process.env.TRAVIS_BUILD_NUMBER
+        manifest.airbrake.env = 'production'
       , callback
 
     # Remove the dev modules
@@ -104,6 +105,7 @@ gulp.task 'pack:darwin64:zip', ['build:darwin64'], (done) ->
       updateManifest jsonPath, (manifest) ->
         manifest.distrib = 'darwin64:zip'
         manifest.buildNum = process.env.TRAVIS_BUILD_NUMBER
+        manifest.airbrake.env = 'production'
       , callback
 
     # Remove the dev modules
@@ -277,6 +279,7 @@ gulp.task 'pack:darwin64:zip', ['build:darwin64'], (done) ->
           updateManifest jsonPath, (manifest) ->
             manifest.distrib = 'linux' + arch + ':' + target
             manifest.buildNum = process.env.CIRCLE_BUILD_NUM
+            manifest.airbrake.env = 'production'
           , callback
 
         # Remove the dev modules
@@ -316,6 +319,7 @@ gulp.task 'pack:win32:installer', ['build:win32', 'clean:dist:win32'], (done) ->
     async.apply updateManifest, './build/win32/resources/app/package.json', (manifest) ->
       manifest.distrib = 'win32:installer'
       manifest.buildNum = process.env.APPVEYOR_BUILD_NUMBER
+      manifest.airbrake.env = 'production'
 
     # Remove the dev modules
     applyIf args.prod, applySpawn 'npm', ['prune', '--production'],
@@ -383,6 +387,7 @@ gulp.task 'pack:win32:portable', ['build:win32', 'clean:dist:win32'], (done) ->
       manifest.portable = true
       manifest.distrib = 'win32:portable'
       manifest.buildNum = process.env.APPVEYOR_BUILD_NUMBER
+      manifest.airbrake.env = 'production'
 
     # Remove the dev modules
     applyIf args.prod, applySpawn 'npm', ['prune', '--production'],

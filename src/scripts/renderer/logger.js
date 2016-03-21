@@ -1,7 +1,7 @@
 import manifest from '../../package.json';
 import debug from 'debug/browser';
-import path from 'path';
 import {app} from 'remote';
+import path from 'path';
 
 function namespaceOf(filename) {
   const name = path.basename(filename, '.js');
@@ -27,7 +27,17 @@ export function errorLogger(filename, fatal) {
           `[${namespace}]: ${ex.message}`
         );
       }
-      // TODO: send exception to errbit
+
+      const airbrake = require('./airbrake').default;
+      const resolveUrl = require('./airbrake').resolveUrl;
+      if (airbrake) {
+        airbrake.notify({
+          error: ex,
+          context: {
+            url: resolveUrl(fakePagePath)
+          }
+        });
+      }
     }
   };
 }

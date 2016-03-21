@@ -85,7 +85,13 @@ export function errorLogger(filename, fatal) {
           `[${namespace}]: ${ex.message}`
         );
       }
-      // TODO: send to errbit
+
+      const airbrake = require('./airbrake').default;
+      if (airbrake) {
+        ex.url = fakePagePath;
+        ex.component = namespace;
+        airbrake.notify(ex);
+      }
     }
 
     if (fileLogStream) {

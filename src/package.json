@@ -6,6 +6,8 @@
   "wvUrl": "https://web.whatsapp.com/",
   "main": "./scripts/browser/main.js",
   "dependencies": {
+    "airbrake": "1.0.0",
+    "airbrake-js": "0.5.8",
     "async": "1.5.2",
     "babel-runtime": "6.6.1",
     "debug": "2.2.0",
@@ -68,6 +70,13 @@
   "piwik": {
     "serverUrl": "https://analytics.whatsie.chat",
     "baseUrl": "app://whatsie.chat"
+  },
+  "airbrake": {
+    "projectId": true,
+    "projectKey": "b7345c1524b337324aa72ac2f439a9c3",
+    "serviceHost": "exceptions.whatsie.chat",
+    "host": "app://whatsie.chat",
+    "env": "production"
   },
   "electronVersion": "v0.36.10",
   "distrib": "unset",
