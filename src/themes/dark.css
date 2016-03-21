@@ -1,4 +1,3 @@
-/* @source: https://github.com/auscompgeek/fb-messenger-dark */
 /* #141823 is Messenger's normal text colour, white is normal background colour */
 /* #1E1E1E and #2D2D30 are Visual Studio, don't ask */
 
@@ -31,7 +30,7 @@ input::-webkit-input-placeholder {
 }
 /* main wrapper */
 ._4sp8 {
-	background-color: #1e1e1e;
+	background-color: #1e1e1e !important;
 	color: #eee;
 }
 /* (not convo list) wrapper */
@@ -49,21 +48,24 @@ input::-webkit-input-placeholder {
 	color: #eee !important;
 }
 /* message */
-._hh7 {
-	background-color: #2d2d30 !important;
+._29_7 ._hh7, ._29_7._-5k ._hh7 {
+	background-color: #2d2d30;
 }
-._hh7, ._hh7 a {
-	color: #ddd !important;
+._29_7 ._hh7 {
+	color: #ddd;
 }
-._hh7:active, ._-5k ._hh7, ._hh7>span>a:hover {
-	background-color: #333 !important;
+._hh7 a {
+	color: inherit !important;
+}
+._29_7 ._hh7:active, ._-5k ._hh7, ._29_7 ._hh7>span>a:hover {
+	background-color: #333;
 }
 /* own message */
-._nd_ ._hh7 {
-	background-color: #004488 !important;
+._o46._nd_ ._hh7 {
+	background-color: #004488;
 }
-._nd_ ._hh7:active, ._nd_._-5k ._hh7, ._nd_ ._hh7>span>a:hover {
-	background-color: #003377 !important;
+._o46._nd_ ._hh7:active, ._o46._nd_._-5k ._hh7 {
+	background-color: #003377;
 }
 /* emoji-only messages */
 ._hh7._2f5r, ._-5k ._hh7._2f5r {
@@ -100,7 +102,7 @@ input::-webkit-input-placeholder {
 ._hw2 ._53ij {
 	background-color: #040404 !important;
 }
-/* input bar */
+/* composer */
 ._4rv3 {
 	background-color: #1e1e1e !important;
 	border-top-color: rgba(255, 255, 255, .1) !important;
@@ -229,10 +231,9 @@ input::-webkit-input-placeholder {
 	-webkit-filter: brightness(80%);
 	filter: brightness(80%);
 }
-._5iwn ._58ak::before, ._23ct, .sp_iPuvEF8GUpL.sx_28245e,
-.sp_iHcwOAWgkm0.sx_374c1d,
+._5iwn ._58ak::before, ._23ct, ._2xme,
 :not(._3no3) > ._uwa, ._5jdr ._5jds,
-.sp_iHcwOAWgkm0.sx_f0ea69 {
+._5nxe .img {
 	-webkit-filter: invert(1);
 	filter: invert(1);
 }
