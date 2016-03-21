@@ -30,5 +30,6 @@ function bind(name) {
 }
 
 export default {
-  trackEvent: bind('trackEvent')
+  trackEvent: bind('trackEvent'),
+  trackGoal: bind('trackGoal')
 };

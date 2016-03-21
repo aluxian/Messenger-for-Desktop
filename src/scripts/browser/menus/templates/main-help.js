@@ -52,13 +52,15 @@ export default {
     label: 'Donate &PayPal',
     click: $.all(
       $.openUrl('https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=4YVCUBK2QJKBL'),
-      $.analytics.trackEvent('Menu', 'Link', 'donate_paypal')
+      $.analytics.trackEvent('Menu', 'Link', 'donate_paypal'),
+      $.analytics.trackGoal(1, 1)
     )
   }, {
     label: 'Donate &Bitcoin',
     click: $.all(
       $.openUrl('https://www.coinbase.com/Aluxian'),
-      $.analytics.trackEvent('Menu', 'Link', 'donate_bitcoin')
+      $.analytics.trackEvent('Menu', 'Link', 'donate_bitcoin'),
+      $.analytics.trackGoal(1, 1)
     )
   }]
 };

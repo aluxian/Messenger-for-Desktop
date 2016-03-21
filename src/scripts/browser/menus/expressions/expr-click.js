@@ -249,6 +249,15 @@ export const analytics = {
     return function() {
       analyticsTracker.trackEvent(...args);
     };
+  },
+
+  /**
+   * Track a goal.
+   */
+  trackGoal: function(...args) {
+    return function() {
+      analyticsTracker.trackGoal(...args);
+    };
   }
 
 };
