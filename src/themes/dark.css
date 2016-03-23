@@ -152,9 +152,9 @@ header.drawer-header-small {
 
 /**************/
 
-.pane {
+/*.pane {
   background: #444 !important;
-}
+}*/
 
 .pane-intro:after {
   border-top: 6px solid #348b43 !important;
