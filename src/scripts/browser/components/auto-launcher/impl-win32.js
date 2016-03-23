@@ -23,7 +23,7 @@ class Win32AutoLauncher extends BaseAutoLauncher {
     log('removing registry key for', manifest.productName);
     Win32AutoLauncher.REG_KEY.remove(manifest.productName, (err) => {
       const notFoundMsg = 'The system was unable to find the specified registry key or value.';
-      const notFound = err.message.indexOf(notFoundMsg) > -1;
+      const notFound = err && err.message && err.message.indexOf(notFoundMsg) > -1;
       if (notFound) {
         callback();
       } else {
