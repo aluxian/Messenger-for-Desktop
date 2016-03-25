@@ -1,8 +1,3 @@
-os:
-  - osx
-
-osx_image: xcode7.3
-
 git:
   depth: 10
 
@@ -10,9 +5,12 @@ branches:
   only:
     - deploy
 
+os:
+  - osx
+
+osx_image: xcode7.3
 language: objective-c
 compiler: clang
-
 sudo: false
 
 env:
@@ -34,7 +32,6 @@ install:
   - nvm use 0.12
   - npm install -g gulp
   - npm install
-  - npm install appdmg
   - export npm_config_target=`node -pe "require('./src/package.json').electronVersion.substring(1)"`
   - cd src && HOME=~/.electron-gyp npm install
 
@@ -50,7 +47,6 @@ before_script:
 
 script:
   - npm test
-  # - gulp rebuild:64 --prod --verbose
   - gulp pack:darwin64:dmg --prod --verbose
   - gulp pack:darwin64:zip --prod --verbose
   - gulp publish:github --verbose
