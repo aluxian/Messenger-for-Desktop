@@ -8,17 +8,17 @@ branches:
   only:
     - deploy
 
+language: cpp
 compiler: clang
 
 env:
-  - CXXFLAGS="-std=c++03"
+  global:
+    - CC=clang
+    - CXX=clang++
+    - CXXFLAGS="-std=c++03"
+    - npm_config_clang=1
 
 sudo: false
-
-before_install:
-  - echo $LANG
-  - echo $LC_ALL
-  - echo $CXXFLAGS
 
 install:
   - curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
