@@ -1,3 +1,14 @@
+### 2.0.6
+
+- Improves support for debugging.
+- Improves app launch by adding transitions.
+- Adds support for multiple languages for the spell checker.
+- Adds option to enable or disable the update checks.
+- Adds WAFD cleaner for Windows.
+- Updates dependencies.
+- Fix for completely black window using Dark theme.
+- Fix for crash in Windows auto launcher.
+
 ### 2.0.5
 
 - Adds support for raffles.

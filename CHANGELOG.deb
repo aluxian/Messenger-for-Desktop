@@ -1,3 +1,16 @@
+whatsie (2.0.6) main; urgency=low
+
+ * Improves support for debugging.
+ * Improves app launch by adding transitions.
+ * Adds support for multiple languages for the spell checker.
+ * Adds option to enable or disable the update checks.
+ * Adds WAFD cleaner for Windows.
+ * Updates dependencies.
+ * Fix for completely black window using Dark theme.
+ * Fix for crash in Windows auto launcher.
+
+ -- Alexandru Rosianu <me@aluxian.com>  Fri, 25 Mar 2016 16:06:06 +0200
+
 whatsie (2.0.5) main; urgency=low
 
  * Adds support for raffles.
