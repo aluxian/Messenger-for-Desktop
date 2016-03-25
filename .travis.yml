@@ -17,9 +17,6 @@ env:
   global:
     - SIGN_DARWIN_KEYCHAIN_NAME=travis.keychain
     - SIGN_DARWIN_KEYCHAIN_PASSWORD=travis
-    - npm_config_disturl="https://atom.io/download/atom-shell"
-    - npm_config_arch="x64"
-    - npm_config_runtime="electron"
 
 install:
   - curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
@@ -33,7 +30,7 @@ install:
   - npm install -g gulp
   - npm install
   - export npm_config_target=`node -pe "require('./src/package.json').electronVersion.substring(1)"`
-  - cd src && HOME=~/.electron-gyp npm install
+  - cd src && HOME=~/.electron-gyp npm_config_disturl="https://atom.io/download/atom-shell" npm_config_arch="x64" npm_config_runtime="electron" npm install
 
 before_script:
   - aws s3 cp --region eu-west-1 s3://aluxian/certificates/armacdev.cer armacdev.cer
