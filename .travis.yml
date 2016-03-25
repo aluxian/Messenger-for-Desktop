@@ -16,11 +16,12 @@ compiler: clang
 sudo: false
 
 env:
-  - SIGN_DARWIN_KEYCHAIN_NAME=travis.keychain
-  - SIGN_DARWIN_KEYCHAIN_PASSWORD=travis
-  - npm_config_disturl="https://atom.io/download/atom-shell"
-  - npm_config_arch="x64"
-  - npm_config_runtime="electron"
+  global:
+    - SIGN_DARWIN_KEYCHAIN_NAME=travis.keychain
+    - SIGN_DARWIN_KEYCHAIN_PASSWORD=travis
+    - npm_config_disturl="https://atom.io/download/atom-shell"
+    - npm_config_arch="x64"
+    - npm_config_runtime="electron"
 
 install:
   - curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
