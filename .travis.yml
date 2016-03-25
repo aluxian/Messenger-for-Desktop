@@ -15,6 +15,11 @@ env:
 
 sudo: false
 
+before_install:
+  - echo $LANG
+  - echo $LC_ALL
+  - echo $CXXFLAGS
+
 install:
   - curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
   - unzip awscli-bundle.zip
@@ -58,6 +63,12 @@ addons:
     - python-virtualenv
     - libgnome-keyring-dev
     - fakeroot
+    - libc6-dev-i386
+    - gcc-4.9-multilib
+    - g++-4.9-multilib
+    - lib32stdc++-4.9-dev
+    - lib32gcc-4.9-dev
+    - lib32asan1
 
 notifications:
   email: false
