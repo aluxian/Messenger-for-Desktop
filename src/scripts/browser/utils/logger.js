@@ -10,6 +10,7 @@ import fs from 'fs';
 let fileLogStream = null;
 let fileLogInit = false;
 let duringInit = false;
+let consoleSilenced = false;
 
 function isFileLogEnabled() {
   return global.options.debug && !process.mas;
@@ -47,12 +48,18 @@ function namespaceOf(filename) {
   return manifest.name + ':' + name;
 }
 
+export function silence(isSilenced) {
+  consoleSilenced = isSilenced;
+}
+
 export function debugLogger(filename) {
   const name = path.basename(filename, '.js');
   const namespace = manifest.name + ':' + name;
   const logger = debug(namespace);
   logger.log = function() {
-    console.error.apply(console, arguments);
+    if (!consoleSilenced) {
+      console.error.apply(console, arguments);
+    }
 
     if (isFileLogEnabled() && !fileLogInit) {
       initFileLogging();
@@ -69,7 +76,9 @@ export function errorLogger(filename, fatal) {
   const namespace = namespaceOf(filename);
   return function(ex) {
     const errorPrefix = `[${new Date().toUTCString()}] ${fakePagePath}:`;
-    console.error(errorPrefix, ...arguments);
+    if (!consoleSilenced) {
+      console.error(errorPrefix, ...arguments);
+    }
 
     if (isFileLogEnabled() && !fileLogInit) {
       initFileLogging();
