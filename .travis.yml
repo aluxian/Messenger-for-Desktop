@@ -1,6 +1,8 @@
 os:
   - osx
 
+osx_image: xcode7.3
+
 git:
   depth: 10
 
@@ -8,7 +10,7 @@ branches:
   only:
     - deploy
 
-language: cpp
+language: objective-c
 compiler: clang
 
 sudo: false
