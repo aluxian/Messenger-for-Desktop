@@ -33,8 +33,10 @@ install:
   - nvm install 0.12
   - nvm use 0.12
   - npm install -g gulp
-  - export npm_config_target=`node -e "console.log(require('./src/package.json').electronVersion.substring(1))"`
-  - HOME=~/.electron-gyp npm install
+  - npm install
+  - npm install appdmg
+  - export npm_config_target=`node -pe "require('./src/package.json').electronVersion.substring(1)"`
+  - cd src && HOME=~/.electron-gyp npm install
 
 before_script:
   - aws s3 cp --region eu-west-1 s3://aluxian/certificates/armacdev.cer armacdev.cer

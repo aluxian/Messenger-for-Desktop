@@ -91,13 +91,7 @@ Local dependencies:
 
 ```
 npm install
-```
-
-The last command should also install the modules for `./src`. If `./src/node_modules/` doesn't exist then:
-
-```
-cd ./src
-npm install
+cd src && npm install
 ```
 
 ### Native modules

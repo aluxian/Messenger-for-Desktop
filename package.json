@@ -41,7 +41,6 @@
     "appdmg": "0.3.6"
   },
   "scripts": {
-    "postinstall": "(cd src && npm install)",
     "test": "eslint src/scripts"
   },
   "license": "MIT",
