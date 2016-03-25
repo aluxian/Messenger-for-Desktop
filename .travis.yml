@@ -11,13 +11,6 @@ branches:
 language: cpp
 compiler: clang
 
-env:
-  global:
-    - CC=clang
-    - CXX=clang++
-    - CXXFLAGS="-std=c++03"
-    - npm_config_clang=1
-
 sudo: false
 
 install:
@@ -54,21 +47,6 @@ cache:
     - node_modules
     - src/node_modules
     - cache
-
-addons:
-  apt:
-    packages:
-    - git
-    - build-essential
-    - python-virtualenv
-    - libgnome-keyring-dev
-    - fakeroot
-    - libc6-dev-i386
-    - gcc-4.9-multilib
-    - g++-4.9-multilib
-    - lib32stdc++-4.9-dev
-    - lib32gcc-4.9-dev
-    - lib32asan1
 
 notifications:
   email: false
