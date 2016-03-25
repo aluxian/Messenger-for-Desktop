@@ -10,6 +10,9 @@ branches:
 
 compiler: clang
 
+env:
+  - CXXFLAGS="-std=c++03"
+
 sudo: false
 
 install:
