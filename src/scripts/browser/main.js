@@ -37,6 +37,10 @@ process.on('uncaughtException', function(ex) {
       type: 'boolean',
       description: 'Run in debug mode.'
     })
+    .option('repl', {
+      type: 'boolean',
+      description: 'Listen for REPL connections on port 3499.'
+    })
     .option('mas', {
       type: 'boolean',
       description: 'Run in Mac App Store release mode.'
@@ -170,4 +174,31 @@ process.on('uncaughtException', function(ex) {
     global.application = new Application(manifest, options);
     global.application.init();
   });
+
+  // If the REPL is enabled, launch it
+  if (options.repl) {
+    const replUtil = require('./utils/repl');
+    const repl = require('repl');
+    const net = require('net');
+
+    log('listening for REPL connections on port 3499');
+    net.createServer(socket => {
+      const r = repl.start({
+        prompt: 'browser@' + manifest.name + '> ',
+        input: socket,
+        output: socket,
+        terminal: true
+      });
+
+      r.on('exit', () => {
+        socket.end();
+      });
+
+      // Bridge loggers
+      const loggers = replUtil.getLoggers();
+      r.context.log = loggers.log;
+      r.context.logError = loggers.logError;
+      r.context.logFatal = loggers.logFatal;
+    }).listen(3499);
+  }
 })();
