@@ -1,3 +1,8 @@
+### 2.0.7
+
+- Prompt user to update instead of doing it automatically on quit (Windows).
+- Disable the crash reporter if stats reporting is disabled.
+
 ### 2.0.6
 
 - Improves support for debugging.
