@@ -1,7 +1,8 @@
-import prefs from '../utils/prefs';
+import EventEmitter from 'events';
 import app from 'app';
 
-import EventEmitter from 'events';
+import platform from '../utils/platform';
+import prefs from '../utils/prefs';
 
 class AppListenersManager extends EventEmitter {
 
@@ -40,7 +41,7 @@ class AppListenersManager extends EventEmitter {
     log('will quit');
     const hasUpdate = this.autoUpdateManager.state == this.autoUpdateManager.states.UPDATE_DOWNLOADED;
     const isUpdating = this.mainWindowManager.updateInProgress;
-    if (hasUpdate && !isUpdating) {
+    if (platform.isDarwin && hasUpdate && !isUpdating) {
       log('has update downloaded, installing it before quitting');
       event.preventDefault();
       prefs.setSync('launch-quit', true);

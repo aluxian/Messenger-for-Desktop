@@ -1,11 +1,12 @@
-import platform from '../utils/platform';
-import prefs from '../utils/prefs';
+import EventEmitter from 'events';
 import keyMirror from 'keymirror';
 import dialog from 'dialog';
 import shell from 'shell';
 
+import manifest from '../../../package.json';
 import AutoUpdater from '../components/auto-updater';
-import EventEmitter from 'events';
+import platform from '../utils/platform';
+import prefs from '../utils/prefs';
 
 const STATES = keyMirror({
   IDLE: null,
@@ -37,6 +38,7 @@ class AutoUpdateManager extends EventEmitter {
     this.initErrorListener();
     this.initStateListeners();
     this.initVersionListener();
+    this.initDownloadListener();
   }
 
   initFeedUrl() {
@@ -77,6 +79,24 @@ class AutoUpdateManager extends EventEmitter {
       this.latestVersion = newVersion;
       this.latestDownloadUrl = downloadUrl;
     });
+  }
+
+  initDownloadListener() {
+    if (platform.isWin && !this.options.portable) {
+      AutoUpdater.on('update-downloaded', () => {
+        dialog.showMessageBox({
+          type: 'question',
+          message: 'A new version of ' + manifest.productName + ' has been downloaded.',
+          detail: 'Would you like to restart and install the update? You can do this later from the App menu.',
+          buttons: ['Later', 'Update']
+        }, (response) => {
+          if (response === 1) {
+            log('user clicked Update');
+            this.quitAndInstall();
+          }
+        });
+      });
+    }
   }
 
   handleMenuCheckForUpdate() {
@@ -174,6 +194,7 @@ class AutoUpdateManager extends EventEmitter {
   checkForUpdate(silent = true) {
     log('checking for update...');
     AutoUpdater.checkForUpdates();
+
     if (!silent) {
       const onCheck = {};
 
