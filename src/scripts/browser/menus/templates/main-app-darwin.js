@@ -41,7 +41,7 @@ export default {
     parse: $.setLocal('checked', $.pref('auto-check-update'))
   }, {
     type: 'checkbox',
-    label: 'Report Stats and Errors',
+    label: 'Report Stats and Crashes',
     click: $.setPref('analytics-track', $.key('checked')),
     parse: $.setLocal('checked', $.pref('analytics-track'))
   }, {
