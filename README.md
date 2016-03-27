@@ -6,7 +6,7 @@
 - Windows [![Windows build](https://ci.appveyor.com/api/projects/status/6vborc92ob25kqe0/branch/deploy?svg=true)](https://ci.appveyor.com/project/Aluxian/whatsie/branch/deploy)
 - Linux [![Linux builds](https://circleci.com/gh/Aluxian/Whatsie/tree/deploy.svg?style=svg)](https://circleci.com/gh/Aluxian/Whatsie/tree/deploy)
 
-A simple & beautiful desktop client for [WhatsApp Web](https://web.whatsapp.com/). Chat without distractions on Windows, OS X and Linux. Not affiliated with WhatsApp or Facebook. This is **NOT** an official product.
+A simple &amp; beautiful desktop client for [WhatsApp Web](https://web.whatsapp.com/). Chat without distractions on Windows, OS X and Linux. Not affiliated with WhatsApp or Facebook. This is **NOT** an official product.
 
 ## How to install
 
@@ -35,8 +35,8 @@ The app will NOT update automatically, but you can still check for updates.
 
 ### Deb-based Linux
 
-1. Download [whatsie-x.x.x-arch.deb][LR]
-2. Double click and install, or run `dpkg -i whatsie-x.x.x-arch.deb`
+1. Download [whatsie-x.x.x-linux-arch.deb][LR]
+2. Double click and install, or run `dpkg -i whatsie-x.x.x-linux-arch.deb`
 
 The app will NOT update automatically, but you can still check for updates.
 
@@ -52,8 +52,8 @@ sudo apt-get install whatsie
 
 ### RPM-based Linux
 
-1. Download [whatsie-x.x.x-arch.rpm][LR]
-2. Double click and install, or run `rpm -ivh whatsie-x.x.x-arch.rpm`
+1. Download [whatsie-x.x.x-linux-arch.rpm][LR]
+2. Double click and install, or run `rpm -ivh whatsie-x.x.x-linux-arch.rpm`
 
 The app will NOT update automatically, but you can still check for updates.
 
