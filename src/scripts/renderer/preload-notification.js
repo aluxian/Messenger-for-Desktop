@@ -22,6 +22,11 @@ window.Notification = (function(Html5Notification) {
     // HTML5-like event emitter to be returned
     const result = Object.assign(new EventEmitter(), nativeOptions);
 
+    // Add a dummy close callback
+    result.close = function() {
+      log('notification.close() not implemented');
+    };
+
     // Set the click handler
     nativeOptions.onClick = function(payload) {
       log('notification clicked', payload);
