@@ -60,10 +60,10 @@ function getCustomUrl() {
   if (indexOfAppDir > -1) {
     customPath = pathname.replace(appDirPath, '');
   } else {
-    customPath = path.join('/raw', pathname);
+    customPath = path.posix.join('/raw', pathname);
   }
 
-  return path.join(manifest.piwik.baseUrl, customPath);
+  return path.posix.join(manifest.piwik.baseUrl, customPath);
 }
 
 function getTracker() {
