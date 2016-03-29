@@ -49,6 +49,7 @@ function getCustomUrl() {
   const pathname = document.location.pathname;
   let appDirPath = remote.app.getAppPath();
 
+  // Fix path separators on win32
   if (process.platform === 'win32') {
     appDirPath = ('\\' + appDirPath).replace(/\\/g, '/');
   }
