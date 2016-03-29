@@ -34,6 +34,21 @@ if (trackAnalytics) {
     }
     return notice;
   });
+
+  // Replace username in C:\Users\<username>\AppData\
+  airbrake.addFilter(function(notice) {
+    if (notice.error && notice.error.message) {
+      const exMsgBits = notice.error.message.split('\\');
+      const c1 = exMsgBits[0] === 'C:';
+      const c2 = exMsgBits[1] === 'Users';
+      const c3 = exMsgBits[3] === 'AppData';
+      if (c1 && c2 && c3) {
+        exMsgBits[2] = '<username>';
+        notice.error.message = exMsgBits.join('\\');
+      }
+    }
+    return notice;
+  });
 } else {
   log('airbrake disabled');
 }

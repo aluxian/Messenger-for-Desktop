@@ -48,6 +48,18 @@ function namespaceOf(filename) {
   return manifest.name + ':' + name;
 }
 
+function anonymizeException(ex) {
+  // Replace username in C:\Users\<username>\AppData\
+  const exMsgBits = ex.message.split('\\');
+  const c1 = exMsgBits[0] === 'C:';
+  const c2 = exMsgBits[1] === 'Users';
+  const c3 = exMsgBits[3] === 'AppData';
+  if (c1 && c2 && c3) {
+    exMsgBits[2] = '<username>';
+    ex.message = exMsgBits.join('\\');
+  }
+}
+
 export function silence(isSilenced) {
   consoleSilenced = isSilenced;
 }
@@ -99,6 +111,7 @@ export function errorLogger(filename, fatal) {
       if (airbrake) {
         ex.url = fakePagePath;
         ex.component = namespace;
+        anonymizeException(ex);
         airbrake.notify(ex);
       }
     }
