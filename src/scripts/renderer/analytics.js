@@ -47,7 +47,12 @@ if (trackAnalytics && manifest.piwik) {
 
 function getCustomUrl() {
   const pathname = document.location.pathname;
-  const appDirPath = remote.app.getAppPath();
+  let appDirPath = remote.app.getAppPath();
+
+  if (process.platform === 'win32') {
+    appDirPath = ('\\' + appDirPath).replace(/\\/g, '/');
+  }
+
   const indexOfAppDir = pathname.indexOf(appDirPath);
   let customPath = null;
 
