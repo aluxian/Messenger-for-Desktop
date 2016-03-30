@@ -11,8 +11,9 @@ class DarwinNativeNotifier extends BaseNativeNotifier {
     // Flag that this notifier has been implemented
     this.isImplemented = true;
 
-    // Obj-C imports
+    // Obj-C setup
     $.framework('Foundation');
+    const pool = $.NSAutoreleasePool('alloc')('init'); // eslint-disable-line no-unused-vars
 
     // Get the notification center
     this.center = $.NSUserNotificationCenter('defaultUserNotificationCenter');
@@ -58,8 +59,9 @@ class DarwinNativeNotifier extends BaseNativeNotifier {
     this.emit('notif-activated', payload);
   }
 
-  fireNotification({title, subtitle, body, tag = title, canReply, icon, onClick}) {
+  fireNotification({title, subtitle, body, tag = title, canReply, icon, onClick, onCreate}) {
     const identifier = tag + ':::' + Date.now();
+    const data = {title, subtitle, body, tag, canReply, onClick, onCreate, identifier};
 
     // Create
     const notification = $.NSUserNotification('alloc')('init');
@@ -84,12 +86,29 @@ class DarwinNativeNotifier extends BaseNativeNotifier {
     }
 
     // Deliver
-    log('delivering notification', {title, subtitle, body, tag, canReply, onClick});
+    log('delivering notification', JSON.stringify(data));
     this.center('deliverNotification', notification);
 
     // Click callback
     if (onClick) {
       this.on('notif-activated-' + tag, onClick);
+    }
+
+    // Creation callback
+    if (onCreate) {
+      onCreate(data);
+    }
+  }
+
+  removeNotification(identifier) {
+    const deliveredNotifications = this.center('deliveredNotifications');
+    for (let i = 0; i < deliveredNotifications('count'); i++) {
+      const deliveredNotif = deliveredNotifications('objectAtIndex', $(i)('unsignedIntValue'));
+      if (deliveredNotif('identifier').toString() === identifier) {
+        log('removing notification', identifier, deliveredNotif);
+        this.center('removeDeliveredNotification', deliveredNotif);
+        break;
+      }
     }
   }
 
