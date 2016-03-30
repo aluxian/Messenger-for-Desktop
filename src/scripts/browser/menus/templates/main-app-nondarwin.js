@@ -11,7 +11,7 @@ const availableLanguages = SpellChecker.getAvailableDictionaries()
   .map((langCode) => {
     return {
       code: langCode,
-      name: languageCodes[langCode] || langCode
+      name: languageCodes[langCode.replace('-', '_')] || langCode
     };
   })
   .sort((a, b) => {
