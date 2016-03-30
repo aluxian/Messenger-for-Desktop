@@ -2,6 +2,7 @@ import EventEmitter from 'events';
 import remote from 'remote';
 
 const nativeNotifier = remote.require('../browser/bridges/native-notifier').default;
+const mainWindowManager = remote.getGlobal('application').mainWindowManager;
 
 // Extend the default notification API
 window.Notification = (function(Html5Notification) {
@@ -10,7 +11,14 @@ window.Notification = (function(Html5Notification) {
   const Notification = function(title, options) {
     if (!nativeNotifier.isImplemented) {
       log('showing html5 notification', title, options);
-      return new Html5Notification(title, options);
+      const notification = new Html5Notification(title, options);
+
+      // Add click listener to focus the app
+      notification.addEventListener('click', function() {
+        mainWindowManager.showOrCreate();
+      });
+
+      return notification;
     }
 
     log('showing native notification');

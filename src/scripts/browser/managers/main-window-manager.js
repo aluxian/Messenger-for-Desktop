@@ -208,6 +208,18 @@ class MainWindowManager extends EventEmitter {
       .replace(new RegExp('\\s+', 'g'), '');
   }
 
+  /**
+   * Show and focus or create the main window.
+   */
+  showOrCreate() {
+    if (this.window) {
+      this.window.show();
+    } else {
+      this.createWindow();
+      this.initWindow();
+    }
+  }
+
 }
 
 export default MainWindowManager;

@@ -64,12 +64,8 @@ class AppListenersManager extends EventEmitter {
   onActivate(event, hasVisibleWindows) {
     // Reopen the main window on dock clicks (OS X)
     log('activate app, hasVisibleWindows', hasVisibleWindows);
-    if (!hasVisibleWindows) {
-      if (this.mainWindowManager) {
-        this.mainWindowManager.window.show();
-      } else {
-        this.mainWindowManager.create();
-      }
+    if (!hasVisibleWindows && this.mainWindowManager) {
+      this.mainWindowManager.showOrCreate();
     }
   }
 
