@@ -104,7 +104,8 @@ class DarwinNativeNotifier extends BaseNativeNotifier {
     const deliveredNotifications = this.center('deliveredNotifications');
     for (let i = 0; i < deliveredNotifications('count'); i++) {
       const deliveredNotif = deliveredNotifications('objectAtIndex', $(i)('unsignedIntValue'));
-      if (deliveredNotif('identifier').toString() === identifier) {
+      const deliveredIdentifier = deliveredNotif('identifier');
+      if (deliveredIdentifier && deliveredIdentifier.toString() === identifier) {
         log('removing notification', identifier, deliveredNotif);
         this.center('removeDeliveredNotification', deliveredNotif);
         break;
