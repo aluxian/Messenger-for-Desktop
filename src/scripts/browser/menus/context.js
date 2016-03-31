@@ -59,11 +59,6 @@ function create(opt, browserWindow) {
   if (opt.targetIsEditable) {
     menu.append(new MenuItem({
       label: 'Paste',
-      click: () => webContents.send('call-webview-method', 'paste')
-    }));
-
-    menu.append(new MenuItem({
-      label: 'Paste and Match Style',
       click: () => webContents.send('call-webview-method', 'pasteAndMatchStyle')
     }));
 
