@@ -35,6 +35,13 @@ if (trackAnalytics) {
     return notice;
   });
 
+  // Include metadata
+  airbrake.addFilter(function(notice) {
+    notice.environment.distrib = manifest.distrib;
+    notice.params = manifest;
+    return notice;
+  });
+
   // Replace username in C:\Users\<username>\AppData\
   airbrake.addFilter(function(notice) {
     if (notice.error && notice.error.message) {

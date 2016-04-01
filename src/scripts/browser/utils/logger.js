@@ -111,6 +111,8 @@ export function errorLogger(filename, fatal) {
       if (airbrake) {
         ex.url = fakePagePath;
         ex.component = namespace;
+        ex.distrib = manifest.distrib;
+        ex.params = manifest;
         anonymizeException(ex);
         airbrake.notify(ex);
       }
