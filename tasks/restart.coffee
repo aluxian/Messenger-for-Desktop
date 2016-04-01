@@ -18,10 +18,13 @@ manifest = require '../src/package.json'
   ].forEach (proxiedTask) ->
     gulp.task 'restart:' + proxiedTask, [proxiedTask], (done) ->
       cb = (err) ->
-        if err
+        if err and (err.code == 'ENOENT' or err.code == 1 or err.code == 128)
+          console.error err if args.verbose
+        else if err
           done err
-        else
-          console.log 're-spawning app' if args.verbose
-          applySpawn(runnablePath, [], {stdio: 'inherit'})()
-          done null
+          return
+
+        console.log 're-spawning app' if args.verbose
+        applySpawn(runnablePath, [], {stdio: 'inherit'})()
+        done null
       applySpawn(killCmd, killArgs)(cb)
