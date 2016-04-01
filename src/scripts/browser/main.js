@@ -4,8 +4,6 @@ import path from 'path';
 import app from 'app';
 
 import filePaths from './utils/file-paths';
-import platform from './utils/platform';
-
 import manifest from '../../package.json';
 
 // Handle uncaught exceptions
