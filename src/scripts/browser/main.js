@@ -5,7 +5,6 @@ import app from 'app';
 
 import filePaths from './utils/file-paths';
 import platform from './utils/platform';
-import prefs from './utils/prefs';
 
 import manifest from '../../package.json';
 
@@ -85,6 +84,17 @@ process.on('uncaughtException', function(ex) {
     log('debug mode enabled');
   }
 
+  // Change the userData path if in portable mode
+  if (options.portable) {
+    log('running in portable mode');
+    const userDataPath = path.join(filePaths.getAppDir(), 'data');
+    log('set userData path', userDataPath);
+    app.setPath('userData', userDataPath);
+  }
+
+  // Import prefs now so the correct userData path is used
+  const prefs = require('./utils/prefs').default;
+
   // Check for Squirrel.Windows CLI args
   if (process.platform == 'win32') {
     const SquirrelEvents = require('./components/squirrel-events').default;
@@ -126,14 +136,6 @@ process.on('uncaughtException', function(ex) {
   if (isDuplicateInstance) {
     log('another instance of the app is already running');
     return app.quit();
-  }
-
-  // Change the userData path if in portable mode
-  if (options.portable) {
-    log('running in portable mode');
-    const userDataPath = path.join(filePaths.getAppDir(), 'data');
-    log('set userData path', userDataPath);
-    app.setPath('userData', userDataPath);
   }
 
   // Set the Windows user model ID
@@ -182,28 +184,6 @@ process.on('uncaughtException', function(ex) {
 
   // If the REPL is enabled, launch it
   if (options.repl) {
-    const replUtil = require('./utils/repl');
-    const repl = require('repl');
-    const net = require('net');
-
-    log('listening for REPL connections on port 3499');
-    net.createServer(socket => {
-      const r = repl.start({
-        prompt: 'browser@' + manifest.name + '> ',
-        input: socket,
-        output: socket,
-        terminal: true
-      });
-
-      r.on('exit', () => {
-        socket.end();
-      });
-
-      // Bridge loggers
-      const loggers = replUtil.getLoggers();
-      r.context.log = loggers.log;
-      r.context.logError = loggers.logError;
-      r.context.logFatal = loggers.logFatal;
-    }).listen(3499);
+    require('./utils/repl').createServer(3499);
   }
 })();
