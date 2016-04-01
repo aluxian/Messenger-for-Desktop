@@ -109,12 +109,14 @@ export function errorLogger(filename, fatal) {
 
       const airbrake = require('./airbrake').default;
       if (airbrake) {
-        ex.url = fakePagePath;
-        ex.component = namespace;
-        ex.distrib = manifest.distrib;
-        ex.params = manifest;
-        anonymizeException(ex);
-        airbrake.notify(ex);
+        // Wrap the error for more stack trace data
+        const err = new Error(ex);
+        err.url = fakePagePath;
+        err.component = namespace;
+        err.distrib = manifest.distrib;
+        err.params = manifest;
+        anonymizeException(err);
+        airbrake.notify(err);
       }
     }
 

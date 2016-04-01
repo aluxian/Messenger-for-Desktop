@@ -22,8 +22,18 @@ if (trackAnalytics) {
 
   // Add more data
   airbrake.addFilter(function(notice) {
+    notice.environment = notice.environment || {};
+    notice.context = notice.context || {};
+
+    notice.environment.distrib = manifest.distrib;
     notice.context.environment = manifest.airbrake.env;
     notice.context.version = manifest.version;
+    notice.params = manifest;
+
+    if (notice.error && notice.error.fakePagePath) {
+      notice.context.url = notice.error.fakePagePath;
+    }
+
     return notice;
   });
 
@@ -32,13 +42,6 @@ if (trackAnalytics) {
     if (notice.context.environment === 'development') {
       return null;
     }
-    return notice;
-  });
-
-  // Include metadata
-  airbrake.addFilter(function(notice) {
-    notice.environment.distrib = manifest.distrib;
-    notice.params = manifest;
     return notice;
   });
 

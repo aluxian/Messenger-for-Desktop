@@ -31,12 +31,10 @@ export function errorLogger(filename, fatal) {
       const airbrake = require('./airbrake').default;
       const resolveUrl = require('./airbrake').resolveUrl;
       if (airbrake) {
-        airbrake.notify({
-          error: ex,
-          context: {
-            url: resolveUrl(fakePagePath)
-          }
-        });
+        // Wrap the error for more stack trace data
+        const err = new Error(ex);
+        err.fakePagePath = resolveUrl(fakePagePath);
+        airbrake.notify({ error: err });
       }
     }
   };
