@@ -138,12 +138,6 @@ process.on('uncaughtException', function(ex) {
     return app.quit();
   }
 
-  // Set the Windows user model ID
-  if (platform.isWin) {
-    log('setting user model id', this.manifest.win.userModelId);
-    app.setAppUserModelId(this.manifest.win.userModelId);
-  }
-
   // Enable the crash reporter
   if (!process.mas) {
     if (manifest.crashReporter && manifest.crashReporter.url) {
