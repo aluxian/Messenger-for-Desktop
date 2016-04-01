@@ -55,7 +55,7 @@ class DarwinNativeNotifier extends BaseNativeNotifier {
     }
 
     log('didActivateNotification', payload);
-    this.emit('notif-activated-' + tag, payload);
+    this.emit('notif-activated-' + identifier, payload);
     this.emit('notif-activated', payload);
   }
 
@@ -91,7 +91,7 @@ class DarwinNativeNotifier extends BaseNativeNotifier {
 
     // Click callback
     if (onClick) {
-      this.on('notif-activated-' + tag, onClick);
+      this.on('notif-activated-' + identifier, onClick);
     }
 
     // Creation callback
