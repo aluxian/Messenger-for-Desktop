@@ -1,4 +1,4 @@
-// 345 language codes in ISO 369-1 format
+// 348 language codes in ISO 369-1 format
 export default {
   'aa': 'Afar',
   'ab': 'Abkhazian',
@@ -90,6 +90,7 @@ export default {
   'en_US': 'English, United States',
   'en_ZA': 'English, South Africa',
   'en_ZW': 'English, Zimbabwe',
+  'en_LR': 'English, Liberia',
   'eo': 'Esperanto',
   'es': 'Spanish; Castilian',
   'es_AR': 'Spanish, Argentina',
@@ -264,8 +265,10 @@ export default {
   'rn': 'Rundi',
   'ro': 'Romanian; Moldavian; Moldovan',
   'ru': 'Russian',
+  'ru_RU': 'Russian',
   'ru_BY': 'Russian, Belarus',
   'ru_MD': 'Russian, Moldova',
+  'ru_MO': 'Russian, Moldova',
   'ru_UA': 'Russian, Ukraine',
   'rw': 'Kinyarwanda',
   'ry_UA': 'Rusyn',
