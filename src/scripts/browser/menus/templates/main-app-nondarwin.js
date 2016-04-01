@@ -53,7 +53,7 @@ export default {
     visible: false
   }, {
     id: 'cfu-update-downloaded',
-    label: 'Restart and Install &Update',
+    label: 'Restart App and Install &Update',
     visible: false,
     click: $.cfuUpdateDownloaded()
   }, {

@@ -87,7 +87,7 @@ class AutoUpdateManager extends EventEmitter {
         dialog.showMessageBox({
           type: 'question',
           message: 'A new version of ' + manifest.productName + ' has been downloaded.',
-          detail: 'Would you like to restart and install the update? You can do this later from the App menu.',
+          detail: 'Would you like to restart the app and install the update? You can do this later from the App menu.',
           buttons: ['Later', 'Update']
         }, (response) => {
           if (response === 1) {
