@@ -31,7 +31,7 @@ class MainWindowManager extends EventEmitter {
     const bounds = prefs.get('window-bounds');
     const defaultOptions = {
       title: this.manifest.productName,
-      backgroundColor: '#dfdfdf',
+      backgroundColor: '#f2f2f2',
       useContentSize: true,
       minWidth: 355,
       minHeight: 355,
