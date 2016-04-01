@@ -66,8 +66,10 @@ export function openUrl(url) {
  */
 export function sendToWebContents(channel, ...valueExprs) {
   return function(menuItem, browserWindow) {
-    const values = valueExprs.map(e => e.apply(this, arguments));
-    browserWindow.webContents.send(channel, ...values);
+    if (browserWindow) {
+      const values = valueExprs.map(e => e.apply(this, arguments));
+      browserWindow.webContents.send(channel, ...values);
+    }
   };
 }
 
@@ -76,8 +78,10 @@ export function sendToWebContents(channel, ...valueExprs) {
  */
 export function sendToWebView(channel, ...valueExprs) {
   return function(menuItem, browserWindow) {
-    const values = valueExprs.map(e => e.apply(this, arguments));
-    browserWindow.webContents.send('fwd-webview', channel, ...values);
+    if (browserWindow) {
+      const values = valueExprs.map(e => e.apply(this, arguments));
+      browserWindow.webContents.send('fwd-webview', channel, ...values);
+    }
   };
 }
 
@@ -86,7 +90,9 @@ export function sendToWebView(channel, ...valueExprs) {
  */
 export function reloadWindow() {
   return function(menuItem, browserWindow) {
-    browserWindow.reload();
+    if (browserWindow) {
+      browserWindow.reload();
+    }
   };
 }
 
@@ -95,9 +101,11 @@ export function reloadWindow() {
  */
 export function resetWindow() {
   return function(menuItem, browserWindow) {
-    const bounds = prefs.getDefault('window-bounds');
-    browserWindow.setSize(bounds.width, bounds.height, true);
-    browserWindow.center();
+    if (browserWindow) {
+      const bounds = prefs.getDefault('window-bounds');
+      browserWindow.setSize(bounds.width, bounds.height, true);
+      browserWindow.center();
+    }
   };
 }
 
@@ -122,8 +130,10 @@ export function showWindow() {
  */
 export function toggleFullScreen() {
   return function(menuItem, browserWindow) {
-    const newState = !browserWindow.isFullScreen();
-    browserWindow.setFullScreen(newState);
+    if (browserWindow) {
+      const newState = !browserWindow.isFullScreen();
+      browserWindow.setFullScreen(newState);
+    }
   };
 }
 
@@ -132,7 +142,9 @@ export function toggleFullScreen() {
  */
 export function toggleDevTools() {
   return function(menuItem, browserWindow) {
-    browserWindow.toggleDevTools();
+    if (browserWindow) {
+      browserWindow.toggleDevTools();
+    }
   };
 }
 
@@ -141,8 +153,10 @@ export function toggleDevTools() {
  */
 export function floatOnTop(flagExpr) {
   return function(menuItem, browserWindow) {
-    const flag = flagExpr.apply(this, arguments);
-    browserWindow.setAlwaysOnTop(flag);
+    if (browserWindow) {
+      const flag = flagExpr.apply(this, arguments);
+      browserWindow.setAlwaysOnTop(flag);
+    }
   };
 }
 
