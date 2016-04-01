@@ -18,7 +18,7 @@ manifest = require '../src/package.json'
   ].forEach (proxiedTask) ->
     gulp.task 'restart:' + proxiedTask, [proxiedTask], (done) ->
       cb = (err) ->
-        if error
+        if err
           done err
         else
           console.log 're-spawning app' if args.verbose
