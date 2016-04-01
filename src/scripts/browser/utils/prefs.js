@@ -61,7 +61,11 @@ function getDefault(key) {
 function unset(key) {
   db.delete(key, function(err) {
     if (err) {
-      logError(err);
+      if (err.message && err.message.includes('not found')) {
+        // ignore
+      } else {
+        logError(err);
+      }
     } else {
       log('unset', key);
     }
@@ -76,7 +80,11 @@ function unsetSync(key) {
     db.delete(key);
     log('unset', key);
   } catch (ex) {
-    logError(ex);
+    if (ex.message && ex.message.includes('not found')) {
+      // ignore
+    } else {
+      logError(ex);
+    }
   }
 }
 
