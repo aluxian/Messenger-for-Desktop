@@ -177,6 +177,7 @@ process.on('uncaughtException', function(ex) {
     const Application = require('./application').default;
     global.application = new Application(manifest, options);
     global.application.init();
+    global.ready = true;
   });
 
   // If the REPL is enabled, launch it

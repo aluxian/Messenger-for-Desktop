@@ -1,6 +1,8 @@
 import SpellChecker from 'spellchecker';
 import platform from './platform';
+import app from 'app';
 
+const availableLanguages = SpellChecker.getAvailableDictionaries();
 const defaults = {
   'analytics-track': true,
   'analytics-uid': null,
@@ -27,35 +29,67 @@ const defaults = {
 };
 
 function get(key) {
-  let def = defaults[key];
-  if (typeof def === 'function') {
-    def = def();
-    defaults[key] = def;
-  }
-  return def;
-}
-
-function defaultSpellCheckerLanguage() {
-  let spellCheckerLanguage = 'en_US';
-
-  const envLang = process.env.LANG;
-  if (envLang) {
-    spellCheckerLanguage = envLang.split('.')[0];
-  }
-
-  const availableLanguages = SpellChecker.getAvailableDictionaries();
-  if (!availableLanguages.length || availableLanguages.includes(spellCheckerLanguage)) {
-    return spellCheckerLanguage;
-  }
-
-  if (spellCheckerLanguage.includes('_')) {
-    spellCheckerLanguage = spellCheckerLanguage.split('_')[0];
-    if (availableLanguages.includes(spellCheckerLanguage)) {
-      return spellCheckerLanguage;
+  if (key === 'spell-checker-language') {
+    const valueFn = defaults[key];
+    if (typeof valueFn === 'function') {
+      if (global.ready) {
+        defaults[key] = valueFn();
+        return defaults[key];
+      } else {
+        return valueFn();
+      }
     }
   }
 
-  return availableLanguages[0];
+  return defaults[key];
+}
+
+function defaultSpellCheckerLanguage() {
+  let defaultLanguage = null;
+
+  // Try to get it from app
+  if (global.ready) {
+    defaultLanguage = app.getLocale();
+    if (typeof defaultLanguage === 'string') {
+      defaultLanguage = defaultLanguage.replace('-', '_');
+      defaultLanguage = validateLanguage(defaultLanguage);
+      if (defaultLanguage) {
+        return defaultLanguage;
+      }
+    }
+    defaultLanguage = null;
+  }
+
+  // Try to get it from env
+  if (typeof process.env.LANG === 'string') {
+    defaultLanguage = process.env.LANG.split('.')[0];
+    defaultLanguage = defaultLanguage.replace('-', '_');
+    defaultLanguage = validateLanguage(defaultLanguage);
+    if (defaultLanguage) {
+      return defaultLanguage;
+    }
+    defaultLanguage = null;
+  }
+
+  // Try to use the first available language
+  if (availableLanguages.length) {
+    return availableLanguages[0];
+  }
+
+  // Use the default
+  return 'en_US';
+}
+
+function validateLanguage(lang) {
+  if (availableLanguages.includes(lang)) {
+    return lang;
+  } else {
+    lang = lang.split('_')[0];
+    if (availableLanguages.includes(lang)) {
+      return lang;
+    }
+  }
+  return null;
 }
 
 export default {
