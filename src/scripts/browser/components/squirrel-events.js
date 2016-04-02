@@ -23,7 +23,7 @@ class SquirrelEvents {
           dialog.showMessageBox({
             type: 'question',
             message: 'Remove old WhatsApp for Desktop?',
-            detail: 'Whatsie has found WhatsApp for Desktop files on your computer. Do you want to completely remove WhatsApp for Desktop and its files?',
+            detail: 'Whatsie has found WhatsApp for Desktop files on your computer. Do you want to completely remove WhatsApp for Desktop and its files? Note that if you have other apps called "WhatsApp", they might be removed.',
             buttons: ['Skip', 'Remove']
           }, function(response) {
             if (response === 1) {
