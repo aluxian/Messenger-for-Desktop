@@ -653,7 +653,7 @@ select {
 */
 
 .icon-down {
-  background-image: url(https://i.imgur.com/gz4jr7a.png)!important;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAVCAYAAACpF6WWAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAIGNIUk0AAHolAACAgwAA+f8AAIDoAABSCAABFVgAADqXAAAXb9daH5AAAAEPSURBVHja3NSvSkRREAbw39Wb1aSsiEk0iGAQfAKjxajFIgbLwnaT2ITtNjHoE2jTJvgCBkFMblHE5L9dj2WERa7uhd0NOnAYDjN8852Zb06WUtJrG9AH6wtoXiapUq3lGMMDXqBR3+ua6SIOsYzBXj1/A1PYwlCvQEfDD5dhmn2XVKVaK8o7xSzusRQ+Qyrqb/7D8Bawjhl8YDJiIzjAGx5xhHO8dgKtYCcAiwrOtd3nsYqrTqANbGMT08F0PHJbuGljeozbMjpt4gKXMZQMZ5jAM9aipymKpLLiTwHe/BpoW+w9TteSugv/1AmwUFIFKwor2EUd+2j9tqZ5SaYnMZDr6GN3TP/3f/p3QD8HAKZ+Rdp7OC3gAAAAAElFTkSuQmCC)!important;
   background-position: inherit!important;
 }
 
@@ -676,13 +676,13 @@ select {
 }
 
 .drawer-section-photo .icon-user-default, .new-group-preview .icon-user-default, .media-viewer .icon-user-default {
-  background-image: url(https://i.imgur.com/DR7JELP.png);
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAVCAYAAACpF6WWAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAIGNIUk0AAHolAACAgwAA+f8AAIDoAABSCAABFVgAADqXAAAXb9daH5AAAAEPSURBVHja3NSvSkRREAbw39Wb1aSsiEk0iGAQfAKjxajFIgbLwnaT2ITtNjHoE2jTJvgCBkFMblHE5L9dj2WERa7uhd0NOnAYDjN8852Zb06WUtJrG9AH6wtoXiapUq3lGMMDXqBR3+ua6SIOsYzBXj1/A1PYwlCvQEfDD5dhmn2XVKVaK8o7xSzusRQ+Qyrqb/7D8Bawjhl8YDJiIzjAGx5xhHO8dgKtYCcAiwrOtd3nsYqrTqANbGMT08F0PHJbuGljeozbMjpt4gKXMZQMZ5jAM9aipymKpLLiTwHe/BpoW+w9TteSugv/1AmwUFIFKwor2EUd+2j9tqZ5SaYnMZDr6GN3TP/3f/p3QD8HAKZ+Rdp7OC3gAAAAAElFTkSuQmCC);
   background-position: center!important;
   background-size: contain!important;
 }
 
 .drawer-section-photo .icon-group-default, .avatar-picker .icon-group-default {
-  background-image: url(https://i.imgur.com/yaINDZk.png);
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAVCAYAAACpF6WWAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAIGNIUk0AAHolAACAgwAA+f8AAIDoAABSCAABFVgAADqXAAAXb9daH5AAAAEPSURBVHja3NSvSkRREAbw39Wb1aSsiEk0iGAQfAKjxajFIgbLwnaT2ITtNjHoE2jTJvgCBkFMblHE5L9dj2WERa7uhd0NOnAYDjN8852Zb06WUtJrG9AH6wtoXiapUq3lGMMDXqBR3+ua6SIOsYzBXj1/A1PYwlCvQEfDD5dhmn2XVKVaK8o7xSzusRQ+Qyrqb/7D8Bawjhl8YDJiIzjAGx5xhHO8dgKtYCcAiwrOtd3nsYqrTqANbGMT08F0PHJbuGljeozbMjpt4gKXMZQMZ5jAM9aipymKpLLiTwHe/BpoW+w9TteSugv/1AmwUFIFKwor2EUd+2j9tqZ5SaYnMZDr6GN3TP/3f/p3QD8HAKZ+Rdp7OC3gAAAAAElFTkSuQmCC);
   background-position: center!important;
   background-size: contain!important;
 }
