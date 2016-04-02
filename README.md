@@ -8,6 +8,8 @@
 
 A simple &amp; beautiful desktop client for [WhatsApp Web](https://web.whatsapp.com/). Chat without distractions on Windows, OS X and Linux. Not affiliated with WhatsApp or Facebook. This is **NOT** an official product.
 
+> **Note:** Whatsie is still in beta, and some features might not work properly. Bug reports and feature suggestions are welcome. Make sure you update from GitHub from time to time, in case the updates process breaks.
+
 ## Features
 
 - Themes & Mini Mode
