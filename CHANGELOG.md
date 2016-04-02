@@ -1,6 +1,7 @@
 ### 2.0.8
 
 - Update Electron to v0.37.3.
+- Add 4 new themes: Faded, Fluttershy, Orange, Sephia.
 - Remove 'Paste and Match Style' context menu item.
 - Fix language names on Windows.
 - Fix WAFD cleaner.
