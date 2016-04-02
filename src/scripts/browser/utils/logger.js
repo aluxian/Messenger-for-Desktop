@@ -114,7 +114,7 @@ export function errorLogger(filename, fatal) {
         err.url = fakePagePath;
         err.component = namespace;
         err.distrib = manifest.distrib;
-        err.params = manifest;
+        err.electronVersion = manifest.electronVersion;
         anonymizeException(err);
         airbrake.notify(err);
       }

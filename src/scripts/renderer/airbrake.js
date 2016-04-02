@@ -26,9 +26,9 @@ if (trackAnalytics) {
     notice.context = notice.context || {};
 
     notice.environment.distrib = manifest.distrib;
+    notice.environment.electronVersion = manifest.electronVersion;
     notice.context.environment = manifest.airbrake.env;
     notice.context.version = manifest.version;
-    notice.params = manifest;
 
     if (notice.error && notice.error.fakePagePath) {
       notice.context.url = notice.error.fakePagePath;
