@@ -8,6 +8,15 @@
 
 A simple &amp; beautiful desktop client for [WhatsApp Web](https://web.whatsapp.com/). Chat without distractions on Windows, OS X and Linux. Not affiliated with WhatsApp or Facebook. This is **NOT** an official product.
 
+## Features
+
+- Themes & Mini Mode
+- Native Notifications (with reply on OS X)
+- Spell Checker & Auto Correct
+- Keyboard Shortcuts
+- Launch on OS startup
+- Automatic Updates
+
 ## How to install
 
 ### OS X
