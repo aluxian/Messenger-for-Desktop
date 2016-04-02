@@ -138,6 +138,11 @@ ipcr.on('switch-conversation', function(event, indexDelta) {
     const chat = item.querySelector('.chat');
     if (chat) {
       log('make active', chat);
+      chat.dispatchEvent(new MouseEvent('mousedown', {
+        view: window,
+        bubbles: true,
+        cancelable: false
+      }));
     }
   }
 
