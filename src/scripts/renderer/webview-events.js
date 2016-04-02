@@ -31,7 +31,7 @@ ipcr.on('call-webview-method', function(event, method, ...args) {
 ipcr.on('track-analytics', function(event, name, args) {
   const tracker = analytics.getTracker();
   if (tracker) {
-    const trackerFn = analytics[name];
+    const trackerFn = tracker[name];
     trackerFn(...args);
   }
 });
