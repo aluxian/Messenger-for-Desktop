@@ -30,8 +30,8 @@ gulp.task 'publish:github', ->
 
     arch64Name = if dist == 'deb' then 'amd64' else 'x86_64'
     tasks = [
-      ['./dist/' + manifest.name + '-' + manifest.version + '-' + arch64Name + '.' + dist, arch64Name]
-      ['./dist/' + manifest.name + '-' + manifest.version + '-i386.' + dist, 'i386']
+      ['./dist/' + manifest.name + '-' + manifest.version + '-linux-' + arch64Name + '.' + dist, arch64Name]
+      ['./dist/' + manifest.name + '-' + manifest.version + '-linux-i386.' + dist, 'i386']
     ].map (item) ->
       [srcPath, archType] = item
 
