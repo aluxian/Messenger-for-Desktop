@@ -16,9 +16,9 @@ A simple &amp; beautiful desktop client for [WhatsApp Web](https://web.whatsapp.
 
 ## Features
 
-- Themes & Mini Mode
+- Themes &amp; Mini Mode
 - Native Notifications (with reply on OS X)
-- Spell Checker & Auto Correct
+- Spell Checker &amp; Auto Correct
 - Keyboard Shortcuts
 - Launch on OS startup
 - Automatic Updates
