@@ -211,7 +211,7 @@ gulp.task 'pack:darwin64:zip', ['build:darwin64'], (done) ->
         '--iteration'
         process.env.CIRCLE_BUILD_NUM || '1'
         '--package'
-        './dist/' + manifest.name + '-linux-VERSION-ARCH.' + target
+        './dist/' + manifest.name + '-VERSION-linux-ARCH.' + target
         '-C'
         './build/linux' + arch
         '.'
