@@ -1,3 +1,10 @@
+### 2.0.8
+
+- Update Electron to v0.37.3.
+- Remove 'Paste and Match Style' context menu item.
+- Fix language names on Windows.
+- Fix WAFD cleaner.
+
 ### 2.0.7
 
 - Prompt user to update instead of doing it automatically on quit (Windows).
