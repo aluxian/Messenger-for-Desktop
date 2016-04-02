@@ -60,6 +60,14 @@ function anonymizeException(ex) {
   }
 }
 
+function trimLongPaths(ex) {
+  ex.stack = ex.stack
+    .split('\n')
+    .map(line => line.replace(/\/.+atom\.asar/, 'atom.asar'))
+    .map(line => line.replace(app.getAppPath(), 'app'))
+    .join('\n');
+}
+
 export function silence(isSilenced) {
   consoleSilenced = isSilenced;
 }
@@ -109,14 +117,34 @@ export function errorLogger(filename, fatal) {
 
       const airbrake = require('./airbrake').default;
       if (airbrake) {
-        // Wrap the error for more stack trace data
-        const err = new Error(ex);
-        err.url = fakePagePath;
-        err.component = namespace;
-        err.distrib = manifest.distrib;
-        err.electronVersion = manifest.electronVersion;
-        anonymizeException(err);
-        airbrake.notify(err);
+        ex.url = fakePagePath;
+        ex.component = namespace;
+        ex.stack = [
+          ex.stack,
+          '    at ()',
+          (new Error()).stack.substr(6)
+        ].join('\n');
+
+        anonymizeException(ex);
+        trimLongPaths(ex);
+
+        ex.session = {
+          distrib: manifest.distrib,
+          process_type: 'browser',
+          electron_version: manifest.electronVersion,
+          app_version: manifest.version,
+          raw_stack: ex.stack.split('\n')
+        };
+
+        console.log('reporting to Errbit:', ex);
+        airbrake.notify(ex, function(err, url) {
+          if (err) {
+            console.log('reporting to Errbit failed');
+            console.error(err);
+          } else {
+            console.log('error reported', url);
+          }
+        });
       }
     }
 

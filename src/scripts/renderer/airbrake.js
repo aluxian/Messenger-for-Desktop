@@ -22,18 +22,11 @@ if (trackAnalytics) {
 
   // Add more data
   airbrake.addFilter(function(notice) {
-    notice.environment = notice.environment || {};
-    notice.context = notice.context || {};
-
-    notice.environment.distrib = manifest.distrib;
-    notice.environment.electronVersion = manifest.electronVersion;
+    notice.session.distrib = manifest.distrib;
+    notice.session.process_type = 'renderer';
+    notice.session.electron_version = manifest.electronVersion;
+    notice.session.app_version = manifest.version;
     notice.context.environment = manifest.airbrake.env;
-    notice.context.version = manifest.version;
-
-    if (notice.error && notice.error.fakePagePath) {
-      notice.context.url = notice.error.fakePagePath;
-    }
-
     return notice;
   });
 
@@ -41,21 +34,6 @@ if (trackAnalytics) {
   airbrake.addFilter(function(notice) {
     if (notice.context.environment === 'development') {
       return null;
-    }
-    return notice;
-  });
-
-  // Replace username in C:\Users\<username>\AppData\
-  airbrake.addFilter(function(notice) {
-    if (notice.error && notice.error.message) {
-      const exMsgBits = notice.error.message.split('\\');
-      const c1 = exMsgBits[0] === 'C:';
-      const c2 = exMsgBits[1] === 'Users';
-      const c3 = exMsgBits[3] === 'AppData';
-      if (c1 && c2 && c3) {
-        exMsgBits[2] = '<username>';
-        notice.error.message = exMsgBits.join('\\');
-      }
     }
     return notice;
   });

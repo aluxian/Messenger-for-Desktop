@@ -66,7 +66,7 @@ function getCustomUrl() {
   return path.posix.join(manifest.piwik.baseUrl, customPath);
 }
 
-function getTracker() {
+export function getTracker() {
   return piwikTracker;
 }
 

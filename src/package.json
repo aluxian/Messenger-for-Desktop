@@ -76,7 +76,7 @@
     "projectKey": "b7345c1524b337324aa72ac2f439a9c3",
     "serviceHost": "exceptions.whatsie.chat",
     "host": "app://whatsie.chat",
-    "env": "production"
+    "env": "development"
   },
   "electronVersion": "v0.37.3",
   "distrib": "unset",

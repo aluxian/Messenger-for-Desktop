@@ -14,6 +14,7 @@ process.on('uncaughtException', function(ex) {
     logFatal('uncaught exception', ex.message);
   } else {
     dialog.showErrorBox('JavaScript error in the main process', ex.stack);
+    logError(ex);
   }
 });
 
