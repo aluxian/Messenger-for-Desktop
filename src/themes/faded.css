@@ -1,0 +1,39 @@
+/* @source https://userstyles.org/styles/126140/faded-whatsapp */
+
+.app-wrapper, .app-wrapper-main, .app-wrapper::after, .pane-chat-msgs, .pane-chat-body, .lastTabIndex {
+  background-color: #dfdfdf;
+}
+
+.emoji {
+  opacity: 0.5;
+  -webkit-filter: grayscale(50%);
+  /* Chrome, Safari, Opera */
+  filter: grayscale(50%);
+}
+
+
+/* Chat list (left) */
+
+.chat-avatar, .chat-secondary {
+  display: none;
+}
+
+.chat-body {
+  margin-left: 20px;
+}
+
+.chatlist .infinite-list-item, .chat-body {
+  height: 60px !important;
+  /* TODO */
+}
+
+
+/* Messages */
+
+.message-out {
+  background-color: #EEEFEE;
+}
+
+* .message-in {
+  background-color: #EEEEEE;
+}

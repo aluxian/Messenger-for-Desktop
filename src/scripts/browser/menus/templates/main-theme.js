@@ -1,15 +1,9 @@
+import manifest from '../../../../package.json';
 import $ from '../expressions';
-
-const themes = [
-  'Default',
-  'Pure',
-  'Grey',
-  'Dark'
-];
 
 export default {
   label: 'Theme',
-  submenu: themes.map(theme => {
+  submenu: manifest.themes.map(theme => {
     return {
       type: 'radio',
       label: theme,

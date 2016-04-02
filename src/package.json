@@ -81,5 +81,15 @@
   "electronVersion": "v0.37.3",
   "distrib": "unset",
   "portable": false,
-  "buildNum": 0
+  "buildNum": 0,
+  "themes": [
+    "Default",
+    "Faded",
+    "Pure",
+    "Grey",
+    "Dark",
+    "Sephia",
+    "Fluttershy",
+    "Orange"
+  ]
 }
