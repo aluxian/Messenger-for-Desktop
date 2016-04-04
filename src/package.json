@@ -49,8 +49,8 @@
   },
   "linux": {
     "vendor": "Alexandru Rosianu",
-    "genericName": "Instant Messenger",
-    "categories": "Chat;InstantMessaging;",
+    "genericName": "Internet Messenger",
+    "categories": "Network;InstantMessaging;",
     "keywords": "WhatsApp;Whats;",
     "section": "web"
   },
