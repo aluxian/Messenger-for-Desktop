@@ -152,12 +152,12 @@ class MainWindowManager extends EventEmitter {
     }
 
     // Or the app is not running in the tray.
-    if (platform.isWin && !this.forceClose && prefs.get('show-tray')) {
+    if (!this.forceClose && prefs.get('show-tray')) {
       event.preventDefault();
       this.window.hide();
 
       // Inform the user the app is still running
-      if (!prefs.get('quit-behaviour-taught')) {
+      if (platform.isWin && !prefs.get('quit-behaviour-taught')) {
         this.trayManager.tray.displayBalloon({
           title: manifest.productName,
           content: manifest.productName + ' will keep running in the tray until you quit it.'
