@@ -1,3 +1,9 @@
+### 2.0.9
+
+- Improve the WhatsApp for Desktop cleaner.
+- Fix app closing even with tray icon enabled on Linux.
+- Fix category displayed incorrectly on Linux.
+
 ### 2.0.8
 
 - Update Electron to v0.37.3.

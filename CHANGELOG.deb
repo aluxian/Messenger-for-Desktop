@@ -1,3 +1,11 @@
+whatsie (2.0.9) main; urgency=low
+
+ * Improve the WhatsApp for Desktop cleaner.
+ * Fix app closing even with tray icon enabled on Linux.
+ * Fix category displayed incorrectly on Linux.
+
+ -- Alexandru Rosianu <me@aluxian.com>  Mon, 04 Apr 2016 15:06:11 +0300
+
 whatsie (2.0.8) main; urgency=low
 
  * Update Electron to v0.37.3.
