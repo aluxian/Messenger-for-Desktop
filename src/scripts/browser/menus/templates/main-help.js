@@ -7,13 +7,13 @@ export default {
     label: 'Ra&ffle Code',
     click: $.openRaffleDialog()
   }, {
-    type: 'separator'
-  }, {
     label: 'Gitter &Chat',
     click: $.all(
       $.openUrl('https://gitter.im/Aluxian/Whatsie'),
       $.analytics.trackEvent('Menu', 'Link', 'gitter_chat')
     )
+  }, {
+    type: 'separator'
   }, {
     label: '&Write a Review',
     click: $.all(
