@@ -13,14 +13,14 @@ const paths = [
   path.join(app.getPath('appData'), 'Microsoft', 'Windows', 'Start Menu', 'Programs', 'Unofficial WhatsApp'),
   path.join(app.getPath('appData'), '..', 'Local', 'WhatsApp'),
   path.join(app.getPath('appData'), '..', 'Local', 'UnofficialWhatsApp'),
-  'C:', 'ProgramData', 'Microsoft', 'Windows', 'Start Menu', 'Programs', 'WhatsApp for Desktop.lnk',
-  'C:', 'ProgramData', 'Microsoft', 'Windows', 'Start Menu', 'Programs', 'WhatsApp.lnk',
-  'C:', 'ProgramData', 'Microsoft', 'Windows', 'Start Menu', 'Programs', 'Unofficial WhatsApp for Desktop.lnk',
-  'C:', 'ProgramData', 'Microsoft', 'Windows', 'Start Menu', 'Programs', 'Unofficial WhatsApp.lnk',
-  'C:', 'Program Files', 'WhatsApp for Desktop',
-  'C:', 'Program Files', 'Unofficial WhatsApp for Desktop',
-  'C:', 'Program Files (x86)', 'WhatsApp for Desktop',
-  'C:', 'Program Files (x86)', 'Unofficial WhatsApp for Desktop'
+  path.join('C:', 'ProgramData', 'Microsoft', 'Windows', 'Start Menu', 'Programs', 'WhatsApp for Desktop.lnk'),
+  path.join('C:', 'ProgramData', 'Microsoft', 'Windows', 'Start Menu', 'Programs', 'WhatsApp.lnk'),
+  path.join('C:', 'ProgramData', 'Microsoft', 'Windows', 'Start Menu', 'Programs', 'Unofficial WhatsApp for Desktop.lnk'),
+  path.join('C:', 'ProgramData', 'Microsoft', 'Windows', 'Start Menu', 'Programs', 'Unofficial WhatsApp.lnk'),
+  path.join('C:', 'Program Files', 'WhatsApp for Desktop'),
+  path.join('C:', 'Program Files', 'Unofficial WhatsApp for Desktop'),
+  path.join('C:', 'Program Files (x86)', 'WhatsApp for Desktop'),
+  path.join('C:', 'Program Files (x86)', 'Unofficial WhatsApp for Desktop')
 ];
 
 function check(callback) {
