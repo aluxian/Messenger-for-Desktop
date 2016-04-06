@@ -1,3 +1,9 @@
+### 2.0.10
+
+- Fix the app window not showing when a notification was clicked on OS X.
+- Make the WAFD cleaner dialog show the files that are going to be removed.
+- Update how items are grouped in the Help menu.
+
 ### 2.0.9
 
 - Improve the WhatsApp for Desktop cleaner.
