@@ -18,18 +18,25 @@ class SquirrelEvents {
         return;
       }
       log('checking for WAFD leftovers');
-      wafdCleaner.check(function(foundLeftovers) {
-        if (foundLeftovers) {
+      wafdCleaner.check(function(err, leftovers) {
+        if (err) {
+          logError(err);
+        } else if (leftovers && leftovers.length) {
           dialog.showMessageBox({
             type: 'question',
             message: 'Remove old WhatsApp for Desktop?',
-            detail: 'Whatsie has found WhatsApp for Desktop files on your computer. Do you want to completely remove WhatsApp for Desktop and its files? Note that if you have other apps called "WhatsApp", they might be removed.',
+            detail: 'Whatsie has found WhatsApp for Desktop files on your computer. Do you want to delete the following files?'
+              + '\n\n' + leftovers.join('\n'),
             buttons: ['Skip', 'Remove']
           }, function(response) {
             if (response === 1) {
               log('user chose Remove');
-              wafdCleaner.clean(function() {
-                log('cleaning done');
+              wafdCleaner.clean(function(err, files) {
+                if (err) {
+                  logError(err);
+                } else {
+                  log('cleaning done, deleted:', files || []);
+                }
               });
             } else {
               log('user chose Skip');

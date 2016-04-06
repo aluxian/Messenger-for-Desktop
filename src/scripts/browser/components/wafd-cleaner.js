@@ -1,8 +1,6 @@
-import async from 'async';
 import path from 'path';
 import del from 'del';
 import app from 'app';
-import fs from 'fs';
 
 const paths = [
   path.join(app.getPath('desktop'), 'WhatsApp for Desktop.lnk'),
@@ -26,27 +24,13 @@ const paths = [
 ];
 
 function check(callback) {
-  async.series(paths.map(p => function(cb) {
-    fs.access(p, fs.R_OK | fs.W_OK, (err) => {
-      cb(err ? null : new Error('FOUND'));
-    });
-  }), function(err) {
-    callback(!!(err && err.message === 'FOUND'));
-  });
+  clean(callback, true);
 }
 
-function clean(callback) {
-  async.parallel(paths.map(p => function(cb) {
-    del(p, { force: true })
-      .catch(err => {
-        logError(err);
-        cb();
-      })
-      .then(paths => {
-        log('deleted', paths);
-        cb();
-      });
-  }), callback);
+function clean(callback, dryRun = false) {
+  del(paths, { force: true, dryRun: dryRun })
+    .catch(err => callback(err))
+    .then(paths => callback(null, paths));
 }
 
 export default {
