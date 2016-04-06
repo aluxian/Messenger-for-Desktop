@@ -20,6 +20,7 @@ gulp.task 'publish:github', ->
       token: process.env.GITHUB_TOKEN
       manifest: manifest
       reuseRelease: true
+      reuseDraftOnly: true
       draft: true
 
 # Upload deb and RPM packages to Bintray
