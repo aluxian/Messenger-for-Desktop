@@ -1,5 +1,6 @@
 ### 2.0.10
 
+- Fix the WAFD cleaner removing other files, too.
 - Fix the app window not showing when a notification was clicked on OS X.
 - Make the WAFD cleaner dialog show the files that are going to be removed.
 - Update how items are grouped in the Help menu.
