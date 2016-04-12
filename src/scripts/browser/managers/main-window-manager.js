@@ -49,6 +49,7 @@ class MainWindowManager extends EventEmitter {
 
     // Bind webContents events to local methods
     this.window.webContents.on('new-window', ::this.onNewWindow);
+    this.window.webContents.on('will-navigate', ::this.onWillNavigate);
     this.window.webContents.on('dom-ready', ::this.onDomReady);
 
     // Bind events to local methods
@@ -88,6 +89,14 @@ class MainWindowManager extends EventEmitter {
     } else {
       log('opening url in-app', url);
     }
+  }
+
+  /**
+   * Called when the 'will-navigate' event is emitted.
+   */
+  onWillNavigate(event) {
+    // Don't navigate away
+    event.preventDefault();
   }
 
   /**
