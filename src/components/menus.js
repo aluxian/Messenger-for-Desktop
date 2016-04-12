@@ -1,5 +1,4 @@
-var gui = window.require('nw.gui');
-var clipboard = gui.Clipboard.get();
+var clipboard = nw.Clipboard.get();
 var AutoLaunch = require('auto-launch');
 var windowBehaviour = require('./window-behaviour');
 var dispatcher = require('./dispatcher');
@@ -98,13 +97,13 @@ module.exports = {
     }, {
       label: 'Check for Update',
       click: function() {
-        updater.check(gui.App.manifest, function(error, newVersionExists, newManifest) {
+        updater.check(nw.App.manifest, function(error, newVersionExists, newManifest) {
           if (error || newVersionExists) {
             updater.prompt(win, false, error, newVersionExists, newManifest);
           } else {
             dispatcher.trigger('win.alert', {
               win: win,
-              message: 'You’re using the latest version: ' + gui.App.manifest.version
+              message: 'You’re using the latest version: ' + nw.App.manifest.version
             });
           }
         });
@@ -133,7 +132,7 @@ module.exports = {
       // Remove the item if the current platform is not supported
       return !Array.isArray(item.platforms) || (item.platforms.indexOf(platform.type) != -1);
     }).map(function(item) {
-      var menuItem = new gui.MenuItem(item);
+      var menuItem = new nw.MenuItem(item);
       menuItem.setting = item.setting;
       return menuItem;
     });
@@ -146,7 +145,7 @@ module.exports = {
    *             should listen for changes in the settings to update itself.
    */
   createThemesMenu: function(keep) {
-    var menu = new gui.Menu();
+    var menu = new nw.Menu();
     var THEMES = {
       'default': 'Default',
       'mosaic': 'Mosaic',
@@ -154,7 +153,7 @@ module.exports = {
     };
 
     Object.keys(THEMES).forEach(function(key) {
-      menu.append(new gui.MenuItem({
+      menu.append(new nw.MenuItem({
         type: 'checkbox',
         label: THEMES[key],
         checked: settings.theme == key,
@@ -191,14 +190,14 @@ module.exports = {
       return;
     }
 
-    var menu = new gui.Menu({
+    var menu = new nw.Menu({
       type: 'menubar'
     });
 
     menu.createMacBuiltin('Messenger');
     var submenu = menu.items[0].submenu;
 
-    submenu.insert(new gui.MenuItem({
+    submenu.insert(new nw.MenuItem({
       type: 'separator'
     }), 1);
 
@@ -223,25 +222,25 @@ module.exports = {
    * Create the menu for the tray icon.
    */
   createTrayMenu: function(win) {
-    var menu = new gui.Menu();
+    var menu = new nw.Menu();
 
     // Add the main settings
     this.settingsItems(win, true).forEach(function(item) {
       menu.append(item);
     });
 
-    menu.append(new gui.MenuItem({
+    menu.append(new nw.MenuItem({
       type: 'separator'
     }));
 
-    menu.append(new gui.MenuItem({
+    menu.append(new nw.MenuItem({
       label: 'Show Messenger',
       click: function() {
         win.show();
       }
     }));
 
-    menu.append(new gui.MenuItem({
+    menu.append(new nw.MenuItem({
       label: 'Quit Messenger',
       click: function() {
         win.close(true);
@@ -269,7 +268,7 @@ module.exports = {
       win.tray = null;
     }
 
-    var tray = new gui.Tray({
+    var tray = new nw.Tray({
       icon: 'images/icon_' + (platform.isOSX ? 'menubar.tiff' : 'tray.png')
     });
 
@@ -288,10 +287,10 @@ module.exports = {
    * Create a context menu for the window and document.
    */
   createContextMenu: function(win, window, document, targetElement) {
-    var menu = new gui.Menu();
+    var menu = new nw.Menu({type: 'contextmenu'});
 
     if (targetElement.tagName.toLowerCase() == 'input') {
-      menu.append(new gui.MenuItem({
+      menu.append(new nw.MenuItem({
         label: "Cut",
         click: function() {
           clipboard.set(targetElement.value);
@@ -299,21 +298,21 @@ module.exports = {
         }
       }));
 
-      menu.append(new gui.MenuItem({
+      menu.append(new nw.MenuItem({
         label: "Copy",
         click: function() {
           clipboard.set(targetElement.value);
         }
       }));
 
-      menu.append(new gui.MenuItem({
+      menu.append(new nw.MenuItem({
         label: "Paste",
         click: function() {
           targetElement.value = clipboard.get();
         }
       }));
     } else if (targetElement.tagName.toLowerCase() == 'a') {
-      menu.append(new gui.MenuItem({
+      menu.append(new nw.MenuItem({
         label: "Copy Link",
         click: function() {
           var url = utils.skipFacebookRedirect(targetElement.href);
@@ -323,7 +322,7 @@ module.exports = {
     } else {
       var selection = window.getSelection().toString();
       if (selection.length > 0) {
-        menu.append(new gui.MenuItem({
+        menu.append(new nw.MenuItem({
           label: "Copy",
           click: function() {
             clipboard.set(selection);
@@ -345,7 +344,20 @@ module.exports = {
   injectContextMenu: function(win, window, document) {
     document.body.addEventListener('contextmenu', function(event) {
       event.preventDefault();
-      this.createContextMenu(win, window, document, event.target).popup(event.x, event.y);
+
+    var posx = 0;
+    var posy = 0;
+    if (event.pageX || event.pageY) {
+        posx = event.pageX + win.x;
+        posy = event.pageY + win.y;
+    } else if (event.clientX || event.clientY) {
+        posx = event.clientX + document.body.scrollLeft + 
+                           document.documentElement.scrollLeft;
+        posy = event.clientY + document.body.scrollTop + 
+                           document.documentElement.scrollTop;
+    }
+
+      this.createContextMenu(win, window, document, event.target).popup(posx, posy);
       return false;
     }.bind(this));
   }
