@@ -223,7 +223,7 @@ gulp.task 'pack:darwin64:zip', ['build:darwin64'], (done) ->
 
       if target == 'deb'
         deps = [
-          'libappindicator1'
+          'libappindicator1 | libappindicator | libappindicator-gtk3'
           'gconf2'
           'gconf-service'
           'libgtk2.0-0'
@@ -239,7 +239,7 @@ gulp.task 'pack:darwin64:zip', ['build:darwin64'], (done) ->
         ]
       else
         deps = [
-          'libappindicator1'
+          '(libappindicator OR libappindicator1 OR libappindicator-gtk3)'
         ]
 
       for dep in deps
