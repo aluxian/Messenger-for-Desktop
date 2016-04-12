@@ -178,7 +178,7 @@ gulp.task 'pack:darwin64:zip', ['build:darwin64'], (done) ->
         '--name'
         manifest.name
         '--force' # Overwrite existing files
-        '--rpm-auto-add-directories'
+        # '--rpm-auto-add-directories'
         if args.verbose then '--verbose' else null
         '--after-install'
         './build/resources/linux/after-install.sh'
@@ -246,31 +246,31 @@ gulp.task 'pack:darwin64:zip', ['build:darwin64'], (done) ->
         fpmArgs.splice depsInsertIndex, 0, dep
         fpmArgs.splice depsInsertIndex, 0, '--depends'
 
-      # Exclude folders from rpm
-      if target == 'rpm'
-        excludedFolders = [
-          '/usr/share/icons/hicolor'
-          '/usr/share/icons/hicolor/16x16'
-          '/usr/share/icons/hicolor/16x16/apps'
-          '/usr/share/icons/hicolor/24x24'
-          '/usr/share/icons/hicolor/24x24/apps'
-          '/usr/share/icons/hicolor/32x32'
-          '/usr/share/icons/hicolor/32x32/apps'
-          '/usr/share/icons/hicolor/48x48'
-          '/usr/share/icons/hicolor/48x48/apps'
-          '/usr/share/icons/hicolor/64x64'
-          '/usr/share/icons/hicolor/64x64/apps'
-          '/usr/share/icons/hicolor/128x128'
-          '/usr/share/icons/hicolor/128x128/apps'
-          '/usr/share/icons/hicolor/256x256'
-          '/usr/share/icons/hicolor/256x256/apps'
-          '/usr/share/icons/hicolor/512x512'
-          '/usr/share/icons/hicolor/512x512/apps'
-        ]
-
-        for excludedFolder in excludedFolders
-          fpmArgs.splice depsInsertIndex, 0, excludedFolder
-          fpmArgs.splice depsInsertIndex, 0, '--exclude'
+      # # Exclude folders from rpm
+      # if target == 'rpm'
+      #   excludedFolders = [
+      #     '/usr/share/icons/hicolor'
+      #     '/usr/share/icons/hicolor/16x16'
+      #     '/usr/share/icons/hicolor/16x16/apps'
+      #     '/usr/share/icons/hicolor/24x24'
+      #     '/usr/share/icons/hicolor/24x24/apps'
+      #     '/usr/share/icons/hicolor/32x32'
+      #     '/usr/share/icons/hicolor/32x32/apps'
+      #     '/usr/share/icons/hicolor/48x48'
+      #     '/usr/share/icons/hicolor/48x48/apps'
+      #     '/usr/share/icons/hicolor/64x64'
+      #     '/usr/share/icons/hicolor/64x64/apps'
+      #     '/usr/share/icons/hicolor/128x128'
+      #     '/usr/share/icons/hicolor/128x128/apps'
+      #     '/usr/share/icons/hicolor/256x256'
+      #     '/usr/share/icons/hicolor/256x256/apps'
+      #     '/usr/share/icons/hicolor/512x512'
+      #     '/usr/share/icons/hicolor/512x512/apps'
+      #   ]
+      #
+      #   for excludedFolder in excludedFolders
+      #     fpmArgs.splice depsInsertIndex, 0, excludedFolder
+      #     fpmArgs.splice depsInsertIndex, 0, '--exclude'
 
       async.series [
         # Update package.json
