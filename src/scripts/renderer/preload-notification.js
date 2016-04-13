@@ -43,7 +43,6 @@ window.Notification = (function(Html5Notification) {
     // Set the click handler
     nativeOptions.onClick = function(payload) {
       log('notification clicked', payload);
-      mainWindowManager.showOrCreate();
       result.emit('click');
 
       // Call additional handlers
@@ -59,6 +58,8 @@ window.Notification = (function(Html5Notification) {
             sendReply();
           }
         }, 50);
+      } else {
+        mainWindowManager.showOrCreate();
       }
     };
 
