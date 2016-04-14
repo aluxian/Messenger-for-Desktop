@@ -162,7 +162,7 @@ export default {
     type: 'separator'
   }, {
     label: '&Quit',
-    accelerator: 'Alt+F4',
+    accelerator: 'Ctrl+Q',
     click: $.appQuit()
   }]
 };
