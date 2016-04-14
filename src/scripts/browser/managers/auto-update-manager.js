@@ -19,6 +19,7 @@ const IGNORED_ERRORS = [
   'The request timed out.',
   'The network connection was lost.',
   'Se ha agotado el tiempo de espera.',
+  'getaddrinfo ENOTFOUND',
   'connect ETIMEDOUT'
 ];
 
