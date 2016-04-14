@@ -41,7 +41,7 @@ class SquirrelEvents {
           wafdCleaner.clean(function(err, files) {
             if (err) {
               if (err.code == 'EPERM') {
-                const displayMessage = 'Whatsie doesn\'t have permission to remove one of the files or folders.';
+                const displayMessage = manifest.productName + ' doesn\'t have permission to remove one of the files or folders.';
                 showErrorDialog(displayMessage, err.message, files);
                 log(err);
               } else if (err.code == 'EBUSY') {
@@ -68,7 +68,7 @@ class SquirrelEvents {
           dialog.showMessageBox({
             type: 'question',
             message: 'Remove old WhatsApp for Desktop?',
-            detail: 'Whatsie has found files from WhatsApp for Desktop on your computer.'
+            detail: manifest.productName + ' has found files from WhatsApp for Desktop on your computer.'
               + ' Do you want to permanently delete the following files and folders?\n\n'
               + leftovers.join('\n') + '\n\nBefore pressing Remove, make sure WhatsApp for'
               + ' Desktop is not running.',
