@@ -1,3 +1,16 @@
+### 2.0.11
+
+- Fix auto-launch on startup (Linux).
+- Fix rpm package build settings and dependencies (Linux).
+- Fix preferences not being saved correctly (sometimes).
+- Fix dragging and dropping files onto the app window.
+- Change keyboard shortcut for quitting the app from Alt-F4 to Ctrl+Q (Windows, Linux).
+- Handle connection errors from the auto updater better.
+- Handle WAFD cleaner EBUSY and EPERM errors better.
+- Improve the .desktop config used for launching on startup (Linux).
+- Improve error logging.
+- Improve WAFD cleaner.
+
 ### 2.0.10
 
 - Fix the WAFD cleaner removing other files, too.

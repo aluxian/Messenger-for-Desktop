@@ -1,3 +1,15 @@
+* Thu Apr 14 2016 Alexandru Rosianu <me@aluxian.com> 2.0.11
+- Fix auto-launch on startup (Linux).
+- Fix rpm package build settings and dependencies (Linux).
+- Fix preferences not being saved correctly (sometimes).
+- Fix dragging and dropping files onto the app window.
+- Change keyboard shortcut for quitting the app from Alt-F4 to Ctrl+Q (Windows, Linux).
+- Handle connection errors from the auto updater better.
+- Handle WAFD cleaner EBUSY and EPERM errors better.
+- Improve the .desktop config used for launching on startup (Linux).
+- Improve error logging.
+- Improve WAFD cleaner.
+
 * Wed Apr 06 2016 Alexandru Rosianu <me@aluxian.com> 2.0.10
 - Fix the WAFD cleaner removing other files, too.
 - Fix the app window not showing when a notification was clicked on OS X.
