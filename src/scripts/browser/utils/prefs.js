@@ -67,7 +67,7 @@ function unset(key) {
   db.delete(key, function(err) {
     if (err) {
       if (err.message && ignoredErrors.filter(msg => err.message.includes(msg)).length > 0) {
-        // ignore
+        log(err);
       } else {
         logError(err);
       }
@@ -86,7 +86,7 @@ function unsetSync(key) {
     log('unset', key);
   } catch (ex) {
     if (ex.message && ignoredErrors.filter(msg => ex.message.includes(msg)).length > 0) {
-      // ignore
+      log(ex);
     } else {
       logError(ex);
     }
