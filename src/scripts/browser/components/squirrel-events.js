@@ -17,6 +17,49 @@ class SquirrelEvents {
       if (options.portable) {
         return;
       }
+
+      const showErrorDialog = function(msg, errMsg, files = []) {
+        let filesDeletedMsg = ' No files have been removed.';
+        if (files.length) {
+          filesDeletedMsg = ' Only the following files have been removed:\n\n' + files.join('\n');
+        }
+
+        let originalErrMsg = '';
+        if (errMsg) {
+          originalErrMsg = '\n\nERR: ' + errMsg;
+        }
+
+        dialog.showMessageBox({
+          type: 'error',
+          message: 'Error: ' + msg + filesDeletedMsg + originalErrMsg
+        }, function() {});
+      };
+
+      const responseCallback = function(response) {
+        if (response === 1) {
+          log('user chose Remove');
+          wafdCleaner.clean(function(err, files) {
+            if (err) {
+              if (err.code == 'EPERM') {
+                const displayMessage = 'Whatsie doesn\'t have permission to remove one of the files or folders.';
+                showErrorDialog(displayMessage, err.message, files);
+                log(err);
+              } else if (err.code == 'EBUSY') {
+                const displayMessage = 'One of the files or folders is being used by another program.';
+                showErrorDialog(displayMessage, err.message, files);
+                log(err);
+              } else {
+                logError(err);
+              }
+            } else {
+              log('cleaning done, deleted:', files || []);
+            }
+          });
+        } else {
+          log('user chose Skip');
+        }
+      };
+
       log('checking for WAFD leftovers');
       wafdCleaner.check(function(err, leftovers) {
         if (err) {
@@ -25,22 +68,12 @@ class SquirrelEvents {
           dialog.showMessageBox({
             type: 'question',
             message: 'Remove old WhatsApp for Desktop?',
-            detail: 'Whatsie has found files from WhatsApp for Desktop on your computer. Do you want to permanently delete the following files and folders?\n\n' + leftovers.join('\n'),
+            detail: 'Whatsie has found files from WhatsApp for Desktop on your computer.'
+              + ' Do you want to permanently delete the following files and folders?\n\n'
+              + leftovers.join('\n') + '\n\nBefore pressing Remove, make sure WhatsApp for'
+              + ' Desktop is not running.',
             buttons: ['Skip', 'Remove']
-          }, function(response) {
-            if (response === 1) {
-              log('user chose Remove');
-              wafdCleaner.clean(function(err, files) {
-                if (err) {
-                  logError(err);
-                } else {
-                  log('cleaning done, deleted:', files || []);
-                }
-              });
-            } else {
-              log('user chose Skip');
-            }
-          });
+          }, responseCallback);
         }
       });
     }
