@@ -15,6 +15,13 @@ const STATES = keyMirror({
   UPDATE_DOWNLOADED: null
 });
 
+const IGNORED_ERRORS = [
+  'The request timed out.',
+  'The network connection was lost.',
+  'Se ha agotado el tiempo de espera.',
+  'connect ETIMEDOUT'
+];
+
 class AutoUpdateManager extends EventEmitter {
 
   constructor(manifest, options, mainWindowManager) {
@@ -54,9 +61,13 @@ class AutoUpdateManager extends EventEmitter {
   }
 
   initErrorListener() {
-    AutoUpdater.on('error', (ex) => {
+    AutoUpdater.on('error', (err) => {
       log('auto updater error');
-      logError(ex);
+      if (err.message && IGNORED_ERRORS.find(msg => err.message.includes(msg))) {
+        log(err);
+      } else {
+        logError(err);
+      }
     });
   }
 
@@ -176,10 +187,20 @@ class AutoUpdateManager extends EventEmitter {
 
   onCheckError(err) {
     log('onCheckError:', err);
+    let detailMessage;
+
+    if (err.message && IGNORED_ERRORS.find(msg => err.message.includes(msg))) {
+      detailMessage = manifest.productName + ' could not connect to the updates server.'
+        + ' Please make sure you have a working internet connection.'
+        + '\n\nERR: ' + err.message;
+    } else {
+      detailMessage = err.message;
+    }
+
     dialog.showMessageBox({
       type: 'error',
       message: 'Error while checking for update.',
-      detail: err.message,
+      detail: detailMessage,
       buttons: ['OK']
     }, function() {});
   }
