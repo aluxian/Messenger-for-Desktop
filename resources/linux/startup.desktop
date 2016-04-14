@@ -7,6 +7,7 @@ Icon={{ name }}
 Terminal=false
 Type=Application
 StartupNotify=false
+StartupWMClass={{ name }}
 Keywords={{ keywords }}
 Categories={{ categories }}
 X-GNOME-Autostart-enabled=false
