@@ -16,11 +16,11 @@ class LinuxAutoLauncher extends BaseAutoLauncher {
     log('setting', autoStartKey, value);
     async.waterfall([
       async.apply(fs.readFile, desktopPath, 'utf-8'),
-      (file, callback) => {
+      (fileContent, callback) => {
         const pattern = new RegExp(autoStartKey + '=.*');
         const replaceWith = autoStartKey + '=' + value;
-        const newFile = file.replace(pattern, replaceWith);
-        fs.writeFile(desktopPath, newFile, 'utf-8', callback);
+        const newFileContent = fileContent.replace(pattern, replaceWith);
+        fs.writeFile(desktopPath, newFileContent, 'utf-8', callback);
       }
     ], callback);
   }
