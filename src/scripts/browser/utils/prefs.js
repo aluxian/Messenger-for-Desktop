@@ -6,7 +6,7 @@ import app from 'app';
 const prefsPath = path.join(app.getPath('userData'), 'prefs.json');
 const db = new Store(prefsPath);
 
-const ignoredErrors = [
+const IGNORED_ERRORS = [
   'does not exist',
   'not found'
 ];
@@ -66,7 +66,7 @@ function getDefault(key) {
 function unset(key) {
   db.delete(key, function(err) {
     if (err) {
-      if (err.message && ignoredErrors.filter(msg => err.message.includes(msg)).length > 0) {
+      if (err.message && IGNORED_ERRORS.filter(msg => err.message.includes(msg)).length > 0) {
         log(err);
       } else {
         logError(err);
@@ -85,7 +85,7 @@ function unsetSync(key) {
     db.delete(key);
     log('unset', key);
   } catch (ex) {
-    if (ex.message && ignoredErrors.filter(msg => ex.message.includes(msg)).length > 0) {
+    if (ex.message && IGNORED_ERRORS.filter(msg => ex.message.includes(msg)).length > 0) {
       log(ex);
     } else {
       logError(ex);
