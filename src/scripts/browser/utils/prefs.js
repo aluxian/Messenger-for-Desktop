@@ -1,26 +1,36 @@
 import defaults from './prefs-defaults';
-import Store from 'jfs';
+import jsonfile from 'jsonfile';
 import path from 'path';
 import app from 'app';
 
 const prefsPath = path.join(app.getPath('userData'), 'prefs.json');
-const db = new Store(prefsPath);
+let data = null;
 
-const IGNORED_ERRORS = [
-  'does not exist',
-  'not found'
-];
+function ensureDataLoaded() {
+  if (!data) {
+    try {
+      data = jsonfile.readFileSync(prefsPath) || {};
+      log('prefs data restored');
+    } catch (err) {
+      logError(err);
+      data = {};
+    }
+  }
+}
 
 /**
  * Save the given (key, value) pair asynchronously.
  * Returns immediately and logs errors.
  */
 function set(key, value) {
-  db.save(key, value, function(err) {
+  ensureDataLoaded();
+  data[key] = value;
+
+  jsonfile.writeFile(prefsPath, data, function(err) {
     if (err) {
       logError(err);
     } else {
-      log('set', key, '=', JSON.stringify(value));
+      log('saved', key, '=', JSON.stringify(value));
     }
   });
 }
@@ -30,11 +40,14 @@ function set(key, value) {
  * Returns immediately and logs errors.
  */
 function setSync(key, value) {
+  ensureDataLoaded();
+  data[key] = value;
+
   try {
-    db.saveSync(key, value);
-    log('set', key, '=', JSON.stringify(value));
-  } catch (ex) {
-    logError(ex);
+    jsonfile.writeFileSync(prefsPath, data);
+    log('saved', key, '=', JSON.stringify(value));
+  } catch (err) {
+    logError(err);
   }
 }
 
@@ -42,8 +55,9 @@ function setSync(key, value) {
  * Retrieve the value synchronously.
  */
 function get(key) {
-  const value = db.getSync(key);
-  if (value == undefined || value instanceof Error) {
+  ensureDataLoaded();
+  const value = data[key];
+  if (value === undefined) {
     const defaultValue = getDefault(key);
     if (defaultValue === undefined) {
       logFatal('default value for', key, 'is undefined');
@@ -54,7 +68,7 @@ function get(key) {
 }
 
 /**
- * Retrieve the value value.
+ * Retrieve the default value.
  */
 function getDefault(key) {
   return defaults.get(key);
@@ -64,13 +78,12 @@ function getDefault(key) {
  * Remove the given key asynchronously.
  */
 function unset(key) {
-  db.delete(key, function(err) {
+  ensureDataLoaded();
+  delete data[key];
+
+  jsonfile.writeFile(prefsPath, data, function(err) {
     if (err) {
-      if (err.message && IGNORED_ERRORS.find(msg => err.message.includes(msg))) {
-        log(err);
-      } else {
-        logError(err);
-      }
+      logError(err);
     } else {
       log('unset', key);
     }
@@ -81,28 +94,29 @@ function unset(key) {
  * Remove the given key synchronously.
  */
 function unsetSync(key) {
+  ensureDataLoaded();
+  delete data[key];
+
   try {
-    db.delete(key);
+    jsonfile.writeFileSync(prefsPath, data);
     log('unset', key);
-  } catch (ex) {
-    if (ex.message && IGNORED_ERRORS.find(msg => ex.message.includes(msg))) {
-      log(ex);
-    } else {
-      logError(ex);
-    }
+  } catch (err) {
+    logError(err);
   }
 }
 
 /**
- * Remove all the keys.
+ * Remove all the keys and their values.
  */
 function clear() {
-  db.all(function(err, valuesMap) {
+  ensureDataLoaded();
+  data = {};
+
+  jsonfile.writeFile(prefsPath, data, function(err) {
     if (err) {
       logError(err);
     } else {
-      log('unsetting all keys');
-      Object.keys(valuesMap).forEach(unset);
+      log('all keys cleared');
     }
   });
 }
