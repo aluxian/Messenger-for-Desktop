@@ -6,6 +6,11 @@ import app from 'app';
 const prefsPath = path.join(app.getPath('userData'), 'prefs.json');
 const db = new Store(prefsPath);
 
+const ignoredErrors = [
+  'does not exist',
+  'not found'
+];
+
 /**
  * Save the given (key, value) pair asynchronously.
  * Returns immediately and logs errors.
@@ -61,7 +66,7 @@ function getDefault(key) {
 function unset(key) {
   db.delete(key, function(err) {
     if (err) {
-      if (err.message && err.message.includes('not found')) {
+      if (err.message && ignoredErrors.filter(msg => err.message.includes(msg)).length > 0) {
         // ignore
       } else {
         logError(err);
@@ -80,7 +85,7 @@ function unsetSync(key) {
     db.delete(key);
     log('unset', key);
   } catch (ex) {
-    if (ex.message && ex.message.includes('not found')) {
+    if (ex.message && ignoredErrors.filter(msg => ex.message.includes(msg)).length > 0) {
       // ignore
     } else {
       logError(ex);
