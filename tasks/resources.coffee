@@ -6,7 +6,7 @@ manifest = require '../src/package.json'
 
 # Move and process the resources for darwin64
 gulp.task 'resources:darwin', ->
-  templateFilter = filter ['*.plist', '*.json'], { restore: true }
+  templateFilter = filter ['**/*.plist', '**/*.json'], { restore: true }
 
   gulp.src './resources/darwin/**/*'
     .pipe templateFilter
@@ -16,7 +16,7 @@ gulp.task 'resources:darwin', ->
 
 # Move and process the resources for linux32 and linux64
 gulp.task 'resources:linux', ->
-  templateFilter = filter ['*.desktop', '*.sh'], { restore: true }
+  templateFilter = filter ['**/*.desktop', '**/*.sh'], { restore: true }
 
   manifest.linux.name = manifest.name
   manifest.linux.productName = manifest.productName
