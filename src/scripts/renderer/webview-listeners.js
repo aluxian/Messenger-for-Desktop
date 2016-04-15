@@ -2,6 +2,7 @@ import {ipcRenderer as ipcr} from 'electron';
 import webView from './webview';
 import remote from 'remote';
 
+const manifest = remote.getGlobal('manifest');
 const prefs = remote.require('../browser/utils/prefs').default;
 const files = remote.require('../browser/utils/files').default;
 
@@ -44,10 +45,15 @@ webView.addEventListener('dom-ready', function() {
   // Restore the default theme
   const theme = prefs.get('theme');
   if (theme) {
-    log('restoring theme', theme);
-    files.getThemeCss(theme, css => {
-      webView.send('apply-theme', css);
-    });
+    if (manifest.themes.map(name => name.toLowerCase()).includes(theme)) {
+      log('restoring theme', theme);
+      files.getThemeCss(theme, css => {
+        webView.send('apply-theme', css);
+      });
+    } else {
+      log('invalid theme, unsetting pref');
+      prefs.unset('theme');
+    }
   }
 
   // Restore the default zoom level
