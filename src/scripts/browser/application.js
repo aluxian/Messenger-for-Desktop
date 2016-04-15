@@ -52,9 +52,6 @@ class Application extends EventEmitter {
     new AppListenersManager(this.mainWindowManager, this.autoUpdateManager).set();
     new IpcListenersManager(this.notifManager, this.trayManager,
       this.mainWindowManager, this.nativeNotifier).set();
-
-    // Initialize crash reporting
-    require('./utils/airbrake');
   }
 
 }
