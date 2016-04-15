@@ -239,7 +239,8 @@ gulp.task 'pack:darwin64:zip', ['build:darwin64'], (done) ->
         ]
       else
         deps = [
-          '(libappindicator OR libappindicator1 OR libappindicator-gtk3)'
+          'libappindicator'
+          # '(libappindicator OR libappindicator1 OR libappindicator-gtk3)'
         ]
 
       for dep in deps
