@@ -8,14 +8,14 @@ manifest = require '../src/package.json'
 # Remove the default_app folder and the default icon inside the darwin64 build
 gulp.task 'clean:build:darwin64', ['download:darwin64'], ->
   del [
-    './build/darwin64/' + manifest.productName + '.app/Contents/Resources/default_app'
-    './build/darwin64/' + manifest.productName + '.app/Contents/Resources/atom.icns'
+    './build/darwin64/' + manifest.productName + '.app/Contents/Resources/default_app.asar'
+    './build/darwin64/' + manifest.productName + '.app/Contents/Resources/electron.icns'
   ]
 
 # Remove the default_app folder inside the linux builds
 ['linux32', 'linux64'].forEach (dist) ->
   gulp.task 'clean:build:' + dist, ['download:' + dist], ->
-    del './build/' + dist + '/opt/' + manifest.name + '/resources/default_app'
+    del './build/' + dist + '/opt/' + manifest.name + '/resources/default_app.asar'
 
 # Remove the default_app folder inside the win32 build
 gulp.task 'clean:build:win32', ['download:win32'], ->
