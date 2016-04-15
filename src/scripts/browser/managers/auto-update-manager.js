@@ -32,7 +32,7 @@ class AutoUpdateManager extends EventEmitter {
     this.options = options;
     this.mainWindowManager = mainWindowManager;
 
-    this.enabled = !process.mas && prefs.get('auto-check-update');
+    this.enabled = !this.options.mas && prefs.get('auto-check-update');
     this.state = STATES.IDLE;
     this.states = STATES;
 
@@ -129,7 +129,7 @@ class AutoUpdateManager extends EventEmitter {
       return; // same state
     }
 
-    this.enabled = !process.mas && check;
+    this.enabled = !this.options.mas && check;
     if (this.enabled) { // disabled -> enabled
       log('enabling auto update checker');
       this.scheduleUpdateChecks();

@@ -13,7 +13,7 @@ let duringInit = false;
 let consoleSilenced = false;
 
 function isFileLogEnabled() {
-  return global.options.debug && !process.mas;
+  return global.options.debug && !global.options.mas;
 }
 
 function initFileLogging() {

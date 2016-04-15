@@ -11,24 +11,24 @@ export default {
   }, {
     id: 'cfu-check-for-update',
     label: 'Check for Update',
-    allow: !process.mas,
+    allow: !global.options.mas,
     click: $.cfuCheckForUpdate()
   }, {
     id: 'cfu-checking-for-update',
     label: 'Checking for Update...',
-    allow: !process.mas,
+    allow: !global.options.mas,
     enabled: false,
     visible: false
   }, {
     id: 'cfu-update-available',
     label: 'Downloading Update...',
-    allow: !process.mas,
+    allow: !global.options.mas,
     enabled: false,
     visible: false
   }, {
     id: 'cfu-update-downloaded',
     label: 'Restart and Install Update',
-    allow: !process.mas,
+    allow: !global.options.mas,
     visible: false,
     click: $.cfuUpdateDownloaded()
   }, {
@@ -46,11 +46,11 @@ export default {
     parse: $.setLocal('checked', $.pref('analytics-track'))
   }, {
     type: 'separator',
-    allow: !process.mas
+    allow: !global.options.mas
   }, {
     type: 'checkbox',
     label: 'Launch on Startup',
-    allow: !process.mas,
+    allow: !global.options.mas,
     click: $.all(
       $.launchOnStartup($.key('checked')),
       $.updateSibling('startup-hidden', 'enabled', $.key('checked')),
@@ -64,7 +64,7 @@ export default {
     id: 'startup-hidden',
     type: 'checkbox',
     label: 'Start Hidden on Startup',
-    allow: !process.mas,
+    allow: !global.options.mas,
     click: $.setPref('launch-startup-hidden', $.key('checked')),
     parse: $.setLocal('checked', $.pref('launch-startup-hidden'))
   }, {

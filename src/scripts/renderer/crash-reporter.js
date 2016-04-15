@@ -1,9 +1,10 @@
 import remote from 'remote';
 
-const manifest = remote.getGlobal('manifest');
 const prefs = remote.require('../browser/utils/prefs').default;
+const manifest = remote.getGlobal('manifest');
+const options = remote.getGlobal('options');
 
-if (!process.mas) {
+if (!options.mas) {
   if (manifest.crashReporter && manifest.crashReporter.url) {
     if (prefs.get('analytics-track')) {
       const reporterOptions = {

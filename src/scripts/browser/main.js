@@ -75,6 +75,7 @@ process.on('uncaughtException', function(ex) {
   global.manifest = manifest;
   global.options = options;
 
+  options.mas = options.mas || !!process.mas;
   options.portable = options.portable || !!manifest.portable;
   options.debug = options.debug || !!process.env.DEBUG;
 
@@ -143,7 +144,7 @@ process.on('uncaughtException', function(ex) {
   }
 
   // Enable the crash reporter
-  if (!process.mas) {
+  if (!options.mas) {
     if (manifest.crashReporter && manifest.crashReporter.url) {
       if (prefs.get('analytics-track')) {
         app.on('will-finish-launching', function() {
