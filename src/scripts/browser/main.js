@@ -68,7 +68,7 @@ process.on('uncaughtException', function(ex) {
       description: 'Squirrel.Windows flag, called only once after installation.'
     })
     .help('help', 'Print this help message.').alias('help', 'h')
-    .epilog('Created with <3 by ' + manifest.author)
+    .epilog('Coded with <3 by ' + manifest.author)
     .argv;
 
   global.manifest = manifest;
