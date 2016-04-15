@@ -8,13 +8,12 @@ import manifest from '../../package.json';
 
 // Handle uncaught exceptions
 process.on('uncaughtException', function(ex) {
-  const isSignatureEx = ex.message == 'Could not get code signature for running application';
   const isDevRelease = manifest.distrib == 'unset';
-  if (isDevRelease && isSignatureEx) {
+  if (isDevRelease) {
     logFatal('uncaught exception', ex.message);
   } else {
     dialog.showErrorBox('JavaScript error in the main process', ex.stack);
-    logError(ex);
+    logFatal(ex);
   }
 });
 

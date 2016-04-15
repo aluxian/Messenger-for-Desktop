@@ -27,10 +27,20 @@ class Application extends EventEmitter {
     this.mainWindowManager.initWindow();
 
     // Enable the auto updater
-    this.autoUpdateManager = new AutoUpdateManager(this.manifest, this.options, this.mainWindowManager);
-    if (this.autoUpdateManager.enabled) {
-      this.autoUpdateManager.init();
-      this.autoUpdateManager.scheduleUpdateChecks();
+    try {
+      this.autoUpdateManager = new AutoUpdateManager(this.manifest, this.options, this.mainWindowManager);
+      if (this.autoUpdateManager.enabled) {
+        this.autoUpdateManager.init();
+        this.autoUpdateManager.scheduleUpdateChecks();
+      }
+    } catch (err) {
+      const isDevRelease = this.manifest.distrib == 'unset';
+      const isSignatureErr = err.message == 'Could not get code signature for running application';
+      if (isDevRelease && isSignatureErr) {
+        console.error(err.message);
+      } else {
+        logError(err);
+      }
     }
 
     // Create and set the main menu
@@ -50,8 +60,7 @@ class Application extends EventEmitter {
 
     // Listeners
     new AppListenersManager(this.mainWindowManager, this.autoUpdateManager).set();
-    new IpcListenersManager(this.notifManager, this.trayManager,
-      this.mainWindowManager, this.nativeNotifier).set();
+    new IpcListenersManager(this.notifManager, this.trayManager, this.mainWindowManager, this.nativeNotifier).set();
   }
 
 }
