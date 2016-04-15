@@ -1,10 +1,14 @@
 # Whatsie
 
-[![Dependency Status](https://david-dm.org/Aluxian/Whatsie/status.svg)](https://david-dm.org/Aluxian/Whatsie#info=dependencies) [![Join the chat at gitter.im/Aluxian/Whatsie](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Aluxian/Whatsie)
+[![OS X build](https://travis-ci.org/Aluxian/Whatsie.svg)](https://travis-ci.org/Aluxian/Whatsie)
+[![Windows build](https://ci.appveyor.com/api/projects/status/6vborc92ob25kqe0/branch/deploy?svg=true)](https://ci.appveyor.com/project/Aluxian/whatsie/branch/deploy)
+[![Linux builds](https://circleci.com/gh/Aluxian/Whatsie/tree/deploy.svg?style=shield)](https://circleci.com/gh/Aluxian/Whatsie/tree/deploy)
+[![Dependencies status](https://david-dm.org/Aluxian/Whatsie/status.svg)](https://david-dm.org/Aluxian/Whatsie#info=dependencies)
+[![Join the chat](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Aluxian/Whatsie)
 
-- OS X [![OS X build](https://travis-ci.org/Aluxian/Whatsie.svg)](https://travis-ci.org/Aluxian/Whatsie)
-- Windows [![Windows build](https://ci.appveyor.com/api/projects/status/6vborc92ob25kqe0/branch/deploy?svg=true)](https://ci.appveyor.com/project/Aluxian/whatsie/branch/deploy)
-- Linux [![Linux builds](https://circleci.com/gh/Aluxian/Whatsie/tree/deploy.svg?style=svg)](https://circleci.com/gh/Aluxian/Whatsie/tree/deploy)
+- OS X 
+- Windows 
+- Linux 
 
 A simple &amp; beautiful desktop client for [WhatsApp Web](https://web.whatsapp.com/). Chat without distractions on Windows, OS X and Linux. Not affiliated with WhatsApp or Facebook. This is **NOT** an official product.
 
