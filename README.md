@@ -1,18 +1,16 @@
-# Whatsie
+# Whatsie (beta)
 
-[![Dependency Status](https://david-dm.org/Aluxian/Whatsie/status.svg)](https://david-dm.org/Aluxian/Whatsie#info=dependencies) [![Join the chat at gitter.im/Aluxian/Whatsie](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Aluxian/Whatsie)
-
-- OS X [![OS X build](https://travis-ci.org/Aluxian/Whatsie.svg)](https://travis-ci.org/Aluxian/Whatsie)
-- Windows [![Windows build](https://ci.appveyor.com/api/projects/status/6vborc92ob25kqe0/branch/deploy?svg=true)](https://ci.appveyor.com/project/Aluxian/whatsie/branch/deploy)
-- Linux [![Linux builds](https://circleci.com/gh/Aluxian/Whatsie/tree/deploy.svg?style=svg)](https://circleci.com/gh/Aluxian/Whatsie/tree/deploy)
+[![OS X build](https://travis-ci.org/Aluxian/Whatsie.svg)](https://travis-ci.org/Aluxian/Whatsie)
+[![Windows build](https://ci.appveyor.com/api/projects/status/6vborc92ob25kqe0/branch/deploy?svg=true)](https://ci.appveyor.com/project/Aluxian/whatsie/branch/deploy)
+[![Linux builds](https://circleci.com/gh/Aluxian/Whatsie/tree/deploy.svg?style=shield)](https://circleci.com/gh/Aluxian/Whatsie/tree/deploy)
+[![Dependencies status](https://david-dm.org/Aluxian/Whatsie/status.svg)](https://david-dm.org/Aluxian/Whatsie#info=dependencies)
+[![Join the chat](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Aluxian/Whatsie)
 
 A simple &amp; beautiful desktop client for [WhatsApp Web](https://web.whatsapp.com/). Chat without distractions on Windows, OS X and Linux. Not affiliated with WhatsApp or Facebook. This is **NOT** an official product.
 
-> **Note:** Whatsie is still in beta, so some features might not work properly. Bug reports and feature suggestions are welcome.
+Whatsie is still in beta, so some features might not work properly. Bug reports and feature suggestions are welcome. Please check for updates here regularly in case the update process breaks and your installed version can't update by itself.
 
-> **Note 2:** Please check for updates here regularly in case the update process breaks and your installed version can't update by itself.
-
-> **Note for devs:** If you're willing to help maintain the app, I can make you a collaborator to help me. [Join me on Gitter](https://gitter.im/Aluxian/Whatsie) if you want to chat.
+> **@devs:** If you're willing to help improve, fix or maintain the app, I can make you a collaborator to help me. [Join me on Gitter](https://gitter.im/Aluxian/Whatsie) and let's chat!
 
 ## Features
 
@@ -29,33 +27,31 @@ A simple &amp; beautiful desktop client for [WhatsApp Web](https://web.whatsapp.
 
 1. Download [whatsie-x.x.x-osx.dmg][LR] or [whatsie-x.x.x-osx.zip][LR]
 2. Open or unzip the file and drag the app into the `Applications` folder
-
-The app will update automatically.
+3. Done! The app will update automatically
 
 ### Windows
 
-#### Installer
+*Installer:*
 
 1. Download [whatsie-x.x.x-win32-setup.exe][LR]
 2. Run the installer, wait until it finishes
+3. Done! The app will update automatically
 
-The app will update automatically.
-
-#### Portable
+*Portable:*
 
 1. Download [whatsie-x.x.x-win32-portable.zip][LR]
 2. Extract the zip and run the app
+3. Done! The app will NOT update automatically, but you can still check for updates
 
-The app will NOT update automatically, but you can still check for updates.
+### Linux
 
-### Deb-based Linux
+*Ubuntu, Debian (deb package):*
 
 1. Download [whatsie-x.x.x-linux-arch.deb][LR]
-2. Double click and install, or run `dpkg -i whatsie-x.x.x-linux-arch.deb`
+2. Double click and install, or run `dpkg -i whatsie-x.x.x-linux-arch.deb` in the terminal
+3. Done! The app will NOT update automatically, but you can still check for updates
 
-The app will NOT update automatically, but you can still check for updates.
-
-You can also use `apt`:
+You can also use aptitude:
 
 ```
 gpg --keyserver pool.sks-keyservers.net --recv-keys 1537994D
@@ -65,23 +61,23 @@ sudo apt-get update
 sudo apt-get install whatsie
 ```
 
-### RPM-based Linux
+*Fedora, CentOS, Red Hat (RPM package):*
 
 1. Download [whatsie-x.x.x-linux-arch.rpm][LR]
-2. Double click and install, or run `rpm -ivh whatsie-x.x.x-linux-arch.rpm`
+2. Double click and install, or run `rpm -ivh whatsie-x.x.x-linux-arch.rpm` in the terminal
+3. Done! The app will NOT update automatically, but you can still check for updates
 
-The app will NOT update automatically, but you can still check for updates.
-
-You can also use `yum`:
+You can also use yum:
 
 ```
-sudo wget https://bintray.com/aluxian/rpm/rpm -O \
-  /etc/yum.repos.d/bintray-aluxian-rpm.repo
+sudo wget https://bintray.com/aluxian/rpm/rpm -O /etc/yum.repos.d/bintray-aluxian-rpm.repo
 sudo yum install whatsie.i386     # for 32-bit distros
 sudo yum install whatsie.x86_64   # for 64-bit distros
 ```
 
 # For Developers
+
+Contributions are welcome! Please help me make Whatsie the best app for WhatsApp Web. For feature requests and bug reports please [submit an issue](https://github.com/Aluxian/Whatsie/issues/new?labels=bug) or get in touch with me on [Gitter](https://gitter.im/Aluxian/Whatsie) or Twitter [@aluxian](https://twitter.com/aluxian).
 
 ## Build
 
@@ -140,7 +136,7 @@ NODE_ENV=production gulp build:<darwin64|linux32|linux64|win32>
 
 To see detailed logs, run every gulp task with the `--verbose` flag.
 
-If you don't specify a platform when running a task, the task will run for the current platform.
+> If you don't specify a platform when running a task, the task will run for the current platform.
 
 ### App debug logs
 
@@ -222,13 +218,5 @@ gulp pack:<linux32|linux64>:<deb|rpm> [--prod]
 ```
 
 Make sure you've installed [fpm](https://github.com/jordansissel/fpm).
-
-## Note to WhatsApp
-
-This project does not attempt to reverse engineer the WhatsApp API or attempt to reimplement any part of the WhatsApp client. Any communication between the user and WhatsApp servers is handled by WhatsApp Web itself; this is just a native wrapper for WhatsApp Web.
-
-## Contributions
-
-Contributions are welcome! For feature requests and bug reports please [submit an issue](https://github.com/Aluxian/Whatsie/issues/new?labels=bug) or get in touch with me on [Gitter](https://gitter.im/Aluxian/Whatsie) or Twitter [@aluxian](https://twitter.com/aluxian).
 
 [LR]: https://github.com/Aluxian/Whatsie/releases/latest
