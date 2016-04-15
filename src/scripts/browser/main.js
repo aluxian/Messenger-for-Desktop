@@ -24,7 +24,7 @@ process.on('uncaughtException', function(ex) {
     .usage('Usage: $0 [options]')
     .option('os-startup', {
       type: 'boolean',
-      description: 'Flag to indicate the app is being ran by the OS on startup.'
+      description: 'Flag to indicate the app is being run by the OS on startup.'
     })
     .option('portable', {
       type: 'boolean',
