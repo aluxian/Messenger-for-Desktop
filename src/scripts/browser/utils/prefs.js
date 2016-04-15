@@ -12,7 +12,11 @@ function ensureDataLoaded() {
       data = jsonfile.readFileSync(prefsPath) || {};
       log('prefs data restored');
     } catch (err) {
-      logError(err);
+      if (err.code == 'ENOENT') {
+        // ignored
+      } else {
+        logError(err);
+      }
       data = {};
     }
   }
