@@ -1,4 +1,5 @@
 import dialog from 'dialog';
+import debug from 'debug';
 import yargs from 'yargs';
 import path from 'path';
 import app from 'app';
@@ -76,6 +77,11 @@ process.on('uncaughtException', function(ex) {
 
   options.portable = options.portable || !!manifest.portable;
   options.debug = options.debug || !!process.env.DEBUG;
+
+  // Force-enable debug
+  if (options.debug && !process.env.DEBUG) {
+    debug.enable(manifest.name + ':*');
+  }
 
   log('cli args parsed', options);
   if (options.debug) {
