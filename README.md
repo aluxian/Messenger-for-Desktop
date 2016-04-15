@@ -77,6 +77,8 @@ sudo yum install whatsie.x86_64   # for 64-bit distros
 
 # For Developers
 
+Contributions are welcome! Please help me make Whatsie the best app for WhatsApp Web. For feature requests and bug reports please [submit an issue](https://github.com/Aluxian/Whatsie/issues/new?labels=bug) or get in touch with me on [Gitter](https://gitter.im/Aluxian/Whatsie) or Twitter [@aluxian](https://twitter.com/aluxian).
+
 ## Build
 
 ### Install pre-requisites
@@ -134,7 +136,7 @@ NODE_ENV=production gulp build:<darwin64|linux32|linux64|win32>
 
 To see detailed logs, run every gulp task with the `--verbose` flag.
 
-If you don't specify a platform when running a task, the task will run for the current platform.
+> If you don't specify a platform when running a task, the task will run for the current platform.
 
 ### App debug logs
 
@@ -216,13 +218,5 @@ gulp pack:<linux32|linux64>:<deb|rpm> [--prod]
 ```
 
 Make sure you've installed [fpm](https://github.com/jordansissel/fpm).
-
-## Note to WhatsApp
-
-This project does not attempt to reverse engineer the WhatsApp API or attempt to reimplement any part of the WhatsApp client. Any communication between the user and WhatsApp servers is handled by WhatsApp Web itself; this is just a native wrapper for WhatsApp Web.
-
-## Contributions
-
-Contributions are welcome! For feature requests and bug reports please [submit an issue](https://github.com/Aluxian/Whatsie/issues/new?labels=bug) or get in touch with me on [Gitter](https://gitter.im/Aluxian/Whatsie) or Twitter [@aluxian](https://twitter.com/aluxian).
 
 [LR]: https://github.com/Aluxian/Whatsie/releases/latest
