@@ -6,7 +6,6 @@ const availableLanguages = SpellChecker.getAvailableDictionaries();
 const defaults = {
   'analytics-track': true,
   'analytics-uid': null,
-  'auto-check-update': true,
   'launch-startup': false,
   'launch-startup-hidden': true,
   'launch-quit': false,
@@ -20,6 +19,8 @@ const defaults = {
   'spell-checker-auto-correct': false,
   'spell-checker-language': defaultSpellCheckerLanguage,
   'theme': 'default',
+  'updates-auto-check': true,
+  'updates-channel': 'beta',
   'window-bounds': {
     width: 800,
     height: 600

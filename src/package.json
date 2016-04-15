@@ -34,9 +34,9 @@
   },
   "updater": {
     "urls": {
-      "darwin": "https://updates.whatsie.chat/update/darwin?version=%CURRENT_VERSION%",
-      "win32": "https://updates.whatsie.chat/update/win32",
-      "linux": "https://updates.whatsie.chat/update/linux"
+      "darwin": "https://updates.whatsie.chat/update/%CHANNEL%/darwin?version=%CURRENT_VERSION%",
+      "win32": "https://updates.whatsie.chat/update/%CHANNEL%/win32",
+      "linux": "https://updates.whatsie.chat/update/%CHANNEL%/linux"
     }
   },
   "crashReporter": {

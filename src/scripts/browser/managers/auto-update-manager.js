@@ -32,7 +32,7 @@ class AutoUpdateManager extends EventEmitter {
     this.options = options;
     this.mainWindowManager = mainWindowManager;
 
-    this.enabled = !this.options.mas && prefs.get('auto-check-update');
+    this.enabled = !this.options.mas && prefs.get('updates-auto-check');
     this.state = STATES.IDLE;
     this.states = STATES;
 
@@ -51,7 +51,8 @@ class AutoUpdateManager extends EventEmitter {
 
   initFeedUrl() {
     let feedUrl = this.manifest.updater.urls[process.platform]
-      .replace(/%CURRENT_VERSION%/g, this.manifest.version);
+      .replace(/%CURRENT_VERSION%/g, this.manifest.version)
+      .replace(/%CHANNEL%/g, prefs.get('updates-channel'));
 
     if (this.options.portable) {
       feedUrl += '/portable';

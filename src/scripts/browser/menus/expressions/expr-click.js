@@ -34,6 +34,15 @@ export function cfuUpdateDownloaded() {
 }
 
 /**
+ * Reset the auto updater url (to use updated prefs).
+ */
+export function resetAutoUpdaterUrl() {
+  return function() {
+    global.application.autoUpdateManager.initFeedUrl();
+  };
+}
+
+/**
  * Enable or disable automatic checks for update.
  */
 export function checkForUpdateAuto(valueExpr) {

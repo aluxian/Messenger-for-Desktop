@@ -32,13 +32,32 @@ export default {
     visible: false,
     click: $.cfuUpdateDownloaded()
   }, {
+    type: 'separator'
+  }, {
+    label: 'Updates Release Channel',
+    allow: !global.options.mas,
+    submenu: ['Stable', 'Beta', 'Dev'].map(channelName => ({
+      type: 'radio',
+      label: channelName,
+      channel: channelName.toLowerCase(),
+      click: $.all(
+        $.setPref('updates-channel', $.key('channel')),
+        $.resetAutoUpdaterUrl(),
+        $.cfuCheckForUpdate()
+      ),
+      parse: $.all(
+        $.setLocal('checked', $.eq($.pref('updates-channel'), $.key('channel')))
+      )
+    }))
+  }, {
     type: 'checkbox',
     label: 'Check for Update Automatically',
+    allow: !global.options.mas,
     click: $.all(
       $.checkForUpdateAuto($.key('checked')),
-      $.setPref('auto-check-update', $.key('checked'))
+      $.setPref('updates-auto-check', $.key('checked'))
     ),
-    parse: $.setLocal('checked', $.pref('auto-check-update'))
+    parse: $.setLocal('checked', $.pref('updates-auto-check'))
   }, {
     type: 'checkbox',
     label: 'Report Stats and Crashes',

@@ -81,20 +81,18 @@ export default {
   }, {
     id: 'spell-checker-language',
     label: 'Spell Checker Language',
-    submenu: availableLanguages.map(lang => {
-      return {
-        type: 'radio',
-        label: lang.name,
-        langCode: lang.code,
-        checked: spellCheckerLanguage === lang.code,
-        click: $.all(
-          $.ifTrue(
-            $.pref('spell-checker-check'),
-            $.sendToWebView('spell-checker', $.pref('spell-checker-check'), $.pref('spell-checker-auto-correct'), $.key('langCode'))
-          ),
-          $.setPref('spell-checker-language', $.key('langCode'))
-        )
-      };
-    })
+    submenu: availableLanguages.map(lang => ({
+      type: 'radio',
+      label: lang.name,
+      langCode: lang.code,
+      checked: spellCheckerLanguage === lang.code,
+      click: $.all(
+        $.ifTrue(
+          $.pref('spell-checker-check'),
+          $.sendToWebView('spell-checker', $.pref('spell-checker-check'), $.pref('spell-checker-auto-correct'), $.key('langCode'))
+        ),
+        $.setPref('spell-checker-language', $.key('langCode'))
+      )
+    }))
   }]
 };

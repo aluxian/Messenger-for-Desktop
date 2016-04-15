@@ -57,13 +57,30 @@ export default {
     visible: false,
     click: $.cfuUpdateDownloaded()
   }, {
+    type: 'separator'
+  }, {
+    label: 'Updates Release Channel',
+    submenu: ['Stable', 'Beta', 'Dev'].map(channelName => ({
+      type: 'radio',
+      label: channelName,
+      channel: channelName.toLowerCase(),
+      click: $.all(
+        $.setPref('updates-channel', $.key('channel')),
+        $.resetAutoUpdaterUrl(),
+        $.cfuCheckForUpdate()
+      ),
+      parse: $.all(
+        $.setLocal('checked', $.eq($.pref('updates-channel'), $.key('channel')))
+      )
+    }))
+  }, {
     type: 'checkbox',
     label: 'Check for Update Automatically',
     click: $.all(
       $.checkForUpdateAuto($.key('checked')),
-      $.setPref('auto-check-update', $.key('checked'))
+      $.setPref('updates-auto-check', $.key('checked'))
     ),
-    parse: $.setLocal('checked', $.pref('auto-check-update'))
+    parse: $.setLocal('checked', $.pref('updates-auto-check'))
   }, {
     type: 'checkbox',
     label: '&Report Stats and Crashes',
@@ -121,21 +138,19 @@ export default {
   }, {
     id: 'spell-checker-language',
     label: 'Spell Checker Language',
-    submenu: availableLanguages.map(lang => {
-      return {
-        type: 'radio',
-        label: lang.name,
-        langCode: lang.code,
-        checked: spellCheckerLanguage === lang.code,
-        click: $.all(
-          $.ifTrue(
-            $.pref('spell-checker-check'),
-            $.sendToWebView('spell-checker', $.pref('spell-checker-check'), $.pref('spell-checker-auto-correct'), $.key('langCode'))
-          ),
-          $.setPref('spell-checker-language', $.key('langCode'))
-        )
-      };
-    })
+    submenu: availableLanguages.map(lang => ({
+      type: 'radio',
+      label: lang.name,
+      langCode: lang.code,
+      checked: spellCheckerLanguage === lang.code,
+      click: $.all(
+        $.ifTrue(
+          $.pref('spell-checker-check'),
+          $.sendToWebView('spell-checker', $.pref('spell-checker-check'), $.pref('spell-checker-auto-correct'), $.key('langCode'))
+        ),
+        $.setPref('spell-checker-language', $.key('langCode'))
+      )
+    }))
   }, {
     type: 'separator'
   }, {
