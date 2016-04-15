@@ -45,7 +45,7 @@ Whatsie is still in beta, so some features might not work properly. Bug reports 
 
 ### Linux
 
-*Ubuntu, Debian, etc. (deb package):*
+*Ubuntu, Debian (deb package):*
 
 1. Download [whatsie-x.x.x-linux-arch.deb][LR]
 2. Double click and install, or run `dpkg -i whatsie-x.x.x-linux-arch.deb` in the terminal
