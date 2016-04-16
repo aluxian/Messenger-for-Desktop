@@ -2,11 +2,21 @@ gulp = require 'gulp'
 filter = require 'gulp-filter'
 mustache = require 'gulp-mustache'
 manifest = require '../src/package.json'
-{platformOnly} = require './utils'
+{platformOnly, deepClone} = require './utils'
+
+manifest = deepClone manifest
 
 # Move and process the resources for darwin64
 gulp.task 'resources:darwin', ->
   templateFilter = filter ['**/*.plist', '**/*.json'], { restore: true }
+
+  if manifest.versionChannel == 'stable'
+    manifest.versionChannel = ''
+  else
+    manifest.versionChannel = '-' + manifest.versionChannel
+
+  unless manifest.buildNum
+    manifest.buildNum = process.env.TRAVIS_BUILD_NUMBER || 0
 
   gulp.src './resources/darwin/**/*'
     .pipe templateFilter

@@ -28,7 +28,7 @@ export default {
   label: '&App',
   allow: platform.isNonDarwin,
   submenu: [{
-    label: 'Version ' + manifest.version,
+    label: 'Version ' + manifest.version + (manifest.versionChannel == 'stable' ? '' : '-' + manifest.versionChannel),
     enabled: false
   }, {
     id: 'cfu-check-for-update',

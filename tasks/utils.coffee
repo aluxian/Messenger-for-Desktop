@@ -70,6 +70,28 @@ log = (callback, messages...) ->
       console.log status, join(messages)
     callback err
 
+deepClone = (obj) ->
+  if not obj? or typeof obj isnt 'object'
+    return obj
+
+  if obj instanceof Date
+    return new Date(obj.getTime())
+
+  if obj instanceof RegExp
+    flags = ''
+    flags += 'g' if obj.global?
+    flags += 'i' if obj.ignoreCase?
+    flags += 'm' if obj.multiline?
+    flags += 'y' if obj.sticky?
+    return new RegExp(obj.source, flags)
+
+  newInstance = new obj.constructor()
+
+  for key of obj
+    newInstance[key] = clone obj[key]
+
+  newInstance
+
 module.exports =
   updateManifest: updateManifest
   applyPromise: applyPromise
@@ -79,3 +101,4 @@ module.exports =
   platformOnly: platformOnly
   join: join
   log: log
+  deepClone: deepClone
