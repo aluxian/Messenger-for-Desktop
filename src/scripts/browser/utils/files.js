@@ -1,4 +1,5 @@
 import filePaths from './file-paths';
+import path from 'path';
 import fs from 'fs';
 
 export default {
@@ -28,5 +29,23 @@ export default {
         callback(css);
       }
     });
+  },
+
+  /**
+   * @return the list of Hunspell dictionaries available in the given dir
+   */
+  getDictionariesSync: function(dirPath) {
+    if (!fs.existsSync(dirPath)) {
+      log('dictionaries path does not exist');
+      return [];
+    }
+
+    const dictionaries = fs.readdirSync(dirPath)
+      .filter(filename => path.extname(filename) == '.dic')
+      .filter(filename => fs.statSync(path.join(dirPath, filename)).isFile())
+      .map(filename => path.basename(filename, '.dic'));
+
+    log('dictionaries in', dirPath, 'found:', dictionaries);
+    return dictionaries;
   }
 };

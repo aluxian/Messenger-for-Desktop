@@ -1,5 +1,4 @@
-import SpellChecker from 'spellchecker';
-
+import {getAvailableDictionaries} from '../../utils/spellchecker';
 import languageCodes from '../../utils/language-codes';
 import manifest from '../../../../package.json';
 import platform from '../../utils/platform';
@@ -7,7 +6,7 @@ import prefs from '../../utils/prefs';
 import $ from '../expressions';
 
 const spellCheckerLanguage = prefs.get('spell-checker-language');
-const availableLanguages = SpellChecker.getAvailableDictionaries()
+const availableLanguages = getAvailableDictionaries()
   .map((langCode) => {
     return {
       code: langCode,

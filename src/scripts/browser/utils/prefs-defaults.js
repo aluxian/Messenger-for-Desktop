@@ -1,8 +1,8 @@
-import SpellChecker from 'spellchecker';
+import {getAvailableDictionaries} from './spellchecker';
 import platform from './platform';
 import app from 'app';
 
-const availableLanguages = SpellChecker.getAvailableDictionaries();
+const availableLanguages = getAvailableDictionaries();
 const defaults = {
   'analytics-track': true,
   'analytics-uid': null,
