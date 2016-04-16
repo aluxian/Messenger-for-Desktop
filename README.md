@@ -75,9 +75,12 @@ sudo yum install whatsie.i386     # for 32-bit distros
 sudo yum install whatsie.x86_64   # for 64-bit distros
 ```
 
-### Arch Linux (AUR)
+*Arch Linux (AUR):*
 
-Simply run `yaourt -S whatsie`. See [AUR](https://aur.archlinux.org/packages/whatsie/).
+1. Simply run `yaourt -S whatsie`
+2. Done! The app will NOT update automatically, but you can still check for updates
+
+Repository URL: https://aur.archlinux.org/packages/whatsie/
 
 # For Developers
 
