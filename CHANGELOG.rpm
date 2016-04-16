@@ -1,3 +1,10 @@
+* Sat Apr 16 2016 Alexandru Rosianu <me@aluxian.com> 2.0.13-beta
+- Use dictionaries from Hunspell (Linux, Windows).
+- Remove rpm dependency on lsb-core-noarch (Linux).
+- Let the app move whatsie.desktop at runtime (Linux).
+- Include build number and channel name menus.
+- Update dependencies eslint and winreg.
+
 * Sat Apr 16 2016 Alexandru Rosianu <me@aluxian.com> 2.0.12
 - Fix rpm build having inconsistent dependencies.
 - Fix error about inexistent prefs.
