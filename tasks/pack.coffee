@@ -166,63 +166,9 @@ gulp.task 'pack:darwin64:zip', ['build:darwin64'], (done) ->
       else
         archName = 'x86_64'
 
-      fpmArgs = [
-        '-s'
-        'dir'
-        '-t'
-        target
-        '--architecture'
-        archName
-        '--rpm-os'
-        'linux'
-        '--name'
-        manifest.name
-        '--force' # Overwrite existing files
-        # '--rpm-auto-add-directories'
-        if args.verbose then '--verbose' else null
-        '--after-install'
-        './build/resources/linux/after-install.sh'
-        '--after-remove'
-        './build/resources/linux/after-remove.sh'
-        '--deb-changelog'
-        './CHANGELOG.deb'
-        '--rpm-changelog'
-        './CHANGELOG.rpm'
-        '--deb-recommends'
-        'lsb-release'
-        '--deb-suggests'
-        'libgnome-keyring0'
-        '--deb-suggests'
-        'gir1.2-gnomekeyring-1.0'
-        '--license'
-        manifest.license
-        '--category'
-        manifest.linux.section
-        '--description'
-        manifest.description
-        '--url'
-        manifest.homepage
-        '--maintainer'
-        manifest.author
-        '--vendor'
-        manifest.linux.vendor
-        '--version'
-        manifest.version
-        '--iteration'
-        process.env.CIRCLE_BUILD_NUM || '1'
-        '--package'
-        './dist/' + manifest.name + '-VERSION-linux-ARCH.' + target
-        '-C'
-        './build/linux' + arch
-        '.'
-      ].filter (a) -> a?
-
-      # Adds deps
-      deps = []
-      depsInsertIndex = fpmArgs.indexOf '--deb-recommends'
-
+      depsList = []
       if target == 'deb'
-        deps = [
+        depsList = [
           'libappindicator1 | libappindicator | libappindicator-gtk3'
           'gconf2'
           'gconf-service'
@@ -238,40 +184,63 @@ gulp.task 'pack:darwin64:zip', ['build:darwin64'], (done) ->
           'libcap2'
         ]
       else
-        deps = [
-          'libappindicator'
-          # '(libappindicator OR libappindicator1 OR libappindicator-gtk3)'
+        depsList = [
+          'lsb-core-noarch'
         ]
 
-      for dep in deps
-        fpmArgs.splice depsInsertIndex, 0, dep
-        fpmArgs.splice depsInsertIndex, 0, '--depends'
+      debRecommendsList = [
+        'lsb-release'
+        'libcanberra-gtk3-module'
+        'python'
+        'git'
+      ]
 
-      # # Exclude folders from rpm
-      # if target == 'rpm'
-      #   excludedFolders = [
-      #     '/usr/share/icons/hicolor'
-      #     '/usr/share/icons/hicolor/16x16'
-      #     '/usr/share/icons/hicolor/16x16/apps'
-      #     '/usr/share/icons/hicolor/24x24'
-      #     '/usr/share/icons/hicolor/24x24/apps'
-      #     '/usr/share/icons/hicolor/32x32'
-      #     '/usr/share/icons/hicolor/32x32/apps'
-      #     '/usr/share/icons/hicolor/48x48'
-      #     '/usr/share/icons/hicolor/48x48/apps'
-      #     '/usr/share/icons/hicolor/64x64'
-      #     '/usr/share/icons/hicolor/64x64/apps'
-      #     '/usr/share/icons/hicolor/128x128'
-      #     '/usr/share/icons/hicolor/128x128/apps'
-      #     '/usr/share/icons/hicolor/256x256'
-      #     '/usr/share/icons/hicolor/256x256/apps'
-      #     '/usr/share/icons/hicolor/512x512'
-      #     '/usr/share/icons/hicolor/512x512/apps'
-      #   ]
-      #
-      #   for excludedFolder in excludedFolders
-      #     fpmArgs.splice depsInsertIndex, 0, excludedFolder
-      #     fpmArgs.splice depsInsertIndex, 0, '--exclude'
+      debSuggestsList = [
+        'libgnome-keyring0'
+        'gir1.2-gnomekeyring-1.0'
+      ]
+
+      expandArgs = (name, values) ->
+        expandedArgs = []
+        for value in values
+          expandArgs.push name
+          expandArgs.push value
+        expandedArgs
+
+      fpmArgs = []
+        .concat [
+          '-s', 'dir'
+          '-t', target
+          '--architecture', archName
+          '--rpm-os', 'linux'
+          '--name', manifest.name
+          '--force' # Overwrite existing files
+          if args.verbose then '--verbose' else null
+          '--after-install', './build/resources/linux/after-install.sh'
+          '--after-remove', './build/resources/linux/after-remove.sh'
+          '--deb-changelog', './CHANGELOG.deb'
+          '--rpm-changelog', './CHANGELOG.rpm'
+        ]
+        .concat expandArgs '--depends', depsList
+        .concat expandArgs '--deb-recommends', debRecommendsList
+        .concat expandArgs '--deb-suggests', debSuggestsList
+        .concat [
+          '--license', manifest.license
+          '--category', manifest.linux.section
+          '--description', manifest.description
+          '--url', manifest.homepage
+          '--maintainer', manifest.author
+          '--vendor', manifest.linux.vendor
+          '--version', manifest.version
+          '--iteration', process.env.CIRCLE_BUILD_NUM || '1'
+          '--package', './dist/' + manifest.name + '-VERSION-linux-ARCH.' + target
+          '-C', './build/linux' + arch
+          '.'
+        ]
+        .filter (a) -> a?
+
+      if args.verbose
+        console.log 'fpmArgs =', fpmArgs
 
       async.series [
         # Update package.json
