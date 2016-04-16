@@ -321,7 +321,7 @@ gulp.task 'pack:win32:installer', ['build:win32', 'clean:dist:win32'], (done) ->
 
       request {url: releasesUrl}, (err, res, body) ->
         if err || res.statusCode < 200 || res.statusCode >= 400
-          console.log 'Creating installer without remote releases url because of',
+          console.log 'Creating installer without remote releases url', releasesUrl, 'because of',
             'error', err, 'statusCode', res.statusCode, 'body', res.body
           remoteReleasesUrl = undefined
 
