@@ -203,8 +203,8 @@ gulp.task 'pack:darwin64:zip', ['build:darwin64'], (done) ->
       expandArgs = (name, values) ->
         expandedArgs = []
         for value in values
-          expandArgs.push name
-          expandArgs.push value
+          expandedArgs.push name
+          expandedArgs.push value
         expandedArgs
 
       fpmArgs = []
