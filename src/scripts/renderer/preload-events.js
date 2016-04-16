@@ -1,6 +1,7 @@
 import {webFrame, ipcRenderer as ipcr} from 'electron';
 import SpellChecker from 'spellchecker';
 import path from 'path';
+import fs from 'fs';
 
 // Set zoom level
 ipcr.on('zoom-level', function(event, zoomLevel) {
@@ -16,7 +17,7 @@ ipcr.on('spell-checker', function(event, enabled, autoCorrect, langCode) {
     try {
       // HACK: Special case being in an asar archive
       const unpacked = dict.replace('.asar' + path.sep, '.asar.unpacked' + path.sep);
-      if (require('fs').statSyncNoException(unpacked)) {
+      if (fs.statSyncNoException(unpacked)) {
         dict = unpacked;
       }
     } catch (ex) {
