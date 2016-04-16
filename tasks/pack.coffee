@@ -317,7 +317,7 @@ gulp.task 'pack:win32:installer', ['build:win32', 'clean:dist:win32'], (done) ->
       ]
 
       remoteReleasesUrl = manifest.updater.urls.win32.replace /%CHANNEL%/g, 'dev'
-      releasesUrl = manifest.updater.urls.win32 + '/RELEASES'
+      releasesUrl = remoteReleasesUrl + '/RELEASES'
 
       request {url: releasesUrl}, (err, res, body) ->
         if err || res.statusCode < 200 || res.statusCode >= 400
