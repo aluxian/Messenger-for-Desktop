@@ -1,4 +1,4 @@
-whatsie (2.0.12-beta) main; urgency=low
+whatsie (2.0.12) main; urgency=low
 
  * Fix rpm build having inconsistent dependencies.
  * Fix error about inexistent prefs.

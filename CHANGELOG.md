@@ -1,4 +1,4 @@
-### 2.0.12-beta
+### 2.0.12
 
 - Fix rpm build having inconsistent dependencies.
 - Fix error about inexistent prefs.

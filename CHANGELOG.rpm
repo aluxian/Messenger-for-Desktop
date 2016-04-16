@@ -1,4 +1,4 @@
-* Sat Apr 16 2016 Alexandru Rosianu <me@aluxian.com> 2.0.12-beta
+* Sat Apr 16 2016 Alexandru Rosianu <me@aluxian.com> 2.0.12
 - Fix rpm build having inconsistent dependencies.
 - Fix error about inexistent prefs.
 - Fix cp in linux after-install script.
