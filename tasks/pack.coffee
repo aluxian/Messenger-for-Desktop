@@ -185,7 +185,10 @@ gulp.task 'pack:darwin64:zip', ['build:darwin64'], (done) ->
         ]
       else
         depsList = [
-          'lsb-core-noarch'
+          # 'lsb-core-noarch'
+          # 'libappindicator'
+          # 'libappindicator1'
+          # 'libappindicator-gtk3'
         ]
 
       debRecommendsList = [
