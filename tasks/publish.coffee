@@ -15,6 +15,10 @@ gulp.task 'publish:github', ->
   if not process.env.GITHUB_TOKEN
     return console.warn 'GITHUB_TOKEN env var not set.'
 
+  channelAppend = ''
+  if manifest.versionChannel == 'stable'
+    channelAppend = '-' + manifest.versionChannel
+
   gulp.src './dist/*'
     .pipe githubRelease
       token: process.env.GITHUB_TOKEN
@@ -22,6 +26,8 @@ gulp.task 'publish:github', ->
       reuseRelease: true
       reuseDraftOnly: true
       draft: true
+      tag: 'v' + manifest.version
+      name: 'v' + manifest.version + channelAppend
 
 # Upload deb and RPM packages to Bintray
 ['deb', 'rpm'].forEach (dist) ->
