@@ -1,3 +1,16 @@
+whatsie (2.0.14-beta) main; urgency=low
+
+ * Improve the ordering of menu items (Linux, Windows).
+ * Improve OS X tray icon display.
+ * Update Electron to v0.37.6.
+ * Fix Windows notifications.
+ * Fix exe path used for the squirrel shortcut.
+ * Handle tray left- and right-clicks correctly (OS X, Windows).
+ * Make tray icon alert more prominent (Linux, Windows).
+ * Add hunspell as a recommended package to the deb release.
+
+ -- Alexandru Rosianu <me@aluxian.com>  Sun, 17 Apr 2016 08:43:23 +0300
+
 whatsie (2.0.13-beta) main; urgency=low
 
  * Use dictionaries from Hunspell (Linux, Windows).

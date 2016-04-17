@@ -1,3 +1,13 @@
+* Sun Apr 17 2016 Alexandru Rosianu <me@aluxian.com> 2.0.14-beta
+- Improve the ordering of menu items (Linux, Windows).
+- Improve OS X tray icon display.
+- Update Electron to v0.37.6.
+- Fix Windows notifications.
+- Fix exe path used for the squirrel shortcut.
+- Handle tray left- and right-clicks correctly (OS X, Windows).
+- Make tray icon alert more prominent (Linux, Windows).
+- Add hunspell as a recommended package to the deb release.
+
 * Sat Apr 16 2016 Alexandru Rosianu <me@aluxian.com> 2.0.13-beta
 - Use dictionaries from Hunspell (Linux, Windows).
 - Remove rpm dependency on lsb-core-noarch (Linux).
