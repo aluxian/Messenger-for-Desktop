@@ -19,6 +19,7 @@ const IGNORED_ERRORS = [
   'The request timed out.',
   'The network connection was lost.',
   'Se ha agotado el tiempo de espera.',
+  'An SSL error has occurred and a secure connection to the server cannot be made.',
   'Update download failed',
   'getaddrinfo EAI_AGAIN',
   'getaddrinfo ENOTFOUND',
