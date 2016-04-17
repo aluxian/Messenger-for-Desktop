@@ -1,11 +1,14 @@
 import remote from 'remote';
 import path from 'path';
+import os from 'os';
 
 const manifest = remote.getGlobal('manifest');
 const prefs = remote.require('../browser/utils/prefs').default;
 const browserAnalytics = remote.require('../browser/utils/analytics');
 
 const activeTheme = prefs.get('theme');
+const activeSpellCheckerLang = prefs.get('theme');
+const activeReleaseChannel = prefs.get('theme');
 const trackAnalytics = prefs.get('analytics-track');
 const userId = browserAnalytics.getUserId();
 const siteId = 1;
@@ -21,9 +24,12 @@ if (trackAnalytics && manifest.piwik) {
       piwikTracker = window.Piwik.getTracker();
       piwikTracker.setDocumentTitle(document.title);
       piwikTracker.setTrackerUrl(manifest.piwik.serverUrl + '/piwik.php');
-      piwikTracker.setCustomVariable(1, 'AppVersion', manifest.version, 'visit');
-      piwikTracker.setCustomVariable(2, 'AppDistrib', manifest.distrib, 'visit');
-      piwikTracker.setCustomVariable(3, 'Theme', activeTheme, 'visit');
+      piwikTracker.setCustomDimension(1, 'Version', manifest.version);
+      piwikTracker.setCustomDimension(2, 'Release Channel', activeReleaseChannel);
+      piwikTracker.setCustomDimension(3, 'Distrib', manifest.distrib);
+      piwikTracker.setCustomDimension(4, 'Theme', activeTheme);
+      piwikTracker.setCustomDimension(5, 'Spell Checker Language', activeSpellCheckerLang);
+      piwikTracker.setCustomDimension(6, 'Operating System', os.type());
       piwikTracker.setCustomUrl(getCustomUrl());
       piwikTracker.setUserId(userId);
       piwikTracker.setSiteId(siteId);
