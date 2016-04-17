@@ -222,8 +222,8 @@ gulp.task 'pack:darwin64:zip', ['build:darwin64'], (done) ->
           if args.verbose then '--verbose' else null
           '--after-install', './build/resources/linux/after-install.sh'
           '--after-remove', './build/resources/linux/after-remove.sh'
-          '--deb-changelog', './CHANGELOG.deb'
-          '--rpm-changelog', './CHANGELOG.rpm'
+          '--deb-changelog', './build/changelogs/deb.txt'
+          '--rpm-changelog', './build/changelogs/rpm.txt'
         ]
         .concat expandArgs '--depends', depsList
         .concat expandArgs '--deb-recommends', debRecommendsList
