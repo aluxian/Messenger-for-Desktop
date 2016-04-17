@@ -1,6 +1,7 @@
 import cp from 'child_process';
 import dialog from 'dialog';
 import async from 'async';
+import path from 'path';
 import app from 'app';
 import del from 'del';
 
@@ -80,7 +81,7 @@ class SquirrelEvents {
 
     if (options.squirrelInstall) {
       log('creating shortcuts');
-      this.spawnSquirrel(['--createShortcut', app.getPath('exe')], this.eventHandled);
+      this.spawnSquirrel(['--createShortcut', path.basename(app.getPath('exe'))], this.eventHandled);
       return true;
     }
 
