@@ -47,7 +47,9 @@ class TrayManager extends EventEmitter {
     }
 
     this.menu = Menu.buildFromTemplate(template());
-    this.tray.setContextMenu(this.menu);
+    if (platform.isLinux) {
+      this.tray.setContextMenu(this.menu);
+    }
     this.setEventListeners();
     log('tray menu created');
   }
@@ -56,7 +58,7 @@ class TrayManager extends EventEmitter {
    * Listen for tray events.
    */
   setEventListeners() {
-    if (this.tray) {
+    if (this.tray && !platform.isLinux) {
       this.tray.on('click', ::this.onClick);
       this.tray.on('right-click', ::this.onRightClick);
     }
@@ -70,7 +72,7 @@ class TrayManager extends EventEmitter {
     log('tray click');
     if (this.mainWindowManager) {
       const mainWindow = this.mainWindowManager.window;
-      if (mainWindow && !mainWindow.isFocused()) {
+      if (mainWindow) {
         mainWindow.show();
       }
     }
@@ -80,14 +82,9 @@ class TrayManager extends EventEmitter {
    * Called when the 'right-click' event is emitted on the tray menu.
    */
   onRightClick() {
-    // Show the main window
+    // Show the context menu
     log('tray right-click');
-    if (platform.isDarwin) {
-      const mainWindow = this.mainWindowManager.window;
-      if (mainWindow && !mainWindow.isFocused()) {
-        mainWindow.show();
-      }
-    }
+    this.tray.popUpContextMenu(this.menu);
   }
 
   /**
