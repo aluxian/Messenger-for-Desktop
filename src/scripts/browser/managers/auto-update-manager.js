@@ -20,6 +20,7 @@ const IGNORED_ERRORS = [
   'The network connection was lost.',
   'Se ha agotado el tiempo de espera.',
   'Update download failed',
+  'getaddrinfo EAI_AGAIN',
   'getaddrinfo ENOTFOUND',
   'connect ETIMEDOUT'
 ];
