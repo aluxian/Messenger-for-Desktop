@@ -9,7 +9,7 @@ import BaseAutoLauncher from './base';
 const autoStartKey = 'X-GNOME-Autostart-enabled';
 const autoStartDir = path.join(app.getPath('home'), '.config', 'autostart');
 const desktopPath = path.join(autoStartDir, manifest.name + '.desktop');
-const systemDesktopPath = path.join('/etc/xdg/autostart/', );
+const systemDesktopPath = path.join('/etc/xdg/autostart/', manifest.name + '.desktop');
 
 class LinuxAutoLauncher extends BaseAutoLauncher {
 
