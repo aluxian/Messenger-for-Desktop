@@ -1,0 +1,170 @@
+[{
+  "version": "2.0.14-beta",
+  "releasedAt": 1460871803000,
+  "distribution": "main",
+  "urgency": "low",
+  "changes": [
+    "Improve the ordering of menu items (Linux, Windows).",
+    "Improve OS X tray icon display.",
+    "Update Electron to v0.37.6.",
+    "Fix Windows notifications.",
+    "Fix exe path used for the squirrel shortcut.",
+    "Handle tray left- and right-clicks correctly (OS X, Windows).",
+    "Make tray icon alert more prominent (Linux, Windows).",
+    "Add hunspell as a recommended package to the deb release."
+  ]
+}, {
+  "version": "2.0.13-beta",
+  "releasedAt": 1460831791000,
+  "distribution": "main",
+  "urgency": "low",
+  "changes": [
+    "Use dictionaries from Hunspell (Linux, Windows).",
+    "Remove rpm dependency on lsb-core-noarch (Linux).",
+    "Let the app move whatsie.desktop at runtime (Linux).",
+    "Include build number and channel name menus.",
+    "Update dependencies eslint and winreg."
+  ]
+}, {
+  "version": "2.0.12",
+  "releasedAt": 1460793021000,
+  "distribution": "main",
+  "urgency": "low",
+  "changes": [
+    "Fix rpm build having inconsistent dependencies.",
+    "Fix error about inexistent prefs.",
+    "Fix cp in linux after-install script.",
+    "Fix potential error if a theme would be removed.",
+    "Fix --debug flag for the CLI.",
+    "Add release channels for the auto updater.",
+    "Improve error handling.",
+    "Update dependencies."
+  ]
+}, {
+  "version": "2.0.11-beta",
+  "releasedAt": 1460653667000,
+  "distribution": "main",
+  "urgency": "low",
+  "changes": [
+    "Fix auto-launch on startup (Linux).",
+    "Fix rpm package build settings and dependencies (Linux).",
+    "Fix preferences not being saved correctly (sometimes).",
+    "Fix dragging and dropping files onto the app window.",
+    "Change keyboard shortcut for quitting the app from Alt-F4 to Ctrl+Q (Windows, Linux).",
+    "Handle connection errors from the auto updater better.",
+    "Handle WAFD cleaner EBUSY and EPERM errors better.",
+    "Improve the .desktop config used for launching on startup (Linux).",
+    "Improve error logging.",
+    "Improve WAFD cleaner."
+  ]
+}, {
+  "version": "2.0.10-beta",
+  "releasedAt": 1459944231000,
+  "distribution": "main",
+  "urgency": "low",
+  "changes": [
+    "Fix the WAFD cleaner removing other files, too.",
+    "Fix the app window not showing when a notification was clicked on OS X.",
+    "Make the WAFD cleaner dialog show the files that are going to be removed.",
+    "Update how items are grouped in the Help menu."
+  ]
+}, {
+  "version": "2.0.9-beta",
+  "releasedAt": 1459771571000,
+  "distribution": "main",
+  "urgency": "low",
+  "changes": [
+    "Improve the WhatsApp for Desktop cleaner.",
+    "Fix app closing even with tray icon enabled on Linux.",
+    "Fix category displayed incorrectly on Linux."
+  ]
+}, {
+  "version": "2.0.8-beta",
+  "releasedAt": 1459571311000,
+  "distribution": "main",
+  "urgency": "low",
+  "changes": [
+    "Update Electron to v0.37.3.",
+    "Add 4 new themes: Faded, Fluttershy, Orange, Sephia.",
+    "Re-add keyboard shortcuts for navigation conversations.",
+    "Remove 'Paste and Match Style' context menu item.",
+    "Fix language names on Windows.",
+    "Fix WAFD cleaner."
+  ]
+}, {
+  "version": "2.0.7-beta",
+  "releasedAt": 1458982689000,
+  "distribution": "main",
+  "urgency": "low",
+  "changes": [
+    "Prompt user to update instead of doing it automatically on quit (Windows).",
+    "Disable the crash reporter if stats reporting is disabled."
+  ]
+}, {
+  "version": "2.0.6-beta",
+  "releasedAt": 1458914766000,
+  "distribution": "main",
+  "urgency": "low",
+  "changes": [
+    "Improves support for debugging.",
+    "Improves app launch by adding transitions.",
+    "Adds support for multiple languages for the spell checker.",
+    "Adds option to enable or disable the update checks.",
+    "Adds WAFD cleaner for Windows.",
+    "Updates dependencies.",
+    "Fix for completely black window using Dark theme.",
+    "Fix for crash in Windows auto launcher."
+  ]
+}, {
+  "version": "2.0.5-beta",
+  "releasedAt": 1457708609000,
+  "distribution": "main",
+  "urgency": "low",
+  "changes": [
+    "Adds support for raffles."
+  ]
+}, {
+  "version": "2.0.4-beta",
+  "releasedAt": 1457348491000,
+  "distribution": "main",
+  "urgency": "low",
+  "changes": [
+    "Fixes OS X auto updater.",
+    "Improved logging."
+  ]
+}, {
+  "version": "2.0.3-beta",
+  "releasedAt": 1457255232000,
+  "distribution": "main",
+  "urgency": "low",
+  "changes": [
+    "Upgrades Electron to v0.36.10.",
+    "Upgrades dependencies."
+  ]
+}, {
+  "version": "2.0.2-beta",
+  "releasedAt": 1456752731000,
+  "distribution": "main",
+  "urgency": "low",
+  "changes": [
+    "Fixes for the auto updater.",
+    "Include build number in releases.",
+    "Improved logging."
+  ]
+}, {
+  "version": "2.0.1-beta",
+  "releasedAt": 1455267535000,
+  "distribution": "main",
+  "urgency": "low",
+  "changes": [
+    "Dummy release to test the updating process."
+  ]
+}, {
+  "version": "2.0.0-beta",
+  "releasedAt": 1450639564000,
+  "distribution": "unstable",
+  "urgency": "low",
+  "changes": [
+    "Initial release."
+  ]
+}]

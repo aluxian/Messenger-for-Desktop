@@ -65,7 +65,7 @@ gulp.task 'build:darwin64', ['resources:darwin', 'compile:darwin64', 'clean:buil
 
 # Build for linux32 and linux64
 ['linux32', 'linux64'].forEach (dist) ->
-  gulp.task 'build:' + dist, ['resources:linux', 'compile:' + dist, 'clean:build:' + dist], (done) ->
+  gulp.task 'build:' + dist, ['resources:linux', 'compile:' + dist, 'clean:build:' + dist, 'changelog:linux'], (done) ->
     async.series [
       # Rename the executable
       (callback) ->

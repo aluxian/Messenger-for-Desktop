@@ -8,6 +8,7 @@ request = require 'request'
 
 manifest = require '../src/package.json'
 mainManifest = require '../package.json'
+changelogJson = require '../CHANGELOG.json'
 args = require './args'
 
 # Upload every file in ./dist to GitHub
@@ -19,6 +20,10 @@ gulp.task 'publish:github', ->
   if manifest.versionChannel == 'stable'
     channelAppend = '-' + manifest.versionChannel
 
+  notes = ''
+  if changelogJson[0].version == manifest.version + '-' + manifest.versionChannel
+    notes = changelogJson[0].changes.map(l => '- ' + l).join('\n')
+
   gulp.src './dist/*'
     .pipe githubRelease
       token: process.env.GITHUB_TOKEN
@@ -28,6 +33,7 @@ gulp.task 'publish:github', ->
       draft: true
       tag: 'v' + manifest.version
       name: 'v' + manifest.version + channelAppend
+      notes: notes
 
 # Upload deb and RPM packages to Bintray
 ['deb', 'rpm'].forEach (dist) ->
