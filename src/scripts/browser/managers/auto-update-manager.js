@@ -20,6 +20,7 @@ const IGNORED_ERRORS = [
   'The network connection was lost.',
   'Se ha agotado el tiempo de espera.',
   'An SSL error has occurred and a secure connection to the server cannot be made.',
+  'System.Net.WebException: The request was aborted: The connection was closed unexpectedly.',
   'Update download failed',
   'getaddrinfo EAI_AGAIN',
   'getaddrinfo ENOTFOUND',
