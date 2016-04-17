@@ -7,7 +7,8 @@ export default function() {
     './templates/main-edit',
     './templates/main-view',
     './templates/main-theme',
-    './templates/main-window',
+    './templates/main-window-darwin',
+    './templates/main-window-nondarwin',
     './templates/main-help'
   ].map(p => require(p).default);
   return parseTemplate(template, null);
