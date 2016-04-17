@@ -135,7 +135,7 @@ If you want to build it just one time, use `build`:
 gulp build:<darwin64|linux32|linux64|win32>
 ```
 
-For production builds, set `NODE_ENV=production` or use the `--prod` flag. Production builds don't include javascript sourcemaps or dev modules.
+For production builds, set `NODE_ENV=production` or use the `--prod` flag. Production builds don't include dev modules.
 
 ```
 gulp build:<darwin64|linux32|linux64|win32> --prod

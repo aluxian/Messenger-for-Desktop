@@ -23,13 +23,11 @@
     "node-uuid": "1.4.7",
     "request": "2.71.0",
     "semver": "5.1.0",
+    "source-map-support": "0.4.0",
     "spellchecker": "3.3.1",
     "strip-ansi": "3.0.1",
     "winreg": "1.2.0",
     "yargs": "4.6.0"
-  },
-  "devDependencies": {
-    "source-map-support": "0.4.0"
   },
   "optionalDependencies": {
     "nodobjc": "2.1.0"
