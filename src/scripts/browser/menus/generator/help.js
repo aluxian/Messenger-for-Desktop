@@ -1,4 +1,4 @@
-import $ from './expressions';
+import $ from '../expressions';
 
 export function helpLink(label, url, action) {
   return {
@@ -18,11 +18,5 @@ export function helpDonate(name, url, action) {
       $.analytics.trackEvent('Menu', 'Link', 'donate_' + action),
       $.analytics.trackGoal(1, 1)
     )
-  };
-}
-
-export function separator() {
-  return {
-    type: 'separator'
   };
 }
