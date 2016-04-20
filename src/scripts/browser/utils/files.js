@@ -2,33 +2,29 @@ import filePaths from './file-paths';
 import path from 'path';
 import fs from 'fs';
 
+function readFile(path, callback) {
+  fs.readFile(path, 'utf-8', function(err, content) {
+    if (err) {
+      logError(err);
+    } else {
+      callback(content);
+    }
+  });
+}
+
 export default {
   /**
    * @return the css of the theme
    */
   getThemeCss: function(theme, callback) {
-    const themePath = filePaths.getThemePath(theme);
-    fs.readFile(themePath, 'utf-8', function(err, css) {
-      if (err) {
-        logError(err);
-      } else {
-        callback(css);
-      }
-    });
+    readFile(filePaths.getThemePath(theme), callback);
   },
 
   /**
    * @return the css of the file
    */
   getStyleCss: function(style, callback) {
-    const stylePath = filePaths.getStylePath(style);
-    fs.readFile(stylePath, 'utf-8', function(err, css) {
-      if (err) {
-        logError(err);
-      } else {
-        callback(css);
-      }
-    });
+    readFile(filePaths.getStylePath(style), callback);
   },
 
   /**

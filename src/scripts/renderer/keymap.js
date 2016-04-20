@@ -3,16 +3,16 @@ import webView from './webview';
 
 log('binding keyboard shortcuts');
 
+function bindSwitchConversation(keys, delta) {
+  Mousetrap.bind(keys, function() {
+    log('conversation', delta);
+    webView.send('switch-conversation', delta);
+    return false;
+  });
+}
+
 // Previous chat
-Mousetrap.bind(['mod+up', 'ctrl+shift+tab'], function() {
-  log('previous conversation');
-  webView.send('switch-conversation', -1);
-  return false;
-});
+bindSwitchConversation(['mod+up', 'ctrl+shift+tab'], -1);
 
 // Next chat
-Mousetrap.bind(['mod+down', 'ctrl+tab'], function() {
-  log('next conversation');
-  webView.send('switch-conversation', +1);
-  return false;
-});
+bindSwitchConversation(['mod+down', 'ctrl+tab'], +1);
