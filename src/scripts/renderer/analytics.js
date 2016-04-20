@@ -24,12 +24,12 @@ if (trackAnalytics && manifest.piwik) {
       piwikTracker = window.Piwik.getTracker();
       piwikTracker.setDocumentTitle(document.title);
       piwikTracker.setTrackerUrl(manifest.piwik.serverUrl + '/piwik.php');
-      piwikTracker.setCustomDimension(1, 'Version', manifest.version);
-      piwikTracker.setCustomDimension(2, 'Release Channel', activeReleaseChannel);
-      piwikTracker.setCustomDimension(3, 'Distrib', manifest.distrib);
-      piwikTracker.setCustomDimension(4, 'Theme', activeTheme);
-      piwikTracker.setCustomDimension(5, 'Spell Checker Language', activeSpellCheckerLang);
-      piwikTracker.setCustomDimension(6, 'Operating System', os.type());
+      piwikTracker.setCustomDimension(1, manifest.version); // Version
+      piwikTracker.setCustomDimension(2, activeReleaseChannel); // Release Channel
+      piwikTracker.setCustomDimension(3, manifest.distrib); // Distrib
+      piwikTracker.setCustomDimension(4, activeTheme); // Theme
+      piwikTracker.setCustomDimension(5, activeSpellCheckerLang); // Spell Checker Language
+      piwikTracker.setCustomDimension(6, os.type()); // Operating System
       piwikTracker.setCustomUrl(getCustomUrl());
       piwikTracker.setUserId(userId);
       piwikTracker.setSiteId(siteId);
