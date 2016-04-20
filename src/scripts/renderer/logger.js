@@ -1,27 +1,9 @@
 import manifest from '../../package.json';
 import debug from 'debug/browser';
-import {app} from 'remote';
+import remote, {app} from 'remote';
 import path from 'path';
 
-function anonymizeException(ex) {
-  // Replace username in C:\Users\<username>\AppData\
-  const exMsgBits = ex.message.split('\\');
-  const c1 = exMsgBits[0] === 'C:';
-  const c2 = exMsgBits[1] === 'Users';
-  const c3 = exMsgBits[3] === 'AppData';
-  if (c1 && c2 && c3) {
-    exMsgBits[2] = '<username>';
-    ex.message = exMsgBits.join('\\');
-  }
-}
-
-function trimLongPaths(ex) {
-  ex.stack = ex.stack
-    .split('\n')
-    .map(line => line.replace(/\/.+atom\.asar/, 'atom.asar'))
-    .map(line => line.replace(app.getAppPath(), 'app'))
-    .join('\n');
-}
+const browserLogger = remote.require('../browser/utils/logger').default;
 
 function namespaceOf(filename) {
   const name = path.basename(filename, '.js');
@@ -63,8 +45,8 @@ export function errorLogger(filename, fatal) {
           (new Error()).stack.substr(6)
         ].join('\n');
 
-        anonymizeException(ex);
-        trimLongPaths(ex);
+        browserLogger.anonymizeException(ex);
+        browserLogger.trimLongPaths(ex);
 
         airbrake.notify({
           error: ex,

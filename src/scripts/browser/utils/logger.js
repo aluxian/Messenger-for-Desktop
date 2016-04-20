@@ -48,7 +48,7 @@ function namespaceOf(filename) {
   return manifest.name + ':' + name;
 }
 
-function anonymizeException(ex) {
+export function anonymizeException(ex) {
   // Replace username in C:\Users\<username>\AppData\
   const exMsgBits = ex.message.split('\\');
   const c1 = exMsgBits[0] === 'C:';
@@ -60,7 +60,7 @@ function anonymizeException(ex) {
   }
 }
 
-function trimLongPaths(ex) {
+export function trimLongPaths(ex) {
   ex.stack = ex.stack
     .split('\n')
     .map(line => line.replace(/\/.+atom\.asar/, 'atom.asar'))
