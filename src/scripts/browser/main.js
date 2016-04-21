@@ -143,35 +143,6 @@ process.on('uncaughtException', function(ex) {
     return app.quit();
   }
 
-  // Enable the crash reporter
-  if (!options.mas) {
-    if (manifest.crashReporter && manifest.crashReporter.url) {
-      if (prefs.get('analytics-track')) {
-        app.on('will-finish-launching', function() {
-          log('will finish launching');
-
-          // Crash reporter
-          const reporterOptions = {
-            productName: manifest.productName,
-            companyName: manifest.win.companyName,
-            submitURL: manifest.crashReporter.url,
-            autoSubmit: true
-          };
-
-          log('starting crash reporter', JSON.stringify(reporterOptions));
-          const CrashReporter = require('crash-reporter');
-          CrashReporter.start(reporterOptions);
-        });
-      } else {
-        log('analytics disabled, so crash reporter disabled');
-      }
-    } else {
-      log('crash reporter url not configured');
-    }
-  } else {
-    log('mas release, crash reporter disabled');
-  }
-
   // Create the main app object and init
   app.on('ready', function() {
     log('ready, launching app');
