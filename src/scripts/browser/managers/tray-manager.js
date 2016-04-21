@@ -58,7 +58,7 @@ class TrayManager extends EventEmitter {
    * Listen for tray events.
    */
   setEventListeners() {
-    if (this.tray && !platform.isLinux) {
+    if (this.tray) {
       this.tray.on('click', ::this.onClick);
       this.tray.on('right-click', ::this.onRightClick);
     }
