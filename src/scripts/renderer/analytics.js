@@ -1,5 +1,4 @@
 import remote from 'remote';
-import platform from 'platform';
 import path from 'path';
 
 const manifest = remote.getGlobal('manifest');
@@ -15,28 +14,6 @@ const siteId = 1;
 
 let piwikTracker = null;
 
-function getOsName() {
-  return {
-    darwin: 'OS X',
-    win32: 'Windows',
-    linux: 'Linux'
-  }[process.platform];
-}
-
-function getOsNameLong() {
-  let name = platform.os.family;
-  if (platform.os.version) {
-    name += ' ' + platform.os.version;
-  }
-  if (process.platform != 'darwin') {
-    name += ' ' + {
-      ia32: 'x32',
-      x64: 'x64'
-    }[process.arch];
-  }
-  return name;
-}
-
 if (trackAnalytics && manifest.piwik) {
   log('enabling piwik analytics');
 
@@ -51,8 +28,6 @@ if (trackAnalytics && manifest.piwik) {
       piwikTracker.setCustomDimension(3, manifest.distrib); // Distrib
       piwikTracker.setCustomDimension(4, activeTheme); // Theme
       piwikTracker.setCustomDimension(5, activeSpellCheckerLang); // Spell Checker Language
-      piwikTracker.setCustomDimension(6, getOsName()); // Operating System
-      piwikTracker.setCustomDimension(7, getOsNameLong()); // Operating System + Version
       piwikTracker.setCustomUrl(getCustomUrl());
       piwikTracker.setUserId(userId);
       piwikTracker.setSiteId(siteId);
