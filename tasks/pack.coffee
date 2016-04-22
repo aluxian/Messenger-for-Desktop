@@ -195,7 +195,6 @@ gulp.task 'pack:darwin64:zip', ['build:darwin64'], (done) ->
         'lsb-release'
         'libcanberra-gtk3-module'
         'hunspell'
-        'python'
         'git'
       ]
 
