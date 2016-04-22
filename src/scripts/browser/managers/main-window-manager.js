@@ -214,7 +214,7 @@ class MainWindowManager extends EventEmitter {
     return this.window.webContents.getUserAgent()
       .replace(new RegExp(this.manifest.productName + '/[\\S]*', 'g'), '')
       .replace(new RegExp('Electron/[\\S]*', 'g'), '')
-      .replace(new RegExp('\\s+', 'g'), '');
+      .replace(new RegExp('\\s+', 'g'), ' ');
   }
 
   /**
