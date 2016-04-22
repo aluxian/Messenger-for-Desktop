@@ -8,6 +8,20 @@ import files from './files';
 
 let hunspellDictionaries = null;
 
+export function getDictionaryDefaultPath() {
+  let dict = path.join(__dirname, '..', 'node_modules', 'spellchecker', 'vendor', 'hunspell_dictionaries');
+  try {
+    // HACK: Special case being in an asar archive
+    const unpacked = dict.replace('.asar' + path.sep, '.asar.unpacked' + path.sep);
+    if (fs.statSyncNoException(unpacked)) {
+      dict = unpacked;
+    }
+  } catch (ex) {
+    // ignore
+  }
+  return dict;
+}
+
 export function getDictionaryPath() {
   let dict = path.join(__dirname, '..', 'node_modules', 'spellchecker', 'vendor', 'hunspell_dictionaries');
   try {
@@ -35,11 +49,23 @@ export function getAvailableDictionaries() {
     return availableDictionaries;
   }
 
+  const dictionariesPath = getDictionaryPath();
   if (!hunspellDictionaries) {
     try {
-      hunspellDictionaries = files.getDictionariesSync(getDictionaryPath());
+      hunspellDictionaries = files.getDictionariesSync(dictionariesPath);
     } catch (err) {
       logError(err);
+    }
+  }
+
+  if (platform.isLinux && (!hunspellDictionaries || hunspellDictionaries.length == 0)) {
+    const dictionariesDefaultPath = getDictionaryDefaultPath();
+    if (dictionariesDefaultPath != dictionariesPath) {
+      try {
+        hunspellDictionaries = files.getDictionariesSync(getDictionaryDefaultPath());
+      } catch (err) {
+        logError(err);
+      }
     }
   }
 
