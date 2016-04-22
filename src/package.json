@@ -77,7 +77,7 @@
     "host": "app://whatsie.chat",
     "env": "development"
   },
-  "electronVersion": "v0.37.6",
+  "electronVersion": "v0.37.7",
   "distrib": "unset",
   "portable": false,
   "buildNum": 0,
