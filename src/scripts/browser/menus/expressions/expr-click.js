@@ -224,13 +224,27 @@ export function launchOnStartup(enabledExpr) {
 }
 
 /**
- * If flag is true, the dock badge will be hidden.
+ * If flag is false, the dock badge will be hidden.
  */
 export function hideDockBadge(flagExpr) {
   return function() {
     const flag = flagExpr.apply(this, arguments);
-    if (flag && app.dock && app.dock.setBadge) {
+    if (!flag && app.dock && app.dock.setBadge) {
       app.dock.setBadge('');
+    }
+  };
+}
+
+/**
+ * If flag is false, the taskbar badge will be hidden.
+ */
+export function hideTaskbarBadge(flagExpr) {
+  return function(menuItem, browserWindow) {
+    if (browserWindow) {
+      const flag = flagExpr.apply(this, arguments);
+      if (!flag) {
+        browserWindow.setOverlayIcon(null, '');
+      }
     }
   };
 }

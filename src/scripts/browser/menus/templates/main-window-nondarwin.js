@@ -29,5 +29,15 @@ export default {
     label: 'Open Links in &Browser',
     click: $.setPref('links-in-browser', $.key('checked')),
     parse: $.setLocal('checked', $.pref('links-in-browser'))
+  }, {
+    type: 'checkbox',
+    label: '&Notifications Badge in Taskbar',
+    click: $.all(
+      $.setPref('show-notifications-badge', $.key('checked')),
+      $.hideTaskbarBadge($.key('checked'))
+    ),
+    parse: $.all(
+      $.setLocal('checked', $.pref('show-notifications-badge'))
+    )
   }]
 };

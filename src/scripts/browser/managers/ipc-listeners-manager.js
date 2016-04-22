@@ -1,11 +1,13 @@
+import EventEmitter from 'events';
+import BrowserWindow from 'browser-window';
+import NativeImage from 'native-image';
 import {ipcMain} from 'electron';
-import contextMenu from '../menus/context';
-import prefs from '../utils/prefs';
 import shell from 'shell';
 import app from 'app';
 
-import EventEmitter from 'events';
-import BrowserWindow from 'browser-window';
+import contextMenu from '../menus/context';
+import platform from '../utils/platform';
+import prefs from '../utils/prefs';
 
 class IpcListenersManager extends EventEmitter {
 
@@ -29,13 +31,22 @@ class IpcListenersManager extends EventEmitter {
   /**
    * Called when the 'notif-count' event is received.
    */
-  onNotifCount(event, count) {
-    log('on renderer notif-count', count);
+  onNotifCount(event, count, badgeDataUrl) {
+    log('on renderer notif-count', count, !!badgeDataUrl || null);
     this.notifManager.unreadCount = count;
 
     // Set icon badge
-    if (app.dock && app.dock.setBadge && prefs.get('show-notifications-badge')) {
-      app.dock.setBadge(count);
+    if (prefs.get('show-notifications-badge')) {
+      if (platform.isDarwin) {
+        app.dock.setBadge(count);
+      } else if (platform.isWin) {
+        if (count) {
+          const image = NativeImage.createFromDataUrl(badgeDataUrl);
+          this.mainWindowManager.window.setOverlayIcon(image, count);
+        } else {
+          this.mainWindowManager.window.setOverlayIcon(null, '');
+        }
+      }
     }
 
     // Update tray
