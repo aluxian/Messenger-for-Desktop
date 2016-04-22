@@ -10,6 +10,7 @@ const defaults = {
   'launch-startup-hidden': true,
   'launch-quit': false,
   'links-in-browser': true,
+  'close-with-esc': false,
   'quit-behaviour-taught': false,
   'raffle-code': null,
   'show-notifications-badge': true,

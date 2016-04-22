@@ -9,12 +9,11 @@ import BrowserWindow from 'browser-window';
 
 class IpcListenersManager extends EventEmitter {
 
-  constructor(notifManager, trayManager, mainWindowManager, nativeNotifier) {
+  constructor(notifManager, trayManager, mainWindowManager) {
     super();
     this.notifManager = notifManager;
     this.trayManager = trayManager;
     this.mainWindowManager = mainWindowManager;
-    this.nativeNotifier = nativeNotifier;
   }
 
   /**
@@ -23,23 +22,8 @@ class IpcListenersManager extends EventEmitter {
   set() {
     ipcMain.on('notif-count', ::this.onNotifCount);
     ipcMain.on('context-menu', ::this.onContextMenu);
+    ipcMain.on('close-window', ::this.onCloseWindow);
     ipcMain.on('open-url', ::this.onOpenUrl);
-
-    ipcMain.on('osx-notif', () => {
-      this.nativeNotifier.fireNotification({
-        title: 'Title',
-        subtitle: 'Subtitle',
-        body: 'Body',
-        tag: 'Tag',
-        canReply: true,
-        onClick: function(payload) {
-          log('onClick', payload);
-        },
-        onCreate: function(err) {
-          log('onCreate', err);
-        }
-      });
-    });
   }
 
   /**
@@ -59,6 +43,26 @@ class IpcListenersManager extends EventEmitter {
   }
 
   /**
+   * Called when the 'context-menu' event is received.
+   */
+  onContextMenu(event, options) {
+    const menu = contextMenu.create(options, this.mainWindowManager.window);
+    if (menu) {
+      log('opening context menu');
+      setTimeout(() => {
+        menu.popup(this.mainWindowManager.window);
+      }, 50);
+    }
+  }
+
+  /**
+   * Called when the 'close-window' event is received.
+   */
+  onCloseWindow() {
+    this.mainWindowManager.window.close();
+  }
+
+  /**
    * Called when the 'open-url' event is received.
    */
   onOpenUrl(event, url, options) {
@@ -69,19 +73,6 @@ class IpcListenersManager extends EventEmitter {
       log('on renderer open-url, new window', url);
       const newWindow = new BrowserWindow(options);
       newWindow.loadURL(url);
-    }
-  }
-
-  /**
-   * Called when the 'context-menu' event is received.
-   */
-  onContextMenu(event, options) {
-    const menu = contextMenu.create(options, this.mainWindowManager.window);
-    if (menu) {
-      log('opening context menu');
-      setTimeout(() => {
-        menu.popup(this.mainWindowManager.window);
-      }, 50);
     }
   }
 

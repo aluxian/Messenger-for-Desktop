@@ -21,6 +21,11 @@ export default {
     )
   }, {
     type: 'checkbox',
+    label: 'Close with &Escape',
+    click: $.setPref('close-with-esc', $.key('checked')),
+    parse: $.setLocal('checked', $.pref('close-with-esc'))
+  }, {
+    type: 'checkbox',
     label: 'Open Links in &Browser',
     click: $.setPref('links-in-browser', $.key('checked')),
     parse: $.setLocal('checked', $.pref('links-in-browser'))

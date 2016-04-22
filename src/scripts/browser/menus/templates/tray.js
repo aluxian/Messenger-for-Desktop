@@ -5,7 +5,7 @@ import $ from '../expressions';
 export default [{
   id: 'show-tray',
   type: 'checkbox',
-  label: 'Show in the Menu Bar',
+  label: 'Show in Menu Bar',
   allow: platform.isDarwin,
   checked: true,
   click: $.all(
@@ -20,7 +20,7 @@ export default [{
 }, {
   id: 'show-dock',
   type: 'checkbox',
-  label: 'Show in the Dock',
+  label: 'Show in Dock',
   allow: platform.isDarwin,
   checked: true,
   click: $.all(
