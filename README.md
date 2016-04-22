@@ -6,6 +6,8 @@
 [![Code Climate](https://codeclimate.com/github/Aluxian/Whatsie/badges/gpa.svg)](https://codeclimate.com/github/Aluxian/Whatsie)
 [![Dependencies status](https://david-dm.org/Aluxian/Whatsie/status.svg)](https://david-dm.org/Aluxian/Whatsie#info=dependencies)
 [![Downloads](https://img.shields.io/github/downloads/Aluxian/Whatsie/total.svg)](https://github.com/Aluxian/Whatsie/releases/latest)
+
+[![HuBoard task board](https://img.shields.io/badge/hu-board-7965cc.svg)](https://huboard.com/Aluxian/Whatsie)
 [![Join the chat](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Aluxian/Whatsie)
 
 A simple &amp; beautiful desktop client for [WhatsApp Web](https://web.whatsapp.com/). Chat without distractions on Windows, OS X and Linux. Not affiliated with WhatsApp or Facebook. This is **NOT** an official product.
