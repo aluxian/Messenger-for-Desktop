@@ -38,9 +38,6 @@
       "linux": "https://updates.whatsie.chat/update/%CHANNEL%/linux"
     }
   },
-  "crashReporter": {
-    "url": "https://crashes.whatsie.chat/"
-  },
   "darwin": {
     "bundleId": "com.aluxian.whatsie",
     "appCategoryType": "public.app-category.social-networking",
