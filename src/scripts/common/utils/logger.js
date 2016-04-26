@@ -47,7 +47,7 @@ function reportToSentry(namespace, isFatal, ex) {
       extra: {
         trace: new Error().stack
       },
-      tag: {
+      tags: {
         namespace: namespace
       }
     }, function(result) {

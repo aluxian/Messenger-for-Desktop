@@ -103,6 +103,7 @@ args = require './args'
   # Move package.json
   gulp.task 'compile:' + dist + ':package', ['clean:build:' + dist], ->
     gulp.src './src/package.json'
+      .pipe mustache process.env
       .pipe gulp.dest dir
 
   # Compile everything

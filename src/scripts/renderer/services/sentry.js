@@ -14,14 +14,11 @@ if (global.manifest.dev) {
 } else {
   log('setting up sentry');
 
-  Raven.config(global.manifest.sentry.dsn.public, {
+  Raven.config(global.manifest.sentry.dsn, {
     release: global.manifest.version,
     name: global.manifest.productName,
     collectWindowErrors: false,
-    dataCallback: function(data) {
-      console.log('DATA!!!=', data);
-      return data;
-    }
+    allowSecretKey: true
   }).install();
 
   Raven.setUserContext({

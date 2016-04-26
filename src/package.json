@@ -68,14 +68,11 @@
     "url": "https://github.com/Aluxian/Whatsie.git"
   },
   "piwik": {
-    "serverUrl": "https://analytics.whatsie.chat",
-    "baseUrl": "app://whatsie.chat"
+    "serverUrl": "{{ PIWIK_SERVER_URL }}",
+    "baseUrl": "https://app.whatsie.chat"
   },
   "sentry": {
-    "dsn": {
-      "private": "https://e27b75188b8a459296766bf0c6473d2a:47dba007d1324ddabee672e894998e63@sentry.rotterdam.aluxian.com/2",
-      "public": "https://e27b75188b8a459296766bf0c6473d2a@sentry.rotterdam.aluxian.com/2"
-    }
+    "dsn": "{{ SENTRY_DSN_PRIVATE }}"
   },
   "electronVersion": "v0.37.7",
   "distrib": "unset",

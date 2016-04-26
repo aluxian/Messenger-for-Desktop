@@ -14,7 +14,7 @@ if (global.manifest.dev) {
 } else {
   log('setting up sentry');
 
-  client = new raven.Client(global.manifest.sentry.dsn.private, {
+  client = new raven.Client(global.manifest.sentry.dsn, {
     release: global.manifest.version,
     name: global.manifest.productName
   });
