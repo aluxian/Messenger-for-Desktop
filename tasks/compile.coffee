@@ -41,7 +41,8 @@ args = require './args'
 
   # Compile scripts
   gulp.task 'compile:' + dist + ':scripts', ['clean:build:' + dist], ->
-    excludeHeaderFilter = filter ['**/*', '!**/logger.js', '!**/file-logger.js', '!**/init.js'], { restore: true }
+    excludeHeaderFilter = filter ['**/*', '!**/logger.js', '!**/init.js'], { restore: true }
+    sourceMapHeader = "if (process.type === 'browser') { require('source-map-support').install(); }"
     loggerHeader = [
       "var log = require('common/utils/logger').default.debugLogger(__filename);"
       "var logError = require('common/utils/logger').default.errorLogger(__filename, false);"
@@ -59,12 +60,12 @@ args = require './args'
         plugins: [
           'transform-runtime'
           'default-import-checker'
-          'source-map-support-for-6'
         ]
       .pipe gif args.dev, sourcemaps.write {sourceRoot: 'src/scripts'}
       .pipe excludeHeaderFilter
       .pipe header loggerHeader
       .pipe excludeHeaderFilter.restore
+      .pipe header sourceMapHeader
       .pipe plumber.stop()
       .pipe gulp.dest dir + '/scripts'
 

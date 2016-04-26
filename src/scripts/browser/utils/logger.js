@@ -23,20 +23,20 @@ export function trimLongPaths(ex) {
     .join('\n');
 }
 
+export function printDebug() {
+  console.log(...arguments);
+  const fileLogger = require('./file-logger');
+  fileLogger.writeLog(...arguments);
+}
+
 export function debugLogger(filename) {
   let logger = null;
   return function() {
     if (!logger) {
       logger = debug(namespaceOfFile(filename));
     }
-
-    logger.log = function() {
-      console.log(...arguments);
-      const fileLogger = require('./file-logger');
-      fileLogger.logBrowser(...arguments);
-    };
-
-    logger(...arguments);
+    logger.log = printDebug;
+    logger(util.format(...arguments));
   };
 }
 
@@ -75,7 +75,14 @@ function reportToSentry(namespace, isFatal, ex) {
   }
 }
 
-export function errorLogger(filename, isFatal, skipReport) {
+export function printError(namespace, ex) {
+  const errorPrefix = `[${new Date().toUTCString()}] ${namespace}:`;
+  console.error(colors.white.bold.bgRed(errorPrefix), ex);
+  const fileLogger = require('./file-logger');
+  fileLogger.writeLog(errorPrefix, ex);
+}
+
+export function errorLogger(filename, isFatal) {
   let namespace = null;
   return function(ex) {
     if (!namespace) {
@@ -86,15 +93,8 @@ export function errorLogger(filename, isFatal, skipReport) {
       ex = new Error(util.format(...arguments));
     }
 
-    const errorPrefix = `[${new Date().toUTCString()}] ${namespace}:`;
-    console.error(colors.white.bold.bgRed(errorPrefix), ...arguments);
-
-    const fileLogger = require('./file-logger');
-    fileLogger.logBrowser(errorPrefix + ' ' + ex.name + ' ' + ex.message + ' ' + ex.stack);
-
-    if (!skipReport) {
-      reportToPiwik(namespace, isFatal, ex);
-      reportToSentry(namespace, isFatal, ex);
-    }
+    printError(namespace, util.format(ex));
+    reportToPiwik(namespace, isFatal, ex);
+    reportToSentry(namespace, isFatal, ex);
   };
 }

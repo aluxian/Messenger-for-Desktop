@@ -43,19 +43,11 @@ function initFileLogging() {
   }
 }
 
-function log() {
+export function writeLog() {
   if (isFileLogEnabled() && !fileLogIsReady) {
     initFileLogging();
   }
   if (fileLogStream) {
     fileLogStream.write(stripAnsi(util.format(...arguments)) + os.EOL);
   }
-}
-
-export function logBrowser() {
-  log('B:', ...arguments);
-}
-
-export function logRenderer() {
-  log('R:', ...arguments);
 }

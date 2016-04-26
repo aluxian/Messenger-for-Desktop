@@ -1,39 +1,24 @@
-import debug from 'debug/browser';
 import remote from 'remote';
+import debug from 'debug';
+import util from 'util';
 
 const browserLogger = remote.require('../browser/utils/logger');
 const {namespaceOfFile, anonymizeException, trimLongPaths} = browserLogger;
-const browserDebugLogger = browserLogger.debugLogger;
-const browserErrorLogger = browserLogger.errorLogger;
+
+// Fix for debug formatting
+process.env.DEBUG_COLORS = true;
 
 export function debugLogger(filename) {
-  let browserLogger = null;
-  let namespace = null;
   let logger = null;
   return function() {
-    if (!browserLogger) {
-      browserLogger = browserDebugLogger(filename);
-    }
-
-    if (!namespace) {
-      namespace = namespaceOfFile(filename);
-    }
-
     if (!logger) {
-      logger = debug(namespace);
+      logger = debug(namespaceOfFile(filename));
     }
-
-    logger(...arguments);
-    browserLogger(...arguments);
+    logger.log = function() {
+      browserLogger.printDebug(...arguments);
+    };
+    logger(util.format(...arguments));
   };
-}
-
-export function logDebugFromRenderer(namespace) {
-  debugLogger(namespace, false)(...arguments);
-}
-
-export function logErrorFromRenderer(namespace, isFatal, ex) {
-  errorLogger(namespace, isFatal, false)(ex);
 }
 
 function reportToPiwik(namespace, isFatal, ex) {
@@ -70,13 +55,8 @@ function reportToSentry(namespace, isFatal, ex) {
 }
 
 export function errorLogger(filename, isFatal) {
-  let browserLogger = null;
   let namespace = null;
   return function(ex) {
-    if (!browserLogger) {
-      browserLogger = browserErrorLogger(filename, isFatal, true);
-    }
-
     if (!namespace) {
       namespace = namespaceOfFile(filename);
     }
@@ -85,15 +65,7 @@ export function errorLogger(filename, isFatal) {
       ex = new Error(ex);
     }
 
-    if (ex.__skip_console_log) {
-      delete ex.__skip_console_log;
-    } else {
-      delete ex.__skip_console_log;
-      const errorPrefix = `[${new Date().toUTCString()}] ${namespace}:`;
-      console.error(errorPrefix, ...arguments);
-    }
-
-    browserLogger(ex);
+    browserLogger.printError(namespace, util.format(ex));
     reportToPiwik(namespace, isFatal, ex);
     reportToSentry(namespace, isFatal, ex);
   };
