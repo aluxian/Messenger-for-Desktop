@@ -83,7 +83,8 @@ process.on('uncaughtException', function(ex) {
 
   // Force-enable debug
   if (options.debug && !process.env.DEBUG) {
-    debug.enable(manifest.name + ':*');
+    process.env.DEBUG = manifest.name + ':*';
+    debug.enable(process.env.DEBUG);
   }
 
   // Log args

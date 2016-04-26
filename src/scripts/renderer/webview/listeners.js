@@ -65,7 +65,7 @@ webView.addEventListener('dom-ready', function() {
   log('dom-ready');
 
   // Open dev tools when debugging
-  if (window.localStorage.debugDevTools) {
+  if (window.localStorage.autoLaunchDevTools) {
     webView.openDevTools();
   }
 
