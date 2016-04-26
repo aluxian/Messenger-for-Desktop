@@ -70,7 +70,3 @@ function getCustomUrl() {
 export function getTracker() {
   return piwikTracker;
 }
-
-export default {
-  getTracker
-};

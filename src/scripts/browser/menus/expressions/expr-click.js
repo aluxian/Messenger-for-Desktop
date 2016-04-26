@@ -2,7 +2,7 @@ import dialog from 'dialog';
 import shell from 'shell';
 import app from 'app';
 
-import piwik from 'browser/utils/piwik';
+import piwik from 'browser/services/piwik';
 import raffle from 'browser/components/raffle';
 import prefs from 'browser/utils/prefs';
 

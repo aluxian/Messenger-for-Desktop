@@ -44,9 +44,9 @@ args = require './args'
     excludeHeaderFilter = filter ['**/*', '!**/logger.js', '!**/init.js'], { restore: true }
     sourceMapHeader = "if (process.type === 'browser') { require('source-map-support').install(); }"
     loggerHeader = [
-      "var log = require('common/utils/logger').default.debugLogger(__filename);"
-      "var logError = require('common/utils/logger').default.errorLogger(__filename, false);"
-      "var logFatal = require('common/utils/logger').default.errorLogger(__filename, true);"
+      "var log = require('common/utils/logger').debugLogger(__filename);"
+      "var logError = require('common/utils/logger').errorLogger(__filename, false);"
+      "var logFatal = require('common/utils/logger').errorLogger(__filename, true);"
     ].join ' '
 
     gulp.src './src/scripts/**/*.js'

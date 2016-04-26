@@ -15,7 +15,9 @@ function bind(name) {
   return send.bind(null, name);
 }
 
-export default {
-  trackEvent: bind('trackEvent'),
-  trackGoal: bind('trackGoal')
-};
+export function getTracker() {
+  return {
+    trackEvent: bind('trackEvent'),
+    trackGoal: bind('trackGoal')
+  };
+}
