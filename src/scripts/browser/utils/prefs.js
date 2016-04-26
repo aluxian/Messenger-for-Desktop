@@ -72,6 +72,14 @@ function get(key) {
 }
 
 /**
+ * Retrieve all the prefs.
+ */
+function getAll() {
+  ensureDataLoaded();
+  return data;
+}
+
+/**
  * Retrieve the default value.
  */
 function getDefault(key) {
@@ -129,6 +137,7 @@ export default {
   set,
   setSync,
   get,
+  getAll,
   getDefault,
   unset,
   unsetSync,
