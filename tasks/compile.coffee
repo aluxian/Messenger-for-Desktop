@@ -4,6 +4,7 @@ gulp = require 'gulp'
 plumber = require 'gulp-plumber'
 sourcemaps = require 'gulp-sourcemaps'
 mustache = require 'gulp-mustache'
+filter = require 'gulp-filter'
 rename = require 'gulp-rename'
 header = require 'gulp-header'
 
@@ -38,20 +39,16 @@ args = require './args'
       .pipe gulp.dest dir + '/styles'
       .pipe livereload()
 
-  # Compile browser scripts
-  gulp.task 'compile:' + dist + ':scripts:browser', ['clean:build:' + dist], ->
+  # Compile scripts
+  gulp.task 'compile:' + dist + ':scripts', ['clean:build:' + dist], ->
+    excludeHeaderFilter = filter ['**/*', '!**/logger.js', '!**/file-logger.js', '!**/init.js'], { restore: true }
     loggerHeader = [
-      "if (__filename.indexOf('logger.js') == -1)"
-      "{"
-      "var __LOGGER = require(require('app').getAppPath() + '/scripts/browser/utils/logger');"
-      "var log = __LOGGER.debugLogger(__filename);"
-      "var logError = __LOGGER.errorLogger(__filename, false);"
-      "var logFatal = __LOGGER.errorLogger(__filename, true);"
-      "__LOGGER = undefined;"
-      "}"
-    ].join ''
+      "var log = require('common/utils/logger').default.debugLogger(__filename);"
+      "var logError = require('common/utils/logger').default.errorLogger(__filename, false);"
+      "var logFatal = require('common/utils/logger').default.errorLogger(__filename, true);"
+    ].join ' '
 
-    gulp.src './src/scripts/browser/**/*.js'
+    gulp.src './src/scripts/**/*.js'
       .pipe plumber handleError
       .pipe gif args.dev, sourcemaps.init()
       .pipe babel
@@ -62,43 +59,14 @@ args = require './args'
         plugins: [
           'transform-runtime'
           'default-import-checker'
+          'source-map-support-for-6'
         ]
-      .pipe gif args.dev, sourcemaps.write {sourceRoot: 'src/scripts/browser'}
-      .pipe gif args.dev, header "require('source-map-support').install();"
+      .pipe gif args.dev, sourcemaps.write {sourceRoot: 'src/scripts'}
+      .pipe excludeHeaderFilter
       .pipe header loggerHeader
+      .pipe excludeHeaderFilter.restore
       .pipe plumber.stop()
-      .pipe gulp.dest dir + '/scripts/browser'
-
-  # Compile renderer scripts
-  gulp.task 'compile:' + dist + ':scripts:renderer', ['clean:build:' + dist], ->
-    loggerHeader = [
-      "if (__filename.indexOf('logger.js') == -1)"
-      "{"
-      "var __LOGGER = require(require('remote').app.getAppPath() + '/scripts/renderer/logger');"
-      "var log = __LOGGER.debugLogger(__filename);"
-      "var logError = __LOGGER.errorLogger(__filename, false);"
-      "var logFatal = __LOGGER.errorLogger(__filename, true);"
-      "__LOGGER = undefined;"
-      "}"
-    ].join ''
-
-    gulp.src './src/scripts/renderer/**/*.js'
-      .pipe plumber handleError
-      .pipe gif args.dev, sourcemaps.init()
-      .pipe babel
-        presets: [
-          'es2015',
-          'stage-0'
-        ]
-        plugins: [
-          'transform-runtime'
-          'default-import-checker'
-        ]
-      .pipe gif args.dev, sourcemaps.write {sourceRoot: 'src/scripts/renderer'}
-      .pipe header loggerHeader
-      .pipe plumber.stop()
-      .pipe gulp.dest dir + '/scripts/renderer'
-      .pipe livereload()
+      .pipe gulp.dest dir + '/scripts'
 
   # Move themes
   gulp.task 'compile:' + dist + ':themes', ['clean:build:' + dist], ->
@@ -139,8 +107,7 @@ args = require './args'
   # Compile everything
   gulp.task 'compile:' + dist, [
     'compile:' + dist + ':styles'
-    'compile:' + dist + ':scripts:browser'
-    'compile:' + dist + ':scripts:renderer'
+    'compile:' + dist + ':scripts'
     'compile:' + dist + ':themes'
     'compile:' + dist + ':images'
     'compile:' + dist + ':html'

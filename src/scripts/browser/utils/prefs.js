@@ -1,12 +1,17 @@
-import defaults from './prefs-defaults';
 import jsonfile from 'jsonfile';
 import path from 'path';
 import app from 'app';
 
-const prefsPath = path.join(app.getPath('userData'), 'prefs.json');
+import defaults from 'browser/utils/prefs-defaults';
+
+let prefsPath = null;
 let data = null;
 
 function ensureDataLoaded() {
+  if (!prefsPath) {
+    prefsPath = path.join(app.getPath('userData'), 'prefs.json');
+  }
+
   if (!data) {
     try {
       data = jsonfile.readFileSync(prefsPath) || {};

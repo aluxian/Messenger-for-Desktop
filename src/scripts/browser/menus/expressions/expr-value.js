@@ -1,5 +1,5 @@
-import prefs from '../../utils/prefs';
-import files from '../../utils/files';
+import prefs from 'browser/utils/prefs';
+import files from 'common/utils/files';
 
 /**
  * Wrapper for a raw value.
@@ -52,8 +52,8 @@ export function eq(value1Expr, value2Expr) {
 export function themeCss(nameExpr, callback) {
   return function() {
     const theme = nameExpr.apply(this, arguments);
-    files.getThemeCss(theme, css => {
-      callback(css).apply(this, arguments);
-    });
+    files.getThemeCss(theme)
+      .then(css => callback(css).apply(this, arguments))
+      .catch(logError);
   };
 }

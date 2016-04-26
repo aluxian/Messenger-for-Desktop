@@ -1,20 +1,20 @@
+const manifest = require('../../package.json');
+global.manifest = manifest;
+
 import dialog from 'dialog';
 import debug from 'debug';
 import yargs from 'yargs';
 import path from 'path';
 import app from 'app';
 
-import filePaths from './utils/file-paths';
-import manifest from '../../package.json';
+import prefs from 'browser/utils/prefs';
+import filePaths from 'common/utils/file-paths';
+import platform from 'common/utils/platform';
 
 // Handle uncaught exceptions
 process.on('uncaughtException', function(ex) {
-  if (manifest.dev) {
-    logFatal('uncaught exception', ex.message);
-  } else {
-    dialog.showErrorBox('JavaScript error in the main process', ex.stack);
-    logFatal(ex);
-  }
+  dialog.showErrorBox('JavaScript error in the main process', ex.stack);
+  logFatal(ex);
 });
 
 (function() {
@@ -36,7 +36,12 @@ process.on('uncaughtException', function(ex) {
     })
     .option('repl', {
       type: 'boolean',
-      description: 'Listen for REPL connections on port 3499.'
+      description: 'Listen for REPL connections.'
+    })
+    .option('repl-port', {
+      type: 'number',
+      description: 'The port to listen for REPL connections on.',
+      default: 3499
     })
     .option('mas', {
       type: 'boolean',
@@ -71,36 +76,42 @@ process.on('uncaughtException', function(ex) {
     .epilog('Coded with <3 by ' + manifest.author)
     .argv;
 
-  global.manifest = manifest;
-  global.options = options;
-
   options.mas = options.mas || !!process.mas;
   options.portable = options.portable || !!manifest.portable;
   options.debug = options.debug || !!process.env.DEBUG;
+  global.options = options;
 
   // Force-enable debug
   if (options.debug && !process.env.DEBUG) {
     debug.enable(manifest.name + ':*');
   }
 
-  log('cli args parsed', options);
+  // Log args
+  const simplifiedOptions = {};
+  Object.keys(options).filter(key => !key.includes('-'))
+    .forEach(key => simplifiedOptions[key] = options[key]);
+  log('cli args parsed', simplifiedOptions);
+
+  // Check for debug mode
   if (options.debug) {
-    log('debug mode enabled');
+    log('running in debug mode');
+  }
+
+  // Check for mas mode
+  if (options.mas) {
+    log('running in mas mode');
   }
 
   // Change the userData path if in portable mode
   if (options.portable) {
     log('running in portable mode');
-    const userDataPath = path.join(filePaths.getAppDir(), 'data');
-    log('set userData path', userDataPath);
+    const userDataPath = path.join(filePaths.getAppDirPath(), 'data');
+    log('setting userData path', userDataPath);
     app.setPath('userData', userDataPath);
   }
 
-  // Import prefs now so the correct userData path is used
-  const prefs = require('./utils/prefs').default;
-
   // Check for Squirrel.Windows CLI args
-  if (process.platform == 'win32') {
+  if (platform.isWindows) {
     const SquirrelEvents = require('./components/squirrel-events').default;
     if (SquirrelEvents.check(options)) {
       log('Squirrel.Windows event detected');
@@ -108,7 +119,7 @@ process.on('uncaughtException', function(ex) {
     }
   }
 
-  // Quit the app immediately if this pref is set
+  // Quit the app immediately if required
   if (prefs.get('launch-quit')) {
     log('launch-quit pref is true, quitting');
     prefs.unsetSync('launch-quit');
@@ -126,33 +137,29 @@ process.on('uncaughtException', function(ex) {
   // Enforce single instance
   const isDuplicateInstance = app.makeSingleInstance(() => {
     if (global.application) {
-      const mainWindow = global.application.mainWindowManager.window;
-      if (mainWindow) {
-        if (mainWindow.isMinimized()) {
-          mainWindow.restore();
-        }
-        mainWindow.focus();
-      }
+      global.application.mainWindowManager.showOrCreate();
     }
     return true;
   });
 
+  // Quit if another instance is already running
   if (isDuplicateInstance) {
     log('another instance of the app is already running');
     return app.quit();
   }
 
-  // Create the main app object and init
+  // Create the main app object and run init
   app.on('ready', function() {
     log('ready, launching app');
     const Application = require('./application').default;
-    global.application = new Application(manifest, options);
+    global.application = new Application();
     global.application.init();
     global.ready = true;
   });
 
   // If the REPL is enabled, launch it
   if (options.repl) {
-    require('./utils/repl').createServer(3499);
+    const repl = require('browser/utils/repl');
+    repl.createServer(options.replPort);
   }
 })();

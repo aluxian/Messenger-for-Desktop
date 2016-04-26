@@ -3,8 +3,6 @@ import request from 'request';
 import semver from 'semver';
 import app from 'app';
 
-import manifest from '../../../../package.json';
-
 class BaseAutoUpdater extends EventEmitter {
 
   setFeedURL(latestReleaseUrl) {
@@ -35,14 +33,14 @@ class BaseAutoUpdater extends EventEmitter {
       }
 
       const newVersion = json.version;
-      const newVersionExists = semver.gt(newVersion, manifest.version);
+      const newVersionExists = semver.gt(newVersion, global.manifest.version);
       const downloadUrl = json.url;
 
       if (newVersionExists) {
         log('update available', newVersion, downloadUrl);
         this.emit('update-available', newVersion, downloadUrl);
       } else {
-        log('app version up to date', manifest.version);
+        log('app version up to date', global.manifest.version);
         this.emit('update-not-available');
       }
     });

@@ -5,9 +5,9 @@ import {ipcMain} from 'electron';
 import shell from 'shell';
 import app from 'app';
 
-import contextMenu from '../menus/context';
-import platform from '../utils/platform';
-import prefs from '../utils/prefs';
+import contextMenu from 'browser/menus/context';
+import platform from 'common/utils/platform';
+import prefs from 'browser/utils/prefs';
 
 class IpcListenersManager extends EventEmitter {
 
@@ -39,7 +39,7 @@ class IpcListenersManager extends EventEmitter {
     if (prefs.get('show-notifications-badge')) {
       if (platform.isDarwin) {
         app.dock.setBadge(count);
-      } else if (platform.isWin) {
+      } else if (platform.isWindows) {
         if (count) {
           const image = NativeImage.createFromDataUrl(badgeDataUrl);
           this.mainWindowManager.window.setOverlayIcon(image, count);

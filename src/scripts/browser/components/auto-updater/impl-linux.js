@@ -1,10 +1,9 @@
 import BaseAutoUpdater from './base';
-import manifest from '../../../../package.json';
 
 class AutoUpdater extends BaseAutoUpdater {
 
   checkForUpdates() {
-    const packageType = manifest.distrib.split(':')[1];
+    const packageType = global.manifest.distrib.split(':')[1];
     let arch = null;
 
     if (packageType == 'deb') {

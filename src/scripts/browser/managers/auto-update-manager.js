@@ -3,10 +3,9 @@ import keyMirror from 'keymirror';
 import dialog from 'dialog';
 import shell from 'shell';
 
-import manifest from '../../../package.json';
-import AutoUpdater from '../components/auto-updater';
-import platform from '../utils/platform';
-import prefs from '../utils/prefs';
+import AutoUpdater from 'browser/components/auto-updater';
+import platform from 'common/utils/platform';
+import prefs from 'browser/utils/prefs';
 
 const STATES = keyMirror({
   IDLE: null,
@@ -23,7 +22,7 @@ const IGNORED_ERRORS = {
     'An SSL error has occurred and a secure connection to the server cannot be made.',
     'System.Net.WebException: The request was aborted: The connection was closed unexpectedly.',
     'System.Net.WebException: The underlying connection was closed: Could not establish trust'
-      + 'relationship for the SSL/TLS secure channel.',
+      + ' relationship for the SSL/TLS secure channel.',
     'System.Net.WebException: The remote name could not be resolved:',
     'System.Net.WebException: Unable to connect to the remote server',
     'Update download failed',
@@ -38,14 +37,12 @@ const IGNORED_ERRORS = {
 
 class AutoUpdateManager extends EventEmitter {
 
-  constructor(manifest, options, mainWindowManager) {
+  constructor(mainWindowManager) {
     super();
 
-    this.manifest = manifest;
-    this.options = options;
     this.mainWindowManager = mainWindowManager;
+    this.enabled = !global.options.mas && prefs.get('updates-auto-check');
 
-    this.enabled = !this.options.mas && prefs.get('updates-auto-check');
     this.state = STATES.IDLE;
     this.states = STATES;
 
@@ -55,19 +52,29 @@ class AutoUpdateManager extends EventEmitter {
 
   init() {
     log('starting auto updater');
-    this.initFeedUrl();
-    this.initErrorListener();
-    this.initStateListeners();
-    this.initVersionListener();
-    this.initDownloadListener();
+    try {
+      this.initFeedUrl();
+      this.initErrorListener();
+      this.initStateListeners();
+      this.initVersionListener();
+      this.initDownloadListener();
+    } catch (err) {
+      const isSignatureErr = err.message == 'Could not get code signature for running application';
+      const isKnownError = isSignatureErr;
+      if (global.manifest.dev && isKnownError) {
+        logError(err.message);
+      } else {
+        throw err;
+      }
+    }
   }
 
   initFeedUrl() {
-    let feedUrl = this.manifest.updater.urls[process.platform]
-      .replace(/%CURRENT_VERSION%/g, this.manifest.version)
+    let feedUrl = global.manifest.updater.urls[process.platform]
+      .replace(/%CURRENT_VERSION%/g, global.manifest.version)
       .replace(/%CHANNEL%/g, prefs.get('updates-channel'));
 
-    if (this.options.portable) {
+    if (global.options.portable) {
       feedUrl += '/portable';
     }
 
@@ -111,11 +118,11 @@ class AutoUpdateManager extends EventEmitter {
   }
 
   initDownloadListener() {
-    if (platform.isWin && !this.options.portable) {
+    if (platform.isWindows && !global.options.portable) {
       AutoUpdater.on('update-downloaded', () => {
         dialog.showMessageBox({
           type: 'question',
-          message: 'A new version of ' + manifest.productName + ' has been downloaded.',
+          message: 'A new version of ' + global.manifest.productName + ' has been downloaded.',
           detail: 'Would you like to restart the app and install the update? You can do this later from the App menu.',
           buttons: ['Later', 'Update']
         }, (response) => {
@@ -146,7 +153,7 @@ class AutoUpdateManager extends EventEmitter {
       return; // same state
     }
 
-    this.enabled = !this.options.mas && check;
+    this.enabled = !global.options.mas && check;
     if (this.enabled) { // disabled -> enabled
       log('enabling auto update checker');
       this.scheduleUpdateChecks();
@@ -171,7 +178,7 @@ class AutoUpdateManager extends EventEmitter {
           shell.openExternal(downloadUrl);
         }
       });
-    } else if (platform.isWin && this.options.portable) {
+    } else if (platform.isWindows && global.options.portable) {
       dialog.showMessageBox({
         type: 'info',
         message: 'A new version is available: ' + newVersion,
@@ -198,7 +205,7 @@ class AutoUpdateManager extends EventEmitter {
     dialog.showMessageBox({
       type: 'info',
       message: 'No update available.',
-      detail: 'You are using the latest version: ' + this.manifest.version,
+      detail: 'You are using the latest version: ' + global.manifest.version,
       buttons: ['OK']
     }, function() {});
   }
@@ -208,12 +215,12 @@ class AutoUpdateManager extends EventEmitter {
     let detailMessage;
 
     if (err.message && IGNORED_ERRORS.network.find(msg => err.message.includes(msg))) {
-      detailMessage = manifest.productName + ' could not connect to the updates server.'
+      detailMessage = global.manifest.productName + ' could not connect to the updates server.'
         + ' Please make sure you have a working internet connection.'
         + '\n\nERR: ' + err.message;
     } else if (err.message && IGNORED_ERRORS.multiInstance.find(msg => err.message.includes(msg))) {
-      detailMessage = manifest.productName + ' could not acquire a lock.'
-        + ' Is another instance of ' + manifest.productName + ' running or is another app using its files?'
+      detailMessage = global.manifest.productName + ' could not acquire a lock.'
+        + ' Is another instance of ' + global.manifest.productName + ' running or is another app using its files?'
         + '\n\nERR: ' + err.message;
     } else {
       detailMessage = err.message;
@@ -269,12 +276,8 @@ class AutoUpdateManager extends EventEmitter {
   }
 
   quitAndInstall() {
-    if (this.mainWindowManager) {
-      this.mainWindowManager.updateInProgress = true;
-      AutoUpdater.quitAndInstall();
-    } else {
-      logError(new Error('cannot quit to install update'));
-    }
+    this.mainWindowManager.updateInProgress = true;
+    AutoUpdater.quitAndInstall();
   }
 
 }

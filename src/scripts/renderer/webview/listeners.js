@@ -1,10 +1,8 @@
 import {ipcRenderer as ipcr} from 'electron';
-import webView from './webview';
-import remote from 'remote';
 
-const manifest = remote.getGlobal('manifest');
-const prefs = remote.require('../browser/utils/prefs').default;
-const files = remote.require('../browser/utils/files').default;
+import webView from 'renderer/webview';
+import files from 'common/utils/files';
+import prefs from 'common/utils/prefs';
 
 function createBadgeDataUrl(text) {
   const canvas = document.createElement('canvas');
@@ -73,16 +71,18 @@ webView.addEventListener('dom-ready', function() {
 
   // Inject custom css
   log('injecting custom css');
-  files.getStyleCss('mini', css => webView.insertCSS(css));
+  files.getStyleCss('mini')
+    .then(css => webView.insertCSS(css))
+    .catch(logError);
 
   // Restore the default theme
   const theme = prefs.get('theme');
   if (theme) {
-    if (manifest.themes.map(name => name.toLowerCase()).includes(theme)) {
+    if (global.manifest.themes.map(name => name.toLowerCase()).includes(theme)) {
       log('restoring theme', theme);
-      files.getThemeCss(theme, css => {
-        webView.send('apply-theme', css);
-      });
+      files.getThemeCss(theme)
+        .then(css => webView.send('apply-theme', css))
+        .catch(logError);
     } else {
       log('invalid theme, unsetting pref');
       prefs.unset('theme');

@@ -2,9 +2,9 @@ import SpellChecker from 'spellchecker';
 import path from 'path';
 import fs from 'fs';
 
-import platform from './platform';
-import languageCodes from './language-codes';
-import files from './files';
+import platform from 'common/utils/platform';
+import languageCodes from 'browser/utils/language-codes';
+import files from 'common/utils/files';
 
 let hunspellDictionaries = null;
 

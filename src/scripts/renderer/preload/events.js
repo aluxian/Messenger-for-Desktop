@@ -1,8 +1,6 @@
 import {webFrame, ipcRenderer as ipcr} from 'electron';
+import {getDictionaryPath} from 'browser/utils/spellchecker';
 import SpellChecker from 'spellchecker';
-import remote from 'remote';
-
-const {getDictionaryPath} = remote.require('../browser/utils/spellchecker');
 
 // Set zoom level
 ipcr.on('zoom-level', function(event, zoomLevel) {

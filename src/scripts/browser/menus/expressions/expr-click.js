@@ -1,10 +1,10 @@
-import manifest from '../../../../package.json';
-import analyticsTracker from '../../utils/analytics';
-import raffle from '../../components/raffle';
-import prefs from '../../utils/prefs';
 import dialog from 'dialog';
 import shell from 'shell';
 import app from 'app';
+
+import piwik from 'browser/utils/piwik';
+import raffle from 'browser/components/raffle';
+import prefs from 'browser/utils/prefs';
 
 /**
  * Call the handler for the check-for-update event.
@@ -206,19 +206,19 @@ export function launchOnStartup(enabledExpr) {
   return function() {
     const enabled = enabledExpr.apply(this, arguments);
     if (enabled) {
-      global.application.autoLauncher.enable(function(err) {
-        if (err) {
+      global.application.autoLauncher.enable()
+        .then(() => log('auto launcher enabled'))
+        .catch(err => {
           log('could not enable auto-launcher');
           logError(err);
-        }
-      });
+        });
     } else {
-      global.application.autoLauncher.disable(function(err) {
-        if (err) {
+      global.application.autoLauncher.disable()
+        .then(() => log('auto launcher disabled'))
+        .catch(err => {
           log('could not disable auto-launcher');
           logError(err);
-        }
-      });
+        });
     }
   };
 }
@@ -284,7 +284,7 @@ export const analytics = {
    */
   trackEvent: function(...args) {
     return function() {
-      analyticsTracker.trackEvent(...args);
+      piwik.trackEvent(...args);
     };
   },
 
@@ -293,7 +293,7 @@ export const analytics = {
    */
   trackGoal: function(...args) {
     return function() {
-      analyticsTracker.trackGoal(...args);
+      piwik.trackGoal(...args);
     };
   }
 

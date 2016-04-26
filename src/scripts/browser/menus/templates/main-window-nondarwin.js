@@ -1,4 +1,4 @@
-import platform from '../../utils/platform';
+import platform from '../../../common/utils/platform';
 import $ from '../expressions';
 
 export default {

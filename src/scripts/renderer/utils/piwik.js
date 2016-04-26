@@ -1,20 +1,17 @@
 import remote from 'remote';
 import path from 'path';
 
-const manifest = remote.getGlobal('manifest');
-const prefs = remote.require('../browser/utils/prefs').default;
-const browserAnalytics = remote.require('../browser/utils/analytics');
+import prefs from 'common/utils/prefs';
+import {getUserId} from 'common/utils/analytics';
 
 const activeTheme = prefs.get('theme');
 const activeSpellCheckerLang = prefs.get('theme');
 const activeReleaseChannel = prefs.get('theme');
 const trackAnalytics = prefs.get('analytics-track');
-const userId = browserAnalytics.getUserId();
-const siteId = 1;
 
 let piwikTracker = null;
 
-if (trackAnalytics && manifest.piwik) {
+if (trackAnalytics && global.manifest.piwik) {
   log('enabling piwik analytics');
 
   // Configure
@@ -22,15 +19,15 @@ if (trackAnalytics && manifest.piwik) {
     try {
       piwikTracker = window.Piwik.getTracker();
       piwikTracker.setDocumentTitle(document.title);
-      piwikTracker.setTrackerUrl(manifest.piwik.serverUrl + '/piwik.php');
-      piwikTracker.setCustomDimension(1, manifest.version); // Version
+      piwikTracker.setTrackerUrl(global.manifest.piwik.serverUrl + '/piwik.php');
+      piwikTracker.setCustomDimension(1, global.manifest.version); // Version
       piwikTracker.setCustomDimension(2, activeReleaseChannel); // Release Channel
-      piwikTracker.setCustomDimension(3, manifest.distrib); // Distrib
+      piwikTracker.setCustomDimension(3, global.manifest.distrib); // Distrib
       piwikTracker.setCustomDimension(4, activeTheme); // Theme
       piwikTracker.setCustomDimension(5, activeSpellCheckerLang); // Spell Checker Language
       piwikTracker.setCustomUrl(getCustomUrl());
-      piwikTracker.setUserId(userId);
-      piwikTracker.setSiteId(siteId);
+      piwikTracker.setUserId(getUserId());
+      piwikTracker.setSiteId(1);
       piwikTracker.trackPageView();
       log('piwik analytics instance created');
     } catch (err) {
@@ -43,7 +40,7 @@ if (trackAnalytics && manifest.piwik) {
   scriptElem.type = 'text/javascript';
   scriptElem.async = true;
   scriptElem.defer = true;
-  scriptElem.src = manifest.piwik.serverUrl + '/piwik.js';
+  scriptElem.src = global.manifest.piwik.serverUrl + '/piwik.js';
   document.head.appendChild(scriptElem);
 } else {
   log('piwik analytics disabled');
@@ -67,7 +64,7 @@ function getCustomUrl() {
     customPath = path.posix.join('/raw', pathname);
   }
 
-  return path.posix.join(manifest.piwik.baseUrl, customPath);
+  return path.posix.join(global.manifest.piwik.baseUrl, customPath);
 }
 
 export function getTracker() {

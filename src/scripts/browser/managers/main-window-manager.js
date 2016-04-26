@@ -1,24 +1,20 @@
-import manifest from '../../../package.json';
-import filePaths from '../utils/file-paths';
-import platform from '../utils/platform';
-import prefs from '../utils/prefs';
-import {debounce} from 'lodash';
-import shell from 'shell';
-
 import BrowserWindow from 'browser-window';
 import EventEmitter from 'events';
 
+import {debounce} from 'lodash';
+import shell from 'shell';
+
+import filePaths from 'common/utils/file-paths';
+import platform from 'common/utils/platform';
+import prefs from 'browser/utils/prefs';
+
 class MainWindowManager extends EventEmitter {
 
-  constructor(manifest, options) {
+  constructor() {
     super();
-
-    this.manifest = manifest;
-    this.options = options;
-
     this.forceClose = false;
     this.updateInProgress = false;
-    this.startHidden = options.osStartup && prefs.get('launch-startup-hidden');
+    this.startHidden = global.options.osStartup && prefs.get('launch-startup-hidden');
   }
 
   setTrayManager(trayManager) {
@@ -30,7 +26,7 @@ class MainWindowManager extends EventEmitter {
 
     const bounds = prefs.get('window-bounds');
     const defaultOptions = {
-      title: this.manifest.productName,
+      title: global.manifest.productName,
       backgroundColor: '#f2f2f2',
       useContentSize: true,
       minWidth: 355,
@@ -166,10 +162,10 @@ class MainWindowManager extends EventEmitter {
       this.window.hide();
 
       // Inform the user the app is still running
-      if (platform.isWin && !prefs.get('quit-behaviour-taught')) {
+      if (platform.isWindows && !prefs.get('quit-behaviour-taught')) {
         this.trayManager.tray.displayBalloon({
-          title: manifest.productName,
-          content: manifest.productName + ' will keep running in the tray until you quit it.'
+          title: global.manifest.productName,
+          content: global.manifest.productName + ' will keep running in the tray until you quit it.'
         });
         prefs.set('quit-behaviour-taught', true);
       }
@@ -212,7 +208,7 @@ class MainWindowManager extends EventEmitter {
    */
   getCleanUserAgent() {
     return this.window.webContents.getUserAgent()
-      .replace(new RegExp(this.manifest.productName + '/[\\S]*', 'g'), '')
+      .replace(new RegExp(global.manifest.productName + '/[\\S]*', 'g'), '')
       .replace(new RegExp('Electron/[\\S]*', 'g'), '')
       .replace(new RegExp('\\s+', 'g'), ' ');
   }

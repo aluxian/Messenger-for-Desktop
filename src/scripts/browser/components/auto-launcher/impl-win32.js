@@ -1,44 +1,53 @@
-import manifest from '../../../../package.json';
-import filePaths from '../../utils/file-paths';
+import Promise from 'bluebird';
 import Winreg from 'winreg';
 
+import filePaths from 'common/utils/file-paths';
 import BaseAutoLauncher from './base';
+
+const REG_KEY = new Winreg({
+  hive: Winreg.HKCU,
+  key: '\\Software\\Microsoft\\Windows\\CurrentVersion\\Run'
+});
+
+const setAsync = Promise.promisify(REG_KEY.set, { context: REG_KEY });
+const removeAsync = Promise.promisify(REG_KEY.remove, { context: REG_KEY });
+const keyExistsAsync = Promise.promisify(REG_KEY.keyExists, { context: REG_KEY });
 
 class Win32AutoLauncher extends BaseAutoLauncher {
 
-  static REG_KEY = new Winreg({
-    hive: Winreg.HKCU,
-    key: '\\Software\\Microsoft\\Windows\\CurrentVersion\\Run'
-  });
+  async enable() {
+    const updateExePath = filePaths.getSquirrelUpdateExePath();
+    const cmd = [
+      '"' + updateExePath + '"',
+      '--processStart',
+      '"' + global.manifest.productName + '.exe"',
+      '--process-start-args',
+      '"--os-startup"'
+    ].join(' ');
 
-  enable(callback) {
-    const updateExePath = filePaths.getSquirrelUpdateExe();
-    const cmd = `"${updateExePath}" --processStart ` +
-      `"${manifest.productName}.exe" --process-start-args "--os-startup"`;
-    log('setting registry key for', manifest.productName, 'value', cmd);
-    Win32AutoLauncher.REG_KEY.set(manifest.productName, Winreg.REG_SZ, cmd, callback);
+    log('setting registry key for', global.manifest.productName, 'value', cmd);
+    await setAsync(global.manifest.productName, Winreg.REG_SZ, cmd);
   }
 
-  disable(callback) {
-    log('removing registry key for', manifest.productName);
-    Win32AutoLauncher.REG_KEY.remove(manifest.productName, (err) => {
+  async disable() {
+    log('removing registry key for', global.manifest.productName);
+    try {
+      await removeAsync(global.manifest.productName);
+    } catch (err) {
       const notFoundMsg = 'The system was unable to find the specified registry key or value.';
-      const notFound = err && err.message && err.message.indexOf(notFoundMsg) > -1;
-      if (notFound) {
-        callback();
-      } else {
-        callback(err);
+      const notFoundErr = err.message && err.message.includes(notFoundMsg);
+      const knownError = notFoundErr;
+      if (!knownError) {
+        throw err;
       }
-    });
+    }
   }
 
-  isEnabled(callback) {
-    log('querying registry key for', manifest.productName);
-    Win32AutoLauncher.REG_KEY.get(manifest.productName, function(err, item) {
-      const enabled = !!item;
-      log('registry value for', manifest.productName, 'is', enabled);
-      callback(err, enabled);
-    });
+  async isEnabled() {
+    log('querying registry key for', global.manifest.productName);
+    const exists = await keyExistsAsync(global.manifest.productName);
+    log('registry value for', global.manifest.productName, 'is', exists ? 'enabled' : 'disabled');
+    return exists;
   }
 
 }

@@ -1,11 +1,11 @@
-import remote from 'remote';
-
 const webView = document.getElementById('wv');
-const manifest = remote.getGlobal('manifest');
 
 // Set the user agent and load the app
-log('loading', manifest.wvUrl);
+log('loading', global.manifest.wvUrl);
 webView.setAttribute('useragent', navigator.userAgent);
-webView.setAttribute('src', manifest.wvUrl);
+webView.setAttribute('src', global.manifest.wvUrl);
 
 export default webView;
+
+require('./events');
+require('./listeners');

@@ -1,21 +1,7 @@
-import uuid from 'node-uuid';
-import prefs from './prefs';
-
-const trackAnalytics = prefs.get('analytics-track');
-
-export function getUserId() {
-  let uid = prefs.get('analytics-uid');
-
-  // Generate a new one if it doesn't exist
-  if (!uid) {
-    uid = uuid.v4();
-    prefs.set('analytics-uid', uid);
-  }
-
-  return uid;
-}
+import prefs from 'browser/utils/prefs';
 
 function send(name, ...args) {
+  const trackAnalytics = prefs.get('analytics-track');
   if (!trackAnalytics) {
     return;
   }

@@ -1,6 +1,7 @@
 import {ipcRenderer as ipcr} from 'electron';
-import analytics from './analytics';
-import webView from './webview';
+
+import piwik from 'renderer/utils/piwik';
+import webView from 'renderer/webview';
 
 /**
  * Forward a message to the webview.
@@ -29,7 +30,7 @@ ipcr.on('call-webview-method', function(event, method, ...args) {
  * Track an analytics event.
  */
 ipcr.on('track-analytics', function(event, name, args) {
-  const tracker = analytics.getTracker();
+  const tracker = piwik.getTracker();
   if (tracker) {
     const trackerFn = tracker[name];
     trackerFn(...args);

@@ -1,9 +1,8 @@
 import {ipcRenderer as ipcr} from 'electron';
 import Mousetrap from 'mousetrap';
-import webView from './webview';
-import remote from 'remote';
 
-const prefs = remote.require('../browser/utils/prefs').default;
+import prefs from 'common/utils/prefs';
+import webView from 'renderer/webview';
 
 log('binding keyboard shortcuts');
 

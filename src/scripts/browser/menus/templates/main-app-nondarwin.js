@@ -1,5 +1,5 @@
 import manifest from '../../../../package.json';
-import platform from '../../utils/platform';
+import platform from '../../../common/utils/platform';
 import $ from '../expressions';
 import g from '../generator';
 
