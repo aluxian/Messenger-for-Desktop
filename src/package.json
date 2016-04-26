@@ -78,6 +78,7 @@
   "distrib": "unset",
   "portable": false,
   "buildNum": 0,
+  "dev": true,
   "themes": [
     "Default",
     "Faded",

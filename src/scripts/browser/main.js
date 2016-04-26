@@ -9,8 +9,7 @@ import manifest from '../../package.json';
 
 // Handle uncaught exceptions
 process.on('uncaughtException', function(ex) {
-  const isDevRelease = manifest.distrib == 'unset';
-  if (isDevRelease) {
+  if (manifest.dev) {
     logFatal('uncaught exception', ex.message);
   } else {
     dialog.showErrorBox('JavaScript error in the main process', ex.stack);
