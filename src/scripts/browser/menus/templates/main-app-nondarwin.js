@@ -1,7 +1,12 @@
 import manifest from '../../../../package.json';
 import platform from '../../../common/utils/platform';
+import prefs from 'browser/utils/prefs';
 import $ from '../expressions';
 import g from '../generator';
+
+const updatesChannel = prefs.get('updates-channel');
+const allowAutoLaunch = !global.options.portable
+  && (!platform.isLinux || updatesChannel == 'dev');
 
 export default {
   label: '&App',
@@ -53,10 +58,10 @@ export default {
     parse: $.setLocal('checked', $.pref('analytics-track'))
   }, {
     type: 'separator',
-    allow: !global.options.portable
+    allow: allowAutoLaunch
   },
-    g.appLaunchOnStartup(!global.options.portable),
-    g.appLaunchHidden(!global.options.portable),
+    g.appLaunchOnStartup(allowAutoLaunch),
+    g.appLaunchHidden(allowAutoLaunch),
   {
     type: 'separator'
   }, {
