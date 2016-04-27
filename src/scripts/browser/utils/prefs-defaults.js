@@ -22,7 +22,7 @@ const defaults = {
   'spell-checker-language': defaultSpellCheckerLanguage,
   'theme': 'default',
   'updates-auto-check': true,
-  'updates-channel': 'beta',
+  'updates-channel': global.manifest.versionChannel,
   'window-bounds': {
     width: 800,
     height: 600
