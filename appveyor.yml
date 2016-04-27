@@ -23,6 +23,8 @@ environment:
     secure: ARFlz14OCJ0B1xJ/QpJIQv20BfxlekNjbaAHR/AJ1MgPJGF3hzdv/1XWezyV8RNdycx+2ie0JLrVc+JH6XVu28JbV7cx3qpc00MF0d/YwEXRIMUTYUV0G7LrbL3ckAlNmmZ4s34dUxL9JHTYJmXYdQ==
   PIWIK_SERVER_URL:
     secure: dkn7OXfombecu7A92pc8vFWuESoMm3kbFAfkFN+Qg9VHTo83ge/9H87QNgOhpjNl
+  SQUIRREL_UPDATES_URL:
+    secure: BNlChGRei/OKFGO3EQIc2yvv8HT9eN/6P0gZPShaoD0=
 
 cache:
   - "node_modules -> package.json"

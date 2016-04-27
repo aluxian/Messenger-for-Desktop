@@ -1,10 +1,8 @@
-const manifest = require('../../package.json');
-global.manifest = manifest;
-
 import dialog from 'dialog';
 import debug from 'debug';
 import yargs from 'yargs';
 import path from 'path';
+import url from 'url';
 import app from 'app';
 
 import prefs from 'browser/utils/prefs';
@@ -73,17 +71,17 @@ process.on('uncaughtException', function(ex) {
       description: 'Squirrel.Windows flag, called only once after installation.'
     })
     .help('help', 'Print this help message.').alias('help', 'h')
-    .epilog('Coded with <3 by ' + manifest.author)
+    .epilog('Coded with <3 by ' + global.manifest.author)
     .argv;
 
   options.mas = options.mas || !!process.mas;
-  options.portable = options.portable || !!manifest.portable;
+  options.portable = options.portable || !!global.manifest.portable;
   options.debug = options.debug || !!process.env.DEBUG;
   global.options = options;
 
   // Force-enable debug
   if (options.debug && !process.env.DEBUG) {
-    process.env.DEBUG = manifest.name + ':*';
+    process.env.DEBUG = global.manifest.name + ':*';
     debug.enable(process.env.DEBUG);
   }
 
@@ -149,13 +147,28 @@ process.on('uncaughtException', function(ex) {
     return app.quit();
   }
 
-  // Create the main app object and run init
+  // Listen for app ready-ness
   app.on('ready', function() {
-    log('ready, launching app');
-    const Application = require('./application').default;
-    global.application = new Application();
-    global.application.init();
-    global.ready = true;
+    log('ready, registering protocol', global.manifest.name);
+    const protocol = require('protocol');
+    protocol.registerFileProtocol(global.manifest.name, function(request, callback) {
+      log('protocol handle', request.url);
+      callback({
+        path: path.join(app.getAppPath(), url.parse(request.url).pathname)
+      });
+    }, function (err) {
+      if (err) {
+        logFatal(err);
+        log('protocol registration failed, not going to launch the app anymore');
+        return;
+      }
+
+      log('launching app');
+      const Application = require('./application').default;
+      global.application = new Application();
+      global.application.init();
+      global.ready = true;
+    });
   });
 
   // If the REPL is enabled, launch it

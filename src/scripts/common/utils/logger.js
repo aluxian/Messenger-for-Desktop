@@ -80,7 +80,7 @@ export function errorLogger(filename, isFatal) {
     }
 
     const browserLogger = require('common/utils/logger-browser').default;
-    browserLogger.printError(namespace, util.format(ex));
+    browserLogger.printError(namespace, isFatal, util.format(ex));
 
     reportToPiwik(namespace, isFatal, ex);
     reportToSentry(namespace, isFatal, ex);

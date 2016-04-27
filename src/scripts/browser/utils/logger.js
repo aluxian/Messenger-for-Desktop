@@ -6,9 +6,13 @@ export function printDebug() {
   fileLogger.writeLog(...arguments);
 }
 
-export function printError(namespace, ex) {
+export function printError(namespace, isFatal, ex) {
   const errorPrefix = `[${new Date().toUTCString()}] ${namespace}:`;
-  console.error(colors.white.bold.bgRed(errorPrefix), ex);
+  if (isFatal) {
+    console.error(colors.white.bold.bgMagenta(errorPrefix), ex);
+  } else {
+    console.error(colors.white.bold.bgRed(errorPrefix), ex);
+  }
   const fileLogger = require('./file-logger');
   fileLogger.writeLog(errorPrefix, ex);
 }

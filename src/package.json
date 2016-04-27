@@ -37,9 +37,9 @@
   },
   "updater": {
     "urls": {
-      "darwin": "https://updates.whatsie.chat/update/%CHANNEL%/darwin?version=%CURRENT_VERSION%",
-      "win32": "https://updates.whatsie.chat/update/%CHANNEL%/win32",
-      "linux": "https://updates.whatsie.chat/update/%CHANNEL%/linux"
+      "darwin": "{{& SQUIRREL_UPDATES_URL }}/update/%CHANNEL%/darwin?version=%CURRENT_VERSION%",
+      "win32": "{{& SQUIRREL_UPDATES_URL }}/update/%CHANNEL%/win32",
+      "linux": "{{& SQUIRREL_UPDATES_URL }}/update/%CHANNEL%/linux"
     }
   },
   "darwin": {
@@ -62,12 +62,12 @@
     "type": "git",
     "url": "https://github.com/Aluxian/Whatsie.git"
   },
+  "baseUrl": "whatsie://app.whatsie.chat",
   "piwik": {
-    "serverUrl": "{{ PIWIK_SERVER_URL }}",
-    "baseUrl": "https://app.whatsie.chat"
+    "serverUrl": "{{& PIWIK_SERVER_URL }}"
   },
   "sentry": {
-    "dsn": "{{ SENTRY_DSN_PRIVATE }}"
+    "dsn": "{{& SENTRY_DSN_PRIVATE }}"
   },
   "electronVersion": "v0.37.7",
   "distrib": "unset",

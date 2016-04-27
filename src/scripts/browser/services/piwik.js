@@ -5,9 +5,11 @@ function send(name, ...args) {
   if (!trackAnalytics) {
     return;
   }
-  const browserWindow = global.application.mainWindowManager.window;
-  if (browserWindow) {
-    browserWindow.webContents.send('track-analytics', name, args);
+  if (global.ready) {
+    const browserWindow = global.application.mainWindowManager.window;
+    if (browserWindow) {
+      browserWindow.webContents.send('track-analytics', name, args);
+    }
   }
 }
 

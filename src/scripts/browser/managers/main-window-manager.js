@@ -4,7 +4,6 @@ import EventEmitter from 'events';
 import {debounce} from 'lodash';
 import shell from 'shell';
 
-import filePaths from 'common/utils/file-paths';
 import platform from 'common/utils/platform';
 import prefs from 'browser/utils/prefs';
 
@@ -70,7 +69,7 @@ class MainWindowManager extends EventEmitter {
     }
 
     // Finally, load the app html
-    this.window.loadURL(filePaths.getHtmlFile('app.html'));
+    this.window.loadURL(global.manifest.baseUrl + '/html/app.html');
   }
 
   /**
@@ -90,9 +89,10 @@ class MainWindowManager extends EventEmitter {
   /**
    * Called when the 'will-navigate' event is emitted.
    */
-  onWillNavigate(event) {
+  onWillNavigate(event, url) {
     // Don't navigate away
-    event.preventDefault();
+    // event.preventDefault(); TODO
+    log('navigation prevented', url);
   }
 
   /**

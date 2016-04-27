@@ -4,20 +4,6 @@ import app from 'common/electron/app';
 import platform from 'common/utils/platform';
 
 /**
- * @return the path of the html file
- */
-function getHtmlPath(name) {
-  return path.join(app.getAppPath(), 'html', name);
-}
-
-/**
- * @return the path of the html file, prepended with the file:// protocol
- */
-function getHtmlFile(name) {
-  return 'file://' + getHtmlPath(name);
-}
-
-/**
  * @return the theme's css path
  */
 function getThemePath(name) {
@@ -61,8 +47,6 @@ function getSquirrelUpdateExePath() {
 }
 
 export default {
-  getHtmlPath,
-  getHtmlFile,
   getThemePath,
   getStylePath,
   getImagePath,
