@@ -14,6 +14,7 @@ class MainWindowManager extends EventEmitter {
     this.forceClose = false;
     this.updateInProgress = false;
     this.startHidden = global.options.osStartup && prefs.get('launch-startup-hidden');
+    this.initialTitle = global.manifest.productName;
   }
 
   setTrayManager(trayManager) {
@@ -25,7 +26,7 @@ class MainWindowManager extends EventEmitter {
 
     const bounds = prefs.get('window-bounds');
     const defaultOptions = {
-      title: global.manifest.productName,
+      title: this.initialTitle,
       backgroundColor: '#f2f2f2',
       useContentSize: true,
       minWidth: 355,
@@ -222,6 +223,15 @@ class MainWindowManager extends EventEmitter {
     } else {
       this.createWindow();
       this.initWindow();
+    }
+  }
+
+  /**
+   * Append a suffix to the window title.
+   */
+  suffixWindowTitle(suffix) {
+    if (this.window) {
+      this.window.setTitle(this.initialTitle + suffix);
     }
   }
 
