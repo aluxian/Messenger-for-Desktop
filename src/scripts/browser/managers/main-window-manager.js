@@ -92,7 +92,7 @@ class MainWindowManager extends EventEmitter {
    */
   onWillNavigate(event, url) {
     // Don't navigate away
-    // event.preventDefault(); TODO
+    event.preventDefault();
     log('navigation prevented', url);
   }
 
