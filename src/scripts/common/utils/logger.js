@@ -19,6 +19,9 @@ function namespaceOfFile(filename) {
   const app = require('common/electron/app').default;
   const appPath = path.join(app.getAppPath(), 'scripts') + '/';
   let name = filename.replace(appPath, '').replace('.js', '');
+  if (name.indexOf('common/') === 0) {
+    name += ':' + process.type;
+  }
   return global.manifest.name + ':' + name;
 }
 

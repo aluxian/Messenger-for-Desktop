@@ -2,7 +2,7 @@ let impl = null;
 
 switch (process.type) {
   case 'browser':
-    impl = require('browser/utils/prefs');
+    impl = require('browser/utils/prefs').default;
     break;
 
   case 'renderer':
