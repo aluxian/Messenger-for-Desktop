@@ -235,7 +235,7 @@ gulp.task 'pack:darwin64:zip', ['build:darwin64'], (done) ->
           '--description', manifest.description
           '--url', manifest.homepage
           '--maintainer', manifest.author
-          '--vendor', manifest.linux.vendor
+          '--vendor', manifest.authorName
           '--version', manifest.version
           '--iteration', process.env.CIRCLE_BUILD_NUM || '1'
           '--package', './dist/' + manifest.name + '-VERSION-linux-ARCH.' + target
@@ -340,7 +340,7 @@ gulp.task 'pack:win32:installer', ['build:win32', 'clean:dist:win32'], (done) ->
           setupIcon: './build/resources/win/setup.ico'
           iconUrl: mainManifest.icon.url
           remoteReleases: remoteReleasesUrl
-          copyright: manifest.win.copyright
+          copyright: manifest.copyright
           setupExe: manifest.name + '-' + manifest.version + '-win32-setup.exe'
           noMsi: true
           arch: 'ia32'

@@ -44,23 +44,18 @@
   },
   "darwin": {
     "bundleId": "com.aluxian.whatsie",
-    "appCategoryType": "public.app-category.social-networking",
-    "copyright": "Copyright © Alexandru Rosianu"
+    "appCategoryType": "public.app-category.social-networking"
   },
   "linux": {
-    "vendor": "Alexandru Rosianu",
     "genericName": "Internet Messenger",
     "categories": "Network;InstantMessaging;",
     "keywords": "WhatsApp;Whats;",
     "section": "web"
   },
-  "win": {
-    "companyName": "Alexandru Rosianu",
-    "copyright": "Copyright © Alexandru Rosianu",
-    "userModelId": "com.squirrel.whatsie.Whatsie"
-  },
   "license": "MIT",
   "author": "Alexandru Rosianu <me@aluxian.com>",
+  "authorName": "Alexandru Rosianu",
+  "copyright": "Copyright © Alexandru Rosianu",
   "homepage": "https://whatsie.chat/",
   "raffleUrl": "https://whatsie.chat/#share",
   "repository": {

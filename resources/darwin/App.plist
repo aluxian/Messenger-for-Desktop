@@ -43,6 +43,6 @@
 	<key>NSSupportsAutomaticGraphicsSwitching</key>
 	<true/>
 	<key>NSHumanReadableCopyright</key>
-	<string>{{ darwin.copyright }}</string>
+	<string>{{ copyright }}</string>
 </dict>
 </plist>
