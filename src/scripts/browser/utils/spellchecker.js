@@ -16,7 +16,7 @@ export function getDictionaryDefaultPath() {
     if (fs.statSyncNoException(unpacked)) {
       dict = unpacked;
     }
-  } catch (ex) {
+  } catch (err) {
     // ignore
   }
   return dict;
@@ -37,7 +37,7 @@ export function getDictionaryPath() {
     if (fs.statSyncNoException(unpacked)) {
       dict = unpacked;
     }
-  } catch (ex) {
+  } catch (err) {
     // ignore
   }
   return dict;

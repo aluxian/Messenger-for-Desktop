@@ -1,14 +1,14 @@
 import util from 'util';
 import path from 'path';
 
-function anonymizeException(ex) {
+function anonymizeException(err) {
   const app = require('common/electron/app').default;
-  ex.message = ex.message.replace(app.getPath('home'), '<home>');
+  err.message = err.message.replace(app.getPath('home'), '<home>');
 }
 
-function trimLongPaths(ex) {
+function trimLongPaths(err) {
   const app = require('common/electron/app').default;
-  ex.stack = ex.stack
+  err.stack = err.stack
     .split('\n')
     .map(line => line.replace(/\/.+atom\.asar/, 'atom.asar'))
     .map(line => line.replace(app.getAppPath(), 'app'))
@@ -22,26 +22,26 @@ function namespaceOfFile(filename) {
   return global.manifest.name + ':' + name;
 }
 
-function reportToPiwik(namespace, isFatal, ex) {
+function reportToPiwik(namespace, isFatal, err) {
   const piwik = require('common/services/piwik').default.getTracker();
   if (piwik) {
     piwik.trackEvent(
       'Exceptions',
       isFatal ? 'Fatal Error' : 'Error',
-      ex.name,
-      `[${namespace}]: ${ex.message}`
+      err.name,
+      `[${namespace}]: ${err.message}`
     );
   }
 }
 
-function reportToSentry(namespace, isFatal, ex) {
+function reportToSentry(namespace, isFatal, err) {
   const sentry = require('common/services/sentry').default;
   if (sentry) {
-    anonymizeException(ex);
-    trimLongPaths(ex);
+    anonymizeException(err);
+    trimLongPaths(err);
 
-    console.log('reporting to sentry:', ex);
-    sentry.captureException(ex, {
+    console.log('reporting to sentry:', err);
+    sentry.captureException(err, {
       level: isFatal ? 'fatal' : 'error',
       extra: {
         trace: new Error().stack
@@ -70,19 +70,19 @@ export function debugLogger(filename) {
 
 export function errorLogger(filename, isFatal) {
   let namespace = null;
-  return function(ex) {
+  return function(err) {
     if (!namespace) {
       namespace = namespaceOfFile(filename);
     }
 
-    if (!(ex instanceof Error)) {
-      ex = new Error(ex);
+    if (!(err instanceof Error)) {
+      err = new Error(err);
     }
 
     const browserLogger = require('common/utils/logger-browser').default;
-    browserLogger.printError(namespace, isFatal, util.format(ex));
+    browserLogger.printError(namespace, isFatal, util.format(err));
 
-    reportToPiwik(namespace, isFatal, ex);
-    reportToSentry(namespace, isFatal, ex);
+    reportToPiwik(namespace, isFatal, err);
+    reportToSentry(namespace, isFatal, err);
   };
 }

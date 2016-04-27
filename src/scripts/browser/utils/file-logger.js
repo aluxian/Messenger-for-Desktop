@@ -37,9 +37,9 @@ function initFileLogging() {
     log(`saving logs to "${fileLogPath}"`);
     fileLogIsReady = true;
     fileLogIsGettingReady = false;
-  } catch (ex) {
+  } catch (err) {
     fileLogIsGettingReady = false;
-    console.error('logger error:', ex);
+    console.error('logger error:', err);
   }
 }
 

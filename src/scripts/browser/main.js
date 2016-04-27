@@ -10,9 +10,9 @@ import filePaths from 'common/utils/file-paths';
 import platform from 'common/utils/platform';
 
 // Handle uncaught exceptions
-process.on('uncaughtException', function(ex) {
-  dialog.showErrorBox('JavaScript error in the main process', ex.stack);
-  logFatal(ex);
+process.on('uncaughtException', function(err) {
+  dialog.showErrorBox('JavaScript error in the main process', err.stack);
+  logFatal(err);
 });
 
 (function() {
