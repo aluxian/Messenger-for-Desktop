@@ -111,7 +111,7 @@ process.on('uncaughtException', function(err) {
 
   // Check for Squirrel.Windows CLI args
   if (platform.isWindows) {
-    const SquirrelEvents = require('./components/squirrel-events').default;
+    const SquirrelEvents = require('browser/components/squirrel-events').default;
     if (SquirrelEvents.check(options)) {
       log('Squirrel.Windows event detected');
       return;
@@ -164,7 +164,7 @@ process.on('uncaughtException', function(err) {
       }
 
       log('launching app');
-      const Application = require('./application').default;
+      const Application = require('browser/application').default;
       global.application = new Application();
       global.application.init();
       global.ready = true;

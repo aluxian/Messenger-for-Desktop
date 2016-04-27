@@ -2,7 +2,7 @@ import colors from 'colors/safe';
 
 export function printDebug() {
   console.log(...arguments);
-  const fileLogger = require('./file-logger');
+  const fileLogger = require('browser/utils/file-logger');
   fileLogger.writeLog(...arguments);
 }
 
@@ -13,6 +13,6 @@ export function printError(namespace, isFatal, err) {
   } else {
     console.error(colors.white.bold.bgRed(errorPrefix), err);
   }
-  const fileLogger = require('./file-logger');
+  const fileLogger = require('browser/utils/file-logger');
   fileLogger.writeLog(errorPrefix, err);
 }

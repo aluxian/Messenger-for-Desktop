@@ -1,11 +1,11 @@
-import platform from '../../../common/utils/platform';
+import platform from 'common/utils/platform';
 
 let impl = null;
 
 if (platform.isLinux) {
-  impl = require('./impl-linux').default;
+  impl = require('browser/components/auto-updater/impl-linux').default;
 } else if (platform.isWindows && global.options.portable) {
-  impl = require('./impl-win32-portable').default;
+  impl = require('browser/components/auto-updater/impl-win32-portable').default;
 } else {
   impl = require('auto-updater');
 }

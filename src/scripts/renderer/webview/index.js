@@ -14,5 +14,5 @@ webView.setAttribute('preload', preloadPath);
 
 export default webView;
 
-require('./events');
-require('./listeners');
+require('renderer/webview/events');
+require('renderer/webview/listeners');

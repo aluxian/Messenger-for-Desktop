@@ -11,4 +11,4 @@ const scriptsPath = path.join(appPath, 'scripts');
 const {addPath} = require(path.join(appPath, 'node_modules', 'app-module-path'));
 
 addPath(scriptsPath);
-require('.');
+require('renderer/preload');
