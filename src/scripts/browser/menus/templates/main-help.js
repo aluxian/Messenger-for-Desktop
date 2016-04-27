@@ -1,4 +1,4 @@
-import $ from '../expressions';
+import $ from 'browser/menus/expressions';
 
 import eventCategories from 'common/analytics/categories';
 import eventActions from 'common/analytics/actions';

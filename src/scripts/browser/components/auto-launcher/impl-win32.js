@@ -2,7 +2,7 @@ import Promise from 'bluebird';
 import Winreg from 'winreg';
 
 import filePaths from 'common/utils/file-paths';
-import BaseAutoLauncher from './base';
+import BaseAutoLauncher from 'browser/components/auto-launcher/base';
 
 const REG_KEY = new Winreg({
   hive: Winreg.HKCU,

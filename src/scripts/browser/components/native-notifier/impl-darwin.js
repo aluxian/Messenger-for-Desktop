@@ -1,6 +1,6 @@
 import $ from 'nodobjc';
 
-import BaseNativeNotifier from './base';
+import BaseNativeNotifier from 'browser/components/native-notifier/base';
 
 class DarwinNativeNotifier extends BaseNativeNotifier {
 

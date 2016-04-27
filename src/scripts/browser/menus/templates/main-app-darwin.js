@@ -1,13 +1,12 @@
-import manifest from '../../../../package.json';
-import platform from '../../../common/utils/platform';
-import $ from '../expressions';
-import g from '../generator';
+import platform from 'common/utils/platform';
+import $ from 'browser/menus/expressions';
+import g from 'browser/menus/generator';
 
 export default {
-  label: manifest.productName,
+  label: global.manifest.productName,
   allow: platform.isDarwin,
   submenu: [{
-    label: 'About ' + manifest.productName,
+    label: 'About ' + global.manifest.productName,
     role: 'about'
   }, {
     id: 'cfu-check-for-update',
@@ -64,7 +63,7 @@ export default {
   }, {
     type: 'separator'
   }, {
-    label: 'Hide ' + manifest.productName,
+    label: 'Hide ' + global.manifest.productName,
     accelerator: 'Cmd+H',
     role: 'hide'
   }, {

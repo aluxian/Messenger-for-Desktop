@@ -1,5 +1,5 @@
-import platform from '../../../common/utils/platform';
-import $ from '../expressions';
+import platform from 'common/utils/platform';
+import $ from 'browser/menus/expressions';
 
 export default {
   label: '&View',

@@ -3,7 +3,7 @@ import fs from 'fs-extra-promise';
 import path from 'path';
 import app from 'app';
 
-import BaseAutoLauncher from './base';
+import BaseAutoLauncher from 'browser/components/auto-launcher/base';
 
 class DarwinAutoLauncher extends BaseAutoLauncher {
 

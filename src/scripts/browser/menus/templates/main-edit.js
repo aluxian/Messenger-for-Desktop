@@ -2,7 +2,7 @@ import {getAvailableDictionaries} from 'browser/utils/spellchecker';
 import languageCodes from 'browser/utils/language-codes';
 import platform from 'common/utils/platform';
 import prefs from 'browser/utils/prefs';
-import $ from '../expressions';
+import $ from 'browser/menus/expressions';
 
 const spellCheckerLanguage = prefs.get('spell-checker-language');
 const availableLanguages = getAvailableDictionaries()

@@ -2,7 +2,7 @@ import fs from 'fs-extra';
 import path from 'path';
 import app from 'app';
 
-import BaseAutoLauncher from './base';
+import BaseAutoLauncher from 'browser/components/auto-launcher/base';
 
 const autoStartKey = 'X-GNOME-Autostart-enabled';
 const autoStartDir = path.join(app.getPath('home'), '.config', 'autostart');
