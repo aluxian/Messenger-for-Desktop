@@ -1,4 +1,5 @@
 import util from 'util';
+import path from 'path';
 
 function anonymizeException(ex) {
   const app = require('common/electron/app').default;
@@ -16,10 +17,8 @@ function trimLongPaths(ex) {
 
 function namespaceOfFile(filename) {
   const app = require('common/electron/app').default;
-  let name = filename.replace(app.getAppPath(), '').replace('.js', '');
-  if (name[0] == '/') {
-    name = name.substr(1);
-  }
+  const appPath = path.join(app.getAppPath(), 'scripts') + '/';
+  let name = filename.replace(appPath, '').replace('.js', '');
   return global.manifest.name + ':' + name;
 }
 
