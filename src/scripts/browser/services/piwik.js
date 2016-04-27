@@ -19,7 +19,6 @@ function bind(name) {
 
 export function getTracker() {
   return {
-    trackEvent: bind('trackEvent'),
-    trackGoal: bind('trackGoal')
+    trackEvent: bind('trackEvent')
   };
 }

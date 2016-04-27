@@ -268,7 +268,7 @@ export function openRaffleDialog() {
       ].join('\n')
     }, function(response) {
       if (response === 1) {
-        const url = manifest.raffleUrl;
+        const url = global.manifest.raffleUrl;
         log('user clicked "Join the giveaway", opening url', url);
         shell.openExternal(url);
       }
@@ -285,15 +285,6 @@ export const analytics = {
   trackEvent: function(...args) {
     return function() {
       piwik.trackEvent(...args);
-    };
-  },
-
-  /**
-   * Track a goal.
-   */
-  trackGoal: function(...args) {
-    return function() {
-      piwik.trackGoal(...args);
     };
   }
 
