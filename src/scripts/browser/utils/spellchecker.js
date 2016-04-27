@@ -11,7 +11,7 @@ let hunspellDictionaries = null;
 export function getDictionaryDefaultPath() {
   let dict = path.join(__dirname, '..', 'node_modules', 'spellchecker', 'vendor', 'hunspell_dictionaries');
   try {
-    // HACK: Special case being in an asar archive
+    // Special case being in an asar archive
     const unpacked = dict.replace('.asar' + path.sep, '.asar.unpacked' + path.sep);
     if (fs.statSyncNoException(unpacked)) {
       dict = unpacked;
@@ -32,7 +32,7 @@ export function getDictionaryPath() {
       }
     }
 
-    // HACK: Special case being in an asar archive
+    // Special case being in an asar archive
     const unpacked = dict.replace('.asar' + path.sep, '.asar.unpacked' + path.sep);
     if (fs.statSyncNoException(unpacked)) {
       dict = unpacked;

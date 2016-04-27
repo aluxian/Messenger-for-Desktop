@@ -81,7 +81,7 @@ class DarwinNativeNotifier extends BaseNativeNotifier {
     if (icon) {
       const contentImageUrl = $.NSURL('URLWithString', $(icon));
       const contentImage = $.NSImage('alloc')('initByReferencingURL', contentImageUrl);
-      notification('setContentImage', contentImage); // TODO: download icon in bg
+      notification('setContentImage', contentImage);
     }
 
     // Deliver
