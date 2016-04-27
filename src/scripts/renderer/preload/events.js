@@ -69,19 +69,63 @@ ipcr.on('search-chats', function() {
   }
 });
 
+/**
+ * Dispatch a click event on the given item.
+ */
+function dispatchClick(item) {
+  item.dispatchEvent(new MouseEvent('mousedown', {
+    view: window,
+    bubbles: true,
+    cancelable: false
+  }));
+}
+
+// // Open a dialog to pick a photo or a video to send
+// ipcr.on('send-photo-video', function() {
+//   const attachButton = document.querySelector('.pane-chat-header button[title="Attach"]');
+//   if (attachButton) {
+//     attachButton.click();
+//     setTimeout(function() {
+//       const buttons = document.querySelectorAll('.pane-chat-header .menu-icons-item');
+//       if (buttons[0]) {
+//         dispatchClick(buttons[0]);
+//       }
+//     }, 300);
+//   }
+// });
+//
+// // Use the camera to take and send a photo
+// ipcr.on('take-photo', function() {
+//   const attachButton = document.querySelector('.pane-chat-header button[title="Attach"]');
+//   if (attachButton) {
+//     attachButton.click();
+//     setTimeout(function() {
+//       const buttons = document.querySelectorAll('.pane-chat-header .menu-icons-item');
+//       if (buttons[1]) {
+//         dispatchClick(buttons[1]);
+//       }
+//     }, 300);
+//   }
+// });
+
 // Switch to next/previous conversation
 ipcr.on('switch-conversation', function(event, indexDelta) {
-  function navigateConversation(delta) {
+  function getChatList() {
     const chatListElem = document.querySelectorAll('.infinite-list-item');
-    if (!chatListElem || !chatListElem.length) {
+    if (chatListElem && chatListElem.length) {
+      return Array.from(chatListElem).sort(function(a, b) {
+        return parseInt(b.style.zIndex, 10) - parseInt(a.style.zIndex, 10);
+      });
+    }
+  }
+
+  function navigateConversation(delta) {
+    const chatList = getChatList();
+    if (!chatList) {
       return;
     }
 
     let found = false;
-    const chatList = Array.from(chatListElem).sort(function(a, b) {
-      return parseInt(b.style.zIndex, 10) - parseInt(a.style.zIndex, 10);
-    });
-
     for (let [i, item] of chatList.entries()) {
       const active = isItemActive(item);
       if (active) {
@@ -103,6 +147,23 @@ ipcr.on('switch-conversation', function(event, indexDelta) {
     }
   }
 
+  function navigateConversationIndex(delta) {
+    const chatList = getChatList();
+    if (!chatList) {
+      return;
+    }
+
+    if (delta < 0) {
+      delta = 0;
+    }
+
+    if (delta >= chatList.length) {
+      delta = chatList.length - 1;
+    }
+
+    makeActive(chatList[delta]);
+  }
+
   function getDeltaIndex(index, delta, chatList) {
     let deltaIndex = index + delta;
     if (deltaIndex < 0) {
@@ -122,14 +183,14 @@ ipcr.on('switch-conversation', function(event, indexDelta) {
   function makeActive(item) {
     const chat = item.querySelector('.chat');
     if (chat) {
-      log('make active', chat);
-      chat.dispatchEvent(new MouseEvent('mousedown', {
-        view: window,
-        bubbles: true,
-        cancelable: false
-      }));
+      log('make active');
+      dispatchClick(chat);
     }
   }
 
-  navigateConversation(indexDelta);
+  if (indexDelta > 1000) {
+    navigateConversationIndex(indexDelta - 1000 - 1);
+  } else {
+    navigateConversation(indexDelta);
+  }
 });

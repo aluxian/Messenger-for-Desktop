@@ -18,6 +18,7 @@ export default {
   }, {
     type: 'checkbox',
     label: 'Float on Top',
+    accelerator: 'Cmd+Alt+T',
     click: $.floatOnTop($.key('checked'))
   }, {
     type: 'checkbox',

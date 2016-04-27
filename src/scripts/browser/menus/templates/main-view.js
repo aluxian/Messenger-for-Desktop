@@ -50,12 +50,39 @@ export default {
   }, {
     type: 'separator'
   }, {
-    label: 'New Conversation',
+    label: 'N&ew Conversation',
     accelerator: 'CmdOrCtrl+N',
     click: $.sendToWebView('new-conversation')
   }, {
-    label: 'Search Chats',
+    label: 'Search &Chats',
     accelerator: 'CmdOrCtrl+F',
     click: $.sendToWebView('search-chats')
-  }]
+  }, {
+    type: 'separator'
+  }, {
+    label: '&Next Conversation',
+    accelerator: 'Alt+Down',
+    click: $.sendToWebView('switch-conversation', $.val(+1))
+  }, {
+    label: '&Previous Conversation',
+    accelerator: 'Alt+Up',
+    click: $.sendToWebView('switch-conversation', $.val(-1))
+  }, {
+    label: 'Switch to Conversation',
+    submenu: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(index => ({
+      label: 'Conversation ' + index,
+      accelerator: 'CmdOrCtrl+' + (index % 10),
+      click: $.sendToWebView('switch-conversation', $.val(1000 + index))
+    }))
+  }/*, {
+    type: 'separator'
+  }, {
+    label: 'Send Photo or &Video',
+    accelerator: 'CmdOrCtrl+O',
+    click: $.sendToWebView('send-photo-video')
+  }, {
+    label: '&Take Photo',
+    accelerator: 'CmdOrCtrl+P',
+    click: $.sendToWebView('take-photo')
+  }*/]
 };

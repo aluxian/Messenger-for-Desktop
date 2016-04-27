@@ -63,6 +63,7 @@ export default {
   }, {
     type: 'checkbox',
     label: 'Check &Spelling While Typing',
+    accelerator: 'CmdOrCtrl+Alt+S',
     click: $.all(
       $.sendToWebView('spell-checker', $.key('checked'), $.pref('spell-checker-auto-correct'), $.pref('spell-checker-language')),
       $.updateSibling('spell-checker-auto-correct', 'enabled', $.key('checked')),

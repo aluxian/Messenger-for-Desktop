@@ -13,3 +13,4 @@ const {addPath} = require(path.join(appPath, 'node_modules', 'app-module-path'))
 addPath(scriptsPath);
 require('renderer/main');
 require('renderer/webview');
+require('renderer/utils/keymap');
