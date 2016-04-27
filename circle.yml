@@ -31,6 +31,7 @@ dependencies:
 
 test:
   post:
+    - gulp changelog:linux --verbose
     - gulp rebuild:32 --verbose
     - gulp pack:linux32:deb --prod --verbose
     - gulp pack:linux32:rpm --prod --verbose
