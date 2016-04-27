@@ -71,7 +71,7 @@ gpg --export --armor 1537994D | sudo apt-key add -
 
 # Add my repository to your sources list (skip if you've done this already)
 # Replace <channel> with stable, beta or dev (pick stable if you're unsure)
-echo "deb https://dl.bintray.com/aluxian/deb <channel>" | sudo tee -a /etc/apt/sources.list
+echo "deb https://dl.bintray.com/aluxian/deb <channel> main" | sudo tee -a /etc/apt/sources.list.d/aluxian.list
 
 # Install Whatsie
 sudo apt-get update
