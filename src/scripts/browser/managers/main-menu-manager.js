@@ -1,9 +1,9 @@
-import {findItemById} from '../menus/utils';
-import template from '../menus/main';
-
 import Menu from 'menu';
-import AutoUpdater from '../components/auto-updater';
 import EventEmitter from 'events';
+
+import AutoUpdater from 'browser/components/auto-updater';
+import {findItemById} from 'browser/menus/utils';
+import template from 'browser/menus/main';
 
 class MainMenuManager extends EventEmitter {
 
@@ -26,7 +26,7 @@ class MainMenuManager extends EventEmitter {
       Menu.setApplicationMenu(this.menu);
       log('app menu set');
     } else {
-      logError(new Error('menu not created'));
+      logError('menu not created');
     }
   }
 

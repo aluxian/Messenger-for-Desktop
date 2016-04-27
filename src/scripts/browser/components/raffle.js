@@ -1,5 +1,4 @@
-import manifest from '../../../package.json';
-import prefs from '../utils/prefs';
+import prefs from 'browser/utils/prefs';
 
 const distribMap = {
   'darwin64:dmg': 10,
@@ -27,21 +26,21 @@ function generateCode() {
   let preNum;
 
   // AA
-  if (distribMap[manifest.distrib]) {
-    code += distribMap[manifest.distrib];
+  if (distribMap[global.manifest.distrib]) {
+    code += distribMap[global.manifest.distrib];
   } else {
     code += 99;
   }
 
   // B
-  if (manifest.portable) {
+  if (global.manifest.portable) {
     code += 1;
   } else {
     code += 0;
   }
 
   // CCCC
-  const buildNum = parseInt(manifest.buildNum || 0, 10).toString(36);
+  const buildNum = parseInt(global.manifest.buildNum || 0, 10).toString(36);
   preNum = 4 - buildNum.length;
   while (preNum--) code += '0';
   code += buildNum;

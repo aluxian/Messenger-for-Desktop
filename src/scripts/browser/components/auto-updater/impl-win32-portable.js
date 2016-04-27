@@ -1,4 +1,4 @@
-import BaseAutoUpdater from './base';
+import BaseAutoUpdater from 'browser/components/auto-updater/base';
 
 class AutoUpdater extends BaseAutoUpdater {
 

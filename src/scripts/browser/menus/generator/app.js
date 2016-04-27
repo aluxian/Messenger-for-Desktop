@@ -1,4 +1,4 @@
-import $ from '../expressions';
+import $ from 'browser/menus/expressions';
 
 export function appLaunchOnStartup(allow) {
   return {

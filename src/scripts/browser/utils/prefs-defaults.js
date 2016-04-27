@@ -1,6 +1,7 @@
-import {getAvailableDictionaries} from './spellchecker';
-import platform from './platform';
 import app from 'app';
+
+import {getAvailableDictionaries} from 'browser/utils/spellchecker';
+import platform from 'common/utils/platform';
 
 const availableLanguages = getAvailableDictionaries();
 const defaults = {
@@ -10,10 +11,11 @@ const defaults = {
   'launch-startup-hidden': true,
   'launch-quit': false,
   'links-in-browser': true,
+  'close-with-esc': false,
   'quit-behaviour-taught': false,
   'raffle-code': null,
   'show-notifications-badge': true,
-  'show-tray': platform.isWin,
+  'show-tray': platform.isWindows,
   'show-dock': true,
   'spell-checker-check': false,
   'spell-checker-auto-correct': false,

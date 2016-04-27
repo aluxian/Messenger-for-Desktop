@@ -1,9 +1,8 @@
-import manifest from '../../../../package.json';
-import $ from '../expressions';
+import $ from 'browser/menus/expressions';
 
 export default {
   label: 'Theme',
-  submenu: manifest.themes.map(theme => ({
+  submenu: global.manifest.themes.map(theme => ({
     type: 'radio',
     label: theme,
     theme: theme.toLowerCase(),

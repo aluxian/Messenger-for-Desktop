@@ -157,22 +157,17 @@ To see debug messages while running the app, set the `DEBUG` env var. This will 
 export DEBUG=whatsie:*
 ```
 
-To enable the renderer logs launch the app, open the dev tools then type in the console:
-
-```
-localStorage.debug = 'whatsie:*';
-```
-
 To open the webview dev tools, type this in the main dev tools console:
 
 ```
 wv.openDevTools();
 ```
 
-If you want to automatically open the webview dev tools, type this:
+If you want to automatically open the webview dev tools, use:
 
 ```
-localStorage.debugDevTools = true;
+localStorage.autoLaunchDevTools = true; // on
+localStorage.removeItem('autoLaunchDevTools'); // off
 ```
 
 ### Pack

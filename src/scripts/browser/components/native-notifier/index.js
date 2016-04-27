@@ -1,1 +1,1 @@
-export default require('./impl-' + process.platform).default;
+export default require('browser/components/native-notifier/impl-' + process.platform).default;

@@ -10,7 +10,7 @@ function createAppliedHandler(name) {
 
 /**
  * Used from the renderer to fire native notifications.
- * Accessing global.application.nativeNotifier directly doens't work.
+ * Accessing global.application.nativeNotifier directly doesn't work.
  */
 export default {
   isImplemented: !!global.application.nativeNotifier.isImplemented,

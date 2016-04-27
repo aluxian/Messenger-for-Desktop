@@ -1,10 +1,10 @@
-import manifest from '../../../../package.json';
-import analyticsTracker from '../../utils/analytics';
-import raffle from '../../components/raffle';
-import prefs from '../../utils/prefs';
 import dialog from 'dialog';
 import shell from 'shell';
 import app from 'app';
+
+import piwik from 'browser/services/piwik';
+import raffle from 'browser/components/raffle';
+import prefs from 'browser/utils/prefs';
 
 /**
  * Call the handler for the check-for-update event.
@@ -206,31 +206,45 @@ export function launchOnStartup(enabledExpr) {
   return function() {
     const enabled = enabledExpr.apply(this, arguments);
     if (enabled) {
-      global.application.autoLauncher.enable(function(err) {
-        if (err) {
+      global.application.autoLauncher.enable()
+        .then(() => log('auto launcher enabled'))
+        .catch(err => {
           log('could not enable auto-launcher');
           logError(err);
-        }
-      });
+        });
     } else {
-      global.application.autoLauncher.disable(function(err) {
-        if (err) {
+      global.application.autoLauncher.disable()
+        .then(() => log('auto launcher disabled'))
+        .catch(err => {
           log('could not disable auto-launcher');
           logError(err);
-        }
-      });
+        });
     }
   };
 }
 
 /**
- * If flag is true, the dock badge will be hidden.
+ * If flag is false, the dock badge will be hidden.
  */
 export function hideDockBadge(flagExpr) {
   return function() {
     const flag = flagExpr.apply(this, arguments);
-    if (flag && app.dock && app.dock.setBadge) {
+    if (!flag && app.dock && app.dock.setBadge) {
       app.dock.setBadge('');
+    }
+  };
+}
+
+/**
+ * If flag is false, the taskbar badge will be hidden.
+ */
+export function hideTaskbarBadge(flagExpr) {
+  return function(menuItem, browserWindow) {
+    if (browserWindow) {
+      const flag = flagExpr.apply(this, arguments);
+      if (!flag) {
+        browserWindow.setOverlayIcon(null, '');
+      }
     }
   };
 }
@@ -254,7 +268,7 @@ export function openRaffleDialog() {
       ].join('\n')
     }, function(response) {
       if (response === 1) {
-        const url = manifest.raffleUrl;
+        const url = global.manifest.raffleUrl;
         log('user clicked "Join the giveaway", opening url', url);
         shell.openExternal(url);
       }
@@ -270,16 +284,7 @@ export const analytics = {
    */
   trackEvent: function(...args) {
     return function() {
-      analyticsTracker.trackEvent(...args);
-    };
-  },
-
-  /**
-   * Track a goal.
-   */
-  trackGoal: function(...args) {
-    return function() {
-      analyticsTracker.trackGoal(...args);
+      piwik.trackEvent(...args);
     };
   }
 

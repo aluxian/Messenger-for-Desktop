@@ -1,12 +1,11 @@
-import filePaths from '../utils/file-paths';
-import platform from '../utils/platform';
-import template from '../menus/tray';
-import prefs from '../utils/prefs';
-
+import EventEmitter from 'events';
 import Menu from 'menu';
 import Tray from 'tray';
 
-import EventEmitter from 'events';
+import filePaths from 'common/utils/file-paths';
+import platform from 'common/utils/platform';
+import template from 'browser/menus/tray';
+import prefs from 'browser/utils/prefs';
 
 class TrayManager extends EventEmitter {
 

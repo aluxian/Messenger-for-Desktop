@@ -37,9 +37,10 @@ gulp.task 'pack:darwin64:dmg', ['build:darwin64', 'clean:dist:darwin64'], (done)
     (callback) ->
       jsonPath = './build/darwin64/' + manifest.productName + '.app/Contents/Resources/app/package.json'
       updateManifest jsonPath, (manifest) ->
+        manifest.portable = false
         manifest.distrib = 'darwin64:dmg'
         manifest.buildNum = process.env.TRAVIS_BUILD_NUMBER
-        manifest.airbrake.env = 'production'
+        manifest.dev = false
       , callback
 
     # Remove the dev modules
@@ -103,9 +104,10 @@ gulp.task 'pack:darwin64:zip', ['build:darwin64'], (done) ->
     (callback) ->
       jsonPath = './build/darwin64/' + manifest.productName + '.app/Contents/Resources/app/package.json'
       updateManifest jsonPath, (manifest) ->
+        manifest.portable = false
         manifest.distrib = 'darwin64:zip'
         manifest.buildNum = process.env.TRAVIS_BUILD_NUMBER
-        manifest.airbrake.env = 'production'
+        manifest.dev = false
       , callback
 
     # Remove the dev modules
@@ -195,7 +197,6 @@ gulp.task 'pack:darwin64:zip', ['build:darwin64'], (done) ->
         'lsb-release'
         'libcanberra-gtk3-module'
         'hunspell'
-        'python'
         'git'
       ]
 
@@ -234,7 +235,7 @@ gulp.task 'pack:darwin64:zip', ['build:darwin64'], (done) ->
           '--description', manifest.description
           '--url', manifest.homepage
           '--maintainer', manifest.author
-          '--vendor', manifest.linux.vendor
+          '--vendor', manifest.authorName
           '--version', manifest.version
           '--iteration', process.env.CIRCLE_BUILD_NUM || '1'
           '--package', './dist/' + manifest.name + '-VERSION-linux-ARCH.' + target
@@ -251,9 +252,10 @@ gulp.task 'pack:darwin64:zip', ['build:darwin64'], (done) ->
         (callback) ->
           jsonPath = './build/linux' + arch + '/opt/' + manifest.name + '/resources/app/package.json'
           updateManifest jsonPath, (manifest) ->
+            manifest.portable = false
             manifest.distrib = 'linux' + arch + ':' + target
             manifest.buildNum = process.env.CIRCLE_BUILD_NUM
-            manifest.airbrake.env = 'production'
+            manifest.dev = false
           , callback
 
         # Remove the dev modules
@@ -291,9 +293,10 @@ gulp.task 'pack:win32:installer', ['build:win32', 'clean:dist:win32'], (done) ->
   async.series [
     # Update package.json
     async.apply updateManifest, './build/win32/resources/app/package.json', (manifest) ->
+      manifest.portable = false
       manifest.distrib = 'win32:installer'
       manifest.buildNum = process.env.APPVEYOR_BUILD_NUMBER
-      manifest.airbrake.env = 'production'
+      manifest.dev = false
 
     # Remove the dev modules
     applyIf args.prod, applySpawn 'npm', ['prune', '--production'],
@@ -337,7 +340,7 @@ gulp.task 'pack:win32:installer', ['build:win32', 'clean:dist:win32'], (done) ->
           setupIcon: './build/resources/win/setup.ico'
           iconUrl: mainManifest.icon.url
           remoteReleases: remoteReleasesUrl
-          copyright: manifest.win.copyright
+          copyright: manifest.copyright
           setupExe: manifest.name + '-' + manifest.version + '-win32-setup.exe'
           noMsi: true
           arch: 'ia32'
@@ -361,7 +364,7 @@ gulp.task 'pack:win32:portable', ['build:win32', 'clean:dist:win32'], (done) ->
       manifest.portable = true
       manifest.distrib = 'win32:portable'
       manifest.buildNum = process.env.APPVEYOR_BUILD_NUMBER
-      manifest.airbrake.env = 'production'
+      manifest.dev = false
 
     # Remove the dev modules
     applyIf args.prod, applySpawn 'npm', ['prune', '--production'],

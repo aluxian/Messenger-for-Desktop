@@ -1,4 +1,4 @@
-// 348 language codes in ISO 369-1 format
+// Language codes in ISO 369-1 format
 export default {
   'aa': 'Afar',
   'ab': 'Abkhazian',

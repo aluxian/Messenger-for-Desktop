@@ -1,7 +1,6 @@
-import manifest from '../../../../package.json';
 import $ from 'nodobjc';
 
-import BaseNativeNotifier from './base';
+import BaseNativeNotifier from 'browser/components/native-notifier/base';
 
 class DarwinNativeNotifier extends BaseNativeNotifier {
 
@@ -19,7 +18,7 @@ class DarwinNativeNotifier extends BaseNativeNotifier {
     this.center = $.NSUserNotificationCenter('defaultUserNotificationCenter');
 
     // Create a notifications delegate
-    this.Delegate = $.NSObject.extend(manifest.productName + 'NotificationDelegate');
+    this.Delegate = $.NSObject.extend(global.manifest.productName + 'NotificationDelegate');
     this.Delegate.addMethod('userNotificationCenter:didActivateNotification:',
       [$.void, [this.Delegate, $.selector, $.id, $.id]], ::this.didActivateNotification);
     this.Delegate.addMethod('userNotificationCenter:shouldPresentNotification:',
@@ -82,7 +81,7 @@ class DarwinNativeNotifier extends BaseNativeNotifier {
     if (icon) {
       const contentImageUrl = $.NSURL('URLWithString', $(icon));
       const contentImage = $.NSImage('alloc')('initByReferencingURL', contentImageUrl);
-      notification('setContentImage', contentImage); // TODO: download icon in bg
+      notification('setContentImage', contentImage);
     }
 
     // Deliver

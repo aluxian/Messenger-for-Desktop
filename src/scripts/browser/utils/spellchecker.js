@@ -2,11 +2,25 @@ import SpellChecker from 'spellchecker';
 import path from 'path';
 import fs from 'fs';
 
-import platform from './platform';
-import languageCodes from './language-codes';
-import files from './files';
+import platform from 'common/utils/platform';
+import languageCodes from 'browser/utils/language-codes';
+import files from 'common/utils/files';
 
 let hunspellDictionaries = null;
+
+export function getDictionaryDefaultPath() {
+  let dict = path.join(__dirname, '..', 'node_modules', 'spellchecker', 'vendor', 'hunspell_dictionaries');
+  try {
+    // Special case being in an asar archive
+    const unpacked = dict.replace('.asar' + path.sep, '.asar.unpacked' + path.sep);
+    if (fs.statSyncNoException(unpacked)) {
+      dict = unpacked;
+    }
+  } catch (err) {
+    // ignore
+  }
+  return dict;
+}
 
 export function getDictionaryPath() {
   let dict = path.join(__dirname, '..', 'node_modules', 'spellchecker', 'vendor', 'hunspell_dictionaries');
@@ -18,12 +32,12 @@ export function getDictionaryPath() {
       }
     }
 
-    // HACK: Special case being in an asar archive
+    // Special case being in an asar archive
     const unpacked = dict.replace('.asar' + path.sep, '.asar.unpacked' + path.sep);
     if (fs.statSyncNoException(unpacked)) {
       dict = unpacked;
     }
-  } catch (ex) {
+  } catch (err) {
     // ignore
   }
   return dict;
@@ -35,11 +49,23 @@ export function getAvailableDictionaries() {
     return availableDictionaries;
   }
 
+  const dictionariesPath = getDictionaryPath();
   if (!hunspellDictionaries) {
     try {
-      hunspellDictionaries = files.getDictionariesSync(getDictionaryPath());
+      hunspellDictionaries = files.getDictionariesSync(dictionariesPath);
     } catch (err) {
       logError(err);
+    }
+  }
+
+  if (platform.isLinux && (!hunspellDictionaries || hunspellDictionaries.length == 0)) {
+    const dictionariesDefaultPath = getDictionaryDefaultPath();
+    if (dictionariesDefaultPath != dictionariesPath) {
+      try {
+        hunspellDictionaries = files.getDictionariesSync(getDictionaryDefaultPath());
+      } catch (err) {
+        logError(err);
+      }
     }
   }
 

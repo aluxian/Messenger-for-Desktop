@@ -1,77 +1,70 @@
-import manifest from '../../../../package.json';
-import async from 'async';
+import fs from 'fs-extra';
 import path from 'path';
 import app from 'app';
-import fs from 'fs-extra';
 
-import BaseAutoLauncher from './base';
+import BaseAutoLauncher from 'browser/components/auto-launcher/base';
 
 const autoStartKey = 'X-GNOME-Autostart-enabled';
 const autoStartDir = path.join(app.getPath('home'), '.config', 'autostart');
-const desktopPath = path.join(autoStartDir, manifest.name + '.desktop');
-const systemDesktopPath = path.join('/etc/xdg/autostart/', manifest.name + '.desktop');
+const desktopFileName = global.manifest.name + '.desktop';
+const desktopFilePath = path.join(autoStartDir, desktopFileName);
+const systemDesktopPath = path.join('/etc/xdg/autostart/', desktopFileName);
 
 class LinuxAutoLauncher extends BaseAutoLauncher {
 
-  ensureFileExists(callback) {
-    fs.access(desktopPath, fs.R_OK | fs.W_OK, (err) => {
-      if (err) { // no access / does not exist
-        fs.unlink(desktopPath, () => { // err ignored
-          fs.copy(systemDesktopPath, desktopPath, callback);
-        });
-      } else { // ok
-        callback(null);
+  async ensureFileExists() {
+    try {
+      await fs.accessAsync(desktopFilePath, fs.R_OK | fs.W_OK);
+    } catch (err) {
+      // err ignored
+      // no access / does not exist
+      try {
+        await fs.unlinkAsync(desktopFilePath);
+      } catch (err2) {
+        // err2 ignored
       }
-    });
+      await fs.copyAsync(systemDesktopPath, desktopFilePath);
+    }
+    // ok
   }
 
-  setKey(value, callback) {
-    this.ensureFileExists((ensureErr) => {
-      if (ensureErr) {
-        logError(ensureErr);
-      }
+  async setKey(value) {
+    await this.ensureFileExists();
+    log('setting', autoStartKey, value);
 
-      log('setting', autoStartKey, value);
-      async.waterfall([
-        async.apply(fs.readFile, desktopPath, 'utf-8'),
-        (fileContent, callback) => {
-          const pattern = new RegExp(autoStartKey + '=.*');
-          const replaceWith = autoStartKey + '=' + value;
-          const newFileContent = fileContent.replace(pattern, replaceWith);
-          fs.writeFile(desktopPath, newFileContent, 'utf-8', callback);
-        }
-      ], callback);
-    });
+    const pattern = new RegExp(autoStartKey + '=.*');
+    const replaceWith = autoStartKey + '=' + value;
+
+    const fileContent = await fs.readFileAsync(desktopFilePath, 'utf-8');
+    const newFileContent = fileContent.replace(pattern, replaceWith);
+
+    await fs.writeFileAsync(desktopFilePath, newFileContent, 'utf-8');
   }
 
-  enable(callback) {
-    this.setKey('true', callback);
+  async enable() {
+    await this.setKey('true');
   }
 
-  disable(callback) {
-    this.setKey('false', callback);
+  async disable() {
+    await this.setKey('false');
   }
 
-  isEnabled(callback) {
-    this.ensureFileExists((ensureErr) => {
-      if (ensureErr) {
-        logError(ensureErr);
-      }
+  async isEnabled() {
+    try {
+      await this.ensureFileExists();
+    } catch (err) {
+      return false;
+    }
 
-      log('checking key', autoStartKey);
-      fs.readFile(desktopPath, 'utf-8', function(err, file) {
-        if (err) {
-          return callback(err);
-        }
+    log('checking key', autoStartKey);
+    const file = await fs.readFileAsync(desktopFilePath, 'utf-8');
 
-        const pattern = new RegExp(autoStartKey + '=(.*)');
-        const matches = pattern.exec(file);
-        const enabled = matches && matches[1] == 'true';
+    const pattern = new RegExp(autoStartKey + '=(.*)');
+    const matches = pattern.exec(file) || [];
+    const enabled = matches[1] == 'true';
 
-        log(autoStartKey, 'is', enabled);
-        callback(null, enabled);
-      });
-    });
+    log(autoStartKey, 'is', enabled);
+    return enabled;
   }
 
 }

@@ -1,15 +1,15 @@
-import {parseTemplate} from './utils';
+import {parseTemplate} from 'browser/menus/utils';
 
 export default function() {
   const template = [
-    './templates/main-app-darwin',
-    './templates/main-app-nondarwin',
-    './templates/main-edit',
-    './templates/main-view',
-    './templates/main-theme',
-    './templates/main-window-darwin',
-    './templates/main-window-nondarwin',
-    './templates/main-help'
+    'browser/menus/templates/main-app-darwin',
+    'browser/menus/templates/main-app-nondarwin',
+    'browser/menus/templates/main-edit',
+    'browser/menus/templates/main-view',
+    'browser/menus/templates/main-theme',
+    'browser/menus/templates/main-window-darwin',
+    'browser/menus/templates/main-window-nondarwin',
+    'browser/menus/templates/main-help'
   ].map(p => require(p).default);
   return parseTemplate(template, null);
 }

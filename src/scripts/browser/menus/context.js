@@ -2,11 +2,15 @@ import clipboard from 'clipboard';
 import MenuItem from 'menu-item';
 import Menu from 'menu';
 
+import platform from 'common/utils/platform';
+
 function create(opt, browserWindow) {
   const webContents = browserWindow.webContents;
   const menu = new Menu();
 
   if (opt.targetIsEditable && opt.isMisspelling) {
+    let hasMisspellingRelatedItems = !!opt.corrections.length;
+
     for (let i = 0; i < opt.corrections.length && i < 5; i++) {
       menu.append(new MenuItem({
         label: 'Correct: ' + opt.corrections[i],
@@ -14,21 +18,26 @@ function create(opt, browserWindow) {
       }));
     }
 
-    menu.append(new MenuItem({
-      label: 'Add to Dictionary', // TODO: Hunspell doesn't remember these
-      click: () => {
-        webContents.send('fwd-webview', 'add-selection-to-dictionary');
-        webContents.send('call-webview-method', 'replaceMisspelling', opt.selection.trim());
-      }
-    }));
+    // Hunspell doesn't remember these, so skip this item
+    if (!platform.isLinux) {
+      menu.append(new MenuItem({
+        label: 'Add to Dictionary',
+        click: () => {
+          webContents.send('fwd-webview', 'add-selection-to-dictionary');
+          webContents.send('call-webview-method', 'replaceMisspelling', opt.selection.trim());
+        }
+      }));
+      hasMisspellingRelatedItems = true;
+    }
 
-    menu.append(new MenuItem({
-      type: 'separator'
-    }));
+    if (hasMisspellingRelatedItems) {
+      menu.append(new MenuItem({
+        type: 'separator'
+      }));
+    }
   }
 
   if (opt.hasSelection) {
-    // TODO: doesn't work, selection is inside webview
     // if (process.platform == 'darwin') {
     //   menu.append(new MenuItem({
     //     label: 'Look Up',

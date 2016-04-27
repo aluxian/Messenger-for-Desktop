@@ -1,20 +1,21 @@
+import EventEmitter from 'events';
+import BrowserWindow from 'browser-window';
+import NativeImage from 'native-image';
 import {ipcMain} from 'electron';
-import contextMenu from '../menus/context';
-import prefs from '../utils/prefs';
 import shell from 'shell';
 import app from 'app';
 
-import EventEmitter from 'events';
-import BrowserWindow from 'browser-window';
+import contextMenu from 'browser/menus/context';
+import platform from 'common/utils/platform';
+import prefs from 'browser/utils/prefs';
 
 class IpcListenersManager extends EventEmitter {
 
-  constructor(notifManager, trayManager, mainWindowManager, nativeNotifier) {
+  constructor(notifManager, trayManager, mainWindowManager) {
     super();
     this.notifManager = notifManager;
     this.trayManager = trayManager;
     this.mainWindowManager = mainWindowManager;
-    this.nativeNotifier = nativeNotifier;
   }
 
   /**
@@ -23,39 +24,56 @@ class IpcListenersManager extends EventEmitter {
   set() {
     ipcMain.on('notif-count', ::this.onNotifCount);
     ipcMain.on('context-menu', ::this.onContextMenu);
+    ipcMain.on('close-window', ::this.onCloseWindow);
     ipcMain.on('open-url', ::this.onOpenUrl);
-
-    ipcMain.on('osx-notif', () => {
-      this.nativeNotifier.fireNotification({
-        title: 'Title',
-        subtitle: 'Subtitle',
-        body: 'Body',
-        tag: 'Tag',
-        canReply: true,
-        onClick: function(payload) {
-          log('onClick', payload);
-        },
-        onCreate: function(err) {
-          log('onCreate', err);
-        }
-      });
-    });
   }
 
   /**
    * Called when the 'notif-count' event is received.
    */
-  onNotifCount(event, count) {
-    log('on renderer notif-count', count);
+  onNotifCount(event, count, badgeDataUrl) {
+    log('on renderer notif-count', count, !!badgeDataUrl || null);
     this.notifManager.unreadCount = count;
 
     // Set icon badge
-    if (app.dock && app.dock.setBadge && prefs.get('show-notifications-badge')) {
-      app.dock.setBadge(count);
+    if (prefs.get('show-notifications-badge')) {
+      if (platform.isDarwin) {
+        app.dock.setBadge(count);
+      } else if (platform.isWindows) {
+        if (count) {
+          const image = NativeImage.createFromDataUrl(badgeDataUrl);
+          this.mainWindowManager.window.setOverlayIcon(image, count);
+        } else {
+          this.mainWindowManager.window.setOverlayIcon(null, '');
+        }
+      }
     }
 
     // Update tray
     this.trayManager.unreadCountUpdated(count);
+
+    // Update window title
+    this.mainWindowManager.suffixWindowTitle(count ? ' (' + count + ')' : '');
+  }
+
+  /**
+   * Called when the 'context-menu' event is received.
+   */
+  onContextMenu(event, options) {
+    const menu = contextMenu.create(options, this.mainWindowManager.window);
+    if (menu) {
+      log('opening context menu');
+      setTimeout(() => {
+        menu.popup(this.mainWindowManager.window);
+      }, 50);
+    }
+  }
+
+  /**
+   * Called when the 'close-window' event is received.
+   */
+  onCloseWindow() {
+    this.mainWindowManager.window.close();
   }
 
   /**
@@ -69,19 +87,6 @@ class IpcListenersManager extends EventEmitter {
       log('on renderer open-url, new window', url);
       const newWindow = new BrowserWindow(options);
       newWindow.loadURL(url);
-    }
-  }
-
-  /**
-   * Called when the 'context-menu' event is received.
-   */
-  onContextMenu(event, options) {
-    const menu = contextMenu.create(options, this.mainWindowManager.window);
-    if (menu) {
-      log('opening context menu');
-      setTimeout(() => {
-        menu.popup(this.mainWindowManager.window);
-      }, 50);
     }
   }
 

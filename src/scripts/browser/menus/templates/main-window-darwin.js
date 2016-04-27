@@ -1,5 +1,5 @@
-import platform from '../../utils/platform';
-import $ from '../expressions';
+import platform from 'common/utils/platform';
+import $ from 'browser/menus/expressions';
 
 export default {
   label: 'Window',
@@ -21,6 +21,11 @@ export default {
     click: $.floatOnTop($.key('checked'))
   }, {
     type: 'checkbox',
+    label: 'Close with Escape',
+    click: $.setPref('close-with-esc', $.key('checked')),
+    parse: $.setLocal('checked', $.pref('close-with-esc'))
+  }, {
+    type: 'checkbox',
     label: 'Open Links in Browser',
     click: $.setPref('links-in-browser', $.key('checked')),
     parse: $.setLocal('checked', $.pref('links-in-browser'))
@@ -39,7 +44,7 @@ export default {
   }, {
     id: 'show-tray',
     type: 'checkbox',
-    label: 'Show in the Menu Bar',
+    label: 'Show in Menu Bar',
     click: $.all(
       $.showInTray($.key('checked')),
       $.updateSibling('show-dock', 'enabled', $.key('checked')),
@@ -56,7 +61,7 @@ export default {
   }, {
     id: 'show-dock',
     type: 'checkbox',
-    label: 'Show in the Dock',
+    label: 'Show in Dock',
     click: $.all(
       $.showInDock($.key('checked')),
       $.updateSibling('show-tray', 'enabled', $.key('checked')),

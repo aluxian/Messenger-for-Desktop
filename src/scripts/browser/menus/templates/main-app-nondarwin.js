@@ -1,13 +1,22 @@
-import manifest from '../../../../package.json';
-import platform from '../../utils/platform';
-import $ from '../expressions';
-import g from '../generator';
+import platform from 'common/utils/platform';
+import prefs from 'browser/utils/prefs';
+import $ from 'browser/menus/expressions';
+import g from 'browser/menus/generator';
+
+const updatesChannel = prefs.get('updates-channel');
+const allowAutoLaunch = !global.options.portable
+  && (!platform.isLinux || updatesChannel == 'dev');
+
+let versionSuffix = '';
+if (global.manifest.versionChannel != 'stable') {
+  versionSuffix = '-' + global.manifest.versionChannel;
+}
 
 export default {
   label: '&App',
   allow: platform.isNonDarwin,
   submenu: [{
-    label: 'Version ' + manifest.version + (manifest.versionChannel == 'stable' ? '' : '-' + manifest.versionChannel),
+    label: 'Version ' + global.manifest.version + versionSuffix,
     enabled: false
   }, {
     id: 'cfu-check-for-update',
@@ -53,10 +62,10 @@ export default {
     parse: $.setLocal('checked', $.pref('analytics-track'))
   }, {
     type: 'separator',
-    allow: !global.options.portable
+    allow: allowAutoLaunch
   },
-    g.appLaunchOnStartup(!global.options.portable),
-    g.appLaunchHidden(!global.options.portable),
+    g.appLaunchOnStartup(allowAutoLaunch),
+    g.appLaunchHidden(allowAutoLaunch),
   {
     type: 'separator'
   }, {

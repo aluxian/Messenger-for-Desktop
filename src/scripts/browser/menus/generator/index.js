@@ -1,5 +1,4 @@
 export default Object.assign({}, ...[
-  require('./app'),
-  require('./help'),
-  require('./misc')
+  require('browser/menus/generator/app'),
+  require('browser/menus/generator/misc')
 ]);

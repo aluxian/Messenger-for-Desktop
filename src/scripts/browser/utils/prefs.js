@@ -1,12 +1,17 @@
-import defaults from './prefs-defaults';
 import jsonfile from 'jsonfile';
 import path from 'path';
 import app from 'app';
 
-const prefsPath = path.join(app.getPath('userData'), 'prefs.json');
+import defaults from 'browser/utils/prefs-defaults';
+
+let prefsPath = null;
 let data = null;
 
 function ensureDataLoaded() {
+  if (!prefsPath) {
+    prefsPath = path.join(app.getPath('userData'), 'prefs.json');
+  }
+
   if (!data) {
     try {
       data = jsonfile.readFileSync(prefsPath) || {};
@@ -72,6 +77,14 @@ function get(key) {
 }
 
 /**
+ * Retrieve all the prefs.
+ */
+function getAll() {
+  ensureDataLoaded();
+  return data;
+}
+
+/**
  * Retrieve the default value.
  */
 function getDefault(key) {
@@ -129,6 +142,7 @@ export default {
   set,
   setSync,
   get,
+  getAll,
   getDefault,
   unset,
   unsetSync,

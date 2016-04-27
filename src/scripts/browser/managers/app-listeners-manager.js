@@ -1,8 +1,8 @@
 import EventEmitter from 'events';
 import app from 'app';
 
-import platform from '../utils/platform';
-import prefs from '../utils/prefs';
+import platform from 'common/utils/platform';
+import prefs from 'browser/utils/prefs';
 
 class AppListenersManager extends EventEmitter {
 

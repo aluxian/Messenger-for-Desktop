@@ -1,5 +1,5 @@
-import platform from '../../utils/platform';
-import $ from '../expressions';
+import platform from 'common/utils/platform';
+import $ from 'browser/menus/expressions';
 
 export default {
   label: 'Window',
@@ -21,8 +21,23 @@ export default {
     )
   }, {
     type: 'checkbox',
+    label: 'Close with &Escape',
+    click: $.setPref('close-with-esc', $.key('checked')),
+    parse: $.setLocal('checked', $.pref('close-with-esc'))
+  }, {
+    type: 'checkbox',
     label: 'Open Links in &Browser',
     click: $.setPref('links-in-browser', $.key('checked')),
     parse: $.setLocal('checked', $.pref('links-in-browser'))
+  }, {
+    type: 'checkbox',
+    label: '&Notifications Badge in Taskbar',
+    click: $.all(
+      $.setPref('show-notifications-badge', $.key('checked')),
+      $.hideTaskbarBadge($.key('checked'))
+    ),
+    parse: $.all(
+      $.setLocal('checked', $.pref('show-notifications-badge'))
+    )
   }]
 };

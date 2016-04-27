@@ -2,20 +2,17 @@ import dialog from 'dialog';
 import debug from 'debug';
 import yargs from 'yargs';
 import path from 'path';
+import url from 'url';
 import app from 'app';
 
-import filePaths from './utils/file-paths';
-import manifest from '../../package.json';
+import prefs from 'browser/utils/prefs';
+import filePaths from 'common/utils/file-paths';
+import platform from 'common/utils/platform';
 
 // Handle uncaught exceptions
-process.on('uncaughtException', function(ex) {
-  const isDevRelease = manifest.distrib == 'unset';
-  if (isDevRelease) {
-    logFatal('uncaught exception', ex.message);
-  } else {
-    dialog.showErrorBox('JavaScript error in the main process', ex.stack);
-    logFatal(ex);
-  }
+process.on('uncaughtException', function(err) {
+  dialog.showErrorBox('JavaScript error in the main process', err.stack);
+  logFatal(err);
 });
 
 (function() {
@@ -37,7 +34,12 @@ process.on('uncaughtException', function(ex) {
     })
     .option('repl', {
       type: 'boolean',
-      description: 'Listen for REPL connections on port 3499.'
+      description: 'Listen for REPL connections.'
+    })
+    .option('repl-port', {
+      type: 'number',
+      description: 'The port to listen for REPL connections on.',
+      default: 3499
     })
     .option('mas', {
       type: 'boolean',
@@ -69,47 +71,54 @@ process.on('uncaughtException', function(ex) {
       description: 'Squirrel.Windows flag, called only once after installation.'
     })
     .help('help', 'Print this help message.').alias('help', 'h')
-    .epilog('Coded with <3 by ' + manifest.author)
+    .epilog('Coded with <3 by ' + global.manifest.author)
     .argv;
 
-  global.manifest = manifest;
-  global.options = options;
-
   options.mas = options.mas || !!process.mas;
-  options.portable = options.portable || !!manifest.portable;
+  options.portable = options.portable || !!global.manifest.portable;
   options.debug = options.debug || !!process.env.DEBUG;
+  global.options = options;
 
   // Force-enable debug
   if (options.debug && !process.env.DEBUG) {
-    debug.enable(manifest.name + ':*');
+    process.env.DEBUG = global.manifest.name + ':*';
+    debug.enable(process.env.DEBUG);
   }
 
-  log('cli args parsed', options);
+  // Log args
+  const simplifiedOptions = {};
+  Object.keys(options).filter(key => !key.includes('-'))
+    .forEach(key => simplifiedOptions[key] = options[key]);
+  log('cli args parsed', simplifiedOptions);
+
+  // Check for debug mode
   if (options.debug) {
-    log('debug mode enabled');
+    log('running in debug mode');
+  }
+
+  // Check for mas mode
+  if (options.mas) {
+    log('running in mas mode');
   }
 
   // Change the userData path if in portable mode
   if (options.portable) {
     log('running in portable mode');
-    const userDataPath = path.join(filePaths.getAppDir(), 'data');
-    log('set userData path', userDataPath);
+    const userDataPath = path.join(filePaths.getAppDirPath(), 'data');
+    log('setting userData path', userDataPath);
     app.setPath('userData', userDataPath);
   }
 
-  // Import prefs now so the correct userData path is used
-  const prefs = require('./utils/prefs').default;
-
   // Check for Squirrel.Windows CLI args
-  if (process.platform == 'win32') {
-    const SquirrelEvents = require('./components/squirrel-events').default;
+  if (platform.isWindows) {
+    const SquirrelEvents = require('browser/components/squirrel-events').default;
     if (SquirrelEvents.check(options)) {
       log('Squirrel.Windows event detected');
       return;
     }
   }
 
-  // Quit the app immediately if this pref is set
+  // Quit the app immediately if required
   if (prefs.get('launch-quit')) {
     log('launch-quit pref is true, quitting');
     prefs.unsetSync('launch-quit');
@@ -127,33 +136,44 @@ process.on('uncaughtException', function(ex) {
   // Enforce single instance
   const isDuplicateInstance = app.makeSingleInstance(() => {
     if (global.application) {
-      const mainWindow = global.application.mainWindowManager.window;
-      if (mainWindow) {
-        if (mainWindow.isMinimized()) {
-          mainWindow.restore();
-        }
-        mainWindow.focus();
-      }
+      global.application.mainWindowManager.showOrCreate();
     }
     return true;
   });
 
+  // Quit if another instance is already running
   if (isDuplicateInstance) {
     log('another instance of the app is already running');
     return app.quit();
   }
 
-  // Create the main app object and init
+  // Listen for app ready-ness
   app.on('ready', function() {
-    log('ready, launching app');
-    const Application = require('./application').default;
-    global.application = new Application(manifest, options);
-    global.application.init();
-    global.ready = true;
+    log('ready, registering protocol', global.manifest.name);
+    const protocol = require('protocol');
+    protocol.registerFileProtocol(global.manifest.name, function(request, callback) {
+      log('protocol handle', request.url);
+      callback({
+        path: path.join(app.getAppPath(), url.parse(request.url).pathname)
+      });
+    }, function (err) {
+      if (err) {
+        logFatal(err);
+        log('protocol registration failed, not going to launch the app anymore');
+        return;
+      }
+
+      log('launching app');
+      const Application = require('browser/application').default;
+      global.application = new Application();
+      global.application.init();
+      global.ready = true;
+    });
   });
 
   // If the REPL is enabled, launch it
   if (options.repl) {
-    require('./utils/repl').createServer(3499);
+    const repl = require('browser/utils/repl');
+    repl.createServer(options.replPort);
   }
 })();

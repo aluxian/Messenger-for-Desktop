@@ -1,4 +1,4 @@
-import BaseNativeNotifier from './base';
+import BaseNativeNotifier from 'browser/components/native-notifier/base';
 
 class Win32NativeNotifier extends BaseNativeNotifier {}
 

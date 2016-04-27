@@ -2,7 +2,7 @@ import Menu from 'menu';
 
 export function parseTemplate(menu, parent) {
   return menu.filter(item => {
-    // Filter by platform
+    // Filter
     if (item.allow !== undefined && !item.allow) {
       return false;
     }

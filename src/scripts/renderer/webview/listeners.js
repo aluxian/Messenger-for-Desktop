@@ -1,10 +1,35 @@
 import {ipcRenderer as ipcr} from 'electron';
-import webView from './webview';
-import remote from 'remote';
 
-const manifest = remote.getGlobal('manifest');
-const prefs = remote.require('../browser/utils/prefs').default;
-const files = remote.require('../browser/utils/files').default;
+import webView from 'renderer/webview';
+import files from 'common/utils/files';
+import prefs from 'common/utils/prefs';
+
+function createBadgeDataUrl(text) {
+  const canvas = document.createElement('canvas');
+  canvas.height = 140;
+  canvas.width = 140;
+
+  const context = canvas.getContext('2d');
+  context.fillStyle = 'red';
+  context.beginPath();
+  context.ellipse(70, 70, 70, 70, 0, 0, 2 * Math.PI);
+  context.fill();
+  context.textAlign = 'center';
+  context.fillStyle = 'white';
+
+  if (text.length > 2) {
+    context.font = 'bold 65px "Segoe UI", sans-serif';
+    context.fillText('' + text, 70, 95);
+  } else if (text.length > 1) {
+    context.font = 'bold 85px "Segoe UI", sans-serif';
+    context.fillText('' + text, 70, 100);
+  } else {
+    context.font = 'bold 100px "Segoe UI", sans-serif';
+    context.fillText('' + text, 70, 105);
+  }
+
+  return canvas.toDataURL();
+}
 
 // Log console messages
 webView.addEventListener('console-message', function(event) {
@@ -19,8 +44,14 @@ webView.addEventListener('page-title-updated', function() {
   const matches = /\(([\d]+)\)/.exec(webView.getTitle());
   const parsed = parseInt(matches && matches[1], 10);
   const count = isNaN(parsed) || !parsed ? '' : '' + parsed;
-  log('sending notif-count', count);
-  ipcr.send('notif-count', count);
+  let badgeDataUrl = null;
+
+  if (process.platform == 'win32' && count) {
+    badgeDataUrl = createBadgeDataUrl(count);
+  }
+
+  log('sending notif-count', count, !!badgeDataUrl || null);
+  ipcr.send('notif-count', count, badgeDataUrl);
 });
 
 // Handle url clicks
@@ -34,22 +65,24 @@ webView.addEventListener('dom-ready', function() {
   log('dom-ready');
 
   // Open dev tools when debugging
-  if (window.localStorage.debugDevTools) {
+  if (window.localStorage.autoLaunchDevTools) {
     webView.openDevTools();
   }
 
   // Inject custom css
   log('injecting custom css');
-  files.getStyleCss('mini', css => webView.insertCSS(css));
+  files.getStyleCss('mini')
+    .then(css => webView.insertCSS(css))
+    .catch(logError);
 
   // Restore the default theme
   const theme = prefs.get('theme');
   if (theme) {
-    if (manifest.themes.map(name => name.toLowerCase()).includes(theme)) {
+    if (global.manifest.themes.map(name => name.toLowerCase()).includes(theme)) {
       log('restoring theme', theme);
-      files.getThemeCss(theme, css => {
-        webView.send('apply-theme', css);
-      });
+      files.getThemeCss(theme)
+        .then(css => webView.send('apply-theme', css))
+        .catch(logError);
     } else {
       log('invalid theme, unsetting pref');
       prefs.unset('theme');

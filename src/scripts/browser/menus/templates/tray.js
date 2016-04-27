@@ -1,11 +1,10 @@
-import manifest from '../../../../package.json';
-import platform from '../../utils/platform';
-import $ from '../expressions';
+import platform from 'common/utils/platform';
+import $ from 'browser/menus/expressions';
 
 export default [{
   id: 'show-tray',
   type: 'checkbox',
-  label: 'Show in the Menu Bar',
+  label: 'Show in Menu Bar',
   allow: platform.isDarwin,
   checked: true,
   click: $.all(
@@ -20,7 +19,7 @@ export default [{
 }, {
   id: 'show-dock',
   type: 'checkbox',
-  label: 'Show in the Dock',
+  label: 'Show in Dock',
   allow: platform.isDarwin,
   checked: true,
   click: $.all(
@@ -36,9 +35,9 @@ export default [{
   type: 'separator',
   allow: platform.isDarwin
 }, {
-  label: 'Show ' + manifest.productName,
+  label: 'Show ' + global.manifest.productName,
   click: $.showWindow()
 }, {
-  label: 'Quit ' + manifest.productName,
+  label: 'Quit ' + global.manifest.productName,
   click: $.appQuit()
 }];

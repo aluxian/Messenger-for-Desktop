@@ -1,1 +1,1 @@
-export default require('./impl-' + process.platform).default;
+export default require('browser/components/auto-launcher/impl-' + process.platform).default;

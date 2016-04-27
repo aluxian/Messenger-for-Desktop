@@ -111,9 +111,9 @@ gulp.task 'build:win32', ['resources:win', 'compile:win32', 'clean:build:win32']
       properties =
         'version-string':
           ProductName: manifest.productName
-          CompanyName: manifest.win.companyName
-          FileDescription: manifest.productName
-          LegalCopyright: manifest.win.copyright
+          CompanyName: manifest.authorName
+          FileDescription: manifest.description
+          LegalCopyright: manifest.copyright
           OriginalFilename: manifest.productName + '.exe'
         'file-version': manifest.version
         'product-version': manifest.version
