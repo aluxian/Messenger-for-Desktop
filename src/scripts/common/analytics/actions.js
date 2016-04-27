@@ -5,5 +5,6 @@ export default keyMirror({
   'Exception': null,
 
   // Menu
-  'Open Link': null
+  'Open Link': null,
+  'Open Dialog': null
 });

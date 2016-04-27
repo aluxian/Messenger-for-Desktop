@@ -1,11 +1,11 @@
 import keyMirror from 'keymirror';
 
 export default keyMirror({
-  // Logs
+  // Logs / Exception
   'Error': null,
   'Fatal Error': null,
 
-  // Menu
+  // Menu / Open Link
   'Gitter Chat Link': null,
   'Write Review Link': null,
   'Suggest Feature Link': null,
@@ -13,5 +13,8 @@ export default keyMirror({
   'Contact Developer Email Link': null,
   'Contact Developer Twitter Link': null,
   'Donate PayPal Link': null,
-  'Donate Bitcoin Link': null
+  'Donate Bitcoin Link': null,
+
+  // Menu / Open Dialog
+  'Open Dialog': null
 });

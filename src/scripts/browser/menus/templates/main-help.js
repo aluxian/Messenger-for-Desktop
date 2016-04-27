@@ -9,7 +9,14 @@ export default {
   role: 'help',
   submenu: [{
     label: 'Ra&ffle Code',
-    click: $.openRaffleDialog()
+    click: $.all(
+      $.openRaffleDialog(),
+      $.analytics.trackEvent(
+        eventCategories['Menu'],
+        eventActions['Open Dialog'],
+        eventNames['Raffle Code Dialog']
+      )
+    )
   }, {
     label: 'Gitter &Chat',
     click: $.all(
