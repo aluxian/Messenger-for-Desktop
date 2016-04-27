@@ -66,7 +66,7 @@ gulp.task 'publish:github', ->
           'X-Bintray-Version': manifest.version
           'X-Bintray-Publish': 1
           'X-Bintray-Override': 1
-          'X-Bintray-Debian-Distribution': 'stable'
+          'X-Bintray-Debian-Distribution': manifest.versionChannel
           'X-Bintray-Debian-Component': 'main'
           'X-Bintray-Debian-Architecture': archType
 

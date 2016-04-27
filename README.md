@@ -25,6 +25,14 @@ Whatsie is still in beta, so some features might not work properly. Bug reports 
 
 ## How to install
 
+**Note:** If you download from the releases page, be careful what version you pick. Releases that end with `-beta` are beta releases, the ones that end with `-dev` are development releases, and the rest are stable. If you're unsure which to pick, opt for stable. Once you download the app, you'll be able to switch to another channel from the menu.
+
+- **dev:** these releases get the newest and hottest features, but they are less tested and might break things
+- **beta:** these releases are the right balance between getting new features early while staying away from nasty bugs
+- **stable:** these releases are more thoroughly tested; they receive new features later, but there's a lower chance that things will go wrong
+
+If you want to help me make Whatsie better, I recommend `dev` or `beta`. Let's go!
+
 ### OS X
 
 1. Download [whatsie-x.x.x-osx.dmg][LR] or [whatsie-x.x.x-osx.zip][LR]
@@ -42,7 +50,7 @@ Whatsie is still in beta, so some features might not work properly. Bug reports 
 *Portable:*
 
 1. Download [whatsie-x.x.x-win32-portable.zip][LR]
-2. Extract the zip and run the app
+2. Extract the zip wherever you want (e.g. a flash drive) and run the app from there
 3. Done! The app will NOT update automatically, but you can still check for updates
 
 ### Linux
@@ -51,14 +59,21 @@ Whatsie is still in beta, so some features might not work properly. Bug reports 
 
 1. Download [whatsie-x.x.x-linux-arch.deb][LR]
 2. Double click and install, or run `dpkg -i whatsie-x.x.x-linux-arch.deb` in the terminal
-3. Done! The app will NOT update automatically, but you can still check for updates
+3. Start the app with your app launcher or by running `whatsie` in a terminal
+4. Done! The app will NOT update automatically, but you can still check for updates
 
-You can also use aptitude:
+You can also use aptitude (recommended):
 
 ```
+# Download my gpg key to make sure the deb you download is correct
 gpg --keyserver pool.sks-keyservers.net --recv-keys 1537994D
 gpg --export --armor 1537994D | sudo apt-key add -
-echo "deb https://dl.bintray.com/aluxian/deb stable main" | sudo tee -a /etc/apt/sources.list
+
+# Add my repository to your sources list (skip if you've done this already)
+# Replace <channel> with stable, beta or dev (pick stable if you're unsure)
+echo "deb https://dl.bintray.com/aluxian/deb <channel>" | sudo tee -a /etc/apt/sources.list
+
+# Install Whatsie
 sudo apt-get update
 sudo apt-get install whatsie
 ```
@@ -67,12 +82,16 @@ sudo apt-get install whatsie
 
 1. Download [whatsie-x.x.x-linux-arch.rpm][LR]
 2. Double click and install, or run `rpm -ivh whatsie-x.x.x-linux-arch.rpm` in the terminal
-3. Done! The app will NOT update automatically, but you can still check for updates
+3. Start the app with your app launcher or by running `whatsie` in a terminal
+4. Done! The app will NOT update automatically, but you can still check for updates
 
 You can also use yum:
 
 ```
+# Add my repository to your repos list (skip if you've done this already)
 sudo wget https://bintray.com/aluxian/rpm/rpm -O /etc/yum.repos.d/bintray-aluxian-rpm.repo
+
+# Install Whatsie
 sudo yum install whatsie.i386     # for 32-bit distros
 sudo yum install whatsie.x86_64   # for 64-bit distros
 ```
@@ -80,7 +99,8 @@ sudo yum install whatsie.x86_64   # for 64-bit distros
 *Arch Linux (AUR):*
 
 1. Simply run `yaourt -S whatsie`
-2. Done! The app will NOT update automatically, but you can still check for updates
+3. Start the app with your app launcher or by running `whatsie` in a terminal
+3. Done! The app will NOT update automatically, but you can still check for updates
 
 Repository URL: https://aur.archlinux.org/packages/whatsie/
 

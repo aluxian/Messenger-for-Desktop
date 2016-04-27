@@ -1,7 +1,6 @@
 [{
   "version": "2.0.14-beta",
   "releasedAt": 1460871803000,
-  "distribution": "main",
   "urgency": "low",
   "changes": [
     "Improve the ordering of menu items (Linux, Windows).",
@@ -16,7 +15,6 @@
 }, {
   "version": "2.0.13-beta",
   "releasedAt": 1460831791000,
-  "distribution": "main",
   "urgency": "low",
   "changes": [
     "Use dictionaries from Hunspell (Linux, Windows).",
@@ -28,7 +26,6 @@
 }, {
   "version": "2.0.12",
   "releasedAt": 1460793021000,
-  "distribution": "main",
   "urgency": "low",
   "changes": [
     "Fix rpm build having inconsistent dependencies.",
@@ -43,7 +40,6 @@
 }, {
   "version": "2.0.11-beta",
   "releasedAt": 1460653667000,
-  "distribution": "main",
   "urgency": "low",
   "changes": [
     "Fix auto-launch on startup (Linux).",
@@ -60,7 +56,6 @@
 }, {
   "version": "2.0.10-beta",
   "releasedAt": 1459944231000,
-  "distribution": "main",
   "urgency": "low",
   "changes": [
     "Fix the WAFD cleaner removing other files, too.",
@@ -71,7 +66,6 @@
 }, {
   "version": "2.0.9-beta",
   "releasedAt": 1459771571000,
-  "distribution": "main",
   "urgency": "low",
   "changes": [
     "Improve the WhatsApp for Desktop cleaner.",
@@ -81,7 +75,6 @@
 }, {
   "version": "2.0.8-beta",
   "releasedAt": 1459571311000,
-  "distribution": "main",
   "urgency": "low",
   "changes": [
     "Update Electron to v0.37.3.",
@@ -94,7 +87,6 @@
 }, {
   "version": "2.0.7-beta",
   "releasedAt": 1458982689000,
-  "distribution": "main",
   "urgency": "low",
   "changes": [
     "Prompt user to update instead of doing it automatically on quit (Windows).",
@@ -103,7 +95,6 @@
 }, {
   "version": "2.0.6-beta",
   "releasedAt": 1458914766000,
-  "distribution": "main",
   "urgency": "low",
   "changes": [
     "Improves support for debugging.",
@@ -118,7 +109,6 @@
 }, {
   "version": "2.0.5-beta",
   "releasedAt": 1457708609000,
-  "distribution": "main",
   "urgency": "low",
   "changes": [
     "Adds support for raffles."
@@ -126,7 +116,6 @@
 }, {
   "version": "2.0.4-beta",
   "releasedAt": 1457348491000,
-  "distribution": "main",
   "urgency": "low",
   "changes": [
     "Fixes OS X auto updater.",
@@ -135,7 +124,6 @@
 }, {
   "version": "2.0.3-beta",
   "releasedAt": 1457255232000,
-  "distribution": "main",
   "urgency": "low",
   "changes": [
     "Upgrades Electron to v0.36.10.",
@@ -144,7 +132,6 @@
 }, {
   "version": "2.0.2-beta",
   "releasedAt": 1456752731000,
-  "distribution": "main",
   "urgency": "low",
   "changes": [
     "Fixes for the auto updater.",
@@ -154,7 +141,6 @@
 }, {
   "version": "2.0.1-beta",
   "releasedAt": 1455267535000,
-  "distribution": "main",
   "urgency": "low",
   "changes": [
     "Dummy release to test the updating process."
@@ -162,7 +148,6 @@
 }, {
   "version": "2.0.0-beta",
   "releasedAt": 1450639564000,
-  "distribution": "unstable",
   "urgency": "low",
   "changes": [
     "Initial release."

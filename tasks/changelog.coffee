@@ -16,10 +16,10 @@ gulp.task 'changelog:deb', () ->
         parsedDate = new Date(release.releasedAt)
         date = moment(parsedDate).format('ddd, DD MMM YYYY HH:mm:ss ZZ')
 
-        return manifest.name + ' (' + release.version + ') ' +
-          release.distribution + '; urgency=' + release.urgency +
+        return manifest.name + ' (' + release.version.split('-')[0] + ') ' +
+          (release.version + '-stable').split('-')[1] + '; urgency=' + release.urgency +
           '\n\n' + log + '\n\n' +
-          ' -- ' + manifest.author + '  ' + date
+          '-- ' + manifest.author + '  ' + date
       .join '\n\n'
 
 gulp.task 'changelog:rpm', () ->
