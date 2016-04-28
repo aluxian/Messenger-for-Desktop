@@ -134,7 +134,8 @@ process.on('uncaughtException', function(err) {
   }
 
   // Enforce single instance
-  const isDuplicateInstance = app.makeSingleInstance(() => {
+  const isDuplicateInstance = app.makeSingleInstance((argv, cwd) => {
+    log('another instance tried to run argv:', argv, 'cwd:', cwd);
     if (global.application) {
       global.application.mainWindowManager.showOrCreate();
     }
