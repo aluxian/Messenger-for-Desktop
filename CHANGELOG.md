@@ -25,6 +25,7 @@
 - Improve dependencies.
 - Fix clicking the tray icon not showing the app.
 - Deb releases are now distributed in 3 channels (stable, beta, dev).
+- Merge notifications with the same title.
 
 ## [2.0.14-beta](https://github.com/Aluxian/Whatsie/tree/v2.0.14) (2016-17-04)
 

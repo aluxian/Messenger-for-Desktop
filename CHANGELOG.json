@@ -23,7 +23,8 @@
     "Linux": [
       "Improve dependencies.",
       "Fix clicking the tray icon not showing the app.",
-      "Deb releases are now distributed in 3 channels (stable, beta, dev)."
+      "Deb releases are now distributed in 3 channels (stable, beta, dev).",
+      "Merge notifications with the same title."
     ]
   }
 }, {
