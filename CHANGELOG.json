@@ -1,5 +1,34 @@
 [{
-  "version": "2.0.14-beta",
+  "version": "2.0.15",
+  "channel": "beta",
+  "releasedAt": 0,
+  "urgency": "low",
+  "changes": {
+    "General": [
+      "Add a new preference: close with Esc key.",
+      "Add more keyboard shortcuts to the menu.",
+      "Add an item to the tray menu to reset the window's position and size.",
+      "Add a link to FAQ in the help menu.",
+      "Show notifications count in the window's title.",
+      "Disable features that are not yet fully functional.",
+      "Improve logging, analytics and error reporting.",
+      "Remove the native crash reporter.",
+      "Update Electron to 0.37.7."
+    ],
+    "Linux": [
+      "Improve dependencies.",
+      "Fix clicking the tray icon not showing the app.",
+      "Deb releases are now distributed in 3 channels (stable, beta, dev)."
+    ],
+    "Windows": [
+      "Show a badge on the taskbar icon with the number of missed notifications.",
+      "Handle Squirrel (installer) error messages better.",
+      "Fix window getting stuck far off-screen."
+    ]
+  }
+}, {
+  "version": "2.0.14",
+  "channel": "beta",
   "releasedAt": 1460871803000,
   "urgency": "low",
   "changes": [
@@ -13,7 +42,8 @@
     "Add hunspell as a recommended package to the deb release."
   ]
 }, {
-  "version": "2.0.13-beta",
+  "version": "2.0.13",
+  "channel": "beta",
   "releasedAt": 1460831791000,
   "urgency": "low",
   "changes": [
@@ -25,6 +55,7 @@
   ]
 }, {
   "version": "2.0.12",
+  "channel": "stable",
   "releasedAt": 1460793021000,
   "urgency": "low",
   "changes": [
@@ -38,7 +69,8 @@
     "Update dependencies."
   ]
 }, {
-  "version": "2.0.11-beta",
+  "version": "2.0.11",
+  "channel": "beta",
   "releasedAt": 1460653667000,
   "urgency": "low",
   "changes": [
@@ -54,7 +86,8 @@
     "Improve WAFD cleaner."
   ]
 }, {
-  "version": "2.0.10-beta",
+  "version": "2.0.10",
+  "channel": "beta",
   "releasedAt": 1459944231000,
   "urgency": "low",
   "changes": [
@@ -64,7 +97,8 @@
     "Update how items are grouped in the Help menu."
   ]
 }, {
-  "version": "2.0.9-beta",
+  "version": "2.0.9",
+  "channel": "beta",
   "releasedAt": 1459771571000,
   "urgency": "low",
   "changes": [
@@ -73,7 +107,8 @@
     "Fix category displayed incorrectly on Linux."
   ]
 }, {
-  "version": "2.0.8-beta",
+  "version": "2.0.8",
+  "channel": "beta",
   "releasedAt": 1459571311000,
   "urgency": "low",
   "changes": [
@@ -85,7 +120,8 @@
     "Fix WAFD cleaner."
   ]
 }, {
-  "version": "2.0.7-beta",
+  "version": "2.0.7",
+  "channel": "beta",
   "releasedAt": 1458982689000,
   "urgency": "low",
   "changes": [
@@ -93,7 +129,8 @@
     "Disable the crash reporter if stats reporting is disabled."
   ]
 }, {
-  "version": "2.0.6-beta",
+  "version": "2.0.6",
+  "channel": "beta",
   "releasedAt": 1458914766000,
   "urgency": "low",
   "changes": [
@@ -107,14 +144,16 @@
     "Fix for crash in Windows auto launcher."
   ]
 }, {
-  "version": "2.0.5-beta",
+  "version": "2.0.5",
+  "channel": "beta",
   "releasedAt": 1457708609000,
   "urgency": "low",
   "changes": [
     "Adds support for raffles."
   ]
 }, {
-  "version": "2.0.4-beta",
+  "version": "2.0.4",
+  "channel": "beta",
   "releasedAt": 1457348491000,
   "urgency": "low",
   "changes": [
@@ -122,7 +161,8 @@
     "Improved logging."
   ]
 }, {
-  "version": "2.0.3-beta",
+  "version": "2.0.3",
+  "channel": "beta",
   "releasedAt": 1457255232000,
   "urgency": "low",
   "changes": [
@@ -130,7 +170,8 @@
     "Upgrades dependencies."
   ]
 }, {
-  "version": "2.0.2-beta",
+  "version": "2.0.2",
+  "channel": "beta",
   "releasedAt": 1456752731000,
   "urgency": "low",
   "changes": [
@@ -139,14 +180,16 @@
     "Improved logging."
   ]
 }, {
-  "version": "2.0.1-beta",
+  "version": "2.0.1",
+  "channel": "beta",
   "releasedAt": 1455267535000,
   "urgency": "low",
   "changes": [
     "Dummy release to test the updating process."
   ]
 }, {
-  "version": "2.0.0-beta",
+  "version": "2.0.0",
+  "channel": "beta",
   "releasedAt": 1450639564000,
   "urgency": "low",
   "changes": [
