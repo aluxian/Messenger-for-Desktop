@@ -77,6 +77,7 @@ export default {
     id: 'spell-checker-auto-correct',
     type: 'checkbox',
     label: '&Auto Correct Spelling Mistakes',
+    allow: false,
     click: $.all(
       $.sendToWebView('spell-checker', $.pref('spell-checker-check'), $.key('checked'), $.pref('spell-checker-language')),
       $.setPref('spell-checker-auto-correct', $.key('checked'))
