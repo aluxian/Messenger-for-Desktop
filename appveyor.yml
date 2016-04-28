@@ -54,3 +54,7 @@ deploy_script:
 
 artifacts:
   - path: dist\*
+
+notifications:
+  - provider: Webhook
+    url: https://webhooks.gitter.im/e/676ac0f0c100c8d70e7c

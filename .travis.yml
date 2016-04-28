@@ -56,3 +56,5 @@ cache:
 
 notifications:
   email: false
+  webhooks:
+    - https://webhooks.gitter.im/e/2c65a3d61901add4556f

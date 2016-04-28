@@ -46,3 +46,7 @@ deployment:
       - gulp publish:github --verbose
       - gulp publish:bintray:deb --verbose
       - gulp publish:bintray:rpm --verbose
+
+notify:
+  webhooks:
+    - url: https://webhooks.gitter.im/e/5d0ef61f9481b64c412e
