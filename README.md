@@ -62,7 +62,7 @@ If you want to help me make Whatsie better, I recommend `dev` or `beta`. Let's g
 3. Start the app with your app launcher or by running `whatsie` in a terminal
 4. Done! The app will NOT update automatically, but you can still check for updates
 
-You can also use aptitude (recommended):
+You can also use `apt-get` (recommended):
 
 ```
 # Download my gpg key to make sure the deb you download is correct
