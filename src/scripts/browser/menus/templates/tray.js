@@ -2,6 +2,11 @@ import platform from 'common/utils/platform';
 import $ from 'browser/menus/expressions';
 
 export default [{
+  label: 'Reset Window',
+  click: $.resetWindow()
+}, {
+  type: 'separator'
+}, {
   id: 'show-tray',
   type: 'checkbox',
   label: 'Show in Menu Bar',
