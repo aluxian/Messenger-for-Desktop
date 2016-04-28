@@ -24,7 +24,13 @@ class MainWindowManager extends EventEmitter {
   createWindow() {
     log('creating main window');
 
-    const bounds = prefs.get('window-bounds');
+    let bounds = prefs.get('window-bounds');
+    if (!this.windowBoundsAreValid(bounds)) {
+      log('invalid window bounds, using default', bounds);
+      bounds = prefs.getDefault('window-bounds');
+      prefs.unset('window-bounds');
+    }
+
     const defaultOptions = {
       title: this.initialTitle,
       backgroundColor: '#f2f2f2',
@@ -55,6 +61,8 @@ class MainWindowManager extends EventEmitter {
     this.window.on('close', ::this.onClose);
     this.window.on('focus', ::this.onFocus);
     this.window.on('blur', ::this.onBlur);
+    this.window.on('show', ::this.onShow);
+    this.window.on('hide', ::this.onHide);
 
     // Save the bounds on resize or move
     const saveBounds = debounce(::this.saveBounds, 500);
@@ -71,6 +79,13 @@ class MainWindowManager extends EventEmitter {
 
     // Finally, load the app html
     this.window.loadURL(global.manifest.baseUrl + '/html/app.html');
+  }
+
+  /**
+   * Validate the window bounds by making sure they're not off-screen.
+   */
+  windowBoundsAreValid(bounds) {
+    return bounds.x != -32000 && bounds.y != -32000;
   }
 
   /**
@@ -181,18 +196,44 @@ class MainWindowManager extends EventEmitter {
    * Called when the 'focus' event is emitted.
    */
   onFocus() {
-    // Also focus the webview
     log('onFocus');
+
+    // Forward this event to the webview.
     this.window.webContents.send('call-webview-method', 'focus');
+
+    // Validate window bounds
+    let bounds = this.window.getBounds();
+    if (!this.windowBoundsAreValid(bounds)) {
+      log('invalid window bounds, restoring to default', bounds);
+      prefs.unset('window-bounds');
+      bounds = prefs.getDefault('window-bounds');
+      this.window.setSize(bounds.width, bounds.height, true);
+      this.window.center();
+    }
   }
 
   /**
    * Called when the 'blur' event is emitted.
    */
   onBlur() {
-    // Also blur the webview
     log('onBlur');
+
+    // Forward this event to the webview.
     this.window.webContents.send('call-webview-method', 'blur');
+  }
+
+  /**
+   * Called when the 'show' event is emitted.
+   */
+  onShow() {
+    log('onShow');
+  }
+
+  /**
+   * Called when the 'hide' event is emitted.
+   */
+  onHide() {
+    log('onHide');
   }
 
   /**
