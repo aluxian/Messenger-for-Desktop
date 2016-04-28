@@ -91,9 +91,13 @@ class MainWindowManager extends EventEmitter {
    * Called when the 'will-navigate' event is emitted.
    */
   onWillNavigate(event, url) {
-    // Don't navigate away
-    event.preventDefault();
-    log('navigation prevented', url);
+    if (global.manifest.dev) {
+      log('navigation not prevented (dev mode)', url);
+    } else {
+      // Don't navigate away
+      event.preventDefault();
+      log('navigation prevented', url);
+    }
   }
 
   /**
