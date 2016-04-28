@@ -14,6 +14,7 @@ export default keyMirror({
   'Contact Developer Twitter Link': null,
   'Donate PayPal Link': null,
   'Donate Bitcoin Link': null,
+  'FAQ Link': null,
 
   // Menu / Open Dialog
   'Open Dialog': null

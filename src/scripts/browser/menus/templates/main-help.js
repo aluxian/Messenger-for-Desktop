@@ -8,7 +8,19 @@ export default {
   label: '&Help',
   role: 'help',
   submenu: [{
-    label: 'Ra&ffle Code',
+    label: 'Frequently Asked &Questions',
+    click: $.all(
+      $.openUrl('https://whatsie.chat/#faq'),
+      $.analytics.trackEvent(
+        eventCategories['Menu'],
+        eventActions['Open Link'],
+        eventNames['FAQ Link']
+      )
+    )
+  }, {
+    type: 'separator'
+  }, {
+    label: 'Get Your Ra&ffle Code',
     click: $.all(
       $.openRaffleDialog(),
       $.analytics.trackEvent(
@@ -18,7 +30,7 @@ export default {
       )
     )
   }, {
-    label: 'Gitter &Chat',
+    label: '&Chat on Gitter',
     click: $.all(
       $.openUrl('https://gitter.im/Aluxian/Whatsie'),
       $.analytics.trackEvent(
