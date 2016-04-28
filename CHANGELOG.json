@@ -1,7 +1,7 @@
 [{
   "version": "2.0.15",
   "channel": "beta",
-  "releasedAt": 0,
+  "releasedAt": 1461840068712,
   "urgency": "low",
   "changes": {
     "General": [
@@ -15,15 +15,15 @@
       "Remove the native crash reporter.",
       "Update Electron to 0.37.7."
     ],
-    "Linux": [
-      "Improve dependencies.",
-      "Fix clicking the tray icon not showing the app.",
-      "Deb releases are now distributed in 3 channels (stable, beta, dev)."
-    ],
     "Windows": [
       "Show a badge on the taskbar icon with the number of missed notifications.",
       "Handle Squirrel (installer) error messages better.",
       "Fix window getting stuck far off-screen."
+    ],
+    "Linux": [
+      "Improve dependencies.",
+      "Fix clicking the tray icon not showing the app.",
+      "Deb releases are now distributed in 3 channels (stable, beta, dev)."
     ]
   }
 }, {
