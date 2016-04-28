@@ -143,7 +143,7 @@ process.on('uncaughtException', function(err) {
 
   // Quit if another instance is already running
   if (isDuplicateInstance) {
-    log('another instance of the app is already running');
+    console.log('Another instance of ' + global.manifest.productName + ' is already running.');
     return app.quit();
   }
 
