@@ -138,7 +138,6 @@ process.on('uncaughtException', function(err) {
     if (global.application) {
       global.application.mainWindowManager.showOrCreate();
     }
-    return true;
   });
 
   // Quit if another instance is already running
