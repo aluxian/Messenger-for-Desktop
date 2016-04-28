@@ -183,7 +183,6 @@ ipcr.on('switch-conversation', function(event, indexDelta) {
   function makeActive(item) {
     const chat = item.querySelector('.chat');
     if (chat) {
-      log('make active');
       dispatchClick(chat);
     }
   }

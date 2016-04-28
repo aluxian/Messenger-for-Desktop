@@ -15,10 +15,10 @@ function bindSwitchConversation(keys, delta) {
 }
 
 // Previous chat
-bindSwitchConversation('ctrl+shift+tab', -1);
+bindSwitchConversation(['mod+up', 'ctrl+shift+tab'], -1);
 
 // Next chat
-bindSwitchConversation('ctrl+tab', +1);
+bindSwitchConversation(['mod+down', 'ctrl+tab'], +1);
 
 // Close with Esc
 Mousetrap.bind('esc', function() {

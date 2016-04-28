@@ -61,12 +61,10 @@ export default {
     type: 'separator'
   }, {
     label: '&Next Conversation',
-    accelerator: 'Alt+Down',
-    click: $.sendToWebView('switch-conversation', $.val(+1))
+    accelerator: 'CmdOrCtrl+Down'
   }, {
     label: '&Previous Conversation',
-    accelerator: 'Alt+Up',
-    click: $.sendToWebView('switch-conversation', $.val(-1))
+    accelerator: 'CmdOrCtrl+Up'
   }, {
     label: 'Switch to Conversation',
     submenu: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(index => ({
