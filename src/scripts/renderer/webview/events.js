@@ -7,7 +7,7 @@ import webView from 'renderer/webview';
  * Forward a message to the webview.
  */
 ipcr.on('fwd-webview', function(event, channel, ...args) {
-  if (!webView.isLoading()) {
+  if (webView.isLoading && (typeof webView.isLoading == 'function') && !webView.isLoading()) {
     webView.send(channel, ...args);
   } else {
     const onLoaded = function() {
