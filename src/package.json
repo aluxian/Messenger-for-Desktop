@@ -64,7 +64,8 @@
   },
   "virtualUrl": "https://app.whatsie.chat",
   "piwik": {
-    "serverUrl": "{{& PIWIK_SERVER_URL }}"
+    "serverUrl": "{{& PIWIK_SERVER_URL }}",
+    "siteId": "1"
   },
   "sentry": {
     "dsn": "{{& SENTRY_DSN_PRIVATE }}"

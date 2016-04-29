@@ -27,7 +27,7 @@ if (global.manifest.dev) {
       piwikTracker.setCustomDimension(4, activeTheme); // Theme
       piwikTracker.setCustomDimension(5, activeSpellCheckerLang); // Spell Checker Language
       piwikTracker.setUserId(getUserId());
-      piwikTracker.setSiteId(1);
+      piwikTracker.setSiteId(global.manifest.piwik.siteId);
       piwikTracker.trackPageView();
       log('piwik analytics instance created');
     } catch (err) {
