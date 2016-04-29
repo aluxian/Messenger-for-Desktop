@@ -4,38 +4,28 @@ import path from 'path';
 import app from 'app';
 
 import BaseAutoLauncher from 'browser/components/auto-launcher/base';
+import files from 'common/utils/files';
+
+const plistName = global.manifest.darwin.bundleId + '.plist';
+const plistPath = path.join(app.getPath('home'), 'Library', 'LaunchAgents', plistName);
 
 class DarwinAutoLauncher extends BaseAutoLauncher {
 
   async enable() {
-    log('writing login plist');
-    await fs.writeFileAsync(this.getPlistPath(), this.buildPlist(), 'utf8');
+    log('enabling darwin auto-launch');
+    log('creating login plist');
+    await files.replaceFile(plistPath, () => fs.writeFileAsync(plistPath, this.buildPlist(), 'utf8'));
   }
 
   async disable() {
+    log('disabling linux auto-launch');
     log('removing login plist');
-    await fs.removeAsync(this.getPlistPath());
+    await fs.removeAsync(plistPath);
   }
 
   async isEnabled() {
-    log('checking login plist access');
-    try {
-      const plistPath = this.getPlistPath();
-      await fs.accessAsync(plistPath, fs.R_OK | fs.W_OK);
-      const stats = await fs.lstatAsync(plistPath);
-      if (!stats.isFile()) {
-        throw new Error('not a file');
-      }
-    } catch (err) {
-      log('login plist access error', err);
-      return false;
-    }
-    return true;
-  }
-
-  getPlistPath() {
-    const plistName = global.manifest.darwin.bundleId + '.plist';
-    return path.join(app.getPath('home'), 'Library', 'LaunchAgents', plistName);
+    log('checking darwin auto-launch');
+    await files.isFileExists(plistPath);
   }
 
   buildPlist() {

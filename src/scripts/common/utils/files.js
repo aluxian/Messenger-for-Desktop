@@ -35,8 +35,47 @@ function getDictionariesSync(dirPath) {
   return dictionaries;
 }
 
+/**
+ * Verify it's not a directory and the app can access it.
+ * If it's invalid, purge it and write it again.
+ * If it already exists, it's left untouched.
+ */
+async function replaceFile(filePath, writePromise) {
+  try {
+    await fs.accessAsync(filePath, fs.R_OK | fs.W_OK);
+    const stats = await fs.lstatAsync(filePath);
+    if (!stats.isFile()) {
+      throw new Error();
+    }
+  } catch (err) {
+    // err ignored
+    // no access / does not exist
+    try {
+      await fs.removeAsync(filePath);
+    } catch (err2) {
+      // err2 ignored
+    }
+    await writePromise();
+  }
+}
+
+/**
+ * Check if the path exists, can be accessed and is a file.
+ */
+async function isFileExists(filePath) {
+  try {
+    await fs.accessAsync(filePath, fs.R_OK | fs.W_OK);
+    const stats = await fs.lstatAsync(filePath);
+    return stats.isFile();
+  } catch (err) {
+    return false;
+  }
+}
+
 export default {
   getThemeCss,
   getStyleCss,
-  getDictionariesSync
+  getDictionariesSync,
+  replaceFile,
+  isFileExists
 };
