@@ -1,8 +1,8 @@
 # Whatsie (beta)
 
 [![OS X build](https://travis-ci.org/Aluxian/Whatsie.svg?branch=deploy)](https://travis-ci.org/Aluxian/Whatsie)
-[![Windows build](https://ci.appveyor.com/api/projects/status/6vborc92ob25kqe0/branch/deploy?svg=true)](https://ci.appveyor.com/project/Aluxian/whatsie/branch/deploy)
-[![Linux builds](https://circleci.com/gh/Aluxian/Whatsie/tree/deploy.svg?style=shield)](https://circleci.com/gh/Aluxian/Whatsie/tree/deploy)
+[![Windows build](https://ci.appveyor.com/api/projects/status/6vborc92ob25kqe0/branch/deploy?svg=true)](https://ci.appveyor.com/project/Aluxian/Whatsie)
+[![Linux builds](https://circleci.com/gh/Aluxian/Whatsie/tree/deploy.svg?style=shield)](https://circleci.com/gh/Aluxian/Whatsie)
 [![Code Climate](https://codeclimate.com/github/Aluxian/Whatsie/badges/gpa.svg)](https://codeclimate.com/github/Aluxian/Whatsie)
 [![Dependencies status](https://david-dm.org/Aluxian/Whatsie/status.svg)](https://david-dm.org/Aluxian/Whatsie#info=dependencies)
 [![HuBoard task board](https://img.shields.io/badge/hu-board-7965cc.svg)](https://huboard.com/Aluxian/Whatsie)
