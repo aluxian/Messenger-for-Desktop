@@ -1,5 +1,4 @@
 gulp = require 'gulp'
-livereload = require 'gulp-livereload'
 manifest = require '../src/package.json'
 {platform, applySpawn} = require './utils'
 args = require './args'
@@ -14,9 +13,6 @@ args = require './args'
   [dist, runnablePath] = item
 
   gulp.task 'watch:' + dist, ['build:' + dist], ->
-    # Start livereload
-    livereload.listen()
-
     # Launch the app
     console.log 'initial spawn' if args.verbose
     applySpawn(runnablePath, [], {stdio: 'inherit'})()

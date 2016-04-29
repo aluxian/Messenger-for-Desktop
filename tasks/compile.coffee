@@ -12,8 +12,6 @@ less = require 'gulp-less'
 babel = require 'gulp-babel'
 gif = require 'gulp-if'
 
-embedlr = require 'gulp-embedlr'
-livereload = require 'gulp-livereload'
 {platform} = require './utils'
 manifest = require '../src/package.json'
 args = require './args'
@@ -37,7 +35,6 @@ args = require './args'
       .pipe less()
       .pipe plumber.stop()
       .pipe gulp.dest dir + '/styles'
-      .pipe livereload()
 
   # Compile scripts
   gulp.task 'compile:' + dist + ':scripts', ['clean:build:' + dist], ->
@@ -75,30 +72,22 @@ args = require './args'
       .pipe rename (path) ->
         path.basename = path.basename.toLowerCase()
       .pipe gulp.dest dir + '/themes'
-      .pipe livereload()
 
   # Move images
   gulp.task 'compile:' + dist + ':images', ['clean:build:' + dist], ->
-    gulp.src [
-      './src/images/**/*.png',
-      './src/images/**/*.jpg'
-    ]
+    gulp.src './src/images/**/*'
       .pipe gulp.dest dir + '/images'
 
   # Move html files
   gulp.task 'compile:' + dist + ':html', ['clean:build:' + dist], ->
     gulp.src './src/html/**/*.html'
       .pipe mustache manifest
-      .pipe embedlr
-        src: 'http://localhost:35729/livereload.js?snipver=1'
       .pipe gulp.dest dir + '/html'
-      .pipe livereload()
 
   # Move the node modules
   gulp.task 'compile:' + dist + ':deps', ['clean:build:' + dist], ->
     gulp.src './src/node_modules/**/*'
       .pipe gulp.dest dir + '/node_modules'
-      .pipe livereload()
 
   # Move package.json
   gulp.task 'compile:' + dist + ':package', ['clean:build:' + dist], ->
