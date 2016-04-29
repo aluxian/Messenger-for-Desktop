@@ -1,8 +1,6 @@
 import dialog from 'dialog';
 import debug from 'debug';
 import yargs from 'yargs';
-import path from 'path';
-import url from 'url';
 import app from 'app';
 
 import prefs from 'browser/utils/prefs';
@@ -86,10 +84,7 @@ process.on('uncaughtException', function(err) {
   }
 
   // Log args
-  const simplifiedOptions = {};
-  Object.keys(options).filter(key => !key.includes('-'))
-    .forEach(key => simplifiedOptions[key] = options[key]);
-  log('cli args parsed', simplifiedOptions);
+  log('cli args parsed', JSON.stringify(options));
 
   // Check for debug mode
   if (options.debug) {
@@ -104,7 +99,7 @@ process.on('uncaughtException', function(err) {
   // Change the userData path if in portable mode
   if (options.portable) {
     log('running in portable mode');
-    const userDataPath = path.join(filePaths.getAppDirPath(), 'data');
+    const userDataPath = filePaths.getCustomUserDataPath();
     log('setting userData path', userDataPath);
     app.setPath('userData', userDataPath);
   }
@@ -149,17 +144,22 @@ process.on('uncaughtException', function(err) {
 
   // Listen for app ready-ness
   app.on('ready', function() {
-    log('ready, registering protocol', global.manifest.name);
+    log('ready');
     const protocol = require('protocol');
-    protocol.registerFileProtocol(global.manifest.name, function(request, callback) {
-      log('protocol handle', request.url);
-      callback({
-        path: path.join(app.getAppPath(), url.parse(request.url).pathname)
-      });
-    }, function (err) {
+
+    log('intercepting protocol https');
+    protocol.interceptHttpProtocol('https', function(request, callback) {
+      if (request.url.indexOf(global.manifest.virtualUrl) === 0) {
+        const newPath = request.url.replace(global.manifest.virtualUrl, 'file://' + app.getAppPath());
+        const newPathShort = request.url.replace(global.manifest.virtualUrl, 'file://<app>');
+        log('intercepted https', request.method, request.url, '=>', newPathShort);
+        request.url = newPath;
+        callback(request);
+      }
+    }, function(err) {
       if (err) {
         logFatal(err);
-        log('protocol registration failed, not going to launch the app anymore');
+        log('intercepting protocol https failed, not going to launch the app anymore');
         return;
       }
 

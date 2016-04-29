@@ -62,7 +62,7 @@
     "type": "git",
     "url": "https://github.com/Aluxian/Whatsie.git"
   },
-  "baseUrl": "whatsie://app.whatsie.chat",
+  "virtualUrl": "https://app.whatsie.chat",
   "piwik": {
     "serverUrl": "{{& PIWIK_SERVER_URL }}"
   },

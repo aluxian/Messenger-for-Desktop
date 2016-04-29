@@ -78,7 +78,7 @@ class MainWindowManager extends EventEmitter {
     }
 
     // Finally, load the app html
-    this.window.loadURL(global.manifest.baseUrl + '/html/app.html');
+    this.window.loadURL(global.manifest.virtualUrl + '/html/app.html');
   }
 
   /**

@@ -1,8 +1,6 @@
 import path from 'path';
 import app from 'common/electron/app';
 
-import platform from 'common/utils/platform';
-
 /**
  * @return the theme's css path
  */
@@ -25,31 +23,25 @@ function getImagePath(name) {
 }
 
 /**
- * On Darwin: the path to the Resources folder
- * On Windows: the path to the dir of the app executable
- * On Linux: the path to the dir of the app executable
+ * Windows only.
  * @return the directory where the app is ran from
  */
-function getAppDirPath() {
-  const exeDir = path.dirname(app.getPath('exe'));
-  if (platform.isDarwin) {
-    return path.join(exeDir, '..', '..', 'Resources');
-  } else {
-    return exeDir;
-  }
+function getCustomUserDataPath() {
+  return path.join(path.dirname(app.getPath('exe')), 'data');
 }
 
 /**
+ * Windows only.
  * @return the path to Update.exe created by Squirrel.Windows
  */
 function getSquirrelUpdateExePath() {
-  return path.join(getAppDirPath(), '..', 'Update.exe');
+  return path.join(path.dirname(app.getPath('exe')), '..', 'Update.exe');
 }
 
 export default {
   getThemePath,
   getStylePath,
   getImagePath,
-  getAppDirPath,
+  getCustomUserDataPath,
   getSquirrelUpdateExePath
 };
