@@ -9,7 +9,8 @@ webView.setAttribute('useragent', navigator.userAgent);
 webView.setAttribute('src', global.manifest.wvUrl);
 
 // Fix preload requiring file:// protocol
-const preloadPath = path.join('file://', app.getAppPath(), 'html', webView.getAttribute('preload'));
+let preloadPath = webView.getAttribute('preload');
+preloadPath = 'file://' + path.join(app.getAppPath(), 'html', preloadPath);
 webView.setAttribute('preload', preloadPath);
 
 export default webView;
