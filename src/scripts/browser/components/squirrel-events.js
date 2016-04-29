@@ -73,11 +73,11 @@ class SquirrelEvents {
               const displayMessage = global.manifest.productName +
                 ' doesn\'t have permission to remove one of the files or folders.';
               showErrorDialog(displayMessage, err.message, files);
-              log(err);
+              logError(err, true);
             } else if (err.code == 'EBUSY') {
               const displayMessage = 'One of the files or folders is being used by another program.';
               showErrorDialog(displayMessage, err.message, files);
-              log(err);
+              logError(err, true);
             } else {
               logError(err);
             }

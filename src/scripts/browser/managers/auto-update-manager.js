@@ -85,14 +85,11 @@ class AutoUpdateManager extends EventEmitter {
   initErrorListener() {
     AutoUpdater.on('error', (err) => {
       log('auto updater error');
-      if (err.message && (
+      const isIgnored = err.message && (
         IGNORED_ERRORS.network.find(msg => err.message.includes(msg))
         || IGNORED_ERRORS.multiInstance.find(msg => err.message.includes(msg))
-      )) {
-        log(err);
-      } else {
-        logError(err);
-      }
+      );
+      logError(err, isIgnored);
     });
   }
 

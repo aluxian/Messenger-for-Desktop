@@ -75,7 +75,7 @@ export function debugLogger(filename) {
   };
 }
 
-export function errorLogger(filename, isFatal) {
+export function errorLogger(filename, isFatal, skipReporting) {
   let namespace = null;
   return function(err) {
     if (!namespace) {
@@ -89,7 +89,9 @@ export function errorLogger(filename, isFatal) {
     const browserLogger = require('common/utils/logger-browser').default;
     browserLogger.printError(namespace, isFatal, util.format(err));
 
-    reportToPiwik(namespace, isFatal, err);
-    reportToSentry(namespace, isFatal, err);
+    if (!skipReporting) {
+      reportToPiwik(namespace, isFatal, err);
+      reportToSentry(namespace, isFatal, err);
+    }
   };
 }
