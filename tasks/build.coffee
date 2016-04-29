@@ -84,7 +84,7 @@ gulp.task 'build:darwin64', ['resources:darwin', 'compile:darwin64', 'clean:buil
       # Move the app's startup.desktop file
       (callback) ->
         fromPath = './build/resources/linux/startup.desktop'
-        toPath = './build/' + dist + '/etc/xdg/autostart/' + manifest.name + '.desktop'
+        toPath = './build/' + dist + '/opt/' + manifest.name + '/resources/app/startup.desktop'
         fs.copy fromPath, toPath, utils.log callback, fromPath, '=>', toPath
 
       # Move icons

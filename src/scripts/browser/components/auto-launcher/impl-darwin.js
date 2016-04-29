@@ -14,13 +14,18 @@ class DarwinAutoLauncher extends BaseAutoLauncher {
 
   async disable() {
     log('removing login plist');
-    await fs.unlinkAsync(this.getPlistPath());
+    await fs.removeAsync(this.getPlistPath());
   }
 
   async isEnabled() {
     log('checking login plist access');
     try {
-      await fs.accessAsync(this.getPlistPath(), fs.R_OK | fs.W_OK);
+      const plistPath = this.getPlistPath();
+      await fs.accessAsync(plistPath, fs.R_OK | fs.W_OK);
+      const stats = await fs.lstatAsync(plistPath);
+      if (!stats.isFile()) {
+        throw new Error('not a file');
+      }
     } catch (err) {
       log('login plist access error', err);
       return false;
