@@ -323,7 +323,9 @@ gulp.task 'pack:win32:installer', ['build:win32', 'clean:dist:win32'], (done) ->
         process.env.SIGN_WIN_CERTIFICATE_PASSWORD
       ]
 
-      remoteReleasesUrl = manifest.updater.urls.win32.replace /%CHANNEL%/g, 'dev'
+      remoteReleasesUrl = manifest.updater.urls.win32
+        .replace /{{& SQUIRREL_UPDATES_URL }}/g, process.env.SQUIRREL_UPDATES_URL
+        .replace /%CHANNEL%/g, 'dev'
       releasesUrl = remoteReleasesUrl + '/RELEASES'
 
       request {url: releasesUrl}, (err, res, body) ->
