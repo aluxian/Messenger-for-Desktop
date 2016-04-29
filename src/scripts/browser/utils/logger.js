@@ -1,13 +1,17 @@
 import colors from 'colors/safe';
 
+function getCleanISODate() {
+  return new Date().toISOString().replace(/[TZ]/g, ' ').trim();
+}
+
 export function printDebug() {
   console.log(...arguments);
   const fileLogger = require('browser/utils/file-logger');
-  fileLogger.writeLog(...arguments);
+  fileLogger.writeLog(`DEBUG [${getCleanISODate()}]`, ...arguments);
 }
 
 export function printError(namespace, isFatal, err) {
-  const errorPrefix = `[${new Date().toUTCString()}] ${namespace}:`;
+  const errorPrefix = `${isFatal ? 'FATAL' : 'ERROR'} [${getCleanISODate()}]   ${namespace}:`;
   if (isFatal) {
     console.error(colors.white.bold.bgMagenta(errorPrefix), err);
   } else {
