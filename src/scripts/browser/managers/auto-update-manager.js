@@ -14,27 +14,6 @@ const STATES = keyMirror({
   UPDATE_DOWNLOADED: null
 });
 
-const IGNORED_ERRORS = {
-  network: [
-    'The request timed out.',
-    'The network connection was lost.',
-    'Se ha agotado el tiempo de espera.',
-    'An SSL error has occurred and a secure connection to the server cannot be made.',
-    'System.Net.WebException: The request was aborted: The connection was closed unexpectedly.',
-    'System.Net.WebException: The underlying connection was closed: Could not establish trust'
-      + ' relationship for the SSL/TLS secure channel.',
-    'System.Net.WebException: The remote name could not be resolved:',
-    'System.Net.WebException: Unable to connect to the remote server',
-    'Update download failed',
-    'getaddrinfo EAI_AGAIN',
-    'getaddrinfo ENOTFOUND',
-    'connect ETIMEDOUT'
-  ],
-  multiInstance: [
-    'System.Exception: Couldn\'t acquire lock, is another instance running'
-  ]
-};
-
 class AutoUpdateManager extends EventEmitter {
 
   constructor(mainWindowManager) {
@@ -85,11 +64,7 @@ class AutoUpdateManager extends EventEmitter {
   initErrorListener() {
     AutoUpdater.on('error', (err) => {
       log('auto updater error');
-      const isIgnored = err.message && (
-        IGNORED_ERRORS.network.find(msg => err.message.includes(msg))
-        || IGNORED_ERRORS.multiInstance.find(msg => err.message.includes(msg))
-      );
-      logError(err, isIgnored);
+      logError(err, true);
     });
   }
 
@@ -209,24 +184,12 @@ class AutoUpdateManager extends EventEmitter {
 
   onCheckError(err) {
     log('onCheckError:', err);
-    let detailMessage;
-
-    if (err.message && IGNORED_ERRORS.network.find(msg => err.message.includes(msg))) {
-      detailMessage = global.manifest.productName + ' could not connect to the updates server.'
-        + ' Please make sure you have a working internet connection.'
-        + '\n\nERR: ' + err.message;
-    } else if (err.message && IGNORED_ERRORS.multiInstance.find(msg => err.message.includes(msg))) {
-      detailMessage = global.manifest.productName + ' could not acquire a lock.'
-        + ' Is another instance of ' + global.manifest.productName + ' running or is another app using its files?'
-        + '\n\nERR: ' + err.message;
-    } else {
-      detailMessage = err.message;
-    }
-
     dialog.showMessageBox({
       type: 'error',
       message: 'Error while checking for update.',
-      detail: detailMessage,
+      detail: global.manifest.productName + ' could not connect to the updates server.'
+        + ' Please make sure you have a working internet connection and try again.'
+        + '\n\nERR: ' + (err.message || '').substr(0, 1024),
       buttons: ['OK']
     }, function() {});
   }

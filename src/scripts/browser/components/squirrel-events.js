@@ -55,7 +55,7 @@ class SquirrelEvents {
 
       let originalErrMsg = '';
       if (errMsg) {
-        originalErrMsg = '\n\nERR: ' + errMsg;
+        originalErrMsg = '\n\nERR: ' + errMsg.substr(0, 1024);
       }
 
       dialog.showMessageBox({
