@@ -17,12 +17,18 @@ gulp.task 'publish:github', ->
     return console.warn 'GITHUB_TOKEN env var not set.'
 
   channelAppend = ''
-  if manifest.versionChannel == 'stable'
+  if manifest.versionChannel != 'stable'
     channelAppend = '-' + manifest.versionChannel
 
-  notes = ''
-  if changelogJson[0].version == manifest.version + '-' + manifest.versionChannel
-    notes = changelogJson[0].changes.map(l => '- ' + l).join('\n')
+  release = changelogJson[0]
+  log = []
+  for key in Object.keys(release.changes)
+    logs = release.changes[key]
+      .map (line) -> '- ' + line
+      .join '\n'
+    log.push '\n**' + key + '**\n'
+    log.push logs
+  changelog = log.join '\n'
 
   gulp.src './dist/*'
     .pipe githubRelease
@@ -33,7 +39,7 @@ gulp.task 'publish:github', ->
       draft: true
       tag: 'v' + manifest.version
       name: 'v' + manifest.version + channelAppend
-      notes: notes
+      notes: changelog.trim()
 
 # Upload deb and RPM packages to Bintray
 ['deb', 'rpm'].forEach (dist) ->
