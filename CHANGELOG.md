@@ -13,7 +13,7 @@
 - Improve logging, analytics and error reporting.
 - Remove the native crash reporter.
 - Update dependencies, remove redundant ones.
-- Update Electron to 0.37.7.
+- Update Electron to 0.37.8.
 
 **Windows**
 
