@@ -31,7 +31,7 @@ if (global.manifest.dev) {
       piwikTracker.trackPageView();
       log('piwik analytics instance created');
     } catch (err) {
-      log(err);
+      logFatal(err);
     }
   };
 
