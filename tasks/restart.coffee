@@ -16,6 +16,7 @@ manifest = require '../src/package.json'
   [
     'compile:' + dist + ':scripts'
     'compile:' + dist + ':package'
+    'compile:' + dist + ':images'
   ].forEach (proxiedTask) ->
     gulp.task 'restart:' + proxiedTask, [proxiedTask], (done) ->
       cb = (err) ->

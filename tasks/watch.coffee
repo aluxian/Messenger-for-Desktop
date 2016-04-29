@@ -24,6 +24,7 @@ args = require './args'
     # Watch files
     gulp.watch './src/styles/**/*', ['compile:' + dist + ':styles']
     gulp.watch './src/themes/**/*', ['compile:' + dist + ':themes']
+    gulp.watch './src/images/**/*', ['restart:compile:' + dist + ':images']
     gulp.watch './src/scripts/browser/**/*', ['restart:compile:' + dist + ':scripts']
     gulp.watch './src/scripts/common/**/*', ['restart:compile:' + dist + ':scripts']
     gulp.watch './src/scripts/renderer/**/*', ['compile:' + dist + ':scripts']
