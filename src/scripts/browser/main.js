@@ -147,19 +147,19 @@ process.on('uncaughtException', function(err) {
     log('ready');
     const protocol = require('protocol');
 
-    log('intercepting protocol https');
-    protocol.interceptHttpProtocol('https', function(request, callback) {
+    log('intercepting protocol http');
+    protocol.interceptHttpProtocol('http', function(request, callback) {
       if (request.url.indexOf(global.manifest.virtualUrl) === 0) {
         const newPath = request.url.replace(global.manifest.virtualUrl, 'file://' + app.getAppPath());
         const newPathShort = request.url.replace(global.manifest.virtualUrl, 'file://<app>');
-        log('intercepted https', request.method, request.url, '=>', newPathShort);
+        log('intercepted http', request.method, request.url, '=>', newPathShort);
         request.url = newPath;
         callback(request);
       }
     }, function(err) {
       if (err) {
         logFatal(err);
-        log('intercepting protocol https failed, not going to launch the app anymore');
+        log('intercepting protocol http failed, not going to launch the app anymore');
         return;
       }
 
