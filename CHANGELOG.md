@@ -12,6 +12,7 @@
 - Disable features that are not yet fully functional.
 - Improve logging, analytics and error reporting.
 - Remove the native crash reporter.
+- Update dependencies, remove redundant ones.
 - Update Electron to 0.37.7.
 
 **Windows**
@@ -19,11 +20,13 @@
 - Show a badge on the taskbar icon with the number of missed notifications.
 - Handle Squirrel (installer) error messages better.
 - Fix window getting stuck far off-screen.
+- Use ico instead of png icons for the tray icon.
 
 **Linux**
 
-- Improve dependencies.
+- Improve deb dependencies.
 - Fix clicking the tray icon not showing the app.
+- Fix the auto launcher by simplifying the process.
 - Deb releases are now distributed in 3 channels (stable, beta, dev).
 - Merge notifications with the same title.
 
