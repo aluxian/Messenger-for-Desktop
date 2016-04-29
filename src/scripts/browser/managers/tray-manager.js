@@ -38,10 +38,11 @@ class TrayManager extends EventEmitter {
         this.tray.setTitle(this.notifManager.unreadCount);
       }
     } else {
+      const imgExt = platform.isWindows ? 'ico' : 'png';
       if (this.notifManager.unreadCount) {
-        this.tray = new Tray(filePaths.getImagePath('trayAlert.png'));
+        this.tray = new Tray(filePaths.getImagePath('trayAlert.' + imgExt));
       } else {
-        this.tray = new Tray(filePaths.getImagePath('tray.png'));
+        this.tray = new Tray(filePaths.getImagePath('tray.' + imgExt));
       }
     }
 
