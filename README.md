@@ -1,6 +1,6 @@
 # Whatsie (beta)
 
-[![OS X build](https://travis-ci.org/Aluxian/Whatsie.svg)](https://travis-ci.org/Aluxian/Whatsie)
+[![OS X build](https://travis-ci.org/Aluxian/Whatsie.svg?branch=deploy)](https://travis-ci.org/Aluxian/Whatsie)
 [![Windows build](https://ci.appveyor.com/api/projects/status/6vborc92ob25kqe0/branch/deploy?svg=true)](https://ci.appveyor.com/project/Aluxian/whatsie/branch/deploy)
 [![Linux builds](https://circleci.com/gh/Aluxian/Whatsie/tree/deploy.svg?style=shield)](https://circleci.com/gh/Aluxian/Whatsie/tree/deploy)
 [![Code Climate](https://codeclimate.com/github/Aluxian/Whatsie/badges/gpa.svg)](https://codeclimate.com/github/Aluxian/Whatsie)
