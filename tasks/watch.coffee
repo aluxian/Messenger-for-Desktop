@@ -28,6 +28,7 @@ args = require './args'
     gulp.watch './src/scripts/common/**/*', ['restart:compile:' + dist + ':scripts']
     gulp.watch './src/scripts/renderer/**/*', ['compile:' + dist + ':scripts']
     gulp.watch './src/html/**/*', ['compile:' + dist + ':html']
+    gulp.watch './src/package.json', ['restart:compile:' + dist + ':package']
 
 # Watch for the current platform by default
 gulp.task 'watch', ['watch:' + platform()]
