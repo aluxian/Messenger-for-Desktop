@@ -1,6 +1,7 @@
 general:
   branches:
     only:
+      - develop
       - deploy
   artifacts:
     - dist
@@ -38,12 +39,12 @@ test:
     - gulp rebuild:64 --verbose
     - gulp pack:linux64:deb --prod --verbose
     - gulp pack:linux64:rpm --prod --verbose
+    - gulp publish:github --verbose
 
 deployment:
   production:
     branch: deploy
     commands:
-      - gulp publish:github --verbose
       - gulp publish:bintray:deb --verbose
       - gulp publish:bintray:rpm --verbose
 

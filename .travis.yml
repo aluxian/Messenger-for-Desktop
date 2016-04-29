@@ -3,6 +3,7 @@ git:
 
 branches:
   only:
+    - develop
     - deploy
 
 os:
