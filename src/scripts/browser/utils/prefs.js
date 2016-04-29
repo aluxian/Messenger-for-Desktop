@@ -1,4 +1,4 @@
-import jsonfile from 'jsonfile';
+import fs from 'fs-extra-promise';
 import path from 'path';
 import app from 'app';
 
@@ -14,7 +14,7 @@ function ensureDataLoaded() {
 
   if (!data) {
     try {
-      data = jsonfile.readFileSync(prefsPath) || {};
+      data = fs.readJsonSync(prefsPath) || {};
       log('prefs data restored');
     } catch (err) {
       if (err.code == 'ENOENT') {
@@ -35,7 +35,7 @@ function set(key, value) {
   ensureDataLoaded();
   data[key] = value;
 
-  jsonfile.writeFile(prefsPath, data, function(err) {
+  fs.outputJson(prefsPath, data, function(err) {
     if (err) {
       logError(err);
     } else {
@@ -53,7 +53,7 @@ function setSync(key, value) {
   data[key] = value;
 
   try {
-    jsonfile.writeFileSync(prefsPath, data);
+    fs.outputJsonSync(prefsPath, data);
     log('saved', key, '=', JSON.stringify(value));
   } catch (err) {
     logError(err);
@@ -98,7 +98,7 @@ function unset(key) {
   ensureDataLoaded();
   delete data[key];
 
-  jsonfile.writeFile(prefsPath, data, function(err) {
+  fs.outputJson(prefsPath, data, function(err) {
     if (err) {
       logError(err);
     } else {
@@ -115,7 +115,7 @@ function unsetSync(key) {
   delete data[key];
 
   try {
-    jsonfile.writeFileSync(prefsPath, data);
+    fs.outputJsonSync(prefsPath, data);
     log('unset', key);
   } catch (err) {
     logError(err);
@@ -129,7 +129,7 @@ function clear() {
   ensureDataLoaded();
   data = {};
 
-  jsonfile.writeFile(prefsPath, data, function(err) {
+  fs.outputJson(prefsPath, data, function(err) {
     if (err) {
       logError(err);
     } else {

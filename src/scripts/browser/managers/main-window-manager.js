@@ -1,7 +1,7 @@
 import BrowserWindow from 'browser-window';
 import EventEmitter from 'events';
 
-import {debounce} from 'lodash';
+import debounce from 'lodash.debounce';
 import shell from 'shell';
 
 import platform from 'common/utils/platform';

@@ -1,9 +1,8 @@
 import stripAnsi from 'strip-ansi';
-import mkdirp from 'mkdirp';
+import fs from 'fs-extra-promise';
 import util from 'util';
 import path from 'path';
 import app from 'app';
-import fs from 'fs';
 import os from 'os';
 
 let fileLogStream = null;
@@ -22,7 +21,7 @@ function initFileLogging() {
 
   try {
     const fileLogsDir = path.join(app.getPath('userData'), 'logs');
-    mkdirp.sync(fileLogsDir);
+    fs.mkdirsSync(fileLogsDir);
 
     const fileLogPath = path.join(fileLogsDir, Date.now() + '.log');
     fileLogStream = fs.createWriteStream(null, {
