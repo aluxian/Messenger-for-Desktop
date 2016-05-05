@@ -90,6 +90,10 @@ Contributions are welcome! Please help me make Whatsie the best app for WhatsApp
 
 ## Build
 
+> **Note:** for some tasks, a GitHub access token might be required (if you get errors, make sure you have this token). After you generate it (see [here](https://help.github.com/articles/creating-an-access-token-for-command-line-use/) if you need help;  `repo` permissions are enough), set it as an env var:
+> - Unix: `export GITHUB_TOKEN=123`
+> - Windows: `set GITHUB_TOKEN=123`
+
 ### Install pre-requisites
 
 If you want to build `deb` and `rpm` packages for Linux, you also need [fpm](https://github.com/jordansissel/fpm). To install it on OS X:
@@ -196,7 +200,6 @@ You'll need to set these env vars:
 SIGNTOOL_PATH=
 SIGN_WIN_CERTIFICATE_FILE=
 SIGN_WIN_CERTIFICATE_PASSWORD=
-GITHUB_TOKEN (optional, in case you get errors from GitHub)
 ```
 
 Create an installer. This will also sign every executable inside the app, and the setup exe itself:
