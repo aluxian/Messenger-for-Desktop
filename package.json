@@ -19,7 +19,7 @@
     "gulp-electron-downloader": "0.1.6",
     "gulp-embedlr": "0.5.2",
     "gulp-filter": "4.0.0",
-    "gulp-github-release": "1.1.2",
+    "gulp-github-release": "1.1.5",
     "gulp-header": "1.7.1",
     "gulp-if": "2.0.0",
     "gulp-less": "3.0.5",
