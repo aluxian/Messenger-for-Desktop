@@ -139,7 +139,7 @@ module.exports = {
         var extension = platform.isOSX ? '.tiff' : '.png';
         win.tray.icon = 'images/icon_' + type + alert + extension;
       }
-    }, 100);
+    }, 1000);
   },
 
   /**
