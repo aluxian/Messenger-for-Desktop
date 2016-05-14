@@ -1,4 +1,4 @@
-import {ipcRenderer as ipcr} from 'electron';
+import {ipcRenderer} from 'electron';
 
 import piwik from 'renderer/services/piwik';
 import webView from 'renderer/webview';
@@ -6,7 +6,7 @@ import webView from 'renderer/webview';
 /**
  * Forward a message to the webview.
  */
-ipcr.on('fwd-webview', function(event, channel, ...args) {
+ipcRenderer.on('fwd-webview', function(event, channel, ...args) {
   if (webView.isLoading && (typeof webView.isLoading == 'function') && !webView.isLoading()) {
     webView.send(channel, ...args);
   } else {
@@ -22,14 +22,14 @@ ipcr.on('fwd-webview', function(event, channel, ...args) {
 /**
  * Call a method of the webview.
  */
-ipcr.on('call-webview-method', function(event, method, ...args) {
+ipcRenderer.on('call-webview-method', function(event, method, ...args) {
   webView[method](...args);
 });
 
 /**
  * Track an analytics event.
  */
-ipcr.on('track-analytics', function(event, name, args) {
+ipcRenderer.on('track-analytics', function(event, name, args) {
   const tracker = piwik.getTracker();
   if (tracker) {
     const trackerFn = tracker[name];

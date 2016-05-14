@@ -1,4 +1,4 @@
-import {ipcRenderer as ipcr} from 'electron';
+import {ipcRenderer} from 'electron';
 
 import webView from 'renderer/webview';
 import files from 'common/utils/files';
@@ -51,13 +51,13 @@ webView.addEventListener('page-title-updated', function() {
   }
 
   log('sending notif-count', count, !!badgeDataUrl || null);
-  ipcr.send('notif-count', count, badgeDataUrl);
+  ipcRenderer.send('notif-count', count, badgeDataUrl);
 });
 
 // Handle url clicks
 webView.addEventListener('new-window', function(event) {
   log('sending open-url', event.url);
-  ipcr.send('open-url', event.url, event.options);
+  ipcRenderer.send('open-url', event.url, event.options);
 });
 
 // Listen for dom-ready

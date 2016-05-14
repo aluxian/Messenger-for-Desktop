@@ -1,15 +1,15 @@
-import {webFrame, ipcRenderer as ipcr} from 'electron';
+import {webFrame, ipcRenderer} from 'electron';
 import {getDictionaryPath} from 'browser/utils/spellchecker';
 import SpellChecker from 'spellchecker';
 
 // Set zoom level
-ipcr.on('zoom-level', function(event, zoomLevel) {
+ipcRenderer.on('zoom-level', function(event, zoomLevel) {
   log('zoom level', zoomLevel);
   webFrame.setZoomLevel(zoomLevel);
 });
 
 // Set spell checker
-ipcr.on('spell-checker', function(event, enabled, autoCorrect, langCode) {
+ipcRenderer.on('spell-checker', function(event, enabled, autoCorrect, langCode) {
   const chromiumLangCode = langCode.replace('_', '-');
   autoCorrect = !!autoCorrect;
   log('spell checker enabled:', enabled, 'auto correct:', autoCorrect, 'lang code:', langCode);
@@ -31,7 +31,7 @@ ipcr.on('spell-checker', function(event, enabled, autoCorrect, langCode) {
 });
 
 // Insert the given theme css into the DOM
-ipcr.on('apply-theme', function(event, css) {
+ipcRenderer.on('apply-theme', function(event, css) {
   let styleBlock = document.getElementById('cssTheme');
 
   if (!styleBlock) {
@@ -45,12 +45,12 @@ ipcr.on('apply-theme', function(event, css) {
 });
 
 // Add the selected misspelling to the dictionary
-ipcr.on('add-selection-to-dictionary', function() {
+ipcRenderer.on('add-selection-to-dictionary', function() {
   SpellChecker.add(document.getSelection().toString());
 });
 
 // Simulate a click on the 'New chat' button
-ipcr.on('new-conversation', function() {
+ipcRenderer.on('new-conversation', function() {
   const newChatButton = document.querySelector('button.icon-chat');
   if (newChatButton) {
     newChatButton.click();
@@ -62,7 +62,7 @@ ipcr.on('new-conversation', function() {
 });
 
 // Focus the 'Search or start a new chat' input field
-ipcr.on('search-chats', function() {
+ipcRenderer.on('search-chats', function() {
   const inputSearch = document.querySelector('input.input-search');
   if (inputSearch) {
     inputSearch.focus();
@@ -81,7 +81,7 @@ function dispatchClick(item) {
 }
 
 // // Open a dialog to pick a photo or a video to send
-// ipcr.on('send-photo-video', function() {
+// ipcRenderer.on('send-photo-video', function() {
 //   const attachButton = document.querySelector('.pane-chat-header button[title="Attach"]');
 //   if (attachButton) {
 //     attachButton.click();
@@ -95,7 +95,7 @@ function dispatchClick(item) {
 // });
 //
 // // Use the camera to take and send a photo
-// ipcr.on('take-photo', function() {
+// ipcRenderer.on('take-photo', function() {
 //   const attachButton = document.querySelector('.pane-chat-header button[title="Attach"]');
 //   if (attachButton) {
 //     attachButton.click();
@@ -109,7 +109,7 @@ function dispatchClick(item) {
 // });
 
 // Switch to next/previous conversation
-ipcr.on('switch-conversation', function(event, indexDelta) {
+ipcRenderer.on('switch-conversation', function(event, indexDelta) {
   function getChatList() {
     const chatListElem = document.querySelectorAll('.infinite-list-item');
     if (chatListElem && chatListElem.length) {

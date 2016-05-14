@@ -1,4 +1,4 @@
-import {ipcRenderer as ipcr} from 'electron';
+import {ipcRenderer} from 'electron';
 import spellChecker from 'spellchecker';
 
 // Forward context menu opens
@@ -22,5 +22,5 @@ document.addEventListener('contextmenu', function(event) {
   };
 
   log('sending context menu', payload);
-  ipcr.send('context-menu', payload);
+  ipcRenderer.send('context-menu', payload);
 }, false);

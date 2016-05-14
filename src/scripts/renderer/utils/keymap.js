@@ -1,4 +1,4 @@
-import {ipcRenderer as ipcr} from 'electron';
+import {ipcRenderer} from 'electron';
 import Mousetrap from 'mousetrap';
 
 import prefs from 'common/utils/prefs';
@@ -25,7 +25,7 @@ Mousetrap.bind('esc', function() {
   const enabled = prefs.get('close-with-esc');
   log('close with esc shortcut, enabled:', enabled);
   if (enabled) {
-    ipcr.send('close-window');
+    ipcRenderer.send('close-window');
   }
   return enabled;
 });
