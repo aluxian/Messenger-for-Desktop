@@ -13,7 +13,7 @@
     "gulp": "^3.9.1",
     "gulp-github-release": "^1.1.2",
     "gulp-load-plugins": "^1.2.0",
-    "gulp-nw-builder": "^1.3.1",
+    "nw-builder": "git://github.com/evshiron/nw-builder",
     "gulp-uglify": "^1.5.3",
     "merge-stream": "^1.0.0",
     "run-sequence": "^1.1.5",
