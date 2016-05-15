@@ -51,7 +51,7 @@ windowBehaviour.set(win);
 windowBehaviour.setNewWinPolicy(win);
 
 // Watch the system clock for computer coming out of sleep
-utils.watchComputerWake(win, windowBehaviour);
+utils.watchComputerWake(win, windowBehaviour, document);
 
 // Inject logic into the app when it's loaded
 var iframe = document.querySelector('iframe');
