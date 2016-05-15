@@ -9,6 +9,7 @@ var settings = require('./components/settings');
 var windowBehaviour = require('./components/window-behaviour');
 var notification = require('./components/notification');
 var dispatcher = require('./components/dispatcher');
+var utils = require('./components/utils');
 
 // Ensure there's an app shortcut for toast notifications to work on Windows
 if (platform.isWindows) {
@@ -49,6 +50,9 @@ if (platform.isWindows) {
 windowBehaviour.set(win);
 windowBehaviour.setNewWinPolicy(win);
 
+// Watch the system clock for computer coming out of sleep
+utils.watchComputerWake(win, windowBehaviour);
+
 // Inject logic into the app when it's loaded
 var iframe = document.querySelector('iframe');
 iframe.onload = function() {
@@ -71,11 +75,5 @@ iframe.onload = function() {
   windowBehaviour.closeWithEscKey(win, iframe.contentDocument);
 };
 
-// Reload the app periodically until it loads
-var reloadIntervalId = setInterval(function() {
-  if (win.window.navigator.onLine) {
-    clearInterval(reloadIntervalId);
-  } else {
-    win.reload();
-  }
-}, 10 * 1000);
+// Reload the app periodically until it's in online state.
+utils.checkForOnline(win);
