@@ -11,11 +11,6 @@ var notification = require('./components/notification');
 var dispatcher = require('./components/dispatcher');
 var utils = require('./components/utils');
 
-// Ensure there's an app shortcut for toast notifications to work on Windows
-if (platform.isWindows) {
-  gui.App.createShortcut(process.env.APPDATA + "\\Microsoft\\Windows\\Start Menu\\Programs\\Messenger.lnk");
-}
-
 // Add dispatcher events
 dispatcher.addEventListener('win.alert', function(data) {
   data.win.window.alert(data.message);
