@@ -3,6 +3,8 @@ var platform = require('./platform');
 var settings = require('./settings');
 var utils = require('./utils');
 
+var lastLabel = '';
+
 module.exports = {
   /**
    * Update the behaviour of the given window object.
@@ -131,7 +133,15 @@ module.exports = {
           return;
         }
       }
-
+	  
+	  if(label == lastLabel) {
+		  // The label is no different to the last time it was set 
+		  // So don't bother invoking the win.set method.
+		  return;
+	  }
+	
+	  // Track the label for debouncing. 
+	  lastLabel = label;
       win.setBadgeLabel(label);
 
       // Update the tray icon too
@@ -141,7 +151,7 @@ module.exports = {
         var extension = platform.isOSX ? '.tiff' : '.png';
         win.tray.icon = 'images/icon_' + type + alert + extension;
       }
-    }, 100);
+    }, 1000);
   },
 
   /**

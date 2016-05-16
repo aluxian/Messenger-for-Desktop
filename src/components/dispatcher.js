@@ -1,7 +1,8 @@
 var callbacks = {};
 var queue = [];
+var pendingTimeout = 0;
 
-setInterval(function() {
+var drain = function() {
   while (queue.length) {
     var event = queue[0][0];
     var data = queue[0][1];
@@ -12,7 +13,8 @@ setInterval(function() {
 
     queue.splice(0, 1);
   }
-}, 100);
+  pendingTimeout = 0
+};
 
 /**
  * Like an EventEmitter, but runs differently. Workaround for dialog crashes. Singleton.
@@ -32,5 +34,8 @@ module.exports = {
 
   trigger: function(event, data) {
     queue.push([event, data]);
+	if(!pendingTimeout) {
+		pendingTimeout = setTimeout(drain, 100)
+	}
   }
 };
