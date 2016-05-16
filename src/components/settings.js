@@ -2,6 +2,10 @@ var Store = require('jfs');
 var path = require('path');
 var gui = window.require('nw.gui');
 
+// Proxy shim by @Swatinem
+// Fork @ nevercast/proxy#mfd
+var Proxy = require('harmony-proxy');
+
 var DEFAULT_SETTINGS = {
   launchOnStartup: false,
   checkUpdateOnLaunch: true,
