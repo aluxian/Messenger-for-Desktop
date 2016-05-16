@@ -2,6 +2,7 @@
 
 Name "Messenger"
 BrandingText "aluxian.com"
+RequestExecutionLevel "admin"
 
 # set the icon
 !define MUI_ICON "icon.ico"
@@ -24,7 +25,8 @@ InstallDir "$PROGRAMFILES\Messenger for Desktop\"
 
 # default section start
 Section
-
+  # set the current shell context to the current users
+  SetShellVarContext "current"
   # delete the installed files
   RMDir /r $INSTDIR
 
@@ -38,21 +40,22 @@ Section
   WriteUninstaller "$INSTDIR\Uninstall Messenger for Desktop.exe"
 
   # create shortcuts in the start menu and on the desktop
-  CreateShortCut "$SMPROGRAMS\Messenger.lnk" "$INSTDIR\Messenger.exe"
-  CreateShortCut "$SMPROGRAMS\Uninstall Messenger for Desktop.lnk" "$INSTDIR\Uninstall Messenger for Desktop.exe"
+  CreateShortCut "$APPDATA\Microsoft\Windows\Start Menu\Programs\Messenger.lnk" "$INSTDIR\Messenger.exe"
+  CreateShortCut "$APPDATA\Microsoft\Windows\Start Menu\Programs\Uninstall Messenger for Desktop.lnk" "$INSTDIR\Uninstall Messenger for Desktop.exe"
   CreateShortCut "$DESKTOP\Messenger.lnk" "$INSTDIR\Messenger.exe"
 
 SectionEnd
 
 # create a section to define what the uninstaller does
 Section "Uninstall"
-
+  # set the current shell context to the current users
+  SetShellVarContext "current"
   # delete the installed files
   RMDir /r $INSTDIR
 
   # delete the shortcuts
-  Delete "$SMPROGRAMS\Messenger.lnk"
-  Delete "$SMPROGRAMS\Uninstall Messenger for Desktop.lnk"
+  Delete "$APPDATA\Microsoft\Windows\Start Menu\Programs\Messenger.lnk"
+  Delete "$APPDATA\Microsoft\Windows\Start Menu\Programs\Uninstall Messenger for Desktop.lnk"
   Delete "$DESKTOP\Messenger.lnk"
 
 SectionEnd

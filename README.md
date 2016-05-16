@@ -1,6 +1,8 @@
 # Messenger for Desktop
+**If you like this fork, please consider giving me a star!**
 
-[![Join the chat at https://gitter.im/Aluxian/Facebook-Messenger-Desktop](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Aluxian/Facebook-Messenger-Desktop?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Join the chat at https://gitter.im/Sytten/Facebook-Messenger-Desktop](https://badges.gitter.im/Sytten/Facebook-Messenger-Desktop.svg)](https://gitter.im/Sytten/Facebook-Messenger-Desktop?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Downloads](https://img.shields.io/github/downloads/Sytten/Facebook-Messenger-Desktop/latest/total.svg)](https://github.com/Sytten/Facebook-Messenger-Desktop/releases/latest)
 
 Bring [messenger.com](https://messenger.com) to your OS X, Windows or Linux desktop. Built with [NW.js](http://nwjs.io/). Not affiliated with Facebook.
 
@@ -36,7 +38,7 @@ Bring [messenger.com](https://messenger.com) to your OS X, Windows or Linux desk
 * **wine**: If you're on OS X/Linux and want to build for Windows, you need [Wine](http://winehq.org/) installed. Wine is required in order
 to set the correct icon for the exe. If you don't have Wine, you can comment out the `winIco` field in `gulpfile`.
 * **makensis**: Required by the `pack:win32` task in `gulpfile` to create the Windows installer.
-* [**fpm**](https://github.com/jordansissel/fpm): Required by the `pack:linux{32|64}` tasks in `gulpfile` to create the linux installers.
+* [**fpm**](https://github.com/jordansissel/fpm): Required by the `pack:linux{32|64}:deb` tasks in `gulpfile` to create the linux installers.
 
 Quick install on OS X:
 
@@ -53,7 +55,7 @@ Quick install on OS X:
 
 ### Linux 32/64-bit: pack the app in a .deb
 
-    gulp pack:linux{32|64}
+    gulp pack:linux{32|64}:deb
 
 The output is in `./dist`. Take a look in `gulpfile.coffee` for additional tasks.
 

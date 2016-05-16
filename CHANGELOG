@@ -1,3 +1,27 @@
+1.4.7
+- Fix dark theme
+- Fix mosaic theme
+- Fix bug where esc would close the window instead of the full screen image
+- Apply fixes from old development branch
+- Update dependencies
+
+1.4.6
+- Add option to hide window on startup
+- Auto-startup now avaible for linux
+- The app will now inform users of my releases
+
+1.4.5
+- Fix a faulty ;
+
+1.4.4
+- Load tray icon on Linux (Still some bugs)
+- Add WM_CLASS for linux (#285)
+- Change header color (#276)
+- Single instance now running at the same time
+- Add minimum window size
+- Add close with escape key setting
+- Fix build directory on windows
+
 1.4.3
 - Don't load the tray icon on Linux (fix)
 

@@ -3,6 +3,8 @@ var platform = require('./platform');
 var settings = require('./settings');
 var utils = require('./utils');
 
+var lastLabel = '';
+
 module.exports = {
   /**
    * Update the behaviour of the given window object.
@@ -14,8 +16,11 @@ module.exports = {
       win.show();
     });
 
+    gui.App.on('open', function() {
+      win.show();
+    });
+
     // Don't quit the app when the window is closed
-    if (!platform.isLinux) {
       win.removeAllListeners('close');
       win.on('close', function(quit) {
         if (quit) {
@@ -25,17 +30,22 @@ module.exports = {
           win.hide();
         }
       }.bind(this));
-    }
   },
 
   /**
    * Close the window using the ESC key.
    */
   closeWithEscKey: function(win, doc) {
-    doc.onkeyup = function(e) {
-      if (e.keyCode == 27) {
+    doc.onkeydown = function(e) {
+      if (e.keyCode == 27 && settings.closeWithEscKey) {
         e.preventDefault();
-        win.close();
+
+        var imagePopUp = doc.querySelectorAll('._n8._3qx._1j1h.uiLayer._3qw');
+
+        if(imagePopUp.length > 0)
+          return false;
+        else
+          win.close();
         return false;
       }
     }
@@ -123,7 +133,15 @@ module.exports = {
           return;
         }
       }
-
+	  
+	  if(label == lastLabel) {
+		  // The label is no different to the last time it was set 
+		  // So don't bother invoking the win.set method.
+		  return;
+	  }
+	
+	  // Track the label for debouncing. 
+	  lastLabel = label;
       win.setBadgeLabel(label);
 
       // Update the tray icon too
@@ -133,7 +151,7 @@ module.exports = {
         var extension = platform.isOSX ? '.tiff' : '.png';
         win.tray.icon = 'images/icon_' + type + alert + extension;
       }
-    }, 100);
+    }, 1000);
   },
 
   /**
@@ -167,7 +185,10 @@ module.exports = {
       win.moveTo(state.x, state.y);
     }
 
-    win.show();
+    if(!settings.startMinimized)
+      win.show();
+    else
+      win.hide();
   },
 
   /**
