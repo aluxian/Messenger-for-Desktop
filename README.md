@@ -2,6 +2,7 @@
 
 [![Join the chat at gitter.im/Aluxian/Facebook-Messenger-Desktop](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Aluxian/Facebook-Messenger-Desktop?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Downloads](https://img.shields.io/github/downloads/Aluxian/Facebook-Messenger-Desktop/total.svg)](https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/latest)
+![Still maintained?](https://img.shields.io/maintenance/yes/2016.svg)
 
 Bring [messenger.com](https://messenger.com) to your OS X, Windows or Linux desktop. Built with [NW.js](http://nwjs.io/). Not affiliated with Facebook.
 
