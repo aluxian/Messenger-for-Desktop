@@ -50,20 +50,20 @@ input::-webkit-input-placeholder {
 }
 /* message */
 ._hh7 {
-	background-color: #2d2d30 !important;
+	background-color: #2d2d30 ;
 }
 ._hh7, ._hh7 a {
-	color: #ddd !important;
+	color: #ddd ;
 }
 ._hh7:active, ._-5k ._hh7, ._hh7>span>a:hover {
-	background-color: #333 !important;
+	background-color: #333 ;
 }
 /* own message */
 ._nd_ ._hh7 {
-	background-color: #004488 !important;
+	background-color: #004488 ;
 }
 ._nd_ ._hh7:active, ._nd_._-5k ._hh7, ._nd_ ._hh7>span>a:hover {
-	background-color: #003377 !important;
+	background-color: #003377 ;
 }
 /* emoji-only messages */
 ._hh7._2f5r, ._-5k ._hh7._2f5r {
