@@ -3,7 +3,7 @@
   "name": "Messenger",
   "version": "1.4.7",
   "app-id": "com.aluxian.messengerfordesktop",
-  "chromium-args": "--disable-setuid-sandbox",
+  "chromium-args": "--disable-setuid-sandbox --js-flags=--harmony-proxies",
   "single-instance": true,
   "window": {
     "width": 800,
