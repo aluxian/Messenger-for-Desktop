@@ -28,29 +28,30 @@ settings.watch = function(name, callback) {
 };
 
 // Save settings every time a change is made and notify watchers
-Object.observe(settings, function(changes) {
-  db.save('settings', settings, function(err) {
-    if (err) {
-      console.error('Could not save settings', err);
-    }
-  });
+var settings_proxy = new Proxy(settings, {
+    set: function(target, prop, value) {
+        Reflect.set(target, prop, value);
 
-  changes.forEach(function(change) {
-    var newValue = change.object[change.name];
-    var keyWatchers = watchers[change.name];
+        db.save('settings', settings, function(err) {
+          if (err) {
+            console.error('Could not save settings', err);
+          }
+        });
 
-    // Call all the watcher functions for the changed key
-    if (keyWatchers && keyWatchers.length) {
-      for (var i = 0; i < keyWatchers.length; i++) {
-        try {
-          keyWatchers[i](newValue);
-        } catch(ex) {
-          console.error(ex);
-          keyWatchers.splice(i--, 1);
+        var keyWatchers = watchers[prop];
+
+        // Call all the watcher functions for the changed key
+        if (keyWatchers && keyWatchers.length) {
+          for (var i = 0; i < keyWatchers.length; i++) {
+            try {
+              keyWatchers[i](value);
+            } catch(ex) {
+              console.error(ex);
+              keyWatchers.splice(i--, 1);
+            }
+          }
         }
-      }
     }
-  });
 });
 
 // Ensure the default values exist
@@ -60,4 +61,4 @@ Object.keys(DEFAULT_SETTINGS).forEach(function(key) {
   }
 });
 
-module.exports = settings;
+module.exports = settings_proxy;
