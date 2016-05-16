@@ -20,15 +20,15 @@
     "lodash.debounce": "4.0.6",
     "mousetrap": "1.5.3",
     "node-uuid": "1.4.7",
-    "raven": "0.10.0",
-    "raven-js": "2.3.0",
+    "raven": "0.11.0",
+    "raven-js": "3.0.4",
     "relatively": "0.1.2",
     "request": "2.72.0",
     "source-map-support": "0.4.0",
     "spellchecker": "3.3.1",
     "strip-ansi": "3.0.1",
     "winreg": "1.2.0",
-    "yargs": "4.6.0"
+    "yargs": "4.7.0"
   },
   "optionalDependencies": {
     "nodobjc": "2.1.0"
