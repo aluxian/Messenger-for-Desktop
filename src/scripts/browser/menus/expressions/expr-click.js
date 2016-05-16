@@ -2,7 +2,7 @@ import dialog from 'dialog';
 import shell from 'shell';
 import app from 'app';
 
-import piwik from 'browser/services/piwik';
+import * as piwik from 'browser/services/piwik';
 import raffle from 'browser/components/raffle';
 import prefs from 'browser/utils/prefs';
 
@@ -284,7 +284,7 @@ export const analytics = {
    */
   trackEvent: function(...args) {
     return function() {
-      piwik.trackEvent(...args);
+      piwik.getTracker().trackEvent(...args);
     };
   }
 
