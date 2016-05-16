@@ -20,7 +20,7 @@ gulp.task 'clean', ->
     nw = new NwBuilder(
       files: './src/**'
       platforms: [platform]
-      version: '0.12.3'
+      version: '0.13.4'
       winIco: if process.argv.indexOf('--noicon') > 0 then undefined else './assets-windows/icon.ico'
       macIcns: './assets-osx/icon.icns'
       macZip: true
