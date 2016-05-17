@@ -5,8 +5,9 @@ global.manifest = remote.getGlobal('manifest');
 localStorage.setItem('debug', process.env.DEBUG);
 
 const appPath = app.getAppPath();
-const scriptsPath = path.join(appPath, 'scripts');
 const {addPath} = require(path.join(appPath, 'node_modules', 'app-module-path'));
 
-addPath(scriptsPath);
+addPath(path.join(appPath, 'scripts'));
+addPath(path.join(appPath, 'node_modules'));
+
 require('renderer/preload');
