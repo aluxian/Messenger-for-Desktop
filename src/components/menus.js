@@ -118,7 +118,7 @@ module.exports = {
     }, {
       label: 'Launch Dev Tools',
       click: function() {
-        require('nw.gui').Window.get().showDevTools();
+        win.showDevTools();
       }
     }].map(function(item) {
       // If the item has a 'setting' property, use some predefined values
