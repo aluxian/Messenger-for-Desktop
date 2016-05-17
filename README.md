@@ -7,6 +7,7 @@
 [![Build dependencies](https://david-dm.org/Aluxian/Whatsie/status.svg)](https://david-dm.org/Aluxian/Whatsie)
 [![App dependencies](https://david-dm.org/Aluxian/Whatsie/status.svg?path=src)](https://david-dm.org/Aluxian/Whatsie?path=src)
 [![Downloads total](https://updates.whatsie.chat/badge/downloads.svg)](https://updates.whatsie.chat/stats)
+[![Services status](https://img.shields.io/badge/services-status-blue.svg)](https://status.whatsie.chat/)
 [![HuBoard task board](https://img.shields.io/badge/hu-board-7965cc.svg)](https://huboard.com/Aluxian/Whatsie)
 [![Join the chat](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Aluxian/Whatsie)
 
