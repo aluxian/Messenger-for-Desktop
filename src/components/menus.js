@@ -129,7 +129,7 @@ module.exports = {
 
         if (!item.hasOwnProperty('click')) {
           item.click = function() {
-            settings[item.setting] = item.checked;
+            settings[item.setting] = !item.checked;
           };
         }
       }
