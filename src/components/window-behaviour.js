@@ -2,6 +2,7 @@ var gui = window.require('nw.gui');
 var platform = require('./platform');
 var settings = require('./settings');
 var utils = require('./utils');
+var dispatcher = require('./dispatcher')
 
 var lastLabel = '';
 
@@ -21,15 +22,24 @@ module.exports = {
     });
 
     // Don't quit the app when the window is closed
-      win.removeAllListeners('close');
-      win.on('close', function(quit) {
-        if (quit) {
-          this.saveWindowState(win);
-          win.close(true);
-        } else {
-          win.hide();
-        }
-      }.bind(this));
+    win.removeAllListeners('close');
+	// Forward the close event to the dispatcher
+	win.on('close', function(quit) {
+		dispatcher.trigger('close', quit)
+	});
+	// Listen to the dispatcher for the close event.
+	// Allows menu item to dispatch a close event.
+	dispatcher.addEventListener('close', function(quit) {
+	  // Always save and hide
+	  this.saveWindowState(win);		
+	  win.hide();
+	  // If we are quitting, close.
+	  if (quit) {
+	    setTimeout(function() {
+	  	  win.close(true);
+	    }, 1); // On next tick.
+	  }
+	}.bind(this));
   },
 
   /**
