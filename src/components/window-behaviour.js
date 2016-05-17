@@ -128,21 +128,25 @@ module.exports = {
     var defaultTitle = childDoc.title;
 
     setInterval(function() {
-      parentDoc.title = childDoc.title;
-      defaultTitle = defaultTitle || childDoc.title;
-
       var label = '';
+	  if(!win.window.navigator.onLine) {
+		parentDoc.title = 'Messenger - Offline';
+		return;
+	  } else {
+        parentDoc.title = childDoc.title;
+        defaultTitle = defaultTitle || childDoc.title;
 
-      if (childDoc.title != defaultTitle) {
-        var countMatch = notifCountRegex.exec(childDoc.title);
-        label = countMatch && countMatch[1] || '';
+        if (childDoc.title != defaultTitle) {
+          var countMatch = notifCountRegex.exec(childDoc.title);
+          label = countMatch && countMatch[1] || '';
 
-        if (!label) {
-          // Probably it says that someone messaged the user
-          // This prevents the badge from blinking at the same time with the title
-          return;
+          if (!label) {
+            // Probably it says that someone messaged the user
+            // This prevents the badge from blinking at the same time with the title
+            return;
+          }
         }
-      }
+	  }
 	  
 	  if(label == lastLabel) {
 		  // The label is no different to the last time it was set 
@@ -199,18 +203,5 @@ module.exports = {
       win.show();
     else
       win.hide();
-  },
-
-  /**
-   * Reload the app periodically until online.
-   */
-  reloadUntilOnline: function(win) {
-    var reloadIntervalId = setInterval(function() {
-      if (win.window.navigator.onLine) {
-        clearInterval(reloadIntervalId);
-      } else {
-        win.reload();
-      }
-    }, 5 * 1000);
   }
 };
