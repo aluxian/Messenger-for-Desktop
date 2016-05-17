@@ -250,7 +250,7 @@ module.exports = {
     menu.append(new gui.MenuItem({
       label: 'Quit Messenger',
       click: function() {
-        win.close(true);
+		dispatcher.trigger('close', true);
       }
     }));
 

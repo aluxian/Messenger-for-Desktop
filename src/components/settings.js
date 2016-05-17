@@ -65,4 +65,9 @@ Object.keys(DEFAULT_SETTINGS).forEach(function(key) {
   }
 });
 
+// Cross context settings manipulation.
+settings_proxy.updateKey = function(key, value) {
+	settings_proxy[key] = value;
+}
+
 module.exports = settings_proxy;
