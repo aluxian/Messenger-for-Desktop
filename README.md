@@ -68,10 +68,10 @@ The output is in `./dist`. Take a look in `gulpfile.coffee` for additional tasks
 ## Debugging
 
 With the move to nw.js 0.14.x, Messenger for Desktop now runs as a Chrome Extension. Node and WebKit run in two different contexts. When debugging
-with DevTools, files that are `required()`'d will not be visible when running normally. You will need to run in Mixed Context mode.
+with DevTools, files that are `required()`'d will not be visible when running normally. 
 
-Start Messenger for Desktop with `--mixed-context`. This will allow debugging of components. You may also wish to use Remote Debugging. Start this with
-`--remote-debugging-port=9999`. Then navigate to `http://localhost:9999/`.
+Start Messenger for Desktop with `--remote-debugging-port=9999`. Then navigate to `http://localhost:9999/`. This will allow debugging of other contexts.
+Node runs on the background page, WebKit runs in the App page. You will need to set breakpoints in both if you wish to debug across them.
 
 ## Contributions
 
