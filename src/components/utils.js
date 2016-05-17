@@ -89,5 +89,13 @@ module.exports = {
 	  root1 = this.getRootObject(object1);
 	  root2 = this.getRootObject(object2);
 	  return root1.constructor == root2.constructor;
+  },
+  /**
+   * Checks if the passed in Object exists in the Node.JS context
+   */
+  isNodeContext: function(testObject) {
+	  // Modules are loaded in node.js context 
+	  var self = require('./utils');
+	  return this.areSameContext(testObject, self);
   }
 };
