@@ -46,7 +46,10 @@ module.exports = {
       var deltaTime = Math.abs(currentTime - time);
       if (deltaTime > 60000 * 3) {  // Time in ms. 3 minutes.
 		// Remove the iframe to prevent interaction on an old session.
-		document.querySelector('iframe').remove();
+		iframe = document.querySelector('iframe');
+		if(iframe) {
+			iframe.remove();
+		}
         // Save the window state and reload.
         winBehaviour.saveWindowState(win);
         win.reload();
