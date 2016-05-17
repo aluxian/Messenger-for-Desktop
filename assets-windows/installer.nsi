@@ -53,6 +53,9 @@ Section "Uninstall"
   # delete the installed files
   RMDir /r $INSTDIR
 
+  # Delete cached data
+  RMDir /r $LOCALAPPDATA\Messenger
+
   # delete the shortcuts
   Delete "$APPDATA\Microsoft\Windows\Start Menu\Programs\Messenger.lnk"
   Delete "$APPDATA\Microsoft\Windows\Start Menu\Programs\Uninstall Messenger for Desktop.lnk"
