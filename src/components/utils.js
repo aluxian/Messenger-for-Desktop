@@ -70,5 +70,24 @@ module.exports = {
         win.reload();
       }
     }, 10 * 1000);
+  },
+  /**
+   * Climbs the prototype hierachy looking for the top Object and returns it
+   */
+  getRootObject: function(object) {
+	  while(object.__proto__) {
+		  object = object.__proto__;
+	  }
+	  return object;
+  },
+  /**
+   * Checks if two objects exist in the same context.
+   * Climbs up to the root Object(){} and checks if the constructors are 
+   * identical. If they are not, it's a separate global context 
+   */
+  areSameContext: function(object1, object2) {
+	  root1 = this.getRootObject(object1);
+	  root2 = this.getRootObject(object2);
+	  return root1.constructor == root2.constructor;
   }
 };
