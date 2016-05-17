@@ -351,7 +351,17 @@ module.exports = {
   injectContextMenu: function(win, window, document) {
     document.body.addEventListener('contextmenu', function(event) {
       event.preventDefault();
-      this.createContextMenu(win, window, document, event.target).popup(event.x, event.y);
+	  var x = event.x, y = event.y;
+	  if(!utils.areSameContext(this, win)) {
+		  // When we are not in the same context
+		  // The window is relative to screen position.
+		  // This is due to the hidden background page that exists at (0, 0).
+		  
+		  // Fixes #412
+		  x += win.x;
+		  y += win.y;
+	  }
+      this.createContextMenu(win, window, document, event.target).popup(x, y);
       return false;
     }.bind(this));
   }
