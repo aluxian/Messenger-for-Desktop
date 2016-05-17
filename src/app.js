@@ -68,6 +68,21 @@ iframe.onload = function() {
 
   // Listen for ESC key press
   windowBehaviour.closeWithEscKey(win, iframe.contentDocument);
+  
+  // Listen for offline event and remove the iframe.
+  dispatcher.addEventListener('offline', function() {
+	iframe = document.querySelector('iframe');
+	if(iframe) {
+		iframe.remove();
+	}
+  });
+  
+  dispatcher.addEventListener('online', function() {
+	iframe = document.querySelector('iframe');
+	if(iframe) {
+		iframe.style.display = 'initial';
+	}
+  });
 };
 
 
