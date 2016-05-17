@@ -1,4 +1,5 @@
 var URL = require('url');
+var dispatcher = require('./dispatcher');
 
 module.exports = {
   /**
@@ -46,10 +47,7 @@ module.exports = {
       var deltaTime = Math.abs(currentTime - time);
       if (deltaTime > 60000 * 3) {  // Time in ms. 3 minutes.
 		// Remove the iframe to prevent interaction on an old session.
-		iframe = document.querySelector('iframe');
-		if(iframe) {
-			iframe.remove();
-		}
+		dispatcher.trigger('offline');
         // Save the window state and reload.
         winBehaviour.saveWindowState(win);
         win.reload();
@@ -66,13 +64,29 @@ module.exports = {
    * Reloads the app once every 10 seconds until the browser is in online mode.
    */
   checkForOnline: function(win) {
-    var reloadIntervalId = setInterval(function() {
-      if (win.window.navigator.onLine) {
-        clearInterval(reloadIntervalId);
-      } else {
-        win.reload();
-      }
-    }, 10 * 1000);
+	// Check that we are not already running
+	if(this.reloadIntervalId) {
+		return;
+	} else {
+      this.reloadIntervalId = setInterval(function() {
+        if (win.window.navigator.onLine) {
+		  // The browser has navigated, are we at the right place?
+		  frame = win.window.document.querySelector('iframe');
+		  childWindowLocation = frame.contentWindow.location;
+		  targetURL = URL.parse(frame.src);
+		  currentURL = URL.parse(childWindowLocation.href);
+		  if(targetURL.host != currentURL.host) {
+			  return; // The frame isn't on Facebook. Maybe it's navigated away, or it's on an about: no dns, page.
+		  }
+          clearInterval(this.reloadIntervalId);
+	      delete this.reloadIntervalId;
+		  dispatcher.trigger('online');
+        } else {
+		  dispatcher.trigger('offline');
+          win.reload();
+        }
+      }.bind(this), 10 * 1000);
+	}
   },
   /**
    * Climbs the prototype hierachy looking for the top Object and returns it
