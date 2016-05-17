@@ -169,7 +169,7 @@ module.exports = {
       state.height = win.height;
     }
 
-    settings.windowState = state;
+    settings.updateKey('windowState', state);
   },
 
   /**
