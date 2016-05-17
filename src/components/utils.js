@@ -57,7 +57,7 @@ module.exports = {
         this.checkForOnline(win);
       }
 	  time = currentTime;
-    }, 1000);
+    }.bind(this), 1000);
   },
   /**
    * Reloads the app once every 10 seconds until the browser is in online mode.
