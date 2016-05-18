@@ -1,4 +1,5 @@
 !include "MUI2.nsh"
+!include "FileFunc.nsh"
 
 Name "Messenger"
 BrandingText "aluxian.com"
@@ -39,6 +40,18 @@ Section
   # create the uninstaller
   WriteUninstaller "$INSTDIR\Uninstall Messenger for Desktop.exe"
 
+  # Register the uninstaller to Add/Remove Programs
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\MessengerForDesktop" \
+                 "DisplayName" "Messenger For Desktop"
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\MessengerForDesktop" \
+                 "UninstallString" "$\"$INSTDIR\Uninstall Messenger for Desktop.exe$\""
+
+  # Calculate program size and store in registry
+  ${GetSize} "$INSTDIR" "/S=0K" $0 $1 $2
+  IntFmt $0 "0x%08X" $0
+  WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\MessengerForDesktop" \ 
+                 "EstimatedSize" "$0"
+
   # create shortcuts in the start menu and on the desktop
   CreateShortCut "$APPDATA\Microsoft\Windows\Start Menu\Programs\Messenger.lnk" "$INSTDIR\Messenger.exe"
   CreateShortCut "$APPDATA\Microsoft\Windows\Start Menu\Programs\Uninstall Messenger for Desktop.lnk" "$INSTDIR\Uninstall Messenger for Desktop.exe"
@@ -55,6 +68,9 @@ Section "Uninstall"
 
   # Delete cached data
   RMDir /r $LOCALAPPDATA\Messenger
+
+  # Delete the registry key for uninstaller
+  DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\MessengerForDesktop"
 
   # delete the shortcuts
   Delete "$APPDATA\Microsoft\Windows\Start Menu\Programs\Messenger.lnk"
