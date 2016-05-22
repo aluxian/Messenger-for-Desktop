@@ -19,7 +19,7 @@ function create(opt, browserWindow) {
     }
 
     // Hunspell doesn't remember these, so skip this item
-    if (!platform.isLinux) {
+    if (!platform.isLinux && !opt.isWindows7) {
       menu.append(new MenuItem({
         label: 'Add to Dictionary',
         click: () => {

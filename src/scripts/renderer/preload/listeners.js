@@ -1,6 +1,8 @@
 import {ipcRenderer} from 'electron';
 import spellChecker from 'spellchecker';
 
+import platform from 'renderer/utils/platform';
+
 // Forward context menu opens
 document.addEventListener('contextmenu', function(event) {
   log('sending context-menu');
@@ -18,7 +20,8 @@ document.addEventListener('contextmenu', function(event) {
     targetIsLink: event.target.tagName == 'A',
     isMisspelling: isMisspelling,
     corrections: corrections,
-    href: event.target.href
+    href: event.target.href,
+    isWindows7: platform.isWindows7()
   };
 
   log('sending context menu', payload);
