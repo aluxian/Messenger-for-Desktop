@@ -17,6 +17,8 @@ Whatsie is still in beta, so some features might not work properly. Bug reports 
 
 > **@devs:** If you're willing to help improve, fix or maintain the app, I can make you a collaborator to help me. [Join me on Gitter](https://gitter.im/Aluxian/Whatsie) and let's chat!
 
+![Whatsie Screenshot](./screenshot.png)
+
 ## Features
 
 - Themes &amp; Mini Mode
