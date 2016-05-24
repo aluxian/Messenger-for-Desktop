@@ -3,7 +3,7 @@ import app from 'app';
 import {getAvailableDictionaries} from 'browser/utils/spellchecker';
 import platform from 'common/utils/platform';
 
-const availableLanguages = getAvailableDictionaries();
+let availableLanguages = null;
 const defaults = {
   'analytics-track': true,
   'analytics-uid': null,
@@ -49,6 +49,10 @@ function get(key) {
 
 function defaultSpellCheckerLanguage() {
   let defaultLanguage = null;
+
+  if (!availableLanguages) {
+    availableLanguages = getAvailableDictionaries();
+  }
 
   // Try to get it from app
   if (global.ready) {
