@@ -58,7 +58,7 @@ iframe.onload = function() {
   notification.inject(iframe.contentWindow, win);
 
   // Add a context menu
-  menus.injectContextMenu(win, iframe.contentWindow, iframe.contentDocument);
+  menus.injectContextMenu(win, document);
 
   // Bind native events to the content window
   windowBehaviour.bindEvents(win, iframe.contentWindow);

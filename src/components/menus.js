@@ -348,10 +348,10 @@ module.exports = {
   /**
    * Listen for right clicks and show a context menu.
    */
-  injectContextMenu: function(win, window, document) {
+  injectContextMenu: function(win, document) {
     document.body.addEventListener('contextmenu', function(event) {
       event.preventDefault();
-	  var x = event.x, y = event.y;
+	  /*var x = event.x, y = event.y;
 	  if(!utils.areSameContext(this, win)) {
 		  // When we are not in the same context
 		  // The window is relative to screen position.
@@ -361,7 +361,7 @@ module.exports = {
 		  x += win.x;
 		  y += win.y;
 	  }
-      this.createContextMenu(win, window, document, event.target).popup(x, y);
+      this.createContextMenu(win, window, document, event.target).popup(x, y);*/
       return false;
     }.bind(this));
   }
