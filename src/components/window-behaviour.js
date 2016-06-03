@@ -134,7 +134,6 @@ module.exports = {
 		return;
 	  } else {
         parentDoc.title = childDoc.title;
-        defaultTitle = defaultTitle || childDoc.title;
 
         if (childDoc.title != defaultTitle) {
           var countMatch = notifCountRegex.exec(childDoc.title);
