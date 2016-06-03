@@ -43,6 +43,8 @@ gulp.task 'pack:osx64', ['sign:osx64'], ->
   shelljs.mkdir '-p', './dist'            # appdmg fails if ./dist doesn't exist
   shelljs.rm '-f', './dist/Messenger.dmg' # appdmg fails if the dmg already exists
 
+  shelljs.rm '-r', './build/Messenger/osx64/Messenger.app/Contents/Resources/en.lproj'
+
   gulp.src []
     .pipe require('gulp-appdmg')
       source: './assets-osx/dmg.json'
