@@ -65,6 +65,14 @@ The output is in `./dist`. Take a look in `gulpfile.coffee` for additional tasks
 
 **TIP**: for OS X, use the `run:osx64` task to build the app and run it immediately.
 
+## Debugging
+
+With the move to nw.js 0.14.x, Messenger for Desktop now runs as a Chrome Extension. Node and WebKit run in two different contexts. When debugging
+with DevTools, files that are `required()`'d will not be visible when running normally. 
+
+Start Messenger for Desktop with `--remote-debugging-port=9999`. Then navigate to `http://localhost:9999/`. This will allow debugging of other contexts.
+Node runs on the background page, WebKit runs in the App page. You will need to set breakpoints in both if you wish to debug across them.
+
 ## Contributions
 
 Contributions are welcome! For feature requests and bug reports please [submit an issue](https://github.com/Aluxian/Facebook-Messenger-Desktop/issues).

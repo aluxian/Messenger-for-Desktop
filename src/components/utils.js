@@ -1,4 +1,5 @@
 var URL = require('url');
+var dispatcher = require('./dispatcher');
 
 module.exports = {
   /**
@@ -46,7 +47,7 @@ module.exports = {
       var deltaTime = Math.abs(currentTime - time);
       if (deltaTime > 60000 * 3) {  // Time in ms. 3 minutes.
 		// Remove the iframe to prevent interaction on an old session.
-		document.querySelector('iframe').remove();
+		dispatcher.trigger('offline');
         // Save the window state and reload.
         winBehaviour.saveWindowState(win);
         win.reload();
@@ -57,18 +58,61 @@ module.exports = {
         this.checkForOnline(win);
       }
 	  time = currentTime;
-    }, 1000);
+    }.bind(this), 1000);
   },
   /**
    * Reloads the app once every 10 seconds until the browser is in online mode.
    */
   checkForOnline: function(win) {
-    var reloadIntervalId = setInterval(function() {
-      if (win.window.navigator.onLine) {
-        clearInterval(reloadIntervalId);
-      } else {
-        win.reload();
-      }
-    }, 10 * 1000);
+	// Check that we are not already running
+	if(this.reloadIntervalId) {
+		return;
+	} else {
+      this.reloadIntervalId = setInterval(function() {
+        if (win.window.navigator.onLine) {
+		  // The browser has navigated, are we at the right place?
+		  frame = win.window.document.querySelector('iframe');
+		  childWindowLocation = frame.contentWindow.location;
+		  targetURL = URL.parse(frame.src);
+		  currentURL = URL.parse(childWindowLocation.href);
+		  if(targetURL.host != currentURL.host) {
+			  return; // The frame isn't on Facebook. Maybe it's navigated away, or it's on an about: no dns, page.
+		  }
+          clearInterval(this.reloadIntervalId);
+	      delete this.reloadIntervalId;
+		  dispatcher.trigger('online');
+        } else {
+		  dispatcher.trigger('offline');
+          win.reload();
+        }
+      }.bind(this), 10 * 1000);
+	}
+  },
+  /**
+   * Climbs the prototype hierachy looking for the top Object and returns it
+   */
+  getRootObject: function(object) {
+	  while(object.__proto__) {
+		  object = object.__proto__;
+	  }
+	  return object;
+  },
+  /**
+   * Checks if two objects exist in the same context.
+   * Climbs up to the root Object(){} and checks if the constructors are 
+   * identical. If they are not, it's a separate global context 
+   */
+  areSameContext: function(object1, object2) {
+	  root1 = this.getRootObject(object1);
+	  root2 = this.getRootObject(object2);
+	  return root1.constructor == root2.constructor;
+  },
+  /**
+   * Checks if the passed in Object exists in the Node.JS context
+   */
+  isNodeContext: function(testObject) {
+	  // Modules are loaded in node.js context 
+	  var self = require('./utils');
+	  return this.areSameContext(testObject, self);
   }
 };

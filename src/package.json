@@ -3,7 +3,7 @@
   "name": "Messenger",
   "version": "1.4.7",
   "app-id": "com.aluxian.messengerfordesktop",
-  "chromium-args": "--disable-setuid-sandbox",
+  "chromium-args": "--disable-setuid-sandbox --js-flags=--harmony-proxies",
   "single-instance": true,
   "window": {
     "width": 800,
@@ -21,6 +21,7 @@
   "dependencies": {
     "async": "^1.5.2",
     "auto-launch": "^1.1.1",
+    "harmony-proxy": "github:nevercast/proxy#mfd",
     "jfs": "^0.2.6",
     "request": "^2.69.0",
     "semver": "^5.1.0"

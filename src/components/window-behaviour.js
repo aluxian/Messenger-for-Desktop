@@ -2,6 +2,7 @@ var gui = window.require('nw.gui');
 var platform = require('./platform');
 var settings = require('./settings');
 var utils = require('./utils');
+var dispatcher = require('./dispatcher')
 
 var lastLabel = '';
 
@@ -21,15 +22,24 @@ module.exports = {
     });
 
     // Don't quit the app when the window is closed
-      win.removeAllListeners('close');
-      win.on('close', function(quit) {
-        if (quit) {
-          this.saveWindowState(win);
-          win.close(true);
-        } else {
-          win.hide();
-        }
-      }.bind(this));
+    win.removeAllListeners('close');
+	// Forward the close event to the dispatcher
+	win.on('close', function(quit) {
+		dispatcher.trigger('close', quit)
+	});
+	// Listen to the dispatcher for the close event.
+	// Allows menu item to dispatch a close event.
+	dispatcher.addEventListener('close', function(quit) {
+	  // Always save and hide
+	  this.saveWindowState(win);		
+	  win.hide();
+	  // If we are quitting, close.
+	  if (quit) {
+	    setTimeout(function() {
+	  	  win.close(true);
+	    }, 1); // On next tick.
+	  }
+	}.bind(this));
   },
 
   /**
@@ -118,21 +128,24 @@ module.exports = {
     var defaultTitle = childDoc.title;
 
     setInterval(function() {
-      parentDoc.title = childDoc.title;
-      defaultTitle = defaultTitle || childDoc.title;
-
       var label = '';
+	  if(!win.window.navigator.onLine) {
+		parentDoc.title = 'Messenger - Offline';
+		return;
+	  } else {
+        parentDoc.title = childDoc.title;
 
-      if (childDoc.title != defaultTitle) {
-        var countMatch = notifCountRegex.exec(childDoc.title);
-        label = countMatch && countMatch[1] || '';
+        if (childDoc.title != defaultTitle) {
+          var countMatch = notifCountRegex.exec(childDoc.title);
+          label = countMatch && countMatch[1] || '';
 
-        if (!label) {
-          // Probably it says that someone messaged the user
-          // This prevents the badge from blinking at the same time with the title
-          return;
+          if (!label) {
+            // Probably it says that someone messaged the user
+            // This prevents the badge from blinking at the same time with the title
+            return;
+          }
         }
-      }
+	  }
 	  
 	  if(label == lastLabel) {
 		  // The label is no different to the last time it was set 
@@ -169,7 +182,7 @@ module.exports = {
       state.height = win.height;
     }
 
-    settings.windowState = state;
+    settings.updateKey('windowState', state);
   },
 
   /**
@@ -189,18 +202,5 @@ module.exports = {
       win.show();
     else
       win.hide();
-  },
-
-  /**
-   * Reload the app periodically until online.
-   */
-  reloadUntilOnline: function(win) {
-    var reloadIntervalId = setInterval(function() {
-      if (win.window.navigator.onLine) {
-        clearInterval(reloadIntervalId);
-      } else {
-        win.reload();
-      }
-    }, 5 * 1000);
   }
 };

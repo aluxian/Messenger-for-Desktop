@@ -3,6 +3,7 @@ shelljs = require 'shelljs'
 mergeStream = require 'merge-stream'
 runSequence = require 'run-sequence'
 manifest = require './package.json'
+NwBuilder = require 'nw-builder'
 $ = require('gulp-load-plugins')()
 
 # Remove directories used by the tasks
@@ -16,19 +17,19 @@ gulp.task 'clean', ->
     if process.argv.indexOf('--toolbar') > 0
       shelljs.sed '-i', '"toolbar": false', '"toolbar": true', './src/package.json'
 
-    gulp.src './src/**'
-      .pipe $.nwBuilder
-        platforms: [platform]
-        version: '0.12.3'
-        winIco: if process.argv.indexOf('--noicon') > 0 then undefined else './assets-windows/icon.ico'
-        macIcns: './assets-osx/icon.icns'
-        macZip: true
-        macPlist:
-          NSHumanReadableCopyright: 'aluxian.com'
-          CFBundleIdentifier: 'com.aluxian.messengerfordesktop'
-      .on 'end', ->
-        if process.argv.indexOf('--toolbar') > 0
-          shelljs.sed '-i', '"toolbar": true', '"toolbar": false', './src/package.json'
+    nw = new NwBuilder(
+      files: './src/**'
+      platforms: [platform]
+      version: '0.14.5'
+      winIco: if process.argv.indexOf('--noicon') > 0 then undefined else './assets-windows/icon.ico'
+      macIcns: './assets-osx/icon.icns'
+      macZip: true
+      macPlist:
+        NSHumanReadableCopyright: 'aluxian.com'
+        CFBundleIdentifier: 'com.aluxian.messengerfordesktop'
+    )
+
+    nw.build()
 
 # Only runs on OSX (requires XCode properly configured)
 gulp.task 'sign:osx64', ['build:osx64'], ->
@@ -41,6 +42,8 @@ gulp.task 'sign:osx64', ['build:osx64'], ->
 gulp.task 'pack:osx64', ['sign:osx64'], ->
   shelljs.mkdir '-p', './dist'            # appdmg fails if ./dist doesn't exist
   shelljs.rm '-f', './dist/Messenger.dmg' # appdmg fails if the dmg already exists
+
+  shelljs.rm '-r', './build/Messenger/osx64/Messenger.app/Contents/Resources/en.lproj'
 
   gulp.src []
     .pipe require('gulp-appdmg')

@@ -11,11 +11,6 @@ var notification = require('./components/notification');
 var dispatcher = require('./components/dispatcher');
 var utils = require('./components/utils');
 
-// Ensure there's an app shortcut for toast notifications to work on Windows
-if (platform.isWindows) {
-  gui.App.createShortcut(process.env.APPDATA + "\\Microsoft\\Windows\\Start Menu\\Programs\\Messenger.lnk");
-}
-
 // Add dispatcher events
 dispatcher.addEventListener('win.alert', function(data) {
   data.win.window.alert(data.message);
@@ -63,7 +58,8 @@ iframe.onload = function() {
   notification.inject(iframe.contentWindow, win);
 
   // Add a context menu
-  menus.injectContextMenu(win, iframe.contentWindow, iframe.contentDocument);
+  menus.injectContextMenu(win, document);
+  menus.injectContextMenu(win, iframe.contentDocument);
 
   // Bind native events to the content window
   windowBehaviour.bindEvents(win, iframe.contentWindow);
@@ -73,6 +69,21 @@ iframe.onload = function() {
 
   // Listen for ESC key press
   windowBehaviour.closeWithEscKey(win, iframe.contentDocument);
+  
+  // Listen for offline event and remove the iframe.
+  dispatcher.addEventListener('offline', function() {
+	iframe = document.querySelector('iframe');
+	if(iframe) {
+		iframe.remove();
+	}
+  });
+  
+  dispatcher.addEventListener('online', function() {
+	iframe = document.querySelector('iframe');
+	if(iframe) {
+		iframe.style.display = 'initial';
+	}
+  });
 };
 
 
