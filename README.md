@@ -1,5 +1,4 @@
 # Messenger for Desktop
-**If you like this fork, please consider giving me a star!**
 
 <!-- [(Looking for Maintainers)](https://github.com/Aluxian/Facebook-Messenger-Desktop/issues/407) -->
 
@@ -19,14 +18,14 @@ Bring [messenger.com](https://messenger.com) to your OS X, Windows or Linux desk
 
 ## Extra
 
-* Badge with the number of notifications in the dock/taskbar (OS X and Windows)
-* Auto-launch on OS startup (OS X, Windows)
-* Native notifications (all platforms)
-* System tray icon on Windows
+* System tray icon
+* Special badge icon when new unread messages
+* Auto-launch on OS startup
+* Chrome notifications
 * 3 themes: Default, Dark and Mosaic
 * Auto-hide the left sidebar
 * Open links in browser or new window
-* Preferences in the right-click context menu (or menu bar for OS X, tray menu for Windows)
+* Preferences when the right-clicking the tray icon (Linux/Windows) or menu bar (OS X)
 
 ## Build
 
@@ -62,8 +61,6 @@ Quick install on OS X:
 
 The output is in `./dist`. Take a look in `gulpfile.coffee` for additional tasks.
 
-**TIP**: use the `--toolbar` parameter to quickly build the app with the toolbar on. E.g. `gulp build:win32 --toolbar`.
-
 **TIP**: use `gulp build:win32 --noicon` to quickly build the Windows app without the icon.
 
 **TIP**: for OS X, use the `run:osx64` task to build the app and run it immediately.
@@ -78,7 +75,11 @@ Node runs on the background page, WebKit runs in the App page. You will need to 
 
 ## Contributions
 
-Contributions are welcome! For feature requests and bug reports please [submit an issue](https://github.com/Aluxian/Facebook-Messenger-Desktop/issues).
+**Official maintainers**:
+* [Emile Fugulin](https://github.com/sytten)
+* [Josh Lloyd](https://github.com/nevercast)
+
+All contributions are welcome! For feature requests and bug reports please [submit an issue](https://github.com/Aluxian/Facebook-Messenger-Desktop/issues).
 
 ## License
 
