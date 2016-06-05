@@ -69,6 +69,7 @@ gulp.task 'pack:osx64', ['sign:osx64'], ->
 
 # Create a nsis installer for win32; must have `makensis` installed
 gulp.task 'pack:win32', ['build:win32'], ->
+   shelljs.mkdir '-p', './dist'            # makensis fails if ./dist doesn't exist
    shelljs.exec 'makensis ./assets-windows/installer.nsi'
 
 # Create packages for linux
