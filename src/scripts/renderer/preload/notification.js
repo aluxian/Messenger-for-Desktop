@@ -1,5 +1,5 @@
 import EventEmitter from 'events';
-import remote from 'remote';
+import {remote} from 'electron';
 
 const nativeNotifier = remote.require('../browser/bridges/native-notifier').default;
 const mainWindowManager = remote.getGlobal('application').mainWindowManager;

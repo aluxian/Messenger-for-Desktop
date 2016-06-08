@@ -1,7 +1,7 @@
 import EventEmitter from 'events';
 import request from 'request';
+import {app} from 'electron';
 import semver from 'semver';
-import app from 'app';
 
 class BaseAutoUpdater extends EventEmitter {
 

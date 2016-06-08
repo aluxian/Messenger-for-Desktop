@@ -1,6 +1,6 @@
+import {app} from 'electron';
 import path from 'path';
 import del from 'del';
-import app from 'app';
 
 const paths = [
   path.join(app.getPath('desktop'), 'WhatsApp for Desktop.lnk'),

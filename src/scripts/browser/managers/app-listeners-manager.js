@@ -1,5 +1,5 @@
 import EventEmitter from 'events';
-import app from 'app';
+import {app} from 'electron';
 
 import platform from 'common/utils/platform';
 import prefs from 'browser/utils/prefs';

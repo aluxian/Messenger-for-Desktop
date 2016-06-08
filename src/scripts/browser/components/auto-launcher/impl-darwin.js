@@ -1,7 +1,7 @@
 import Plist from 'launchd.plist';
 import fs from 'fs-extra-promise';
+import {app} from 'electron';
 import path from 'path';
-import app from 'app';
 
 import BaseAutoLauncher from 'browser/components/auto-launcher/base';
 import files from 'common/utils/files';
@@ -31,7 +31,7 @@ class DarwinAutoLauncher extends BaseAutoLauncher {
   buildPlist() {
     const plist = new Plist();
     plist.setLabel(global.manifest.darwin.bundleId);
-    plist.setProgram(app.getPath('exe'));
+    plist.setProgram(electronpp.getPath('exe'));
     plist.setProgramArgs(['--os-startup']);
     plist.setRunAtLoad(true);
     return plist.build();

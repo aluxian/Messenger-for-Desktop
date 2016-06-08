@@ -2,11 +2,11 @@ let impl = null;
 
 switch (process.type) {
   case 'browser':
-    impl = require('app');
+    impl = require('electron').app;
     break;
 
   case 'renderer':
-    impl = require('remote').app;
+    impl = require('electron').remote.app;
     break;
 }
 

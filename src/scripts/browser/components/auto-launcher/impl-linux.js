@@ -1,6 +1,6 @@
+import {app} from 'electron';
 import fs from 'fs-extra';
 import path from 'path';
-import app from 'app';
 
 import BaseAutoLauncher from 'browser/components/auto-launcher/base';
 import files from 'common/utils/files';

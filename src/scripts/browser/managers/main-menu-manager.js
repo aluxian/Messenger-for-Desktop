@@ -1,5 +1,5 @@
-import Menu from 'menu';
 import EventEmitter from 'events';
+import {Menu} from 'electron';
 
 import AutoUpdater from 'browser/components/auto-updater';
 import {findItemById} from 'browser/menus/utils';

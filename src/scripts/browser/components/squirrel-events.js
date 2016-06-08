@@ -1,13 +1,12 @@
+import {app, dialog} from 'electron';
 import cp from 'child_process';
-import dialog from 'dialog';
 import async from 'async';
 import path from 'path';
-import app from 'app';
 import del from 'del';
 
-import filePaths from 'common/utils/file-paths';
-import wafdCleaner from 'browser/components/wafd-cleaner';
 import AutoLauncher from 'browser/components/auto-launcher';
+import wafdCleaner from 'browser/components/wafd-cleaner';
+import filePaths from 'common/utils/file-paths';
 
 class SquirrelEvents {
 

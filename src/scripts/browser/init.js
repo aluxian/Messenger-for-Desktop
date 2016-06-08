@@ -1,6 +1,6 @@
 import {addPath} from 'app-module-path';
+import {app} from 'electron';
 import path from 'path';
-import app from 'app';
 
 const manifest = require('../../package.json');
 global.manifest = manifest;

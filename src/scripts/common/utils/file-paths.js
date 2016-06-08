@@ -1,5 +1,5 @@
-import path from 'path';
 import app from 'common/electron/app';
+import path from 'path';
 
 /**
  * @return the theme's css path

@@ -6,7 +6,7 @@ switch (process.type) {
     break;
 
   case 'renderer':
-    impl = require('remote').require('../browser/utils/logger');
+    impl = require('electron').remote.require('../browser/utils/logger');
     break;
 }
 

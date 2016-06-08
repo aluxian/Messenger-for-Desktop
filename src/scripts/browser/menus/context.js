@@ -1,6 +1,5 @@
-import clipboard from 'clipboard';
-import MenuItem from 'menu-item';
-import Menu from 'menu';
+import {Menu, MenuItem} from 'electron';
+import {clipboard} from 'electron';
 
 import platform from 'common/utils/platform';
 

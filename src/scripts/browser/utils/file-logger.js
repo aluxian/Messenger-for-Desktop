@@ -1,8 +1,8 @@
 import stripAnsi from 'strip-ansi';
 import fs from 'fs-extra-promise';
+import {app} from 'electron';
 import util from 'util';
 import path from 'path';
-import app from 'app';
 import os from 'os';
 
 let fileLogStream = null;

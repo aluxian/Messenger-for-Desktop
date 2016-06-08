@@ -1,6 +1,4 @@
-import dialog from 'dialog';
-import shell from 'shell';
-import app from 'app';
+import {app, dialog, shell} from 'electron';
 
 import * as piwik from 'browser/services/piwik';
 import raffle from 'browser/components/raffle';

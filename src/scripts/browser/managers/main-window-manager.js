@@ -1,8 +1,8 @@
-import BrowserWindow from 'browser-window';
+import {BrowserWindow} from 'electron';
 import EventEmitter from 'events';
 
 import debounce from 'lodash.debounce';
-import shell from 'shell';
+import {shell} from 'electron';
 
 import platform from 'common/utils/platform';
 import prefs from 'browser/utils/prefs';

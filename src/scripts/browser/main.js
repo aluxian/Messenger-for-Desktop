@@ -1,7 +1,6 @@
-import dialog from 'dialog';
+import {app, dialog, protocol} from 'electron';
 import debug from 'debug';
 import yargs from 'yargs';
-import app from 'app';
 
 import prefs from 'browser/utils/prefs';
 import filePaths from 'common/utils/file-paths';
@@ -145,8 +144,6 @@ process.on('uncaughtException', function(err) {
   // Listen for app ready-ness
   app.on('ready', function() {
     log('ready');
-    const protocol = require('protocol');
-
     log('intercepting protocol http');
     protocol.interceptHttpProtocol('http', function(request, callback) {
       if (request.url.indexOf(global.manifest.virtualUrl) === 0) {

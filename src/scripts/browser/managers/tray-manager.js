@@ -1,6 +1,5 @@
 import EventEmitter from 'events';
-import Menu from 'menu';
-import Tray from 'tray';
+import {Menu, Tray} from 'electron';
 
 import filePaths from 'common/utils/file-paths';
 import platform from 'common/utils/platform';

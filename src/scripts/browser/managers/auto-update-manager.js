@@ -1,7 +1,6 @@
+import {dialog, shell} from 'electron';
 import EventEmitter from 'events';
 import keyMirror from 'keymirror';
-import dialog from 'dialog';
-import shell from 'shell';
 
 import AutoUpdater from 'browser/components/auto-updater';
 import platform from 'common/utils/platform';

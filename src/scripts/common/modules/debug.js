@@ -8,7 +8,7 @@ switch (process.type) {
   case 'renderer':
     impl = require('debug');
     // Fix for colors and formatting
-    const remoteDebug = require('remote').require('debug');
+    const remoteDebug = require('electron').remote.require('debug');
     impl.useColors = function() {
       return remoteDebug.useColors(...arguments);
     };

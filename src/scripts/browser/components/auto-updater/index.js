@@ -7,7 +7,7 @@ if (platform.isLinux) {
 } else if (platform.isWindows && global.options.portable) {
   impl = require('browser/components/auto-updater/impl-win32-portable').default;
 } else {
-  impl = require('auto-updater');
+  impl = require('electron').autoUpdater;
 }
 
 export default impl;

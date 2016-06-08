@@ -1,4 +1,4 @@
-import {app} from 'remote';
+import {remote} from 'electron';
 import path from 'path';
 
 const webView = document.getElementById('wv');
@@ -10,7 +10,7 @@ webView.setAttribute('src', global.manifest.wvUrl);
 
 // Fix preload requiring file:// protocol
 let preloadPath = webView.getAttribute('preload');
-preloadPath = 'file://' + path.join(app.getAppPath(), 'html', preloadPath);
+preloadPath = 'file://' + path.join(remote.app.getAppPath(), 'html', preloadPath);
 webView.setAttribute('preload', preloadPath);
 
 export default webView;

@@ -1,7 +1,7 @@
+import {BrowserWindow} from 'electron';
+
 import {findItemById, findMenu} from 'browser/menus/utils';
 import prefs from 'browser/utils/prefs';
-
-import BrowserWindow from 'browser-window';
 
 /**
  * Set a key of the item with the given value.

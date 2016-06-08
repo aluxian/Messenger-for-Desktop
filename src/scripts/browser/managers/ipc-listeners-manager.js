@@ -1,9 +1,6 @@
 import EventEmitter from 'events';
-import BrowserWindow from 'browser-window';
-import NativeImage from 'native-image';
-import {ipcMain} from 'electron';
-import shell from 'shell';
-import app from 'app';
+import {BrowserWindow, NativeImage} from 'electron';
+import {app, ipcMain, shell} from 'electron';
 
 import contextMenu from 'browser/menus/context';
 import platform from 'common/utils/platform';
