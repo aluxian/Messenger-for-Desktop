@@ -68,7 +68,7 @@
   "sentry": {
     "dsn": "{{& SENTRY_DSN_PRIVATE }}"
   },
-  "electronVersion": "v0.37.8",
+  "electronVersion": "v1.2.1",
   "distrib": "unset",
   "portable": false,
   "buildNum": 0,
