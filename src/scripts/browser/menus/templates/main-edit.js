@@ -53,6 +53,10 @@ export default {
     accelerator: 'Cmd+V',
     role: 'paste'
   }, {
+    label: 'Delete',
+    allow: platform.isDarwin,
+    role: 'delete'
+  }, {
     label: 'Select All',
     allow: platform.isDarwin,
     accelerator: 'Cmd+A',
