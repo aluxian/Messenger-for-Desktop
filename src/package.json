@@ -73,15 +73,15 @@
   "portable": false,
   "buildNum": 0,
   "dev": true,
-  "themes": [
-    "Default",
-    "Faded",
-    "Pure",
-    "Grey",
-    "Dark",
-    "NumixDark",
-    "Sephia",
-    "Fluttershy",
-    "Orange"
-  ]
+  "themes": {
+    "default": "Default",
+    "faded": "Faded",
+    "pure": "Pure",
+    "grey": "Grey",
+    "dark": "Dark",
+    "numix_dark": "Numix Dark",
+    "sephia": "Sephia",
+    "fluttershy": "Fluttershy",
+    "orange": "Orange"
+  }
 }

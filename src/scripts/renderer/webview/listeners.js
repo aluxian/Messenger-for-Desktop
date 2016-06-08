@@ -76,11 +76,11 @@ webView.addEventListener('dom-ready', function() {
     .catch(logError);
 
   // Restore the default theme
-  const theme = prefs.get('theme');
-  if (theme) {
-    if (global.manifest.themes.map(name => name.toLowerCase()).includes(theme)) {
-      log('restoring theme', theme);
-      files.getThemeCss(theme)
+  const themeId = prefs.get('theme');
+  if (themeId) {
+    if (global.manifest.themes[themeId]) {
+      log('restoring theme', themeId);
+      files.getThemeCss(themeId)
         .then(css => webView.send('apply-theme', css))
         .catch(logError);
     } else {

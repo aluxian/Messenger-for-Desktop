@@ -2,10 +2,10 @@ import $ from 'browser/menus/expressions';
 
 export default {
   label: 'Theme',
-  submenu: global.manifest.themes.map((theme, index) => ({
+  submenu: Object.keys(global.manifest.themes).map((themeId, index) => ({
     type: 'radio',
-    label: theme,
-    theme: theme.toLowerCase(),
+    label: global.manifest.themes[themeId],
+    theme: themeId,
     accelerator: index < 10 ? 'CmdOrCtrl+Alt+' + index : undefined,
     click: $.all(
       $.themeCss($.key('theme'), css => $.sendToWebView('apply-theme', $.val(css))),
