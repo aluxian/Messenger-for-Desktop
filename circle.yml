@@ -1,7 +1,6 @@
 general:
   branches:
     only:
-      - develop
       - deploy
   artifacts:
     - dist

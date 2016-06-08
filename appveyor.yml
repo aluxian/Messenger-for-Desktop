@@ -6,7 +6,6 @@ init:
 
 branches:
   only:
-    - develop
     - deploy
 
 environment:
