@@ -146,7 +146,7 @@ process.on('uncaughtException', function(err) {
     log('ready');
     log('intercepting protocol http');
     protocol.interceptHttpProtocol('http', function(request, callback) {
-      if (request.url.indexOf(global.manifest.virtualUrl) === 0) {
+      if (request.url.startsWith(global.manifest.virtualUrl)) {
         const newPath = request.url.replace(global.manifest.virtualUrl, 'file://' + app.getAppPath());
         const newPathShort = request.url.replace(global.manifest.virtualUrl, 'file://<app>');
         log('intercepted http', request.method, request.url, '=>', newPathShort);
