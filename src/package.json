@@ -7,10 +7,10 @@
   "wvUrl": "https://web.whatsapp.com/",
   "main": "./scripts/browser/init.js",
   "dependencies": {
-    "app-module-path": "1.0.6",
-    "async": "2.0.0-rc.3",
-    "babel-runtime": "6.6.1",
-    "bluebird": "3.3.5",
+    "app-module-path": "1.1.0",
+    "async": "2.0.0-rc.6",
+    "babel-runtime": "6.9.2",
+    "bluebird": "3.4.0",
     "colors": "1.1.2",
     "debug": "2.2.0",
     "del": "2.2.0",
@@ -18,17 +18,17 @@
     "keymirror": "0.1.1",
     "launchd.plist": "0.0.1",
     "lodash.debounce": "4.0.6",
-    "mousetrap": "1.5.3",
+    "mousetrap": "1.6.0",
     "node-uuid": "1.4.7",
     "raven": "0.11.0",
-    "raven-js": "3.0.4",
+    "raven-js": "3.0.5",
     "relatively": "0.1.2",
     "request": "2.72.0",
     "source-map-support": "0.4.0",
     "spellchecker": "3.3.1",
     "strip-ansi": "3.0.1",
-    "winreg": "1.2.0",
-    "yargs": "4.7.0"
+    "winreg": "1.2.1",
+    "yargs": "4.7.1"
   },
   "optionalDependencies": {
     "nodobjc": "2.1.0"
