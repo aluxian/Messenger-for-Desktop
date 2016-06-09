@@ -9,9 +9,9 @@ import prefs from 'browser/utils/prefs';
 /**
  * Call the handler for the check-for-update event.
  */
-export function cfuCheckForUpdate() {
+export function cfuCheckForUpdate(informUser) {
   return function() {
-    global.application.autoUpdateManager.handleMenuCheckForUpdate();
+    global.application.autoUpdateManager.handleMenuCheckForUpdate(informUser);
   };
 }
 

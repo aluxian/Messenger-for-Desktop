@@ -12,7 +12,7 @@ export default {
     id: 'cfu-check-for-update',
     label: 'Check for Update',
     allow: !global.options.mas,
-    click: $.cfuCheckForUpdate()
+    click: $.cfuCheckForUpdate(true)
   }, {
     id: 'cfu-checking-for-update',
     label: 'Checking for Update...',
