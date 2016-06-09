@@ -15,7 +15,12 @@
   "dependencies": {
     "unused-ignores": [
       "source-map-support",
-      "babel-runtime"
+      "babel-runtime",
+      "winreg",
+      "lodash.debounce",
+      "launchd.plist",
+      "bluebird",
+      "async"
     ]
   },
   "packageJsonLocation": "src/package.json"
