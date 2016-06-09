@@ -1,10 +1,3 @@
-general:
-  branches:
-    only:
-      - deploy
-  artifacts:
-    - dist
-
 machine:
   node:
     version: 0.12.0
@@ -22,30 +15,48 @@ machine:
 
 dependencies:
   post:
-    - cd src && npm install
-    - gulp download:linux32 --verbose
-    - gulp download:linux64 --verbose
+    - >
+      if [[ $CIRCLE_BRANCH == 'staging' || $CIRCLE_BRANCH == 'deploy' ]]; then
+        cd src && npm install;
+        gulp download:linux32 --verbose;
+        gulp download:linux64 --verbose;
+      fi
   cache_directories:
-    - cache
+    - node_modules
     - src/node_modules
-
-test:
-  post:
-    - gulp changelog:linux --verbose
-    - gulp rebuild:32 --verbose
-    - gulp pack:linux32:deb --prod --verbose
-    - gulp pack:linux32:rpm --prod --verbose
-    - gulp rebuild:64 --verbose
-    - gulp pack:linux64:deb --prod --verbose
-    - gulp pack:linux64:rpm --prod --verbose
-    - gulp publish:github --verbose
+    - cache
 
 deployment:
-  production:
+  staging:
+    branch: staging
+    commands:
+      - gulp changelog:linux --verbose
+
+      - gulp rebuild:32 --verbose
+      - gulp pack:linux32:deb --prod --verbose
+      - gulp pack:linux32:rpm --prod --verbose
+
+      - gulp rebuild:64 --verbose
+      - gulp pack:linux64:deb --prod --verbose
+      - gulp pack:linux64:rpm --prod --verbose
+
+      - gulp publish:bintray:artifacts --verbose
+  deploy:
     branch: deploy
     commands:
+      - gulp changelog:linux --verbose
+
+      - gulp rebuild:32 --verbose
+      - gulp pack:linux32:deb --prod --verbose
+      - gulp pack:linux32:rpm --prod --verbose
+
+      - gulp rebuild:64 --verbose
+      - gulp pack:linux64:deb --prod --verbose
+      - gulp pack:linux64:rpm --prod --verbose
+
       - gulp publish:bintray:deb --verbose
       - gulp publish:bintray:rpm --verbose
+      - gulp publish:github --verbose
 
 notify:
   webhooks:

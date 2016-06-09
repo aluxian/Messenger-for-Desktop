@@ -4,10 +4,6 @@ skip_tags: true
 init:
   - git config --global core.autocrlf input
 
-branches:
-  only:
-    - deploy
-
 environment:
   SIGNTOOL_PATH: 'C:/Program Files (x86)/Microsoft SDKs/Windows/v7.1A/Bin/SignTool.exe'
   SIGN_WIN_CERTIFICATE_FILE: 'C:/foss_ar_sha2.pfx'
@@ -35,25 +31,41 @@ cache:
 install:
   - npm install -g npm@3
   - set PATH=%APPDATA%\npm;%PATH%
-  - aws s3 cp --region eu-west-1 s3://aluxian/certificates/foss_ar_sha2.pfx C:/foss_ar_sha2.pfx
   - npm install -g gulp
   - npm install
-  - cd src && npm install
+  - >
+    if [[ $APPVEYOR_REPO_BRANCH == 'staging' || $APPVEYOR_REPO_BRANCH == 'deploy' ]]; then
+      aws s3 cp --region eu-west-1 s3://aluxian/certificates/foss_ar_sha2.pfx C:/foss_ar_sha2.pfx;
+      cd src && npm install;
+    fi
+
+test_script:
+  - npm test
 
 before_build:
-  - npm test
-  - gulp rebuild:32 --verbose
+  - >
+    if [[ $APPVEYOR_REPO_BRANCH == 'staging' || $APPVEYOR_REPO_BRANCH == 'deploy' ]]; then
+      gulp rebuild:32 --verbose;
+    fi
 
 build_script:
-  - gulp pack:win32:portable --prod --verbose
-  - gulp pack:win32:installer --prod --verbose
+  - >
+    if [[ $APPVEYOR_REPO_BRANCH == 'staging' || $APPVEYOR_REPO_BRANCH == 'deploy' ]]; then
+      gulp pack:win32:portable --prod --verbose;
+      gulp pack:win32:installer --prod --verbose;
+      gulp clean:prev-releases:win32 --verbose;
+    fi
 
 deploy_script:
-  - gulp clean:prev-releases:win32 --verbose
-  - gulp publish:github --verbose
+  - >
+    if [[ $APPVEYOR_REPO_BRANCH == 'staging' ]]; then
+      gulp publish:bintray:artifacts --verbose;
+    fi
 
-artifacts:
-  - path: dist\*
+  - >
+    if [[ $APPVEYOR_REPO_BRANCH == 'deploy' ]]; then
+      gulp publish:github --verbose;
+    fi
 
 notifications:
   - provider: Webhook
