@@ -108,7 +108,7 @@ class AutoUpdateManager extends EventEmitter {
     }
   }
 
-  handleMenuCheckForUpdate(informUser) {
+  handleMenuCheckForUpdate (informUser) {
     this.checkForUpdate(informUser);
   }
 
@@ -202,7 +202,7 @@ class AutoUpdateManager extends EventEmitter {
     this.checkForUpdate();
   }
 
-  checkForUpdate(informUser) {
+  checkForUpdate (informUser) {
     log('checking for update...');
     AutoUpdater.checkForUpdates();
 

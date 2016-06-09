@@ -1,6 +1,6 @@
 import Raven from 'raven-js';
 
-export function getClient() {
+export function getClient () {
   Raven.config(global.manifest.sentry.dsn, {
     release: global.manifest.version,
     name: global.manifest.productName,
