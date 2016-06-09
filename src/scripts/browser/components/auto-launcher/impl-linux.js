@@ -1,4 +1,4 @@
-import fs from 'fs-extra';
+import fs from 'fs-extra-promise';
 import path from 'path';
 import app from 'app';
 
