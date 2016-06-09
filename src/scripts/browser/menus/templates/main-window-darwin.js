@@ -22,7 +22,7 @@ export default {
     click: $.floatOnTop($.key('checked'))
   }, {
     type: 'checkbox',
-    label: 'Close with Escape',
+    label: 'Close with Escape Key',
     click: $.setPref('close-with-esc', $.key('checked')),
     parse: $.setLocal('checked', $.pref('close-with-esc'))
   }, {
