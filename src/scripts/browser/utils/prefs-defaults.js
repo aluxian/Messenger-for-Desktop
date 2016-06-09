@@ -78,6 +78,18 @@ function defaultSpellCheckerLanguage() {
     defaultLanguage = null;
   }
 
+  // Try to use en
+  const langEn = validateLanguage('en');
+  if (langEn) {
+    return langEn;
+  }
+
+  // Try to use en-us
+  const langEnUs = validateLanguage('en_US');
+  if (langEnUs) {
+    return langEnUs;
+  }
+
   // Try to use the first available language
   if (availableLanguages.length) {
     return availableLanguages[0];
