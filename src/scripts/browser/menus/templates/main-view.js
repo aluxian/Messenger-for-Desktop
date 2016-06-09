@@ -4,19 +4,6 @@ import $ from 'browser/menus/expressions';
 export default {
   label: '&View',
   submenu: [{
-    label: '&Reload',
-    accelerator: 'Ctrl+R',
-    allow: platform.isNonDarwin,
-    click: $.reloadWindow()
-  }, {
-    label: 'Re&set Window',
-    accelerator: 'Ctrl+Alt+R',
-    allow: platform.isNonDarwin,
-    click: $.resetWindow()
-  }, {
-    type: 'separator',
-    allow: platform.isNonDarwin
-  }, {
     label: 'Zoom In',
     accelerator: 'CmdOrCtrl+=',
     click: $.all(

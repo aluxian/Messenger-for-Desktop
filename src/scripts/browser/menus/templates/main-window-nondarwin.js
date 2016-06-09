@@ -5,6 +5,16 @@ export default {
   label: 'Window',
   allow: platform.isNonDarwin,
   submenu: [{
+    label: '&Reload',
+    accelerator: 'Ctrl+R',
+    click: $.reloadWindow()
+  }, {
+    label: 'Re&set',
+    accelerator: 'Ctrl+Alt+R',
+    click: $.resetWindow()
+  }, {
+    type: 'separator'
+  }, {
     type: 'checkbox',
     label: '&Float on Top',
     accelerator: 'Ctrl+Shift+F',
