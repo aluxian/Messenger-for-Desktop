@@ -28,7 +28,7 @@ Whatsie is still in beta, so some features might not work properly. Bug reports 
 
 ## How to install
 
-**Note:** If you download from the releases page, be careful what version you pick. Releases that end with `-beta` are beta releases, the ones that end with `-dev` are development releases, and the rest are stable. If you're unsure which to pick, opt for stable. Once you download the app, you'll be able to switch to another channel from the menu.
+**Note:** If you download from the [releases page](https://github.com/Aluxian/Whatsie/releases), be careful what version you pick. Releases that end with `-beta` are beta releases, the ones that end with `-dev` are development releases, and the rest are stable. If you're unsure which to pick, opt for stable. Once you download the app, you'll be able to switch to another channel from the menu.
 
 - **dev:** these releases get the newest and hottest features, but they are less tested and might break things
 - **beta:** these releases are the right balance between getting new features early while staying away from nasty bugs
