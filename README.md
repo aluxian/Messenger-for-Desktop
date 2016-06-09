@@ -108,6 +108,8 @@ sudo yum install whatsie.x86_64   # for 64-bit distros
 
 Repository URL: https://aur.archlinux.org/packages/whatsie/
 
+[LR]: https://github.com/Aluxian/Whatsie/releases
+
 # For Developers
 
 Contributions are welcome! Please help me make Whatsie the best app for WhatsApp Web. For feature requests and bug reports please [submit an issue](https://github.com/Aluxian/Whatsie/issues/new?labels=bug) or get in touch with me on [Gitter](https://gitter.im/Aluxian/Whatsie) or Twitter [@aluxian](https://twitter.com/aluxian).
@@ -250,4 +252,11 @@ gulp pack:<linux32|linux64>:<deb|rpm> [--prod]
 
 Make sure you've installed [fpm](https://github.com/jordansissel/fpm).
 
-[LR]: https://github.com/Aluxian/Whatsie/releases/latest
+### Release flow
+
+`develop -> staging -> deploy -> master`
+
+1. All work is done on branch `develop`. Every push to `develop` will make the CIs run code linting and other checks.
+2. In order to build, push to `staging`. Every push to `staging` will make the CIs build the app and upload it to XXX, available for testing.
+3. After a version is tested and is ready for release, push it to `deploy`. This will rebuild the app and upload it to GitHub, Bintray and other repositories.
+4. Now, the code is ready to be merged into `master`.
