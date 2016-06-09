@@ -33,43 +33,26 @@ install:
   - set PATH=%APPDATA%\npm;%PATH%
   - npm install -g gulp
   - npm install
-  - >
-    IF APPVEYOR_REPO_BRANCH == "staging" GOTO DEPL_OR_STAG
-    IF APPVEYOR_REPO_BRANCH == "deploy" GOTO DEPL_OR_STAG
-    GOTO END
-
-    :DEPL_OR_STAG
-    aws s3 cp --region eu-west-1 s3://aluxian/certificates/foss_ar_sha2.pfx C:/foss_ar_sha2.pfx
-    cd src && npm install
-
-    :END
+  - IF APPVEYOR_REPO_BRANCH == "staging" aws s3 cp --region eu-west-1 s3://aluxian/certificates/foss_ar_sha2.pfx C:/foss_ar_sha2.pfx
+  - IF APPVEYOR_REPO_BRANCH == "staging" cd src && npm install
+  - IF APPVEYOR_REPO_BRANCH == "deploy" aws s3 cp --region eu-west-1 s3://aluxian/certificates/foss_ar_sha2.pfx C:/foss_ar_sha2.pfx
+  - IF APPVEYOR_REPO_BRANCH == "deploy" cd src && npm install
 
 test_script:
   - npm test
 
 before_build:
-  - >
-    IF APPVEYOR_REPO_BRANCH == "staging" GOTO DEPL_OR_STAG
-    IF APPVEYOR_REPO_BRANCH == "deploy" GOTO DEPL_OR_STAG
-    GOTO END
-
-    :DEPL_OR_STAG
-    gulp rebuild:32 --verbose
-
-    :END
+  - IF APPVEYOR_REPO_BRANCH == "staging" gulp rebuild:32 --verbose
+  - IF APPVEYOR_REPO_BRANCH == "deploy" gulp rebuild:32 --verbose
 
 build_script:
   - >
-    IF APPVEYOR_REPO_BRANCH == "staging" GOTO DEPL_OR_STAG
-    IF APPVEYOR_REPO_BRANCH == "deploy" GOTO DEPL_OR_STAG
-    GOTO END
-
-    :DEPL_OR_STAG
-    gulp pack:win32:portable --prod --verbose
-    gulp pack:win32:installer --prod --verbose
-    gulp clean:prev-releases:win32 --verbose
-
-    :END
+    IF APPVEYOR_REPO_BRANCH == "staging" gulp pack:win32:portable --prod --verbose
+    IF APPVEYOR_REPO_BRANCH == "staging" gulp pack:win32:installer --prod --verbose
+    IF APPVEYOR_REPO_BRANCH == "staging" gulp clean:prev-releases:win32 --verbose
+    IF APPVEYOR_REPO_BRANCH == "deploy" gulp pack:win32:portable --prod --verbose
+    IF APPVEYOR_REPO_BRANCH == "deploy" gulp pack:win32:installer --prod --verbose
+    IF APPVEYOR_REPO_BRANCH == "deploy" gulp clean:prev-releases:win32 --verbose
 
 deploy_script:
   - IF APPVEYOR_REPO_BRANCH == "staging" gulp publish:bintray:artifacts:win32 --verbose
