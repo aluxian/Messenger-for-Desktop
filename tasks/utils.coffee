@@ -1,6 +1,6 @@
 args = require './args'
 async = require 'async'
-spawn = require 'cross-spawn-async'
+spawn = require 'cross-spawn'
 fs = require 'fs'
 require 'colors'
 
