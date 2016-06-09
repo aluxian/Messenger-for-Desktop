@@ -12,5 +12,11 @@
       "engine": "semistandard"
     }
   },
+  "dependencies": {
+    "unused-ignores": [
+      "source-map-support",
+      "babel-runtime"
+    ]
+  },
   "packageJsonLocation": "src/package.json"
 }
