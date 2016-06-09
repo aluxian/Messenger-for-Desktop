@@ -1,5 +1,5 @@
+import fs from 'fs-extra-promise';
 import {app} from 'electron';
-import fs from 'fs-extra';
 import path from 'path';
 
 import BaseAutoLauncher from 'browser/components/auto-launcher/base';

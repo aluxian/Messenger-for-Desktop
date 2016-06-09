@@ -20,7 +20,7 @@ export default {
   }, {
     id: 'cfu-check-for-update',
     label: 'Check for &Update',
-    click: $.cfuCheckForUpdate()
+    click: $.cfuCheckForUpdate(true)
   }, {
     id: 'cfu-checking-for-update',
     label: 'Checking for &Update...',

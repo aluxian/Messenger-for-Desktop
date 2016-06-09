@@ -4,19 +4,6 @@ import $ from 'browser/menus/expressions';
 export default {
   label: '&View',
   submenu: [{
-    label: '&Reload',
-    accelerator: 'Ctrl+R',
-    allow: platform.isNonDarwin,
-    click: $.reloadWindow()
-  }, {
-    label: 'Re&set Window',
-    accelerator: 'Ctrl+Alt+R',
-    allow: platform.isNonDarwin,
-    click: $.resetWindow()
-  }, {
-    type: 'separator',
-    allow: platform.isNonDarwin
-  }, {
     label: 'Zoom In',
     accelerator: 'CmdOrCtrl+=',
     click: $.all(
@@ -61,10 +48,12 @@ export default {
     type: 'separator'
   }, {
     label: '&Next Conversation',
-    accelerator: 'CmdOrCtrl+Down'
+    accelerator: 'CmdOrCtrl+Down',
+    click: $.sendToWebView('switch-conversation', $.val(+1))
   }, {
     label: '&Previous Conversation',
-    accelerator: 'CmdOrCtrl+Up'
+    accelerator: 'CmdOrCtrl+Up',
+    click: $.sendToWebView('switch-conversation', $.val(-1))
   }, {
     label: 'Switch to Conversation',
     submenu: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(index => ({

@@ -22,10 +22,15 @@ function trimLongPaths (err) {
 function namespaceOfFile (filename) {
   const app = require('common/electron/app').default;
   const appPath = path.join(app.getAppPath(), 'scripts') + '/';
-  let name = filename.replace(appPath, '').replace('.js', '');
-  if (name.indexOf('common/') === 0) {
+
+  const appPathNorm = path.posix.normalize(appPath);
+  const filenameNorm = path.posix.normalize(filename);
+
+  let name = filenameNorm.replace(appPathNorm, '').replace('.js', '');
+  if (name.startsWith('common/')) {
     name += ':' + process.type;
   }
+
   return global.manifest.name + ':' + name;
 }
 

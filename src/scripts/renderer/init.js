@@ -12,4 +12,4 @@ addPath(path.join(appPath, 'node_modules'));
 
 require('renderer/main');
 require('renderer/webview');
-require('renderer/utils/keymap');
+require('renderer/components/keymap');

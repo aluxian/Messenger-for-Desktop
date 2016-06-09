@@ -39,7 +39,7 @@ export function appUpdatesReleaseChannel () {
       click: $.all(
         $.setPref('updates-channel', $.key('channel')),
         $.resetAutoUpdaterUrl(),
-        $.cfuCheckForUpdate()
+        $.cfuCheckForUpdate(false)
       ),
       parse: $.all(
         $.setLocal('checked', $.eq($.pref('updates-channel'), $.key('channel')))

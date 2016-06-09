@@ -9,7 +9,9 @@ const availableLanguages = getAvailableDictionaries()
   .map((langCode) => {
     return {
       code: langCode,
-      name: languageCodes[langCode] || langCode
+      name: languageCodes[langCode] ||
+        languageCodes[langCode.replace('-', '_')] ||
+        languageCodes[langCode.replace('-', '_').split('_')[0]]
     };
   })
   .sort((a, b) => {

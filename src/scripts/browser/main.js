@@ -121,7 +121,7 @@ process.on('uncaughtException', function (err) {
 
   // Print the version and exit
   if (options.version) {
-    console.log(`${app.getName()} ${app.getVersion()}`);
+    console.log(`${app.getName()} ${app.getVersion()} (${global.manifest.buildNum})`);
     console.log(`Electron ${process.versions.electron}`);
     console.log(`Chromium ${process.versions.chrome}`);
     return app.quit();

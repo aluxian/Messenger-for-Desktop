@@ -108,8 +108,8 @@ class AutoUpdateManager extends EventEmitter {
     }
   }
 
-  handleMenuCheckForUpdate () {
-    this.checkForUpdate(false);
+  handleMenuCheckForUpdate(informUser) {
+    this.checkForUpdate(informUser);
   }
 
   handleMenuUpdateAvailable () {
@@ -202,11 +202,11 @@ class AutoUpdateManager extends EventEmitter {
     this.checkForUpdate();
   }
 
-  checkForUpdate (silent = true) {
+  checkForUpdate(informUser) {
     log('checking for update...');
     AutoUpdater.checkForUpdates();
 
-    if (!silent) {
+    if (informUser) {
       const onCheck = {};
 
       const removeListeners = () => {
