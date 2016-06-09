@@ -34,6 +34,7 @@
   },
   "devDependencies": {
     "babel-eslint": "6.0.4",
+    "semistandard": "8.0.0",
     "snazzy": "4.0.0"
   },
   "optionalDependencies": {
