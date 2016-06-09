@@ -6,8 +6,8 @@ import webView from 'renderer/webview';
 
 log('binding keyboard shortcuts');
 
-function bindSwitchConversation(keys, delta) {
-  Mousetrap.bind(keys, function() {
+function bindSwitchConversation (keys, delta) {
+  Mousetrap.bind(keys, function () {
     log('conversation', delta);
     webView.send('switch-conversation', delta);
     return false;
@@ -21,7 +21,7 @@ bindSwitchConversation(['mod+up', 'ctrl+shift+tab'], -1);
 bindSwitchConversation(['mod+down', 'ctrl+tab'], +1);
 
 // Close with Esc
-Mousetrap.bind('esc', function() {
+Mousetrap.bind('esc', function () {
   const enabled = prefs.get('close-with-esc');
   log('close with esc shortcut, enabled:', enabled);
   if (enabled) {

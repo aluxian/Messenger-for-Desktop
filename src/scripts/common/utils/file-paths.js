@@ -4,21 +4,21 @@ import path from 'path';
 /**
  * @return the theme's css path
  */
-function getThemePath(name) {
+function getThemePath (name) {
   return path.join(app.getAppPath(), 'themes', name + '.css');
 }
 
 /**
  * @return the style's css path
  */
-function getStylePath(name) {
+function getStylePath (name) {
   return path.join(app.getAppPath(), 'styles', name + '.css');
 }
 
 /**
  * @return the image's path
  */
-function getImagePath(name) {
+function getImagePath (name) {
   return path.join(app.getAppPath(), 'images', name);
 }
 
@@ -26,7 +26,7 @@ function getImagePath(name) {
  * Windows only.
  * @return the directory where the app is ran from
  */
-function getCustomUserDataPath() {
+function getCustomUserDataPath () {
   return path.join(path.dirname(app.getPath('exe')), 'data');
 }
 
@@ -34,7 +34,7 @@ function getCustomUserDataPath() {
  * Windows only.
  * @return the path to Update.exe created by Squirrel.Windows
  */
-function getSquirrelUpdateExePath() {
+function getSquirrelUpdateExePath () {
   return path.join(path.dirname(app.getPath('exe')), '..', 'Update.exe');
 }
 

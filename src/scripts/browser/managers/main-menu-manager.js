@@ -7,12 +7,12 @@ import template from 'browser/menus/main';
 
 class MainMenuManager extends EventEmitter {
 
-  constructor() {
+  constructor () {
     super();
     this.cfuVisibleItem = null;
   }
 
-  create() {
+  create () {
     if (!this.menu) {
       this.menu = Menu.buildFromTemplate(template());
       log('app menu created');
@@ -21,7 +21,7 @@ class MainMenuManager extends EventEmitter {
     }
   }
 
-  setDefault() {
+  setDefault () {
     if (this.menu) {
       Menu.setApplicationMenu(this.menu);
       log('app menu set');
@@ -30,7 +30,7 @@ class MainMenuManager extends EventEmitter {
     }
   }
 
-  setAutoUpdaterListeners() {
+  setAutoUpdaterListeners () {
     if (!this.cfuVisibleItem) {
       this.cfuVisibleItem = findItemById(this.menu.items, 'cfu-check-for-update');
     }

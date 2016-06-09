@@ -5,12 +5,12 @@ import semver from 'semver';
 
 class BaseAutoUpdater extends EventEmitter {
 
-  setFeedURL(latestReleaseUrl) {
+  setFeedURL (latestReleaseUrl) {
     log('set feed url', latestReleaseUrl);
     this.latestReleaseUrl = latestReleaseUrl;
   }
 
-  checkForUpdates(options) {
+  checkForUpdates (options) {
     if (!this.latestReleaseUrl) {
       this.emit('error', new Error('Latest release URL is not set'));
       return;
@@ -46,7 +46,7 @@ class BaseAutoUpdater extends EventEmitter {
     });
   }
 
-  quitAndInstall() {
+  quitAndInstall () {
     log('quit and install');
     app.quit();
   }

@@ -1,6 +1,6 @@
 import $ from 'browser/menus/expressions';
 
-export function appLaunchOnStartup(allow) {
+export function appLaunchOnStartup (allow) {
   return {
     type: 'checkbox',
     label: '&Launch on Startup',
@@ -17,7 +17,7 @@ export function appLaunchOnStartup(allow) {
   };
 }
 
-export function appLaunchHidden(allow) {
+export function appLaunchHidden (allow) {
   return {
     id: 'startup-hidden',
     type: 'checkbox',
@@ -28,7 +28,7 @@ export function appLaunchHidden(allow) {
   };
 }
 
-export function appUpdatesReleaseChannel() {
+export function appUpdatesReleaseChannel () {
   return {
     label: 'Updates Release Channel',
     allow: !global.options.mas,

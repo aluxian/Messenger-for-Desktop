@@ -1,6 +1,6 @@
 import {parseTemplate} from 'browser/menus/utils';
 
-export default function() {
+export default function () {
   const template = [
     'browser/menus/templates/main-app-darwin',
     'browser/menus/templates/main-app-nondarwin',

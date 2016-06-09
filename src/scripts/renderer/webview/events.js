@@ -6,11 +6,11 @@ import webView from 'renderer/webview';
 /**
  * Forward a message to the webview.
  */
-ipcRenderer.on('fwd-webview', function(event, channel, ...args) {
-  if (webView.isLoading && (typeof webView.isLoading == 'function') && !webView.isLoading()) {
+ipcRenderer.on('fwd-webview', function (event, channel, ...args) {
+  if (webView.isLoading && (typeof webView.isLoading === 'function') && !webView.isLoading()) {
     webView.send(channel, ...args);
   } else {
-    const onLoaded = function() {
+    const onLoaded = function () {
       webView.send(channel, ...args);
       webView.removeEventListener('dom-ready', onLoaded);
     };
@@ -22,14 +22,14 @@ ipcRenderer.on('fwd-webview', function(event, channel, ...args) {
 /**
  * Call a method of the webview.
  */
-ipcRenderer.on('call-webview-method', function(event, method, ...args) {
+ipcRenderer.on('call-webview-method', function (event, method, ...args) {
   webView[method](...args);
 });
 
 /**
  * Track an analytics event.
  */
-ipcRenderer.on('track-analytics', function(event, name, args) {
+ipcRenderer.on('track-analytics', function (event, name, args) {
   const tracker = piwik.getTracker();
   if (tracker) {
     const trackerFn = tracker[name];

@@ -10,7 +10,7 @@ import filePaths from 'common/utils/file-paths';
 
 class SquirrelEvents {
 
-  check(options) {
+  check (options) {
     if (options.squirrelFirstrun) {
       this.onSquirrelFirstrun(options);
       return false;
@@ -32,7 +32,7 @@ class SquirrelEvents {
         ::this.teardownShortcuts,
         ::this.teardownAutoLauncherRegKey,
         ::this.teardownLeftoverUserData
-      ], function() {
+      ], function () {
         log('teardown finished');
       });
       return true;
@@ -41,12 +41,12 @@ class SquirrelEvents {
     return false;
   }
 
-  onSquirrelFirstrun(options) {
+  onSquirrelFirstrun (options) {
     if (options.portable) {
       return;
     }
 
-    const showErrorDialog = function(msg, errMsg, files = []) {
+    const showErrorDialog = function (msg, errMsg, files = []) {
       let filesDeletedMsg = ' No files have been removed.';
       if (files.length) {
         filesDeletedMsg = ' Only the following files have been removed:\n\n' + files.join('\n');
@@ -60,20 +60,20 @@ class SquirrelEvents {
       dialog.showMessageBox({
         type: 'error',
         message: 'Error: ' + msg + filesDeletedMsg + originalErrMsg
-      }, function() {});
+      }, function () {});
     };
 
-    const responseCallback = function(response) {
+    const responseCallback = function (response) {
       if (response === 1) {
         log('user chose Remove');
-        wafdCleaner.clean(function(err, files) {
+        wafdCleaner.clean(function (err, files) {
           if (err) {
-            if (err.code == 'EPERM') {
+            if (err.code === 'EPERM') {
               const displayMessage = global.manifest.productName +
                 ' doesn\'t have permission to remove one of the files or folders.';
               showErrorDialog(displayMessage, err.message, files);
               logError(err, true);
-            } else if (err.code == 'EBUSY') {
+            } else if (err.code === 'EBUSY') {
               const displayMessage = 'One of the files or folders is being used by another program.';
               showErrorDialog(displayMessage, err.message, files);
               logError(err, true);
@@ -90,29 +90,29 @@ class SquirrelEvents {
     };
 
     log('checking for WAFD leftovers');
-    wafdCleaner.check(function(err, leftovers) {
+    wafdCleaner.check(function (err, leftovers) {
       if (err) {
         logError(err);
       } else if (leftovers && leftovers.length) {
         dialog.showMessageBox({
           type: 'question',
           message: 'Remove old WhatsApp for Desktop?',
-          detail: global.manifest.productName + ' has found files from WhatsApp for Desktop on your computer.'
-            + ' Do you want to permanently delete the following files and folders?\n\n'
-            + leftovers.join('\n') + '\n\nBefore pressing Remove, make sure WhatsApp for'
-            + ' Desktop is not running.',
+          detail: global.manifest.productName + ' has found files from WhatsApp for Desktop on your computer.' +
+            ' Do you want to permanently delete the following files and folders?\n\n' +
+            leftovers.join('\n') + '\n\nBefore pressing Remove, make sure WhatsApp for' +
+            ' Desktop is not running.',
           buttons: ['Skip', 'Remove']
         }, responseCallback);
       }
     });
   }
 
-  spawnSquirrel(args, callback) {
+  spawnSquirrel (args, callback) {
     const squirrelExec = filePaths.getSquirrelUpdateExePath();
     log('spawning', squirrelExec, args);
 
     const child = cp.spawn(squirrelExec, args, { detached: true });
-    child.on('close', function(code) {
+    child.on('close', function (code) {
       if (code) {
         logError(squirrelExec, 'exited with code', code);
       }
@@ -120,11 +120,11 @@ class SquirrelEvents {
     });
   }
 
-  eventHandled(exitCode = 0) {
+  eventHandled (exitCode = 0) {
     app.exit(exitCode);
   }
 
-  teardownAutoLauncherRegKey(callback) {
+  teardownAutoLauncherRegKey (callback) {
     log('removing reg keys');
     new AutoLauncher().disable()
       .then(() => callback())
@@ -134,12 +134,12 @@ class SquirrelEvents {
       });
   }
 
-  teardownLeftoverUserData(callback) {
+  teardownLeftoverUserData (callback) {
     log('removing user data folder', app.getPath('userData'));
     del(app.getPath('userData'), { force: true })
       .then(paths => {
         log('deleted', paths);
-          callback();
+        callback();
       })
       .catch(err => {
         logError(err);
@@ -147,7 +147,7 @@ class SquirrelEvents {
       });
   }
 
-  teardownShortcuts(callback) {
+  teardownShortcuts (callback) {
     log('removing shortcuts');
     const args = ['--removeShortcut', global.manifest.productName + '.exe'];
     this.spawnSquirrel(args, this.eventHandled);

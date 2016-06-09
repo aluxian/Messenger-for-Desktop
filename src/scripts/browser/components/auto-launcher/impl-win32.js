@@ -15,7 +15,7 @@ const keyExistsAsync = Promise.promisify(REG_KEY.keyExists, { context: REG_KEY }
 
 class Win32AutoLauncher extends BaseAutoLauncher {
 
-  async enable() {
+  async enable () {
     const updateExePath = filePaths.getSquirrelUpdateExePath();
     const cmd = [
       '"' + updateExePath + '"',
@@ -29,7 +29,7 @@ class Win32AutoLauncher extends BaseAutoLauncher {
     await setAsync(global.manifest.productName, Winreg.REG_SZ, cmd);
   }
 
-  async disable() {
+  async disable () {
     log('removing registry key for', global.manifest.productName);
     try {
       await removeAsync(global.manifest.productName);
@@ -43,7 +43,7 @@ class Win32AutoLauncher extends BaseAutoLauncher {
     }
   }
 
-  async isEnabled() {
+  async isEnabled () {
     log('querying registry key for', global.manifest.productName);
     const exists = await keyExistsAsync(global.manifest.productName);
     log('registry value for', global.manifest.productName, 'is', exists ? 'enabled' : 'disabled');

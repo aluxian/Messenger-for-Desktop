@@ -21,7 +21,7 @@ const distribMap = {
  * C = build number (radix 36)
  * D = random digits (radix 36)
  */
-function generateCode() {
+function generateCode () {
   let code = '';
   let preNum;
 
@@ -57,7 +57,7 @@ function generateCode() {
 /**
  * @return the raffle code, generated if it doesn't exist
  */
-function getCode() {
+function getCode () {
   let code = prefs.get('raffle-code');
   if (!code) {
     code = generateCode();

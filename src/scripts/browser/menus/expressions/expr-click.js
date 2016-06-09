@@ -7,8 +7,8 @@ import prefs from 'browser/utils/prefs';
 /**
  * Call the handler for the check-for-update event.
  */
-export function cfuCheckForUpdate() {
-  return function() {
+export function cfuCheckForUpdate () {
+  return function () {
     global.application.autoUpdateManager.handleMenuCheckForUpdate();
   };
 }
@@ -16,8 +16,8 @@ export function cfuCheckForUpdate() {
 /**
  * Call the handler for the update-available event.
  */
-export function cfuUpdateAvailable() {
-  return function() {
+export function cfuUpdateAvailable () {
+  return function () {
     global.application.autoUpdateManager.handleMenuUpdateAvailable();
   };
 }
@@ -25,8 +25,8 @@ export function cfuUpdateAvailable() {
 /**
  * Call the handler for the update-downloaded event.
  */
-export function cfuUpdateDownloaded() {
-  return function() {
+export function cfuUpdateDownloaded () {
+  return function () {
     global.application.autoUpdateManager.handleMenuUpdateDownloaded();
   };
 }
@@ -34,8 +34,8 @@ export function cfuUpdateDownloaded() {
 /**
  * Reset the auto updater url (to use updated prefs).
  */
-export function resetAutoUpdaterUrl() {
-  return function() {
+export function resetAutoUpdaterUrl () {
+  return function () {
     global.application.autoUpdateManager.initFeedUrl();
   };
 }
@@ -43,8 +43,8 @@ export function resetAutoUpdaterUrl() {
 /**
  * Enable or disable automatic checks for update.
  */
-export function checkForUpdateAuto(valueExpr) {
-  return function() {
+export function checkForUpdateAuto (valueExpr) {
+  return function () {
     const check = valueExpr.apply(this, arguments);
     global.application.autoUpdateManager.setAutoCheck(check);
   };
@@ -53,8 +53,8 @@ export function checkForUpdateAuto(valueExpr) {
 /**
  * Quit the app.
  */
-export function appQuit() {
-  return function() {
+export function appQuit () {
+  return function () {
     app.quit();
   };
 }
@@ -62,8 +62,8 @@ export function appQuit() {
 /**
  * Open the url externally, in a browser.
  */
-export function openUrl(url) {
-  return function() {
+export function openUrl (url) {
+  return function () {
     shell.openExternal(url);
   };
 }
@@ -71,8 +71,8 @@ export function openUrl(url) {
 /**
  * Send a message to the browserWindow's webContents.
  */
-export function sendToWebContents(channel, ...valueExprs) {
-  return function(menuItem, browserWindow) {
+export function sendToWebContents (channel, ...valueExprs) {
+  return function (menuItem, browserWindow) {
     if (browserWindow) {
       const values = valueExprs.map(e => e.apply(this, arguments));
       browserWindow.webContents.send(channel, ...values);
@@ -83,8 +83,8 @@ export function sendToWebContents(channel, ...valueExprs) {
 /**
  * Send a message directly to the webview.
  */
-export function sendToWebView(channel, ...valueExprs) {
-  return function(menuItem, browserWindow) {
+export function sendToWebView (channel, ...valueExprs) {
+  return function (menuItem, browserWindow) {
     if (browserWindow) {
       const values = valueExprs.map(e => e.apply(this, arguments));
       browserWindow.webContents.send('fwd-webview', channel, ...values);
@@ -95,8 +95,8 @@ export function sendToWebView(channel, ...valueExprs) {
 /**
  * Reload the browser window.
  */
-export function reloadWindow() {
-  return function(menuItem, browserWindow) {
+export function reloadWindow () {
+  return function (menuItem, browserWindow) {
     if (browserWindow) {
       browserWindow.reload();
     }
@@ -106,8 +106,8 @@ export function reloadWindow() {
 /**
  * Reset the window's position and size.
  */
-export function resetWindow() {
-  return function(menuItem, browserWindow) {
+export function resetWindow () {
+  return function (menuItem, browserWindow) {
     if (browserWindow) {
       const bounds = prefs.getDefault('window-bounds');
       browserWindow.setSize(bounds.width, bounds.height, true);
@@ -119,8 +119,8 @@ export function resetWindow() {
 /**
  * Show (and focus) the window.
  */
-export function showWindow() {
-  return function(menuItem, browserWindow) {
+export function showWindow () {
+  return function (menuItem, browserWindow) {
     if (browserWindow) {
       browserWindow.show();
     } else {
@@ -135,8 +135,8 @@ export function showWindow() {
 /**
  * Toggle whether the window is in full screen or not.
  */
-export function toggleFullScreen() {
-  return function(menuItem, browserWindow) {
+export function toggleFullScreen () {
+  return function (menuItem, browserWindow) {
     if (browserWindow) {
       const newState = !browserWindow.isFullScreen();
       browserWindow.setFullScreen(newState);
@@ -147,8 +147,8 @@ export function toggleFullScreen() {
 /**
  * Toggle the dev tools panel.
  */
-export function toggleDevTools() {
-  return function(menuItem, browserWindow) {
+export function toggleDevTools () {
+  return function (menuItem, browserWindow) {
     if (browserWindow) {
       browserWindow.toggleDevTools();
     }
@@ -158,8 +158,8 @@ export function toggleDevTools() {
 /**
  * Whether the window should always appear on top.
  */
-export function floatOnTop(flagExpr) {
-  return function(menuItem, browserWindow) {
+export function floatOnTop (flagExpr) {
+  return function (menuItem, browserWindow) {
     if (browserWindow) {
       const flag = flagExpr.apply(this, arguments);
       browserWindow.setAlwaysOnTop(flag);
@@ -170,8 +170,8 @@ export function floatOnTop(flagExpr) {
 /**
  * Show or hide the tray icon.
  */
-export function showInTray(flagExpr) {
-  return function() {
+export function showInTray (flagExpr) {
+  return function () {
     const show = flagExpr.apply(this, arguments);
     if (show) {
       global.application.trayManager.create();
@@ -184,8 +184,8 @@ export function showInTray(flagExpr) {
 /**
  * Show or hide the dock icon.
  */
-export function showInDock(flagExpr) {
-  return function() {
+export function showInDock (flagExpr) {
+  return function () {
     if (app.dock) {
       const show = flagExpr.apply(this, arguments);
       if (show) {
@@ -200,8 +200,8 @@ export function showInDock(flagExpr) {
 /**
  * Whether the app should launch automatically when the OS starts.
  */
-export function launchOnStartup(enabledExpr) {
-  return function() {
+export function launchOnStartup (enabledExpr) {
+  return function () {
     const enabled = enabledExpr.apply(this, arguments);
     if (enabled) {
       global.application.autoLauncher.enable()
@@ -224,8 +224,8 @@ export function launchOnStartup(enabledExpr) {
 /**
  * If flag is false, the dock badge will be hidden.
  */
-export function hideDockBadge(flagExpr) {
-  return function() {
+export function hideDockBadge (flagExpr) {
+  return function () {
     const flag = flagExpr.apply(this, arguments);
     if (!flag && app.dock && app.dock.setBadge) {
       app.dock.setBadge('');
@@ -236,8 +236,8 @@ export function hideDockBadge(flagExpr) {
 /**
  * If flag is false, the taskbar badge will be hidden.
  */
-export function hideTaskbarBadge(flagExpr) {
-  return function(menuItem, browserWindow) {
+export function hideTaskbarBadge (flagExpr) {
+  return function (menuItem, browserWindow) {
     if (browserWindow) {
       const flag = flagExpr.apply(this, arguments);
       if (!flag) {
@@ -250,9 +250,9 @@ export function hideTaskbarBadge(flagExpr) {
 /**
  * Show a dialog with information about giveaways.
  */
-export function openRaffleDialog() {
+export function openRaffleDialog () {
   const code = raffle.getCode();
-  return function() {
+  return function () {
     dialog.showMessageBox({
       type: 'info',
       buttons: ['OK', 'Join the giveaway'],
@@ -264,7 +264,7 @@ export function openRaffleDialog() {
         '',
         'Note: giveaways happen regularly, but if there are none right now, please check back later. Good luck!'
       ].join('\n')
-    }, function(response) {
+    }, function (response) {
       if (response === 1) {
         const url = global.manifest.raffleUrl;
         log('user clicked "Join the giveaway", opening url', url);
@@ -280,8 +280,8 @@ export const analytics = {
   /**
    * Track an event.
    */
-  trackEvent: function(...args) {
-    return function() {
+  trackEvent: function (...args) {
+    return function () {
       piwik.getTracker().trackEvent(...args);
     };
   }

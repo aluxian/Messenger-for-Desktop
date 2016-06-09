@@ -2,7 +2,7 @@ import BaseAutoUpdater from 'browser/components/auto-updater/base';
 
 class AutoUpdater extends BaseAutoUpdater {
 
-  checkForUpdates() {
+  checkForUpdates () {
     super.checkForUpdates({
       url: this.latestReleaseUrl,
       json: true

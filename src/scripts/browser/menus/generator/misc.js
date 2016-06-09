@@ -1,4 +1,4 @@
-export function separator() {
+export function separator () {
   return {
     type: 'separator'
   };

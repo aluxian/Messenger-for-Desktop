@@ -2,7 +2,7 @@ import EventEmitter from 'events';
 
 class NotifManager extends EventEmitter {
 
-  constructor() {
+  constructor () {
     super();
     this.unreadCount = 0;
   }

@@ -8,7 +8,7 @@ import files from 'common/utils/files';
 
 let hunspellDictionaries = null;
 
-export function getDictionaryDefaultPath() {
+export function getDictionaryDefaultPath () {
   let dict = path.join(__dirname, '..', 'node_modules', 'spellchecker', 'vendor', 'hunspell_dictionaries');
   try {
     // Special case being in an asar archive
@@ -22,7 +22,7 @@ export function getDictionaryDefaultPath() {
   return dict;
 }
 
-export function getDictionaryPath() {
+export function getDictionaryPath () {
   let dict = path.join(__dirname, '..', 'node_modules', 'spellchecker', 'vendor', 'hunspell_dictionaries');
   try {
     if (platform.isLinux) {
@@ -43,7 +43,7 @@ export function getDictionaryPath() {
   return dict;
 }
 
-export function getAvailableDictionaries() {
+export function getAvailableDictionaries () {
   let availableDictionaries = SpellChecker.getAvailableDictionaries();
   if (availableDictionaries.length) {
     return availableDictionaries;
@@ -58,9 +58,9 @@ export function getAvailableDictionaries() {
     }
   }
 
-  if (platform.isLinux && (!hunspellDictionaries || hunspellDictionaries.length == 0)) {
+  if (platform.isLinux && (!hunspellDictionaries || hunspellDictionaries.length === 0)) {
     const dictionariesDefaultPath = getDictionaryDefaultPath();
-    if (dictionariesDefaultPath != dictionariesPath) {
+    if (dictionariesDefaultPath !== dictionariesPath) {
       try {
         hunspellDictionaries = files.getDictionariesSync(getDictionaryDefaultPath());
       } catch (err) {

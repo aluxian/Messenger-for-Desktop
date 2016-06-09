@@ -9,11 +9,11 @@ let fileLogStream = null;
 let fileLogIsGettingReady = false;
 let fileLogIsReady = false;
 
-function isFileLogEnabled() {
+function isFileLogEnabled () {
   return global.options.debug && !global.options.mas;
 }
 
-function initFileLogging() {
+function initFileLogging () {
   if (fileLogIsGettingReady) {
     return;
   }
@@ -42,7 +42,7 @@ function initFileLogging() {
   }
 }
 
-export function writeLog() {
+export function writeLog () {
   if (isFileLogEnabled() && !fileLogIsReady) {
     initFileLogging();
   }

@@ -16,7 +16,7 @@ if (global.manifest.dev) {
   log('setting up piwik');
 
   // Configure
-  window.piwikAsyncInit = function() {
+  window.piwikAsyncInit = function () {
     try {
       piwikTracker = window.Piwik.getTracker();
       piwikTracker.setDocumentTitle(document.title);
@@ -44,6 +44,6 @@ if (global.manifest.dev) {
   document.head.appendChild(scriptElem);
 }
 
-export function getTracker() {
+export function getTracker () {
   return piwikTracker;
 }

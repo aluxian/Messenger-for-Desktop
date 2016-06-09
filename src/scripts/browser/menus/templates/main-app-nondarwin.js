@@ -4,11 +4,10 @@ import $ from 'browser/menus/expressions';
 import g from 'browser/menus/generator';
 
 const updatesChannel = prefs.get('updates-channel');
-const allowAutoLaunch = !global.options.portable
-  && (!platform.isLinux || updatesChannel == 'dev');
+const allowAutoLaunch = !global.options.portable && (!platform.isLinux || updatesChannel === 'dev');
 
 let versionSuffix = '';
-if (global.manifest.versionChannel != 'stable') {
+if (global.manifest.versionChannel !== 'stable') {
   versionSuffix = '-' + global.manifest.versionChannel;
 }
 

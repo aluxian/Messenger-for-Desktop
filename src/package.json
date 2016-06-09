@@ -84,5 +84,13 @@
     "sephia": "Sephia",
     "fluttershy": "Fluttershy",
     "orange": "Orange"
+  },
+  "semistandard": {
+    "parser": "babel-eslint",
+    "globals": [
+      "log",
+      "logError",
+      "logFatal"
+    ]
   }
 }

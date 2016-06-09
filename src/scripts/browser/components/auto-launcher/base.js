@@ -2,15 +2,15 @@ import EventEmitter from 'events';
 
 class BaseAutoLauncher extends EventEmitter {
 
-  async enable() {
+  async enable () {
     throw new Error('Not implemented');
   }
 
-  async disable() {
+  async disable () {
     throw new Error('Not implemented');
   }
 
-  async isEnabled() {
+  async isEnabled () {
     throw new Error('Not implemented');
   }
 

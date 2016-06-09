@@ -6,8 +6,8 @@ import prefs from 'browser/utils/prefs';
 /**
  * Set a key of the item with the given value.
  */
-export function setLocal(localKey, valueExpr) {
-  return function(item) {
+export function setLocal (localKey, valueExpr) {
+  return function (item) {
     item[localKey] = valueExpr.apply(this, arguments);
   };
 }
@@ -15,8 +15,8 @@ export function setLocal(localKey, valueExpr) {
 /**
  * Sets a preference key.
  */
-export function setPref(prefName, valueExpr) {
-  return function() {
+export function setPref (prefName, valueExpr) {
+  return function () {
     prefs.set(prefName, valueExpr.apply(this, arguments));
   };
 }
@@ -24,8 +24,8 @@ export function setPref(prefName, valueExpr) {
 /**
  * Unsets a preference key.
  */
-export function unsetPref(prefName) {
-  return function() {
+export function unsetPref (prefName) {
+  return function () {
     prefs.unset(prefName);
   };
 }
@@ -33,8 +33,8 @@ export function unsetPref(prefName) {
 /**
  * Updates the value of a sibling item's key.
  */
-export function updateSibling(siblingId, siblingKey, valueExpr) {
-  return function(item) {
+export function updateSibling (siblingId, siblingKey, valueExpr) {
+  return function (item) {
     const submenu = (this && this.submenu) || (item && item.menu && item.menu.items);
     if (submenu) {
       const sibling = submenu.find(i => i.id === siblingId);
@@ -48,10 +48,10 @@ export function updateSibling(siblingId, siblingKey, valueExpr) {
 /**
  * Update an item from another menu.
  */
-export function updateMenuItem(menuType, itemId) {
-  return function(...valueExprs) {
-    return function(exprCallback) {
-      return function() {
+export function updateMenuItem (menuType, itemId) {
+  return function (...valueExprs) {
+    return function (exprCallback) {
+      return function () {
         const menu = findMenu(menuType);
         if (!menu) {
           return log('menu not found', menuType);

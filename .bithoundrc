@@ -9,7 +9,7 @@
   ],
   "critics": {
     "lint": {
-      "engine": "eslint"
+      "engine": "semistandard"
     }
   },
   "packageJsonLocation": "src/package.json"

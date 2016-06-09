@@ -6,7 +6,7 @@ import logger from 'common/utils/logger';
 /**
  * Create the server and start listening on the given port.
  */
-export function createServer(port) {
+export function createServer (port) {
   log('listening for REPL connections on port', port);
   net.createServer(socket => {
     const r = repl.start({

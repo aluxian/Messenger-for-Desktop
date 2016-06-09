@@ -1,8 +1,8 @@
 /**
  * Run all the given expressions, serially.
  */
-export function all(...exprs) {
-  return function() {
+export function all (...exprs) {
+  return function () {
     for (let expr of exprs) {
       expr.apply(this, arguments);
     }
@@ -12,8 +12,8 @@ export function all(...exprs) {
 /**
  * The equivalent of an 'if' statement.
  */
-export function ifTrue(condExpr, trueExpr, falseExpr) {
-  return function() {
+export function ifTrue (condExpr, trueExpr, falseExpr) {
+  return function () {
     const cond = condExpr.apply(this, arguments);
     if (cond) {
       if (trueExpr) {
@@ -28,8 +28,8 @@ export function ifTrue(condExpr, trueExpr, falseExpr) {
 /**
  * Runs a custom function.
  */
-export function custom(fn) {
-  return function() {
+export function custom (fn) {
+  return function () {
     fn.apply(this, arguments);
   };
 }

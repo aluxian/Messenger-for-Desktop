@@ -1,9 +1,8 @@
-import {Menu, MenuItem} from 'electron';
-import {clipboard} from 'electron';
+import {clipboard, Menu, MenuItem} from 'electron';
 
 import platform from 'common/utils/platform';
 
-function create(opt, browserWindow) {
+function create (opt, browserWindow) {
   const webContents = browserWindow.webContents;
   const menu = new Menu();
 

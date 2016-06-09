@@ -31,7 +31,7 @@ const defaults = {
   'zoom-level': 0
 };
 
-function get(key) {
+function get (key) {
   if (key === 'spell-checker-language') {
     const valueFn = defaults[key];
     if (typeof valueFn === 'function') {
@@ -47,7 +47,7 @@ function get(key) {
   return defaults[key];
 }
 
-function defaultSpellCheckerLanguage() {
+function defaultSpellCheckerLanguage () {
   let defaultLanguage = null;
 
   if (!availableLanguages) {
@@ -87,7 +87,7 @@ function defaultSpellCheckerLanguage() {
   return 'en_US';
 }
 
-function validateLanguage(lang) {
+function validateLanguage (lang) {
   if (availableLanguages.includes(lang)) {
     return lang;
   } else {

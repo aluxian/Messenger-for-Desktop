@@ -11,19 +11,19 @@ const initialDesktopPath = path.join(app.getAppPath(), 'startup.desktop');
 
 class LinuxAutoLauncher extends BaseAutoLauncher {
 
-  async enable() {
+  async enable () {
     log('enabling linux auto-launch');
     log('creating autolaunch .desktop');
     await files.replaceFile(desktopFilePath, () => fs.copyAsync(initialDesktopPath, desktopFilePath));
   }
 
-  async disable() {
+  async disable () {
     log('disabling linux auto-launch');
     log('removing autolaunch .desktop');
     await fs.removeAsync(desktopFilePath);
   }
 
-  async isEnabled() {
+  async isEnabled () {
     log('checking linux auto-launch');
     await files.isFileExists(desktopFilePath);
   }

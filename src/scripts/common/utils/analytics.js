@@ -2,7 +2,7 @@ import uuid from 'node-uuid';
 
 import prefs from 'common/utils/prefs';
 
-export function getUserId() {
+export function getUserId () {
   let uid = prefs.get('analytics-uid');
 
   // Generate a new one if it doesn't exist

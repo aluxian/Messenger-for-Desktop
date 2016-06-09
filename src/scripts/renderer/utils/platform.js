@@ -1,4 +1,4 @@
-function isWindows7() {
+function isWindows7 () {
   return !!navigator.userAgent.match(/(Windows 7|Windows NT 6\.1)/);
 }
 

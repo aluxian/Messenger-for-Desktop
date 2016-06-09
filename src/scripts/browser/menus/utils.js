@@ -1,6 +1,6 @@
 import {Menu} from 'electron';
 
-export function parseTemplate(menu, parent) {
+export function parseTemplate (menu, parent) {
   return menu.filter(item => {
     // Filter
     if (item.allow !== undefined && !item.allow) {
@@ -25,7 +25,7 @@ export function parseTemplate(menu, parent) {
   });
 }
 
-export function findItemById(submenu, id) {
+export function findItemById (submenu, id) {
   for (let item of submenu) {
     if (item.id === id) {
       return item;
@@ -40,7 +40,7 @@ export function findItemById(submenu, id) {
   return null;
 }
 
-export function findMenu(menuType) {
+export function findMenu (menuType) {
   switch (menuType) {
     case 'main':
       return Menu.getApplicationMenu();

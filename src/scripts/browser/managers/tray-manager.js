@@ -8,7 +8,7 @@ import prefs from 'browser/utils/prefs';
 
 class TrayManager extends EventEmitter {
 
-  constructor(mainWindowManager, notifManager) {
+  constructor (mainWindowManager, notifManager) {
     super();
 
     this.mainWindowManager = mainWindowManager;
@@ -23,7 +23,7 @@ class TrayManager extends EventEmitter {
   /**
    * Create and set the default menu.
    */
-  create() {
+  create () {
     if (this.tray) {
       return;
     }
@@ -56,7 +56,7 @@ class TrayManager extends EventEmitter {
   /**
    * Listen for tray events.
    */
-  setEventListeners() {
+  setEventListeners () {
     if (this.tray) {
       this.tray.on('click', ::this.onClick);
       this.tray.on('right-click', ::this.onRightClick);
@@ -66,7 +66,7 @@ class TrayManager extends EventEmitter {
   /**
    * Called when the 'click' event is emitted on the tray menu.
    */
-  onClick() {
+  onClick () {
     // Show the main window
     log('tray click');
     if (this.mainWindowManager) {
@@ -80,7 +80,7 @@ class TrayManager extends EventEmitter {
   /**
    * Called when the 'right-click' event is emitted on the tray menu.
    */
-  onRightClick() {
+  onRightClick () {
     // Show the context menu
     log('tray right-click');
     this.tray.popUpContextMenu(this.menu);
@@ -89,7 +89,7 @@ class TrayManager extends EventEmitter {
   /**
    * Hide and destroy the tray menu.
    */
-  destroy() {
+  destroy () {
     if (this.tray) {
       this.tray.destroy();
     }
@@ -100,7 +100,7 @@ class TrayManager extends EventEmitter {
   /**
    * Called when the unread count changes.
    */
-  unreadCountUpdated(count) {
+  unreadCountUpdated (count) {
     if (!this.tray) {
       return;
     }

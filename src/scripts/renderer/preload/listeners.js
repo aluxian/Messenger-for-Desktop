@@ -4,7 +4,7 @@ import spellChecker from 'spellchecker';
 import platform from 'renderer/utils/platform';
 
 // Forward context menu opens
-document.addEventListener('contextmenu', function(event) {
+document.addEventListener('contextmenu', function (event) {
   log('sending context-menu');
   event.preventDefault();
 
@@ -17,7 +17,7 @@ document.addEventListener('contextmenu', function(event) {
     selection: selection,
     hasSelection: !!selection,
     targetIsEditable: event.target.isContentEditable,
-    targetIsLink: event.target.tagName == 'A',
+    targetIsLink: event.target.tagName === 'A',
     isMisspelling: isMisspelling,
     corrections: corrections,
     href: event.target.href,

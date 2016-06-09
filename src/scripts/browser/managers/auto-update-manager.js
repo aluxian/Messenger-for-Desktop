@@ -15,7 +15,7 @@ const STATES = keyMirror({
 
 class AutoUpdateManager extends EventEmitter {
 
-  constructor(mainWindowManager) {
+  constructor (mainWindowManager) {
     super();
 
     this.mainWindowManager = mainWindowManager;
@@ -28,7 +28,7 @@ class AutoUpdateManager extends EventEmitter {
     this.latestDownloadUrl = null;
   }
 
-  init() {
+  init () {
     log('starting auto updater');
     try {
       this.initFeedUrl();
@@ -37,7 +37,7 @@ class AutoUpdateManager extends EventEmitter {
       this.initVersionListener();
       this.initDownloadListener();
     } catch (err) {
-      const isSignatureErr = err.message == 'Could not get code signature for running application';
+      const isSignatureErr = err.message === 'Could not get code signature for running application';
       const isKnownError = isSignatureErr;
       if (global.manifest.dev && isKnownError) {
         logError(err.message);
@@ -47,7 +47,7 @@ class AutoUpdateManager extends EventEmitter {
     }
   }
 
-  initFeedUrl() {
+  initFeedUrl () {
     let feedUrl = global.manifest.updater.urls[process.platform]
       .replace(/%CURRENT_VERSION%/g, global.manifest.version)
       .replace(/%CHANNEL%/g, prefs.get('updates-channel'));
@@ -60,14 +60,14 @@ class AutoUpdateManager extends EventEmitter {
     AutoUpdater.setFeedURL(feedUrl);
   }
 
-  initErrorListener() {
+  initErrorListener () {
     AutoUpdater.on('error', (err) => {
       log('auto updater error');
       logError(err, true);
     });
   }
 
-  initStateListeners() {
+  initStateListeners () {
     const eventToStateMap = {
       'error': STATES.IDLE,
       'checking-for-update': STATES.UPDATE_CHECKING,
@@ -77,18 +77,20 @@ class AutoUpdateManager extends EventEmitter {
     };
 
     for (let [eventName, state] of Object.entries(eventToStateMap)) {
-      AutoUpdater.on(eventName, () => this.state = state);
+      AutoUpdater.on(eventName, () => {
+        this.state = state;
+      });
     }
   }
 
-  initVersionListener() {
+  initVersionListener () {
     AutoUpdater.on('update-available', (newVersion, downloadUrl) => {
       this.latestVersion = newVersion;
       this.latestDownloadUrl = downloadUrl;
     });
   }
 
-  initDownloadListener() {
+  initDownloadListener () {
     if (platform.isWindows && !global.options.portable) {
       AutoUpdater.on('update-downloaded', () => {
         dialog.showMessageBox({
@@ -106,19 +108,19 @@ class AutoUpdateManager extends EventEmitter {
     }
   }
 
-  handleMenuCheckForUpdate() {
+  handleMenuCheckForUpdate () {
     this.checkForUpdate(false);
   }
 
-  handleMenuUpdateAvailable() {
+  handleMenuUpdateAvailable () {
     this.onCheckUpdateAvailable(this.latestVersion, this.latestDownloadUrl);
   }
 
-  handleMenuUpdateDownloaded() {
+  handleMenuUpdateDownloaded () {
     this.quitAndInstall();
   }
 
-  setAutoCheck(check) {
+  setAutoCheck (check) {
     if (this.enabled === check) {
       log('update checker already', check ? 'enabled' : 'disabled');
       return; // same state
@@ -135,7 +137,7 @@ class AutoUpdateManager extends EventEmitter {
     }
   }
 
-  onCheckUpdateAvailable(newVersion, downloadUrl) {
+  onCheckUpdateAvailable (newVersion, downloadUrl) {
     log('onCheckUpdateAvailable', 'newVersion:', newVersion, 'downloadUrl:', downloadUrl);
     if (platform.isLinux) {
       dialog.showMessageBox({
@@ -143,7 +145,7 @@ class AutoUpdateManager extends EventEmitter {
         message: 'A new version is available: ' + newVersion,
         detail: 'Use your package manager to update, or click Download to get the new package.',
         buttons: ['OK', 'Download']
-      }, function(response) {
+      }, function (response) {
         if (response === 1) {
           log('user clicked Download, opening url', downloadUrl);
           shell.openExternal(downloadUrl);
@@ -155,7 +157,7 @@ class AutoUpdateManager extends EventEmitter {
         message: 'A new version is available: ' + newVersion,
         detail: 'Click Download to get a portable zip with the new version.',
         buttons: ['OK', 'Download']
-      }, function(response) {
+      }, function (response) {
         if (response === 1) {
           log('user clicked Download, opening url', downloadUrl);
           shell.openExternal(downloadUrl);
@@ -167,40 +169,40 @@ class AutoUpdateManager extends EventEmitter {
         message: 'A new version is available.',
         detail: 'It will start downloading in the background.',
         buttons: ['OK']
-      }, function() {});
+      }, function () {});
     }
   }
 
-  onCheckUpdateNotAvailable() {
+  onCheckUpdateNotAvailable () {
     log('onCheckUpdateNotAvailable');
     dialog.showMessageBox({
       type: 'info',
       message: 'No update available.',
       detail: 'You are using the latest version: ' + global.manifest.version,
       buttons: ['OK']
-    }, function() {});
+    }, function () {});
   }
 
-  onCheckError(err) {
+  onCheckError (err) {
     log('onCheckError:', err);
     dialog.showMessageBox({
       type: 'error',
       message: 'Error while checking for update.',
-      detail: global.manifest.productName + ' could not connect to the updates server.'
-        + ' Please make sure you have a working internet connection and try again.'
-        + '\n\nERR: ' + (err.message || '').substr(0, 1024),
+      detail: global.manifest.productName + ' could not connect to the updates server.' +
+        ' Please make sure you have a working internet connection and try again.' +
+        '\n\nERR: ' + (err.message || '').substr(0, 1024),
       buttons: ['OK']
-    }, function() {});
+    }, function () {});
   }
 
-  scheduleUpdateChecks() {
+  scheduleUpdateChecks () {
     const checkInterval = 1000 * 60 * 60 * 4; // 4 hours
     log('scheduling update checks every', checkInterval, 'ms');
     this.scheduledCheckerId = setInterval(::this.checkForUpdate, checkInterval);
     this.checkForUpdate();
   }
 
-  checkForUpdate(silent = true) {
+  checkForUpdate (silent = true) {
     log('checking for update...');
     AutoUpdater.checkForUpdates();
 
@@ -234,7 +236,7 @@ class AutoUpdateManager extends EventEmitter {
     }
   }
 
-  quitAndInstall() {
+  quitAndInstall () {
     this.mainWindowManager.updateInProgress = true;
     AutoUpdater.quitAndInstall();
   }

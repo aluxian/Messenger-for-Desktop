@@ -34,13 +34,13 @@
   },
   "devDependencies": {
     "babel-eslint": "6.0.4",
-    "eslint": "2.10.1"
+    "snazzy": "4.0.0"
   },
   "optionalDependencies": {
     "appdmg": "0.3.7"
   },
   "scripts": {
-    "test": "eslint src/scripts"
+    "test": "semistandard --verbose \"src/scripts/**/*.js\" | snazzy"
   },
   "license": "MIT",
   "author": "Alexandru Rosianu <me@aluxian.com>",
@@ -57,5 +57,13 @@
   },
   "bugs": {
     "url": "https://github.com/Aluxian/Whatsie/issues"
+  },
+  "semistandard": {
+    "parser": "babel-eslint",
+    "globals": [
+      "log",
+      "logError",
+      "logFatal"
+    ]
   }
 }

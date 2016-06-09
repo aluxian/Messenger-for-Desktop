@@ -4,7 +4,7 @@ import webView from 'renderer/webview';
 import files from 'common/utils/files';
 import prefs from 'common/utils/prefs';
 
-function createBadgeDataUrl(text) {
+function createBadgeDataUrl (text) {
   const canvas = document.createElement('canvas');
   canvas.height = 140;
   canvas.width = 140;
@@ -32,7 +32,7 @@ function createBadgeDataUrl(text) {
 }
 
 // Log console messages
-webView.addEventListener('console-message', function(event) {
+webView.addEventListener('console-message', function (event) {
   const msg = event.message.replace(/%c/g, '');
   const fwNormal = 'font-weight: normal;';
   const fwBold = 'font-weight: bold;';
@@ -40,13 +40,13 @@ webView.addEventListener('console-message', function(event) {
 });
 
 // Listen for title changes to update the badge
-webView.addEventListener('page-title-updated', function() {
+webView.addEventListener('page-title-updated', function () {
   const matches = /\(([\d]+)\)/.exec(webView.getTitle());
   const parsed = parseInt(matches && matches[1], 10);
   const count = isNaN(parsed) || !parsed ? '' : '' + parsed;
   let badgeDataUrl = null;
 
-  if (process.platform == 'win32' && count) {
+  if (process.platform === 'win32' && count) {
     badgeDataUrl = createBadgeDataUrl(count);
   }
 
@@ -55,13 +55,13 @@ webView.addEventListener('page-title-updated', function() {
 });
 
 // Handle url clicks
-webView.addEventListener('new-window', function(event) {
+webView.addEventListener('new-window', function (event) {
   log('sending open-url', event.url);
   ipcRenderer.send('open-url', event.url, event.options);
 });
 
 // Listen for dom-ready
-webView.addEventListener('dom-ready', function() {
+webView.addEventListener('dom-ready', function () {
   log('dom-ready');
 
   // Open dev tools when debugging
@@ -108,17 +108,17 @@ webView.addEventListener('dom-ready', function() {
 });
 
 // Listen for did-finish-load
-webView.addEventListener('did-finish-load', function() {
+webView.addEventListener('did-finish-load', function () {
   // Hide the loading splash screen
   const loadingSplashDiv = document.querySelector('.loader');
   loadingSplashDiv.style.opacity = 0;
-  setTimeout(function() {
+  setTimeout(function () {
     loadingSplashDiv.style.display = 'none';
   }, 250);
 });
 
 // Animate the splash screen into view
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   const loadingSplashDiv = document.querySelector('.loader');
   loadingSplashDiv.style.opacity = 1;
 });

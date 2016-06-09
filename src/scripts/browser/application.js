@@ -14,7 +14,7 @@ import IpcListenersManager from 'browser/managers/ipc-listeners-manager';
 
 class Application extends EventEmitter {
 
-  init() {
+  init () {
     // Create the main app window
     this.mainWindowManager = new MainWindowManager();
     this.mainWindowManager.createWindow();

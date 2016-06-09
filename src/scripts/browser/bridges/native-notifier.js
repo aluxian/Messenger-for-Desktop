@@ -1,5 +1,5 @@
-function createAppliedHandler(name) {
-  return function() {
+function createAppliedHandler (name) {
+  return function () {
     const nativeNotifier = global.application.nativeNotifier;
     const func = nativeNotifier[name];
     if (func) {

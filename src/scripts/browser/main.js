@@ -7,12 +7,12 @@ import filePaths from 'common/utils/file-paths';
 import platform from 'common/utils/platform';
 
 // Handle uncaught exceptions
-process.on('uncaughtException', function(err) {
+process.on('uncaughtException', function (err) {
   dialog.showErrorBox('JavaScript error in the main process', err.stack);
   logFatal(err);
 });
 
-(function() {
+(function () {
   // Define the CLI arguments and parse them
   const cliArgs = process.argv.slice(1, process.argv.length);
   const options = yargs(cliArgs)
@@ -142,10 +142,10 @@ process.on('uncaughtException', function(err) {
   }
 
   // Listen for app ready-ness
-  app.on('ready', function() {
+  app.on('ready', function () {
     log('ready');
     log('intercepting protocol http');
-    protocol.interceptHttpProtocol('http', function(request, callback) {
+    protocol.interceptHttpProtocol('http', function (request, callback) {
       if (request.url.startsWith(global.manifest.virtualUrl)) {
         const newPath = request.url.replace(global.manifest.virtualUrl, 'file://' + app.getAppPath());
         const newPathShort = request.url.replace(global.manifest.virtualUrl, 'file://<app>');
@@ -153,7 +153,7 @@ process.on('uncaughtException', function(err) {
         request.url = newPath;
         callback(request);
       }
-    }, function(err) {
+    }, function (err) {
       if (err) {
         logFatal(err);
         log('intercepting protocol http failed, not going to launch the app anymore');
