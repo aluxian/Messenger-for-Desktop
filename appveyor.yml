@@ -34,38 +34,46 @@ install:
   - npm install -g gulp
   - npm install
   - >
-    if [[ $APPVEYOR_REPO_BRANCH == 'staging' || $APPVEYOR_REPO_BRANCH == 'deploy' ]]; then
-      aws s3 cp --region eu-west-1 s3://aluxian/certificates/foss_ar_sha2.pfx C:/foss_ar_sha2.pfx;
-      cd src && npm install;
-    fi
+    IF APPVEYOR_REPO_BRANCH == "staging" GOTO DEPL_OR_STAG
+    IF APPVEYOR_REPO_BRANCH == "deploy" GOTO DEPL_OR_STAG
+    GOTO END
+
+    :DEPL_OR_STAG
+    aws s3 cp --region eu-west-1 s3://aluxian/certificates/foss_ar_sha2.pfx C:/foss_ar_sha2.pfx
+    cd src && npm install
+
+    :END
 
 test_script:
   - npm test
 
 before_build:
   - >
-    if [[ $APPVEYOR_REPO_BRANCH == 'staging' || $APPVEYOR_REPO_BRANCH == 'deploy' ]]; then
-      gulp rebuild:32 --verbose;
-    fi
+    IF APPVEYOR_REPO_BRANCH == "staging" GOTO DEPL_OR_STAG
+    IF APPVEYOR_REPO_BRANCH == "deploy" GOTO DEPL_OR_STAG
+    GOTO END
+
+    :DEPL_OR_STAG
+    gulp rebuild:32 --verbose
+
+    :END
 
 build_script:
   - >
-    if [[ $APPVEYOR_REPO_BRANCH == 'staging' || $APPVEYOR_REPO_BRANCH == 'deploy' ]]; then
-      gulp pack:win32:portable --prod --verbose;
-      gulp pack:win32:installer --prod --verbose;
-      gulp clean:prev-releases:win32 --verbose;
-    fi
+    IF APPVEYOR_REPO_BRANCH == "staging" GOTO DEPL_OR_STAG
+    IF APPVEYOR_REPO_BRANCH == "deploy" GOTO DEPL_OR_STAG
+    GOTO END
+
+    :DEPL_OR_STAG
+    gulp pack:win32:portable --prod --verbose
+    gulp pack:win32:installer --prod --verbose
+    gulp clean:prev-releases:win32 --verbose
+
+    :END
 
 deploy_script:
-  - >
-    if [[ $APPVEYOR_REPO_BRANCH == 'staging' ]]; then
-      gulp publish:bintray:artifacts:win32 --verbose;
-    fi
-
-  - >
-    if [[ $APPVEYOR_REPO_BRANCH == 'deploy' ]]; then
-      gulp publish:github --verbose;
-    fi
+  - IF APPVEYOR_REPO_BRANCH == "staging" gulp publish:bintray:artifacts:win32 --verbose
+  - IF APPVEYOR_REPO_BRANCH == "deploy" gulp publish:github --verbose
 
 notifications:
   - provider: Webhook
