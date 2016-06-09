@@ -16,10 +16,12 @@ machine:
       fi
 
 dependencies:
+  override:
+    - npm install -q
   post:
     - >
       if [[ $CIRCLE_BRANCH == 'staging' || $CIRCLE_BRANCH == 'deploy' ]]; then
-        cd src && npm install;
+        cd src && npm install -q;
         gulp download:linux32 --verbose;
         gulp download:linux64 --verbose;
       fi
@@ -43,6 +45,7 @@ deployment:
       - gulp pack:linux64:rpm --prod --verbose
 
       - gulp publish:bintray:artifacts:linux --verbose
+
   deploy:
     branch: deploy
     commands:
