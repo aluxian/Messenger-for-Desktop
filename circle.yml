@@ -40,7 +40,7 @@ deployment:
       - gulp pack:linux64:deb --prod --verbose
       - gulp pack:linux64:rpm --prod --verbose
 
-      - gulp publish:bintray:artifacts --verbose
+      - gulp publish:bintray:artifacts:linux --verbose
   deploy:
     branch: deploy
     commands:

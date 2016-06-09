@@ -85,3 +85,40 @@ gulp.task 'publish:github', ->
             cb(err)
 
     async.series tasks, done
+
+# Upload artifacts to Bintray
+['darwin', 'win32', 'linux'].forEach (dist) ->
+  gulp.task 'publish:bintray:artifacts:' + dist, (done) ->
+    if not process.env.BINTRAY_API_KEY
+      return console.warn 'BINTRAY_API_KEY env var not set.'
+
+    fs.readdir './dist', (err, files) ->
+      if err
+        return done err
+
+      tasks = files.map (fileNameShort) ->
+        fileNameLong = path.resolve './dist/', fileNameShort
+
+        host = 'https://api.bintray.com'
+        subject = mainManifest.bintray.subject
+
+        opts =
+          url: host + '/content/' + subject + '/artifacts/staging/' + dist + '/' + fileNameShort
+          auth:
+            user: subject
+            pass: process.env.BINTRAY_API_KEY
+          headers:
+            'X-Bintray-Package': manifest.name
+            'X-Bintray-Version': manifest.version
+            'X-Bintray-Publish': 1
+            'X-Bintray-Override': 1
+
+        (cb) ->
+          console.log 'Uploading', fileNameLong if args.verbose
+          fs.createReadStream fileNameLong
+            .pipe request.put opts, (err, res, body) ->
+              if not err
+                console.log body if args.verbose
+              cb(err)
+
+      async.series tasks, done

@@ -59,7 +59,7 @@ build_script:
 deploy_script:
   - >
     if [[ $APPVEYOR_REPO_BRANCH == 'staging' ]]; then
-      gulp publish:bintray:artifacts --verbose;
+      gulp publish:bintray:artifacts:win32 --verbose;
     fi
 
   - >

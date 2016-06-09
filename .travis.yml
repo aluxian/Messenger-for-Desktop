@@ -62,7 +62,7 @@ script:
     if [[ $TRAVIS_BRANCH == 'staging' ]];
       gulp pack:darwin64:dmg --prod --verbose;
       gulp pack:darwin64:zip --prod --verbose;
-      gulp publish:bintray:artifacts --verbose;
+      gulp publish:bintray:artifacts:darwin --verbose;
     fi
 
   - >
