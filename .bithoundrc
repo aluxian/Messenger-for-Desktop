@@ -2,6 +2,7 @@
   "ignore": [
     "**/node_modules/**",
     "resources/**",
+    "scripts/**",
     "tasks/**"
   ],
   "test": [

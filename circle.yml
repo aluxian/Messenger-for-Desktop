@@ -2,29 +2,11 @@ machine:
   node:
     version: 0.12.0
   pre:
-    - >
-      if [[ $CIRCLE_BRANCH == 'staging' || $CIRCLE_BRANCH == 'deploy' ]]; then
-        sudo apt-get update;
-        sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.6 10;
-        sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.6 10;
-        sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 20;
-        sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.9 20;
-        sudo apt-get install libc6-dev-i386 gcc-4.9-multilib g++-4.9-multilib \
-          lib32stdc++-4.9-dev lib32gcc-4.9-dev lib32asan1 ruby-dev make rpm;
-        sudo ln -s /usr/include/asm-generic /usr/include/asm;
-        rvmsudo gem install fpm;
-      fi
+    - if [[ $CIRCLE_BRANCH == 'staging' || $CIRCLE_BRANCH == 'deploy' ]]; then ./scripts/linux/dependencies_pre.sh; fi
 
 dependencies:
-  override:
-    - npm install -q
   post:
-    - >
-      if [[ $CIRCLE_BRANCH == 'staging' || $CIRCLE_BRANCH == 'deploy' ]]; then
-        cd src && npm install -q;
-        gulp download:linux32 --verbose;
-        gulp download:linux64 --verbose;
-      fi
+    - if [[ $CIRCLE_BRANCH == 'staging' || $CIRCLE_BRANCH == 'deploy' ]]; then ./scripts/linux/dependencies_post.sh; fi
   cache_directories:
     - node_modules
     - src/node_modules
@@ -34,34 +16,11 @@ deployment:
   staging:
     branch: staging
     commands:
-      - gulp changelog:linux --verbose
-
-      - gulp rebuild:32 --verbose
-      - gulp pack:linux32:deb --prod --verbose
-      - gulp pack:linux32:rpm --prod --verbose
-
-      - gulp rebuild:64 --verbose
-      - gulp pack:linux64:deb --prod --verbose
-      - gulp pack:linux64:rpm --prod --verbose
-
-      - gulp publish:bintray:artifacts:linux --verbose
-
+      - ./scripts/linux/build_staging.sh
   deploy:
     branch: deploy
     commands:
-      - gulp changelog:linux --verbose
-
-      - gulp rebuild:32 --verbose
-      - gulp pack:linux32:deb --prod --verbose
-      - gulp pack:linux32:rpm --prod --verbose
-
-      - gulp rebuild:64 --verbose
-      - gulp pack:linux64:deb --prod --verbose
-      - gulp pack:linux64:rpm --prod --verbose
-
-      - gulp publish:bintray:deb --verbose
-      - gulp publish:bintray:rpm --verbose
-      - gulp publish:github --verbose
+      - ./scripts/linux/build_deploy.sh
 
 notify:
   webhooks:
