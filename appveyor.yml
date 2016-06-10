@@ -32,7 +32,7 @@ install:
   - npm install -g npm@3
   - set PATH=%APPDATA%\npm;%PATH%
   - npm install -g gulp
-  - npm install
+  - npm install --only=dev
 
 test_script:
   - npm test

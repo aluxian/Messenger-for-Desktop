@@ -1,3 +1,4 @@
+npm install
 cd src && npm install
 gulp rebuild:32 --verbose
 gulp pack:win32:portable --prod --verbose

@@ -5,6 +5,8 @@ machine:
     - if [[ $CIRCLE_BRANCH == 'staging' || $CIRCLE_BRANCH == 'deploy' ]]; then ./scripts/linux/dependencies_pre.sh; fi
 
 dependencies:
+  override:
+    - npm install --only=dev
   post:
     - if [[ $CIRCLE_BRANCH == 'staging' || $CIRCLE_BRANCH == 'deploy' ]]; then ./scripts/linux/dependencies_post.sh; fi
   cache_directories:
