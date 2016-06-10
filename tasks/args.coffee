@@ -1,7 +1,7 @@
 args = {}
 
 args.verbose ||= '--verbose' in process.argv
-args.production ||= 'production' == process.env.NODE_ENV
+args.production ||= 'production' is process.env.NODE_ENV
 args.production ||= '--production' in process.argv
 args.production ||= '--prod' in process.argv
 args.prod ||= args.production

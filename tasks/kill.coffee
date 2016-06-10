@@ -5,7 +5,7 @@ gulp = require 'gulp'
 manifest = require '../src/package.json'
 
 lock = require './lock'
-lock.killTask ||= { skip: {} }
+lock.killTask ||= {skip: {}}
 
 [
   ['darwin64', 'pkill', ['-9', manifest.productName]]
@@ -26,7 +26,7 @@ lock.killTask ||= { skip: {} }
       console.log 'killing app' if args.verbose
       lock.killTask.skip[dist] = true
       cb = (err) ->
-        if err and (err.code == 'ENOENT' or err.code == 1 or err.code == 128)
+        if err and (err.code is 'ENOENT' or err.code is 1 or err.code is 128)
           console.error err if args.verbose
           done()
         else

@@ -161,7 +161,7 @@ gulp.task 'pack:darwin64:zip', ['build:darwin64'], (done) ->
 [32, 64].forEach (arch) ->
   ['deb', 'rpm'].forEach (target) ->
     gulp.task 'pack:linux' + arch + ':' + target, ['build:linux' + arch, 'clean:dist:linux' + arch], (done) ->
-      if arch == 32
+      if arch is 32
         archName = 'i386'
       else if target is 'deb'
         archName = 'amd64'
@@ -169,7 +169,7 @@ gulp.task 'pack:darwin64:zip', ['build:darwin64'], (done) ->
         archName = 'x86_64'
 
       depsList = []
-      if target == 'deb'
+      if target is 'deb'
         depsList = [
           'libappindicator1 | libappindicator | libappindicator-gtk3'
           'gconf2'
@@ -237,7 +237,7 @@ gulp.task 'pack:darwin64:zip', ['build:darwin64'], (done) ->
           '--maintainer', manifest.author
           '--vendor', manifest.authorName
           '--version', manifest.version
-          '--iteration', process.env.CIRCLE_BUILD_NUM || '1'
+          '--iteration', process.env.CIRCLE_BUILD_NUM or '1'
           '--package', './dist/' + manifest.name + '-VERSION-linux-ARCH.' + target
           '-C', './build/linux' + arch
           '.'
@@ -329,9 +329,9 @@ gulp.task 'pack:win32:installer', ['build:win32', 'clean:dist:win32'], (done) ->
       releasesUrl = remoteReleasesUrl + '/RELEASES'
 
       request {url: releasesUrl}, (err, res, body) ->
-        if err || !res || res.statusCode < 200 || res.statusCode >= 400
+        if err or not res or res.statusCode < 200 or res.statusCode >= 400
           console.log 'Creating installer without remote releases url', releasesUrl, 'because of',
-            'error', err, 'statusCode', res && res.statusCode, 'body', res && res.body
+            'error', err, 'statusCode', res and res.statusCode, 'body', res and res.body
           remoteReleasesUrl = undefined
 
         winInstaller
@@ -385,7 +385,7 @@ gulp.task 'pack:win32:portable', ['build:win32', 'clean:dist:win32'], (done) ->
 
     # Sign the exe
     (callback) ->
-      cmd = process.env.SIGNTOOL_PATH || 'signtool'
+      cmd = process.env.SIGNTOOL_PATH or 'signtool'
       args = [
         'sign'
         '/t'
@@ -407,7 +407,7 @@ gulp.task 'pack:win32:portable', ['build:win32', 'clean:dist:win32'], (done) ->
   ], done
 
 # Pack for the current platform by default
-if process.platform == 'win32'
+if process.platform is 'win32'
   gulp.task 'pack', ['pack:' + platform() + ':installer']
 else
   gulp.task 'pack', ['pack:' + platform()]

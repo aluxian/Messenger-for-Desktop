@@ -17,7 +17,7 @@ gulp.task 'publish:github', ->
     return console.warn 'GITHUB_TOKEN env var not set.'
 
   channelAppend = ''
-  if manifest.versionChannel != 'stable'
+  if manifest.versionChannel isnt 'stable'
     channelAppend = '-' + manifest.versionChannel
 
   release = changelogJson[0]
@@ -47,7 +47,7 @@ gulp.task 'publish:github', ->
     if not process.env.BINTRAY_API_KEY
       return console.warn 'BINTRAY_API_KEY env var not set.'
 
-    arch64Name = if dist == 'deb' then 'amd64' else 'x86_64'
+    arch64Name = if dist is 'deb' then 'amd64' else 'x86_64'
     tasks = [
       ['./dist/' + manifest.name + '-' + manifest.version + '-linux-' + arch64Name + '.' + dist, arch64Name]
       ['./dist/' + manifest.name + '-' + manifest.version + '-linux-i386.' + dist, 'i386']
@@ -58,7 +58,7 @@ gulp.task 'publish:github', ->
       subject = mainManifest.bintray.subject
       filePath = path.basename(srcPath)
 
-      if dist == 'deb'
+      if dist is 'deb'
         poolPath = 'pool/main/' + manifest.name[0] + '/'
         filePath = poolPath + manifest.name + '/' + filePath
 

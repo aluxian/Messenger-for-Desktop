@@ -28,8 +28,8 @@ downloaded =
         console.log 'already downloaded, skipping'
       return done()
 
-    process.env.GITHUB_TOKEN = process.env.GITHUB_TOKEN || process.env.GITHUB_OAUTH_TOKEN
-    process.env.GITHUB_OAUTH_TOKEN = process.env.GITHUB_OAUTH_TOKEN || process.env.GITHUB_TOKEN
+    process.env.GITHUB_TOKEN = process.env.GITHUB_TOKEN or process.env.GITHUB_OAUTH_TOKEN
+    process.env.GITHUB_OAUTH_TOKEN = process.env.GITHUB_OAUTH_TOKEN or process.env.GITHUB_TOKEN
 
     electronDownloader
       version: manifest.electronVersion

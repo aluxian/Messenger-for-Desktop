@@ -8,15 +8,15 @@ manifest = deepClone manifest
 
 # Move and process the resources for darwin64
 gulp.task 'resources:darwin', ->
-  templateFilter = filter ['**/*.plist', '**/*.json'], { restore: true }
+  templateFilter = filter ['**/*.plist', '**/*.json'], {restore: true}
 
-  if manifest.versionChannel == 'stable'
+  if manifest.versionChannel is 'stable'
     manifest.versionChannel = ''
   else
     manifest.versionChannel = '-' + manifest.versionChannel
 
   unless manifest.buildNum
-    manifest.buildNum = process.env.TRAVIS_BUILD_NUMBER || 0
+    manifest.buildNum = process.env.TRAVIS_BUILD_NUMBER or 0
 
   gulp.src './resources/darwin/**/*'
     .pipe templateFilter
@@ -26,7 +26,7 @@ gulp.task 'resources:darwin', ->
 
 # Move and process the resources for linux32 and linux64
 gulp.task 'resources:linux', ->
-  templateFilter = filter ['**/*.desktop', '**/*.sh'], { restore: true }
+  templateFilter = filter ['**/*.desktop', '**/*.sh'], {restore: true}
 
   manifest.linux.name = manifest.name
   manifest.linux.productName = manifest.productName

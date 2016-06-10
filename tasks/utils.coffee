@@ -47,15 +47,15 @@ applyIf = (cond, fn) ->
   else
     (cb) -> cb(null)
 
-platform = () ->
-  if process.platform == 'win32'
+platform = ->
+  if process.platform is 'win32'
     process.platform
   else
-    arch = if process.arch == 'ia32' then '32' else '64'
+    arch = if process.arch is 'ia32' then '32' else '64'
     process.platform + arch
 
-platformOnly = () ->
-  if process.platform == 'win32'
+platformOnly = ->
+  if process.platform is 'win32'
     'win'
   else
     process.platform
