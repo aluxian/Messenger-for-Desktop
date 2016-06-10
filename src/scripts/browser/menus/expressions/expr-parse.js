@@ -37,7 +37,7 @@ export function updateSibling (siblingId, siblingKey, valueExpr) {
   return function (item) {
     const submenu = (this && this.submenu) || (item && item.menu && item.menu.items);
     if (submenu) {
-      const sibling = submenu.find(i => i.id === siblingId);
+      const sibling = submenu.find((i) => i.id === siblingId);
       if (sibling) {
         sibling[siblingKey] = valueExpr.apply(this, arguments);
       }
@@ -62,7 +62,7 @@ export function updateMenuItem (menuType, itemId) {
           return log('menu item not found', itemId);
         }
 
-        const values = valueExprs.map(e => e.apply(this, arguments));
+        const values = valueExprs.map((e) => e.apply(this, arguments));
         const expr = exprCallback(...values);
         const browserWindow = BrowserWindow.getFocusedWindow();
         expr.call(global, menuItem, browserWindow);

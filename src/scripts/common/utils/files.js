@@ -6,15 +6,15 @@ import filePaths from 'common/utils/file-paths';
 /**
  * @return the css of the theme
  */
-function getThemeCss (theme) {
-  return fs.readFileAsync(filePaths.getThemePath(theme), 'utf-8');
+async function getThemeCss (theme) {
+  return await fs.readFileAsync(filePaths.getThemePath(theme), 'utf-8');
 }
 
 /**
  * @return the css of the file
  */
-function getStyleCss (style) {
-  return fs.readFileAsync(filePaths.getStylePath(style), 'utf-8');
+async function getStyleCss (style) {
+  return await fs.readFileAsync(filePaths.getStylePath(style), 'utf-8');
 }
 
 /**
@@ -27,9 +27,9 @@ function getDictionariesSync (dirPath) {
   }
 
   const dictionaries = fs.readdirSync(dirPath)
-    .filter(filename => path.extname(filename) === '.dic')
-    .filter(filename => fs.statSync(path.join(dirPath, filename)).isFile())
-    .map(filename => path.basename(filename, '.dic'));
+    .filter((filename) => path.extname(filename) === '.dic')
+    .filter((filename) => fs.statSync(path.join(dirPath, filename)).isFile())
+    .map((filename) => path.basename(filename, '.dic'));
 
   log('dictionaries in', dirPath, 'found:', dictionaries);
   return dictionaries;
@@ -40,31 +40,36 @@ function getDictionariesSync (dirPath) {
  * If it's invalid, purge it and write it again.
  * If it already exists, it's left untouched.
  */
-function replaceFile (filePath, writePromise) {
-  fs.accessAsync(filePath, fs.R_OK | fs.W_OK)
-    .then(() => fs.lstatAsync(filePath))
-    .then((stats) => {
-      if (!stats.isFile()) {
-        throw new Error();
-      }
-      return true;
-    })
-    .catch(() => {
-      return fs.removeAsync(filePath)
-        .catch(() => false)
-        .then(() => writePromise())
-        .catch(() => false);
-    });
+async function replaceFile (filePath, writePromise) {
+  try {
+    await fs.accessAsync(filePath, fs.R_OK | fs.W_OK);
+    const stats = await fs.lstatAsync(filePath);
+    if (!stats.isFile()) {
+      throw new Error();
+    }
+  } catch (err) {
+    // err ignored
+    // no access / does not exist
+    try {
+      await fs.removeAsync(filePath);
+    } catch (err2) {
+      // err2 ignored
+    }
+    await writePromise();
+  }
 }
 
 /**
  * Check if the path exists, can be accessed and is a file.
  */
-function isFileExists (filePath) {
-  fs.accessAsync(filePath, fs.R_OK | fs.W_OK)
-    .then(() => fs.lstatAsync(filePath))
-    .then((stats) => stats.isFile())
-    .catch(() => false);
+async function isFileExists (filePath) {
+  try {
+    await fs.accessAsync(filePath, fs.R_OK | fs.W_OK);
+    const stats = await fs.lstatAsync(filePath);
+    return stats.isFile();
+  } catch (err) {
+    return false;
+  }
 }
 
 export default {

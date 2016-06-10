@@ -111,7 +111,7 @@ class SquirrelEvents {
     const squirrelExec = filePaths.getSquirrelUpdateExePath();
     log('spawning', squirrelExec, args);
 
-    const child = cp.spawn(squirrelExec, args, { detached: true });
+    const child = cp.spawn(squirrelExec, args, {detached: true});
     child.on('close', function (code) {
       if (code) {
         logError(squirrelExec, 'exited with code', code);
@@ -128,7 +128,7 @@ class SquirrelEvents {
     log('removing reg keys');
     new AutoLauncher().disable()
       .then(() => callback())
-      .catch(err => {
+      .catch((err) => {
         logError(err);
         callback();
       });
@@ -136,12 +136,12 @@ class SquirrelEvents {
 
   teardownLeftoverUserData (callback) {
     log('removing user data folder', app.getPath('userData'));
-    del(app.getPath('userData'), { force: true })
-      .then(paths => {
+    del(app.getPath('userData'), {force: true})
+      .then((paths) => {
         log('deleted', paths);
         callback();
       })
-      .catch(err => {
+      .catch((err) => {
         logError(err);
         callback();
       });

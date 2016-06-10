@@ -10,6 +10,6 @@ export default function () {
     'browser/menus/templates/main-window-darwin',
     'browser/menus/templates/main-window-nondarwin',
     'browser/menus/templates/main-help'
-  ].map(p => require(p).default);
+  ].map((module) => require(module).default);
   return parseTemplate(template, null);
 }

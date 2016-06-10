@@ -14,12 +14,12 @@ document.addEventListener('contextmenu', function (event) {
   const corrections = isMisspelling ? spellChecker.getCorrectionsForMisspelling(trimmedText) : [];
 
   const payload = {
-    selection: selection,
+    selection,
     hasSelection: !!selection,
     targetIsEditable: event.target.isContentEditable,
     targetIsLink: event.target.tagName === 'A',
-    isMisspelling: isMisspelling,
-    corrections: corrections,
+    isMisspelling,
+    corrections,
     href: event.target.href,
     isWindows7: platform.isWindows7()
   };

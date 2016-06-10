@@ -53,7 +53,7 @@ export function themeCss (nameExpr, callback) {
   return function () {
     const theme = nameExpr.apply(this, arguments);
     files.getThemeCss(theme)
-      .then(css => callback(css).apply(this, arguments))
+      .then((css) => callback(css).apply(this, arguments))
       .catch(logError);
   };
 }

@@ -70,7 +70,7 @@ export function getAvailableDictionaries () {
   }
 
   hunspellDictionaries = hunspellDictionaries || [];
-  hunspellDictionaries = hunspellDictionaries.filter(dict => {
+  hunspellDictionaries = hunspellDictionaries.filter((dict) => {
     return languageCodes[dict] || languageCodes[dict.replace('-', '_').split('_')[0]];
   });
 

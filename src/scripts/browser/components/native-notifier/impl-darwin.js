@@ -1,3 +1,4 @@
+/* eslint-disable babel/new-cap */
 import $ from 'nodobjc';
 
 import BaseNativeNotifier from 'browser/components/native-notifier/base';
@@ -41,9 +42,9 @@ class DarwinNativeNotifier extends BaseNativeNotifier {
     const tag = identifier.split(':::')[0];
 
     const payload = {
-      tag: tag,
+      tag,
       type: DarwinNativeNotifier.ACTIVATION_TYPES[type],
-      identifier: identifier
+      identifier
     };
 
     if (payload.type === 'replied') {

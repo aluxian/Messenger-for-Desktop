@@ -30,9 +30,9 @@ function check (callback) {
 }
 
 function clean (callback, dryRun = false) {
-  del(paths, { force: true, dryRun: dryRun })
-    .catch(err => callback(err))
-    .then(paths => callback(null, paths));
+  del((paths), {force: true, dryRun})
+    .catch((err) => callback(err))
+    .then((paths) => callback(null, paths));
 }
 
 export default {

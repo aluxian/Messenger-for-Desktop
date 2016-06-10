@@ -8,7 +8,7 @@ export default {
     theme: themeId,
     accelerator: index < 10 ? 'CmdOrCtrl+Alt+' + index : undefined,
     click: $.all(
-      $.themeCss($.key('theme'), css => $.sendToWebView('apply-theme', $.val(css))),
+      $.themeCss($.key('theme'), (css) => $.sendToWebView('apply-theme', $.val(css))),
       $.setPref('theme', $.key('theme'))
     ),
     parse: $.all(

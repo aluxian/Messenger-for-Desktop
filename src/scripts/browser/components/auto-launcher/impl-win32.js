@@ -9,9 +9,9 @@ const REG_KEY = new Winreg({
   key: '\\Software\\Microsoft\\Windows\\CurrentVersion\\Run'
 });
 
-const setAsync = Promise.promisify(REG_KEY.set, { context: REG_KEY });
-const removeAsync = Promise.promisify(REG_KEY.remove, { context: REG_KEY });
-const keyExistsAsync = Promise.promisify(REG_KEY.keyExists, { context: REG_KEY });
+const setAsync = Promise.promisify(REG_KEY.set, {context: REG_KEY});
+const removeAsync = Promise.promisify(REG_KEY.remove, {context: REG_KEY});
+const keyExistsAsync = Promise.promisify(REG_KEY.keyExists, {context: REG_KEY});
 
 class Win32AutoLauncher extends BaseAutoLauncher {
 

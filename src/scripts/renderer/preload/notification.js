@@ -24,7 +24,7 @@ window.Notification = (function (Html5Notification) {
     log('showing native notification');
     const nativeOptions = Object.assign({}, options, {
       canReply: true,
-      title: title
+      title
     });
 
     // HTML5-like event emitter to be returned

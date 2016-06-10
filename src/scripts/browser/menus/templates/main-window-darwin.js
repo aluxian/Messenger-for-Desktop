@@ -49,7 +49,7 @@ export default {
     click: $.all(
       $.showInTray($.key('checked')),
       $.updateSibling('show-dock', 'enabled', $.key('checked')),
-      $.updateMenuItem('tray', 'show-tray')($.key('checked'))(checked => $.all(
+      $.updateMenuItem('tray', 'show-tray')($.key('checked'))((checked) => $.all(
         $.setLocal('checked', $.val(checked)),
         $.updateSibling('show-dock', 'enabled', $.val(checked))
       )),
@@ -66,7 +66,7 @@ export default {
     click: $.all(
       $.showInDock($.key('checked')),
       $.updateSibling('show-tray', 'enabled', $.key('checked')),
-      $.updateMenuItem('tray', 'show-dock')($.key('checked'))(checked => $.all(
+      $.updateMenuItem('tray', 'show-dock')($.key('checked'))((checked) => $.all(
         $.setLocal('checked', $.val(checked)),
         $.updateSibling('show-tray', 'enabled', $.val(checked))
       )),

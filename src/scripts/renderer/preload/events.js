@@ -17,13 +17,13 @@ ipcRenderer.on('spell-checker', function (event, enabled, autoCorrect, langCode)
   if (enabled) {
     SpellChecker.setDictionary(langCode, getDictionaryPath());
     webFrame.setSpellCheckProvider(chromiumLangCode, autoCorrect, {
-      spellCheck: function (text) {
+      spellCheck: (text) => {
         return !SpellChecker.isMisspelled(text);
       }
     });
   } else {
     webFrame.setSpellCheckProvider(chromiumLangCode, autoCorrect, {
-      spellCheck: function () {
+      spellCheck: () => {
         return true;
       }
     });

@@ -95,7 +95,7 @@ export default {
   }, {
     id: 'spell-checker-language',
     label: 'Spell Checker Language',
-    submenu: availableLanguages.map(lang => ({
+    submenu: availableLanguages.map((lang) => ({
       type: 'radio',
       label: lang.name,
       langCode: lang.code,

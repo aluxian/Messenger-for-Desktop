@@ -56,7 +56,7 @@ export default {
     click: $.sendToWebView('switch-conversation', $.val(-1))
   }, {
     label: 'Switch to Conversation',
-    submenu: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(index => ({
+    submenu: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((index) => ({
       label: 'Conversation ' + index,
       accelerator: 'CmdOrCtrl+' + (index % 10),
       click: $.sendToWebView('switch-conversation', $.val(1000 + index))

@@ -8,7 +8,7 @@ import logger from 'common/utils/logger';
  */
 export function createServer (port) {
   log('listening for REPL connections on port', port);
-  net.createServer(socket => {
+  net.createServer((socket) => {
     const r = repl.start({
       prompt: 'browser@' + global.manifest.name + '> ',
       input: socket,

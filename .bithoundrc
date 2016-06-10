@@ -10,7 +10,7 @@
   ],
   "critics": {
     "lint": {
-      "engine": "semistandard"
+      "engine": "eslint"
     }
   },
   "dependencies": {

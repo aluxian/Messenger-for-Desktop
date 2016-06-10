@@ -16,7 +16,7 @@ class AutoUpdater extends BaseAutoUpdater {
       url: this.latestReleaseUrl,
       qs: {
         pkg: packageType,
-        arch: arch
+        arch
       },
       json: true
     });

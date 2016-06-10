@@ -74,7 +74,7 @@ export function openUrl (url) {
 export function sendToWebContents (channel, ...valueExprs) {
   return function (menuItem, browserWindow) {
     if (browserWindow) {
-      const values = valueExprs.map(e => e.apply(this, arguments));
+      const values = valueExprs.map((e) => e.apply(this, arguments));
       browserWindow.webContents.send(channel, ...values);
     }
   };
@@ -86,7 +86,7 @@ export function sendToWebContents (channel, ...valueExprs) {
 export function sendToWebView (channel, ...valueExprs) {
   return function (menuItem, browserWindow) {
     if (browserWindow) {
-      const values = valueExprs.map(e => e.apply(this, arguments));
+      const values = valueExprs.map((e) => e.apply(this, arguments));
       browserWindow.webContents.send('fwd-webview', channel, ...values);
     }
   };
@@ -206,14 +206,14 @@ export function launchOnStartup (enabledExpr) {
     if (enabled) {
       global.application.autoLauncher.enable()
         .then(() => log('auto launcher enabled'))
-        .catch(err => {
+        .catch((err) => {
           log('could not enable auto-launcher');
           logError(err);
         });
     } else {
       global.application.autoLauncher.disable()
         .then(() => log('auto launcher disabled'))
-        .catch(err => {
+        .catch((err) => {
           log('could not disable auto-launcher');
           logError(err);
         });
@@ -280,7 +280,7 @@ export const analytics = {
   /**
    * Track an event.
    */
-  trackEvent: function (...args) {
+  trackEvent: (...args) => {
     return function () {
       piwik.getTracker().trackEvent(...args);
     };

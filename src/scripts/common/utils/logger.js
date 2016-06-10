@@ -14,8 +14,8 @@ function trimLongPaths (err) {
   const app = require('common/electron/app').default;
   err.stack = err.stack
     .split('\n')
-    .map(line => line.replace(/\/.+atom\.asar/, 'atom.asar'))
-    .map(line => line.replace(app.getAppPath(), 'app'))
+    .map((line) => line.replace(/\/.+atom\.asar/, 'atom.asar'))
+    .map((line) => line.replace(app.getAppPath(), 'app'))
     .join('\n');
 }
 
@@ -59,7 +59,7 @@ function reportToSentry (namespace, isFatal, err) {
         trace: new Error().stack
       },
       tags: {
-        namespace: namespace
+        namespace
       }
     }, function (result) {
       console.log('reported to sentry:', result);

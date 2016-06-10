@@ -73,7 +73,7 @@ webView.addEventListener('dom-ready', function () {
   // Inject custom css
   log('injecting custom css');
   files.getStyleCss('mini')
-    .then(css => webView.insertCSS(css))
+    .then((css) => webView.insertCSS(css))
     .catch(logError);
 
   // Restore the default theme
@@ -82,7 +82,7 @@ webView.addEventListener('dom-ready', function () {
     if (global.manifest.themes[themeId]) {
       log('restoring theme', themeId);
       files.getThemeCss(themeId)
-        .then(css => webView.send('apply-theme', css))
+        .then((css) => webView.send('apply-theme', css))
         .catch(logError);
     } else {
       log('invalid theme, unsetting pref');

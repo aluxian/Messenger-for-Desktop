@@ -1,7 +1,7 @@
 import {Menu} from 'electron';
 
 export function parseTemplate (menu, parent) {
-  return menu.filter(item => {
+  return menu.filter((item) => {
     // Filter
     if (item.allow !== undefined && !item.allow) {
       return false;
