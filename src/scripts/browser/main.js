@@ -14,7 +14,7 @@ process.on('uncaughtException', function (err) {
 
 (function () {
   // Define the CLI arguments and parse them
-  const cliArgs = process.argv.slice(1, process.argv.length);
+  const cliArgs = process.argv.slice(1);
   const options = yargs(cliArgs)
     .usage('Usage: $0 [options]')
     .option('os-startup', {
