@@ -2,8 +2,8 @@ import prefs from 'common/utils/prefs';
 import {getUserId} from 'common/utils/analytics';
 
 const activeTheme = prefs.get('theme');
-const activeSpellCheckerLang = prefs.get('theme');
-const activeReleaseChannel = prefs.get('theme');
+const activeSpellCheckerLang = prefs.get('spell-checker-language');
+const activeReleaseChannel = prefs.get('updates-channel');
 const trackAnalytics = prefs.get('analytics-track');
 
 let piwikTracker = null;
