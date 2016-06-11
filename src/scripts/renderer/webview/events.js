@@ -1,6 +1,6 @@
 import {ipcRenderer} from 'electron';
 
-import piwik from 'renderer/services/piwik';
+import * as piwik from 'renderer/services/piwik';
 import webView from 'renderer/webview';
 
 /**
