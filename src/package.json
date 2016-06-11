@@ -84,5 +84,8 @@
     "sephia": "Sephia",
     "fluttershy": "Fluttershy",
     "orange": "Orange"
+  },
+  "devDependencies": {
+    "devtron": "1.2.0"
   }
 }
