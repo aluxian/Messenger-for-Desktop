@@ -10,6 +10,11 @@ var windowBehaviour = require('./components/window-behaviour');
 var notification = require('./components/notification');
 var dispatcher = require('./components/dispatcher');
 
+// Make sure the window gets focused
+setTimeout(function(){
+  win.focus();
+}, 500);
+
 // Ensure there's an app shortcut for toast notifications to work on Windows
 if (platform.isWindows) {
   gui.App.createShortcut(process.env.APPDATA + "\\Microsoft\\Windows\\Start Menu\\Programs\\Messenger.lnk");
