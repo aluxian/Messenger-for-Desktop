@@ -88,8 +88,12 @@ export function errorLogger (filename, isFatal) {
     }
 
     if (!(err instanceof Error)) {
-      const fnName = isFatal ? 'logFatal' : 'logError';
-      throw new Error('the first parameter to ' + fnName + ' must be an Error');
+      if (global.options.dev) {
+        const fnName = isFatal ? 'logFatal' : 'logError';
+        throw new Error('the first parameter to ' + fnName + ' must be an Error');
+      } else {
+        err = new Error(err);
+      }
     }
 
     const browserLogger = require('common/utils/logger-browser').default;
