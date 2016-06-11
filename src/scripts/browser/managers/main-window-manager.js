@@ -33,7 +33,7 @@ class MainWindowManager extends EventEmitter {
       title: this.initialTitle,
       backgroundColor: '#f2f2f2',
       useContentSize: true,
-      minWidth: 355,
+      minWidth: 458,
       minHeight: 355,
       show: false
     };
