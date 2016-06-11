@@ -1,6 +1,7 @@
 import {ipcRenderer} from 'electron';
 
 import webView from 'renderer/webview';
+import platform from 'common/utils/platform';
 import files from 'common/utils/files';
 import prefs from 'common/utils/prefs';
 
@@ -46,7 +47,7 @@ webView.addEventListener('page-title-updated', function () {
   const count = isNaN(parsed) || !parsed ? '' : '' + parsed;
   let badgeDataUrl = null;
 
-  if (process.platform === 'win32' && count) {
+  if (platform.isWindows && count) {
     badgeDataUrl = createBadgeDataUrl(count);
   }
 

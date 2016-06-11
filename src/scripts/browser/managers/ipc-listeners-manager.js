@@ -56,12 +56,17 @@ class IpcListenersManager extends EventEmitter {
    * Called when the 'context-menu' event is received.
    */
   onContextMenu (event, options) {
-    const menu = contextMenu.create(options, this.mainWindowManager.window);
-    if (menu) {
-      log('opening context menu');
-      setTimeout(() => {
-        menu.popup(this.mainWindowManager.window);
-      }, 50);
+    try {
+      options = JSON.parse(options);
+      const menu = contextMenu.create(options, this.mainWindowManager.window);
+      if (menu) {
+        log('opening context menu');
+        setTimeout(() => {
+          menu.popup(this.mainWindowManager.window);
+        }, 50);
+      }
+    } catch (err) {
+      logError(err);
     }
   }
 

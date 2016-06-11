@@ -1,28 +1,11 @@
-import {ipcRenderer} from 'electron';
-import spellChecker from 'spellchecker';
+import {remote, ipcRenderer} from 'electron';
 
 import platform from 'renderer/utils/platform';
 
 // Forward context menu opens
-document.addEventListener('contextmenu', function (event) {
-  event.preventDefault();
-
-  const selection = document.getSelection().toString();
-  const trimmedText = selection.trim();
-  const isMisspelling = !trimmedText.includes(' ') && spellChecker.isMisspelled(trimmedText);
-  const corrections = isMisspelling ? spellChecker.getCorrectionsForMisspelling(trimmedText) : [];
-
-  const payload = {
-    selection,
-    hasSelection: !!selection,
-    targetIsEditable: event.target.isContentEditable,
-    targetIsLink: event.target.tagName === 'A',
-    isMisspelling,
-    corrections,
-    href: event.target.href,
-    isWindows7: platform.isWindows7()
-  };
-
-  log('sending context menu', JSON.stringify(payload));
-  ipcRenderer.send('context-menu', payload);
-}, false);
+remote.getCurrentWebContents().on('context-menu', function (event, params) {
+  params.isWindows7 = platform.isWindows7();
+  params = JSON.stringify(params);
+  log('sending context menu', params);
+  ipcRenderer.send('context-menu', params);
+});
