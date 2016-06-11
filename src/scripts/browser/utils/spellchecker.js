@@ -1,4 +1,5 @@
 import SpellChecker from 'spellchecker';
+import {app} from 'electron';
 import path from 'path';
 import fs from 'fs';
 
@@ -6,41 +7,40 @@ import platform from 'common/utils/platform';
 import languageCodes from 'browser/utils/language-codes';
 import files from 'common/utils/files';
 
+let hunspellDictionarySearchPaths = null;
 let hunspellDictionaries = null;
 
-export function getDictionaryDefaultPath () {
-  let dict = path.join(__dirname, '..', 'node_modules', 'spellchecker', 'vendor', 'hunspell_dictionaries');
-  try {
-    // Special case being in an asar archive
-    const unpacked = dict.replace('.asar' + path.sep, '.asar.unpacked' + path.sep);
-    if (fs.statSyncNoException(unpacked)) {
-      dict = unpacked;
-    }
-  } catch (err) {
-    // ignore
-  }
-  return dict;
-}
+export function getDictionarySearchPaths () {
+  if (!hunspellDictionarySearchPaths) {
+    let searchPaths = [
+      path.join(app.getAppPath(), 'dicts'),
+      path.join(app.getAppPath(), 'node_modules', 'spellchecker', 'vendor', 'hunspell_dictionaries')
+    ];
 
-export function getDictionaryPath () {
-  let dict = path.join(__dirname, '..', 'node_modules', 'spellchecker', 'vendor', 'hunspell_dictionaries');
-  try {
-    if (platform.isLinux) {
-      let usrDict = path.join('/usr', 'share', 'hunspell');
-      if (fs.statSyncNoException(usrDict)) {
-        dict = usrDict;
+    // Special case being in an asar archive
+    searchPaths = searchPaths.map((searchPath) => {
+      if (searchPath.includes('.asar' + path.sep)) {
+        const unpacked = searchPath.replace('.asar' + path.sep, '.asar.unpacked' + path.sep);
+        if (fs.statSyncNoException(unpacked)) {
+          return unpacked;
+        }
       }
+      return searchPath;
+    });
+
+    if (platform.isLinux) {
+      searchPaths = searchPaths.concat([
+        '/usr/share/hunspell',
+        '/usr/share/myspell',
+        '/usr/share/myspell/dicts',
+        '/Library/Spelling'
+      ]);
     }
 
-    // Special case being in an asar archive
-    const unpacked = dict.replace('.asar' + path.sep, '.asar.unpacked' + path.sep);
-    if (fs.statSyncNoException(unpacked)) {
-      dict = unpacked;
-    }
-  } catch (err) {
-    // ignore
+    hunspellDictionarySearchPaths = searchPaths;
   }
-  return dict;
+
+  return hunspellDictionarySearchPaths;
 }
 
 export function getAvailableDictionaries () {
@@ -49,31 +49,35 @@ export function getAvailableDictionaries () {
     return availableDictionaries;
   }
 
-  const dictionariesPath = getDictionaryPath();
   if (!hunspellDictionaries) {
     try {
-      hunspellDictionaries = files.getDictionariesSync(dictionariesPath);
+      hunspellDictionaries = files.getAllDictionariesSync(getDictionarySearchPaths());
+      hunspellDictionaries = hunspellDictionaries.filter((dict) => {
+        return languageCodes[dict] ||
+          languageCodes[dict.replace('-', '_')] ||
+          languageCodes[dict.replace('-', '_').split('_')[0]];
+      });
+      log('filtered dictionaries:', hunspellDictionaries);
     } catch (err) {
       logError(err);
     }
   }
 
-  if (platform.isLinux && (!hunspellDictionaries || hunspellDictionaries.length === 0)) {
-    const dictionariesDefaultPath = getDictionaryDefaultPath();
-    if (dictionariesDefaultPath !== dictionariesPath) {
-      try {
-        hunspellDictionaries = files.getDictionariesSync(getDictionaryDefaultPath());
-      } catch (err) {
-        logError(err);
-      }
-    }
-  }
+  return hunspellDictionaries;
+}
 
-  hunspellDictionaries = hunspellDictionaries || [];
-  hunspellDictionaries = hunspellDictionaries.filter((dict) => {
-    return languageCodes[dict] || languageCodes[dict.replace('-', '_').split('_')[0]];
+export function getDictionaryPath (langCode) {
+  let searchPaths = getDictionarySearchPaths();
+  searchPaths = searchPaths.map((searchPath) => {
+    return [
+      path.join(searchPath, langCode.replace('-', '_') + '.dic'),
+      path.join(searchPath, langCode.replace('_', '-') + '.dic')
+    ];
   });
 
-  log('filtered dictionaries:', hunspellDictionaries);
-  return hunspellDictionaries;
+  // Flatten and remove duplicates
+  searchPaths = [].concat.apply([], searchPaths);
+  searchPaths = Array.from(new Set(searchPaths));
+
+  return searchPaths.find(fs.existsSync);
 }

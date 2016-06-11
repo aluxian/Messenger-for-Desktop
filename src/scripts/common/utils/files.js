@@ -36,6 +36,16 @@ function getDictionariesSync (dirPath) {
 }
 
 /**
+ * @return the list of Hunspell dictionaries available in all the given dirs
+ */
+function getAllDictionariesSync (dirPaths) {
+  return dirPaths.reduce((acc, dirPath) => {
+    const dicts = getDictionariesSync(dirPath);
+    acc.push.apply(acc, dicts);
+  }, []);
+}
+
+/**
  * Verify it's not a directory and the app can access it.
  * If it's invalid, purge it and write it again.
  * If it already exists, it's left untouched.
@@ -76,6 +86,7 @@ export default {
   getThemeCss,
   getStyleCss,
   getDictionariesSync,
+  getAllDictionariesSync,
   replaceFile,
   isFileExists
 };

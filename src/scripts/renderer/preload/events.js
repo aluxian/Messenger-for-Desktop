@@ -15,7 +15,7 @@ ipcRenderer.on('spell-checker', function (event, enabled, autoCorrect, langCode)
   log('spell checker enabled:', enabled, 'auto correct:', autoCorrect, 'lang code:', langCode);
 
   if (enabled) {
-    SpellChecker.setDictionary(langCode, getDictionaryPath());
+    SpellChecker.setDictionary(langCode, getDictionaryPath(langCode));
     webFrame.setSpellCheckProvider(chromiumLangCode, autoCorrect, {
       spellCheck: (text) => {
         return !SpellChecker.isMisspelled(text);
