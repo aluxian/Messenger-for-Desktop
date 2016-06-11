@@ -1,4 +1,5 @@
 beeper = require 'beeper'
+fs = require 'fs'
 
 gulp = require 'gulp'
 plumber = require 'gulp-plumber'
@@ -38,7 +39,9 @@ args = require './args'
 
   # Compile scripts
   gulp.task 'compile:' + dist + ':scripts', ['clean:build:' + dist], ->
-    excludeHeaderFilter = filter ['**/*', '!**/logger.js', '!**/init.js'], {restore: true}
+    loggerIgnore = fs.readFileSync('./src/.loggerignore', 'utf8')
+      .split('\n').filter((rule) -> !!rule).map((rule) -> '!' + rule.trim())
+    excludeHeaderFilter = filter ['**/*'].concat(loggerIgnore), {restore: true}
     sourceMapHeader = "if (process.type === 'browser') { require('source-map-support').install(); }"
     loggerHeader = [
       "var log = require('common/utils/logger').debugLogger(__filename);"

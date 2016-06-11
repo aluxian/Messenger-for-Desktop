@@ -1,5 +1,5 @@
-import {getAvailableDictionaries} from 'browser/utils/spellchecker';
-import languageCodes from 'browser/utils/language-codes';
+import {getAvailableDictionaries} from 'common/utils/spellchecker';
+import languageCodes from 'common/utils/language-codes';
 import platform from 'common/utils/platform';
 import prefs from 'browser/utils/prefs';
 import $ from 'browser/menus/expressions';

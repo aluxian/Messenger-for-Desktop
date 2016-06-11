@@ -1,6 +1,6 @@
 import {remote, ipcRenderer} from 'electron';
 
-import platform from 'renderer/utils/platform';
+import platform from 'common/utils/platform';
 
 // Forward context menu opens
 remote.getCurrentWebContents().on('context-menu', function (event, params) {

@@ -1,5 +1,5 @@
 import {webFrame, ipcRenderer} from 'electron';
-import {getDictionaryPath} from 'browser/utils/spellchecker';
+import {getDictionaryPath} from 'common/utils/spellchecker';
 import SpellChecker from 'spellchecker';
 
 // Set zoom level

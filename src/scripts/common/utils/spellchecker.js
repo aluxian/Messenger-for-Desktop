@@ -1,10 +1,10 @@
 import SpellChecker from 'spellchecker';
-import {app} from 'electron';
 import path from 'path';
 import fs from 'fs';
 
+import app from 'common/electron/app';
 import platform from 'common/utils/platform';
-import languageCodes from 'browser/utils/language-codes';
+import languageCodes from 'common/utils/language-codes';
 import files from 'common/utils/files';
 
 let hunspellDictionarySearchPaths = null;

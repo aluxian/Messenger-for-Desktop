@@ -15,5 +15,6 @@ function createAppliedHandler (name) {
 export default {
   isImplemented: !!global.application.nativeNotifier.isImplemented,
   fireNotification: createAppliedHandler('fireNotification'),
-  removeNotification: createAppliedHandler('removeNotification')
+  removeNotification: createAppliedHandler('removeNotification'),
+  onClick: createAppliedHandler('onClick')
 };

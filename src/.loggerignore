@@ -1,0 +1,6 @@
+**/logger.js
+**/browser/init.js
+**/renderer/init.js
+**/renderer/index.js
+**/renderer/preload/index.js
+**/renderer/shim-notification/index.js

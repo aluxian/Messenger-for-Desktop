@@ -1,6 +1,6 @@
 import {app} from 'electron';
 
-import {getAvailableDictionaries} from 'browser/utils/spellchecker';
+import {getAvailableDictionaries} from 'common/utils/spellchecker';
 import platform from 'common/utils/platform';
 
 let availableLanguages = null;

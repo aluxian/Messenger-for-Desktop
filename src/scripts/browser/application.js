@@ -35,7 +35,7 @@ class Application extends EventEmitter {
 
     // Others
     this.notifManager = new NotifManager();
-    this.nativeNotifier = new NativeNotifier();
+    this.nativeNotifier = new NativeNotifier(this.mainWindowManager);
     this.autoLauncher = new AutoLauncher();
 
     // Create and set the tray icon
