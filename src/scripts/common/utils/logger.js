@@ -80,15 +80,16 @@ export function debugLogger (filename) {
   };
 }
 
-export function errorLogger (filename, isFatal, skipReporting) {
+export function errorLogger (filename, isFatal) {
   let namespace = null;
-  return function (err) {
+  return function (err, skipReporting) {
     if (!namespace) {
       namespace = namespaceOfFile(filename);
     }
 
     if (!(err instanceof Error)) {
-      err = new Error(err);
+      const fnName = isFatal ? 'logFatal' : 'logError';
+      throw new Error('the first parameter to ' + fnName + ' must be an Error');
     }
 
     const browserLogger = require('common/utils/logger-browser').default;

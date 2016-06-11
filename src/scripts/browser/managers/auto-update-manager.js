@@ -40,7 +40,7 @@ class AutoUpdateManager extends EventEmitter {
       const isSignatureErr = err.message === 'Could not get code signature for running application';
       const isKnownError = isSignatureErr;
       if (global.manifest.dev && isKnownError) {
-        logError(err.message);
+        logError(err);
       } else {
         throw err;
       }

@@ -36,16 +36,16 @@ function create (opt, browserWindow) {
   }
 
   if (opt.hasSelection) {
-    // if (process.platform == 'darwin') {
-    //   menu.append(new MenuItem({
-    //     label: 'Look Up',
-    //     click: () => browserWindow.showDefinitionForSelection()
-    //   }));
-    //
-    //   menu.append(new MenuItem({
-    //     type: 'separator'
-    //   }));
-    // }
+    if (process.platform === 'darwin') {
+      menu.append(new MenuItem({
+        label: 'Look Up',
+        click: () => webContents.send('call-webview-method', 'showDefinitionForSelection')
+      }));
+
+      menu.append(new MenuItem({
+        type: 'separator'
+      }));
+    }
 
     menu.append(new MenuItem({
       label: 'Cut',

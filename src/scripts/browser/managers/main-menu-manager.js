@@ -26,7 +26,7 @@ class MainMenuManager extends EventEmitter {
       Menu.setApplicationMenu(this.menu);
       log('app menu set');
     } else {
-      logError('menu not created');
+      logError(new Error('menu not created'));
     }
   }
 

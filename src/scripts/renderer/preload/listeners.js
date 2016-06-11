@@ -5,7 +5,6 @@ import platform from 'renderer/utils/platform';
 
 // Forward context menu opens
 document.addEventListener('contextmenu', function (event) {
-  log('sending context-menu');
   event.preventDefault();
 
   const selection = document.getSelection().toString();
@@ -24,6 +23,6 @@ document.addEventListener('contextmenu', function (event) {
     isWindows7: platform.isWindows7()
   };
 
-  log('sending context menu', payload);
+  log('sending context menu', JSON.stringify(payload));
   ipcRenderer.send('context-menu', payload);
 }, false);

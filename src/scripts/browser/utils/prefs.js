@@ -69,7 +69,7 @@ function get (key) {
   if (value === undefined) {
     const defaultValue = getDefault(key);
     if (defaultValue === undefined) {
-      logFatal('default value for', key, 'is undefined');
+      logFatal(new Error('default value for key ' + key + ' is undefined'));
     }
     return defaultValue;
   }

@@ -313,7 +313,7 @@ export function openDebugLog () {
       log('opening log file with default app', global.__debug_file_log_path);
       shell.openItem(global.__debug_file_log_path);
     } else {
-      logError('global.__debug_file_log_path was falsy');
+      logError(new Error('global.__debug_file_log_path was falsy'));
     }
   };
 }
