@@ -93,7 +93,7 @@ export function errorLogger (filename, isFatal) {
     }
 
     const browserLogger = require('common/utils/logger-browser').default;
-    browserLogger.printError(namespace, isFatal, util.format(err));
+    browserLogger.printError(namespace, isFatal, err.stack);
 
     if (!skipReporting) {
       reportToPiwik(namespace, isFatal, err);
