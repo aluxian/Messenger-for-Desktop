@@ -78,6 +78,11 @@ args = require './args'
     gulp.src './src/images/**/*'
       .pipe gulp.dest dir + '/images'
 
+  # Move dictionaries
+  gulp.task 'compile:' + dist + ':dicts', ['clean:build:' + dist], ->
+    gulp.src './src/dicts/**/*'
+      .pipe gulp.dest dir + '/dicts'
+
   # Move html files
   gulp.task 'compile:' + dist + ':html', ['clean:build:' + dist], ->
     gulp.src './src/html/**/*.html'
@@ -101,6 +106,7 @@ args = require './args'
     'compile:' + dist + ':scripts'
     'compile:' + dist + ':themes'
     'compile:' + dist + ':images'
+    'compile:' + dist + ':dicts'
     'compile:' + dist + ':html'
     'compile:' + dist + ':deps'
     'compile:' + dist + ':package'
