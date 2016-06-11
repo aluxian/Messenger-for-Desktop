@@ -8,7 +8,7 @@ import prefs from 'browser/utils/prefs';
  * Call the handler for the check-for-update event.
  */
 export function cfuCheckForUpdate (informUser) {
-  return function () {
+  return function (menuItem, browserWindow) {
     global.application.autoUpdateManager.handleMenuCheckForUpdate(informUser);
   };
 }
@@ -17,7 +17,7 @@ export function cfuCheckForUpdate (informUser) {
  * Call the handler for the update-available event.
  */
 export function cfuUpdateAvailable () {
-  return function () {
+  return function (menuItem, browserWindow) {
     global.application.autoUpdateManager.handleMenuUpdateAvailable();
   };
 }
@@ -26,7 +26,7 @@ export function cfuUpdateAvailable () {
  * Call the handler for the update-downloaded event.
  */
 export function cfuUpdateDownloaded () {
-  return function () {
+  return function (menuItem, browserWindow) {
     global.application.autoUpdateManager.handleMenuUpdateDownloaded();
   };
 }
@@ -35,7 +35,7 @@ export function cfuUpdateDownloaded () {
  * Reset the auto updater url (to use updated prefs).
  */
 export function resetAutoUpdaterUrl () {
-  return function () {
+  return function (menuItem, browserWindow) {
     global.application.autoUpdateManager.initFeedUrl();
   };
 }
@@ -44,7 +44,7 @@ export function resetAutoUpdaterUrl () {
  * Enable or disable automatic checks for update.
  */
 export function checkForUpdateAuto (valueExpr) {
-  return function () {
+  return function (menuItem, browserWindow) {
     const check = valueExpr.apply(this, arguments);
     global.application.autoUpdateManager.setAutoCheck(check);
   };
@@ -54,7 +54,7 @@ export function checkForUpdateAuto (valueExpr) {
  * Quit the app.
  */
 export function appQuit () {
-  return function () {
+  return function (menuItem, browserWindow) {
     app.quit();
   };
 }
@@ -63,7 +63,7 @@ export function appQuit () {
  * Open the url externally, in a browser.
  */
 export function openUrl (url) {
-  return function () {
+  return function (menuItem, browserWindow) {
     shell.openExternal(url);
   };
 }
@@ -171,7 +171,7 @@ export function floatOnTop (flagExpr) {
  * Show or hide the tray icon.
  */
 export function showInTray (flagExpr) {
-  return function () {
+  return function (menuItem, browserWindow) {
     const show = flagExpr.apply(this, arguments);
     if (show) {
       global.application.trayManager.create();
@@ -185,7 +185,7 @@ export function showInTray (flagExpr) {
  * Show or hide the dock icon.
  */
 export function showInDock (flagExpr) {
-  return function () {
+  return function (menuItem, browserWindow) {
     if (app.dock) {
       const show = flagExpr.apply(this, arguments);
       if (show) {
@@ -201,7 +201,7 @@ export function showInDock (flagExpr) {
  * Whether the app should launch automatically when the OS starts.
  */
 export function launchOnStartup (enabledExpr) {
-  return function () {
+  return function (menuItem, browserWindow) {
     const enabled = enabledExpr.apply(this, arguments);
     if (enabled) {
       global.application.autoLauncher.enable()
@@ -225,7 +225,7 @@ export function launchOnStartup (enabledExpr) {
  * If flag is false, the dock badge will be hidden.
  */
 export function hideDockBadge (flagExpr) {
-  return function () {
+  return function (menuItem, browserWindow) {
     const flag = flagExpr.apply(this, arguments);
     if (!flag && app.dock && app.dock.setBadge) {
       app.dock.setBadge('');
@@ -252,7 +252,7 @@ export function hideTaskbarBadge (flagExpr) {
  */
 export function openRaffleDialog () {
   const code = raffle.getCode();
-  return function () {
+  return function (menuItem, browserWindow) {
     dialog.showMessageBox({
       type: 'info',
       buttons: ['OK', 'Join the giveaway'],
@@ -281,9 +281,39 @@ export const analytics = {
    * Track an event.
    */
   trackEvent: (...args) => {
-    return function () {
+    return function (menuItem, browserWindow) {
       piwik.getTracker().trackEvent(...args);
     };
   }
 
 };
+
+/**
+ * Restart the app in debug mode.
+ */
+export function restartInDebugMode () {
+  return function (menuItem, browserWindow) {
+    const options = {
+      // without --no-console-logs, calls to console.log et al. trigger EBADF errors in the new process
+      args: [...process.argv.slice(1), '--debug', '--no-console-logs']
+    };
+
+    log('relaunching app', JSON.stringify(options));
+    app.relaunch(options);
+    app.exit(0);
+  };
+}
+
+/**
+ * Open the log file for easier debugging.
+ */
+export function openDebugLog () {
+  return function (menuItem, browserWindow) {
+    if (global.__debug_file_log_path) {
+      log('opening log file with default app', global.__debug_file_log_path);
+      shell.openItem(global.__debug_file_log_path);
+    } else {
+      logError('global.__debug_file_log_path was falsy');
+    }
+  };
+}

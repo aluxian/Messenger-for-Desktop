@@ -5,17 +5,21 @@ function getCleanISODate () {
 }
 
 export function printDebug () {
-  console.log(...arguments);
+  if (global.options.consoleLogs) {
+    console.log(...arguments);
+  }
   const fileLogger = require('browser/utils/file-logger');
   fileLogger.writeLog(`DEBUG [${getCleanISODate()}]`, ...arguments);
 }
 
 export function printError (namespace, isFatal, err) {
   const errorPrefix = `${isFatal ? 'FATAL' : 'ERROR'} [${getCleanISODate()}]   ${namespace}:`;
-  if (isFatal) {
-    console.error(colors.white.bold.bgMagenta(errorPrefix), err);
-  } else {
-    console.error(colors.white.bold.bgRed(errorPrefix), err);
+  if (global.options.consoleLogs) {
+    if (isFatal) {
+      console.error(colors.white.bold.bgMagenta(errorPrefix), err);
+    } else {
+      console.error(colors.white.bold.bgRed(errorPrefix), err);
+    }
   }
   const fileLogger = require('browser/utils/file-logger');
   fileLogger.writeLog(errorPrefix, err);

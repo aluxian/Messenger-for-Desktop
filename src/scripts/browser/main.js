@@ -29,6 +29,11 @@ process.on('uncaughtException', function (err) {
       type: 'boolean',
       description: 'Run in debug mode.'
     })
+    .option('console-logs', {
+      type: 'boolean',
+      description: 'Allow usage of console.log and friends.',
+      default: true
+    })
     .option('repl', {
       type: 'boolean',
       description: 'Listen for REPL connections.'

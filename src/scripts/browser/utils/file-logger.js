@@ -23,10 +23,11 @@ function initFileLogging () {
     const fileLogsDir = path.join(app.getPath('userData'), 'logs');
     fs.mkdirsSync(fileLogsDir);
 
-    const fileLogPath = path.join(fileLogsDir, Date.now() + '.log');
+    const fileLogPath = path.join(fileLogsDir, Date.now() + '.txt');
     fileLogStream = fs.createWriteStream(null, {
       fd: fs.openSync(fileLogPath, 'a')
     });
+    global.__debug_file_log_path = fileLogPath;
 
     process.on('exit', (code) => {
       fileLogStream.end('process exited with code ' + code + os.EOL);

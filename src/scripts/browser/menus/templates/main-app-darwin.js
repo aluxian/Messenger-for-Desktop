@@ -57,6 +57,20 @@ export default {
   {
     type: 'separator'
   }, {
+    label: 'Restart in Debug Mode',
+    allow: !global.options.debug,
+    click: $.restartInDebugMode()
+  }, {
+    label: 'Running in Debug Mode',
+    allow: global.options.debug,
+    enabled: false
+  }, {
+    label: 'Open Debug Log',
+    enabled: global.options.debug,
+    click: $.openDebugLog()
+  }, {
+    type: 'separator'
+  }, {
     label: 'Services',
     role: 'services',
     submenu: []
