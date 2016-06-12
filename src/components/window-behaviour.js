@@ -124,10 +124,15 @@ module.exports = {
    * Set an interval to sync the badge and the title.
    */
   syncBadgeAndTitle: function(win, parentDoc, childDoc) {
+    if(this.syncBadgeInterval) {
+      clearInterval(this.syncBadgeInterval);
+      delete this.syncBadgeInterval;
+    }
+
     var notifCountRegex = /\((\d)\)/;
     var defaultTitle = childDoc.title;
 
-    setInterval(function() {
+    this.syncBadgeInterval = setInterval(function() {
       var label = '';
 	  if(!win.window.navigator.onLine) {
 		parentDoc.title = 'Messenger - Offline';
