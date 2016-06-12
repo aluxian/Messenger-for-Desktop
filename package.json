@@ -13,7 +13,7 @@
     "cross-spawn": "4.0.0",
     "del": "2.2.0",
     "electron-windows-installer": "1.4.1",
-    "fs-extra-promise": "0.3.1",
+    "fs-extra-promise": "0.4.0",
     "gulp": "3.9.1",
     "gulp-babel": "6.1.2",
     "gulp-electron-downloader": "0.1.6",
@@ -35,7 +35,7 @@
   "devDependencies": {
     "babel-eslint": "6.0.4",
     "coffeelint": "1.15.7",
-    "eslint": "2.11.1",
+    "eslint": "2.12.0",
     "eslint-config-semistandard": "6.0.2",
     "eslint-config-standard": "5.3.1",
     "eslint-plugin-babel": "3.2.0",
