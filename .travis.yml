@@ -15,7 +15,6 @@ env:
     - SIGN_DARWIN_KEYCHAIN_PASSWORD=travis
 
 install:
-  #- ./scripts/darwin/install_nvm.sh
   - git clone https://github.com/creationix/nvm.git /tmp/.nvm
   - source /tmp/.nvm/nvm.sh
   - nvm install 0.12
