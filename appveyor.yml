@@ -42,10 +42,16 @@ test_script:
   - npm test
 
 deploy_script:
+  - echo test
+  - echo APPVEYOR_REPO_BRANCH
+  - echo %APPVEYOR_REPO_BRANCH%
+  - echo %APPVEYOR_REPO_BRANCH%=="staging"
+  - echo [%APPVEYOR_REPO_BRANCH%=="staging"]
   - if [%APPVEYOR_REPO_BRANCH%]==["staging"] echo build_staging
-  - if [%APPVEYOR_REPO_BRANCH%]==["deploy"] echo build_deploy
   - if %APPVEYOR_REPO_BRANCH% == "staging" echo build_staging
-  - if %APPVEYOR_REPO_BRANCH% == "deploy" echo build_deploy
+  - if %APPVEYOR_REPO_BRANCH%=="staging" echo build_staging2
+  - if %APPVEYOR_REPO_BRANCH%==staging echo build_staging3
+  - if %APPVEYOR_REPO_BRANCH% == staging echo build_staging4
 
 notifications:
   - provider: Webhook
