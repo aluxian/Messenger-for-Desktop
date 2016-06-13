@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash  -vx
 
 aws s3 cp --region eu-west-1 s3://aluxian/certificates/armacdev.cer armacdev.cer
 aws s3 cp --region eu-west-1 s3://aluxian/certificates/armacdev.p12 armacdev.p12

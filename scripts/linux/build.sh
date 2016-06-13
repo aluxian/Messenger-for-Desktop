@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash  -vx
 
 gulp changelog:linux --verbose
 
