@@ -59,7 +59,7 @@ iframe.onload = function() {
 
   // Add a context menu
   menus.injectContextMenu(win, document);
-  menus.injectContextMenu(win, iframe.contentDocument);
+  //menus.injectContextMenu(win, iframe.contentDocument);
 
   // Bind native events to the content window
   windowBehaviour.bindEvents(win, iframe.contentWindow);
@@ -84,6 +84,8 @@ iframe.onload = function() {
 		iframe.style.display = 'initial';
 	}
   });
+
+  dispatcher.trigger('online');
 };
 
 

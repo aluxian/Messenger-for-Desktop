@@ -68,24 +68,26 @@ module.exports = {
 	if(this.reloadIntervalId) {
 		return;
 	} else {
-      this.reloadIntervalId = setInterval(function() {
-        if (win.window.navigator.onLine) {
-		  // The browser has navigated, are we at the right place?
-		  frame = win.window.document.querySelector('iframe');
-		  childWindowLocation = frame.contentWindow.location;
-		  targetURL = URL.parse(frame.src);
-		  currentURL = URL.parse(childWindowLocation.href);
-		  if(targetURL.host != currentURL.host) {
-			  return; // The frame isn't on Facebook. Maybe it's navigated away, or it's on an about: no dns, page.
-		  }
-          clearInterval(this.reloadIntervalId);
-	      delete this.reloadIntervalId;
-		  dispatcher.trigger('online');
-        } else {
-		  dispatcher.trigger('offline');
-          win.reload();
+      if (this.serverReachable()) {
+        // The browser has navigated, are we at the right place?
+        frame = win.window.document.querySelector('iframe');
+        childWindowLocation = frame.contentWindow.location;
+        targetURL = URL.parse(frame.src);
+        currentURL = URL.parse(childWindowLocation.href);
+        if(targetURL.host != currentURL.host) {
+          return; // The frame isn't on Facebook. Maybe it's navigated away, or it's on an about: no dns, page.
         }
-      }.bind(this), 10 * 1000);
+        dispatcher.trigger('online');
+      } else {
+        dispatcher.trigger('offline');
+        this.reloadIntervalId = setInterval(function() {
+          if (this.serverReachable()) {
+            clearInterval(this.reloadIntervalId);
+            delete this.reloadIntervalId;
+            win.reload();
+          } 
+        }.bind(this), 1000);
+      }
 	}
   },
   /**
@@ -114,5 +116,25 @@ module.exports = {
 	  // Modules are loaded in node.js context 
 	  var self = require('./utils');
 	  return this.areSameContext(testObject, self);
+  },
+
+  /**
+   * Checks if messenger is recheable using XML request
+   * All credit goes to: gitawego (https://gist.github.com/gitawego/4250714)
+   */
+  serverReachable: function() {
+    // IE vs. standard XHR creation
+    var x = new ( window.ActiveXObject || XMLHttpRequest )( "Microsoft.XMLHTTP" ), s;
+    x.open("HEAD", "https://www.messenger.com" + "/?rand=" + Math.random(), false);
+
+    try {
+      x.send();
+      s = x.status;
+      // Make sure the server is reachable
+      return ( s >= 200 && s < 300 || s === 304 );
+    // catch network & other problems
+    } catch (e) {
+      return false;
+    }
   }
 };
