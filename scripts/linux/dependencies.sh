@@ -1,4 +1,4 @@
-#!/bin/bash -v
+#!/bin/bash -ev
 
 sudo apt-get update
 sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.6 10

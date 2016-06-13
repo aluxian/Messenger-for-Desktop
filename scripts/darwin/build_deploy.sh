@@ -1,4 +1,4 @@
-#!/bin/bash -v
+#!/bin/bash -ev
 
 ./scripts/darwin/import_cert.sh
 gulp pack:darwin64:dmg --prod --verbose

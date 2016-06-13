@@ -1,4 +1,4 @@
-#!/bin/bash -v
+#!/bin/bash -ev
 
 git clone https://github.com/creationix/nvm.git /tmp/.nvm
 source /tmp/.nvm/nvm.sh

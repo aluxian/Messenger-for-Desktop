@@ -1,4 +1,4 @@
-#!/bin/bash -v
+#!/bin/bash -ev
 
 ./build.sh
 gulp publish:bintray:deb --verbose
