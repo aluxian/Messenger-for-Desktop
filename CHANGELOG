@@ -1,3 +1,17 @@
+1.4.8
+****NEW MAINTAINERS****
+- Update NWJS to V0.14.5
+- Update dependencies
+- Fix blinking icon
+- Fix some performances problems related to icon tray
+- Handle automatic reconnection & display information about it
+- Fix cache not being deleted upon rsoftware removal
+- Fix settings to use a proxy to detect changes
+- Fix dark/mosaic themes
+- Remove right-click context menu (new one will be added in the future)
+- Add uninstaller in the Add/Remove Programs (Windows)
+- And many other small fixes in the code...
+
 1.4.7
 - Fix dark theme
 - Fix mosaic theme
