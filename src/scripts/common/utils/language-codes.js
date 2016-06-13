@@ -264,6 +264,7 @@ export default {
   'rm_CH': 'Romansh',
   'rn': 'Rundi',
   'ro': 'Romanian; Moldavian; Moldovan',
+  'ro_RO': 'Romanian',
   'ru': 'Russian',
   'ru_RU': 'Russian',
   'ru_BY': 'Russian, Belarus',
