@@ -2,6 +2,7 @@ machine:
   node:
     version: 0.12.0
   pre:
+    - pwd
     - if [[ $CIRCLE_BRANCH == 'staging' || $CIRCLE_BRANCH == 'deploy' ]]; then ./scripts/linux/dependencies_pre.sh; fi
 
 dependencies:
