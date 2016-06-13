@@ -1,4 +1,4 @@
 #!/bin/bash -ev
 
-./build.sh
+./scripts/linux/build.sh
 gulp publish:bintray:artifacts:linux --verbose
