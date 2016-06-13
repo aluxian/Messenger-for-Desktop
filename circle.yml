@@ -1,15 +1,12 @@
 machine:
   node:
     version: 0.12.0
-  pre:
-    - pwd
-    - if [[ $CIRCLE_BRANCH == 'staging' || $CIRCLE_BRANCH == 'deploy' ]]; then ./scripts/linux/dependencies_pre.sh; fi
 
 dependencies:
   override:
     - npm install --only=dev
   post:
-    - if [[ $CIRCLE_BRANCH == 'staging' || $CIRCLE_BRANCH == 'deploy' ]]; then ./scripts/linux/dependencies_post.sh; fi
+    - if [[ $CIRCLE_BRANCH == 'staging' || $CIRCLE_BRANCH == 'deploy' ]]; then ./scripts/linux/dependencies.sh; fi
   cache_directories:
     - node_modules
     - src/node_modules
