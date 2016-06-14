@@ -1,9 +1,11 @@
 import {app, dialog, protocol} from 'electron';
+import async from 'async';
 import debug from 'debug';
 import yargs from 'yargs';
 
 import prefs from 'browser/utils/prefs';
 import filePaths from 'common/utils/file-paths';
+import distroDetector from 'browser/components/distro-detector';
 import platform from 'common/utils/platform';
 
 // Handle uncaught exceptions
@@ -146,31 +148,58 @@ process.on('uncaughtException', function (err) {
     return app.quit();
   }
 
-  // Listen for app ready-ness
-  app.on('ready', function () {
-    log('ready');
-    log('intercepting protocol http');
-    protocol.interceptHttpProtocol('http', function (request, callback) {
-      if (request.url.startsWith(global.manifest.virtualUrl)) {
-        const newPath = request.url.replace(global.manifest.virtualUrl, 'file://' + app.getAppPath());
-        const newPathShort = request.url.replace(global.manifest.virtualUrl, 'file://<app>');
-        log('intercepted http', request.method, request.url, '=>', newPathShort);
-        request.url = newPath;
-        callback(request);
+  // Init and launch app
+  async.parallel([
+    async.apply(async.series, [
+      function (callback) {
+        app.on('ready', function () {
+          log('ready');
+          callback();
+        });
+      },
+      function (callback) {
+        log('intercepting protocol http');
+        protocol.interceptHttpProtocol('http', function (request, callback) {
+          if (request.url.startsWith(global.manifest.virtualUrl)) {
+            const newPath = request.url.replace(global.manifest.virtualUrl, 'file://' + app.getAppPath());
+            const newPathShort = request.url.replace(global.manifest.virtualUrl, 'file://<app>');
+            log('intercepted http', request.method, request.url, '=>', newPathShort);
+            request.url = newPath;
+            callback(request);
+          }
+        }, function (err) {
+          if (err) {
+            log('intercepting protocol http failed, not going to launch the app anymore');
+            callback(err);
+          } else {
+            callback();
+          }
+        });
       }
-    }, function (err) {
-      if (err) {
-        logFatal(err);
-        log('intercepting protocol http failed, not going to launch the app anymore');
-        return;
-      }
+    ]),
+    function (callback) {
+      options.distro = {};
+      async.parallel({
+        isElementaryOS: distroDetector.isElementaryOS
+      }, (err, results) => {
+        if (err) {
+          return callback(err);
+        }
+        options.distro = results;
+        callback();
+      });
+    }
+  ], (err, results) => {
+    if (err) {
+      logFatal(err);
+      return;
+    }
 
-      log('launching app');
-      const Application = require('browser/application').default;
-      global.application = new Application();
-      global.application.init();
-      global.ready = true;
-    });
+    log('launching app');
+    const Application = require('browser/application').default;
+    global.application = new Application();
+    global.application.init();
+    global.ready = true;
   });
 
   // If the REPL is enabled, launch it

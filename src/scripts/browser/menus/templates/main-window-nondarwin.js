@@ -22,6 +22,7 @@ export default {
   }, {
     type: 'checkbox',
     label: 'Show in &Tray',
+    enabled: !global.options.distro.isElementaryOS,
     click: $.all(
       $.showInTray($.key('checked')),
       $.setPref('show-tray', $.key('checked'))
