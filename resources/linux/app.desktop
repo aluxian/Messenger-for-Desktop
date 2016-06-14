@@ -10,3 +10,4 @@ StartupNotify=true
 StartupWMClass={{ name }}
 Keywords={{ keywords }}
 Categories={{ categories }}
+X-GNOME-UsesNotifications=true
