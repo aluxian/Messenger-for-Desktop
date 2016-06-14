@@ -117,7 +117,7 @@ gulp.task 'build:win32', ['resources:win', 'compile:win32', 'clean:build:win32']
           OriginalFilename: manifest.productName + '.exe'
         'file-version': manifest.version
         'product-version': manifest.version
-        'icon': './build/resources/win/app.ico'
+        'icon': './build/resources/win32/app.ico'
 
       exePath = './build/win32/electron.exe'
       logMessage = 'rcedit ./build/win32/electron.exe properties'
