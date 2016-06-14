@@ -1,9 +1,9 @@
 @ECHO ON
-npm install
+CALL npm install
 cd src
-npm install
+CALL npm install
 cd ..
-gulp rebuild:32 --verbose
-gulp pack:win32:portable --prod --verbose
-gulp pack:win32:installer --prod --verbose
-gulp clean:prev-releases:win32 --verbose
+CALL gulp rebuild:32 --verbose
+CALL gulp pack:win32:portable --prod --verbose
+CALL gulp pack:win32:installer --prod --verbose
+CALL gulp clean:prev-releases:win32 --verbose
