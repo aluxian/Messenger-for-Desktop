@@ -65,7 +65,8 @@
     "url": "https://raw.githubusercontent.com/Aluxian/Whatsie/master/resources/win/app.ico"
   },
   "bintray": {
-    "subject": "aluxian"
+    "subject": "aluxian",
+    "artifactsRepoName": "artifacts"
   },
   "bugs": {
     "url": "https://github.com/Aluxian/Whatsie/issues"

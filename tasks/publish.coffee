@@ -101,9 +101,10 @@ gulp.task 'publish:github', ->
 
         host = 'https://api.bintray.com'
         subject = mainManifest.bintray.subject
+        artifactsRepoName = mainManifest.bintray.artifactsRepoName
 
         opts =
-          url: host + '/content/' + subject + '/artifacts/staging/' + dist + '/' + fileNameShort
+          url: host + '/content/' + subject + '/' + artifactsRepoName + '/staging/' + dist + '/' + fileNameShort
           auth:
             user: subject
             pass: process.env.BINTRAY_API_KEY
@@ -121,4 +122,8 @@ gulp.task 'publish:github', ->
                 console.log body if args.verbose
               cb(err)
 
-      async.series tasks, done
+      async.series tasks, ->
+        artifactsUrl = 'https://bintray.com/' + mainManifest.bintray.subject + '/artifacts/' +
+          manifest.name + '/' + manifest.version + '/view#files/staging/' + dist
+        console.log 'Upload finished: ' + artifactsUrl if args.verbose
+        done()
