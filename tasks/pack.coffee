@@ -337,9 +337,9 @@ gulp.task 'pack:win32:installer', ['build:win32', 'clean:dist:win32'], (done) ->
         winInstaller
           appDirectory: './build/win32'
           outputDirectory: './dist'
-          loadingGif: './build/resources/win32/install-spinner.gif'
+          loadingGif: './build/resources/win/install-spinner.gif'
           signWithParams: signParams.join ' '
-          setupIcon: './build/resources/win32/setup.ico'
+          setupIcon: './build/resources/win/setup.ico'
           iconUrl: mainManifest.icon.url
           description: manifest.productName
           remoteReleases: remoteReleasesUrl

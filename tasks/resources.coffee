@@ -41,8 +41,8 @@ gulp.task 'resources:linux', ->
 
 # Move the resources for win32
 gulp.task 'resources:win', ->
-  gulp.src './resources/win32/**/*'
-    .pipe gulp.dest './build/resources/win32'
+  gulp.src './resources/win/**/*'
+    .pipe gulp.dest './build/resources/win'
 
 # Move and process resources for the current platform by default
 gulp.task 'resources', ['resources:' + platformOnly()]
