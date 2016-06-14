@@ -1,3 +1,4 @@
+@ECHO ON
 npm install
 cd src
 npm install
