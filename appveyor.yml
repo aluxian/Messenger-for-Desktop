@@ -41,8 +41,8 @@ test_script:
   - npm test
 
 deploy_script:
-  - if "APPVEYOR_PULL_REQUEST_NUMBER" == "" if "%APPVEYOR_REPO_BRANCH%" == "staging" scripts\win32\build_staging.cmd
-  - if "APPVEYOR_PULL_REQUEST_NUMBER" == "" if "%APPVEYOR_REPO_BRANCH%" == "deploy" scripts\win32\build_deploy.cmd
+  - if "%APPVEYOR_PULL_REQUEST_NUMBER%" == "" if "%APPVEYOR_REPO_BRANCH%" == "staging" scripts\win32\build_staging.cmd
+  - if "%APPVEYOR_PULL_REQUEST_NUMBER%" == "" if "%APPVEYOR_REPO_BRANCH%" == "deploy" scripts\win32\build_deploy.cmd
 
 notifications:
   - provider: Webhook
