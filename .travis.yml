@@ -21,7 +21,7 @@ install:
   - nvm use 0.12
   - npm install --only=dev
   - >
-    if [[ ($TRAVIS_BRANCH == 'staging' || $TRAVIS_BRANCH == 'deploy') && $TRAVIS_PULL_REQUEST == 'false ]]; then
+    if [[ ($TRAVIS_BRANCH == 'staging' || $TRAVIS_BRANCH == 'deploy') && $TRAVIS_PULL_REQUEST == 'false' ]]; then
       ./scripts/darwin/setup.sh;
     fi
 
