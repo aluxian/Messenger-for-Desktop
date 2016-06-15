@@ -260,9 +260,3 @@ Make sure you've installed [fpm](https://github.com/jordansissel/fpm).
 2. In order to build, push to `staging`. Every push to `staging` will make the CIs build the app and upload it to Bintray at [aluxian/artifacts](https://bintray.com/aluxian/artifacts/whatsie/view#files/staging), available for testing.
 3. After a version is tested and is ready for release, push it to `deploy`. This will rebuild the app and upload it to GitHub, Bintray and other repositories.
 4. Now, the code is ready to be merged into `master`.
-
-All PRs should be submitted on `develop`. Pushing to `staging` or `deploy` should be done like this:
-
-```
-git push origin develop:staging  # or :deploy
-```
