@@ -96,6 +96,10 @@ gulp.task 'publish:github', ->
       if err
         return done err
 
+      versionSuffix = ''
+      if manifest.versionChannel isnt 'stable'
+        versionSuffix = '-' + manifest.versionChannel
+
       tasks = files.map (fileNameShort) ->
         fileNameLong = path.resolve './dist/', fileNameShort
 
@@ -110,7 +114,7 @@ gulp.task 'publish:github', ->
             pass: process.env.BINTRAY_API_KEY
           headers:
             'X-Bintray-Package': manifest.name
-            'X-Bintray-Version': manifest.version
+            'X-Bintray-Version': manifest.version + versionSuffix
             'X-Bintray-Publish': 1
             'X-Bintray-Override': 1
 
@@ -124,6 +128,6 @@ gulp.task 'publish:github', ->
 
       async.series tasks, ->
         artifactsUrl = 'https://bintray.com/' + mainManifest.bintray.subject + '/artifacts/' +
-          manifest.name + '/' + manifest.version + '/view#files/staging/' + dist
+          manifest.name + '/' + manifest.version + versionSuffix + '/view#files/staging/' + dist
         console.log 'Upload finished: ' + artifactsUrl if args.verbose
         done()
