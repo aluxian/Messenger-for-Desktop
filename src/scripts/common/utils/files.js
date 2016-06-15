@@ -40,8 +40,7 @@ function getDictionariesSync (dirPath) {
  */
 function getAllDictionariesSync (dirPaths) {
   return dirPaths.reduce((acc, dirPath) => {
-    const dicts = getDictionariesSync(dirPath);
-    acc.push.apply(acc, dicts);
+    return acc.concat(getDictionariesSync(dirPath));
   }, []);
 }
 
