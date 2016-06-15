@@ -1,7 +1,7 @@
 [{
   "version": "2.0.16",
   "channel": "dev",
-  "releasedAt": 1465968889778,
+  "releasedAt": 1465985560159,
   "urgency": "low",
   "changes": {
     "General": [

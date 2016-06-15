@@ -10,6 +10,7 @@ sudo apt-get install libc6-dev-i386 gcc-4.9-multilib g++-4.9-multilib \
 sudo ln -s /usr/include/asm-generic /usr/include/asm
 rvmsudo gem install fpm
 
+npm install -g gulp
 npm install
 cd src && npm install && cd ..
 gulp download:linux32 --verbose

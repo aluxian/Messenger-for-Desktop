@@ -33,7 +33,6 @@ cache:
 install:
   - npm install -g npm@2
   - set PATH=%APPDATA%\npm;%PATH%
-  - npm install -g gulp
   - npm install --only=dev
 
 build: off
@@ -42,8 +41,8 @@ test_script:
   - npm test
 
 deploy_script:
-  - if %APPVEYOR_REPO_BRANCH%==staging scripts\win32\build_staging.cmd
-  - if %APPVEYOR_REPO_BRANCH%==deploy scripts\win32\build_deploy.cmd
+  - if "APPVEYOR_PULL_REQUEST_NUMBER" == "" if "%APPVEYOR_REPO_BRANCH%" == "staging" scripts\win32\build_staging.cmd
+  - if "APPVEYOR_PULL_REQUEST_NUMBER" == "" if "%APPVEYOR_REPO_BRANCH%" == "deploy" scripts\win32\build_deploy.cmd
 
 notifications:
   - provider: Webhook
