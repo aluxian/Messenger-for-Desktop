@@ -6,9 +6,6 @@ import platform from 'common/utils/platform';
 const nativeNotifier = remote.require('common/bridges/native-notifier').default;
 const mainWindowManager = remote.getGlobal('application').mainWindowManager;
 
-log('got nn=', remote.require('common/bridges/native-notifier'));
-log('got nn default=', remote.require('common/bridges/native-notifier').default.default);
-
 // Extend the default notification API
 window.Notification = (function (Html5Notification) {
   log('extending HTML5 Notification');
