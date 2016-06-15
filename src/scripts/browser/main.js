@@ -14,6 +14,12 @@ process.on('uncaughtException', function (err) {
   logFatal(err);
 });
 
+// Handle promise rejections
+process.on('unhandledRejection', function (err) {
+  log('unhandled promise rejection');
+  logFatal(err);
+});
+
 (function () {
   // Define the CLI arguments and parse them
   const cliArgs = process.argv.slice(1);
