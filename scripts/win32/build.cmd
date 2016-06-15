@@ -1,4 +1,5 @@
 @ECHO ON
+CALL npm install -g gulp
 CALL npm install
 cd src
 CALL npm install
