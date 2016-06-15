@@ -1,12 +1,31 @@
 [{
   "version": "2.0.16",
   "channel": "dev",
-  "releasedAt": 1465486105224,
+  "releasedAt": 1465968889778,
   "urgency": "low",
   "changes": {
-    "General": [],
-    "Windows": [],
-    "Linux": []
+    "General": [
+      "Add a menu item to enter debug mode more easily.",
+      "Add new themes: Shadow, Numix Dark.",
+      "Remove themes: Fluttershy, Orange.",
+      "Improve the build flow and add code linting.",
+      "Improve the context menu.",
+      "Increase min-width of window in mini mode.",
+      "Highlight unread notifications in mini mode.",
+      "Search for spellchecker dictionaries in multiple paths.",
+      "Ship custom dictionaries with the app: en, de, es, fr, ru, ro.",
+      "Update dependencies and Electron to v1.2.2."
+    ],
+    "OS X": [
+      "Add showDefinitionForSelection in the context menu."
+    ],
+    "Windows": [
+      "Implement custom notifications for Windows 7."
+    ],
+    "Linux": [
+      "Add X-GNOME-UsesNotifications=true to the deb package.",
+      "Disable \"show in tray\" menu item on elementary OS."
+    ]
   }
 }, {
   "version": "2.0.15",
