@@ -16,7 +16,7 @@ ipcRenderer.on('spell-checker', function (event, enabled, autoCorrect, langCode)
 
   if (enabled) {
     const dictionaryPath = getDictionaryPath(langCode);
-    log('using', langCode, 'from', dictionaryPath, 'for spell checking');
+    log('using', langCode, 'from', dictionaryPath || 'system', 'for spell checking');
     SpellChecker.setDictionary(langCode, dictionaryPath);
     webFrame.setSpellCheckProvider(chromiumLangCode, autoCorrect, {
       spellCheck: (text) => {
