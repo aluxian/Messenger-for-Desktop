@@ -73,5 +73,5 @@ export function getDictionaryPath (langCode) {
   searchPaths = [].concat.apply([], searchPaths);
   searchPaths = Array.from(new Set(searchPaths));
 
-  return searchPaths.find(fs.existsSync);
+  return searchPaths.find((searchPath) => fs.statSync(searchPath).isFile());
 }
