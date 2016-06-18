@@ -44,7 +44,7 @@ If you want to help me make Whatsie better, I recommend `dev` or `beta`. Let's g
 
 ### Windows
 
-*Installer:*
+*Installer (recommended):*
 
 1. Download [whatsie-x.x.x-win32-setup.exe][LR]
 2. Run the installer, wait until it finishes
@@ -58,7 +58,7 @@ If you want to help me make Whatsie better, I recommend `dev` or `beta`. Let's g
 
 ### Linux
 
-*Ubuntu, Debian (deb package):*
+*Ubuntu, Debian 8+ (deb package):*
 
 1. Download [whatsie-x.x.x-linux-arch.deb][LR]
 2. Double click and install, or run `dpkg -i whatsie-x.x.x-linux-arch.deb` in the terminal
@@ -89,7 +89,7 @@ sudo apt-get install whatsie
 3. Start the app with your app launcher or by running `whatsie` in a terminal
 4. Done! The app will NOT update automatically, but you can still check for updates
 
-You can also use yum:
+You can also use `yum` (recommended):
 
 ```
 # Add my repository to your repos list (skip if you've done this already)
