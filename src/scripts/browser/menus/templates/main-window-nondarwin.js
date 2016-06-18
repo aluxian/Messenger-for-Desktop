@@ -31,6 +31,8 @@ export default {
       $.setLocal('checked', $.pref('show-tray')),
     )
   }, {
+    type: 'separator'
+  }, {
     type: 'checkbox',
     label: 'Close with &Escape Key',
     click: $.setPref('close-with-esc', $.key('checked')),
@@ -40,6 +42,8 @@ export default {
     label: 'Open Links in &Browser',
     click: $.setPref('links-in-browser', $.key('checked')),
     parse: $.setLocal('checked', $.pref('links-in-browser'))
+  }, {
+    type: 'separator'
   }, {
     type: 'checkbox',
     label: '&Notifications Badge in Taskbar',
