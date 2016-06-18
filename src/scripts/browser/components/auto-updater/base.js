@@ -16,7 +16,7 @@ class BaseAutoUpdater extends EventEmitter {
       return;
     }
 
-    log('checking for update', options);
+    log('checking for update', JSON.stringify(options));
     this.emit('checking-for-update');
 
     request(options, (err, response, json) => {

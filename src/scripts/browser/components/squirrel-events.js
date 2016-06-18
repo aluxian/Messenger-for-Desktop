@@ -18,27 +18,33 @@ class SquirrelEvents {
 
     if (options.squirrelInstall) {
       log('creating shortcuts');
-      this.spawnSquirrel(['--createShortcut', path.basename(app.getPath('exe'))], this.eventHandled);
+      this.createShortcuts(this.exitApp);
       return true;
     }
 
     if (options.squirrelUpdated || options.squirrelObsolete) {
-      setTimeout(this.eventHandled);
+      setTimeout(this.exitApp);
       return true;
     }
 
     if (options.squirrelUninstall) {
-      async.series([
-        ::this.teardownShortcuts,
-        ::this.teardownAutoLauncherRegKey,
-        ::this.teardownLeftoverUserData
-      ], function () {
-        log('teardown finished');
-      });
+      this.teardown(this.exitApp);
       return true;
     }
 
     return false;
+  }
+
+  createShortcuts (callback) {
+    this.spawnSquirrel(['--createShortcut', this.getShortcutExeName()], () => callback());
+  }
+
+  removeShortcuts (callback) {
+    this.spawnSquirrel(['--removeShortcut', this.getShortcutExeName()], () => callback());
+  }
+
+  getShortcutExeName () {
+    return path.basename(app.getPath('exe'));
   }
 
   onSquirrelFirstrun (options) {
@@ -107,6 +113,9 @@ class SquirrelEvents {
     });
   }
 
+  /**
+   * Spawn Squirrel's Update.exe with the given arguments.
+   */
   spawnSquirrel (args, callback) {
     const squirrelExec = filePaths.getSquirrelUpdateExePath();
     log('spawning', squirrelExec, args);
@@ -120,38 +129,44 @@ class SquirrelEvents {
     });
   }
 
-  eventHandled (exitCode = 0) {
+  exitApp (exitCode = 0) {
     app.exit(exitCode);
+  }
+
+  teardown (callback) {
+    async.series([
+      ::this.teardownShortcuts,
+      ::this.teardownAutoLauncherRegKey,
+      ::this.teardownLeftoverUserData
+    ], (err) => {
+      if (err) {
+        // should not happen
+        logError(err);
+      }
+      log('teardown finished');
+      callback();
+    });
+  }
+
+  teardownShortcuts (callback) {
+    log('removing shortcuts');
+    this.removeShortcuts(callback);
   }
 
   teardownAutoLauncherRegKey (callback) {
     log('removing reg keys');
     new AutoLauncher().disable()
-      .then(() => callback())
-      .catch((err) => {
-        logError(err);
-        callback();
-      });
+      .catch(logError)
+      .then(() => callback());
   }
 
   teardownLeftoverUserData (callback) {
-    log('removing user data folder', app.getPath('userData'));
-    del(app.getPath('userData'), {force: true})
-      .then((paths) => {
-        log('deleted', paths);
-        callback();
-      })
-      .catch((err) => {
-        logError(err);
-        callback();
-      });
-  }
-
-  teardownShortcuts (callback) {
-    log('removing shortcuts');
-    const args = ['--removeShortcut', global.manifest.productName + '.exe'];
-    this.spawnSquirrel(args, this.eventHandled);
-    callback();
+    const userDataPath = app.getPath('userData');
+    log('removing user data folder', userDataPath);
+    del(userDataPath, {force: true})
+      .then((paths) => log('deleted', paths))
+      .catch(logError)
+      .then(() => callback());
   }
 
 }

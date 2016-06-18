@@ -18,6 +18,13 @@ gulp.task 'build:darwin64', ['resources:darwin', 'compile:darwin64', 'clean:buil
       toPath = './build/darwin64/' + manifest.productName + '.app/Contents/Resources/' + manifest.name + '.icns'
       fs.copy fromPath, toPath, utils.log callback, fromPath, '=>', toPath
 
+    # Copy license files
+    async.apply async.parallel, ['LICENSE', 'LICENSES.chromium.html'].map (fileName) ->
+      (callback) ->
+        fromPath = './build/darwin64/' + fileName
+        toPath = './build/darwin64/' + manifest.productName + '.app/Contents/' + fileName
+        fs.copy fromPath, toPath, utils.log callback, fromPath, '=>', toPath
+
     # Rename the app executable
     (callback) ->
       exeDir = './build/darwin64/' + manifest.productName + '.app/Contents/MacOS/'

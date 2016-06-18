@@ -4,7 +4,6 @@ import fs from 'fs';
 
 import app from 'common/electron/app';
 import platform from 'common/utils/platform';
-import languageCodes from 'common/utils/language-codes';
 import files from 'common/utils/files';
 
 let hunspellDictionarySearchPaths = null;
@@ -51,19 +50,14 @@ export function getAvailableDictionaries () {
 
   if (!hunspellDictionaries) {
     try {
-      hunspellDictionaries = files.getAllDictionariesSync(getDictionarySearchPaths());
-      hunspellDictionaries = hunspellDictionaries.filter((dict) => {
-        return languageCodes[dict] ||
-          languageCodes[dict.replace('-', '_')] ||
-          languageCodes[dict.replace('-', '_').split('_')[0]];
-      });
-      log('filtered dictionaries:', hunspellDictionaries);
+      const searchPaths = getDictionarySearchPaths();
+      hunspellDictionaries = files.getAllDictionariesSync(searchPaths);
     } catch (err) {
       logError(err);
     }
   }
 
-  return hunspellDictionaries;
+  return hunspellDictionaries || [];
 }
 
 export function getDictionaryPath (langCode) {
@@ -79,5 +73,5 @@ export function getDictionaryPath (langCode) {
   searchPaths = [].concat.apply([], searchPaths);
   searchPaths = Array.from(new Set(searchPaths));
 
-  return searchPaths.find(fs.existsSync);
+  return searchPaths.find((searchPath) => fs.statSync(searchPath).isFile());
 }

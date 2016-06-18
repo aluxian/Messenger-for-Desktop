@@ -21,7 +21,7 @@ async function getStyleCss (style) {
  * @return the list of Hunspell dictionaries available in the given dir
  */
 function getDictionariesSync (dirPath) {
-  if (!fs.existsSync(dirPath)) {
+  if (!fs.statSync(dirPath).isDirectory()) {
     log('dictionaries path does not exist', dirPath);
     return [];
   }
@@ -40,8 +40,7 @@ function getDictionariesSync (dirPath) {
  */
 function getAllDictionariesSync (dirPaths) {
   return dirPaths.reduce((acc, dirPath) => {
-    const dicts = getDictionariesSync(dirPath);
-    acc.push.apply(acc, dicts);
+    return acc.concat(getDictionariesSync(dirPath));
   }, []);
 }
 
