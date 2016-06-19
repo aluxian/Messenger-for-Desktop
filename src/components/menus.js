@@ -82,6 +82,10 @@ module.exports = {
       }
     }, {
       type: 'checkbox',
+      label: 'Esc to close',
+      setting: 'escToClose'
+    }, {
+      type: 'checkbox',
       label: 'Check for Update on Launch',
       setting: 'checkUpdateOnLaunch'
     }, {

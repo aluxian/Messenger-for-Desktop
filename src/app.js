@@ -67,8 +67,10 @@ iframe.onload = function() {
   // Watch the iframe periodically to sync the badge and the title
   windowBehaviour.syncBadgeAndTitle(win, document, iframe.contentDocument);
 
-  // Listen for ESC key press
-  windowBehaviour.closeWithEscKey(win, iframe.contentDocument);
+  if (settings.escToClose) {
+    // Listen for ESC key press
+    windowBehaviour.closeWithEscKey(win, iframe.contentDocument);
+  }
 };
 
 // Reload the app periodically until it loads
