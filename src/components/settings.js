@@ -4,6 +4,7 @@ var gui = window.require('nw.gui');
 
 var DEFAULT_SETTINGS = {
   launchOnStartup: false,
+  escToClose: false,
   checkUpdateOnLaunch: true,
   openLinksInBrowser: true,
   autoHideSidebar: false,
