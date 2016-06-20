@@ -13,7 +13,6 @@ const defaults = {
   'links-in-browser': true,
   'close-with-esc': false,
   'quit-behaviour-taught': false,
-  'raffle-code': null,
   'show-notifications-badge': true,
   'show-tray': platform.isWindows,
   'show-dock': true,

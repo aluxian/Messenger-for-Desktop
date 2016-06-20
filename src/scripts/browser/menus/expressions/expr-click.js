@@ -1,7 +1,6 @@
-import {app, dialog, shell} from 'electron';
+import {app, shell} from 'electron';
 
 import * as piwik from 'browser/services/piwik';
-import raffle from 'browser/components/raffle';
 import prefs from 'browser/utils/prefs';
 
 /**
@@ -244,33 +243,6 @@ export function hideTaskbarBadge (flagExpr) {
         browserWindow.setOverlayIcon(null, '');
       }
     }
-  };
-}
-
-/**
- * Show a dialog with information about giveaways.
- */
-export function openRaffleDialog () {
-  const code = raffle.getCode();
-  return function (menuItem, browserWindow) {
-    dialog.showMessageBox({
-      type: 'info',
-      buttons: ['OK', 'Join the giveaway'],
-      message: 'Your Raffle Code is: ' + code,
-      detail: [
-        'Don\'t know what this is about?',
-        '',
-        'From time to time, I organize giveaways in order to make the app more popular and give prizes to the users. The more people use my app, the happier I am! So if you\'d like to join the giveaway, click Join below.',
-        '',
-        'Note: giveaways happen regularly, but if there are none right now, please check back later. Good luck!'
-      ].join('\n')
-    }, function (response) {
-      if (response === 1) {
-        const url = global.manifest.raffleUrl;
-        log('user clicked "Join the giveaway", opening url', url);
-        shell.openExternal(url);
-      }
-    });
   };
 }
 
