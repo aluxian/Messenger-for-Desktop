@@ -14,7 +14,10 @@ function onClick () {
 }
 
 function onLoad () {
-  this.setTimeout(closeWindow, parseInt(params.timeout));
+  const timeout = parseInt(params.timeout, 10);
+  if (!isNaN(timeout)) {
+    this.setTimeout(closeWindow, timeout);
+  }
   document.addEventListener('keydown', onClick, false);
   document.addEventListener('click', onClick);
 }
