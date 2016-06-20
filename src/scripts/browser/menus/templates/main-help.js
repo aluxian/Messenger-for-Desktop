@@ -18,18 +18,18 @@ export default {
       )
     )
   }, {
-    type: 'separator'
-  }, {
-    label: 'Get Your Ra&ffle Code',
-    click: $.all(
-      $.openRaffleDialog(),
-      $.analytics.trackEvent(
-        eventCategories['Menu'],
-        eventActions['Open Dialog'],
-        eventNames['Raffle Code Dialog']
-      )
-    )
-  }, {
+  //   type: 'separator'
+  // }, {
+  //   label: 'Get Your Ra&ffle Code',
+  //   click: $.all(
+  //     $.openRaffleDialog(),
+  //     $.analytics.trackEvent(
+  //       eventCategories['Menu'],
+  //       eventActions['Open Dialog'],
+  //       eventNames['Raffle Code Dialog']
+  //     )
+  //   )
+  // }, {
     label: '&Chat on Gitter',
     click: $.all(
       $.openUrl('https://gitter.im/Aluxian/Whatsie'),
