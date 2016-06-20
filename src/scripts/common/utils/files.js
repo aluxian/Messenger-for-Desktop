@@ -21,7 +21,7 @@ async function getStyleCss (style) {
  * @return the list of Hunspell dictionaries available in the given dir
  */
 function getDictionariesSync (dirPath) {
-  if (!fs.statSync(dirPath).isDirectory()) {
+  if (!fs.statSyncNoException(dirPath)) {
     log('dictionaries path does not exist', dirPath);
     return [];
   }
