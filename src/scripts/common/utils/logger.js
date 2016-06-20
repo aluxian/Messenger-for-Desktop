@@ -10,14 +10,14 @@ function anonymizeException (err) {
   err.message = err.message.replace(app.getPath('home'), '<home>');
 }
 
-function trimLongPaths (err) {
-  const app = require('common/electron/app').default;
-  err.stack = err.stack
-    .split('\n')
-    .map((line) => line.replace(/\/.+atom\.asar/, 'atom.asar'))
-    .map((line) => line.replace(app.getAppPath(), 'app'))
-    .join('\n');
-}
+// function trimLongPaths (err) {
+//   const app = require('common/electron/app').default;
+//   err.stack = err.stack
+//     .split('\n')
+//     .map((line) => line.replace(/\/.+atom\.asar/, 'atom.asar'))
+//     .map((line) => line.replace(app.getAppPath(), 'app'))
+//     .join('\n');
+// }
 
 function namespaceOfFile (filename) {
   const app = require('common/electron/app').default;
@@ -50,7 +50,7 @@ function reportToSentry (namespace, isFatal, err) {
   const sentry = require('common/services/sentry').default;
   if (sentry) {
     anonymizeException(err);
-    trimLongPaths(err);
+    // trimLongPaths(err);
 
     console.log('reporting to sentry:', err);
     sentry.captureException(err, {
