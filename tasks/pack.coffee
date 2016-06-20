@@ -342,6 +342,7 @@ gulp.task 'pack:win32:installer', ['build:win32', 'clean:dist:win32'], (done) ->
           setupIcon: './build/resources/win/setup.ico'
           iconUrl: mainManifest.icon.url
           description: manifest.productName
+          authors: manifest.authorName
           remoteReleases: remoteReleasesUrl
           copyright: manifest.copyright
           setupExe: manifest.name + '-' + manifest.version + '-win32-setup.exe'
