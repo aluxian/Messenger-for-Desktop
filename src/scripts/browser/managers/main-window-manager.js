@@ -39,8 +39,7 @@ class MainWindowManager extends EventEmitter {
       show: false
     };
 
-    const windowIcon = platform.isLinux ?
-      {icon : filePaths.getImagePath('windowIcon.png')} : {};
+    const windowIcon = platform.isLinux ? {icon: filePaths.getImagePath('windowIcon.png')} : {};
 
     const options = Object.assign(defaultOptions, bounds, windowIcon);
     this.window = new BrowserWindow(options);
