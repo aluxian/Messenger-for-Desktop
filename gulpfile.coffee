@@ -33,7 +33,7 @@ gulp.task 'clean', ->
 
 # Only runs on OSX (requires XCode properly configured)
 gulp.task 'sign:osx64', ['build:osx64'], ->
-  shelljs.exec 'codesign -v -f -s "Alexandru Rosianu Apps" ./build/Messenger/osx64/Messenger.app/Contents/Frameworks/*'
+  shelljs.exec 'codesign -v -f -s "Alexandru Rosianu Apps" ./build/Messenger/osx64/Messenger.app/Contents/Versions/*/*'
   shelljs.exec 'codesign -v -f -s "Alexandru Rosianu Apps" ./build/Messenger/osx64/Messenger.app'
   shelljs.exec 'codesign -v --display ./build/Messenger/osx64/Messenger.app'
   shelljs.exec 'codesign -v --verify ./build/Messenger/osx64/Messenger.app'
