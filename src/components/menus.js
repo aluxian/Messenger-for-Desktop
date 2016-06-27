@@ -6,6 +6,7 @@ var dispatcher = require('./dispatcher');
 var platform = require('./platform');
 var settings = require('./settings');
 var updater = require('./updater');
+var blockSeen = require('./block-seen');
 var utils = require('./utils');
 
 module.exports = {
@@ -99,6 +100,16 @@ module.exports = {
       type: 'checkbox',
       label: 'Start minimized',
       setting: 'startMinimized'
+    }, {
+      type: 'separator'
+    }, {
+      type: 'checkbox',
+      label: 'Block seen/typing indicators',
+      setting: 'blockSeen',
+      click: function() {
+        settings.blockSeen = this.checked;
+        blockSeen.set(this.checked);
+      }
     },	{
       type: 'separator'
     }, {
