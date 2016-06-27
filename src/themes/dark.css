@@ -1,34 +1,22 @@
-/* @source: https://userstyles.org/styles/112397/facebook-messenger-the-dark-side */
+/* @source: https://github.com/auscompgeek/fb-messenger-dark */
 /* #141823 is Messenger's normal text colour, white is normal background colour */
 /* #1E1E1E and #2D2D30 are Visual Studio, don't ask */
 
-._51l0 body {
-	background-color: #141813;  /* this doesn't do shit */
-	color: white;
-	overflow-y: auto; /* wtf are you doing facebook */
+h2, h3, h4, h5, h6 {
+	color: #eee;
 }
-/* ..., ..., stickers */
-._36ic, ._5742, ._293j, ._5r8a._5r8b {
-	background-color: rgba(255, 255, 255, .05) !important;
-}
-._5r8e {
-	border-bottom-color: rgba(0, 0, 0, 0.2);
-}
-h1, h2, h3, h4, h5, h6 {
-	color: white;
-}
-._5743, ._364g, ._hh7, ._4rph ._4rpj {
+._5743, ._4rph ._4rpj {
 	color: white !important;
 }
 label {
 	color: #aaa;
 }
 /* convo search box, to field (new message, add people), other inputs? */
-._2y8y, ._4jgt, input._58al {
+._2y8y, ._2y8_, ._4jgt, input._58al {
 	background-color: #2d2d30 !important;
 	color: white !important;
 }
-/* fuck placeholder styling */
+/* I hate placeholder styling */
 input::-moz-placeholder {
 	color: #ccc !important;
 }
@@ -36,37 +24,57 @@ input::-webkit-input-placeholder {
 	color: #888 !important;
 }
 
+/* top bars */
+._36ic, ._5742 {
+	background-color: rgba(255, 255, 255, .05) !important;
+	/*border-bottom: none !important;*/
+}
 /* main wrapper */
 ._4sp8 {
 	background-color: #1e1e1e;
-	color: white;
+	color: #eee;
+}
+/* (not convo list) wrapper */
+._1q5- {
+	border-left-color: rgba(255, 255, 255, .1) !important;
+}
+/* receipient/convo name in top bar */
+._17w2 {
+	color: white !important;
 }
 
-/* chat area shit */
+/* chat area stuff */
+/* beginning of convo info */
+._llq, ._36zg, ._1n-e._36zg {
+	color: #eee !important;
+}
 /* message */
 ._hh7 {
-	background-color: #2d2d30 !important;
-	color: white !important;
+	background-color: #2d2d30 ;
 }
-._hh7 a {
-	color: white !important;
+._hh7, ._hh7 a {
+	color: #ddd ;
 }
 ._hh7:active, ._-5k ._hh7, ._hh7>span>a:hover {
-	background-color: #333 !important;
+	background-color: #333 ;
 }
 /* own message */
 ._nd_ ._hh7 {
-	background-color: #004488 !important;
+	background-color: #004488 ;
 }
 ._nd_ ._hh7:active, ._nd_._-5k ._hh7, ._nd_ ._hh7>span>a:hover {
-	background-color: #003377 !important;
+	background-color: #003377 ;
+}
+/* emoji-only messages */
+._hh7._2f5r, ._-5k ._hh7._2f5r {
+	background-color: transparent !important;
 }
 /* link info */
-._haj {
+._5i_d {
 	border-color: rgba(255, 255, 255, .1) !important;
 }
-._haj .__6k, ._haj .__6l {
-	color: white !important;
+.__6k, .__6l {
+	color: #ddd !important;
 }
 /* audio message */
 ._29_7 ._3czg ._2e-7 ._2e-1, ._29_7 ._3czg ._2e-7 ._2e-2 {
@@ -75,9 +83,18 @@ input::-webkit-input-placeholder {
 ._454y ._1mi- {
 	background-color: #2d2d30 !important;
 }
-/* typing bubble */
-._1hbw ._5pd7 {
-	background-color: rgba(255, 255, 255, .6) !important;
+._454y ._1mj0 {
+	background-color: #666 !important;
+}
+._454y ._1mj1 {
+	border-color: #666 !important;
+}
+/* media (e.g. GIFs) source */
+._2f5n {
+	background-color: #2d2d30 !important;
+}
+._2f5n ._29ey {
+	color: #ccc !important;
 }
 /* delete bubble button */
 ._hw2 ._53ij {
@@ -85,29 +102,40 @@ input::-webkit-input-placeholder {
 }
 /* input bar */
 ._4rv3 {
+	background-color: #1e1e1e !important;
 	border-top-color: rgba(255, 255, 255, .1) !important;
 }
+/* make static stickers slightly more readable */
+/*
+._2poz[style*="sticker"] {
+	background-color: #333;
+	border-radius: 5px;
+}
+*/
 /* messenger thumb up stickers */
-[style*="sticker_id=369239263222822"], [style*="sticker_id=369239343222814"], [style*="sticker_id=369239383222810"] {
-	filter: brightness(80%);
+._576q {
+	-webkit-filter: brightness(75%);
+	filter: brightness(75%);
+}
+/* facebook-removed messages et al */
+._4sp8 .uiBoxYellow {
+	background-color: #662;
 }
 
-/* convo info */
+/* convo info, user list */
+._4_j5, ._5l37 {
+	background-color: #282828 !important;
+}
 ._4_j5 {
-	background-color: #2d2d30 !important;
-	border-left-color: rgba(0, 0, 0, 0.5);
+	border-left: none !important;
 }
-/* convo name */
-._3tkx, ._3tkz {
-	color: white !important;
-}
-/* user list */
-._5l37 {
-	background-color: #2d2d30 !important;
+/* convo name, mute label, user in user list, section headings */
+._2jnv, ._3szq, ._364g, ._1lj0 {
+	color: #ddd !important;
 }
 
 /* convo list */
-._1enh._4bl7 {
+._li ._1enh {
 	/* fix convo list hiders */
 	background-color: #1e1e1e;
 }
@@ -117,74 +145,171 @@ input::-webkit-input-placeholder {
 }
 /* unread convo */
 ._1ht1._1ht3 {
-	background-color: #2e2e30 !important;
+	background-color: #1c2e4a !important;
+	transition: background-color .5s;
 }
 /* active convo */
 ._1ht1._1ht2 {
-	background-color: rgba(255, 255, 255, .05) !important;
+	background-color: #2d2d30 !important;
 }
 /* convo name */
 ._1ht6, ._3q34 {
-	color: white !important;
+	color: #eee !important;
+}
+/* message request from */
+._2kt ._5nxb {
+	color: #ddd !important;
 }
 /* timestamp */
-._1ht7 {
-	color: rgba(255, 255, 255, .6) !important;  /* fuck you Chrome, fuck you. */
+._1ht7.timestamp {
+	color: #999;
 }
 ._1ht3 ._1ht7 {
 	color: #0084cc !important;
 }
 /* convo new message */
 ._1ht3 ._1htf {
-	color: white !important;
+	color: #ddd !important;
 }
 /* search header */
 ._5t4c, ._225b {
 	background-color: #1e1e1e !important;
 }
-
-/* that menu though */
-._53ij {
-	background-color: #2e2e30 !important;
+/* search keyboard selection */
+._1k1p {
+	background-color: #1e1e1e !important;
 }
-._256n {
+/* people list self online status */
+._1u5d {
+	background-color: transparent !important;
+}
+/* people list section tabs */
+._2lp- {
+	border-color: #0066aa !important;
+}
+._48uj {
+	background-color: #0066aa !important;
+}
+
+/* those menus and stickers though */
+._53ij, ._54nf, ._293j, ._55r1 {
+	background-color: #333 !important;
+}
+._5r8a._5r8b {
+	background-color: #222 !important;
+}
+._2i-c ._54nf ._54nh {
 	color: #ddd !important;
 }
-._256n:hover {
-	background-color: #0084cc;
+._2i-c ._54ne ._54nh, ._2i-c ._54ne ._54nc, ._2i-c ._54ne {
+	background-color: #0066aa !important;
+}
+/* more stickers */
+._5r8e, ._5r86, ._37wu, ._37wv {
+	border-color: #222;
+}
+._eb3::before {
+	background-color: #222;
+}
+._3mts .uiScrollableArea.contentAfter::after,
+._5r8l .uiScrollableArea.contentAfter::after {
+	background-image: linear-gradient(transparent, #333);
 }
 /* menu dropdown triangles */
-._1r_9 ._53ik ._53io, ._53ii ._53il ._53io {
+._53ik ._53io, ._53il ._53io {
+	-webkit-filter: brightness(20%);
 	filter: brightness(20%);
 }
-/* misc icons */
-._fl3._gxi, ._4-0h, ._57gs, ._55sg > input + span::before {
-	filter: brightness(75%);
+/* delivery indicators */
+._3i_m ._9ah ._57e_ {
+	color: #1e1e1e !important;
 }
+/* misc icons */
+._fl3:not(._20nb), ._4-0h, ._57gs, label > input + span::before {
+	-webkit-filter: brightness(80%);
+	filter: brightness(80%);
+}
+._5iwn ._58ak::before, ._23ct, .sp_iPuvEF8GUpL.sx_28245e,
+.sp_iHcwOAWgkm0.sx_374c1d,
+:not(._3no3) > ._uwa, ._5jdr ._5jds,
+.sp_iHcwOAWgkm0.sx_f0ea69 {
+	-webkit-filter: invert(1);
+	filter: invert(1);
+}
+
 /* messenger dialogs, very important */
 ._4-hz, ._4eby, ._4jgp ._4jgu {
 	background-color: #222 !important;
 }
-._374c, ._4jgs, ._2c9i ._19jt, ._51l0 .uiInputLabel .__rm + .uiInputLabelLabel {
+._374c, ._4jgs, ._2c9i ._19jt, ._51l0 .uiInputLabel .__rm + .uiInputLabelLabel,
+._5raa, ._5rab {
 	color: #ddd !important;
 }
-/* report dialog, even more so */
+/* report issue dialog, even more so */
 /* dialog head */
 ._4-i0 {
 	background-color: #333 !important;
 	border-bottom-color: #2e2e2e;
 }
-/* dialog heading */
-._4-i0 ._52c9 {
+/* dialog heading, checkbox label */
+._4-i0 ._52c9, ._5r5c ._5rq_, ._uvt {
 	color: #ddd !important;
 }
 /* dialog body, footer */
-div._4-i2, div._5a8u {
+div._4-i2, div._5a8u, ._4t2a {
 	background-color: #222 !important;
+	color: #eee;
+}
+/* what about normal facebook dialogs? */
+._t {
+	background-color: #222 !important;
+	color: #eee;
+}
+.fcb {
+	color: white !important;
+}
+._c24 {
+	color: #ccc !important;
+}
+.uiBoxGray {
+	background-color: #333 !important;
+	border-color: #2e2e2e;
+}
+#captcha .captcha_refresh {
+	color: lightgrey !important;
+}
+
+/* login page */
+._3v_p, ._3v_o {
+	background-color: #222 !important;
+}
+._3v_p ._5hy4, ._3v_o ._5hy4 {
+	color: #eee !important;
+}
+._3v_p ._43di, ._3v_o ._43di, ._3v_p ._3403, ._3v_o ._3403 {
+	color: #ddd !important;
+}
+._3v_p ._210j ._43dj .uiInputLabelLabel, ._59h8, ._3v_p ._59h7 ._5hy9 {
+	color: #aaa !important;
+}
+._3v_p ._3v_w ._2m_r, ._3v_p ._5s4n ._2m_r {
+	background-color: #0066aa !important;
+}
+
+/* call page */
+._17cj, ._17cj ._3jne {
+	background-color: #1e1e1e !important;
+}
+._17cj ._3jnu, ._17cj ._3jnv {
+	color: rgba(255, 255, 255, .4) !important;
+}
+._17cj ._4j_k {
+	color: #eee !important;
 }
 
 /* stuff that should be grey */
-._ih3, ._3tl0, ._3tl1 ._10w4, ._1htf, ._497p, ._3x6v, ._2v6o, ._3tky, ._5rh4, ._jf4 ._jf3, ._haj .__6m, ._2y8z,
-._4g0h, ._3xcx, ._225b, ._3q35 {
+._ih3, ._3tl0, ._3tl1 ._10w4, ._497p, ._3x6v, ._2v6o, ._3tky, ._5rh4, ._jf4 ._jf3, ._5i_d .__6m, ._2y8z,
+._4g0h, ._3xcx, ._225b, ._3q35, ._2r2v, ._2n1t, ._1n-e, ._3eus, ._2wy4, ._1u5d ._1u5k, ._3ggt,
+._17cj ._2ze8, ._17cj ._cen {
 	color: rgba(255, 255, 255, .6) !important;
 }

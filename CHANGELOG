@@ -1,3 +1,43 @@
+1.5.0-beta.0
+- Update NWJS to V0.14.5
+- Fix settings to use a proxy to detect changes
+
+1.4.8
+****NEW MAINTAINERS****
+- Update dependencies
+- Fix blinking icon
+- Fix some performances problems related to icon tray
+- Handle automatic reconnection & display information about it
+- Fix cache not being deleted upon software removal
+- Fix dark/mosaic themes
+- Remove right-click context menu (new one will be added in the future)
+- Add uninstaller in the Add/Remove Programs (Windows)
+- And many other small fixes in the code...
+
+1.4.7
+- Fix dark theme
+- Fix mosaic theme
+- Fix bug where esc would close the window instead of the full screen image
+- Apply fixes from old development branch
+- Update dependencies
+
+1.4.6
+- Add option to hide window on startup
+- Auto-startup now avaible for linux
+- The app will now inform users of my releases
+
+1.4.5
+- Fix a faulty ;
+
+1.4.4
+- Load tray icon on Linux (Still some bugs)
+- Add WM_CLASS for linux (#285)
+- Change header color (#276)
+- Single instance now running at the same time
+- Add minimum window size
+- Add close with escape key setting
+- Fix build directory on windows
+
 1.4.3
 - Don't load the tray icon on Linux (fix)
 

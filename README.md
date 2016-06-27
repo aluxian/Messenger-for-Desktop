@@ -18,14 +18,14 @@ Bring [messenger.com](https://messenger.com) to your OS X, Windows or Linux desk
 
 ## Extra
 
-* Badge with the number of notifications in the dock/taskbar (OS X and Windows)
-* Auto-launch on OS startup (OS X, Windows)
-* Native notifications (all platforms)
-* System tray icon on Windows
+* System tray icon
+* Special badge icon when new unread messages
+* Auto-launch on OS startup
+* Chrome notifications
 * 3 themes: Default, Dark and Mosaic
 * Auto-hide the left sidebar
 * Open links in browser or new window
-* Preferences in the right-click context menu (or menu bar for OS X, tray menu for Windows)
+* Preferences when the right-clicking the tray icon (Linux/Windows) or menu bar (OS X)
 
 ## Build
 
@@ -40,7 +40,7 @@ Bring [messenger.com](https://messenger.com) to your OS X, Windows or Linux desk
 * **wine**: If you're on OS X/Linux and want to build for Windows, you need [Wine](http://winehq.org/) installed. Wine is required in order
 to set the correct icon for the exe. If you don't have Wine, you can comment out the `winIco` field in `gulpfile`.
 * **makensis**: Required by the `pack:win32` task in `gulpfile` to create the Windows installer.
-* [**fpm**](https://github.com/jordansissel/fpm): Required by the `pack:linux{32|64}:deb` tasks in `gulpfile` to create the linux installers.
+* [**fpm**](https://github.com/jordansissel/fpm): Required by the `pack:linux{32|64}:{deb|rpm}` tasks in `gulpfile` to create the linux installers.
 
 Quick install on OS X:
 
@@ -55,21 +55,31 @@ Quick install on OS X:
 
     gulp pack:win32
 
-### Linux 32/64-bit: pack the app in a .deb
+### Linux 32/64-bit: pack the app in a .deb or .rpm
 
-    gulp pack:linux{32|64}:deb
+    gulp pack:linux{32|64}:{deb|rpm}
 
 The output is in `./dist`. Take a look in `gulpfile.coffee` for additional tasks.
-
-**TIP**: use the `--toolbar` parameter to quickly build the app with the toolbar on. E.g. `gulp build:win32 --toolbar`.
 
 **TIP**: use `gulp build:win32 --noicon` to quickly build the Windows app without the icon.
 
 **TIP**: for OS X, use the `run:osx64` task to build the app and run it immediately.
 
+## Debugging
+
+With the move to nw.js 0.14.x, Messenger for Desktop now runs as a Chrome Extension. Node and WebKit run in two different contexts. When debugging
+with DevTools, files that are `required()`'d will not be visible when running normally. 
+
+Start Messenger for Desktop with `--remote-debugging-port=9999`. Then navigate to `http://localhost:9999/`. This will allow debugging of other contexts.
+Node runs on the background page, WebKit runs in the App page. You will need to set breakpoints in both if you wish to debug across them.
+
 ## Contributions
 
-Contributions are welcome! For feature requests and bug reports please [submit an issue](https://github.com/Aluxian/Facebook-Messenger-Desktop/issues).
+**Official maintainers**:
+* [Emile Fugulin](https://github.com/sytten)
+* [Josh Lloyd](https://github.com/nevercast)
+
+All contributions are welcome! For feature requests and bug reports please [submit an issue](https://github.com/Aluxian/Facebook-Messenger-Desktop/issues).
 
 ## License
 

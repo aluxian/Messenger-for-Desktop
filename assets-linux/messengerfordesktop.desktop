@@ -7,3 +7,4 @@ Exec=/opt/MessengerForDesktop/Messenger
 Comment=Messenger for Desktop
 Categories=Network;Chat;
 Terminal=false
+StartupWMClass=MessengerForDesktop

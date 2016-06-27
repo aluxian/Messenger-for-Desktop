@@ -9,11 +9,8 @@ var settings = require('./components/settings');
 var windowBehaviour = require('./components/window-behaviour');
 var notification = require('./components/notification');
 var dispatcher = require('./components/dispatcher');
-
-// Ensure there's an app shortcut for toast notifications to work on Windows
-if (platform.isWindows) {
-  gui.App.createShortcut(process.env.APPDATA + "\\Microsoft\\Windows\\Start Menu\\Programs\\Messenger.lnk");
-}
+var blockSeen = require('./components/block-seen');
+var utils = require('./components/utils');
 
 // Add dispatcher events
 dispatcher.addEventListener('win.alert', function(data) {
@@ -41,13 +38,16 @@ if (settings.asMenuBarAppOSX) {
 
 // Load the app menus
 menus.loadMenuBar(win)
-if (platform.isWindows) {
+if (platform.isWindows || platform.isLinux) {
   menus.loadTrayIcon(win);
 }
 
 // Adjust the default behaviour of the main window
 windowBehaviour.set(win);
 windowBehaviour.setNewWinPolicy(win);
+
+// Watch the system clock for computer coming out of sleep
+utils.watchComputerWake(win, windowBehaviour, document);
 
 // Inject logic into the app when it's loaded
 var iframe = document.querySelector('iframe');
@@ -59,7 +59,8 @@ iframe.onload = function() {
   notification.inject(iframe.contentWindow, win);
 
   // Add a context menu
-  menus.injectContextMenu(win, iframe.contentWindow, iframe.contentDocument);
+  menus.injectContextMenu(win, document);
+  //menus.injectContextMenu(win, iframe.contentDocument);
 
   // Bind native events to the content window
   windowBehaviour.bindEvents(win, iframe.contentWindow);
@@ -69,13 +70,30 @@ iframe.onload = function() {
 
   // Listen for ESC key press
   windowBehaviour.closeWithEscKey(win, iframe.contentDocument);
+  
+  // Listen for offline event and remove the iframe.
+  dispatcher.addEventListener('offline', function() {
+	iframe = document.querySelector('iframe');
+	if(iframe) {
+		iframe.remove();
+	}
+  });
+  
+  dispatcher.addEventListener('online', function() {
+	iframe = document.querySelector('iframe');
+	if(iframe) {
+		iframe.style.display = 'initial';
+	}
+  });
+
+  // Block 'seen' and typing indicator
+  if (settings.blockSeen) {
+    blockSeen.set(true);
+  }
+
+  dispatcher.trigger('online');
 };
 
-// Reload the app periodically until it loads
-var reloadIntervalId = setInterval(function() {
-  if (win.window.navigator.onLine) {
-    clearInterval(reloadIntervalId);
-  } else {
-    win.reload();
-  }
-}, 10 * 1000);
+
+// Reload the app periodically until it's in online state.
+utils.checkForOnline(win);
