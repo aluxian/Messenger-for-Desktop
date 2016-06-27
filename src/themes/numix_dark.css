@@ -101,6 +101,10 @@
   background: #333333 !important;
 }
 
+.new-group-search, .new-group-contacts, .drawer-section-main {
+  background: #333333;
+}
+
 
 /* Search bar and right sidebar */
 
