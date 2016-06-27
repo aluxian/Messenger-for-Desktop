@@ -14,6 +14,7 @@ var DEFAULT_SETTINGS = {
   asMenuBarAppOSX: false,
   closeWithEscKey: false,
   startMinimized: false,
+  blockSeen: false,
   windowState: {},
   theme: 'default'
 };
