@@ -212,3 +212,8 @@ a {
 ::-webkit-input-placeholder {
   color: #DCDCCC !important;
 }
+
+/* fixing the scrollbar bug in some languages*/
+._kmc {
+line-height: 1.29;
+}
