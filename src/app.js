@@ -9,6 +9,7 @@ var settings = require('./components/settings');
 var windowBehaviour = require('./components/window-behaviour');
 var notification = require('./components/notification');
 var dispatcher = require('./components/dispatcher');
+var blockSeen = require('./components/block-seen');
 var utils = require('./components/utils');
 
 // Add dispatcher events
@@ -84,6 +85,11 @@ iframe.onload = function() {
 		iframe.style.display = 'initial';
 	}
   });
+
+  // Block 'seen' and typing indicator
+  if (settings.blockSeen) {
+    blockSeen.set(true);
+  }
 
   dispatcher.trigger('online');
 };
