@@ -71,7 +71,7 @@ module.exports = {
         return policy.ignore(); // Ignore about:blank URLs
       }
 
-      if (settings.openLinksInBrowser) {
+      if (settings.openLinksInBrowser && !utils.isVideoCall(url)) {
         url = utils.skipFacebookRedirect(url);
         gui.Shell.openExternal(url);
         policy.ignore();

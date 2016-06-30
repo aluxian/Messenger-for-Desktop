@@ -17,6 +17,19 @@ module.exports = {
     return url;
   },
   /**
+   * Verify th given URL to see if it is a facebook video call
+   */
+  isVideoCall: function(url) {
+    var parsed = URL.parse(url, true);
+    var pathMatches = parsed.pathname.indexOf('/videocall') > -1;
+
+    if (pathMatches) {
+      return true;
+    }
+
+    return false;
+  },
+  /**
    * Reload when computer wakes up.
    * Tracks time difference, if the difference is greater than 3 minutes. The window reloads.
    * If we know how long Messenger's session takes to timeout, perhaps use that time instead?
