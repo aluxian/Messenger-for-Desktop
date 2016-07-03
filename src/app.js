@@ -9,6 +9,7 @@ var settings = require('./components/settings');
 var windowBehaviour = require('./components/window-behaviour');
 var notification = require('./components/notification');
 var dispatcher = require('./components/dispatcher');
+var shortcuts = require('./components/shortcuts');
 
 // Ensure there's an app shortcut for toast notifications to work on Windows
 if (platform.isWindows) {
@@ -69,6 +70,9 @@ iframe.onload = function() {
 
   // Listen for ESC key press
   windowBehaviour.closeWithEscKey(win, iframe.contentDocument);
+
+  // Inject keyboard shortcuts
+  shortcuts.inject(iframe.contentDocument);
 };
 
 // Reload the app periodically until it loads
