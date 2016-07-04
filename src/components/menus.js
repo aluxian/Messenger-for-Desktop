@@ -6,13 +6,14 @@ var dispatcher = require('./dispatcher');
 var platform = require('./platform');
 var settings = require('./settings');
 var updater = require('./updater');
+var blockSeen = require('./block-seen');
 var utils = require('./utils');
 
 module.exports = {
   /**
    * The main settings items. Their placement differs for each platform:
    * - on OS X they're in the top menu bar
-   * - on Windows they're in the tray icon's menu
+   * - on Windows and linux they're in the tray icon's menu
    * - on all 3 platform, they're also in the right-click context menu
    */
   settingsItems: function(win, keep) {
@@ -53,13 +54,11 @@ module.exports = {
       type: 'checkbox',
       label: 'Launch on Startup',
       setting: 'launchOnStartup',
-      platforms: ['osx', 'win'],
       click: function() {
         settings.launchOnStartup = this.checked;
 
         var launcher = new AutoLaunch({
           name: 'Messenger',
-          isHidden: true // hidden on launch - only works on a mac atm
         });
 
         launcher.isEnabled(function(enabled) {
@@ -94,6 +93,24 @@ module.exports = {
       label: 'Theme',
       submenu: this.createThemesMenu(keep)
     }, {
+      type: 'checkbox',
+      label: 'Close with ESC key',
+      setting: 'closeWithEscKey'
+    }, {
+      type: 'checkbox',
+      label: 'Start minimized',
+      setting: 'startMinimized'
+    }, {
+      type: 'separator'
+    }, {
+      type: 'checkbox',
+      label: 'Block seen/typing indicators',
+      setting: 'blockSeen',
+      click: function() {
+        settings.blockSeen = this.checked;
+        blockSeen.set(this.checked);
+      }
+    },	{
       type: 'separator'
     }, {
       label: 'Check for Update',
@@ -123,7 +140,7 @@ module.exports = {
 
         if (!item.hasOwnProperty('click')) {
           item.click = function() {
-            settings[item.setting] = item.checked;
+            settings[item.setting] = !item.checked;
           };
         }
       }
@@ -244,7 +261,7 @@ module.exports = {
     menu.append(new gui.MenuItem({
       label: 'Quit Messenger',
       click: function() {
-        win.close(true);
+		dispatcher.trigger('close', true);
       }
     }));
 
@@ -342,10 +359,20 @@ module.exports = {
   /**
    * Listen for right clicks and show a context menu.
    */
-  injectContextMenu: function(win, window, document) {
+  injectContextMenu: function(win, document) {
     document.body.addEventListener('contextmenu', function(event) {
       event.preventDefault();
-      this.createContextMenu(win, window, document, event.target).popup(event.x, event.y);
+	  /*var x = event.x, y = event.y;
+	  if(!utils.areSameContext(this, win)) {
+		  // When we are not in the same context
+		  // The window is relative to screen position.
+		  // This is due to the hidden background page that exists at (0, 0).
+		  
+		  // Fixes #412
+		  x += win.x;
+		  y += win.y;
+	  }
+      this.createContextMenu(win, window, document, event.target).popup(x, y);*/
       return false;
     }.bind(this));
   }

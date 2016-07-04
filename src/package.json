@@ -1,12 +1,15 @@
 {
   "main": "app.html",
   "name": "Messenger",
-  "version": "1.4.3",
+  "version": "1.5.0-beta.0",
   "app-id": "com.aluxian.messengerfordesktop",
-  "chromium-args": "--disable-setuid-sandbox",
+  "chromium-args": "--disable-setuid-sandbox --js-flags=--harmony-proxies",
+  "single-instance": true,
   "window": {
     "width": 800,
     "height": 600,
+    "min_width": 317,
+    "min_height": 200,
     "title": "Messenger",
     "icon": "images/icon.png",
     "toolbar": false,
@@ -16,17 +19,18 @@
     "plugin": true
   },
   "dependencies": {
-    "async": "^1.0.0",
-    "auto-launch": "^0.1.18",
-    "jfs": "^0.2.5",
-    "request": "^2.56.0",
-    "semver": "^4.3.5"
+    "async": "^1.5.2",
+    "auto-launch": "^1.1.1",
+    "harmony-proxy": "github:nevercast/proxy#mfd",
+    "jfs": "^0.2.6",
+    "request": "^2.69.0",
+    "semver": "^5.1.0"
   },
   "manifestUrl": "https://raw.githubusercontent.com/Aluxian/Facebook-Messenger-Desktop/master/src/package.json",
   "packages": {
-    "osx64": "https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v1.4.3/Messenger.dmg",
-    "win32": "https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v1.4.3/MessengerSetup.exe",
-    "linux32": "https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v1.4.3/Messenger_linux32.deb",
-    "linux64": "https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v1.4.3/Messenger_linux64.deb"
+    "osx64": "https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v1.5.0-beta.0/Messenger.dmg",
+    "win32": "https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v1.5.0-beta.0/MessengerSetup.exe",
+    "linux32": "https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v1.5.0-beta.0/Messenger_linux32.deb",
+    "linux64": "https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v1.5.0-beta.0/Messenger_linux64.deb"
   }
 }

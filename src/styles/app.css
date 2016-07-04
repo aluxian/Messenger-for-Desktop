@@ -17,3 +17,7 @@ body {
   background-attachment: fixed;
   background-position: center;
 }
+
+iframe {
+  display: none;
+}
