@@ -4,3 +4,13 @@
 ._s15 {
   display: none;
 }
+
+/* fixing the scrollbar bug in some languages*/
+._kmc {
+line-height: 1.29;
+}
+
+/* fix huge website previews */
+._3058._15gf {
+max-width: 800px;
+}

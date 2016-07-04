@@ -39,9 +39,8 @@ a {
 }
 
 /* Top header user status */
-._2v6o {
-  color: inherit;
-  opacity: 0.6;
+._2v6o, ._3oh-, ._3eus {
+  color: rgba(255, 255, 255, .6) !important;
 }
 
 /* People names */
@@ -115,6 +114,31 @@ a {
   background-color: #5E4848;
 }
 
+/* Sidebar Group name */
+._2jnv {
+  color: #DCDCCC;
+}
+
+/* Sidebar Person name */
+._3oh {
+  color: #DCDCCC;
+}
+
+/* Sidebar Person activity */
+._3eus {
+  color: #DCDCCC;
+}
+
+/* Sidebar "options" text */
+._1lj0 {
+  color: #DCDCCC;
+}
+
+/* Sidebar options */
+._3szq {
+  color: #DCDCCC;
+}
+
 /* Sidebar user name */
 ._3tkx {
   color: #DCDCCC;
@@ -129,6 +153,11 @@ a {
 /* Sidebar user "Facebook profile" text */
 ._3tl0 {
   color: #DCDCCC;
+}
+
+/* Sidebar add people button */
+._4rpj {
+  color: #DCDCCC !important;
 }
 
 /* Hovering sidebar bg color */
@@ -154,4 +183,32 @@ a {
 /* Time text */
 ._4_j4 time {
   color: #dcdccc !important;
+}
+
+/* input bar */
+._4rv3 {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+._17w2 {
+    color: rgba(255, 255, 255, 1) !important;
+}
+
+._3eus {
+    color: rgba(255, 255, 255, .4) !important;
+}
+
+/* New Message to:*/
+._2y8z {
+  color: #DCDCCC;
+}
+
+/* New Messsage Enter names */
+._58al {
+  color: #DCDCCC !important;
+}
+
+/* All placeholders */
+::-webkit-input-placeholder {
+  color: #DCDCCC !important;
 }
