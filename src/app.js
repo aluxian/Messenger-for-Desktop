@@ -11,6 +11,7 @@ var notification = require('./components/notification');
 var dispatcher = require('./components/dispatcher');
 var blockSeen = require('./components/block-seen');
 var utils = require('./components/utils');
+var shortcuts = require('./components/shortcuts');
 
 // Add dispatcher events
 dispatcher.addEventListener('win.alert', function(data) {
@@ -92,6 +93,9 @@ iframe.onload = function() {
   }
 
   dispatcher.trigger('online');
+
+  // Inject keyboard shortcuts
+  shortcuts.inject(iframe.contentDocument);
 };
 
 
