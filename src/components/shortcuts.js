@@ -5,11 +5,10 @@
 
 HELP_HTML = "List of shortcuts:\
 <br><br>\
-<b>Esc</b> &ndash; Quit Messenger<br><br>\
 <b>Alt+Shift+C</b> &ndash; Compose new message<br>\
 <b>Alt+Shift+Q</b> &ndash; Search for people and groups<br>\
 <b>Alt+Shift+<i>n</i></b> &ndash; Jump to conversation <i>n</i>-th from top<br>\
-<b>Alt+Up</b>/<b>Down</b> &ndash; Jump to conversation one above/below<br><br>\
+<b>Alt+Shift+Up</b>/<b>Down</b> &ndash; Jump to conversation one above/below<br><br>\
 <b>Alt+Shift+D</b> &ndash; Toggle conversation details<br>\
 <b>Alt+Shift+M</b> &ndash; Mute conversation<br><br>\
 <b>Alt+Shift+/</b> &ndash; Display this help dialog<br>\
@@ -29,8 +28,20 @@ function last(arr) {
 /** Functionality **/
 
 function jumpToMessage(doc, index) {
-  console.log(doc);
   doc.querySelectorAll('div[aria-label="Conversations"] a')[index].click();
+}
+
+function verticalJump(doc, isUp) {
+  console.log('hello');
+  var conversations = doc.querySelectorAll('[aria-label="Conversation List"] li');
+  console.log(conversations);
+  for (var i = 0; i < conversations.length; i++) {
+    console.log("jump "+i);
+    if (conversations[i].getAttribute('aria-relevant')) {
+      jumpToMessage(doc, i + (isUp ? -1 : 1));
+      return;
+    }
+  }
 }
 
 function selectFirstSearchResult(doc) {
@@ -119,6 +130,12 @@ module.exports = {
           case 81:  // Q
               focusSearchBar();
           break;    
+          case 38: // up arrow
+              verticalJump(doc, true);
+          break;
+          case 40: // down arrow
+              verticalJump(doc, false);
+          break;
           case 191: // Fwd. slash
               openHelp(doc);
           break;
