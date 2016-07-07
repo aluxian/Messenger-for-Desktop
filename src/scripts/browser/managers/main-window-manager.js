@@ -56,9 +56,9 @@ class MainWindowManager extends EventEmitter {
     // Bind webContents events to local methods
     this.window.webContents.on('new-window', ::this.onNewWindow);
     this.window.webContents.on('will-navigate', ::this.onWillNavigate);
-    this.window.webContents.on('dom-ready', ::this.onDomReady);
 
     // Bind events to local methods
+    this.window.on('ready-to-show', ::this.onReadyToShow);
     this.window.on('enter-full-screen', ::this.onEnterFullScreen);
     this.window.on('leave-full-screen', ::this.onLeaveFullScreen);
     this.window.on('closed', ::this.onClosed);
@@ -120,11 +120,11 @@ class MainWindowManager extends EventEmitter {
   }
 
   /**
-   * Called when the 'dom-ready' event is emitted.
+   * Called when the 'ready-to-show' event is emitted.
    */
-  onDomReady () {
+  onReadyToShow () {
     // Show the window
-    log('onDomReady');
+    log('ready-to-show');
     if (!this.startHidden && !this.window.isVisible()) {
       this.window.show();
     }
