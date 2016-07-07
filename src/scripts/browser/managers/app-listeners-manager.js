@@ -1,7 +1,6 @@
 import EventEmitter from 'events';
 import {app} from 'electron';
 
-import platform from 'common/utils/platform';
 import prefs from 'browser/utils/prefs';
 
 class AppListenersManager extends EventEmitter {
@@ -41,7 +40,7 @@ class AppListenersManager extends EventEmitter {
     log('will quit');
     const hasUpdate = this.autoUpdateManager.state === this.autoUpdateManager.states.UPDATE_DOWNLOADED;
     const isUpdating = this.mainWindowManager.updateInProgress;
-    if (platform.isDarwin && hasUpdate && !isUpdating) {
+    if (hasUpdate && !isUpdating) {
       log('has update downloaded, installing it before quitting');
       event.preventDefault();
       prefs.setSync('launch-quit', true);

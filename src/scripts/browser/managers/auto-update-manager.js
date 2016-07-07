@@ -35,7 +35,6 @@ class AutoUpdateManager extends EventEmitter {
       this.initErrorListener();
       this.initStateListeners();
       this.initVersionListener();
-      this.initDownloadListener();
     } catch (err) {
       const isSignatureErr = err.message === 'Could not get code signature for running application';
       const isKnownError = isSignatureErr;
@@ -88,24 +87,6 @@ class AutoUpdateManager extends EventEmitter {
       this.latestVersion = newVersion;
       this.latestDownloadUrl = downloadUrl;
     });
-  }
-
-  initDownloadListener () {
-    if (platform.isWindows && !global.options.portable) {
-      AutoUpdater.on('update-downloaded', () => {
-        dialog.showMessageBox({
-          type: 'question',
-          message: 'A new version of ' + global.manifest.productName + ' has been downloaded.',
-          detail: 'Would you like to restart the app and install the update? You can do this later from the App menu.',
-          buttons: ['Later', 'Update']
-        }, (response) => {
-          if (response === 1) {
-            log('user clicked Update');
-            this.quitAndInstall();
-          }
-        });
-      });
-    }
   }
 
   handleMenuCheckForUpdate (informUser) {
