@@ -39,9 +39,12 @@ class MainWindowManager extends EventEmitter {
       show: false
     };
 
-    const windowIcon = platform.isLinux ? {icon: filePaths.getImagePath('windowIcon.png')} : {};
+    // Fix Window icon on Linux
+    if (platform.isLinux) {
+      defaultOptions.icon = filePaths.getImagePath('windowIcon.png');
+    }
 
-    const options = Object.assign(defaultOptions, bounds, windowIcon);
+    const options = Object.assign(defaultOptions, bounds);
     this.window = new BrowserWindow(options);
   }
 
