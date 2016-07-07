@@ -2,6 +2,7 @@ import {shell, BrowserWindow} from 'electron';
 import debounce from 'lodash.debounce';
 import EventEmitter from 'events';
 
+import filePaths from 'common/utils/file-paths';
 import platform from 'common/utils/platform';
 import prefs from 'browser/utils/prefs';
 
@@ -38,7 +39,9 @@ class MainWindowManager extends EventEmitter {
       show: false
     };
 
-    const options = Object.assign(defaultOptions, bounds);
+    const windowIcon = platform.isLinux ? {icon: filePaths.getImagePath('windowIcon.png')} : {};
+
+    const options = Object.assign(defaultOptions, bounds, windowIcon);
     this.window = new BrowserWindow(options);
   }
 
