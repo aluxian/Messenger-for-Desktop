@@ -30,6 +30,9 @@
     "winreg": "1.2.1",
     "yargs": "4.7.1"
   },
+  "devDependencies": {
+    "devtron": "1.2.1"
+  },
   "optionalDependencies": {
     "nodobjc": "2.1.0"
   },
@@ -68,7 +71,7 @@
   "sentry": {
     "dsn": "{{& SENTRY_DSN_PRIVATE }}"
   },
-  "electronVersion": "v1.2.2",
+  "electronVersion": "v1.2.6",
   "distrib": "unset",
   "portable": false,
   "buildNum": 0,
@@ -82,8 +85,5 @@
     "numix_dark": "Numix Dark",
     "shadow": "Shadow",
     "sephia": "Sephia"
-  },
-  "devDependencies": {
-    "devtron": "1.2.1"
   }
 }
