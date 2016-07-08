@@ -2,16 +2,19 @@ import cp from 'child_process';
 
 import platform from 'common/utils/platform';
 
-function isElementaryOS (callback) {
+async function elementaryOS () {
   if (!platform.isLinux) {
-    return callback(null, false);
+    return false;
   }
 
   let cmd = 'cat /etc/os-release <(lsb_release -d) | grep \\"elementary OS\\"';
   cmd = '/bin/bash -c "' + cmd + '"';
-  cp.exec(cmd, (err, stdout, stderr) => callback(null, !!err));
+
+  return await new Promise((resolve, reject) => {
+    cp.exec(cmd, (err, stdout, stderr) => resolve(!!err));
+  });
 }
 
 export default {
-  isElementaryOS
+  elementaryOS
 };

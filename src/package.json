@@ -8,9 +8,7 @@
   "main": "./scripts/browser/init.js",
   "dependencies": {
     "app-module-path": "1.1.0",
-    "async": "2.0.0-rc.6",
     "babel-runtime": "6.9.2",
-    "bluebird": "3.4.1",
     "colors": "1.1.2",
     "debug": "2.2.0",
     "del": "2.2.1",
@@ -20,6 +18,7 @@
     "lodash.debounce": "4.0.6",
     "mousetrap": "1.6.0",
     "node-uuid": "1.4.7",
+    "promisify-es6": "1.0.1",
     "raven": "0.11.0",
     "raven-js": "3.2.0",
     "request": "2.72.0",
