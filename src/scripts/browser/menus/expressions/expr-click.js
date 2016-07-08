@@ -7,7 +7,7 @@ import prefs from 'browser/utils/prefs';
  * Call the handler for the check-for-update event.
  */
 export function cfuCheckForUpdate (informUser) {
-  return function (menuItem, browserWindow) {
+  return function () {
     global.application.autoUpdateManager.handleMenuCheckForUpdate(informUser);
   };
 }
@@ -16,7 +16,7 @@ export function cfuCheckForUpdate (informUser) {
  * Call the handler for the update-available event.
  */
 export function cfuUpdateAvailable () {
-  return function (menuItem, browserWindow) {
+  return function () {
     global.application.autoUpdateManager.handleMenuUpdateAvailable();
   };
 }
@@ -25,7 +25,7 @@ export function cfuUpdateAvailable () {
  * Call the handler for the update-downloaded event.
  */
 export function cfuUpdateDownloaded () {
-  return function (menuItem, browserWindow) {
+  return function () {
     global.application.autoUpdateManager.handleMenuUpdateDownloaded();
   };
 }
@@ -34,7 +34,7 @@ export function cfuUpdateDownloaded () {
  * Reset the auto updater url (to use updated prefs).
  */
 export function resetAutoUpdaterUrl () {
-  return function (menuItem, browserWindow) {
+  return function () {
     global.application.autoUpdateManager.initFeedUrl();
   };
 }
@@ -43,7 +43,7 @@ export function resetAutoUpdaterUrl () {
  * Enable or disable automatic checks for update.
  */
 export function checkForUpdateAuto (valueExpr) {
-  return function (menuItem, browserWindow) {
+  return function () {
     const check = valueExpr.apply(this, arguments);
     global.application.autoUpdateManager.setAutoCheck(check);
   };
@@ -53,7 +53,7 @@ export function checkForUpdateAuto (valueExpr) {
  * Quit the app.
  */
 export function appQuit () {
-  return function (menuItem, browserWindow) {
+  return function () {
     app.quit();
   };
 }
@@ -62,20 +62,8 @@ export function appQuit () {
  * Open the url externally, in a browser.
  */
 export function openUrl (url) {
-  return function (menuItem, browserWindow) {
+  return function () {
     shell.openExternal(url);
-  };
-}
-
-/**
- * Send a message to the browserWindow's webContents.
- */
-export function sendToWebContents (channel, ...valueExprs) {
-  return function (menuItem, browserWindow) {
-    if (browserWindow) {
-      const values = valueExprs.map((e) => e.apply(this, arguments));
-      browserWindow.webContents.send(channel, ...values);
-    }
   };
 }
 
@@ -84,10 +72,8 @@ export function sendToWebContents (channel, ...valueExprs) {
  */
 export function sendToWebView (channel, ...valueExprs) {
   return function (menuItem, browserWindow) {
-    if (browserWindow) {
-      const values = valueExprs.map((e) => e.apply(this, arguments));
-      browserWindow.webContents.send('fwd-webview', channel, ...values);
-    }
+    const values = valueExprs.map((e) => e.apply(this, arguments));
+    browserWindow.webContents.send('fwd-webview', channel, ...values);
   };
 }
 
@@ -96,9 +82,7 @@ export function sendToWebView (channel, ...valueExprs) {
  */
 export function reloadWindow () {
   return function (menuItem, browserWindow) {
-    if (browserWindow) {
-      browserWindow.reload();
-    }
+    browserWindow.reload();
   };
 }
 
@@ -107,11 +91,9 @@ export function reloadWindow () {
  */
 export function resetWindow () {
   return function (menuItem, browserWindow) {
-    if (browserWindow) {
-      const bounds = prefs.getDefault('window-bounds');
-      browserWindow.setSize(bounds.width, bounds.height, true);
-      browserWindow.center();
-    }
+    const bounds = prefs.getDefault('window-bounds');
+    browserWindow.setSize(bounds.width, bounds.height, true);
+    browserWindow.center();
   };
 }
 
@@ -136,10 +118,8 @@ export function showWindow () {
  */
 export function toggleFullScreen () {
   return function (menuItem, browserWindow) {
-    if (browserWindow) {
-      const newState = !browserWindow.isFullScreen();
-      browserWindow.setFullScreen(newState);
-    }
+    const newState = !browserWindow.isFullScreen();
+    browserWindow.setFullScreen(newState);
   };
 }
 
@@ -148,9 +128,7 @@ export function toggleFullScreen () {
  */
 export function toggleDevTools () {
   return function (menuItem, browserWindow) {
-    if (browserWindow) {
-      browserWindow.toggleDevTools();
-    }
+    browserWindow.toggleDevTools();
   };
 }
 
@@ -159,10 +137,8 @@ export function toggleDevTools () {
  */
 export function floatOnTop (flagExpr) {
   return function (menuItem, browserWindow) {
-    if (browserWindow) {
-      const flag = flagExpr.apply(this, arguments);
-      browserWindow.setAlwaysOnTop(flag);
-    }
+    const flag = flagExpr.apply(this, arguments);
+    browserWindow.setAlwaysOnTop(flag);
   };
 }
 
@@ -170,7 +146,7 @@ export function floatOnTop (flagExpr) {
  * Show or hide the tray icon.
  */
 export function showInTray (flagExpr) {
-  return function (menuItem, browserWindow) {
+  return function () {
     const show = flagExpr.apply(this, arguments);
     if (show) {
       global.application.trayManager.create();
@@ -184,7 +160,7 @@ export function showInTray (flagExpr) {
  * Show or hide the dock icon.
  */
 export function showInDock (flagExpr) {
-  return function (menuItem, browserWindow) {
+  return function () {
     if (app.dock) {
       const show = flagExpr.apply(this, arguments);
       if (show) {
@@ -200,7 +176,7 @@ export function showInDock (flagExpr) {
  * Whether the app should launch automatically when the OS starts.
  */
 export function launchOnStartup (enabledExpr) {
-  return function (menuItem, browserWindow) {
+  return function () {
     const enabled = enabledExpr.apply(this, arguments);
     if (enabled) {
       global.application.autoLauncher.enable()
@@ -224,7 +200,7 @@ export function launchOnStartup (enabledExpr) {
  * If flag is false, the dock badge will be hidden.
  */
 export function hideDockBadge (flagExpr) {
-  return function (menuItem, browserWindow) {
+  return function () {
     const flag = flagExpr.apply(this, arguments);
     if (!flag && app.dock && app.dock.setBadge) {
       app.dock.setBadge('');
@@ -237,11 +213,9 @@ export function hideDockBadge (flagExpr) {
  */
 export function hideTaskbarBadge (flagExpr) {
   return function (menuItem, browserWindow) {
-    if (browserWindow) {
-      const flag = flagExpr.apply(this, arguments);
-      if (!flag) {
-        browserWindow.setOverlayIcon(null, '');
-      }
+    const flag = flagExpr.apply(this, arguments);
+    if (!flag) {
+      browserWindow.setOverlayIcon(null, '');
     }
   };
 }
@@ -264,7 +238,7 @@ export const analytics = {
  * Restart the app in debug mode.
  */
 export function restartInDebugMode () {
-  return function (menuItem, browserWindow) {
+  return function () {
     const options = {
       // without --no-console-logs, calls to console.log et al. trigger EBADF errors in the new process
       args: [...process.argv.slice(1), '--debug', '--no-console-logs']
@@ -280,7 +254,7 @@ export function restartInDebugMode () {
  * Open the log file for easier debugging.
  */
 export function openDebugLog () {
-  return function (menuItem, browserWindow) {
+  return function () {
     if (global.__debug_file_log_path) {
       log('opening log file with default app', global.__debug_file_log_path);
       shell.openItem(global.__debug_file_log_path);

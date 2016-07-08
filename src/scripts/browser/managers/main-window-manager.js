@@ -20,6 +20,10 @@ class MainWindowManager extends EventEmitter {
     this.trayManager = trayManager;
   }
 
+  setMenuManager (menuManager) {
+    this.menuManager = menuManager;
+  }
+
   createWindow () {
     log('creating main window');
 
@@ -230,6 +234,8 @@ class MainWindowManager extends EventEmitter {
    */
   onShow () {
     log('onShow');
+    // Enable window specific menu items
+    this.menuManager.windowSpecificItemsEnabled(true);
   }
 
   /**
@@ -237,6 +243,8 @@ class MainWindowManager extends EventEmitter {
    */
   onHide () {
     log('onHide');
+    // Disable window specific menu items
+    this.menuManager.windowSpecificItemsEnabled(false);
   }
 
   /**

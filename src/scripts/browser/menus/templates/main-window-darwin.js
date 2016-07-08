@@ -8,10 +8,12 @@ export default {
   submenu: [{
     label: 'Reload',
     accelerator: 'Cmd+R',
+    needsWindow: true,
     click: $.reloadWindow()
   }, {
     label: 'Reset',
     accelerator: 'Cmd+Alt+R',
+    needsWindow: true,
     click: $.resetWindow()
   }, {
     type: 'separator'
@@ -19,6 +21,7 @@ export default {
     type: 'checkbox',
     label: 'Float on Top',
     accelerator: 'Cmd+Alt+T',
+    needsWindow: true,
     click: $.floatOnTop($.key('checked'))
   }, {
     type: 'checkbox',

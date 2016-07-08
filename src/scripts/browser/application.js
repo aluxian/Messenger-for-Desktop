@@ -32,6 +32,7 @@ class Application extends EventEmitter {
     this.menuManager.create();
     this.menuManager.setDefault();
     this.menuManager.setAutoUpdaterListeners();
+    this.mainWindowManager.setMenuManager(this.menuManager);
 
     // Others
     this.notifManager = new NotifManager();

@@ -53,6 +53,16 @@ class MainMenuManager extends EventEmitter {
     }
   }
 
+  windowSpecificItemsEnabled (enabled, items = this.menu.items) {
+    for (let item of items) {
+      if (item.needsWindow) {
+        item.enabled = enabled;
+      } else if (item.submenu) {
+        this.windowSpecificItemsEnabled(enabled, item.submenu.items);
+      }
+    }
+  }
+
 }
 
 export default MainMenuManager;

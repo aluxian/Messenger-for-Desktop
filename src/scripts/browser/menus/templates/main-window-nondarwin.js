@@ -7,10 +7,12 @@ export default {
   submenu: [{
     label: '&Reload',
     accelerator: 'Ctrl+R',
+    needsWindow: true,
     click: $.reloadWindow()
   }, {
     label: 'Re&set',
     accelerator: 'Ctrl+Alt+R',
+    needsWindow: true,
     click: $.resetWindow()
   }, {
     type: 'separator'
@@ -18,6 +20,7 @@ export default {
     type: 'checkbox',
     label: '&Float on Top',
     accelerator: 'Ctrl+Shift+F',
+    needsWindow: true,
     click: $.floatOnTop($.key('checked'))
   }, {
     type: 'checkbox',
@@ -47,6 +50,7 @@ export default {
   }, {
     type: 'checkbox',
     label: '&Notifications Badge in ' + (platform.isLinux ? 'Dock' : 'Taskbar'),
+    needsWindow: true,
     click: $.all(
       $.setPref('show-notifications-badge', $.key('checked')),
       $.hideTaskbarBadge($.key('checked'))
