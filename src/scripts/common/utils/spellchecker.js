@@ -7,60 +7,76 @@ import platform from 'common/utils/platform';
 import files from 'common/utils/files';
 
 let hunspellDictionarySearchPaths = null;
-let hunspellDictionaries = null;
+let availableDictionaries = null;
 
 export function getDictionarySearchPaths () {
-  if (!hunspellDictionarySearchPaths) {
-    let searchPaths = [
-      path.join(app.getAppPath(), 'dicts'),
-      path.join(app.getAppPath(), 'node_modules', 'spellchecker', 'vendor', 'hunspell_dictionaries')
-    ];
-
-    // Special case being in an asar archive
-    searchPaths = searchPaths.map((searchPath) => {
-      if (searchPath.includes('.asar' + path.sep)) {
-        const unpacked = searchPath.replace('.asar' + path.sep, '.asar.unpacked' + path.sep);
-        if (fs.statSyncNoException(unpacked)) {
-          return unpacked;
-        }
-      }
-      return searchPath;
-    });
-
-    if (platform.isLinux) {
-      searchPaths = searchPaths.concat([
-        '/usr/share/hunspell',
-        '/usr/share/myspell',
-        '/usr/share/myspell/dicts',
-        '/Library/Spelling'
-      ]);
-    }
-
-    hunspellDictionarySearchPaths = searchPaths;
+  if (hunspellDictionarySearchPaths) {
+    return hunspellDictionarySearchPaths;
   }
 
+  let searchPaths = [
+    path.join(app.getAppPath(), 'dicts'),
+    path.join(app.getAppPath(), 'node_modules', 'spellchecker', 'vendor', 'hunspell_dictionaries')
+  ];
+
+  // Special case being in an asar archive
+  searchPaths = searchPaths.map((searchPath) => {
+    if (searchPath.includes('.asar' + path.sep)) {
+      const unpacked = searchPath.replace('.asar' + path.sep, '.asar.unpacked' + path.sep);
+      if (fs.statSyncNoException(unpacked)) {
+        return unpacked;
+      }
+    }
+    return searchPath;
+  });
+
+  if (platform.isLinux) {
+    searchPaths = searchPaths.concat([
+      '/usr/share/hunspell',
+      '/usr/share/myspell',
+      '/usr/share/myspell/dicts',
+      '/Library/Spelling'
+    ]);
+  }
+
+  hunspellDictionarySearchPaths = searchPaths;
   return hunspellDictionarySearchPaths;
 }
 
 export function getAvailableDictionaries () {
-  let availableDictionaries = SpellChecker.getAvailableDictionaries();
-  if (availableDictionaries.length) {
+  if (availableDictionaries) {
     return availableDictionaries;
   }
 
-  if (!hunspellDictionaries) {
-    try {
-      const searchPaths = getDictionarySearchPaths();
-      hunspellDictionaries = files.getAllDictionariesSync(searchPaths);
-    } catch (err) {
-      logError(err);
-    }
-  }
+  availableDictionaries = []
+    .concat(getSpellCheckerDictionaries())
+    .concat(getHunspellDictionaries());
 
-  return hunspellDictionaries || [];
+  // Remove duplicates
+  availableDictionaries = Array.from(new Set(availableDictionaries));
+
+  return availableDictionaries;
+}
+
+function getSpellCheckerDictionaries () {
+  return SpellChecker.getAvailableDictionaries();
+}
+
+function getHunspellDictionaries () {
+  try {
+    const searchPaths = getDictionarySearchPaths();
+    return files.getAllDictionariesSync(searchPaths);
+  } catch (err) {
+    logError(err);
+  }
+  return [];
 }
 
 export function getDictionaryPath (langCode) {
+  if (getSpellCheckerDictionaries().includes(langCode)) {
+    return null;
+  }
+
   let searchPaths = getDictionarySearchPaths();
   searchPaths = searchPaths.map((searchPath) => {
     return [
