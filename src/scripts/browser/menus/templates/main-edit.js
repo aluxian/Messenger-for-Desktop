@@ -27,41 +27,28 @@ const availableLanguages = getAvailableDictionaries()
 export default {
   label: 'Edit',
   submenu: [{
-    label: 'Undo',
     allow: platform.isDarwin,
-    accelerator: 'Cmd+Z',
     role: 'undo'
   }, {
-    label: 'Redo',
     allow: platform.isDarwin,
-    accelerator: 'Shift+Cmd+Z',
     role: 'redo'
   }, {
     type: 'separator',
     allow: platform.isDarwin
   }, {
-    label: 'Cut',
     allow: platform.isDarwin,
-    accelerator: 'Cmd+X',
     role: 'cut'
   }, {
-    label: 'Copy',
     allow: platform.isDarwin,
-    accelerator: 'Cmd+C',
     role: 'copy'
   }, {
-    label: 'Paste',
     allow: platform.isDarwin,
-    accelerator: 'Cmd+V',
     role: 'paste'
   }, {
-    label: 'Delete',
     allow: platform.isDarwin,
     role: 'delete'
   }, {
-    label: 'Select All',
     allow: platform.isDarwin,
-    accelerator: 'Cmd+A',
     role: 'selectall'
   }, {
     type: 'separator',

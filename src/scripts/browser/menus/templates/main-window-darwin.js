@@ -80,16 +80,10 @@ export default {
   }, {
     type: 'separator'
   }, {
-    label: 'Minimize',
-    accelerator: 'Cmd+M',
     role: 'minimize'
   }, {
-    label: 'Zoom',
-    accelerator: 'Alt+Cmd+Ctrl+M',
-    selector: 'zoom:'
+    role: 'zoom'
   }, {
-    label: 'Close',
-    accelerator: 'Cmd+W',
     role: 'close'
   }]
 };

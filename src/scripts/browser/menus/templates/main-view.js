@@ -1,4 +1,3 @@
-import platform from 'common/utils/platform';
 import $ from 'browser/menus/expressions';
 
 export default {
@@ -27,9 +26,7 @@ export default {
   }, {
     type: 'separator'
   }, {
-    label: 'Toggle &Full Screen',
-    accelerator: platform.isDarwin ? 'Cmd+Ctrl+F' : 'F11',
-    click: $.toggleFullScreen()
+    role: 'togglefullscreen'
   }, {
     label: 'Toggle &Developer Tools',
     accelerator: 'Alt+CmdOrCtrl+I',

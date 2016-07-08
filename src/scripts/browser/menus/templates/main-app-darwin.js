@@ -6,7 +6,6 @@ export default {
   label: global.manifest.productName,
   allow: platform.isDarwin,
   submenu: [{
-    label: 'About ' + global.manifest.productName,
     role: 'about'
   }, {
     id: 'cfu-check-for-update',
@@ -71,27 +70,19 @@ export default {
   }, {
     type: 'separator'
   }, {
-    label: 'Services',
     role: 'services',
     submenu: []
   }, {
     type: 'separator'
   }, {
-    label: 'Hide ' + global.manifest.productName,
-    accelerator: 'Cmd+H',
     role: 'hide'
   }, {
-    label: 'Hide Others',
-    accelerator: 'Cmd+Shift+H',
     role: 'hideothers'
   }, {
-    label: 'Show All',
     role: 'unhide'
   }, {
     type: 'separator'
   }, {
-    label: 'Quit',
-    accelerator: 'Cmd+Q',
-    click: $.appQuit()
+    role: 'quit'
   }]
 };
