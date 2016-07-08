@@ -166,21 +166,20 @@ class MainWindowManager extends EventEmitter {
    * Called when the 'close' event is emitted.
    */
   onClose (event) {
-    // Just hide the window unless...
     log('onClose');
 
-    // The app is being updated
+    // The app is being updated, don't prevent closing
     if (this.updateInProgress) {
       return;
     }
 
-    // Or the window is force closed (app quitting)
-    if (platform.isDarwin && !this.forceClose) {
+    // Just hide the window on Darwin and Elementary OS
+    if (!this.forceClose && (platform.isDarwin || global.options.distro.isElementaryOS)) {
       event.preventDefault();
       this.window.hide();
     }
 
-    // Or the app is not running in the tray.
+    // Just hide the window if it's already running in the tray
     if (!this.forceClose && prefs.get('show-tray')) {
       event.preventDefault();
       this.window.hide();
@@ -202,7 +201,7 @@ class MainWindowManager extends EventEmitter {
   onFocus () {
     log('onFocus');
 
-    // Forward this event to the webview.
+    // Forward this event to the webview
     this.window.webContents.send('call-webview-method', 'focus');
 
     // Validate window bounds
@@ -222,7 +221,7 @@ class MainWindowManager extends EventEmitter {
   onBlur () {
     log('onBlur');
 
-    // Forward this event to the webview.
+    // Forward this event to the webview
     this.window.webContents.send('call-webview-method', 'blur');
   }
 
