@@ -53,7 +53,7 @@ export default {
     needsWindow: true,
     click: $.all(
       $.setPref('show-notifications-badge', $.key('checked')),
-      $.hideTaskbarBadge($.key('checked'))
+      platform.isLinux ? $.hideDockBadge($.key('checked')) : $.hideTaskbarBadge($.key('checked'))
     ),
     parse: $.all(
       $.setLocal('checked', $.pref('show-notifications-badge'))

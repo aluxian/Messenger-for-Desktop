@@ -202,8 +202,8 @@ export function launchOnStartup (enabledExpr) {
 export function hideDockBadge (flagExpr) {
   return function () {
     const flag = flagExpr.apply(this, arguments);
-    if (!flag && app.dock && app.dock.setBadge) {
-      app.dock.setBadge('');
+    if (!flag) {
+      app.setBadgeCount(0);
     }
   };
 }
