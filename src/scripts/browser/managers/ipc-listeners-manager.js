@@ -33,15 +33,15 @@ class IpcListenersManager extends EventEmitter {
 
     // Set icon badge
     if (prefs.get('show-notifications-badge')) {
-      if (platform.isDarwin) {
-        app.dock.setBadge(count);
-      } else if (platform.isWindows) {
+      if (platform.isWindows) {
         if (count) {
           const image = NativeImage.createFromDataUrl(badgeDataUrl);
           this.mainWindowManager.window.setOverlayIcon(image, count);
         } else {
           this.mainWindowManager.window.setOverlayIcon(null, '');
         }
+      } else {
+        app.setBadgeCount(parseInt(count, 10) || 0);
       }
     }
 

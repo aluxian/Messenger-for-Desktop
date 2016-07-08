@@ -46,7 +46,7 @@ export default {
     type: 'separator'
   }, {
     type: 'checkbox',
-    label: '&Notifications Badge in Taskbar',
+    label: '&Notifications Badge in ' + (platform.isLinux ? 'Dock' : 'Taskbar'),
     click: $.all(
       $.setPref('show-notifications-badge', $.key('checked')),
       $.hideTaskbarBadge($.key('checked'))
