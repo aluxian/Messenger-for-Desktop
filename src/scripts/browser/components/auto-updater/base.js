@@ -1,5 +1,5 @@
 import EventEmitter from 'events';
-import request from 'request';
+import needle from 'needle';
 import {app} from 'electron';
 import semver from 'semver';
 
@@ -19,7 +19,7 @@ class BaseAutoUpdater extends EventEmitter {
     log('checking for update', JSON.stringify(options));
     this.emit('checking-for-update');
 
-    request(options, (err, response, json) => {
+    needle(options, (err, response, json) => {
       if (err) {
         log('update error while getting json', err);
         this.emit('error', err);
