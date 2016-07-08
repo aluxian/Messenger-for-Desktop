@@ -1,4 +1,4 @@
-## [2.0.16-dev](https://github.com/Aluxian/Whatsie/tree/v2.0.16) (2016-15-06)
+## [2.0.16-dev](https://github.com/Aluxian/Whatsie/tree/v2.0.16) (2016-08-07)
 
 [Full Changelog](https://github.com/Aluxian/Whatsie/compare/v2.0.15...v2.0.16) &bull; [Download](https://github.com/Aluxian/Whatsie/releases/tag/v2.0.16)
 
@@ -13,20 +13,26 @@
 - Highlight unread notifications in mini mode.
 - Search for spellchecker dictionaries in multiple paths.
 - Ship custom dictionaries with the app: en, de, es, fr, ru, ro.
-- Update dependencies and Electron to v1.2.2.
+- Update dependencies and Electron to v1.2.6.
+- Remove raffle functionality.
 
 **OS X**
 
 - Add showDefinitionForSelection in the context menu.
+- Ship LICENSE and LICENSES.chromium.html with the app.
 
 **Windows**
 
 - Implement custom notifications for Windows 7.
+- Auto-update on quit.
 
 **Linux**
 
 - Add X-GNOME-UsesNotifications=true to the deb package.
-- Disable "show in tray" menu item on elementary OS.
+- Add dock badge support for Unity.
+- Disable "show in tray" menu item on Elementary OS.
+- Closing the window will just minimize the app on Elementary OS.
+- Fix window icon.
 
 ## [2.0.15-beta](https://github.com/Aluxian/Whatsie/tree/v2.0.15) (2016-28-04)
 

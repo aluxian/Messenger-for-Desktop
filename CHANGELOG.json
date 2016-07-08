@@ -1,7 +1,7 @@
 [{
   "version": "2.0.16",
   "channel": "dev",
-  "releasedAt": 1465985560159,
+  "releasedAt": 1467998255981,
   "urgency": "low",
   "changes": {
     "General": [
@@ -14,17 +14,23 @@
       "Highlight unread notifications in mini mode.",
       "Search for spellchecker dictionaries in multiple paths.",
       "Ship custom dictionaries with the app: en, de, es, fr, ru, ro.",
-      "Update dependencies and Electron to v1.2.2."
+      "Update dependencies and Electron to v1.2.6.",
+      "Remove raffle functionality."
     ],
     "OS X": [
-      "Add showDefinitionForSelection in the context menu."
+      "Add showDefinitionForSelection in the context menu.",
+      "Ship LICENSE and LICENSES.chromium.html with the app."
     ],
     "Windows": [
-      "Implement custom notifications for Windows 7."
+      "Implement custom notifications for Windows 7.",
+      "Auto-update on quit."
     ],
     "Linux": [
       "Add X-GNOME-UsesNotifications=true to the deb package.",
-      "Disable \"show in tray\" menu item on elementary OS."
+      "Add dock badge support for Unity.",
+      "Disable \"show in tray\" menu item on Elementary OS.",
+      "Closing the window will just minimize the app on Elementary OS.",
+      "Fix window icon."
     ]
   }
 }, {
