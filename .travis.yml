@@ -24,8 +24,10 @@ install:
   - source /tmp/.nvm/nvm.sh
   - nvm install 0.12
   - nvm use 0.12
-  - npm install --only=dev
-  - ./scripts/darwin/setup.sh;
+  - npm install -g gulp
+  - npm install
+  - ./scripts/darwin/install_aws.sh
+  - ./scripts/darwin/rebuild_src.sh
 
 before_script:
   - npm test

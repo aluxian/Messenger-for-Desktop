@@ -1,5 +1,6 @@
 #!/bin/bash -ev
 
+./scripts/linux/dependencies.sh;
 gulp changelog:linux --verbose
 
 gulp rebuild:32 --verbose

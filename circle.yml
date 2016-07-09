@@ -5,11 +5,6 @@ machine:
 dependencies:
   override:
     - npm install --only=dev
-  post:
-    - >
-      if [[ ($CIRCLE_BRANCH == 'staging' || $CIRCLE_BRANCH == 'deploy') && -z $CI_PULL_REQUEST ]]; then
-        ./scripts/linux/dependencies.sh;
-      fi
   cache_directories:
     - node_modules
     - src/node_modules

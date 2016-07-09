@@ -38,7 +38,8 @@ cache:
 install:
   - npm install -g npm@2
   - set PATH=%APPDATA%\npm;%PATH%
-  - npm install --only=dev
+  - npm install -g gulp
+  - npm install
 
 build: off
 
