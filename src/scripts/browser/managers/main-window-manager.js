@@ -235,7 +235,9 @@ class MainWindowManager extends EventEmitter {
   onShow () {
     log('onShow');
     // Enable window specific menu items
-    this.menuManager.windowSpecificItemsEnabled(true);
+    if (this.menuManager) {
+      this.menuManager.windowSpecificItemsEnabled(true);
+    }
   }
 
   /**
@@ -244,7 +246,9 @@ class MainWindowManager extends EventEmitter {
   onHide () {
     log('onHide');
     // Disable window specific menu items
-    this.menuManager.windowSpecificItemsEnabled(false);
+    if (this.menuManager) {
+      this.menuManager.windowSpecificItemsEnabled(false);
+    }
   }
 
   /**
