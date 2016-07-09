@@ -26,15 +26,15 @@ install:
   - nvm use 0.12
   - npm install -g gulp
   - npm install
-  - ./scripts/darwin/install_aws.sh
-  - ./scripts/darwin/rebuild_src.sh
+  - ./ciscripts/darwin/install_aws.sh
+  - ./ciscripts/darwin/rebuild_src.sh
 
 before_script:
   - npm test
 
 script:
-  - if [[ $TRAVIS_BRANCH == 'staging' ]]; then ./scripts/darwin/build_staging.sh; fi
-  - if [[ $TRAVIS_BRANCH == 'deploy' ]]; then ./scripts/darwin/build_deploy.sh; fi
+  - if [[ $TRAVIS_BRANCH == 'staging' ]]; then ./ciscripts/darwin/build_staging.sh; fi
+  - if [[ $TRAVIS_BRANCH == 'deploy' ]]; then ./ciscripts/darwin/build_deploy.sh; fi
 
 cache:
   directories:
