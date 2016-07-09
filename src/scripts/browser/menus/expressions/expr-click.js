@@ -133,6 +133,16 @@ export function toggleDevTools () {
 }
 
 /**
+ * Toggle the menu bar of the window.
+ */
+export function toggleMenuBar () {
+  return function (menuItem, browserWindow) {
+    const newState = !browserWindow.isMenuBarVisible();
+    browserWindow.setMenuBarVisibility(newState);
+  };
+}
+
+/**
  * Whether the window should always appear on top.
  */
 export function floatOnTop (flagExpr) {

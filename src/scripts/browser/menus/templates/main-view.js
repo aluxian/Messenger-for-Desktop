@@ -1,3 +1,4 @@
+import platform from 'common/utils/platform';
 import $ from 'browser/menus/expressions';
 
 export default {
@@ -36,6 +37,12 @@ export default {
     accelerator: 'Alt+CmdOrCtrl+I',
     needsWindow: true,
     click: $.toggleDevTools()
+  }, {
+    label: 'Toggle &Menu Bar',
+    accelerator: 'Alt+Ctrl+B',
+    needsWindow: true,
+    allow: platform.isNonDarwin,
+    click: $.toggleMenuBar()
   }, {
     type: 'separator'
   }, {
