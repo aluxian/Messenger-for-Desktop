@@ -169,7 +169,7 @@ gulp.task 'publish:bintray:aur', ->
       console.log 'Upload finished: ' + artifactsUrl if args.verbose
 
 # Publish AUR package
-gulp.task 'publish:aur', [], (done) ->
+gulp.task 'publish:aur', ['publish:bintray:aur'], (done) ->
   manifest.linux.name = manifest.name
   manifest.linux.productName = manifest.productName
   manifest.linux.description = manifest.description
@@ -236,11 +236,11 @@ gulp.task 'publish:aur', [], (done) ->
     async.apply fs.rename, './build/resources/aur/app.install', './build/resources/aur/' + manifest.name + '.install'
 
     # Git: add files
-    applySpawn 'git', ['add', '.']
+    applySpawn 'git', ['add', '.'], {cwd: './build/resources/aur/'}
 
     # Git: commit
-    applySpawn 'git', ['commit', '-m', '[CI] v' + manifest.version]
+    applySpawn 'git', ['commit', '-m', '[CI] v' + manifest.version], {cwd: './build/resources/aur/'}
 
     # Git: push
-    applySpawn 'git', ['push', '--dry-run']
+    applySpawn 'git', ['push'], {cwd: './build/resources/aur/'}
   ], done
