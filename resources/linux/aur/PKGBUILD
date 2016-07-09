@@ -1,0 +1,20 @@
+pkgname={{ name }}
+pkgver={{ version }}
+pkgrel={{ buildNum }}
+pkgdesc="{{ description }}"
+arch=('x86_64')
+url="{{ homepage }}"
+license=('{{ license }}')
+depends=('desktop-file-utils' 'gconf' 'gtk2' 'gvfs' 'hicolor-icon-theme' 'libgudev' 'libgcrypt' 'libnotify' 'libxtst' 'nss' 'python' 'xdg-utils' 'libcap')
+optdepends=('hunspell: spell check')
+options=('!docs' '!emptydirs')
+install=$pkgname.install
+source=("https://github.com/Aluxian/Whatsie/releases/download/v$pkgver/$pkgname-$pkgver-linux-amd64.deb")
+md5sums=('caeedca3cc47ab414923c1ffa9ec9fca')
+package() {
+  msg2 "Extracting the data.tar.gz..."
+  bsdtar -xf data.tar.gz -C "$pkgdir/"
+
+  # Link to binary
+  ln -s /opt/whatsie/whatsie "$pkgdir/usr/bin/whatsie"
+}

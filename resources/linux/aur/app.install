@@ -1,0 +1,17 @@
+_update() {
+    update-desktop-database -q
+    xdg-icon-resource forceupdate --theme hicolor &>/dev/null
+    gtk-update-icon-cache -q -t -f usr/share/icons/hicolor
+}
+
+post_install() {
+    _update
+}
+
+post_upgrade() {
+    post_install
+}
+
+post_remove() {
+    _update
+}
