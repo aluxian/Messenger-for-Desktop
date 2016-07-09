@@ -24,11 +24,13 @@
 **Windows**
 
 - Implement custom notifications for Windows 7.
+- Add menu item to toggle menu bar.
 - Auto-update on quit.
 
 **Linux**
 
 - Add X-GNOME-UsesNotifications=true to the deb package.
+- Add menu item to toggle menu bar.
 - Add dock badge support for Unity.
 - Disable "show in tray" menu item on Elementary OS.
 - Closing the window will just minimize the app on Elementary OS.
