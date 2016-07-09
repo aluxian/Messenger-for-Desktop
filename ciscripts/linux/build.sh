@@ -1,6 +1,9 @@
 #!/bin/bash -ev
 
 ./scripts/linux/dependencies.sh;
+./scripts/linux/install_aws.sh;
+./scripts/linux/git_setup.sh;
+
 gulp changelog:linux --verbose
 
 gulp rebuild:32 --verbose
