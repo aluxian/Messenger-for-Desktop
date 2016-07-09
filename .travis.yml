@@ -1,6 +1,11 @@
 git:
   depth: 10
 
+branches:
+  only:
+    - staging
+    - deploy
+
 os:
   - osx
 
@@ -20,17 +25,14 @@ install:
   - nvm install 0.12
   - nvm use 0.12
   - npm install --only=dev
-  - >
-    if [[ ($TRAVIS_BRANCH == 'staging' || $TRAVIS_BRANCH == 'deploy') && $TRAVIS_PULL_REQUEST == 'false' ]]; then
-      ./scripts/darwin/setup.sh;
-    fi
+  - ./scripts/darwin/setup.sh;
 
 before_script:
   - npm test
 
 script:
-  - if [[ $TRAVIS_PULL_REQUEST == 'false' && $TRAVIS_BRANCH == 'staging' ]]; then ./scripts/darwin/build_staging.sh; fi
-  - if [[ $TRAVIS_PULL_REQUEST == 'false' && $TRAVIS_BRANCH == 'deploy' ]]; then ./scripts/darwin/build_deploy.sh; fi
+  - if [[ $TRAVIS_BRANCH == 'staging' ]]; then ./scripts/darwin/build_staging.sh; fi
+  - if [[ $TRAVIS_BRANCH == 'deploy' ]]; then ./scripts/darwin/build_deploy.sh; fi
 
 cache:
   directories:
