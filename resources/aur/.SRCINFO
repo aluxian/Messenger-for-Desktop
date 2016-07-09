@@ -1,0 +1,20 @@
+pkgbase = {{ name }}
+	pkgdesc = {{{ description }}}
+	pkgver = {{ version }}
+	pkgrel = {{ buildNum }}
+	url = {{{ homepage }}}
+	install = {{ name }}.install
+	arch = x86_64
+	license = {{ license }}
+{{#archlinux_depends}}
+	depends = {{.}}
+{{/archlinux_depends}}
+{{#archlinux_optdepends}}
+	optdepends = {{.}}
+{{/archlinux_optdepends}}
+	options = !docs
+	options = !emptydirs
+	source = {{{ source_url }}}
+	md5sums = {{ md5sum }}
+
+pkgname = {{ name }}

@@ -1,0 +1,18 @@
+pkgname={{ name }}
+pkgver={{ version }}
+pkgrel={{ buildNum }}
+pkgdesc="{{{ description }}}"
+arch=('x86_64')
+url="{{{ homepage }}}"
+license=('{{ license }}')
+depends=({{#archlinux_depends}}'{{.}}' {{/archlinux_depends}})
+optdepends=({{#archlinux_optdepends}}'{{.}}' {{/archlinux_optdepends}})
+options=('!docs' '!emptydirs')
+install=$pkgname.install
+source=("{{{ source_url }}}")
+validpgpkeys=('{{ gpgpub }}')
+md5sums=('{{ md5sum }}')
+package() {
+  msg2 "Extracting the data.tar.gz..."
+  bsdtar -xf data.tar.gz -C "$pkgdir/"
+}

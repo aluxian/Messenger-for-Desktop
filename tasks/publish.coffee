@@ -1,12 +1,17 @@
 gulp = require 'gulp'
 path = require 'path'
-fs = require 'fs'
+fs = require 'fs-extra-promise'
+crypto = require 'crypto'
 
 async = require 'async'
+mustache = require 'gulp-mustache'
 githubRelease = require 'gulp-github-release'
 request = require 'request'
 
-manifest = require '../src/package.json'
+utils = require './utils'
+{deepClone, applySpawn} = utils
+
+manifest = deepClone require '../src/package.json'
 mainManifest = require '../package.json'
 changelogJson = require '../CHANGELOG.json'
 args = require './args'
@@ -122,8 +127,120 @@ gulp.task 'publish:github', ->
                 console.log body if args.verbose
               cb(err)
 
-      async.series tasks, ->
-        artifactsUrl = 'https://bintray.com/' + mainManifest.bintray.subject + '/artifacts/' +
-          manifest.name + '/' + manifest.version + '/view#files/staging/' + dist
+      async.series tasks, (err) ->
+        if err
+          console.log err
+        artifactsUrl = 'https://dl.bintray.com/' + mainManifest.bintray.subject + '/' +
+          mainManifest.bintray.artifactsRepoName + '/staging/' + dist + '/'
         console.log 'Upload finished: ' + artifactsUrl if args.verbose
         done()
+
+# Upload AUR artifacts to Bintray
+gulp.task 'publish:bintray:aur', ->
+  if not process.env.BINTRAY_API_KEY
+    return console.warn 'BINTRAY_API_KEY env var not set.'
+
+  fileNameShort = manifest.name + '-' + manifest.version + '-linux-amd64.deb'
+  fileNameLong = path.resolve './dist/', fileNameShort
+
+  host = 'https://api.bintray.com'
+  subject = mainManifest.bintray.subject
+  aurRepoName = mainManifest.bintray.aurRepoName
+
+  opts =
+    url: host + '/content/' + subject + '/' + aurRepoName + '/dist/' + fileNameShort
+    auth:
+      user: subject
+      pass: process.env.BINTRAY_API_KEY
+    headers:
+      'X-Bintray-Package': manifest.name
+      'X-Bintray-Version': manifest.version
+      'X-Bintray-Publish': 1
+      'X-Bintray-Override': 1
+
+  console.log 'Uploading', fileNameLong if args.verbose
+  fs.createReadStream fileNameLong
+    .pipe request.put opts, (err, res, body) ->
+      if err
+        console.log err
+      else
+        console.log body if args.verbose
+      artifactsUrl = 'https://dl.bintray.com/' + mainManifest.bintray.subject + '/' + aurRepoName + '/dist/'
+      console.log 'Upload finished: ' + artifactsUrl if args.verbose
+
+# Publish AUR package
+gulp.task 'publish:aur', [], (done) ->
+  manifest.linux.name = manifest.name
+  manifest.linux.productName = manifest.productName
+  manifest.linux.description = manifest.description
+  manifest.linux.homepage = manifest.homepage
+  manifest.linux.license = manifest.license
+  manifest.linux.version = manifest.version
+
+  manifest.linux.archlinux_depends = [
+    'desktop-file-utils'
+    'gconf'
+    'gtk2'
+    'gvfs'
+    'hicolor-icon-theme'
+    'libgudev'
+    'libgcrypt'
+    'libnotify'
+    'libxtst'
+    'nss'
+    'python'
+    'xdg-utils'
+    'libcap'
+  ]
+
+  manifest.linux.archlinux_optdepends = [
+    'hunspell: spell check'
+  ]
+
+  manifest.linux.gpgpub = mainManifest.bintray.gpgpub
+  manifest.linux.source_url = 'https://dl.bintray.com/' + mainManifest.bintray.subject + '/' +
+    mainManifest.bintray.aurRepoName + '/dist/' + manifest.name + '-' + manifest.version + '-linux-amd64.deb'
+
+  async.series [
+    # Calculate md5sum
+    (callback) ->
+      fileNameShort = manifest.name + '-' + manifest.version + '-linux-amd64.deb'
+      fileNameLong = path.resolve './dist/', fileNameShort
+      md5sum = crypto.createHash 'md5'
+      fs.createReadStream fileNameLong
+        .on 'data', (d) -> md5sum.update d
+        .on 'end', ->
+          manifest.linux.md5sum = md5sum.digest 'hex'
+          callback()
+
+    # Remove existing files
+    (callback) ->
+      cmd = 'rm'
+      args = ['-rf', './build/resources/aur']
+      applySpawn(cmd, args)(utils.log callback, cmd, args...)
+
+    # Clone the repo
+    (callback) ->
+      cmd = 'git'
+      args = ['clone', mainManifest.repository.aur, './build/resources/aur']
+      applySpawn(cmd, args)(utils.log callback, cmd, args...)
+
+    # Move the files
+    (callback) ->
+      gulp.src './resources/aur/**/*', {dot: true}
+        .pipe mustache manifest.linux
+        .pipe gulp.dest './build/resources/aur'
+        .on 'end', callback
+
+    # Rename .install file
+    async.apply fs.rename, './build/resources/aur/app.install', './build/resources/aur/' + manifest.name + '.install'
+
+    # Git: add files
+    applySpawn 'git', ['add', '.']
+
+    # Git: commit
+    applySpawn 'git', ['commit', '-m', '[CI] v' + manifest.version]
+
+    # Git: push
+    applySpawn 'git', ['push', '--dry-run']
+  ], done

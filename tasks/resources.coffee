@@ -26,7 +26,7 @@ gulp.task 'resources:darwin', ->
 
 # Move and process the resources for linux32 and linux64
 gulp.task 'resources:linux', ->
-  templateFilter = filter ['**/*.desktop', '**/*.sh'], {restore: true}
+  templateFilter = filter ['**/*.desktop'], {restore: true}
 
   manifest.linux.name = manifest.name
   manifest.linux.productName = manifest.productName

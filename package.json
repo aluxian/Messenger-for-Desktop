@@ -59,14 +59,17 @@
   "homepage": "http://whatsie.chat/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Aluxian/Whatsie.git"
+    "url": "https://github.com/Aluxian/Whatsie.git",
+    "aur": "ssh+git://aur@aur.archlinux.org/whatsie.git"
   },
   "icon": {
     "url": "https://raw.githubusercontent.com/Aluxian/Whatsie/master/resources/win/app.ico"
   },
   "bintray": {
     "subject": "aluxian",
-    "artifactsRepoName": "artifacts"
+    "artifactsRepoName": "artifacts",
+    "aurRepoName": "aur",
+    "gpgpub": "6DDA23616E3FE905FFDA152AE61DA9241537994D"
   },
   "bugs": {
     "url": "https://github.com/Aluxian/Whatsie/issues"
