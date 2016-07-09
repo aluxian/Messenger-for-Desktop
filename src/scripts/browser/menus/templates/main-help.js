@@ -86,7 +86,7 @@ export default {
   }, {
     label: 'Donate &PayPal',
     click: $.all(
-      $.openUrl('https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=4YVCUBK2QJKBL'),
+      $.openUrl('https://short.aluxian.com/donatewhatsiepaypal'),
       $.analytics.trackEvent(
         eventCategories['Menu'],
         eventActions['Open Link'],
@@ -96,7 +96,7 @@ export default {
   }, {
     label: 'Donate &Bitcoin',
     click: $.all(
-      $.openUrl('https://www.coinbase.com/Aluxian'),
+      $.openUrl('https://short.aluxian.com/donatewhatsiebitcoin'),
       $.analytics.trackEvent(
         eventCategories['Menu'],
         eventActions['Open Link'],
