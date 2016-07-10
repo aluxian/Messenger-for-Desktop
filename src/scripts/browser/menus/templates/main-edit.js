@@ -14,6 +14,16 @@ const availableLanguages = getAvailableDictionaries()
         languageCodes[langCode.replace('-', '_').split('_')[0]]
     };
   })
+  .filter((langObj) => langObj.name)
+  .filter((langObj, index, arr) => {
+    for (let i = index + 1; i < arr.length; i++) {
+      if (arr[i].name === langObj.name) {
+        return false;
+      }
+    }
+
+    return true;
+  })
   .sort((a, b) => {
     if (a.name < b.name) {
       return -1;
