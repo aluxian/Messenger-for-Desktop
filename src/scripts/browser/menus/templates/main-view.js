@@ -5,7 +5,7 @@ export default {
   label: '&View',
   submenu: [{
     label: 'Zoom In',
-    accelerator: 'CmdOrCtrl+=',
+    accelerator: 'CmdOrCtrl+plus',
     needsWindow: true,
     click: $.all(
       $.setPref('zoom-level', $.sum($.pref('zoom-level'), $.val(1))),
