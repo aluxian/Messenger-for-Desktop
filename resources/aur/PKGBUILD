@@ -15,4 +15,7 @@ md5sums=('{{ md5sum }}')
 package() {
   msg2 "Extracting the data.tar.gz..."
   bsdtar -xf data.tar.gz -C "$pkgdir/"
+
+  # Link to the binary
+  ln -s /opt/whatsie/whatsie "$pkgdir/usr/bin/whatsie"
 }
