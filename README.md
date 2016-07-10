@@ -256,6 +256,6 @@ Make sure you've installed [fpm](https://github.com/jordansissel/fpm).
 `develop -> staging -> deploy -> master`
 
 1. All work is done on branch `develop`. Every push to `develop` will make the CIs run code linting and other checks.
-2. In order to build, push to `staging`. Every push to `staging` will make the CIs build the app and upload it to Bintray at [aluxian/artifacts](https://bintray.com/aluxian/artifacts/whatsie/view#files/staging), available for testing.
+2. In order to build, push to `staging`. Every push to `staging` will make the CIs build the app and upload it to Bintray at [aluxian/artifacts](https://dl.bintray.com/aluxian/artifacts/staging/), available for testing.
 3. After a version is tested and is ready for release, push it to `deploy`. This will rebuild the app and upload it to GitHub, Bintray and other repositories.
 4. Now, the code is ready to be merged into `master`.
