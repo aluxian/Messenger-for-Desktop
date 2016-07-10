@@ -1,8 +1,8 @@
 #!/bin/bash -ev
 
-./scripts/linux/dependencies.sh;
-./scripts/linux/install_aws.sh;
-./scripts/linux/git_setup.sh;
+./ciscripts/linux/dependencies.sh;
+./ciscripts/linux/install_aws.sh;
+./ciscripts/linux/git_setup.sh;
 
 gulp changelog:linux --verbose
 
