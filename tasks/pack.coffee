@@ -221,6 +221,8 @@ gulp.task 'pack:darwin64:zip', ['build:darwin64'], (done) ->
           '--name', manifest.name
           '--force' # Overwrite existing files
           if args.verbose then '--verbose' else null
+          '--after-install', './build/resources/linux/after-install.sh'
+          '--after-remove', './build/resources/linux/after-remove.sh'
           '--deb-changelog', './build/changelogs/deb.txt'
           '--rpm-changelog', './build/changelogs/rpm.txt'
         ]
@@ -272,10 +274,8 @@ gulp.task 'pack:darwin64:zip', ['build:darwin64'], (done) ->
         # Remove leftovers
         applyPromise del, './build/linux' + arch + '/opt/' + manifest.name + '/resources/app'
 
-        # Create a link to the binary
-        async.apply fs.symlink,
-          '/opt/' + manifest.name + '/' + manifest.name,
-          './build/linux' + arch + '/usr/bin/' + manifest.name
+        # Create a file with the target name
+        async.apply fs.writeFile, './build/linux' + arch + '/opt/' + manifest.name + '/pkgtarget', target
 
         # Package the app
         applySpawn 'fpm', fpmArgs
