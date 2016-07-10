@@ -3,10 +3,12 @@ import BaseAutoUpdater from 'browser/components/auto-updater/base';
 class AutoUpdater extends BaseAutoUpdater {
 
   checkForUpdates () {
-    super.checkForUpdates({
-      url: this.latestReleaseUrl,
-      json: true
-    });
+    if (!this.latestReleaseUrl) {
+      this.emit('error', new Error('Latest release URL is not set'));
+      return;
+    }
+
+    super.checkForUpdates(this.latestReleaseUrl);
   }
 
 }
