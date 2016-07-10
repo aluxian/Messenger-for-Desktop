@@ -274,9 +274,6 @@ gulp.task 'pack:darwin64:zip', ['build:darwin64'], (done) ->
         # Remove leftovers
         applyPromise del, './build/linux' + arch + '/opt/' + manifest.name + '/resources/app'
 
-        # Create a file with the target name
-        async.apply fs.writeFile, './build/linux' + arch + '/opt/' + manifest.name + '/pkgtarget', target
-
         # Package the app
         applySpawn 'fpm', fpmArgs
       ], done
