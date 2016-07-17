@@ -40,11 +40,18 @@ class AppListenersManager extends EventEmitter {
     log('will quit');
     const hasUpdate = this.autoUpdateManager.state === this.autoUpdateManager.states.UPDATE_DOWNLOADED;
     const isUpdating = this.mainWindowManager.updateInProgress;
-    if (hasUpdate && !isUpdating) {
-      log('has update downloaded, installing it before quitting');
-      event.preventDefault();
-      prefs.setSync('launch-quit', true);
-      this.autoUpdateManager.quitAndInstall();
+    try {
+      if (hasUpdate && !isUpdating) {
+        log('has update downloaded, installing it before quitting');
+        event.preventDefault();
+        prefs.setSync('launch-quit', true);
+        setTimeout(() => {
+          this.autoUpdateManager.quitAndInstall();
+          app.quit();
+        }, 5000);
+      }
+    } catch (err) {
+      logFatal(err);
     }
   }
 
