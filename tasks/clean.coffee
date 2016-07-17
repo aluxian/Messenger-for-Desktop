@@ -19,7 +19,7 @@ gulp.task 'clean:build:darwin64', ['download:darwin64'], ->
 
 # Remove the default_app folder inside the win32 build
 gulp.task 'clean:build:win32', ['download:win32'], ->
-  del './build/win32/resources/default_app'
+  del './build/win32/resources/default_app.asar'
 
 # Clean build dist for the current platform by default
 gulp.task 'clean:build', ['clean:build:' + platform()]
