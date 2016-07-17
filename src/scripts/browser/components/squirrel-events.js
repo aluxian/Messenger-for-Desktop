@@ -17,7 +17,7 @@ class SquirrelEvents {
 
     if (options.squirrelInstall) {
       log('creating shortcuts');
-      this.spawnSquirrel(['--createShortcut', this.getShortcutExeName()]).then(this.exitApp);
+      this.spawnSquirrel('--createShortcut', this.getShortcutExeName()).then(this.exitApp);
       return true;
     }
 
@@ -127,9 +127,9 @@ class SquirrelEvents {
   }
 
   async teardown () {
-    try { await this.teardownShortcuts(); } catch (err) {}
-    try { await this.teardownAutoLauncherRegKey(); } catch (err) {}
-    try { await this.teardownLeftoverUserData(); } catch (err) {}
+    try { await this.teardownShortcuts(); } catch (err) { logError(err, true); }
+    try { await this.teardownAutoLauncherRegKey(); } catch (err) { logError(err, true); }
+    try { await this.teardownLeftoverUserData(); } catch (err) { logError(err, true); }
     log('teardown finished');
   }
 
@@ -146,8 +146,7 @@ class SquirrelEvents {
   async teardownLeftoverUserData () {
     const userDataPath = app.getPath('userData');
     log('removing user data folder', userDataPath);
-    await del(userDataPath, {force: true})
-      .then((paths) => log('deleted', paths));
+    await del(userDataPath, {force: true}).then(log.bind(null, 'deleted'));
   }
 
 }

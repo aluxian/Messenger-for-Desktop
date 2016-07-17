@@ -82,7 +82,7 @@ export function debugLogger (filename) {
 
 export function errorLogger (filename, isFatal) {
   let namespace = null;
-  return function (err, skipReporting) {
+  return function (err, skipReporting = false) {
     if (!namespace) {
       namespace = namespaceOfFile(filename);
     }
