@@ -1,6 +1,7 @@
 {
   "idSelector": false,
-  "singleLinePerSelector": false,
+  "importantRule": false,
   "propertyOrdering": false,
-  "importantRule": false
+  "singleLinePerSelector": false,
+  "spaceAroundOperator": false
 }
