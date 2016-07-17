@@ -27,7 +27,7 @@ windowBehaviour.bindWindowStateEvents(win);
 
 // Check for update
 if (settings.checkUpdateOnLaunch) {
-  updater.checkAndPrompt(gui.App.manifest, win);
+  updater.checkAndPrompt(gui.App.manifest, win, settings.updateToBeta);
 }
 
 // Run as menu bar app

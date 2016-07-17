@@ -16,7 +16,8 @@ var DEFAULT_SETTINGS = {
   startMinimized: false,
   blockSeen: false,
   windowState: {},
-  theme: 'default'
+  theme: 'default',
+  updateToBeta: false
 };
 
 var db = new Store(path.join(gui.App.dataPath, 'preferences.json'));

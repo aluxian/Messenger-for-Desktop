@@ -8,8 +8,14 @@ module.exports = {
   /**
    * Check if there's a new version available.
    */
-  check: function(manifest, callback) {
-    request(manifest.manifestUrl, function(error, response, body) {
+  check: function(manifest, callback, beta) {
+    var manifestURL = manifest.manifestUrl;
+
+    if(beta) {
+      manifestURL = manifest.manifestUrlBeta;
+    }
+
+    request(manifestURL, function(error, response, body) {
       if (error) {
         return callback(error);
       }
@@ -55,7 +61,7 @@ module.exports = {
   /**
    * Check for update and ask the user to update.
    */
-  checkAndPrompt: function(manifest, win) {
-    this.check(manifest, this.prompt.bind(this, win, true));
+  checkAndPrompt: function(manifest, win, beta) {
+    this.check(manifest, this.prompt.bind(this, win, true), beta);
   }
 };

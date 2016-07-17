@@ -32,7 +32,7 @@ module.exports = {
       submenu: this.createApplicationMenu()
     }, {
       label: 'Update',
-      submenu: this.createUpdateMenu()
+      submenu: this.createUpdateMenu(keep)
     }, {
       label: 'Visual',
       submenu: this.createVisualMenu(keep)
@@ -68,7 +68,7 @@ module.exports = {
               message: 'You’re using the latest version: ' + gui.App.manifest.version
             });
           }
-        });
+        }, settings.updateToBeta);
       }
     }, {
       label: 'Launch Dev Tools',
@@ -137,6 +137,46 @@ module.exports = {
       settings.watch('theme', function(key) {
         menu.items.forEach(function(item) {
           item.checked = item.label == THEMES[key];
+        });
+      });
+    }
+
+    return menu;
+  },
+
+  createUpdatePreferenceMenu: function(keep) {
+    var menu = new gui.Menu();
+    var OPTIONS = {
+      'stable': 'Stable',
+      'beta': 'Beta'
+    };
+
+    Object.keys(OPTIONS).forEach(function(key) {
+      menu.append(new gui.MenuItem({
+        type: 'checkbox',
+        label: OPTIONS[key],
+        checked: (settings.updateToBeta && key == 'beta') || (!settings.updateToBeta && key == 'stable'),
+        click: function() {
+          if (keep) {
+            menu.items.forEach(function(item) {
+              item.checked = false;
+            });
+
+            this.checked = true;
+          }
+
+          if(key == 'beta')
+            settings.updateToBeta = true;
+          else
+            settings.updateToBeta = false;
+        }
+      }));
+    });
+
+    if (keep) {
+      settings.watch('updateToBeta', function(key) {
+        menu.items.forEach(function(item) {
+          item.checked = item.label == OPTIONS[key];
         });
       });
     }
@@ -235,7 +275,7 @@ module.exports = {
     return menu;
   },
 
-  createUpdateMenu: function() {
+  createUpdateMenu: function(keep) {
     var menu = new gui.Menu();
 
     menu.append(new gui.MenuItem({
@@ -246,6 +286,11 @@ module.exports = {
       click: function() {
         settings.checkUpdateOnLaunch = this.checked;
       }
+    }));
+
+    menu.append(new gui.MenuItem({
+      label: 'Preference',
+      submenu: this.createUpdatePreferenceMenu(keep)
     }));
 
     return menu;
