@@ -25,14 +25,18 @@ module.exports = {
         win.reload();
       }
     }, {
-      type: 'checkbox',
-      label: 'Open Links in the Browser',
-      setting: 'openLinksInBrowser',
-      click: function() {
-        settings.openLinksInBrowser = this.checked;
-        windowBehaviour.setNewWinPolicy(win);
-      }
+      label: 'Facebook',
+      submenu: this.createFacebookMenu()
     }, {
+      label: 'Application',
+      submenu: this.createApplicationMenu()
+    }, {
+      label: 'Update',
+      submenu: this.createUpdateMenu()
+    }, {
+      label: 'Visual',
+      submenu: this.createVisualMenu(keep)
+    },{
       type: 'separator'
     }, {
       type: 'checkbox',
@@ -51,66 +55,6 @@ module.exports = {
         }
       }
     }, {
-      type: 'checkbox',
-      label: 'Launch on Startup',
-      setting: 'launchOnStartup',
-      click: function() {
-        settings.launchOnStartup = this.checked;
-
-        var launcher = new AutoLaunch({
-          name: 'Messenger',
-        });
-
-        launcher.isEnabled(function(enabled) {
-          if (settings.launchOnStartup && !enabled) {
-            launcher.enable(function(error) {
-              if (error) {
-                console.error(error);
-              }
-            });
-          }
-
-          if (!settings.launchOnStartup && enabled) {
-            launcher.disable(function(error) {
-              if (error) {
-                console.error(error);
-              }
-            });
-          }
-        });
-      }
-    }, {
-      type: 'checkbox',
-      label: 'Check for Update on Launch',
-      setting: 'checkUpdateOnLaunch'
-    }, {
-      type: 'separator'
-    }, {
-      type: 'checkbox',
-      label: 'Auto-Hide Sidebar',
-      setting: 'autoHideSidebar'
-    }, {
-      label: 'Theme',
-      submenu: this.createThemesMenu(keep)
-    }, {
-      type: 'checkbox',
-      label: 'Close with ESC key',
-      setting: 'closeWithEscKey'
-    }, {
-      type: 'checkbox',
-      label: 'Start minimized',
-      setting: 'startMinimized'
-    }, {
-      type: 'separator'
-    }, {
-      type: 'checkbox',
-      label: 'Block seen/typing indicators',
-      setting: 'blockSeen',
-      click: function() {
-        settings.blockSeen = this.checked;
-        blockSeen.set(this.checked);
-      }
-    },	{
       type: 'separator'
     }, {
       label: 'Check for Update',
@@ -196,6 +140,134 @@ module.exports = {
         });
       });
     }
+
+    return menu;
+  },
+
+  /**
+   * Create the facebook settings menu
+   */
+  createFacebookMenu: function() {
+    var menu = new gui.Menu();
+    menu.append(new gui.MenuItem({
+      type: 'checkbox',
+      label: 'Block seen/typing indicators',
+      setting: 'blockSeen',
+      checked: settings.blockSeen,
+      click: function() {
+        settings.blockSeen = this.checked;
+        blockSeen.set(this.checked);
+      }
+    }));
+
+    return menu;
+  },
+
+  /**
+   * Create the application settings menu
+   */
+  createApplicationMenu: function() {
+    var menu = new gui.Menu();
+
+    menu.append(new gui.MenuItem({
+      type: 'checkbox',
+      label: 'Open Links in the Browser',
+      setting: 'openLinksInBrowser',
+      checked: settings.openLinksInBrowser,
+      click: function() {
+        settings.openLinksInBrowser = this.checked;
+        windowBehaviour.setNewWinPolicy(win);
+      }
+    }));
+
+    menu.append(new gui.MenuItem({
+      type: 'checkbox',
+      label: 'Launch on Startup',
+      setting: 'launchOnStartup',
+      checked: settings.launchOnStartup,
+      click: function() {
+        settings.launchOnStartup = this.checked;
+
+        var launcher = new AutoLaunch({
+          name: 'Messenger',
+        });
+
+        launcher.isEnabled(function(enabled) {
+          if (settings.launchOnStartup && !enabled) {
+            launcher.enable(function(error) {
+              if (error) {
+                console.error(error);
+              }
+            });
+          }
+
+          if (!settings.launchOnStartup && enabled) {
+            launcher.disable(function(error) {
+              if (error) {
+                console.error(error);
+              }
+            });
+          }
+        });
+      }
+    }));
+
+    menu.append(new gui.MenuItem({
+      type: 'checkbox',
+      label: 'Start minimized',
+      setting: 'startMinimized',
+      checked: settings.startMinimized,
+      click: function() {
+        settings.startMinimized = this.checked;
+      }
+    }))
+
+    menu.append(new gui.MenuItem({
+      type: 'checkbox',
+      label: 'Close with ESC key',
+      setting: 'closeWithEscKey',
+      checked: settings.closeWithEscKey,
+      click: function() {
+        settings.closeWithEscKey = this.checked;
+      }
+    }));
+
+    return menu;
+  },
+
+  createUpdateMenu: function() {
+    var menu = new gui.Menu();
+
+    menu.append(new gui.MenuItem({
+      type: 'checkbox',
+      label: 'Check for Update on Launch',
+      setting: 'checkUpdateOnLaunch',
+      checked: settings.checkUpdateOnLaunch,
+      click: function() {
+        settings.checkUpdateOnLaunch = this.checked;
+      }
+    }));
+
+    return menu;
+  },
+
+  createVisualMenu: function(keep) {
+    var menu = new gui.Menu();
+
+    menu.append(new gui.MenuItem({
+      type: 'checkbox',
+      label: 'Auto-Hide Sidebar',
+      setting: 'autoHideSidebar',
+      checked: settings.autoHideSidebar,
+      click: function() {
+        settings.autoHideSidebar = this.checked;
+      }
+    }));
+
+    menu.append(new gui.MenuItem({
+      label: 'Theme',
+      submenu: this.createThemesMenu(keep)
+    }));
 
     return menu;
   },
