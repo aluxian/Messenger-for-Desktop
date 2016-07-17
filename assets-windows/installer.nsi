@@ -9,7 +9,7 @@ RequestExecutionLevel "admin"
 !define MUI_ICON "icon.ico"
 
 # define the resulting installer's name:
-OutFile "..\dist\MessengerSetup.exe"
+OutFile "..\dist\Messenger_win32_V150_beta1.exe"
 
 # set the installation directory
 InstallDir "$PROGRAMFILES\Messenger for Desktop\"

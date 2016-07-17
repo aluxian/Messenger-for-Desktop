@@ -41,14 +41,14 @@ gulp.task 'sign:osx64', ['build:osx64'], ->
 # Create a DMG for osx64; only works on OS X because of appdmg
 gulp.task 'pack:osx64', ['sign:osx64'], ->
   shelljs.mkdir '-p', './dist'            # appdmg fails if ./dist doesn't exist
-  shelljs.rm '-f', './dist/Messenger.dmg' # appdmg fails if the dmg already exists
+  shelljs.rm '-f', './dist/Messenger_osx64_V150_beta1.dmg' # appdmg fails if the dmg already exists
 
   shelljs.rm '-r', './build/Messenger/osx64/Messenger.app/Contents/Resources/en.lproj'
 
   gulp.src []
     .pipe require('gulp-appdmg')
       source: './assets-osx/dmg.json'
-      target: './dist/Messenger.dmg'
+      target: './dist/Messenger_osx64_V150_beta1.dmg'
 
 # Create a nsis installer for win32; must have `makensis` installed
 gulp.task 'pack:win32', ['build:win32'], ->
@@ -83,7 +83,7 @@ gulp.task 'pack:win32', ['build:win32'], ->
           shelljs.cd './build/linux'
 
           port = if arch == 32 then 'i386' else 'x86_64'
-          output = "../../dist/Messenger_linux#{arch}.#{target}"
+          output = "../../dist/Messenger_linux#{arch}_V150_beta1.#{target}"
 
           shelljs.mkdir '-p', '../../dist' # it fails if the dir doesn't exist
           shelljs.rm '-f', output # it fails if the package already exists
