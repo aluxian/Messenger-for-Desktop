@@ -109,7 +109,8 @@ gulp.task 'publish:github', ->
         artifactsRepoName = mainManifest.bintray.artifactsRepoName
 
         opts =
-          url: host + '/content/' + subject + '/' + artifactsRepoName + '/staging/' + dist + '/' + fileNameShort
+          url: host + '/content/' + subject + '/' + artifactsRepoName +
+            '/staging/' + dist + '/' + manifest.version + '/' + fileNameShort
           auth:
             user: subject
             pass: process.env.BINTRAY_API_KEY
