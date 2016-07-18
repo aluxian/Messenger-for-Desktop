@@ -8,6 +8,8 @@
 
 Bring [messenger.com](https://messenger.com) to your OS X, Windows or Linux desktop. Built with [NW.js](http://nwjs.io/). Not affiliated with Facebook.
 
+***Please test the [beta](https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/tag/v1.5.0-beta.1) before reporting a new bug!***
+
 ![Cross-platform screenshot](screenshot.png)
 
 ## Features
