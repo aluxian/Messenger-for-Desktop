@@ -1,3 +1,12 @@
+1.5.0-beta.1
+- Replace ffmpeg library to be able to read patent protected sounds/videos
+- Rework the tray icon menu
+- Add option to auto-update with the beta releases
+- Add option to block the Facebook "seen" feature
+- Fix scroll bar bug
+- Reduce size of  website preview
+- Don't open messenger calls in browser
+
 1.5.0-beta.0
 - Update NWJS to V0.14.5
 - Fix settings to use a proxy to detect changes
