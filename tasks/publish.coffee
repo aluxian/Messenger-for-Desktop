@@ -119,6 +119,9 @@ gulp.task 'publish:github', ->
             'X-Bintray-Publish': 1
             'X-Bintray-Override': 1
 
+        if fileNameShort is 'RELEASES' or fileNameShort.indexOf('.nupkg') > -1
+          opts.headers['Content-Type'] = 'application/octet-stream'
+
         (cb) ->
           console.log 'Uploading', fileNameLong if args.verbose
           fs.createReadStream fileNameLong
