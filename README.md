@@ -65,6 +65,8 @@ The output is in `./dist`. Take a look in `gulpfile.coffee` for additional tasks
 
 **TIP**: for OS X, use the `run:osx64` task to build the app and run it immediately.
 
+**TIP**: to be able to play MP3 and H264, you need to replace the ffmpeg lib in NWJS with the one provided in this repository: https://github.com/iteufel/nwjs-ffmpeg-prebuilt/. The best way is to copy-paste it in the corresponding NWJS package (located in the cache) before building the software.
+
 ## Debugging
 
 With the move to nw.js 0.14.x, Messenger for Desktop now runs as a Chrome Extension. Node and WebKit run in two different contexts. When debugging
