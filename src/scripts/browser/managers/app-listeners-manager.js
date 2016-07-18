@@ -46,9 +46,9 @@ class AppListenersManager extends EventEmitter {
         event.preventDefault();
         prefs.setSync('launch-quit', true);
         setTimeout(() => {
+          log('timeout over');
           this.autoUpdateManager.quitAndInstall();
-          app.quit();
-        }, 5000);
+        }, 200);
       }
     } catch (err) {
       logFatal(err);
