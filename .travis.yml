@@ -22,8 +22,8 @@ env:
 install:
   - git clone https://github.com/creationix/nvm.git /tmp/.nvm
   - source /tmp/.nvm/nvm.sh
-  - nvm install 0.12
-  - nvm use 0.12
+  - nvm install 5.0
+  - nvm use 5.0
   - npm install -g gulp
   - npm install
   - ./ciscripts/darwin/install_aws.sh
