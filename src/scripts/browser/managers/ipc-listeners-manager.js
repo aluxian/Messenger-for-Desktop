@@ -35,7 +35,7 @@ class IpcListenersManager extends EventEmitter {
     if (prefs.get('show-notifications-badge')) {
       if (platform.isWindows) {
         if (count) {
-          const image = nativeImage.createFromDataUrl(badgeDataUrl);
+          const image = nativeImage.createFromDataURL(badgeDataUrl);
           this.mainWindowManager.window.setOverlayIcon(image, count);
         } else {
           this.mainWindowManager.window.setOverlayIcon(null, '');
