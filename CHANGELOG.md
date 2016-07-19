@@ -1,3 +1,11 @@
+## [2.0.18-dev](https://github.com/Aluxian/Whatsie/tree/v2.0.18) (2016-19-07)
+
+[Full Changelog](https://github.com/Aluxian/Whatsie/compare/v2.0.17...v2.0.18) &bull; [Download](https://github.com/Aluxian/Whatsie/releases/tag/v2.0.18)
+
+**Windows**
+
+- Fix error when receiving notifications (again).
+
 ## [2.0.17-dev](https://github.com/Aluxian/Whatsie/tree/v2.0.17) (2016-19-07)
 
 [Full Changelog](https://github.com/Aluxian/Whatsie/compare/v2.0.16...v2.0.17) &bull; [Download](https://github.com/Aluxian/Whatsie/releases/tag/v2.0.17)

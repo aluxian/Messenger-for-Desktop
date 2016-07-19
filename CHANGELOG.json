@@ -1,4 +1,14 @@
 [{
+  "version": "2.0.18",
+  "channel": "dev",
+  "releasedAt": 1468945979964,
+  "urgency": "low",
+  "changes": {
+    "Windows": [
+      "Fix error when receiving notifications (again)."
+    ]
+  }
+}, {
   "version": "2.0.17",
   "channel": "dev",
   "releasedAt": 1468938041773,
