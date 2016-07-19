@@ -175,6 +175,7 @@ gulp.task 'publish:bintray:aur', ->
 # Publish AUR package
 gulp.task 'publish:aur', ['publish:bintray:aur'], (done) ->
   manifest.linux.name = manifest.name
+  manifest.linux.buildNum = manifest.buildNum
   manifest.linux.productName = manifest.productName
   manifest.linux.description = manifest.description
   manifest.linux.homepage = manifest.homepage
