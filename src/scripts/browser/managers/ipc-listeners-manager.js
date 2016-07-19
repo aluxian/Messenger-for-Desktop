@@ -1,4 +1,4 @@
-import {app, ipcMain, shell, BrowserWindow, NativeImage} from 'electron';
+import {app, ipcMain, shell, BrowserWindow, nativeImage} from 'electron';
 import EventEmitter from 'events';
 
 import contextMenu from 'browser/menus/context';
@@ -35,7 +35,7 @@ class IpcListenersManager extends EventEmitter {
     if (prefs.get('show-notifications-badge')) {
       if (platform.isWindows) {
         if (count) {
-          const image = NativeImage.createFromDataUrl(badgeDataUrl);
+          const image = nativeImage.createFromDataUrl(badgeDataUrl);
           this.mainWindowManager.window.setOverlayIcon(image, count);
         } else {
           this.mainWindowManager.window.setOverlayIcon(null, '');
