@@ -1,20 +1,19 @@
 [{
   "version": "2.0.16",
   "channel": "dev",
-  "releasedAt": 1467998255981,
+  "releasedAt": 1468905436540,
   "urgency": "low",
   "changes": {
     "General": [
       "Add a menu item to enter debug mode more easily.",
       "Add new themes: Shadow, Numix Dark.",
-      "Remove themes: Fluttershy, Orange.",
       "Improve the build flow and add code linting.",
       "Improve the context menu.",
       "Increase min-width of window in mini mode.",
       "Highlight unread notifications in mini mode.",
       "Search for spellchecker dictionaries in multiple paths.",
       "Ship custom dictionaries with the app: en, de, es, fr, ru, ro.",
-      "Update dependencies and Electron to v1.2.6.",
+      "Update dependencies and Electron to v1.2.7.",
       "Remove raffle functionality."
     ],
     "OS X": [

@@ -1,4 +1,4 @@
-## [2.0.16-dev](https://github.com/Aluxian/Whatsie/tree/v2.0.16) (2016-08-07)
+## [2.0.16-dev](https://github.com/Aluxian/Whatsie/tree/v2.0.16) (2016-19-07)
 
 [Full Changelog](https://github.com/Aluxian/Whatsie/compare/v2.0.15...v2.0.16) &bull; [Download](https://github.com/Aluxian/Whatsie/releases/tag/v2.0.16)
 
@@ -6,14 +6,13 @@
 
 - Add a menu item to enter debug mode more easily.
 - Add new themes: Shadow, Numix Dark.
-- Remove themes: Fluttershy, Orange.
 - Improve the build flow and add code linting.
 - Improve the context menu.
 - Increase min-width of window in mini mode.
 - Highlight unread notifications in mini mode.
 - Search for spellchecker dictionaries in multiple paths.
 - Ship custom dictionaries with the app: en, de, es, fr, ru, ro.
-- Update dependencies and Electron to v1.2.6.
+- Update dependencies and Electron to v1.2.7.
 - Remove raffle functionality.
 
 **OS X**
