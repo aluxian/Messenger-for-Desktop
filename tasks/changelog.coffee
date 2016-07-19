@@ -79,7 +79,7 @@ gulp.task 'changelog:md', ->
       parsedDate = new Date(release.releasedAt)
       date = moment(parsedDate).format('YYYY-DD-MM')
 
-      repoUrl = mainManifest.repository.git.replace '.git', ''
+      repoUrl = mainManifest.repository.url.replace '.git', ''
 
       fullChangelog = ''
       if index < changelogJson.length - 1
