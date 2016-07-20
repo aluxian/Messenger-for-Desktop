@@ -10,15 +10,6 @@ function anonymizeException (err) {
   err.message = err.message.replace(app.getPath('home'), '<home>');
 }
 
-// function trimLongPaths (err) {
-//   const app = require('common/electron/app').default;
-//   err.stack = err.stack
-//     .split('\n')
-//     .map((line) => line.replace(/\/.+atom\.asar/, 'atom.asar'))
-//     .map((line) => line.replace(app.getAppPath(), 'app'))
-//     .join('\n');
-// }
-
 function namespaceOfFile (filename) {
   const app = require('common/electron/app').default;
   const appPath = path.join(app.getAppPath(), 'scripts') + '/';
