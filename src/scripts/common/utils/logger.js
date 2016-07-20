@@ -12,12 +12,13 @@ function anonymizeException (err) {
 
 function namespaceOfFile (filename) {
   const app = require('common/electron/app').default;
-  const appPath = path.join(app.getAppPath(), 'scripts') + '/';
+  const appPath = path.join(app.getAppPath(), 'scripts') + path.sep;
 
-  const appPathNorm = path.posix.normalize(appPath);
-  const filenameNorm = path.posix.normalize(filename);
+  let name = filename
+    .replace(appPath, '')
+    .replace(/\\/g, '/')
+    .replace('.js', '');
 
-  let name = filenameNorm.replace(appPathNorm, '').replace('.js', '');
   if (name.startsWith('common/')) {
     name += ':' + process.type;
   }
