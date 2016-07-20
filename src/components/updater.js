@@ -1,4 +1,3 @@
-var gui = window.require('nw.gui');
 var platform = require('./platform');
 var dispatcher = require('./dispatcher');
 var request = require('request');
@@ -44,8 +43,8 @@ module.exports = {
         message: updateMessage,
         callback: function(result) {
           if (result) {
-            gui.Shell.openExternal(newManifest.packages[platform.name]);
-            gui.App.quit();
+            nw.Shell.openExternal(newManifest.packages[platform.name]);
+            nw.App.quit();
           }
         }
       });

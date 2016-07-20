@@ -1,4 +1,3 @@
-var gui = window.require('nw.gui');
 var platform = require('./platform');
 var settings = require('./settings');
 var utils = require('./utils');
@@ -9,8 +8,8 @@ module.exports = {
    */
   set: function(win) {
     // Show the window when the dock icon is pressed
-    gui.App.removeAllListeners('reopen');
-    gui.App.on('reopen', function() {
+    nw.App.removeAllListeners('reopen');
+    nw.App.on('reopen', function() {
       win.show();
     });
 
@@ -49,7 +48,7 @@ module.exports = {
     win.on('new-win-policy', function(frame, url, policy) {
       if (settings.openLinksInBrowser) {
         url = utils.skipFacebookRedirect(url);
-        gui.Shell.openExternal(url);
+        nw.Shell.openExternal(url);
         policy.ignore();
       } else {
         policy.forceNewWindow();

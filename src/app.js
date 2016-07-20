@@ -1,5 +1,4 @@
-var gui = require('nw.gui');
-var win = gui.Window.get();
+var win = nw.Window.get();
 
 var platform = require('./components/platform');
 var updater = require('./components/updater');
@@ -12,7 +11,7 @@ var dispatcher = require('./components/dispatcher');
 
 // Ensure there's an app shortcut for toast notifications to work on Windows
 if (platform.isWindows) {
-  gui.App.createShortcut(process.env.APPDATA + "\\Microsoft\\Windows\\Start Menu\\Programs\\Messenger.lnk");
+  nw.App.createShortcut(process.env.APPDATA + "\\Microsoft\\Windows\\Start Menu\\Programs\\Messenger.lnk");
 }
 
 // Add dispatcher events
@@ -30,7 +29,7 @@ windowBehaviour.bindWindowStateEvents(win);
 
 // Check for update
 if (settings.checkUpdateOnLaunch) {
-  updater.checkAndPrompt(gui.App.manifest, win);
+  updater.checkAndPrompt(nw.App.manifest, win);
 }
 
 // Run as menu bar app

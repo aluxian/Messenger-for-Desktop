@@ -1,14 +1,15 @@
 {
   "name": "Messenger",
-  "version": "1.4.3",
+  "version": "1.4.3-nw-0.13",
   "repository": {
     "type": "git",
-    "url": "git@github.com:Aluxian/Facebook-Messenger-Desktop.git"
+    "url": "git@github.com:gnanet/Facebook-Messenger-Desktop.git"
   },
   "scripts": {
     "postinstall": "(cd src && npm install)"
   },
   "devDependencies": {
+    "nw": "^0.13.4",
     "coffee-script": "^1.9.3",
     "gulp": "^3.8.11",
     "gulp-github-release": "^1.0.3",

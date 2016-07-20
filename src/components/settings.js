@@ -1,6 +1,5 @@
 var Store = require('jfs');
 var path = require('path');
-var gui = window.require('nw.gui');
 
 var DEFAULT_SETTINGS = {
   launchOnStartup: false,
@@ -12,7 +11,7 @@ var DEFAULT_SETTINGS = {
   theme: 'default'
 };
 
-var db = new Store(path.join(gui.App.dataPath, 'preferences.json'));
+var db = new Store(path.join(nw.App.dataPath, 'preferences.json'));
 var settings = db.getSync('settings');
 var watchers = {};
 
