@@ -9,7 +9,6 @@
   "dependencies": {
     "app-module-path": "1.1.0",
     "babel-runtime": "6.9.2",
-    "child-process-promise": "2.0.3",
     "colors": "1.1.2",
     "debug": "2.2.0",
     "del": "2.2.1",
