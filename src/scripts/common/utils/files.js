@@ -31,7 +31,7 @@ function getDictionariesSync (dirPath) {
     .filter((filename) => fs.statSync(path.join(dirPath, filename)).isFile())
     .map((filename) => path.basename(filename, '.dic'));
 
-  log('dictionaries in', dirPath, 'found:', dictionaries);
+  log('dictionaries in', dirPath, 'found:', JSON.stringify(dictionaries));
   return dictionaries;
 }
 
