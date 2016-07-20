@@ -11,7 +11,7 @@ async function elementaryOS () {
   cmd = '/bin/bash -c "' + cmd + '"';
 
   return await new Promise((resolve, reject) => {
-    cp.exec(cmd, (err, stdout, stderr) => resolve(!!err));
+    cp.exec(cmd, (err, stdout, stderr) => resolve(!err));
   });
 }
 
