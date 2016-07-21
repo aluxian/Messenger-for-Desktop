@@ -17,5 +17,7 @@ package() {
   bsdtar -xf data.tar.gz -C "$pkgdir/"
 
   # Link to the binary
+  msg2 "Creating symlink..."
+  mkdir -p "$pkgdir/usr/bin/"
   ln -s /opt/whatsie/whatsie "$pkgdir/usr/bin/whatsie"
 }
