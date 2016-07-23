@@ -15,4 +15,10 @@ switch (process.type) {
     break;
 }
 
+// Force-enable debug
+if (global.options.debug && !process.env.DEBUG) {
+  process.env.DEBUG = global.manifest.name + ':*';
+  impl.enable(process.env.DEBUG);
+}
+
 export default impl;

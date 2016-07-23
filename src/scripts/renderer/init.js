@@ -3,7 +3,7 @@ import path from 'path';
 
 export function inject () {
   global.manifest = remote.getGlobal('manifest');
-  window.localStorage.setItem('debug', process.env.DEBUG);
+  global.options = remote.getGlobal('options');
 
   const appPath = remote.app.getAppPath();
   const {addPath} = require(path.join(appPath, 'node_modules', 'app-module-path'));

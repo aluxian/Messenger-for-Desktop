@@ -1,5 +1,4 @@
 import {app, dialog} from 'electron';
-import debug from 'debug';
 import yargs from 'yargs';
 
 import prefs from 'browser/utils/prefs';
@@ -86,12 +85,6 @@ options.mas = options.mas || !!process.mas;
 options.portable = options.portable || !!global.manifest.portable;
 options.debug = options.debug || !!process.env.DEBUG;
 global.options = options;
-
-// Force-enable debug
-if (options.debug && !process.env.DEBUG) {
-  process.env.DEBUG = global.manifest.name + ':*';
-  debug.enable(process.env.DEBUG);
-}
 
 // Log args
 log('cli args parsed', JSON.stringify(options));
