@@ -34,12 +34,17 @@ function initFileLogging () {
       fileLogStream = null;
     });
 
-    log(`saving logs to "${fileLogPath}"`);
+    if (global.options.consoleLogs) {
+      console.log(`saving logs to "${fileLogPath}"`);
+    }
+
     fileLogIsReady = true;
     fileLogIsGettingReady = false;
   } catch (err) {
     fileLogIsGettingReady = false;
-    console.error('logger error:', err);
+    if (global.options.consoleLogs) {
+      console.error('logger error:', err);
+    }
   }
 }
 

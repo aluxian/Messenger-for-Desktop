@@ -1,4 +1,6 @@
 **/logger.js
+**/logger-browser.js
+**/file-logger.js
 **/browser/init.js
 **/renderer/init.js
 **/renderer/index.js
