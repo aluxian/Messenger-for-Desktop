@@ -38,11 +38,8 @@ class TrayManager extends EventEmitter {
       }
     } else {
       const imgExt = platform.isWindows ? 'ico' : 'png';
-      if (this.notifManager.unreadCount) {
-        this.tray = new Tray(filePaths.getImagePath('trayAlert.' + imgExt));
-      } else {
-        this.tray = new Tray(filePaths.getImagePath('tray.' + imgExt));
-      }
+      const iconName = this.notifManager.unreadCount ? 'trayAlert' : 'tray';
+      this.tray = new Tray(filePaths.getImagePath(iconName + '.' + imgExt));
     }
 
     this.menu = Menu.buildFromTemplate(template());
@@ -108,11 +105,9 @@ class TrayManager extends EventEmitter {
     if (platform.isDarwin) {
       this.tray.setTitle(count);
     } else {
-      if (count) {
-        this.tray.setImage(filePaths.getImagePath('trayAlert.png'));
-      } else {
-        this.tray.setImage(filePaths.getImagePath('tray.png'));
-      }
+      const imgExt = platform.isWindows ? 'ico' : 'png';
+      const iconName = count ? 'trayAlert' : 'tray';
+      this.tray.setImage(filePaths.getImagePath(iconName + '.' + imgExt));
     }
   }
 
