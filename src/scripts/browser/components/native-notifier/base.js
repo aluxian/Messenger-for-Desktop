@@ -10,6 +10,13 @@ class BaseNativeNotifier extends EventEmitter {
     'additional-action-clicked'
   ];
 
+  constructor () {
+    super();
+
+    // Flag that this notifier has not been implemented
+    this.isImplemented = false;
+  }
+
 }
 
 export default BaseNativeNotifier;
