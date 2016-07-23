@@ -61,12 +61,15 @@ function reportToSentry (namespace, isFatal, err) {
 
 export function debugLogger (filename) {
   let logger = null;
+  let browserLogger = null;
   return function () {
     if (!logger) {
       const debug = require('common/modules/debug').default;
       logger = debug(namespaceOfFile(filename));
     }
-    const browserLogger = require('common/utils/logger-browser').default;
+    if (!browserLogger) {
+      browserLogger = require('common/utils/logger-browser').default;
+    }
     logger.log = browserLogger.printDebug;
     logger(util.format(...arguments));
   };
@@ -74,6 +77,7 @@ export function debugLogger (filename) {
 
 export function errorLogger (filename, isFatal) {
   let namespace = null;
+  let browserLogger = null;
   return function (err, skipReporting = false) {
     if (!namespace) {
       namespace = namespaceOfFile(filename);
@@ -88,7 +92,9 @@ export function errorLogger (filename, isFatal) {
       }
     }
 
-    const browserLogger = require('common/utils/logger-browser').default;
+    if (!browserLogger) {
+      browserLogger = require('common/utils/logger-browser').default;
+    }
     browserLogger.printError(namespace, isFatal, err.stack);
 
     if (!skipReporting && !global.options.debug) {
