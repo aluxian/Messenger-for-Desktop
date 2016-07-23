@@ -11,7 +11,7 @@ window.Notification = (function (Html5Notification) {
   log('extending HTML5 Notification');
 
   const Notification = function (title, options) {
-    if (!nativeNotifier.isImplemented || !platform.isWindows7) {
+    if (!nativeNotifier.isImplemented || !platform.isDarwin && !platform.isWindows7) {
       log('showing html5 notification', title, options);
       const notification = new Html5Notification(title, options);
 
