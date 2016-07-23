@@ -7,7 +7,9 @@ import eventNames from 'common/analytics/names';
 
 function anonymizeException (err) {
   const app = require('common/electron/app').default;
-  err.message = err.message.replace(app.getPath('home'), '<home>');
+  const homePath = RegExp.escape(app.getPath('home'));
+  const regExp = new RegExp(homePath, 'g');
+  err.message = err.message.replace(regExp, '<home>');
 }
 
 function namespaceOfFile (filename) {
