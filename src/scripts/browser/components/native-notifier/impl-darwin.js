@@ -54,7 +54,7 @@ class DarwinNativeNotifier extends BaseNativeNotifier {
       }
     }
 
-    log('didActivateNotification', payload);
+    log('didActivateNotification', JSON.stringify(payload));
     this.emit('notif-activated-' + identifier, payload);
     this.emit('notif-activated', payload);
   }
