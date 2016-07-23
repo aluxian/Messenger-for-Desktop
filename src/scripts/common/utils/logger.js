@@ -42,8 +42,6 @@ function reportToSentry (namespace, isFatal, err) {
   const sentry = require('common/services/sentry').default;
   if (sentry) {
     anonymizeException(err);
-    // trimLongPaths(err);
-
     console.log('reporting to sentry:', err);
     sentry.captureException(err, {
       level: isFatal ? 'fatal' : 'error',
@@ -91,7 +89,7 @@ export function errorLogger (filename, isFatal) {
     const browserLogger = require('common/utils/logger-browser').default;
     browserLogger.printError(namespace, isFatal, err.stack);
 
-    if (!skipReporting) {
+    if (!skipReporting && !global.options.debug) {
       reportToPiwik(namespace, isFatal, err);
       reportToSentry(namespace, isFatal, err);
     }
