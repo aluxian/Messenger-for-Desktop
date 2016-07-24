@@ -1,8 +1,8 @@
 {
   "name": "whatsie",
   "productName": "Whatsie",
-  "version": "2.0.18",
-  "versionChannel": "dev",
+  "version": "2.0.19",
+  "versionChannel": "beta",
   "description": "A simple & beautiful desktop client for WhatsApp Web.",
   "wvUrl": "https://web.whatsapp.com/",
   "main": "./scripts/browser/init.js",
