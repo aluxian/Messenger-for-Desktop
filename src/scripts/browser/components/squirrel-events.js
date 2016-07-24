@@ -60,7 +60,8 @@ class SquirrelEvents {
 
       dialog.showMessageBox({
         type: 'error',
-        message: 'Error: ' + msg + filesDeletedMsg + originalErrMsg
+        message: 'Error: ' + msg + filesDeletedMsg + originalErrMsg,
+        buttons: ['OK']
       }, function () {});
     };
 
