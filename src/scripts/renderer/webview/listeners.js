@@ -77,6 +77,10 @@ webView.addEventListener('dom-ready', function () {
     .then((css) => webView.insertCSS(css))
     .catch(logError);
 
+  files.getStyleCss('full')
+    .then((css) => webView.insertCSS(css))
+    .catch(logError);
+
   // Restore the default theme
   const themeId = prefs.get('theme');
   if (themeId) {
