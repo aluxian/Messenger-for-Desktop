@@ -5,13 +5,6 @@ import eventCategories from 'common/analytics/categories';
 import eventActions from 'common/analytics/actions';
 import eventNames from 'common/analytics/names';
 
-function anonymizeException (err) {
-  const app = require('common/electron/app').default;
-  const homePath = RegExp.escape(app.getPath('home'));
-  const regExp = new RegExp(homePath, 'g');
-  err.message = err.message.replace(regExp, '<home>');
-}
-
 function namespaceOfFile (filename) {
   const app = require('common/electron/app').default;
   const appPath = path.join(app.getAppPath(), 'scripts') + path.sep;
@@ -43,7 +36,6 @@ function reportToPiwik (namespace, isFatal, err) {
 function reportToSentry (namespace, isFatal, err) {
   const sentry = require('common/services/sentry').default;
   if (sentry) {
-    anonymizeException(err);
     console.log('reporting to sentry:', err);
     sentry.captureException(err, {
       level: isFatal ? 'fatal' : 'error',
