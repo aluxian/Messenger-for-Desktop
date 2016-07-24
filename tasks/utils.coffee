@@ -31,14 +31,20 @@ applySpawn = (cmd, params, opts = {}) ->
       errored = false
       child.on 'error', (err) ->
         errored = true
+        if args.verbose
+          console.log 'finished: spawn', cmd
         cb(err)
       child.on 'close', (code) ->
         unless errored
           if code
             err = new Error "`#{cmd} #{params.join(' ')}` exited with code #{code}"
             err.code = code
+            if args.verbose
+              console.log 'finished: spawn', cmd
             cb err
           else
+            if args.verbose
+              console.log 'finished: spawn', cmd
             cb null
 
 applyIf = (cond, fn) ->
