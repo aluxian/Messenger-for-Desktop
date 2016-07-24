@@ -190,11 +190,14 @@ class MainWindowManager extends EventEmitter {
 
       // Inform the user the app is still running
       if (platform.isWindows && !prefs.get('quit-behaviour-taught')) {
-        this.trayManager.tray.displayBalloon({
-          title: global.manifest.productName,
-          content: global.manifest.productName + ' will keep running in the tray until you quit it.'
-        });
-        prefs.set('quit-behaviour-taught', true);
+        const tray = this.trayManager.tray;
+        if (tray) {
+          tray.displayBalloon({
+            title: global.manifest.productName,
+            content: global.manifest.productName + ' will keep running in the tray until you quit it.'
+          });
+          prefs.set('quit-behaviour-taught', true);
+        }
       }
     }
   }
