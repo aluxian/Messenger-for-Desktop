@@ -1,3 +1,26 @@
+## [2.0.19-beta](https://github.com/Aluxian/Whatsie/tree/v2.0.19) (2016-24-07)
+
+[Full Changelog](https://github.com/Aluxian/Whatsie/compare/v2.0.18...v2.0.19) &bull; [Download](https://github.com/Aluxian/Whatsie/releases/tag/v2.0.19)
+
+**General**
+
+- Make the app 15 MB smaller.
+- Make the chat fill the entire window (thanks @levrik).
+- Update dependencies and Electron to v1.2.8.
+
+**OS X**
+
+- Fix notifications missing the 'reply' button.
+
+**Windows**
+
+- Fix tray using .png rather than .ico icons.
+
+**Linux**
+
+- Fix 'Shown in Tray' being always disabled.
+- Improve PKGBUILD for publishing to AUR.
+
 ## [2.0.18-dev](https://github.com/Aluxian/Whatsie/tree/v2.0.18) (2016-19-07)
 
 [Full Changelog](https://github.com/Aluxian/Whatsie/compare/v2.0.17...v2.0.18) &bull; [Download](https://github.com/Aluxian/Whatsie/releases/tag/v2.0.18)

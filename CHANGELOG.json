@@ -1,4 +1,26 @@
 [{
+  "version": "2.0.19",
+  "channel": "beta",
+  "releasedAt": 1469345363345,
+  "urgency": "low",
+  "changes": {
+    "General": [
+      "Make the app 15 MB smaller.",
+      "Make the chat fill the entire window (thanks @levrik).",
+      "Update dependencies and Electron to v1.2.8."
+    ],
+    "OS X": [
+      "Fix notifications missing the 'reply' button."
+    ],
+    "Windows": [
+      "Fix tray using .png rather than .ico icons."
+    ],
+    "Linux": [
+      "Fix 'Shown in Tray' being always disabled.",
+      "Improve PKGBUILD for publishing to AUR."
+    ]
+  }
+}, {
   "version": "2.0.18",
   "channel": "dev",
   "releasedAt": 1468945979964,
