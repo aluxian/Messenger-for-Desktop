@@ -15,6 +15,7 @@ const paths = [
   path.join(app.getPath('appData'), 'UnofficialWhatsApp'),
   path.join(app.getPath('appData'), '..', 'Local', 'WhatsApp'),
   path.join(app.getPath('appData'), '..', 'Local', 'UnofficialWhatsApp'),
+  path.join(app.getPath('appData'), '..', 'Local', 'whatsapp'),
   path.join('C:', 'ProgramData', 'Microsoft', 'Windows', 'Start Menu', 'Programs', 'WhatsApp for Desktop.lnk'),
   path.join('C:', 'ProgramData', 'Microsoft', 'Windows', 'Start Menu', 'Programs', 'WhatsApp.lnk'),
   path.join('C:', 'ProgramData', 'Microsoft', 'Windows', 'Start Menu', 'Programs', 'Unofficial WhatsApp for Desktop.lnk'),
