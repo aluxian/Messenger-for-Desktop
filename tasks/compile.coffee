@@ -94,7 +94,14 @@ args = require './args'
 
   # Move the node modules
   gulp.task 'compile:' + dist + ':deps', ['clean:build:' + dist], ->
-    gulp.src './src/node_modules/**/*'
+    gulp.src [
+      './src/node_modules/**/*'
+      '!./src/node_modules/**/test*/**'
+      '!./src/node_modules/**/example*/**'
+      '!./src/node_modules/**/changelog*'
+      '!./src/node_modules/**/notice*'
+      '!./src/node_modules/**/readme*'
+    ]
       .pipe gulp.dest dir + '/node_modules'
 
   # Move package.json
