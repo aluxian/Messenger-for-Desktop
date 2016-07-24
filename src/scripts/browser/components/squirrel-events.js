@@ -147,7 +147,8 @@ class SquirrelEvents {
   async teardownLeftoverUserData () {
     const userDataPath = app.getPath('userData');
     log('removing user data folder', userDataPath);
-    await del(userDataPath, {force: true}).then(log.bind(null, 'deleted'));
+    await del(path.join(userDataPath, '**'), {force: true})
+      .then((files) => log('deleted', JSON.stringify(files)));
   }
 
 }
