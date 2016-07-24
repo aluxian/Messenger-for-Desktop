@@ -13,7 +13,8 @@
       "Fix notifications missing the 'reply' button."
     ],
     "Windows": [
-      "Fix tray using .png rather than .ico icons."
+      "Fix tray using .png rather than .ico icons.",
+      "Fix crashes for some tray menu items."
     ],
     "Linux": [
       "Fix 'Shown in Tray' being always disabled.",

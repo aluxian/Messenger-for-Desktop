@@ -82,6 +82,9 @@ export function sendToWebView (channel, ...valueExprs) {
  */
 export function reloadWindow () {
   return function (menuItem, browserWindow) {
+    if (!browserWindow) {
+      browserWindow = global.application.mainWindowManager.window;
+    }
     browserWindow.reload();
   };
 }
@@ -91,6 +94,9 @@ export function reloadWindow () {
  */
 export function resetWindow () {
   return function (menuItem, browserWindow) {
+    if (!browserWindow) {
+      browserWindow = global.application.mainWindowManager.window;
+    }
     const bounds = prefs.getDefault('window-bounds');
     browserWindow.setSize(bounds.width, bounds.height, true);
     browserWindow.center();
@@ -102,14 +108,10 @@ export function resetWindow () {
  */
 export function showWindow () {
   return function (menuItem, browserWindow) {
-    if (browserWindow) {
-      browserWindow.show();
-    } else {
-      const windowManager = global.application.mainWindowManager;
-      if (windowManager.window) {
-        windowManager.window.show();
-      }
+    if (!browserWindow) {
+      browserWindow = global.application.mainWindowManager.window;
     }
+    browserWindow.show();
   };
 }
 
