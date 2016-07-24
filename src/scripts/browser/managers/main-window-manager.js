@@ -170,7 +170,7 @@ class MainWindowManager extends EventEmitter {
    * Called when the 'close' event is emitted.
    */
   onClose (event) {
-    log('onClose');
+    log('onClose', 'forceClose=' + this.forceClose);
 
     // The app is being updated, don't prevent closing
     if (this.updateInProgress) {
