@@ -1,20 +1,20 @@
-# Whatsie
+# Messenger for Desktop 2
 
-[![OS X build](https://travis-ci.org/Aluxian/Whatsie.svg?branch=staging)](https://travis-ci.org/Aluxian/Whatsie)
-[![Windows build](https://ci.appveyor.com/api/projects/status/6vborc92ob25kqe0/branch/staging?svg=true)](https://ci.appveyor.com/project/Aluxian/Whatsie)
-[![Linux builds](https://circleci.com/gh/Aluxian/Whatsie/tree/staging.svg?style=shield)](https://circleci.com/gh/Aluxian/Whatsie)
+[![OS X build](https://travis-ci.org/Facebook-Messenger-Desktop.svg?branch=staging)](https://travis-ci.org/Facebook-Messenger-Desktop)
+[![Windows build](https://ci.appveyor.com/api/projects/status/6vborc92ob25kqe0/branch/staging?svg=true)](https://ci.appveyor.com/project/Facebook-Messenger-Desktop)
+[![Linux builds](https://circleci.com/gh/Facebook-Messenger-Desktop/tree/staging.svg?style=shield)](https://circleci.com/gh/Facebook-Messenger-Desktop)
 [![Downloads total](https://updates.whatsie.chat/badge/downloads.svg)](https://updates.whatsie.chat/stats)
 [![Services status](https://img.shields.io/badge/services-status-blue.svg)](https://status.whatsie.chat/)
-[![HuBoard task board](https://img.shields.io/badge/hu-board-7965cc.svg)](https://huboard.com/Aluxian/Whatsie)
-[![Join the chat](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Aluxian/Whatsie)
+[![HuBoard task board](https://img.shields.io/badge/hu-board-7965cc.svg)](https://huboard.com/Facebook-Messenger-Desktop)
+[![Join the chat](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Facebook-Messenger-Desktop)
 
 A simple &amp; beautiful desktop client for [WhatsApp Web](https://web.whatsapp.com/). Chat without distractions on OS X, Windows and Linux. Not affiliated with WhatsApp or Facebook. This is **NOT** an official product.
 
 Whatsie is still in beta, so some features might not work properly. Bug reports and feature suggestions are welcome. Please check for updates here regularly in case the update process breaks and your installed version can't update by itself.
 
-> **@devs:** If you're willing to help improve, fix or maintain the app, I can make you a collaborator to help me. [Join me on Gitter](https://gitter.im/Aluxian/Whatsie) and let's chat!
+> **@devs:** If you're willing to help improve, fix or maintain the app, I can make you a collaborator to help me. [Join me on Gitter](https://gitter.im/Facebook-Messenger-Desktop) and let's chat!
 
-![Whatsie Screenshot](./screenshot.png)
+![MFD Screenshot](./screenshot.png)
 
 ## Features
 
@@ -27,7 +27,7 @@ Whatsie is still in beta, so some features might not work properly. Bug reports 
 
 ## How to install
 
-**Note:** If you download from the [releases page](https://github.com/Aluxian/Whatsie/releases), be careful what version you pick. Releases that end with `-beta` are beta releases, the ones that end with `-dev` are development releases, and the rest are stable. If you're unsure which to pick, opt for stable. Once you download the app, you'll be able to switch to another channel from the menu.
+**Note:** If you download from the [releases page](https://github.com/Facebook-Messenger-Desktop/releases), be careful what version you pick. Releases that end with `-beta` are beta releases, the ones that end with `-dev` are development releases, and the rest are stable. If you're unsure which to pick, opt for stable. Once you download the app, you'll be able to switch to another channel from the menu.
 
 - **dev:** these releases get the newest and hottest features, but they are less tested and might break things
 - **beta:** these releases are the right balance between getting new features early while staying away from nasty bugs
@@ -107,11 +107,11 @@ sudo yum install whatsie.x86_64   # for 64-bit distros
 
 Repository URL: https://aur.archlinux.org/packages/whatsie/
 
-[LR]: https://github.com/Aluxian/Whatsie/releases
+[LR]: https://github.com/Facebook-Messenger-Desktop/releases
 
 # For Developers
 
-Contributions are welcome! Please help me make Whatsie the best app for WhatsApp Web. For feature requests and bug reports please [submit an issue](https://github.com/Aluxian/Whatsie/issues/new?labels=bug) or get in touch with me on [Gitter](https://gitter.im/Aluxian/Whatsie) or Twitter [@aluxian](https://twitter.com/aluxian).
+Contributions are welcome! Please help me make Whatsie the best app for WhatsApp Web. For feature requests and bug reports please [submit an issue](https://github.com/Facebook-Messenger-Desktop/issues/new?labels=bug) or get in touch with me on [Gitter](https://gitter.im/Facebook-Messenger-Desktop) or Twitter [@aluxian](https://twitter.com/aluxian).
 
 ## Build
 
