@@ -188,3 +188,75 @@ div._4-i2, div._5a8u {
 ._4g0h, ._3xcx, ._225b, ._3q35 {
 	color: rgba(255, 255, 255, .6) !important;
 }
+
+/* thread title */
+._3oh- {
+	color: rgba(255, 255, 255, 1) !important;	
+}
+
+/* Conversation name in infos and adding people */
+._2jnv, ._4rpj{
+    color: rgba(255, 255, 255, 1) !important;       
+}
+
+/* Last active */
+._3eus {
+	color: rgba(145, 145, 145, 1) !important; 
+}
+
+/* Hide button */
+._2ds6 {
+  	opacity: 0.7;
+}
+
+/* Search bar */
+._5iwm ._58al {
+  background: #4A4A4A;
+  color: #fff;
+}
+
+/* Relationship with sby */
+._36zg {
+  color: rgba(255, 255, 255, 1) !important;
+}
+
+._1n-e {
+  color: rgba(128, 128, 128, 1);
+  font-size: 12px;
+}
+
+/* Link in message */
+
+._29_7 ._52mr {
+  background-color: rgb(51, 51, 51);
+  border-bottom-right-radius: 1.3em;
+  border-top-right-radius: 1.3em;
+}
+
+._5i_d .__6m {
+  color: rgba(255, 255, 255, 1);
+  font-size: 12px;
+  font-weight: normal;
+  margin-bottom: 6px;
+  margin-top: 6px;
+}
+
+._4ik5._4ik4 {
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  float: none;
+  color: rgb(242, 242, 242);
+}
+
+/* Gifs */
+
+._2f5n {
+  background-color: #2D2D30;
+  border: 1px solid rgba(0, 0, 0, .1);
+  border-width: 0 1px 1px;
+  padding: 6px 12px;
+}
+
+._29ey {
+	color: rgba(255, 255, 255, 0.59) !important;
+}
