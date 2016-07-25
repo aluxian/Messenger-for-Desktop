@@ -1,2 +1,2 @@
 * Operating system:
-* Whatsie version:
+* Messenger for Desktop version:

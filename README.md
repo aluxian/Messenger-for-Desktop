@@ -3,14 +3,12 @@
 [![OS X build](https://travis-ci.org/Facebook-Messenger-Desktop.svg?branch=staging)](https://travis-ci.org/Facebook-Messenger-Desktop)
 [![Windows build](https://ci.appveyor.com/api/projects/status/6vborc92ob25kqe0/branch/staging?svg=true)](https://ci.appveyor.com/project/Facebook-Messenger-Desktop)
 [![Linux builds](https://circleci.com/gh/Facebook-Messenger-Desktop/tree/staging.svg?style=shield)](https://circleci.com/gh/Facebook-Messenger-Desktop)
-[![Downloads total](https://updates.whatsie.chat/badge/downloads.svg)](https://updates.whatsie.chat/stats)
-[![Services status](https://img.shields.io/badge/services-status-blue.svg)](https://status.whatsie.chat/)
+[![Downloads total](https://updates.messengerfordesktop.com/badge/downloads.svg)](https://updates.messengerfordesktop.com/stats)
+[![Services status](https://img.shields.io/badge/services-status-blue.svg)](https://status.messengerfordesktop.com/)
 [![HuBoard task board](https://img.shields.io/badge/hu-board-7965cc.svg)](https://huboard.com/Facebook-Messenger-Desktop)
 [![Join the chat](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Facebook-Messenger-Desktop)
 
-A simple &amp; beautiful desktop client for [WhatsApp Web](https://web.whatsapp.com/). Chat without distractions on OS X, Windows and Linux. Not affiliated with WhatsApp or Facebook. This is **NOT** an official product.
-
-Whatsie is still in beta, so some features might not work properly. Bug reports and feature suggestions are welcome. Please check for updates here regularly in case the update process breaks and your installed version can't update by itself.
+A simple &amp; beautiful desktop client for [Facebook Messenger](https://www.messenger.com/). Chat without distractions on OS X, Windows and Linux. Not affiliated with Facebook. This is **NOT** an official product.
 
 > **@devs:** If you're willing to help improve, fix or maintain the app, I can make you a collaborator to help me. [Join me on Gitter](https://gitter.im/Facebook-Messenger-Desktop) and let's chat!
 
@@ -33,11 +31,11 @@ Whatsie is still in beta, so some features might not work properly. Bug reports 
 - **beta:** these releases are the right balance between getting new features early while staying away from nasty bugs
 - **stable:** these releases are more thoroughly tested; they receive new features later, but there's a lower chance that things will go wrong
 
-If you want to help me make Whatsie better, I recommend `dev` or `beta`. Let's go!
+If you want to help me make *Messenger for Desktop* better, I recommend `dev` or `beta`. Let's go!
 
 ### OS X
 
-1. Download [whatsie-x.x.x-osx.dmg][LR] or [whatsie-x.x.x-osx.zip][LR]
+1. Download [messengerfordesktop-x.x.x-osx.dmg][LR] or [messengerfordesktop-x.x.x-osx.zip][LR]
 2. Open or unzip the file and drag the app into the `Applications` folder
 3. Done! The app will update automatically
 
@@ -45,13 +43,13 @@ If you want to help me make Whatsie better, I recommend `dev` or `beta`. Let's g
 
 *Installer (recommended):*
 
-1. Download [whatsie-x.x.x-win32-setup.exe][LR]
+1. Download [messengerfordesktop-x.x.x-win32-setup.exe][LR]
 2. Run the installer, wait until it finishes
 3. Done! The app will update automatically
 
 *Portable:*
 
-1. Download [whatsie-x.x.x-win32-portable.zip][LR]
+1. Download [messengerfordesktop-x.x.x-win32-portable.zip][LR]
 2. Extract the zip wherever you want (e.g. a flash drive) and run the app from there
 3. Done! The app will NOT update automatically, but you can still check for updates
 
@@ -59,9 +57,9 @@ If you want to help me make Whatsie better, I recommend `dev` or `beta`. Let's g
 
 *Ubuntu, Debian 8+ (deb package):*
 
-1. Download [whatsie-x.x.x-linux-arch.deb][LR]
-2. Double click and install, or run `dpkg -i whatsie-x.x.x-linux-arch.deb` in the terminal
-3. Start the app with your app launcher or by running `whatsie` in a terminal
+1. Download [messengerfordesktop-x.x.x-linux-arch.deb][LR]
+2. Double click and install, or run `dpkg -i messengerfordesktop-x.x.x-linux-arch.deb` in the terminal
+3. Start the app with your app launcher or by running `messengerfordesktop` in a terminal
 4. Done! The app will NOT update automatically, but you can still check for updates
 
 You can also use `apt-get` (recommended):
@@ -76,16 +74,16 @@ gpg --export --armor 1537994D | sudo apt-key add -
 echo "deb https://dl.bintray.com/aluxian/deb <channel> main" |
   sudo tee -a /etc/apt/sources.list.d/aluxian.list
 
-# Install Whatsie
+# Install Messenger for Desktop
 sudo apt-get update
-sudo apt-get install whatsie
+sudo apt-get install messengerfordesktop
 ```
 
 *Fedora, CentOS, Red Hat (RPM package):*
 
-1. Download [whatsie-x.x.x-linux-arch.rpm][LR]
-2. Double click and install, or run `rpm -ivh whatsie-x.x.x-linux-arch.rpm` in the terminal
-3. Start the app with your app launcher or by running `whatsie` in a terminal
+1. Download [messengerfordesktop-x.x.x-linux-arch.rpm][LR]
+2. Double click and install, or run `rpm -ivh messengerfordesktop-x.x.x-linux-arch.rpm` in the terminal
+3. Start the app with your app launcher or by running `messengerfordesktop` in a terminal
 4. Done! The app will NOT update automatically, but you can still check for updates
 
 You can also use `yum` (recommended):
@@ -94,24 +92,24 @@ You can also use `yum` (recommended):
 # Add my repository to your repos list (skip if you've done this already)
 sudo wget https://bintray.com/aluxian/rpm/rpm -O /etc/yum.repos.d/bintray-aluxian-rpm.repo
 
-# Install Whatsie
-sudo yum install whatsie.i386     # for 32-bit distros
-sudo yum install whatsie.x86_64   # for 64-bit distros
+# Install Messenger for Desktop
+sudo yum install messengerfordesktop.i386     # for 32-bit distros
+sudo yum install messengerfordesktop.x86_64   # for 64-bit distros
 ```
 
 *Arch Linux (AUR):*
 
-1. Simply run `yaourt -S whatsie`
-3. Start the app with your app launcher or by running `whatsie` in a terminal
+1. Simply run `yaourt -S messengerfordesktop`
+3. Start the app with your app launcher or by running `messengerfordesktop` in a terminal
 3. Done! The app will NOT update automatically, but you can still check for updates
 
-Repository URL: https://aur.archlinux.org/packages/whatsie/
+Repository URL: https://aur.archlinux.org/packages/messengerfordesktop/
 
 [LR]: https://github.com/Facebook-Messenger-Desktop/releases
 
 # For Developers
 
-Contributions are welcome! Please help me make Whatsie the best app for WhatsApp Web. For feature requests and bug reports please [submit an issue](https://github.com/Facebook-Messenger-Desktop/issues/new?labels=bug) or get in touch with me on [Gitter](https://gitter.im/Facebook-Messenger-Desktop) or Twitter [@aluxian](https://twitter.com/aluxian).
+Contributions are welcome! Please help me make *Messenger for Desktop* the best app for Facebook Messenger. For feature requests and bug reports please [submit an issue](https://github.com/Facebook-Messenger-Desktop/issues/new?labels=bug) or get in touch with me on [Gitter](https://gitter.im/Facebook-Messenger-Desktop) or Twitter [@aluxian](https://twitter.com/aluxian).
 
 ## Build
 
@@ -181,7 +179,7 @@ To see detailed logs, run every gulp task with the `--verbose` flag.
 To see debug messages while running the app, set the `DEBUG` env var. This will print logs from the main process.
 
 ```
-export DEBUG=whatsie:*
+export DEBUG=messengerfordesktop:*
 ```
 
 To open the webview dev tools, type this in the main dev tools console:
