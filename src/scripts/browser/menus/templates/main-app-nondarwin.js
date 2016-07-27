@@ -1,10 +1,6 @@
 import platform from 'common/utils/platform';
-import prefs from 'browser/utils/prefs';
 import $ from 'browser/menus/expressions';
 import g from 'browser/menus/generator';
-
-const updatesChannel = prefs.get('updates-channel');
-const allowAutoLaunch = !global.options.portable && (!platform.isLinux || updatesChannel === 'dev');
 
 let versionSuffix = '';
 if (global.manifest.versionChannel !== 'stable') {
@@ -61,10 +57,10 @@ export default {
     parse: $.setLocal('checked', $.pref('analytics-track'))
   }, {
     type: 'separator',
-    allow: allowAutoLaunch
+    allow: !global.options.portable
   },
-    g.appLaunchOnStartup(allowAutoLaunch),
-    g.appLaunchHidden(allowAutoLaunch),
+    g.appLaunchOnStartup(!global.options.portable),
+    g.appLaunchHidden(!global.options.portable),
   {
     type: 'separator'
   }, {
