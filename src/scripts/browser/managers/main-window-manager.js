@@ -1,4 +1,4 @@
-import {shell, BrowserWindow} from 'electron';
+import {shell, BrowserWindow, Menu} from 'electron';
 import debounce from 'lodash.debounce';
 import EventEmitter from 'events';
 
@@ -180,13 +180,13 @@ class MainWindowManager extends EventEmitter {
     // Just hide the window on Darwin and Elementary OS
     if (!this.forceClose && (platform.isDarwin || global.options.distro.isElementaryOS)) {
       event.preventDefault();
-      this.window.hide();
+      this.hideWindow();
     }
 
     // Just hide the window if it's already running in the tray
     if (!this.forceClose && prefs.get('show-tray')) {
       event.preventDefault();
-      this.window.hide();
+      this.hideWindow();
 
       // Inform the user the app is still running
       if (platform.isWindows && !prefs.get('quit-behaviour-taught')) {
@@ -295,6 +295,17 @@ class MainWindowManager extends EventEmitter {
   suffixWindowTitle (suffix) {
     if (this.window) {
       this.window.setTitle(this.initialTitle + suffix);
+    }
+  }
+
+  /**
+   * Hide the whole app on OS X, not just the window.
+   */
+  hideWindow () {
+    if (platform.isDarwin) {
+      Menu.sendActionToFirstResponder('hide:');
+    } else {
+      this.window.hide();
     }
   }
 
