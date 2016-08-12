@@ -52,4 +52,4 @@ deploy_script:
 
 notifications:
   - provider: Webhook
-    url: https://webhooks.gitter.im/e/676ac0f0c100c8d70e7c
+    url: https://webhooks.gitter.im/e/2d3662c4ab6e4f2fc46e
