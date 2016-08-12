@@ -1,10 +1,10 @@
 {
-  "name": "whatsie",
-  "productName": "Whatsie",
-  "version": "2.0.19",
+  "name": "messengerfordesktopv2",
+  "productName": "Messenger for Desktop",
+  "version": "2.0.0",
   "versionChannel": "beta",
-  "description": "A simple & beautiful desktop client for WhatsApp Web.",
-  "wvUrl": "https://web.whatsapp.com/",
+  "description": "A simple & beautiful desktop client for Facebook Messenger.",
+  "wvUrl": "https://www.messenger.com/login",
   "main": "./scripts/browser/init.js",
   "dependencies": {
     "app-module-path": "1.1.0",
@@ -43,26 +43,25 @@
     }
   },
   "darwin": {
-    "bundleId": "com.aluxian.whatsie",
+    "bundleId": "com.aluxian.messengerfordesktopv2",
     "appCategoryType": "public.app-category.social-networking"
   },
   "linux": {
     "genericName": "Internet Messenger",
     "categories": "Network;InstantMessaging;",
-    "keywords": "WhatsApp;Whats;",
+    "keywords": "Facebook;Messenger;chat;desktop;",
     "section": "web"
   },
   "license": "MIT",
   "author": "Alexandru Rosianu <me@aluxian.com>",
   "authorName": "Alexandru Rosianu",
   "copyright": "Copyright © Alexandru Rosianu",
-  "homepage": "https://whatsie.chat/",
-  "raffleUrl": "https://whatsie.chat/#share",
+  "homepage": "https://messengerfordesktop.com/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Aluxian/Whatsie.git"
+    "url": "https://github.com/Aluxian/Facebook-Messenger-Desktop.git"
   },
-  "virtualUrl": "http://app.whatsie.chat",
+  "virtualUrl": "http://app.messengerfordesktop.com",
   "piwik": {
     "serverUrl": "{{& PIWIK_SERVER_URL }}",
     "siteId": "1"
