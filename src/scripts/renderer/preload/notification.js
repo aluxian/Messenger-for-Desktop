@@ -77,10 +77,10 @@ window.Notification = (function (Html5Notification) {
   return Object.assign(Notification, Html5Notification);
 })(window.Notification);
 
-function typeReply (replyText) {
+function typeReply (replyText, elem) {
   const event = document.createEvent('TextEvent');
   event.initTextEvent('textInput', true, true, window, replyText, 0, 'en-US');
-  const inputField = document.querySelector('div.input');
+  const inputField = document.querySelector('[contenteditable="true"]');
   if (inputField) {
     inputField.focus();
     return inputField.dispatchEvent(event);
@@ -94,7 +94,7 @@ function sendReply () {
     bubbles: true,
     cancelable: true
   });
-  const sendButton = document.querySelector('.icon.btn-icon.icon-send');
+  const sendButton = document.querySelector('[role="region"] a[aria-label][href="#"]');
   if (sendButton) {
     sendButton.dispatchEvent(event);
   }

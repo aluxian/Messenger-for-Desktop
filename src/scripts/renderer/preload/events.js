@@ -53,11 +53,11 @@ ipcRenderer.on('add-selection-to-dictionary', function () {
 
 // Simulate a click on the 'New chat' button
 ipcRenderer.on('new-conversation', function () {
-  const newChatButton = document.querySelector('button.icon-chat');
+  const newChatButton = document.querySelector('a[href="/new"]');
   if (newChatButton) {
     newChatButton.click();
   }
-  const inputSearch = document.querySelector('input.input-search');
+  const inputSearch = document.querySelector('[role="combobox"][tabindex="9998"]');
   if (inputSearch) {
     inputSearch.focus();
   }
@@ -65,7 +65,7 @@ ipcRenderer.on('new-conversation', function () {
 
 // Focus the 'Search or start a new chat' input field
 ipcRenderer.on('search-chats', function () {
-  const inputSearch = document.querySelector('input.input-search');
+  const inputSearch = document.querySelector('[role="combobox"]');
   if (inputSearch) {
     inputSearch.focus();
   }
@@ -75,6 +75,7 @@ ipcRenderer.on('search-chats', function () {
  * Dispatch a click event on the given item.
  */
 function dispatchClick (item) {
+  // TODO broken
   item.dispatchEvent(new window.MouseEvent('mousedown', {
     view: window,
     bubbles: true,
@@ -82,38 +83,10 @@ function dispatchClick (item) {
   }));
 }
 
-// // Open a dialog to pick a photo or a video to send
-// ipcRenderer.on('send-photo-video', function () {
-//   const attachButton = document.querySelector('.pane-chat-header button[title="Attach"]');
-//   if (attachButton) {
-//     attachButton.click();
-//     setTimeout(function () {
-//       const buttons = document.querySelectorAll('.pane-chat-header .menu-icons-item');
-//       if (buttons[0]) {
-//         dispatchClick(buttons[0]);
-//       }
-//     }, 300);
-//   }
-// });
-//
-// // Use the camera to take and send a photo
-// ipcRenderer.on('take-photo', function () {
-//   const attachButton = document.querySelector('.pane-chat-header button[title="Attach"]');
-//   if (attachButton) {
-//     attachButton.click();
-//     setTimeout(function () {
-//       const buttons = document.querySelectorAll('.pane-chat-header .menu-icons-item');
-//       if (buttons[1]) {
-//         dispatchClick(buttons[1]);
-//       }
-//     }, 300);
-//   }
-// });
-
 // Switch to next/previous conversation
 ipcRenderer.on('switch-conversation', function (event, indexDelta) {
   function getChatList () {
-    const chatListElem = document.querySelectorAll('.infinite-list-item');
+    const chatListElem = document.querySelectorAll('[aria-label~="Conversation"][aria-label~="list"] > li');
     if (chatListElem && chatListElem.length) {
       return Array.from(chatListElem).sort(function (a, b) {
         return parseInt(b.style.zIndex, 10) - parseInt(a.style.zIndex, 10);
@@ -178,10 +151,10 @@ ipcRenderer.on('switch-conversation', function (event, indexDelta) {
   }
 
   function isItemActive (item) {
-    const chat = item.querySelector('.chat');
-    return chat && chat.classList.contains('active');
+    return item && !!item.getAttribute('aria-relevant');
   }
 
+  // TODO broken
   function makeActive (item) {
     const chat = item.querySelector('.chat');
     if (chat) {
