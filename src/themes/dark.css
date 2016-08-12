@@ -1,342 +1,315 @@
-/* @source https://userstyles.org/styles/120533/the-dark-and-flat-whatsapp-web */
+/* @source: https://github.com/auscompgeek/fb-messenger-dark */
+/* #141823 is Messenger's normal text colour, white is normal background colour */
+/* #1E1E1E and #2D2D30 are Visual Studio, don't ask */
 
-/* Remove intro image, enable desktop notifications, bubble corner and small line after chat header */
-.butterbar-notification, .message:before, header.pane-chat-header:after {
-  display: none !important;
+h2, h3, h4, h5, h6 {
+	color: #eee;
+}
+._5743, ._4rph ._4rpj {
+	color: white !important;
+}
+label {
+	color: #aaa;
+}
+/* convo search box, to field (new message, add people), other inputs? */
+._2y8y, ._2y8_, ._4jgt, ._58al {
+	background-color: #2d2d30 !important;
+	color: white !important;
+}
+/* I hate placeholder styling */
+input::-moz-placeholder {
+	color: #ccc !important;
+}
+input::-webkit-input-placeholder {
+	color: #888 !important;
 }
 
-
-/* Move sidebar scrollbar to the left */
-
-#pane-side {
-  direction: rtl !important;
+/* top bars */
+._36ic, ._5742 {
+	background-color: rgba(255, 255, 255, .05) !important;
+	/*border-bottom: none !important;*/
+}
+/* main wrapper */
+._4sp8 {
+	background-color: #1e1e1e;
+	color: #eee;
+}
+/* (not convo list) wrapper */
+._1q5- {
+	border-left-color: rgba(255, 255, 255, .1) !important;
+}
+/* receipient/convo name in top bar */
+._17w2 {
+	color: white !important;
 }
 
-.chat {
-  direction: ltr !important;
+/* chat area stuff */
+/* beginning of convo info */
+._llq, ._36zg, ._1n-e._36zg {
+	color: #eee !important;
+}
+/* message */
+._hh7 {
+	background-color: #2d2d30 ;
+}
+._hh7, ._hh7 a {
+	color: #ddd ;
+}
+._hh7:active, ._-5k ._hh7, ._hh7>span>a:hover {
+	background-color: #333 ;
+}
+/* own message */
+._nd_ ._hh7 {
+	background-color: #004488 ;
+}
+._nd_ ._hh7:active, ._nd_._-5k ._hh7, ._nd_ ._hh7>span>a:hover {
+	background-color: #003377 ;
+}
+/* emoji-only messages */
+._hh7._2f5r, ._-5k ._hh7._2f5r {
+	background-color: transparent !important;
+}
+/* link info */
+._5i_d {
+	border-color: rgba(255, 255, 255, .1) !important;
+}
+.__6k, .__6l {
+	color: #ddd !important;
+}
+/* audio message */
+._29_7 ._3czg ._2e-7 ._2e-1, ._29_7 ._3czg ._2e-7 ._2e-2 {
+	background-color: #444 !important;
+}
+._454y ._1mi- {
+	background-color: #2d2d30 !important;
+}
+._454y ._1mj0 {
+	background-color: #666 !important;
+}
+._454y ._1mj1 {
+	border-color: #666 !important;
+}
+/* media (e.g. GIFs) source */
+._2f5n {
+	background-color: #2d2d30 !important;
+}
+._2f5n ._29ey {
+	color: #ccc !important;
+}
+/* delete bubble button */
+._hw2 ._53ij {
+	background-color: #040404 !important;
+}
+/* input bar */
+._4rv3 {
+	background-color: #1e1e1e !important;
+	border-top-color: rgba(255, 255, 255, .1) !important;
+}
+/* make static stickers slightly more readable */
+/*
+._2poz[style*="sticker"] {
+	background-color: #333;
+	border-radius: 5px;
+}
+*/
+/* messenger thumb up stickers */
+._576q {
+	-webkit-filter: brightness(75%);
+	filter: brightness(75%);
+}
+/* facebook-removed messages et al */
+._4sp8 .uiBoxYellow {
+	background-color: #662;
 }
 
-
-/* icons color invert*/
-
-.icon-down, .icon-muted, .icon-download, .icon-x-viewer, .icon-audio-play, .icon-audio-pause, .icon-emoji-input, .btn-media-forward, .icon-status-image, .icon-status-video, .icon-status-dblcheck {
-  filter: invert(100%) !important;
-  -webkit-filter: invert(100%) !important;
+/* convo info, user list */
+._4_j5, ._5l37 {
+	background-color: #282828 !important;
+}
+._4_j5 {
+	border-left: none !important;
+}
+/* convo name, mute label, user in user list, section headings */
+._2jnv, ._3szq, ._364g, ._1lj0 {
+	color: #ddd !important;
 }
 
-
-/* Background */
-
-.app-wrapper, #startup, #wrapper, #wrapper:before {
-  background: #262222 !important;
+/* convo list */
+._li ._1enh {
+	/* fix convo list hiders */
+	background-color: #1e1e1e;
+}
+/* inactive convo */
+._1ht1 {
+	background-color: #222 !important;
+}
+/* unread convo */
+._1ht1._1ht3 {
+	background-color: #1c2e4a !important;
+	transition: background-color .5s;
+}
+/* active convo */
+._1ht1._1ht2 {
+	background-color: #2d2d30 !important;
+}
+/* convo name */
+._1ht6, ._3q34 {
+	color: #eee !important;
+}
+/* message request from */
+._2kt ._5nxb {
+	color: #ddd !important;
+}
+/* timestamp */
+._1ht7.timestamp {
+	color: #999;
+}
+._1ht3 ._1ht7 {
+	color: #0084cc !important;
+}
+/* convo new message */
+._1ht3 ._1htf {
+	color: #ddd !important;
+}
+/* search header */
+._5t4c, ._225b {
+	background-color: #1e1e1e !important;
+}
+/* search keyboard selection */
+._1k1p {
+	background-color: #1e1e1e !important;
+}
+/* people list self online status */
+._1u5d {
+	background-color: transparent !important;
+}
+/* people list section tabs */
+._2lp- {
+	border-color: #0066aa !important;
+}
+._48uj {
+	background-color: #0066aa !important;
 }
 
-
-/* Login page */
-
-#window, #platforms {
-  background: #333 !important;
+/* those menus and stickers though */
+._53ij, ._54nf, ._293j, ._55r1 {
+	background-color: #333 !important;
+}
+._5r8a._5r8b {
+	background-color: #222 !important;
+}
+._2i-c ._54nf ._54nh {
+	color: #ddd !important;
+}
+._2i-c ._54ne ._54nh, ._2i-c ._54ne ._54nc, ._2i-c ._54ne {
+	background-color: #0066aa !important;
+}
+/* more stickers */
+._5r8e, ._5r86, ._37wu, ._37wv {
+	border-color: #222;
+}
+._eb3::before {
+	background-color: #222;
+}
+._3mts .uiScrollableArea.contentAfter::after,
+._5r8l .uiScrollableArea.contentAfter::after {
+	background-image: linear-gradient(transparent, #333);
+}
+/* menu dropdown triangles */
+._53ik ._53io, ._53il ._53io {
+	-webkit-filter: brightness(20%);
+	filter: brightness(20%);
+}
+/* delivery indicators */
+._3i_m ._9ah ._57e_ {
+	color: #1e1e1e !important;
+}
+/* misc icons */
+._fl3:not(._20nb), ._4-0h, ._57gs, label > input + span::before {
+	-webkit-filter: brightness(80%);
+	filter: brightness(80%);
+}
+._5iwn ._58ak::before, ._23ct, .sp_iPuvEF8GUpL.sx_28245e,
+.sp_iHcwOAWgkm0.sx_374c1d,
+:not(._3no3) > ._uwa, ._5jdr ._5jds,
+.sp_iHcwOAWgkm0.sx_f0ea69 {
+	-webkit-filter: invert(1);
+	filter: invert(1);
 }
 
-#window *, #platforms * {
-  color: #DDD !important;
+/* messenger dialogs, very important */
+._4-hz, ._4eby, ._4jgp ._4jgu {
+	background-color: #222 !important;
+}
+._374c, ._4jgs, ._2c9i ._19jt, ._51l0 .uiInputLabel .__rm + .uiInputLabelLabel,
+._5raa, ._5rab {
+	color: #ddd !important;
+}
+/* report issue dialog, even more so */
+/* dialog head */
+._4-i0 {
+	background-color: #333 !important;
+	border-bottom-color: #2e2e2e;
+}
+/* dialog heading, checkbox label */
+._4-i0 ._52c9, ._5r5c ._5rq_, ._uvt {
+	color: #ddd !important;
+}
+/* dialog body, footer */
+div._4-i2, div._5a8u, ._4t2a {
+	background-color: #222 !important;
+	color: #eee;
+}
+/* what about normal facebook dialogs? */
+._t {
+	background-color: #222 !important;
+	color: #eee;
+}
+.fcb {
+	color: white !important;
+}
+._c24 {
+	color: #ccc !important;
+}
+.uiBoxGray {
+	background-color: #333 !important;
+	border-color: #2e2e2e;
+}
+#captcha .captcha_refresh {
+	color: lightgrey !important;
 }
 
-.qrcode {
-  border: 16px solid white !important;
+/* login page */
+._3v_p, ._3v_o {
+	background-color: #222 !important;
+}
+._3v_p ._5hy4, ._3v_o ._5hy4 {
+	color: #eee !important;
+}
+._3v_p ._43di, ._3v_o ._43di, ._3v_p ._3403, ._3v_o ._3403 {
+	color: #ddd !important;
+}
+._3v_p ._210j ._43dj .uiInputLabelLabel, ._59h8, ._3v_p ._59h7 ._5hy9 {
+	color: #aaa !important;
+}
+._3v_p ._3v_w ._2m_r, ._3v_p ._5s4n ._2m_r {
+	background-color: #0066aa !important;
 }
 
-
-/* Texts */
-
-.chat-title, .action .button-contact {
-  color: #EEE !important;
+/* call page */
+._17cj, ._17cj ._3jne {
+	background-color: #1e1e1e !important;
+}
+._17cj ._3jnu, ._17cj ._3jnv {
+	color: rgba(255, 255, 255, .4) !important;
+}
+._17cj ._4j_k {
+	color: #eee !important;
 }
 
-.chat-status, .message-text, .msg-search-notfound, .well {
-  color: #CCC !important;
-}
-
-.chat-time, .message-datetime {
-  color: #999 !important;
-}
-
-
-/* Cheaqckboxs */
-
-.checkbox.unchecked {
-  background: #EEE !important;
-}
-
-.checkbox.checked {
-  background: #00BFA5 !important;
-}
-
-
-/***********/
-
-
-/* Sidebar */
-
-
-/***********/
-
-.input-main, .placeholder {
-  color: #BBB !important;
-  padding-right: 20px !important;
-}
-
-.btn-round {
-  background: #00BFA5 !important;
-}
-
-
-/* Top part */
-
-.pane-list-header, .unread-count {
-  background: #348b43 !important;
-}
-
-
-/* Search bar and right sidebar */
-
-.subheader-search, .subheader-search:after, #pane-side, .pane-preview {
-  background: #333 !important;
-}
-
-.cont-input-search, .input-search, .animate-enter1 {
-  background: #DDD !important;
-}
-
-
-/* Chats list */
-
-.chat, .infinite-list-item, .list-title {
-  background: #333 !important;
-}
-
-.chat:after {
-  border-bottom: 1px solid #444 !important;
-}
-
-.active.chat {
-  background: #444 !important;
-}
-
-.hover.chat {
-  background: #666 !important;
-}
-
-
-/* Profile & status */
-
-header.drawer-header-small {
-  background: #348b6f !important;
-  color: #EEE !important;
-}
-
-.drawer-body, .animate-enter2, .animate-enter, .drawer-section-body.chatlist {
-  background: #333 !important;
-}
-
-.input {
-  color: #666 !important;
-}
-
-
-/**************/
-
-
-/* Intro page */
-
-
-/**************/
-
-/*.pane {
-  background: #444 !important;
-}*/
-
-.pane-intro:after {
-  border-top: 6px solid #348b43 !important;
-}
-
-
-/* Cut white parts from image */
-
-.intro-image {
-  border-radius: 50%!important;
-}
-
-
-/* Texts */
-
-h1 {
-  color: #EEE !important;
-}
-
-.intro-text {
-  color: #348b43 !important;
-}
-
-
-/*************/
-
-
-/* Chat page */
-
-
-/*************/
-
-
-/* Top bar */
-
-header.pane-chat-header {
-  background: #666 !important;
-}
-
-
-/* Background */
-
-.pane-body, .pane-chat-tile, .msg-unread {
-  background: #444 !important;
-}
-
-
-/* Chat bubble */
-
-.message-in {
-  background: #363636 !important;
-}
-
-.message-out {
-  background: #264441 !important;
-}
-
-.tail {
-  margin-top: 1.5px !important;
-}
-
-.message-system-body {
-  background: #348b43 !important;
-  color: #EEE !important;
-  font-weight: bold !important;
-  text-shadow: none !important;
-}
-
-.msg-unread-body {
-  font-weight: bold !important;
-}
-
-
-/* Remove background from down arrow */
-
-.message .btn-context, .message .btn-context:after {
-  background: none !important;
-}
-
-
-/* Buttom bar */
-
-.block-compose {
-  background: #888!important;
-}
-
-.input-container {
-  background: #EEE !important;
-}
-
-
-/* Emojis */
-
-button.menu-item {
-  background: #AAA !important;
-  transition-duration: .25s !important;
-}
-
-button.menu-item:hover {
-  background: #666 !important;
-}
-
-.menu-tabs-marker {
-  background: #348B6F !important;
-}
-
-.emoji-panel-body {
-  background: #444 !important;
-}
-
-.emojik {
-  border-radius: 4px !important;
-  -webkit-box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.7);
-  box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.7);
-  margin: 6px 4px !important;
-}
-
-
-/**********/
-
-
-/* Others */
-
-
-/**********/
-
-
-/* Dropdowns */
-
-.dropdown {
-  background: #333 !important;
-}
-
-li .ellipsify {
-  color: #EEE !important;
-}
-
-li .ellipsify:hover {
-  background: #444 !important;
-}
-
-
-/* Popups */
-
-.popup {
-  background: #262222 !important;
-}
-
-.popup-title, .btn-plain {
-  color: #EEE !important;
-}
-
-.popup-contents {
-  color: #BBB !important;
-}
-
-.select * {
-  color: #00BFA5 !important;
-}
-
-.popup-controls-item {
-  background: #348b6f !important;
-}
-
-.backdrop {
-  background: rgba(15, 15, 15, 0.65) !important;
-}
-
-
-/*  Image viewer */
-
-.media-panel-header, .media-content {
-  background: #333 !important;
-}
-
-.chat-main {
-  color: #348b43 !important;
-}
-
-
-/* NO BORDERS! */
-
-* {
-  border: none !important;
+/* stuff that should be grey */
+._ih3, ._3tl0, ._3tl1 ._10w4, ._497p, ._3x6v, ._2v6o, ._3tky, ._5rh4, ._jf4 ._jf3, ._5i_d .__6m, ._2y8z,
+._4g0h, ._3xcx, ._225b, ._3q35, ._2r2v, ._2n1t, ._1n-e, ._3eus, ._2wy4, ._1u5d ._1u5k, ._3ggt,
+._17cj ._2ze8, ._17cj ._cen {
+	color: rgba(255, 255, 255, .6) !important;
 }

@@ -1,5 +1,5 @@
 {
-  "name": "messengerfordesktopv2",
+  "name": "messengerfd",
   "productName": "Messenger for Desktop",
   "version": "2.0.0",
   "versionChannel": "beta",
@@ -43,7 +43,7 @@
     }
   },
   "darwin": {
-    "bundleId": "com.aluxian.messengerfordesktopv2",
+    "bundleId": "com.aluxian.messengerfd",
     "appCategoryType": "public.app-category.social-networking"
   },
   "linux": {
@@ -76,14 +76,7 @@
   "dev": true,
   "themes": {
     "default": "Default",
-    "faded": "Faded",
-    "pure": "Pure",
-    "grey": "Grey",
     "dark": "Dark",
-    "numix_dark": "Numix Dark",
-    "shadow": "Shadow",
-    "sephia": "Sephia",
-    "fluttershy": "Fluttershy",
-    "orange": "Orange"
+    "mosaic": "Mosaic"
   }
 }

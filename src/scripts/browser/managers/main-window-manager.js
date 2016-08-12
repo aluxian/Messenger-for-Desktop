@@ -36,7 +36,7 @@ class MainWindowManager extends EventEmitter {
 
     const defaultOptions = {
       title: this.initialTitle,
-      backgroundColor: '#f2f2f2',
+      backgroundColor: '#ffffff',
       useContentSize: true,
       minWidth: 458,
       minHeight: 355,

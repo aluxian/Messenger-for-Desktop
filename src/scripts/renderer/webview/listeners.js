@@ -71,16 +71,6 @@ webView.addEventListener('dom-ready', function () {
     webView.openDevTools();
   }
 
-  // Inject custom css
-  log('injecting custom css');
-  files.getStyleCss('mini')
-    .then((css) => webView.insertCSS(css))
-    .catch(logError);
-
-  files.getStyleCss('full')
-    .then((css) => webView.insertCSS(css))
-    .catch(logError);
-
   // Restore the default theme
   const themeId = prefs.get('theme');
   if (themeId) {

@@ -1,0 +1,214 @@
+/* @source: https://userstyles.org/styles/112722/messenger-com-dark */
+
+body {
+  color: #DCDCCC;
+}
+
+a {
+  color: #ECB;
+}
+
+/* Main background */
+._4sp8 {
+  background: url('https://i.imgur.com/kHzRlmz.png');
+}
+
+/* Lots of buttons and images */
+._30yy a, ._30yy img, ._4rv9, ._2fug, ._4v, ._31tm, ._31to, ._fl3 {
+  filter: saturate(0%) brightness(150%);
+}
+
+/* Messenger header */
+._36ic {
+  background: none;
+}
+
+/* User tab */
+._1ht1 {
+  background: none;
+}
+
+/* Top header (current chat user status) */
+._5742 {
+  background: none;
+}
+
+/* Top header user name */
+._5743 {
+  color: inherit;
+}
+
+/* Top header user status */
+._2v6o, ._3oh-, ._3eus {
+  color: rgba(255, 255, 255, .6) !important;
+}
+
+/* People names */
+._1ht6 {
+  color: #DCDCCC;
+}
+
+/* Right info sidebar user info */
+._4_j5 {
+  background: none;
+}
+
+/* Latest chat message READ */
+._1htf {
+  color: #AAA;
+}
+
+/* Latest chat timestamp READ */
+._1ht7 {
+  color: #AAA;
+}
+
+/* Latest chat message UNREAD */
+._1ht3 ._1htf {
+  color: #ECB;
+}
+
+/* Latest chat timestamp UNREAD */
+._1ht3 ._1ht7 {
+  color: #ECB;
+}
+
+/* Search bar */
+._5iwm ._58al {
+  background: #515151;
+}
+
+/* User list block */
+._5l37 {
+  background: none;
+}
+
+/* Search result user name */
+._364g {
+  color: #DCDCCC;
+}
+
+/* Someone's chat message */
+._hh7, ._haj {
+  background-color: #515151;
+  color: #DCDCCC;
+}
+
+/* Selected someone's chat message */
+._hh7:active, ._-5k ._hh7 {
+  background-color: #555;
+}
+
+/* Own chat message */
+._nd_ ._hh7 {
+  background-color: #493838;
+}
+
+/* Own chat message floating block */
+._o46._3i_m ._3058 {
+  /*float: left;*/
+}
+
+/* Selected own chat message */
+._nd_ ._hh7:active, ._nd_._-5k ._hh7 {
+  background-color: #5E4848;
+}
+
+/* Sidebar Group name */
+._2jnv {
+  color: #DCDCCC;
+}
+
+/* Sidebar Person name */
+._3oh {
+  color: #DCDCCC;
+}
+
+/* Sidebar Person activity */
+._3eus {
+  color: #DCDCCC;
+}
+
+/* Sidebar "options" text */
+._1lj0 {
+  color: #DCDCCC;
+}
+
+/* Sidebar options */
+._3szq {
+  color: #DCDCCC;
+}
+
+/* Sidebar user name */
+._3tkx {
+  color: #DCDCCC;
+}
+
+/* Sidebar user status */
+._3tky {
+  color: #DCDCCC;
+  opacity: 0.6;
+}
+
+/* Sidebar user "Facebook profile" text */
+._3tl0 {
+  color: #DCDCCC;
+}
+
+/* Sidebar add people button */
+._4rpj {
+  color: #DCDCCC !important;
+}
+
+/* Hovering sidebar bg color */
+._1enh {
+  background: #333333;
+}
+
+/* Search results background */
+._11_d._5t4c {
+  background: #3a3a3a;
+}
+
+/* Link-type messages */
+._4_j4 .__6k, .__6l, .__6m {
+  color: #dcdccc !important;
+}
+
+/* a:hover bg color (convo msg) */
+._4_j4 ._nd_ ._hh7>span>a:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+/* Time text */
+._4_j4 time {
+  color: #dcdccc !important;
+}
+
+/* input bar */
+._4rv3 {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+._17w2 {
+    color: rgba(255, 255, 255, 1) !important;
+}
+
+._3eus {
+    color: rgba(255, 255, 255, .4) !important;
+}
+
+/* New Message to:*/
+._2y8z {
+  color: #DCDCCC;
+}
+
+/* New Messsage Enter names */
+._58al {
+  color: #DCDCCC !important;
+}
+
+/* All placeholders */
+::-webkit-input-placeholder {
+  color: #DCDCCC !important;
+}
