@@ -5,6 +5,7 @@ branches:
   only:
     - staging
     - deploy
+    - develop
 
 os:
   - osx
