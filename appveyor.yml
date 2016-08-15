@@ -15,19 +15,19 @@ environment:
   SIGN_WIN_CERTIFICATE_PASSWORD:
     secure: jZHktkydPALqcwx36cBY1g==
   AWS_ACCESS_KEY_ID:
-    secure: kNIi3lJU00sPeL1/nfYId9HNcS2CXjec2lHRBuJfJb8=
+    secure: N30cC1yCbVB5vUl+NFuwIabBhTkBczemO2udimmIfQ4=
   AWS_SECRET_ACCESS_KEY:
-    secure: CbDuXBvHIfUMgMX9pKBb1CSXS/IoEVIofwLa1PBEKsGr7u6ayTL3yMrjRJEuGtQt
+    secure: DSp24Yb5sVd311kCztsFoIKFOiwFuVuQmdcNF1B8p+I1uL3z08G53DKmiGbtsXfl
   BINTRAY_API_KEY:
     secure: e+l7MfTu+t2nHFKcpHEz5LgYiVypOVtYnfssYkJ3n+Wno/cldvI+l0jbLosVpQAx
   GITHUB_TOKEN:
-    secure: VgebEox3uOMipNS2O/GeWXLpfqPcIp3hUstSLsaL0YpHvxG95FVzQLuI3IbahvFH
+    secure: 6IU2moI6jYacITwNSUyxIEbeDjkXgBO1SC3HjFMtdyMwpxgJw+2AdUD5Um+J5DNq
   SENTRY_DSN_PRIVATE:
-    secure: T+ibuaoG5w3bUZWFzx3YDty9ALmIehh7hj4tD4+JGJ19GezaSGAah/x+tBM43Cyor+X4g6hnjBIGFpI9Qhl7bA0C37ulyCQ19U5wcIAMvYaQF03dYYolN6hcea1fmU20
+    secure: TATf2W4rkZJb3TtKXszFb0zUtXoI90pTtIXDeNaXF15fNpSIaOwP77P/3Akn+8so8kg0VQWFFuYUrMZqW3NByT2xr1/fE+kXyBz/FUVV8N0OfEl6lHcWHznYWczJW8uN
   PIWIK_SERVER_URL:
-    secure: OSFCKJBPssEPIO/kA78OTi+CZire5JtvpTi9fr+7jWg=
+    secure: OSFCKJBPssEPIO/kA78OTrW6t+YkxTgSg06To+mKawr+VbUeQBgf+HkW1MWSirEF
   SQUIRREL_UPDATES_URL:
-    secure: BNlChGRei/OKFGO3EQIc2yvv8HT9eN/6P0gZPShaoD0=
+    secure: BNlChGRei/OKFGO3EQIc2yVSlm11vzsw/Uz65zjTUw4Ir3FfSlHOY02WMhPBI6Su
 
 cache:
   - "node_modules -> package.json"
