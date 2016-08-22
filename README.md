@@ -66,8 +66,7 @@ You can also use `apt-get` (recommended):
 
 ```
 # Download my gpg key to make sure the deb you download is correct
-gpg --keyserver pool.sks-keyservers.net --recv-keys 1537994D
-gpg --export --armor 1537994D | sudo apt-key add -
+sudo apt-key adv --keyserver pool.sks-keyservers.net --recv 6DDA23616E3FE905FFDA152AE61DA9241537994D
 
 # Add my repository to your sources list (skip if you've done this already)
 # Replace <channel> with stable, beta or dev (pick stable if you're unsure)
