@@ -1,5 +1,5 @@
 {
-  "name": "messengerfd",
+  "name": "messengerfordesktop",
   "dependencies": {
     "asar": "0.11.0",
     "async": "2.0.1",
