@@ -20,7 +20,7 @@ export default {
   }, {
     label: '&Chat on Gitter',
     click: $.all(
-      $.openUrl('https://gitter.im/Aluxian/Whatsie'),
+      $.openUrl('https://gitter.im/Aluxian/Facebook-Messenger-Desktop'),
       $.analytics.trackEvent(
         eventCategories['Menu'],
         eventActions['Open Link'],
@@ -32,7 +32,7 @@ export default {
   }, {
     label: '&Write a Review',
     click: $.all(
-      $.openUrl('https://aluxian.typeform.com/to/s0wi5P'),
+      $.openUrl('https://aluxian.typeform.com/to/Wu3xV0'),
       $.analytics.trackEvent(
         eventCategories['Menu'],
         eventActions['Open Link'],
@@ -42,7 +42,7 @@ export default {
   }, {
     label: '&Suggest a Feature',
     click: $.all(
-      $.openUrl('https://aluxian.typeform.com/to/adWvdX'),
+      $.openUrl('https://aluxian.typeform.com/to/RZm1ud'),
       $.analytics.trackEvent(
         eventCategories['Menu'],
         eventActions['Open Link'],
@@ -52,7 +52,7 @@ export default {
   }, {
     label: '&Report an Issue',
     click: $.all(
-      $.openUrl('https://aluxian.typeform.com/to/A30zq7'),
+      $.openUrl('https://aluxian.typeform.com/to/zbEkn3'),
       $.analytics.trackEvent(
         eventCategories['Menu'],
         eventActions['Open Link'],
@@ -64,7 +64,7 @@ export default {
   }, {
     label: '&Email Developer',
     click: $.all(
-      $.openUrl('mailto:me@aluxian.com'),
+      $.openUrl('mailto:mfd@aluxian.com'),
       $.analytics.trackEvent(
         eventCategories['Menu'],
         eventActions['Open Link'],
@@ -86,7 +86,7 @@ export default {
   }, {
     label: 'Donate &PayPal',
     click: $.all(
-      $.openUrl('https://short.aluxian.com/donatewhatsiepaypal'),
+      $.openUrl('https://short.aluxian.com/donatemfdpaypal'),
       $.analytics.trackEvent(
         eventCategories['Menu'],
         eventActions['Open Link'],
@@ -96,7 +96,7 @@ export default {
   }, {
     label: 'Donate &Bitcoin',
     click: $.all(
-      $.openUrl('https://short.aluxian.com/donatewhatsiebitcoin'),
+      $.openUrl('https://short.aluxian.com/donatemfdbitcoin'),
       $.analytics.trackEvent(
         eventCategories['Menu'],
         eventActions['Open Link'],
