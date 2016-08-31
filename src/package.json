@@ -64,7 +64,7 @@
   "virtualUrl": "http://app.messengerfordesktop.com",
   "piwik": {
     "serverUrl": "{{& PIWIK_SERVER_URL }}",
-    "siteId": "1"
+    "siteId": "2"
   },
   "sentry": {
     "dsn": "{{& SENTRY_DSN_PRIVATE }}"
