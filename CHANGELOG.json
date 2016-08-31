@@ -1,4 +1,14 @@
 [{
+  "version": "2.0.1",
+  "channel": "beta",
+  "releasedAt": 1472106609428,
+  "urgency": "low",
+  "changes": {
+    "General": [
+      "Add toggle to auto-hide the sidebar."
+    ]
+  }
+}, {
   "version": "2.0.0",
   "channel": "beta",
   "releasedAt": 1472106609428,
