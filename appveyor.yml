@@ -47,8 +47,8 @@ test_script:
   - npm test
 
 deploy_script:
-  - if "%APPVEYOR_REPO_BRANCH%" == "staging" ciscripts\win32\build_staging.cmd
-  - if "%APPVEYOR_REPO_BRANCH%" == "deploy" ciscripts\win32\build_deploy.cmd
+  - if "%APPVEYOR_REPO_BRANCH%" == "staging" ciscripts\appveyor\build_staging.cmd
+  - if "%APPVEYOR_REPO_BRANCH%" == "deploy" ciscripts\appveyor\build_deploy.cmd
 
 notifications:
   - provider: Webhook

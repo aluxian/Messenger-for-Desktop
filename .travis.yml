@@ -26,15 +26,15 @@ install:
   - nvm use 5.0
   - npm install -g gulp
   - npm install
-  - ./ciscripts/darwin/install_aws.sh
-  - ./ciscripts/darwin/rebuild_src.sh
+  - ./ciscripts/travis/install_aws.sh
+  - ./ciscripts/travis/rebuild_src.sh
 
 before_script:
   - npm test
 
 script:
-  - if [[ $TRAVIS_BRANCH == 'staging' ]]; then ./ciscripts/darwin/build_staging.sh; fi
-  - if [[ $TRAVIS_BRANCH == 'deploy' ]]; then ./ciscripts/darwin/build_deploy.sh; fi
+  - if [[ $TRAVIS_BRANCH == 'staging' ]]; then ./ciscripts/travis/build_staging.sh; fi
+  - if [[ $TRAVIS_BRANCH == 'deploy' ]]; then ./ciscripts/travis/build_deploy.sh; fi
 
 cache:
   directories:
