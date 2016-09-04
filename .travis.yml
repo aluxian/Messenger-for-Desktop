@@ -26,8 +26,6 @@ install:
   - nvm use 5.0
   - npm install -g gulp
   - npm install
-  - ./ciscripts/travis/install_aws.sh
-  - ./ciscripts/travis/rebuild_src.sh
 
 before_script:
   - npm test
