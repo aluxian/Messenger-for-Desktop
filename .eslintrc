@@ -1,9 +1,10 @@
 {
+  "root": true,
   "parser": "babel-eslint",
   "plugins": [
     "babel"
   ],
-  "extends": "semistandard",
+  "extends": "standard",
   "globals": {
     "log": true,
     "logError": true,
@@ -23,6 +24,9 @@
     "babel/object-shorthand": 1,
     "babel/arrow-parens": 1,
     "babel/no-await-in-loop": 1,
-    "babel/flow-object-type": 1
+    "babel/flow-object-type": 1,
+    "semi": [2, "always"],
+    "no-extra-semi": 2,
+    "semi-spacing": [2, { "before": false, "after": true }]
   }
 }
