@@ -37,6 +37,7 @@ gulp.task 'clean:dist:darwin64', ->
 # Remove packages from previous releases
 gulp.task 'clean:prev-releases:win32', ->
   del [
+    './dist/' + manifest.name + '-*-setup-for-nsis.exe'
     './dist/' + manifest.name + '-*-full.nupkg'
     '!./dist/' + manifest.name + '-' + manifest.version + '-full.nupkg'
   ]
