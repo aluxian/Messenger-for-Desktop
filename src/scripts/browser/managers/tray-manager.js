@@ -1,5 +1,5 @@
 import EventEmitter from 'events';
-import {Menu, Tray} from 'electron';
+import {Menu, Tray, nativeImage} from 'electron';
 
 import filePaths from 'common/utils/file-paths';
 import platform from 'common/utils/platform';
@@ -29,8 +29,14 @@ class TrayManager extends EventEmitter {
     }
 
     if (platform.isDarwin) {
-      this.tray = new Tray(filePaths.getImagePath('trayBlackTemplate.png'));
-      this.tray.setPressedImage(filePaths.getImagePath('trayWhiteTemplate.png'));
+      const imagePath = filePaths.getImagePath('trayBlackTemplate.png');
+      const image = nativeImage.createFromPath(imagePath);
+
+      const pressedImagePath = filePaths.getImagePath('trayWhiteTemplate.png');
+      const pressedImage = nativeImage.createFromPath(pressedImagePath);
+
+      this.tray = new Tray(image);
+      this.tray.setPressedImage(pressedImage);
 
       // Show the notifications count
       if (this.notifManager.unreadCount) {
@@ -39,7 +45,11 @@ class TrayManager extends EventEmitter {
     } else {
       const imgExt = platform.isWindows ? 'ico' : 'png';
       const iconName = this.notifManager.unreadCount ? 'trayAlert' : 'tray';
-      this.tray = new Tray(filePaths.getImagePath(iconName + '.' + imgExt));
+
+      const imagePath = filePaths.getImagePath(iconName + '.' + imgExt);
+      const image = nativeImage.createFromPath(imagePath);
+
+      this.tray = new Tray(image);
     }
 
     this.menu = Menu.buildFromTemplate(template());
@@ -107,7 +117,11 @@ class TrayManager extends EventEmitter {
     } else {
       const imgExt = platform.isWindows ? 'ico' : 'png';
       const iconName = count ? 'trayAlert' : 'tray';
-      this.tray.setImage(filePaths.getImagePath(iconName + '.' + imgExt));
+
+      const imagePath = filePaths.getImagePath(iconName + '.' + imgExt);
+      const image = nativeImage.createFromPath(imagePath);
+
+      this.tray.setImage(image);
     }
   }
 
