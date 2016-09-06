@@ -22,8 +22,8 @@ env:
 install:
   - git clone https://github.com/creationix/nvm.git /tmp/.nvm
   - source /tmp/.nvm/nvm.sh
-  - nvm install 5.0
-  - nvm use 5.0
+  - nvm install 5.5
+  - nvm use 5.5
   - npm install -g gulp
   - npm install
 
