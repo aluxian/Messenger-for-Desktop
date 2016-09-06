@@ -11,6 +11,7 @@ init:
 
 environment:
   SIGNTOOL_PATH: 'C:/Program Files (x86)/Microsoft SDKs/Windows/v7.1A/Bin/SignTool.exe'
+  MAKENSIS_PATH: 'C:/Program Files (x86)/NSIS/makensis.exe'
   SIGN_WIN_CERTIFICATE_FILE: 'C:/foss_ar_sha2.pfx'
   SIGN_WIN_CERTIFICATE_PASSWORD:
     secure: jZHktkydPALqcwx36cBY1g==
