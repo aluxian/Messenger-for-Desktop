@@ -418,7 +418,7 @@ gulp.task 'pack:win32:nsis', ['build:win32', 'clean:dist:win32'], (done) ->
         .then callback, callback
 
     # Run makensis
-    applySpawn (process.env.MAKENSIS_PATH or 'makensis.exe'), ['./build/resources/win/installer.nsi']
+    applySpawn (process.env.MAKENSIS_PATH or 'makensis.exe'), ['build/resources/win/installer.nsi']
   ], done
 
 # Create the win32 portable zip
