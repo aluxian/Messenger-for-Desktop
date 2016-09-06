@@ -1,11 +1,13 @@
 [{
   "version": "2.0.1",
   "channel": "beta",
-  "releasedAt": 1472106609428,
+  "releasedAt": 1473193961005,
   "urgency": "low",
   "changes": {
     "General": [
-      "Add toggle to auto-hide the sidebar."
+      "Add toggle to auto-hide the sidebar.",
+      "Various fixes and improvements.",
+      "Dependency updates."
     ]
   }
 }, {
