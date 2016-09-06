@@ -46,6 +46,23 @@ ipcRenderer.on('apply-theme', function (event, css) {
   styleBlock.innerHTML = css;
 });
 
+// Insert or remove the style required to auto-hide the sidebar
+ipcRenderer.on('apply-sidebar-auto-hide', function (event, enabled, css) {
+  let styleBlock = document.getElementById('sidebarAutoHide');
+
+  if (enabled && !styleBlock) {
+    styleBlock = document.createElement('style');
+    styleBlock.id = 'sidebarAutoHide';
+    styleBlock.type = 'text/css';
+    styleBlock.innerHTML = css;
+    document.head.appendChild(styleBlock);
+  }
+
+  if (!enabled && styleBlock) {
+    styleBlock.parentNode.removeChild(styleBlock);
+  }
+});
+
 // Add the selected misspelling to the dictionary
 ipcRenderer.on('add-selection-to-dictionary', function () {
   SpellChecker.add(document.getSelection().toString());

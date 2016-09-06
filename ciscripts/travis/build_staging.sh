@@ -1,4 +1,4 @@
 #!/bin/bash -ev
 
-./ciscripts/darwin/build.sh
+./ciscripts/travis/build.sh
 gulp publish:bintray:artifacts:darwin --verbose
