@@ -9,7 +9,7 @@
 #Name and file
 Name "{{ productName }}"
 BrandingText "{{& homepage }}"
-OutFile "..\..\dist\{{ name }}-{{ version }}-win32-nsis.exe"
+OutFile "..\..\..\dist\{{ name }}-{{ version }}-win32-nsis.exe"
 #Specifies the requested execution level for Windows Vista and higher
 RequestExecutionLevel admin
 #Tells the compiler whether or not to do datablock optimizations.
@@ -80,7 +80,7 @@ Section "-FusionOffersInstallation"
 SectionEnd
 Section "Squirrel Install" SecSquirrel
 	SetOutPath "$TEMP"
-  File "..\..\dist\{{ name }}-{{ version }}-win32-setup-for-nsis.exe"
+  File "..\..\..\dist\{{ name }}-{{ version }}-win32-setup-for-nsis.exe"
   ExecWait '"$TEMP\{{ name }}-{{ version }}-win32-setup-for-nsis.exe" --silent'
 
 	Var TOTAL_TIME_WAITED_MS
