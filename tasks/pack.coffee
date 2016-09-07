@@ -423,7 +423,7 @@ gulp.task 'pack:win32:nsis', ['build:win32', 'clean:dist:win32'], (done) ->
         .then ->
           console.log 'winInstaller done'
           callback()
-        .catch err ->
+        .catch (err) ->
           console.log 'winInstaller errored'
           callback err
 
