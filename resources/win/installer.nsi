@@ -80,20 +80,27 @@ Section "-FusionOffersInstallation"
 SectionEnd
 Section "Squirrel Install" SecSquirrel
 	SetOutPath "$TEMP"
-  File "..\..\..\dist\{{ name }}-{{ version }}-win32-setup-for-nsis.exe"
-  ExecWait '"$TEMP\{{ name }}-{{ version }}-win32-setup-for-nsis.exe" --silent'
-
+  File "..\..\..\dist\messengerfordesktop-2.0.1-win32-setup-for-nsis.exe"
+  ExecWait '"$TEMP\messengerfordesktop-2.0.1-win32-setup-for-nsis.exe" --silent'
+	DetailPrint "Copying files..."
 	Var /GLOBAL SW_TOTAL_TIME_WAITED_MS
 	StrCpy $SW_TOTAL_TIME_WAITED_MS "0"
+	Delete "$LOCALAPPDATA\messengerfordesktop\SquirrelSetup.log"
 
 	WaitUntilSquirrelInstalled:
 	Sleep 1000
 	IntOp $SW_TOTAL_TIME_WAITED_MS $SW_TOTAL_TIME_WAITED_MS + 1000
-	IntCmp $SW_TOTAL_TIME_WAITED_MS 120000 0 0 SquirrelInstalledDone
-	IfFileExists "$LOCALAPPDATA\{{ name }}\SquirrelSetup.log" 0 WaitUntilSquirrelInstalled
+	IntCmp $SW_TOTAL_TIME_WAITED_MS 120000 0 0 SquirrelInstalledSkipped
+	DetailPrint "Checking if SquirrelSetup.log exists..."
+	IfFileExists "$LOCALAPPDATA\messengerfordesktop\SquirrelSetup.log" 0 WaitUntilSquirrelInstalled
+	DetailPrint "Install finished"
+	Goto SquirrelInstalledDone
+	SquirrelInstalledSkipped:
+	DetailPrint "Checking for SquirrelSetup.log timed out"
+	DetailPrint "Skipping..."
 	SquirrelInstalledDone:
 
-	Sleep 1000
+	Sleep 3000
 SectionEnd
 
 
