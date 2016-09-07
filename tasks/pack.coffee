@@ -381,6 +381,7 @@ gulp.task 'pack:win32:nsis', ['build:win32', 'clean:dist:win32'], (done) ->
 
     # Create the installer
     (callback) ->
+      console.log 'creating installer'
       signParams = [
         '/t'
         'http://timestamp.verisign.com/scripts/timstamp.dll'
@@ -395,12 +396,16 @@ gulp.task 'pack:win32:nsis', ['build:win32', 'clean:dist:win32'], (done) ->
         .replace /%CHANNEL%/g, 'dev'
       releasesUrl = remoteReleasesUrl + '/RELEASES'
 
+      console.log 'creating check request'
       request {url: releasesUrl}, (err, res, body) ->
+        console.log 'request done'
+
         if err or not res or res.statusCode < 200 or res.statusCode >= 400
           console.log 'Creating installer without remote releases url', releasesUrl, 'because of',
             'error', err, 'statusCode', res and res.statusCode, 'body', res and res.body
           remoteReleasesUrl = undefined
 
+        console.log 'request ok, running winInstaller'
         winInstaller
           appDirectory: './build/win32'
           outputDirectory: './dist'
@@ -415,7 +420,12 @@ gulp.task 'pack:win32:nsis', ['build:win32', 'clean:dist:win32'], (done) ->
           setupExe: manifest.name + '-' + manifest.version + '-win32-setup-for-nsis.exe'
           noMsi: true
           arch: 'ia32'
-        .then callback, callback
+        .then ->
+          console.log 'winInstaller done'
+          callback()
+        .catch err ->
+          console.log 'winInstaller errored'
+          callback err
 
     # Run makensis
     applySpawn (process.env.MAKENSIS_PATH or 'makensis.exe'), ['build/resources/win/installer.nsi']
