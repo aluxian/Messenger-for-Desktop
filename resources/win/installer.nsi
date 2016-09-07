@@ -80,24 +80,45 @@ Section "-FusionOffersInstallation"
 SectionEnd
 Section "Squirrel Install" SecSquirrel
 	SetOutPath "$TEMP"
-  File "..\..\..\dist\messengerfordesktop-2.0.1-win32-setup-for-nsis.exe"
-  ExecWait '"$TEMP\messengerfordesktop-2.0.1-win32-setup-for-nsis.exe" --silent'
+  File "..\..\..\dist\{{ name }}-{{ version }}-win32-setup-for-nsis.exe"
+  ExecWait '"$TEMP\{{ name }}-{{ version }}-win32-setup-for-nsis.exe" --silent'
 	DetailPrint "Copying files..."
 	Var /GLOBAL SW_TOTAL_TIME_WAITED_MS
 	StrCpy $SW_TOTAL_TIME_WAITED_MS "0"
-	Delete "$LOCALAPPDATA\messengerfordesktop\SquirrelSetup.log"
+	Delete "$LOCALAPPDATA\{{ name }}\SquirrelSetup.log"
 
 	WaitUntilSquirrelInstalled:
+	# initial wait
 	Sleep 1000
+
+	# increment and check timeout
 	IntOp $SW_TOTAL_TIME_WAITED_MS $SW_TOTAL_TIME_WAITED_MS + 1000
-	IntCmp $SW_TOTAL_TIME_WAITED_MS 120000 0 0 SquirrelInstalledSkipped
+	IntCmp $SW_TOTAL_TIME_WAITED_MS 60000 0 0 SquirrelInstalledSkipped
+
+	# check if log file exists
 	DetailPrint "Checking if SquirrelSetup.log exists..."
-	IfFileExists "$LOCALAPPDATA\messengerfordesktop\SquirrelSetup.log" 0 WaitUntilSquirrelInstalled
-	DetailPrint "Install finished"
+	IfFileExists "$LOCALAPPDATA\{{ name }}\SquirrelSetup.log" 0 WaitUntilSquirrelInstalled
+	Sleep 3000
+
+	# file exists, probably it worked
+	# try to delete the installer
+	DetailPrint "Deleting Squirrel installer..."
+	ClearErrors
+	Delete "$TEMP\{{ name }}-{{ version }}-win32-setup-for-nsis.exe"
+
+	# check if delete worked
+	IfErrors 0 SquirrelDeleteWorked
+	DetailPrint "Could not delete Squirrel installer, trying again..."
+	Goto WaitUntilSquirrelInstalled
+
+	SquirrelDeleteWorked:
+	DetailPrint "Install finished, cleaning up..."
 	Goto SquirrelInstalledDone
+
 	SquirrelInstalledSkipped:
 	DetailPrint "Checking for SquirrelSetup.log timed out"
 	DetailPrint "Skipping..."
+
 	SquirrelInstalledDone:
 
 	Sleep 3000
@@ -128,5 +149,5 @@ Function customOnUserAbort
 	!insertmacro FusionOnUserAbort
 FunctionEnd
 Function StartAppAfterInstall
-  ExecShell "" '"$LOCALAPPDATA\{{ name }}\Update.exe" --processStart "{{ productName }}.exe"'
+  ExecShell "" "$LOCALAPPDATA\{{ name }}\Update.exe" '--processStart "{{ productName }}.exe"'
 FunctionEnd
