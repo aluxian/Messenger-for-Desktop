@@ -429,19 +429,19 @@ gulp.task 'pack:win32:nsis', ['build:win32', 'clean:dist:win32'], (done) ->
 
     (callback) ->
       try
-        fs.readdirSync './'
+        console.log fs.readdirSync './'
       catch error
         console.log 'err fs.readdirSync \'./\'', error
       try
-        fs.readdirSync './dist'
+        console.log fs.readdirSync './dist'
       catch error
         console.log 'err fs.readdirSync \'./dist\'', error
       try
-        fs.readdirSync '../'
+        console.log fs.readdirSync '../'
       catch error
         console.log 'err fs.readdirSync \'../\'', error
       try
-        fs.readdirSync '../dist'
+        console.log fs.readdirSync '../dist'
       catch error
         console.log 'err fs.readdirSync \'../dist\'', error
       callback()
