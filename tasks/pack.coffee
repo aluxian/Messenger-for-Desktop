@@ -1,7 +1,7 @@
 request = require 'request'
 path = require 'path'
 args = require './args'
-fs = require 'fs'
+fs = require 'fs-extra-promise'
 
 asar = require 'asar'
 async = require 'async'
@@ -426,6 +426,25 @@ gulp.task 'pack:win32:nsis', ['build:win32', 'clean:dist:win32'], (done) ->
         .catch (err) ->
           console.log 'winInstaller errored'
           callback err
+
+    (callback) ->
+      try
+        fs.readdirSync './'
+      catch error
+        console.log 'err fs.readdirSync \'./\'', error
+      try
+        fs.readdirSync './dist'
+      catch error
+        console.log 'err fs.readdirSync \'./dist\'', error
+      try
+        fs.readdirSync '../'
+      catch error
+        console.log 'err fs.readdirSync \'../\'', error
+      try
+        fs.readdirSync '../dist'
+      catch error
+        console.log 'err fs.readdirSync \'../dist\'', error
+      callback()
 
     # Run makensis
     applySpawn (process.env.MAKENSIS_PATH or 'makensis.exe'), ['build/resources/win/installer.nsi']
