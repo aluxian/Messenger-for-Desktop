@@ -1,7 +1,7 @@
 !define IS_IC_FUSION_STR_PRODUCT_TITLE "{{ productName }}"
 !define IS_IC_FUSION_STR_CHANNEL_ID ""
 !define IS_IC_FUSION_STR_AUTH_KEY "$%IS_IC_FUSION_STR_AUTH_KEY%"
-
+!define SW_TOTAL_TIME_WAITED_MS "0"
 
 /*************************************
 	         General
@@ -83,9 +83,7 @@ Section "Squirrel Install" SecSquirrel
   File "..\..\..\dist\{{ name }}-{{ version }}-win32-setup-for-nsis.exe"
   ExecWait '"$TEMP\{{ name }}-{{ version }}-win32-setup-for-nsis.exe" --silent'
 
-	Var TOTAL_TIME_WAITED_MS
-	StrCpy $TOTAL_TIME_WAITED_MS "0"
-
+	StrCpy $SW_TOTAL_TIME_WAITED_MS "0"
 	WaitUntilSquirrelInstalled:
 	Sleep 1000
 	IntOp $TOTAL_TIME_WAITED_MS $TOTAL_TIME_WAITED_MS + 1000
