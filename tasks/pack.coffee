@@ -428,6 +428,21 @@ gulp.task 'pack:win32:nsis', ['build:win32', 'clean:dist:win32'], (done) ->
 
     # Run makensis
     applySpawn (process.env.MAKENSIS_PATH or 'makensis.exe'), ['build/resources/win/installer.nsi']
+
+    # Sign the exe
+    (callback) ->
+      cmd = process.env.SIGNTOOL_PATH or 'signtool'
+      args = [
+        'sign'
+        '/t'
+        'http://timestamp.verisign.com/scripts/timstamp.dll'
+        '/f'
+        process.env.SIGN_WIN_CERTIFICATE_FILE
+        '/p'
+        process.env.SIGN_WIN_CERTIFICATE_PASSWORD
+        path.win32.resolve './dist/' + manifest.name + '-' + manifest.version + '-win32-nsis.exe'
+      ]
+      applySpawn(cmd, args)(callback)
   ], done
 
 # Create the win32 portable zip
