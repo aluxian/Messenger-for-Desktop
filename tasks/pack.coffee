@@ -1,7 +1,6 @@
 request = require 'request'
 path = require 'path'
 args = require './args'
-fs = require 'fs'
 
 asar = require 'asar'
 async = require 'async'
@@ -346,6 +345,104 @@ gulp.task 'pack:win32:installer', ['build:win32', 'clean:dist:win32'], (done) ->
           noMsi: true
           arch: 'ia32'
         .then callback, callback
+  ], done
+
+# Create the win32 nsis installer
+gulp.task 'pack:win32:nsis', ['build:win32', 'clean:dist:win32'], (done) ->
+  if process.platform isnt 'win32'
+    return console.warn 'Skipping win32 NSIS installer packing; This has only been tested on Windows.'
+
+  for envName in ['SIGN_WIN_CERTIFICATE_FILE', 'SIGN_WIN_CERTIFICATE_PASSWORD']
+    if not process.env[envName]
+      return console.warn envName + ' env var not set.'
+
+  async.series [
+    # Update package.json
+    async.apply updateManifest, './build/win32/resources/app/package.json', (manifest) ->
+      manifest.portable = false
+      manifest.distrib = 'win32:nsis'
+      manifest.buildNum = process.env.APPVEYOR_BUILD_NUMBER
+      manifest.dev = false
+
+    # Remove the dev modules
+    applyIf args.prod, applySpawn 'npm', ['prune', '--production'],
+      cwd: './build/win32/resources/app'
+
+    # Deduplicate dependencies
+    applyIf args.prod, applySpawn 'npm', ['dedupe'],
+      cwd: './build/win32/resources/app'
+
+    # Compress the source files into an asar archive
+    async.apply asar.createPackage, './build/win32/resources/app', './build/win32/resources/app.asar'
+
+    # Remove leftovers
+    applyPromise del, './build/win32/resources/app'
+
+    # Create the installer
+    (callback) ->
+      console.log 'creating installer'
+      signParams = [
+        '/t'
+        'http://timestamp.verisign.com/scripts/timstamp.dll'
+        '/f'
+        process.env.SIGN_WIN_CERTIFICATE_FILE
+        '/p'
+        process.env.SIGN_WIN_CERTIFICATE_PASSWORD
+      ]
+
+      remoteReleasesUrl = manifest.updater.urls.win32
+        .replace /{{& SQUIRREL_UPDATES_URL }}/g, process.env.SQUIRREL_UPDATES_URL
+        .replace /%CHANNEL%/g, 'dev'
+      releasesUrl = remoteReleasesUrl + '/RELEASES'
+
+      console.log 'creating check request'
+      request {url: releasesUrl}, (err, res, body) ->
+        console.log 'request done'
+
+        if err or not res or res.statusCode < 200 or res.statusCode >= 400
+          console.log 'Creating installer without remote releases url', releasesUrl, 'because of',
+            'error', err, 'statusCode', res and res.statusCode, 'body', res and res.body
+          remoteReleasesUrl = undefined
+
+        console.log 'request ok, running winInstaller'
+        winInstaller
+          appDirectory: './build/win32'
+          outputDirectory: './dist'
+          loadingGif: './build/resources/win/install-spinner.gif'
+          signWithParams: signParams.join ' '
+          setupIcon: './build/resources/win/setup.ico'
+          iconUrl: mainManifest.icon.url
+          description: manifest.productName
+          authors: manifest.authorName
+          remoteReleases: remoteReleasesUrl
+          copyright: manifest.copyright
+          setupExe: manifest.name + '-' + manifest.version + '-win32-setup-for-nsis.exe'
+          noMsi: true
+          arch: 'ia32'
+        .then ->
+          console.log 'winInstaller done'
+          callback()
+        .catch (err) ->
+          console.log 'winInstaller errored'
+          callback err
+
+    # Run makensis
+    applySpawn (process.env.MAKENSIS_PATH or 'makensis.exe'), ['build/resources/win/installer.nsi']
+
+    # Sign the exe
+    (callback) ->
+      cmd = process.env.SIGNTOOL_PATH or 'signtool'
+      args = [
+        'sign'
+        '/t'
+        'http://timestamp.verisign.com/scripts/timstamp.dll'
+        '/f'
+        process.env.SIGN_WIN_CERTIFICATE_FILE
+        '/p'
+        process.env.SIGN_WIN_CERTIFICATE_PASSWORD
+        path.win32.resolve './dist/' + manifest.name + '-' + manifest.version + '-win32-nsis.exe'
+      ]
+      applySpawn(cmd, args)(callback)
   ], done
 
 # Create the win32 portable zip

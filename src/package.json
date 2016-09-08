@@ -1,7 +1,7 @@
 {
   "name": "messengerfordesktop",
   "productName": "Messenger for Desktop",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "versionChannel": "beta",
   "description": "A simple & beautiful desktop client for Facebook Messenger.",
   "wvUrl": "https://www.messenger.com/login",
@@ -56,7 +56,7 @@
   "author": "Alexandru Rosianu <me@aluxian.com>",
   "authorName": "Alexandru Rosianu",
   "copyright": "Copyright © Alexandru Rosianu",
-  "homepage": "https://messengerfordesktop.com/",
+  "homepage": "https://messengerfordesktop.com",
   "repository": {
     "type": "git",
     "url": "https://github.com/Aluxian/Facebook-Messenger-Desktop.git"
@@ -64,12 +64,12 @@
   "virtualUrl": "http://app.messengerfordesktop.com",
   "piwik": {
     "serverUrl": "{{& PIWIK_SERVER_URL }}",
-    "siteId": "1"
+    "siteId": "2"
   },
   "sentry": {
     "dsn": "{{& SENTRY_DSN_PRIVATE }}"
   },
-  "electronVersion": "v1.3.4",
+  "electronVersion": "v1.3.5",
   "distrib": "unset",
   "portable": false,
   "buildNum": 0,

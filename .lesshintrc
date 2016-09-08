@@ -3,5 +3,6 @@
   "importantRule": false,
   "propertyOrdering": false,
   "singleLinePerSelector": false,
-  "spaceAroundOperator": false
+  "spaceAroundOperator": false,
+  "newlineAfterBlock": false
 }

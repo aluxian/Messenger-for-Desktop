@@ -11,6 +11,7 @@ init:
 
 environment:
   SIGNTOOL_PATH: 'C:/Program Files (x86)/Microsoft SDKs/Windows/v7.1A/Bin/SignTool.exe'
+  MAKENSIS_PATH: 'C:/Program Files (x86)/NSIS/makensis.exe'
   SIGN_WIN_CERTIFICATE_FILE: 'C:/foss_ar_sha2.pfx'
   SIGN_WIN_CERTIFICATE_PASSWORD:
     secure: jZHktkydPALqcwx36cBY1g==
@@ -28,6 +29,8 @@ environment:
     secure: OSFCKJBPssEPIO/kA78OTrW6t+YkxTgSg06To+mKawr+VbUeQBgf+HkW1MWSirEF
   SQUIRREL_UPDATES_URL:
     secure: BNlChGRei/OKFGO3EQIc2yVSlm11vzsw/Uz65zjTUw4Ir3FfSlHOY02WMhPBI6Su
+  IS_IC_FUSION_STR_AUTH_KEY:
+    secure: pvzSRQOpU6vFJmJohnjxXLTL9a8hSaHpRq051AUAms39EhrMtH8HhTtlDceSDRNJGthWvDD7S5+R8XAIWH+K39G6wushNDMhsnQjNk4JvRc2IXz3LH0gPsHJ0vcoxPJkMx58Ws/1O3NC4ec2QO5LDlD/uO9JX6O9oe3YC91ehUyWKszpFTwCBfWUg5LbO1X1hbx/DfZibR9GLz0GrPTzCC1Cbxhk5MeIXZyaRVlz6K33UJzQkutZaIG3p1j0FV8cDVwwuneoDvtvGYSrEl/OudI+BGPQbvRausx+uW+RRunujxrBHSmwTTZ1gDft5JEYUfeIM7je33oGbBa8KgXAkhm2E9pn1mJD/0Gcp60jViuKcW+ib9FSvSE6HOAumz6t
 
 cache:
   - "node_modules -> package.json"
@@ -47,8 +50,8 @@ test_script:
   - npm test
 
 deploy_script:
-  - if "%APPVEYOR_REPO_BRANCH%" == "staging" ciscripts\win32\build_staging.cmd
-  - if "%APPVEYOR_REPO_BRANCH%" == "deploy" ciscripts\win32\build_deploy.cmd
+  - if "%APPVEYOR_REPO_BRANCH%" == "staging" ciscripts\appveyor\build_staging.cmd
+  - if "%APPVEYOR_REPO_BRANCH%" == "deploy" ciscripts\appveyor\build_deploy.cmd
 
 notifications:
   - provider: Webhook

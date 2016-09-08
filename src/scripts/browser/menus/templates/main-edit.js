@@ -69,7 +69,12 @@ export default {
     accelerator: 'CmdOrCtrl+Alt+S',
     needsWindow: true,
     click: $.all(
-      $.sendToWebView('spell-checker', $.key('checked'), $.pref('spell-checker-auto-correct'), $.pref('spell-checker-language')),
+      $.sendToWebView(
+        'spell-checker',
+        $.key('checked'),
+        $.pref('spell-checker-auto-correct'),
+        $.pref('spell-checker-language')
+      ),
       $.updateSibling('spell-checker-auto-correct', 'enabled', $.key('checked')),
       $.updateSibling('spell-checker-language', 'enabled', $.key('checked')),
       $.setPref('spell-checker-check', $.key('checked'))
@@ -84,7 +89,12 @@ export default {
     needsWindow: true,
     allow: false,
     click: $.all(
-      $.sendToWebView('spell-checker', $.pref('spell-checker-check'), $.key('checked'), $.pref('spell-checker-language')),
+      $.sendToWebView(
+        'spell-checker',
+        $.pref('spell-checker-check'),
+        $.key('checked'),
+        $.pref('spell-checker-language')
+      ),
       $.setPref('spell-checker-auto-correct', $.key('checked'))
     ),
     parse: $.all(
@@ -103,7 +113,12 @@ export default {
       click: $.all(
         $.ifTrue(
           $.pref('spell-checker-check'),
-          $.sendToWebView('spell-checker', $.pref('spell-checker-check'), $.pref('spell-checker-auto-correct'), $.key('langCode'))
+          $.sendToWebView(
+            'spell-checker',
+            $.pref('spell-checker-check'),
+            $.pref('spell-checker-auto-correct'),
+            $.key('langCode')
+          )
         ),
         $.setPref('spell-checker-language', $.key('langCode'))
       )

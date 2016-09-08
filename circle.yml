@@ -14,11 +14,11 @@ deployment:
   staging:
     branch: staging
     commands:
-      - ./ciscripts/linux/build_staging.sh
+      - ./ciscripts/circleci/build_staging.sh
   deploy:
     branch: deploy
     commands:
-      - ./ciscripts/linux/build_deploy.sh
+      - ./ciscripts/circleci/build_deploy.sh
 
 notify:
   webhooks:

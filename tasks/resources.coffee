@@ -41,7 +41,11 @@ gulp.task 'resources:linux', ->
 
 # Move the resources for win32
 gulp.task 'resources:win', ->
+  templateFilter = filter ['**/installer.nsi'], {restore: true}
   gulp.src './resources/win/**/*'
+    .pipe templateFilter
+    .pipe mustache manifest
+    .pipe templateFilter.restore
     .pipe gulp.dest './build/resources/win'
 
 # Move and process resources for the current platform by default

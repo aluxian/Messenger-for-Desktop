@@ -72,6 +72,9 @@ export function openUrl (url) {
  */
 export function sendToWebView (channel, ...valueExprs) {
   return function (menuItem, browserWindow) {
+    if (!browserWindow) {
+      browserWindow = global.application.mainWindowManager.window;
+    }
     const values = valueExprs.map((e) => e.apply(this, arguments));
     browserWindow.webContents.send('fwd-webview', channel, ...values);
   };
@@ -120,6 +123,9 @@ export function showWindow () {
  */
 export function toggleFullScreen () {
   return function (menuItem, browserWindow) {
+    if (!browserWindow) {
+      browserWindow = global.application.mainWindowManager.window;
+    }
     const newState = !browserWindow.isFullScreen();
     browserWindow.setFullScreen(newState);
   };
@@ -130,6 +136,9 @@ export function toggleFullScreen () {
  */
 export function toggleDevTools () {
   return function (menuItem, browserWindow) {
+    if (!browserWindow) {
+      browserWindow = global.application.mainWindowManager.window;
+    }
     browserWindow.toggleDevTools();
   };
 }
@@ -139,6 +148,9 @@ export function toggleDevTools () {
  */
 export function toggleMenuBar () {
   return function (menuItem, browserWindow) {
+    if (!browserWindow) {
+      browserWindow = global.application.mainWindowManager.window;
+    }
     const newState = !browserWindow.isMenuBarVisible();
     browserWindow.setMenuBarVisibility(newState);
   };
@@ -149,6 +161,9 @@ export function toggleMenuBar () {
  */
 export function floatOnTop (flagExpr) {
   return function (menuItem, browserWindow) {
+    if (!browserWindow) {
+      browserWindow = global.application.mainWindowManager.window;
+    }
     const flag = flagExpr.apply(this, arguments);
     browserWindow.setAlwaysOnTop(flag);
   };
@@ -225,6 +240,9 @@ export function hideDockBadge (flagExpr) {
  */
 export function hideTaskbarBadge (flagExpr) {
   return function (menuItem, browserWindow) {
+    if (!browserWindow) {
+      browserWindow = global.application.mainWindowManager.window;
+    }
     const flag = flagExpr.apply(this, arguments);
     if (!flag) {
       browserWindow.setOverlayIcon(null, '');

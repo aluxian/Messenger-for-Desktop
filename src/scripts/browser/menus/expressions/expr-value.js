@@ -57,3 +57,14 @@ export function themeCss (nameExpr, callback) {
       .catch(logError);
   };
 }
+
+/**
+ * Gets the css content of the given style.
+ */
+export function styleCss (styleName, callback) {
+  return function () {
+    files.getStyleCss(styleName)
+      .then((css) => callback(css).apply(this, arguments))
+      .catch(logError);
+  };
+}

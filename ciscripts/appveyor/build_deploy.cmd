@@ -1,4 +1,4 @@
 @ECHO ON
 
-CALL ciscripts\win32\build.cmd
+CALL ciscripts\appveyor\build.cmd
 CALL gulp publish:github --verbose
