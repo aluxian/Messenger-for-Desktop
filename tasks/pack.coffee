@@ -1,5 +1,6 @@
 request = require 'request'
 path = require 'path'
+rcedit = require 'rcedit'
 args = require './args'
 
 asar = require 'asar'
@@ -428,6 +429,22 @@ gulp.task 'pack:win32:nsis', ['build:win32', 'clean:dist:win32'], (done) ->
 
     # Run makensis
     applySpawn (process.env.MAKENSIS_PATH or 'makensis.exe'), ['build/resources/win/installer.nsi']
+
+    # Edit properties of the exe
+    (callback) ->
+      properties =
+        'version-string':
+          ProductName: manifest.productName
+          CompanyName: manifest.authorName
+          FileDescription: manifest.productName
+          LegalCopyright: manifest.copyright
+          OriginalFilename: manifest.productName + '.exe'
+        'file-version': manifest.version
+        'product-version': manifest.version
+
+      exePath = './dist/' + manifest.name + '-' + manifest.version + '-win32-nsis.exe'
+      logMessage = 'rcedit ' + exePath + ' properties'
+      rcedit exePath, properties, utils.log callback, logMessage, JSON.stringify(properties)
 
     # Sign the exe
     (callback) ->
