@@ -1,0 +1,5 @@
+# Prevent CircleCI from building this branch
+general:
+  branches:
+    only:
+      - xxxxxxxxxxxxxxxxxxxx
