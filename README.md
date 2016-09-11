@@ -43,7 +43,7 @@ If you want to help me make *Messenger for Desktop* better, I recommend `dev` or
 
 *Installer (recommended):*
 
-1. Download [messengerfordesktop-x.x.x-win32-setup.exe][LR]
+1. Download [messengerfordesktop-x.x.x-win32-nsis.exe][LR]
 2. Run the installer, wait until it finishes
 3. Done! The app will update automatically
 
