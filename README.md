@@ -12,8 +12,6 @@ A simple &amp; beautiful desktop client for [Facebook Messenger](https://www.mes
 
 > **@devs:** If you're willing to help improve, fix or maintain the app, I can make you a collaborator to help me. [Join me on Gitter](https://gitter.im/Aluxian/Facebook-Messenger-Desktop) and let's chat!
 
-![MFD Screenshot](./screenshot.png)
-
 ## Features
 
 - Themes &amp; Mini Mode

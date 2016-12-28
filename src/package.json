@@ -1,36 +1,36 @@
 {
   "name": "messengerfordesktop",
   "productName": "Messenger for Desktop",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "versionChannel": "beta",
   "description": "A simple & beautiful desktop client for Facebook Messenger.",
   "wvUrl": "https://www.messenger.com/login",
   "main": "./scripts/browser/init.js",
   "dependencies": {
-    "app-module-path": "1.1.0",
-    "babel-runtime": "6.9.2",
+    "app-module-path": "2.1.0",
+    "babel-runtime": "6.20.0",
     "colors": "1.1.2",
-    "debug": "2.2.0",
-    "del": "2.2.1",
-    "fs-extra-promise": "0.4.0",
+    "debug": "2.5.2",
+    "del": "2.2.2",
+    "fs-extra-promise": "0.4.1",
     "keymirror": "0.1.1",
     "launchd.plist": "0.0.1",
-    "lodash.debounce": "4.0.6",
+    "lodash.debounce": "4.0.8",
     "mousetrap": "1.6.0",
-    "needle": "1.0.0",
+    "needle": "1.4.3",
     "node-uuid": "1.4.7",
-    "promisify-es6": "1.0.1",
-    "raven": "0.11.0",
-    "raven-js": "3.2.1",
+    "promisify-es6": "1.0.2",
+    "raven": "1.1.1",
+    "raven-js": "3.9.1",
     "semver": "5.3.0",
-    "source-map-support": "0.4.2",
+    "source-map-support": "0.4.8",
     "spellchecker": "3.3.1",
     "strip-ansi": "3.0.1",
-    "winreg": "1.2.1",
-    "yargs": "4.8.1"
+    "winreg": "1.2.2",
+    "yargs": "6.5.0"
   },
   "devDependencies": {
-    "devtron": "1.2.1"
+    "devtron": "1.4.0"
   },
   "optionalDependencies": {
     "nodobjc": "2.1.0"
@@ -53,9 +53,9 @@
     "section": "web"
   },
   "license": "MIT",
-  "author": "Alexandru Rosianu <me@aluxian.com>",
-  "authorName": "Alexandru Rosianu",
-  "copyright": "Copyright © Alexandru Rosianu",
+  "author": "MessengerForDesktop.com <hello@messengerfordesktop.com>",
+  "authorName": "MessengerForDesktop.com",
+  "copyright": "Copyright © MessengerForDesktop.com",
   "homepage": "https://messengerfordesktop.com",
   "repository": {
     "type": "git",
@@ -69,7 +69,7 @@
   "sentry": {
     "dsn": "{{& SENTRY_DSN_PRIVATE }}"
   },
-  "electronVersion": "v1.3.5",
+  "electronVersion": "v1.4.13",
   "distrib": "unset",
   "portable": false,
   "buildNum": 0,
