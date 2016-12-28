@@ -68,7 +68,7 @@ sudo apt-key adv --keyserver pool.sks-keyservers.net --recv 6DDA23616E3FE905FFDA
 
 # Add my repository to your sources list (skip if you've done this already)
 # Replace <channel> with stable, beta or dev (pick stable if you're unsure)
-echo "deb https://dl.bintray.com/aluxian/deb <channel> main" |
+echo "deb https://dl.bintray.com/aluxian/deb/ <channel> main" |
   sudo tee -a /etc/apt/sources.list.d/aluxian.list
 
 # Install Messenger for Desktop
