@@ -1,7 +1,7 @@
 # Messenger for Desktop 2
 
 [![OS X build](https://travis-ci.org/Aluxian/Facebook-Messenger-Desktop.svg?branch=staging)](https://travis-ci.org/Aluxian/Facebook-Messenger-Desktop)
-[![Windows build](https://ci.appveyor.com/api/projects/status/9j09atict8yqvrsw/branch/staging?svg=true)](https://ci.appveyor.com/project/Aluxian/Facebook-Messenger-Desktop)
+[![Windows build](https://ci.appveyor.com/api/projects/status/2oar528hietbc77t/branch/staging?svg=true)](https://ci.appveyor.com/project/Aluxian/Messenger-for-Desktop)
 [![Linux builds](https://circleci.com/gh/Aluxian/Facebook-Messenger-Desktop/tree/staging.svg?style=shield)](https://circleci.com/gh/Aluxian/Facebook-Messenger-Desktop)
 [![Downloads total](https://updates.messengerfordesktop.com/badge/downloads.svg)](https://updates.messengerfordesktop.com/stats)
 [![Services status](https://img.shields.io/badge/services-status-blue.svg)](https://status.messengerfordesktop.com/)
@@ -11,8 +11,6 @@
 A simple &amp; beautiful desktop client for [Facebook Messenger](https://www.messenger.com/). Chat without distractions on OS X, Windows and Linux. Not affiliated with Facebook. This is **NOT** an official product.
 
 > **@devs:** If you're willing to help improve, fix or maintain the app, I can make you a collaborator to help me. [Join me on Gitter](https://gitter.im/Aluxian/Facebook-Messenger-Desktop) and let's chat!
-
-![MFD Screenshot](./screenshot.png)
 
 ## Features
 
@@ -43,7 +41,7 @@ If you want to help me make *Messenger for Desktop* better, I recommend `dev` or
 
 *Installer (recommended):*
 
-1. Download [messengerfordesktop-x.x.x-win32-setup.exe][LR]
+1. Download [messengerfordesktop-x.x.x-win32-nsis.exe][LR]
 2. Run the installer, wait until it finishes
 3. Done! The app will update automatically
 
@@ -70,7 +68,7 @@ sudo apt-key adv --keyserver pool.sks-keyservers.net --recv 6DDA23616E3FE905FFDA
 
 # Add my repository to your sources list (skip if you've done this already)
 # Replace <channel> with stable, beta or dev (pick stable if you're unsure)
-echo "deb https://dl.bintray.com/aluxian/deb <channel> main" |
+echo "deb https://dl.bintray.com/aluxian/deb/ <channel> main" |
   sudo tee -a /etc/apt/sources.list.d/aluxian.list
 
 # Install Messenger for Desktop

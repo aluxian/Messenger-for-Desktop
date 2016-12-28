@@ -1,4 +1,17 @@
 [{
+  "version": "2.0.3",
+  "channel": "beta",
+  "releasedAt": 1482919367144,
+  "urgency": "low",
+  "changes": {
+    "General": [
+      "Update Electron to v1.4.13."
+    ],
+    "Linux": [
+      "Remove special treatment for Elementary OS."
+    ]
+  }
+}, {
   "version": "2.0.1",
   "channel": "beta",
   "releasedAt": 1473193961005,
