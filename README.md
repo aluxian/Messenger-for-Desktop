@@ -1,7 +1,7 @@
 # Messenger for Desktop 2
 
 [![OS X build](https://travis-ci.org/Aluxian/Facebook-Messenger-Desktop.svg?branch=staging)](https://travis-ci.org/Aluxian/Facebook-Messenger-Desktop)
-[![Windows build](https://ci.appveyor.com/api/projects/status/9j09atict8yqvrsw/branch/staging?svg=true)](https://ci.appveyor.com/project/Aluxian/Facebook-Messenger-Desktop)
+[![Windows build](https://ci.appveyor.com/api/projects/status/2oar528hietbc77t/branch/staging?svg=true)](https://ci.appveyor.com/project/Aluxian/Messenger-for-Desktop)
 [![Linux builds](https://circleci.com/gh/Aluxian/Facebook-Messenger-Desktop/tree/staging.svg?style=shield)](https://circleci.com/gh/Aluxian/Facebook-Messenger-Desktop)
 [![Downloads total](https://updates.messengerfordesktop.com/badge/downloads.svg)](https://updates.messengerfordesktop.com/stats)
 [![Services status](https://img.shields.io/badge/services-status-blue.svg)](https://status.messengerfordesktop.com/)
