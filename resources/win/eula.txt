@@ -1,13 +1,13 @@
-This End-User License Agreement (EULA) is a legal agreement between you (either as an individual or on behalf of an entity) and Alexandru Rosianu regarding your use of Messenger for Desktop for OS X, Windows and Linux and associated documentation (the "Software"). This EULA includes the Terms and Conditions (https://messengerfordesktop.com/terms.html) and Privacy Policy (https://messengerfordesktop.com/privacy.html). IF YOU DO NOT AGREE TO ALL OF THE TERMS OF THIS EULA, DO NOT INSTALL, USE OR COPY THE SOFTWARE.
+This End-User License Agreement (EULA) is a legal agreement between you (either as an individual or on behalf of an entity) and The Cofounders Ltd, Seychelles regarding your use of Messenger for Desktop for OS X, Windows and Linux and associated documentation (the "Software"). This EULA includes the Terms and Conditions (https://messengerfordesktop.com/terms.html) and Privacy Policy (https://messengerfordesktop.com/privacy.html). IF YOU DO NOT AGREE TO ALL OF THE TERMS OF THIS EULA, DO NOT INSTALL, USE OR COPY THE SOFTWARE.
 
 Summary
 You must agree to all of the terms of this EULA to use this Software.
 
 If so, you may use the Software for free and for any lawful purpose.
 
-This Software automatically communicates with Alexandru Rosianu's server(s) for three reasons: (1) to receive and install updates; (2) to send error reports; and (3) to send anonymized usage information. You can view the source code to see what information is sent, and you may opt out of sending the anonymized usage data.
+This Software automatically communicates with The Cofounders Ltd, Seychelles's server(s) for three reasons: (1) to receive and install updates; (2) to send error reports; and (3) to send anonymized usage information. You can view the source code to see what information is sent, and you may opt out of sending the anonymized usage data.
 
-This Software is provided "as-is" with no warranties, and you agree that Alexandru Rosianu is not liable for anything you do with it.
+This Software is provided "as-is" with no warranties, and you agree that The Cofounders Ltd, Seychelles is not liable for anything you do with it.
 
 You really ought to just go ahead and read the whole EULA. It's not all that long. You should not only rely on this summary.
 
@@ -15,7 +15,7 @@ The Agreement
 By downloading, installing, using, or copying the Software, you accept and agree to be bound by the terms of this EULA. If you do not agree to all of the terms of this EULA, you may not download, install, use or copy the Software.
 
 The License
-This EULA entitles you to install as many copies of the Software as you want, and use the Software for any lawful purpose consistent with this EULA. Your license to use the Software is expressly conditioned upon your agreement to all of the terms of this EULA. This software is licensed, not sold. Alexandru Rosianu reserves all other rights not granted by this EULA.
+This EULA entitles you to install as many copies of the Software as you want, and use the Software for any lawful purpose consistent with this EULA. Your license to use the Software is expressly conditioned upon your agreement to all of the terms of this EULA. This software is licensed, not sold. The Cofounders Ltd, Seychelles reserves all other rights not granted by this EULA.
 
 The Restrictions
 When using the Software you must use it in a manner that complies with the applicable laws in the jurisdiction(s) in which you use the Software.
@@ -27,36 +27,34 @@ You may redistribute the software, but it must include this EULA and you may not
 Since the Software is open source, you are free to copy its source code (within the limits of the MIT license) and create your own clone of the Software, which is not bound by this EULA.
 
 Privacy Notices
-The Software automatically communicates with Alexandru Rosianu's server(s) for three purposes: (1) updating the Software; (2) sending error reports; and (3) sending anonymized usage data so I may improve the Software. If you are a programmer, you may view the source code of the Software to learn more about the specific information that is sent. You may opt out of sending anonymized usage data, crash reporting and update checks by disabling these features from the Software menu.
+The Software automatically communicates with The Cofounders Ltd, Seychelles's server(s) for three purposes: (1) updating the Software; (2) sending error reports; and (3) sending anonymized usage data so I may improve the Software. If you are a programmer, you may view the source code of the Software to learn more about the specific information that is sent. You may opt out of sending anonymized usage data, crash reporting and update checks by disabling these features from the Software menu.
 
-Error Reports. In order to help improve the Software, when the Software encounters certain errors, it will automatically send some information to Alexandru Rosianu's server(s) about the error. Reports include data such as (but not only): information about the crash, your Operating System type, Software version. If you do not want to send crash reports to Alexandru Rosianu, you may opt out by changing your settings in the Software menu.
+Error Reports. In order to help improve the Software, when the Software encounters certain errors, it will automatically send some information to The Cofounders Ltd, Seychelles's server(s) about the error. Reports include data such as (but not only): information about the crash, your Operating System type, Software version. If you do not want to send crash reports to The Cofounders Ltd, Seychelles, you may opt out by changing your settings in the Software menu.
 
-Anonymized Usage Data. Alexandru Rosianu collects anonymized data about your usage of the Software to help make it more awesome. If you do not want to send anonymized usage data to Alexandru Rosianu, you may opt out by changing your settings in the Software menu.
+Anonymized Usage Data. The Cofounders Ltd, Seychelles collects anonymized data about your usage of the Software to help make it more awesome. If you do not want to send anonymized usage data to The Cofounders Ltd, Seychelles, you may opt out by changing your settings in the Software menu.
 
 Open-Source Notices
 Certain components of the Software may be subject to open-source software licenses ("Open-Source Components"), which means any software license approved as open-source licenses by the Open Source Initiative or any substantially similar licenses, including without limitation any license that, as a condition of distribution of the software licensed under such license, requires that the distributor make the software available in source code format. The Software documentation includes copies of the licenses applicable to the Open-Source Components.
 
 To the extent there is conflict between the license terms covering the Open-Source Components and this EULA, the terms of such licenses will apply in lieu of the terms of this EULA. To the extent the terms of the licenses applicable to Open-Source Components prohibit any of the restrictions in this Agreement with respect to such Open-Source Component, such restrictions will not apply to such Open-Source Component.
 
-The Software itself is open source and is available on GitHub at github.com/Aluxian/Facebook-Messenger-Desktop.
-
 Intellectual Property Notices
-The Software makes use of WhatsApp Web, which is the property of WhatsApp Inc. The WhatsApp logo, WhatsApp Web app, brand identity and other property rights are WhatsApp Inc's exclusive property and not Alexandru Rosianu's.
+The Software makes use of WhatsApp Web, which is the property of WhatsApp Inc. The WhatsApp logo, WhatsApp Web app, brand identity and other property rights are WhatsApp Inc's exclusive property and not The Cofounders Ltd, Seychelles's.
 
 Disclaimers and Limitations on Liability
-THE SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, AND NO WARRANTY, EITHER EXPRESS OR IMPLIED, IS GIVEN. YOUR USE OF THE SOFTWARE IS AT YOUR SOLE RISK. Alexandru Rosianu does not warrant that (i) the Software will meet your specific requirements; (ii) the Software is fully compatible with any particular platform; (iii) your use of the Software will be uninterrupted, timely, secure, or error-free; (iv) the results that may be obtained from the use of the Software will be accurate or reliable; (v) the quality of any products, services, information, or other material purchased or obtained by you through the Software will meet your expectations; or (vi) any errors in the Software will be corrected.
+THE SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, AND NO WARRANTY, EITHER EXPRESS OR IMPLIED, IS GIVEN. YOUR USE OF THE SOFTWARE IS AT YOUR SOLE RISK. The Cofounders Ltd, Seychelles does not warrant that (i) the Software will meet your specific requirements; (ii) the Software is fully compatible with any particular platform; (iii) your use of the Software will be uninterrupted, timely, secure, or error-free; (iv) the results that may be obtained from the use of the Software will be accurate or reliable; (v) the quality of any products, services, information, or other material purchased or obtained by you through the Software will meet your expectations; or (vi) any errors in the Software will be corrected.
 
-YOU EXPRESSLY UNDERSTAND AND AGREE THAT ALEXANDRU ROSIANU SHALL NOT BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL OR EXEMPLARY DAMAGES, INCLUDING BUT NOT LIMITED TO, DAMAGES FOR LOSS OF PROFITS, GOODWILL, USE, DATA OR OTHER INTANGIBLE LOSSES (EVEN IF ALEXANDRU ROSIANU HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES) RELATED TO THE SOFTWARE, including, for example: (i) the use or the inability to use the Software; (ii) the cost of procurement of substitute goods and services resulting from any goods, data, information or services purchased or obtained or messages received or transactions entered into through or from the Software; (iii) unauthorized access to or alteration of your transmissions or data; (iv) statements or conduct of any third-party on the Software; (v) or any other matter relating to the Software.
+YOU EXPRESSLY UNDERSTAND AND AGREE THAT THE COFOUNDERS LTD, SEYCHELLES SHALL NOT BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL OR EXEMPLARY DAMAGES, INCLUDING BUT NOT LIMITED TO, DAMAGES FOR LOSS OF PROFITS, GOODWILL, USE, DATA OR OTHER INTANGIBLE LOSSES (EVEN IF THE COFOUNDERS LTD, SEYCHELLES HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES) RELATED TO THE SOFTWARE, including, for example: (i) the use or the inability to use the Software; (ii) the cost of procurement of substitute goods and services resulting from any goods, data, information or services purchased or obtained or messages received or transactions entered into through or from the Software; (iii) unauthorized access to or alteration of your transmissions or data; (iv) statements or conduct of any third-party on the Software; (v) or any other matter relating to the Software.
 
-Alexandru Rosianu reserves the right at any time and from time to time to modify or discontinue, temporarily or permanently, the Software (or any part thereof) with or without notice. Alexandru Rosianu shall not be liable to you or to any third-party for any modification, price change, suspension or discontinuance of the Software.
+The Cofounders Ltd, Seychelles reserves the right at any time and from time to time to modify or discontinue, temporarily or permanently, the Software (or any part thereof) with or without notice. The Cofounders Ltd, Seychelles shall not be liable to you or to any third-party for any modification, price change, suspension or discontinuance of the Software.
 
 Miscellanea
-The failure of Alexandru Rosianu to exercise or enforce any right or provision of this EULA shall not constitute a waiver of such right or provision.
+The failure of The Cofounders Ltd, Seychelles to exercise or enforce any right or provision of this EULA shall not constitute a waiver of such right or provision.
 
-This EULA constitutes the entire agreement between you and Alexandru Rosianu and governs your use of the Software, superseding any prior agreements between you and Alexandru Rosianu (including, but not limited to, any prior versions of the EULA).
+This EULA constitutes the entire agreement between you and The Cofounders Ltd, Seychelles and governs your use of the Software, superseding any prior agreements between you and The Cofounders Ltd, Seychelles (including, but not limited to, any prior versions of the EULA).
 
 You agree that this EULA and your use of the Software are governed under Romanian law and any dispute related to the Software must be brought in a tribunal of competent jurisdiction located in or near Bucharest, Romania.
 
-Please send any questions about this EULA to me@aluxian.com.
+Please send any questions about this EULA to hello@messengerfordesktop.com.
 
-The last update to this EULA was posted on May 6, 2016.
+The last update to this EULA was posted on December 17, 2016.

@@ -173,8 +173,8 @@ class MainWindowManager extends EventEmitter {
       return;
     }
 
-    // Just hide the window on Darwin and Elementary OS
-    if (!this.forceClose && (platform.isDarwin || global.options.distro.isElementaryOS)) {
+    // Just hide the window on Darwin
+    if (!this.forceClose && platform.isDarwin) {
       event.preventDefault();
       this.hideWindow();
     }
