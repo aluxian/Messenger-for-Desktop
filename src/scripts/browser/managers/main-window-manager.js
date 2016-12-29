@@ -4,6 +4,7 @@ import EventEmitter from 'events';
 
 import filePaths from 'common/utils/file-paths';
 import platform from 'common/utils/platform';
+import contextMenu from 'browser/menus/context';
 import prefs from 'browser/utils/prefs';
 
 class MainWindowManager extends EventEmitter {
@@ -60,6 +61,7 @@ class MainWindowManager extends EventEmitter {
     // Bind webContents events to local methods
     this.window.webContents.on('new-window', ::this.onNewWindow);
     this.window.webContents.on('will-navigate', ::this.onWillNavigate);
+    this.window.webContents.on('context-menu', ::this.onContextMenu);
 
     // Bind events to local methods
     this.window.on('ready-to-show', ::this.onReadyToShow);
@@ -116,6 +118,25 @@ class MainWindowManager extends EventEmitter {
       // Don't navigate away
       event.preventDefault();
       log('navigation prevented', url);
+    }
+  }
+
+  /**
+   * Called when the 'context-menu' event is received.
+   * TODO: Facebook intercepts this so it doesn't work, but at least it won't crash
+   */
+  onContextMenu (event, params) {
+    log('on context-menu');
+    try {
+      const menu = contextMenu.create(params, this.window);
+      if (menu) {
+        log('opening context menu');
+        setTimeout(() => {
+          menu.popup(this.window);
+        }, 50);
+      }
+    } catch (err) {
+      logError(err);
     }
   }
 
