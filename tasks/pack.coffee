@@ -10,6 +10,7 @@ del = require 'del'
 gulp = require 'gulp'
 zip = require 'gulp-zip'
 
+utils = require './utils'
 {applyPromise, applySpawn, applyIf, updateManifest, platform} = require './utils'
 winInstaller = require 'electron-windows-installer'
 manifest = require '../src/package.json'

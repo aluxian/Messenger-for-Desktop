@@ -258,7 +258,10 @@ export const analytics = {
    */
   trackEvent: (...args) => {
     return function (menuItem, browserWindow) {
-      piwik.getTracker().trackEvent(...args);
+      const tracker = piwik.getTracker();
+      if (tracker) {
+        tracker.trackEvent(...args);
+      }
     };
   }
 

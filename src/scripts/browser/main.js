@@ -3,7 +3,6 @@ import yargs from 'yargs';
 
 import prefs from 'browser/utils/prefs';
 import filePaths from 'common/utils/file-paths';
-import distroDetector from 'browser/components/distro-detector';
 import platform from 'common/utils/platform';
 
 // Handle uncaught exceptions
@@ -175,7 +174,6 @@ function startRepl () {
 async function initAndLaunch () {
   try {
     await onAppReady();
-    await detectDistro();
     await interceptHttp();
   } catch (err) {
     logFatal(err);
@@ -196,13 +194,6 @@ async function onAppReady () {
       resolve();
     });
   });
-}
-
-async function detectDistro () {
-  log('detecting distro (linux)');
-  options.distro = {
-    isElementaryOS: await distroDetector.elementaryOS()
-  };
 }
 
 async function interceptHttp () {

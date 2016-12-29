@@ -30,6 +30,7 @@ function create (params, browserWindow) {
     }
 
     // Hunspell doesn't remember these, so skip this item
+    // TODO: params.isWindows7 is always undefined
     if (!platform.isLinux && !params.isWindows7) {
       menu.append(new MenuItem({
         label: 'Add to Dictionary',

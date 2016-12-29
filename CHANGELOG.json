@@ -1,4 +1,30 @@
 [{
+  "version": "2.0.4",
+  "channel": "beta",
+  "releasedAt": 1483002596589,
+  "urgency": "low",
+  "changes": {
+    "General": [
+      "Remove custom context menu (temporarily) to fix crashes."
+    ],
+    "Windows": [
+      "Fix RightAlt+I opening dev tools."
+    ]
+  }
+}, {
+  "version": "2.0.3",
+  "channel": "beta",
+  "releasedAt": 1482919367144,
+  "urgency": "low",
+  "changes": {
+    "General": [
+      "Update Electron to v1.4.13."
+    ],
+    "Linux": [
+      "Remove special treatment for Elementary OS."
+    ]
+  }
+}, {
   "version": "2.0.1",
   "channel": "beta",
   "releasedAt": 1473193961005,
@@ -13,7 +39,7 @@
 }, {
   "version": "2.0.0",
   "channel": "beta",
-  "releasedAt": 1472106609428,
+  "releasedAt": 1472191336102,
   "urgency": "low",
   "changes": {
     "General": [
