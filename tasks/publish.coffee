@@ -129,7 +129,7 @@ gulp.task 'publish:github', ->
             .pipe request.put opts, (err, res, body) ->
               if not err
                 console.log body if args.verbose
-                if JSON.stringify(body).toLowerCase().indexOf('success') == -1
+                if JSON.stringify(body).toLowerCase().indexOf('success') is -1
                   err = new Error('bintray upload failed')
               cb(err)
 
