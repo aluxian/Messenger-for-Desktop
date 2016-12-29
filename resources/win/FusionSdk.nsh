@@ -13,13 +13,14 @@
 !include FileFunc.nsh
 !include LogicLib.nsh
 !include WinMessages.nsh
+!include WinVer.nsh
 !insertmacro GetParameters
 
 /******************************************************************************* 
                               Fusion Definitions 
 *******************************************************************************/
 # DO NOT CHANGE - this value must be identical to Fusion.dll version
-!define FUSION_SDK_VERSION "1.461"  
+!define FUSION_SDK_VERSION "1.47"  
 
 # Fusion dll functions ordinal numbers
 !define FUS_InitDll 1
@@ -272,8 +273,16 @@ Function _AdjustFusWinSize
 	; Reposition window in the lower left
 	; Create RECT struct
 	System::Call "*${stRECT} .r1"
-	; Find Window info for the window we're displaying
-	System::Call "User32::GetWindowRect(i, i) i ($_gl_FUS_OffersWinHWND, r1) .r2"
+	
+	!ifdef NSIS_UNICODE
+	${If} ${AtLeastWinVista}
+	!endif
+		; Find Window info for the window we're displaying
+		System::Call "User32::GetWindowRect(i, i) i ($_gl_FUS_OffersWinHWND, r1) .r2"
+	!ifdef NSIS_UNICODE
+	${EndIf}
+	!endif
+
 	; Get left/top/right/bottom
 	System::Call "*$1${stRECT} (.r2, .r3, .r4, .r5)"
  
@@ -366,7 +375,10 @@ FunctionEnd
 	${Else}
 		!insertmacro _UpdateMainProductValues
 	${EndIf}	
-	Pop $0		
+	Pop $0
+
+	Call _AdjustFusWinSize
+	!insertmacro _CallFusAPIFunc ${FUS_SetOffersWindow} "(i 0, i $_gl_FUS_OffersWinX,  i $_gl_FUS_OffersWinY, i $_gl_FUS_OffersWinWidth, i $_gl_FUS_OffersWinHeight)"
 !macroend
 /*******************************************************************************/
 !macro FusionOffersPage
