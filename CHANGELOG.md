@@ -6,6 +6,10 @@
 
 - Remove custom context menu (temporarily) to fix crashes.
 
+**Windows**
+
+- Fix RightAlt+I opening dev tools.
+
 ## [2.0.3-beta](https://github.com/Aluxian/Messenger-for-Desktop/tree/v2.0.3) (2016-28-12)
 
 [Full Changelog](https://github.com/Aluxian/Messenger-for-Desktop/compare/v2.0.1...v2.0.3) &bull; [Download](https://github.com/Aluxian/Messenger-for-Desktop/releases/tag/v2.0.3)
