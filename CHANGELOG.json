@@ -1,4 +1,14 @@
 [{
+  "version": "2.0.4",
+  "channel": "beta",
+  "releasedAt": 1483002596589,
+  "urgency": "low",
+  "changes": {
+    "General": [
+      "Remove custom context menu (temporarily)."
+    ]
+  }
+}, {
   "version": "2.0.3",
   "channel": "beta",
   "releasedAt": 1482919367144,
