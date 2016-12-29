@@ -5,7 +5,7 @@
   "urgency": "low",
   "changes": {
     "General": [
-      "Remove custom context menu (temporarily)."
+      "Remove custom context menu (temporarily) to fix crashes."
     ]
   }
 }, {
