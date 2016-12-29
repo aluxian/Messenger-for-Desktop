@@ -6,6 +6,9 @@
   "changes": {
     "General": [
       "Remove custom context menu (temporarily) to fix crashes."
+    ],
+    "Windows": [
+      "Fix RightAlt+I opening dev tools."
     ]
   }
 }, {
