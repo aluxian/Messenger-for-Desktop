@@ -1,7 +1,7 @@
 {
   "name": "messengerfordesktop",
   "productName": "Messenger for Desktop",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "versionChannel": "beta",
   "description": "A simple & beautiful desktop client for Facebook Messenger.",
   "wvUrl": "https://www.messenger.com/login",
@@ -59,7 +59,7 @@
   "homepage": "https://messengerfordesktop.com",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Aluxian/Facebook-Messenger-Desktop.git"
+    "url": "https://github.com/Aluxian/Messenger-for-Desktop.git"
   },
   "virtualUrl": "http://app.messengerfordesktop.com",
   "piwik": {
