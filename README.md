@@ -1,16 +1,16 @@
 # Messenger for Desktop 2
 
-[![OS X build](https://travis-ci.org/Aluxian/Facebook-Messenger-Desktop.svg?branch=staging)](https://travis-ci.org/Aluxian/Facebook-Messenger-Desktop)
+[![OS X build](https://travis-ci.org/Aluxian/Messenger-for-Desktop.svg?branch=staging)](https://travis-ci.org/Aluxian/Messenger-for-Desktop)
 [![Windows build](https://ci.appveyor.com/api/projects/status/2oar528hietbc77t/branch/staging?svg=true)](https://ci.appveyor.com/project/Aluxian/Messenger-for-Desktop)
-[![Linux builds](https://circleci.com/gh/Aluxian/Facebook-Messenger-Desktop/tree/staging.svg?style=shield)](https://circleci.com/gh/Aluxian/Facebook-Messenger-Desktop)
+[![Linux builds](https://circleci.com/gh/Aluxian/Messenger-for-Desktop/tree/staging.svg?style=shield)](https://circleci.com/gh/Aluxian/Messenger-for-Desktop)
 [![Downloads total](https://updates.messengerfordesktop.com/badge/downloads.svg)](https://updates.messengerfordesktop.com/stats)
 [![Services status](https://img.shields.io/badge/services-status-blue.svg)](https://status.messengerfordesktop.com/)
-[![HuBoard task board](https://img.shields.io/badge/hu-board-7965cc.svg)](https://huboard.com/Aluxian/Facebook-Messenger-Desktop)
-[![Join the chat](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Aluxian/Facebook-Messenger-Desktop)
+[![HuBoard task board](https://img.shields.io/badge/hu-board-7965cc.svg)](https://huboard.com/Aluxian/Messenger-for-Desktop)
+[![Join the chat](https://badges.gitter.im/Join%20Chat.svg)][1]
 
 A simple &amp; beautiful desktop client for [Facebook Messenger](https://www.messenger.com/). Chat without distractions on OS X, Windows and Linux. Not affiliated with Facebook. This is **NOT** an official product.
 
-> **@devs:** If you're willing to help improve, fix or maintain the app, I can make you a collaborator to help me. [Join me on Gitter](https://gitter.im/Aluxian/Facebook-Messenger-Desktop) and let's chat!
+> **@devs:** If you're willing to help improve, fix or maintain the app, I can make you a collaborator to help me. [Join me on Gitter][1] and let's chat!
 
 ## Features
 
@@ -23,7 +23,7 @@ A simple &amp; beautiful desktop client for [Facebook Messenger](https://www.mes
 
 ## How to install
 
-**Note:** If you download from the [releases page](https://github.com/Aluxian/Facebook-Messenger-Desktop/releases), be careful what version you pick. Releases that end with `-beta` are beta releases, the ones that end with `-dev` are development releases, and the rest are stable. If you're unsure which to pick, opt for stable. Once you download the app, you'll be able to switch to another channel from the menu.
+**Note:** If you download from the [releases page](https://github.com/Aluxian/Messenger-for-Desktop/releases), be careful what version you pick. Releases that end with `-beta` are beta releases, the ones that end with `-dev` are development releases, and the rest are stable. If you're unsure which to pick, opt for stable. Once you download the app, you'll be able to switch to another channel from the menu.
 
 - **dev:** these releases get the newest and hottest features, but they are less tested and might break things
 - **beta:** these releases are the right balance between getting new features early while staying away from nasty bugs
@@ -102,11 +102,11 @@ sudo yum install messengerfordesktop.x86_64   # for 64-bit distros
 
 Repository URL: https://aur.archlinux.org/packages/messengerfordesktop/
 
-[LR]: https://github.com/Aluxian/Facebook-Messenger-Desktop/releases
+[LR]: https://github.com/Aluxian/Messenger-for-Desktop/releases
 
 # For Developers
 
-Contributions are welcome! Please help me make *Messenger for Desktop* the best app for Facebook Messenger. For feature requests and bug reports please [submit an issue](https://github.com/Aluxian/Facebook-Messenger-Desktop/issues/new?labels=bug) or get in touch with me on [Gitter](https://gitter.im/Aluxian/Facebook-Messenger-Desktop) or Twitter [@aluxian](https://twitter.com/aluxian).
+Contributions are welcome! Please help me make *Messenger for Desktop* the best app for Facebook Messenger. For feature requests and bug reports please [submit an issue](https://github.com/Aluxian/Messenger-for-Desktop/issues/new?labels=bug) or get in touch with me on [Gitter][1] or Twitter [@aluxian](https://twitter.com/aluxian).
 
 ## Build
 
@@ -254,3 +254,5 @@ Make sure you've installed [fpm](https://github.com/jordansissel/fpm).
 2. In order to build, push to `staging`. Every push to `staging` will make the CIs build the app and upload it to Bintray at [aluxian/artifacts](https://dl.bintray.com/aluxian/artifacts/staging/), available for testing.
 3. After a version is tested and is ready for release, push it to `deploy`. This will rebuild the app and upload it to GitHub, Bintray and other repositories.
 4. Now, the code is ready to be merged into `master`.
+
+[1]: https://gitter.im/Aluxian/Facebook-Messenger-Desktop

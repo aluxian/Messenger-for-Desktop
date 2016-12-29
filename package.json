@@ -1,7 +1,7 @@
 {
   "name": "messengerfordesktop",
   "dependencies": {
-    "asar": "0.12.3",
+    "asar": "0.12.4",
     "async": "2.1.4",
     "babel-plugin-default-import-checker": "1.0.8",
     "babel-plugin-transform-runtime": "6.15.0",
@@ -10,7 +10,7 @@
     "beeper": "1.1.1",
     "coffee-script": "1.12.2",
     "colors": "1.1.2",
-    "cross-spawn": "4.0.0",
+    "cross-spawn": "5.0.1",
     "del": "2.2.2",
     "electron-windows-installer": "1.4.4",
     "fs-extra-promise": "0.4.1",
@@ -18,7 +18,7 @@
     "gulp-babel": "6.1.2",
     "gulp-electron-downloader": "0.1.6",
     "gulp-filter": "4.0.0",
-    "gulp-github-release": "1.2.0",
+    "gulp-github-release": "1.2.1",
     "gulp-header": "1.8.8",
     "gulp-if": "2.0.2",
     "gulp-less": "3.3.0",
@@ -57,11 +57,11 @@
   "homepage": "https://messengerfordesktop.com/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Aluxian/Facebook-Messenger-Desktop.git",
+    "url": "https://github.com/Aluxian/Messenger-for-Desktop.git",
     "aur": "ssh+git://aur@aur.archlinux.org/messengerfordesktop.git"
   },
   "icon": {
-    "url": "https://raw.githubusercontent.com/Aluxian/Facebook-Messenger-Desktop/master/resources/win/app.ico"
+    "url": "https://raw.githubusercontent.com/Aluxian/Messenger-for-Desktop/master/resources/win/app.ico"
   },
   "bintray": {
     "subject": "aluxian",
@@ -70,6 +70,6 @@
     "gpgpub": "6DDA23616E3FE905FFDA152AE61DA9241537994D"
   },
   "bugs": {
-    "url": "https://github.com/Aluxian/Facebook-Messenger-Desktop/issues"
+    "url": "https://github.com/Aluxian/Messenger-for-Desktop/issues"
   }
 }
