@@ -1,37 +1,60 @@
 'use strict';
 
-const FILTER_URL_LIST = [
+
+/**
+ * URL match patterns to be filteresd
+ * @see https://developer.chrome.com/extensions/match_patterns
+ * @global
+ * @constant
+ */
+const urlPatternList = [
   '*://*.facebook.com/*change_read_status*',
   '*://*.messenger.com/*change_read_status*',
   '*://*.facebook.com/*typ.php*',
   '*://*.messenger.com/*typ.php*'
 ];
 
-let createFilter = () => {
-  return {urls: FILTER_URL_LIST};
-};
-
-let enableFilter = function () {
+/**
+ * Enable request cancelling of urls matched by pattern list
+ */
+let enableRequestFilter = () => {
   const targetSession = global.application.mainWindowManager.window.webContents.session;
-
-  targetSession.webRequest.onBeforeRequest(createFilter(), (details, callback) => {
+  targetSession.webRequest.onBeforeRequest({urls: urlPatternList}, (details, callback) => {
+    log(`request filter`, `blocked`, `${details.url}`);
     callback({cancel: true});
   });
 
-  log(`request filter enabled (entries: ${FILTER_URL_LIST.length})`);
+  log(`request filter`, `enabled`, `${urlPatternList.length} entries`);
 };
 
-let disableFilter = function () {
+/**
+ * Disable request cancelling of urls matched by pattern list
+ */
+let disableRequestFilter = () => {
   const targetSession = global.application.mainWindowManager.window.webContents.session;
+  targetSession.webRequest.onBeforeRequest({urls: urlPatternList}, null);
 
-  targetSession.webRequest.onBeforeRequest(createFilter(), (details, callback) => {
-    callback({cancel: false});
-  });
-
-  log('request filter disabled');
+  log(`request filter`, `disabled`);
 };
 
+/**
+ * Setter convenience interface
+ * @param {Boolean} enable - True/false to enable/disable filtering
+ */
+let setRequestFilter = (enable) => {
+  if (enable) {
+    enableRequestFilter();
+  } else {
+    disableRequestFilter();
+  }
+};
+
+
+/**
+ * @exports
+ */
 export default {
-  enable: enableFilter,
-  disable: disableFilter
+  enable: enableRequestFilter,
+  disable: disableRequestFilter,
+  set: setRequestFilter
 };
