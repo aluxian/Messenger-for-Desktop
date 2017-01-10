@@ -12,19 +12,23 @@ let createFilter = () => {
 };
 
 let enableFilter = function () {
-  this.targetSession = global.application.mainWindowManager.window.webContents.session;
-  this.targetSession.webRequest.onBeforeRequest(createFilter(), (details, callback) => {
+  const targetSession = global.application.mainWindowManager.window.webContents.session;
+
+  targetSession.webRequest.onBeforeRequest(createFilter(), (details, callback) => {
     callback({cancel: true});
   });
-  log(`request filter enabled for: "${FILTER_URL_LIST.join(' ')}"`);
+
+  log(`request filter enabled (entries: ${FILTER_URL_LIST.length})`);
 };
 
 let disableFilter = function () {
-  this.targetSession = global.application.mainWindowManager.window.webContents.session;
-  this.targetSession.webRequest.onBeforeRequest(createFilter(), (details, callback) => {
+  const targetSession = global.application.mainWindowManager.window.webContents.session;
+
+  targetSession.webRequest.onBeforeRequest(createFilter(), (details, callback) => {
     callback({cancel: false});
   });
-  log(`request filter disabled for: "${FILTER_URL_LIST.join(' ')}"`);
+
+  log('request filter disabled');
 };
 
 export default {
