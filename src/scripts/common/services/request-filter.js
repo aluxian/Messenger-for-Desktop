@@ -1,6 +1,5 @@
 'use strict';
 
-
 /**
  * URL match patterns to be filteresd
  * @see https://developer.chrome.com/extensions/match_patterns
@@ -20,11 +19,11 @@ const urlPatternList = [
 let enableRequestFilter = () => {
   const targetSession = global.application.mainWindowManager.window.webContents.session;
   targetSession.webRequest.onBeforeRequest({urls: urlPatternList}, (details, callback) => {
-    log(`request filter`, `blocked`, `${details.url}`);
+    log('request filter', 'blocked', details.url);
     callback({cancel: true});
   });
 
-  log(`request filter`, `enabled`, `${urlPatternList.length} entries`);
+  log('request filter', 'enabled', urlPatternList.length, 'entries');
 };
 
 /**
@@ -34,7 +33,7 @@ let disableRequestFilter = () => {
   const targetSession = global.application.mainWindowManager.window.webContents.session;
   targetSession.webRequest.onBeforeRequest({urls: urlPatternList}, null);
 
-  log(`request filter`, `disabled`);
+  log('request filter', 'disabled');
 };
 
 /**
@@ -48,7 +47,6 @@ let setRequestFilter = (enable) => {
     disableRequestFilter();
   }
 };
-
 
 /**
  * @exports
