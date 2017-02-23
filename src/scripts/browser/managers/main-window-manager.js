@@ -2,6 +2,7 @@ import {shell, BrowserWindow, Menu} from 'electron';
 import debounce from 'lodash.debounce';
 import EventEmitter from 'events';
 
+import urls from 'common/utils/urls';
 import filePaths from 'common/utils/file-paths';
 import platform from 'common/utils/platform';
 import contextMenu from 'browser/menus/context';
@@ -98,8 +99,12 @@ class MainWindowManager extends EventEmitter {
    * Called when the 'new-window' event is emitted.
    */
   onNewWindow (event, url) {
-    // Open urls in an external browser
-    if (prefs.get('links-in-browser')) {
+    url = urls.skipFacebookRedirect(url);
+
+    if (urls.isDownloadUrl(url)) {
+      log('on renderer open-url, downloading', url);
+      this.window.loadURL(url);
+    } else if (prefs.get('links-in-browser')) {
       log('opening url externally', url);
       event.preventDefault();
       shell.openExternal(url);

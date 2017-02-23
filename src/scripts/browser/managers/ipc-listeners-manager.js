@@ -1,6 +1,7 @@
 import {app, ipcMain, shell, BrowserWindow, nativeImage} from 'electron';
 import EventEmitter from 'events';
 
+import urls from 'common/utils/urls';
 import platform from 'common/utils/platform';
 import prefs from 'browser/utils/prefs';
 
@@ -61,7 +62,12 @@ class IpcListenersManager extends EventEmitter {
    * Called when the 'open-url' event is received.
    */
   onOpenUrl (event, url, options) {
-    if (prefs.get('links-in-browser')) {
+    url = urls.skipFacebookRedirect(url);
+
+    if (urls.isDownloadUrl(url)) {
+      log('on renderer open-url, downloading', url);
+      this.mainWindowManager.window.loadURL(url);
+    } else if (prefs.get('links-in-browser')) {
       log('on renderer open-url, externally', url);
       shell.openExternal(url);
     } else {
