@@ -115,9 +115,8 @@ webView.addEventListener('dom-ready', function () {
 // Listen for did-finish-load
 webView.addEventListener('did-finish-load', function () {
   // Remove top banner
-  webView.executeJavaScript("document.getElementsByClassName('_s15')[0].outerHTML = '';");
-  webView.setZoomLevel(1); webView.setZoomLevel(0); // Fix non-automatic resize
-  
+  webView.send('remove-top-banner');
+
   // Hide the loading splash screen
   const loadingSplashDiv = document.querySelector('.loader');
   loadingSplashDiv.style.opacity = 0;
