@@ -1,8 +1,8 @@
 {
   "name": "messengerfordesktop",
   "productName": "Messenger for Desktop",
-  "version": "2.0.4",
-  "versionChannel": "beta",
+  "version": "2.0.5",
+  "versionChannel": "stable",
   "description": "A simple & beautiful desktop client for Facebook Messenger.",
   "wvUrl": "https://www.messenger.com/login",
   "main": "./scripts/browser/init.js",
