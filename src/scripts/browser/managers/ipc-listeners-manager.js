@@ -1,16 +1,13 @@
-import {app, ipcMain, shell, BrowserWindow, nativeImage} from 'electron';
+import {ipcMain, shell, BrowserWindow} from 'electron';
 import EventEmitter from 'events';
 
 import urls from 'common/utils/urls';
-import platform from 'common/utils/platform';
 import prefs from 'browser/utils/prefs';
 
 class IpcListenersManager extends EventEmitter {
 
-  constructor (notifManager, trayManager, mainWindowManager) {
+  constructor (mainWindowManager) {
     super();
-    this.notifManager = notifManager;
-    this.trayManager = trayManager;
     this.mainWindowManager = mainWindowManager;
   }
 
@@ -28,27 +25,14 @@ class IpcListenersManager extends EventEmitter {
    */
   onNotifCount (event, count, badgeDataUrl) {
     log('on renderer notif-count', count, !!badgeDataUrl || null);
-    this.notifManager.unreadCount = count;
-
-    // Set icon badge
-    if (prefs.get('show-notifications-badge')) {
-      if (platform.isWindows) {
-        if (count) {
-          const image = nativeImage.createFromDataURL(badgeDataUrl);
-          this.mainWindowManager.window.setOverlayIcon(image, count);
-        } else {
-          this.mainWindowManager.window.setOverlayIcon(null, '');
-        }
-      } else {
-        app.setBadgeCount(parseInt(count, 10) || 0);
-      }
+    clearTimeout(this._delayedRemoveBadge);
+    if (count) {
+      this.mainWindowManager.notifCountChanged(count, badgeDataUrl);
+    } else {
+      this._delayedRemoveBadge = setTimeout(() => {
+        this.mainWindowManager.notifCountChanged(count, badgeDataUrl);
+      }, 1500);
     }
-
-    // Update tray
-    this.trayManager.unreadCountUpdated(count);
-
-    // Update window title
-    this.mainWindowManager.prefixWindowTitle(count ? '(' + count + ') ' : '');
   }
 
   /**

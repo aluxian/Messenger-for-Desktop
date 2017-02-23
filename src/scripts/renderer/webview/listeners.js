@@ -1,5 +1,4 @@
 import {ipcRenderer} from 'electron';
-import debounce from 'lodash.debounce';
 
 import webView from 'renderer/webview';
 import platform from 'common/utils/platform';
@@ -42,7 +41,7 @@ webView.addEventListener('console-message', function (event) {
 });
 
 // Listen for title changes to update the badge
-webView.addEventListener('page-title-updated', debounce(function () {
+webView.addEventListener('page-title-updated', function () {
   const matches = /\(([\d]+)\)/.exec(webView.getTitle());
   const parsed = parseInt(matches && matches[1], 10);
   const count = isNaN(parsed) || !parsed ? '' : '' + parsed;
@@ -54,7 +53,7 @@ webView.addEventListener('page-title-updated', debounce(function () {
 
   log('sending notif-count', count, !!badgeDataUrl || null);
   ipcRenderer.send('notif-count', count, badgeDataUrl);
-}, 2500));
+});
 
 // Handle url clicks
 webView.addEventListener('new-window', function (event) {

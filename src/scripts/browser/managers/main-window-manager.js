@@ -1,4 +1,4 @@
-import {shell, BrowserWindow, Menu} from 'electron';
+import {app, shell, BrowserWindow, Menu, nativeImage} from 'electron';
 import debounce from 'lodash.debounce';
 import EventEmitter from 'events';
 
@@ -24,6 +24,10 @@ class MainWindowManager extends EventEmitter {
 
   setMenuManager (menuManager) {
     this.menuManager = menuManager;
+  }
+
+  setNotifManager (notifManager) {
+    this.notifManager = notifManager;
   }
 
   createWindow () {
@@ -242,6 +246,9 @@ class MainWindowManager extends EventEmitter {
       this.window.setSize(bounds.width, bounds.height, true);
       this.window.center();
     }
+
+    // Remove notifications count
+    this.notifCountChanged('', null);
   }
 
   /**
@@ -297,6 +304,33 @@ class MainWindowManager extends EventEmitter {
       .replace(new RegExp(global.manifest.productName + '/[\\S]*', 'g'), '')
       .replace(new RegExp('Electron/[\\S]*', 'g'), '')
       .replace(new RegExp('\\s+', 'g'), ' ');
+  }
+
+  /**
+   * Update the notifications count everywhere.
+   */
+  notifCountChanged (count, badgeDataUrl) {
+    this.notifManager.unreadCount = count;
+
+    // Set icon badge
+    if (prefs.get('show-notifications-badge')) {
+      if (platform.isWindows) {
+        if (count) {
+          const image = nativeImage.createFromDataURL(badgeDataUrl);
+          this.window.setOverlayIcon(image, count);
+        } else {
+          this.window.setOverlayIcon(null, '');
+        }
+      } else {
+        app.setBadgeCount(parseInt(count, 10) || 0);
+      }
+    }
+
+    // Update tray
+    this.trayManager.unreadCountUpdated(count);
+
+    // Update window title
+    this.prefixWindowTitle(count ? '(' + count + ') ' : '');
   }
 
   /**
