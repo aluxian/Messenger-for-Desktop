@@ -7,6 +7,7 @@ export default function () {
     'browser/menus/templates/main-edit',
     'browser/menus/templates/main-view',
     'browser/menus/templates/main-theme',
+    'browser/menus/templates/main-privacy',
     'browser/menus/templates/main-window-darwin',
     'browser/menus/templates/main-window-nondarwin',
     'browser/menus/templates/main-help'
