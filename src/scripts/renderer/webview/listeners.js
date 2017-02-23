@@ -37,7 +37,7 @@ webView.addEventListener('console-message', function (event) {
   const msg = event.message.replace(/%c/g, '');
   const fwNormal = 'font-weight: normal;';
   const fwBold = 'font-weight: bold;';
-  console.log('%cWV:%c ' + msg, fwBold, fwNormal);
+  console.log('WV: ' + msg, fwBold, fwNormal);
 });
 
 // Listen for title changes to update the badge
