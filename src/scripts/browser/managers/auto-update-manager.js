@@ -129,7 +129,7 @@ class AutoUpdateManager extends EventEmitter {
       }, function (response) {
         if (response === 1) {
           log('user clicked Download, opening url', downloadUrl);
-          shell.openExternal(downloadUrl);
+          shell.openExternal(downloadUrl || global.manifest.homepage);
         }
       });
     } else if (platform.isWindows && global.options.portable) {
@@ -141,7 +141,7 @@ class AutoUpdateManager extends EventEmitter {
       }, function (response) {
         if (response === 1) {
           log('user clicked Download, opening url', downloadUrl);
-          shell.openExternal(downloadUrl);
+          shell.openExternal(downloadUrl || global.manifest.homepage);
         }
       });
     } else {
