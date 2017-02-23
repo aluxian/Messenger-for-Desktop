@@ -213,14 +213,14 @@ export function launchOnStartup (enabledExpr) {
         .then(() => log('auto launcher enabled'))
         .catch((err) => {
           log('could not enable auto-launcher');
-          logError(err);
+          logError(err, true);
         });
     } else {
       global.application.autoLauncher.disable()
         .then(() => log('auto launcher disabled'))
         .catch((err) => {
           log('could not disable auto-launcher');
-          logError(err);
+          logError(err, true);
         });
     }
   };
