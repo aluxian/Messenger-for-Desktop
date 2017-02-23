@@ -4,14 +4,12 @@ export default {
   label: '&Help',
   role: 'help',
   submenu: [{
-    label: 'Website',
-    click: $.all(
-      $.openUrl('http://messengerfordesktop.com/')
-    )
+    label: 'App Website',
+    click: $.openUrl('https://messengerfordesktop.com/')
   }, {
-    label: 'Email',
-    click: $.all(
-      $.openUrl('mailto:hello@messengerfordesktop.com'),
-    )
+    type: 'separator'
+  }, {
+    label: 'Email Us',
+    click: $.openUrl('mailto:hello@messengerfordesktop.com')
   }]
 };
