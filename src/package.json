@@ -5,6 +5,7 @@
   "versionChannel": "beta",
   "description": "A simple & beautiful desktop client for Facebook Messenger.",
   "wvUrl": "https://www.messenger.com/login",
+  "wvUrlWork": "https://work.facebook.com/chat",
   "main": "./scripts/browser/init.js",
   "dependencies": {
     "app-module-path": "2.2.0",

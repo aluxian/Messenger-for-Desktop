@@ -3,15 +3,18 @@ import path from 'path';
 
 const webView = document.getElementById('wv');
 
-// Set the user agent and load the app
-log('loading', global.manifest.wvUrl);
-webView.setAttribute('useragent', navigator.userAgent);
-webView.setAttribute('src', global.manifest.wvUrl);
-
 // Fix preload requiring file:// protocol
 let preloadPath = webView.getAttribute('preload');
 preloadPath = 'file://' + path.join(remote.app.getAppPath(), 'html', preloadPath);
 webView.setAttribute('preload', preloadPath);
+
+// Set the user agent and load the app
+const wvSrc = require('common/utils/prefs').default.get('switch-workplace')
+  ? global.manifest.wvUrlWork
+  : global.manifest.wvUrl;
+log('loading', wvSrc);
+webView.setAttribute('useragent', navigator.userAgent);
+webView.setAttribute('src', wvSrc);
 
 export default webView;
 
