@@ -1,4 +1,14 @@
 [{
+  "version": "2.0.5",
+  "channel": "stable",
+  "releasedAt": 1487851951578,
+  "urgency": "low",
+  "changes": {
+    "General": [
+      "Update dependencies and Electron to v1.4.15."
+    ]
+  }
+}, {
   "version": "2.0.4",
   "channel": "beta",
   "releasedAt": 1483002596589,
