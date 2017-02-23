@@ -47,7 +47,7 @@ class IpcListenersManager extends EventEmitter {
     this.trayManager.unreadCountUpdated(count);
 
     // Update window title
-    this.mainWindowManager.suffixWindowTitle(count ? ' (' + count + ')' : '');
+    this.mainWindowManager.prefixWindowTitle(count ? '(' + count + ') ' : '');
   }
 
   /**

@@ -307,6 +307,15 @@ class MainWindowManager extends EventEmitter {
   }
 
   /**
+   * Append a prefix to the window title.
+   */
+  prefixWindowTitle (prefix) {
+    if (this.window) {
+      this.window.setTitle(prefix + this.initialTitle);
+    }
+  }
+
+  /**
    * Append a suffix to the window title.
    */
   suffixWindowTitle (suffix) {
