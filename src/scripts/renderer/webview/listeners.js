@@ -54,7 +54,7 @@ webView.addEventListener('page-title-updated', debounce(function () {
 
   log('sending notif-count', count, !!badgeDataUrl || null);
   ipcRenderer.send('notif-count', count, badgeDataUrl);
-}, 1100));
+}, 2500));
 
 // Handle url clicks
 webView.addEventListener('new-window', function (event) {
