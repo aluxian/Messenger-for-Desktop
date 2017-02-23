@@ -115,7 +115,9 @@ export function showWindow () {
     if (!browserWindow) {
       browserWindow = global.application.mainWindowManager.window;
     }
-    browserWindow.show();
+    if (browserWindow) {
+      browserWindow.show();
+    }
   };
 }
 
@@ -189,7 +191,7 @@ export function showInTray (flagExpr) {
  */
 export function showInDock (flagExpr) {
   return function () {
-    if (app.dock) {
+    if (app.dock && app.dock.show && app.dock.hide) {
       const show = flagExpr.apply(this, arguments);
       if (show) {
         app.dock.show();
