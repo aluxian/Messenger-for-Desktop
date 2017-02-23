@@ -5,7 +5,8 @@
   "urgency": "low",
   "changes": {
     "General": [
-      "Update dependencies and Electron to v1.4.15."
+      "Update dependencies and Electron to v1.4.15.",
+      "Disable hardware acceleration (should be easier on the GPU)."
     ]
   }
 }, {
