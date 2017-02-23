@@ -1,8 +1,8 @@
 import {app, shell} from 'electron';
 
 import * as piwik from 'browser/services/piwik';
+import * as requestFilter from 'browser/utils/request-filter';
 import prefs from 'browser/utils/prefs';
-import requestFilter from 'common/services/request-filter';
 
 /**
  * Call the handler for the check-for-update event.
@@ -252,18 +252,12 @@ export function hideTaskbarBadge (flagExpr) {
 }
 
 /**
- * Whether the user should appear as online and 'is typing' indicators be sent
+ * Whether the user should appear as online and 'is typing' indicators be sent.
  */
 export function blockSeenTyping (flagExpr) {
   return function (menuItem, browserWindow) {
-    const block = flagExpr.apply(this, arguments);
-    if (global.ready) {
-      if (block) {
-        requestFilter.enable();
-      } else {
-        requestFilter.disable();
-      }
-    }
+    const shouldBlock = flagExpr.apply(this, arguments);
+    requestFilter.set(shouldBlock, browserWindow.webContents.session);
   };
 }
 
