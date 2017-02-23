@@ -7,8 +7,6 @@ export default {
     label: 'App Website',
     click: $.openUrl('https://messengerfordesktop.com/')
   }, {
-    type: 'separator'
-  }, {
     label: 'Email Us',
     click: $.openUrl('mailto:hello@messengerfordesktop.com')
   }]
