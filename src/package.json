@@ -83,6 +83,7 @@
   "themes": {
     "default": "Default",
     "dark": "Dark",
+    "black": "Black",
     "midnight": "Midnight",
     "mosaic": "Mosaic"
   }

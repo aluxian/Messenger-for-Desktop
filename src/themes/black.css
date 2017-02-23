@@ -1,0 +1,359 @@
+/* @source https://userstyles.org/styles/122582/dark-facebook-messenger-fully-black */
+/* Last update: 2017-02-23 */
+
+body, html, #u_0_0, #u_0_0 > div, ._4sp8 {
+  background-color: #000 !important;
+  height: 100% !important;
+  color: #FFF;
+}
+
+._s15 {
+  height: 0 !important;
+}
+
+/* =========== MID */
+._4sp8, ._4rv3 {
+  background-color: #000 !important;
+  color: #FFF !important;
+}
+
+._hw2 ._53ij {
+  background-color: rgb(39, 39, 39) !important;
+}
+
+._55q {
+    background-color: #FFF !important;
+    text-align: center !important;
+}
+
+._55q ._50f7 {
+    color: #000 !important;
+}
+
+._497p, ._4rv6, ._4ce {
+   color: #CCC !important;
+   opacity: 1 !important;
+}
+
+._29_7 ._hh7 { /*incoming message color*/
+ background-color: #272727 !important;
+ color: #E1E1E1 !important;
+}
+
+/*taken from: https://userstyles.org/styles/112397/facebook-messenger-the-dark-side <--- great thanks!*/
+/*sent messages*/
+._o46._nd_ ._hh7 {
+ background-color: #003265;
+}
+._o46._nd_ ._hh7:active, ._o46._nd_._-5k ._hh7 {
+ background-color: #002247;
+}
+
+._hh7._2f5r, ._-5k ._hh7._2f5r {
+ background-color: #000 !important;
+}
+
+._o46._nd_ ._29_7 ._hh7 a, ._o46._nd_ ._hh7 a {
+  color: #FFF !important;
+}
+
+._o46._nd_ ._29_7 ._hh7 a:hover, ._o46._nd_ ._hh7 a:hover {
+  background-color: transparent !important;
+  text-decoration: none !important;
+}
+
+._o46._nd_ ._29_7 ._hh7 ._2her ._9ah {
+  background-color: #181d7a !important;
+}
+
+._3i_m ._2her {
+  color: #181d7a;
+}
+
+div[class^=" language-"] {
+  color: #000;
+}
+
+/*fix for sticker icon*/
+._4rv6, a._4ce_ {
+  background-image: url("http://i.imgur.com/EBTGGGi.png") !important;
+  opacity: 1 !important;
+}
+
+._2t5t {
+  background-image: url("http://i.imgur.com/6muiRxE.png") !important;
+}
+
+/*============ LOGIN SCREEN */
+
+#XMessengerDotComLoginViewPlaceholder ._5hy4, #XMessengerDotComLoginViewPlaceholder ._3403, #XMessengerDotComLoginViewPlaceholder ._5hy9 {
+  color: #FFF !important;
+}
+
+#XMessengerDotComLoginViewPlaceholder ._4jy0:before {
+  content: none;
+}
+
+._3v_v > #u_0_0 > ._3v_u {
+  background-color: #FFF !important;
+}
+
+/*============ LEFT MESSAGE INACTIVE */
+._1ht1 {
+  background-color: #000 !important;
+}
+
+._1ht6 {
+  color: #FFF !important;
+}
+
+/* TIMESTAMP */
+
+._1ht7 {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* LAST MESSAGE */
+._1htf {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* LEFT MESSAGE UNREAD */
+/*._1ht1[aria-live="polite"] ._4ldz {
+  animation-name: blink;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+@keyframes blink {
+  15% {transform: scale(1.05)}
+  25% {transform: scale(1)}
+  35% {transform: scale(1.1)}
+  50% {transform: scale(1)}
+
+}*/
+
+._1ht1[aria-live="polite"] {
+  background-color: #050505 !important;
+  animation-name: blink;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes blink {
+  0% {left: 0px;}
+  25% {left:-3px;}
+  35% {left: 2px;}
+  50% {left:0px;}
+}
+
+#js_6 *{
+  color: #FFF !important;
+}
+
+._5l38, ._5t4c, ._11_d ._3xcx, ._11_d ._4g0h {
+  background-color: #000 !important;
+  color: #FFF !important;
+}
+
+/* =========== TOP HEAD */
+
+._36ic, ._5742, ._4wzs, ._2y8y {
+  background-color: rgb(39, 39, 39) !important;
+  border: 0 !important;
+}
+
+._1q5- {
+  border: 0 !important;
+}
+
+._1q5- ._2y8z, ._1q5- ._58al, ._1n-e, ._2eu- ._3oh- {
+  color: #FFF !important;
+}
+
+/*._5f0v #js_2d, */._5f0v ._225d, ._2y8_ ._5l38, ._2y8_ ._5l39, ._2y8_ ._225b, ._2y8_ ._4g0h, ._2y8_ ._3xcx, ._2y8_ ._225c, ._2y8_ ._ohe {
+  background-color: #FFF !important;
+}
+
+._17w2, ._2v6o {
+  color: #FFF !important;
+}
+
+/*NEW MESSAGE */
+
+._2y8y {
+  background-color: rgb(39, 39, 39) !important;
+}
+
+._3xcx, ._4g0h, ._2y8_ ._364g {
+  color: #000 !important;
+}
+
+._llj {
+  margin-top: 35px;
+}
+
+._llj, ._llj ._ohe {
+  background-color: rgb(39, 39, 39) !important;
+  border-radius: 10px !important;
+}
+
+._5fx8 {
+  background-color: #11111B !important;
+}
+
+._58al::-webkit-input-placeholder {
+  color: #CCC !important;
+}
+
+._58al:-moz-placeholder { /* Firefox 18- */
+  color: #CCC !important;
+}
+
+._58al::-moz-placeholder {  /* Firefox 19+ */
+  color: #CCC !important;
+}
+
+._58al:-ms-input-placeholder {
+  color: #CCC !important;
+}
+/* taken from https://css-tricks.com/snippets/css/style-placeholder-text/ */
+
+._1qt3 i {
+  background-color: #FFF !important;
+  border-radius:25px;
+}
+
+/* ============ RIGHT */
+
+
+ ._4t9y, ._4_j5 {
+   background-color: #000 !important;
+ }
+
+ ._3szq {
+ 	 color: #CCC !important;
+   padding: 4px 7px 6px !important;
+ }
+
+._4rph ._4rpj {
+   color: #CCC;
+}
+
+._1lj0{
+  color: #CCC;
+}
+
+._3eus {
+  color: rgb(84, 84, 84) !important;
+}
+
+._1jt6 ._2jnq ._2jnt ._3eur ._3oh- {
+  color: #FFF !important;
+}
+
+/* LABELS */
+
+._3tl0 {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* SETTINGS */
+._2c9i .lfloat {
+  background-color: #FFF !important;
+}
+
+/* BUG REPORT */
+#u_55_5 ._52c9 {
+  background-color: #FFF !important;
+}
+
+/* MESSAGE ACTIVE */
+
+._1ht2 ._1ht6 {
+  font-weight: bold !important;
+}
+
+._1ht1 img {
+  opacity: 0.5 !important;
+}
+
+._1ht2 img {
+  opacity: 1 !important;
+}
+
+._1ht2 {
+  background-color: #0E0E0E !important;
+}
+
+/* PICTURE/MOVIE LINKS */
+._tih {
+  border: 1px solid #CCC !important;
+  border-radius: 5px !important;
+  background-color: #E7E7E7 !important;
+}
+
+time[class="_3oh-"] {
+  color: #CCC !important;
+}
+
+/* FORWARD */
+._1e1o {
+  background-color: #FFF !important;
+}
+
+
+
+/* GROUP CONVERSATION COLORS */
+._2jnv, ._364g, ._1mf {
+  color: #FFF !important;
+}
+
+._59s7 ._42ef {
+  background-color: #FFF !important;
+}
+
+._59s7 ._364g {
+  color: #000 !important;
+}
+
+/* SETTINGS */
+._59s7 {
+  color: #000;
+}
+
+._3x6u {
+  color: #CCC;
+}
+
+/* STICKER STORE */
+
+._5ra6, ._59s7 ._5rad, ._59s7 ._5ra5, ._59s7 ._5r5c, ._59s7 ._5ra6 ._ohe {
+  background-color: rgba(255,255,255,1) !important;
+}
+
+._5ra6 {
+  padding: 10px !important;
+  margin: 10px auto 20px auto !important;
+}
+
+/* GAMES */
+
+._5f0v, ._5k2t {
+  color: #000;
+}
+
+._5agj ._4u4_ h3, ._497p._11es h2 {
+  color: #FFF;
+}
+
+._497p._11es ._4ea2._2kar {
+  display:none;
+}
+
+._497p._11es ._3quh._30yy._2t_._fy2._2623 {
+  margin: 5px;
+  background-color: #002247;
+  padding:6px;
+  border-radius: 10px;
+  color: #FFF;
+}
