@@ -18,6 +18,9 @@ function namespaceOfFile (filename) {
     name += ':' + process.type;
   }
 
+  // replace slashes with semicolons
+  name = name.replace(/\//g, ':');
+
   return global.manifest.name + ':' + name;
 }
 
