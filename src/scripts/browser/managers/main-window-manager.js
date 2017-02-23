@@ -106,14 +106,15 @@ class MainWindowManager extends EventEmitter {
     url = urls.skipFacebookRedirect(url);
 
     if (urls.isDownloadUrl(url)) {
-      log('on renderer open-url, downloading', url);
+      log('on new window, downloading', url);
+      event.preventDefault();
       this.window.loadURL(url);
     } else if (prefs.get('links-in-browser')) {
-      log('opening url externally', url);
+      log('on new window, opening url externally', url);
       event.preventDefault();
       shell.openExternal(url);
     } else {
-      log('opening url in-app', url);
+      log('on new window, opening url in-app', url);
     }
   }
 

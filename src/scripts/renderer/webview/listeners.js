@@ -57,7 +57,7 @@ webView.addEventListener('page-title-updated', function () {
 
 // Handle url clicks
 webView.addEventListener('new-window', function (event) {
-  log('sending open-url', event.url);
+  log('sending open-url', event.frameName, event.url);
   ipcRenderer.send('open-url', event.url, event.options);
 });
 
