@@ -111,6 +111,7 @@ if (options.portable) {
   if (quitIfPrefEnabled()) return;
   if (printVersionsAndExit()) return;
   if (enforceSingleInstance()) return;
+  preReadySetup();
   initAndLaunch();
   startRepl();
 })();
@@ -169,6 +170,10 @@ function startRepl () {
     const repl = require('browser/utils/repl');
     repl.createServer(options.replPort);
   }
+}
+
+function preReadySetup () {
+  app.disableHardwareAcceleration(); // should be easier on the GPU
 }
 
 async function initAndLaunch () {

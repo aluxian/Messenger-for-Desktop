@@ -29,6 +29,15 @@ export function pref (prefName) {
 }
 
 /**
+ * Negates the given value.
+ */
+export function not (valueExpr) {
+  return function () {
+    return !valueExpr.apply(this, arguments);
+  };
+}
+
+/**
  * Sums up two expressions.
  */
 export function sum (value1Expr, value2Expr) {

@@ -17,11 +17,7 @@ function ensureDataLoaded () {
       data = fs.readJsonSync(prefsPath) || {};
       log('prefs data restored');
     } catch (err) {
-      if (err.code === 'ENOENT') {
-        // ignored
-      } else {
-        logError(err);
-      }
+      logError(err, true);
       data = {};
     }
   }
@@ -37,7 +33,7 @@ function set (key, value) {
 
   fs.outputJson(prefsPath, data, function (err) {
     if (err) {
-      logError(err);
+      logError(err, true);
     } else {
       log('saved', key, '=', JSON.stringify(value));
     }
@@ -56,7 +52,7 @@ function setSync (key, value) {
     fs.outputJsonSync(prefsPath, data);
     log('saved', key, '=', JSON.stringify(value));
   } catch (err) {
-    logError(err);
+    logError(err, true);
   }
 }
 
@@ -100,7 +96,7 @@ function unset (key) {
 
   fs.outputJson(prefsPath, data, function (err) {
     if (err) {
-      logError(err);
+      logError(err, true);
     } else {
       log('unset', key);
     }
@@ -118,7 +114,7 @@ function unsetSync (key) {
     fs.outputJsonSync(prefsPath, data);
     log('unset', key);
   } catch (err) {
-    logError(err);
+    logError(err, true);
   }
 }
 
@@ -131,7 +127,7 @@ function clear () {
 
   fs.outputJson(prefsPath, data, function (err) {
     if (err) {
-      logError(err);
+      logError(err, true);
     } else {
       log('all keys cleared');
     }

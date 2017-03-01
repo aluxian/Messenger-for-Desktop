@@ -1,4 +1,22 @@
 [{
+  "version": "2.0.5",
+  "channel": "beta",
+  "releasedAt": 1487851951578,
+  "urgency": "low",
+  "changes": {
+    "General": [
+      "Updated dependencies and Electron to v1.4.15.",
+      "Disabled hardware acceleration (should be easier on the GPU).",
+      "Added option to disable typing and seen indicators.",
+      "Made the crash reporter use less resources.",
+      "Fixed file download links opening in the browser.",
+      "Fixed an issue with updates on Windows and Linux.",
+      "Fixed audio and video calls.",
+      "Fixed blinking badge.",
+      "Fixed top banner still appearing sometimes."
+    ]
+  }
+}, {
   "version": "2.0.4",
   "channel": "beta",
   "releasedAt": 1483002596589,
@@ -39,7 +57,7 @@
 }, {
   "version": "2.0.0",
   "channel": "beta",
-  "releasedAt": 1472106609428,
+  "releasedAt": 1472191336102,
   "urgency": "low",
   "changes": {
     "General": [
