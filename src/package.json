@@ -44,8 +44,8 @@
     }
   },
   "packages": {
-    "osx64": "https://updates-mac.messengerfordesktop.com/download/mirror/installcore/latest?platform=darwin",
-    "win32": "https://updates.messengerfordesktop.com/download/mirror/installcore/latest?platform=win32",
+    "osx64": "https://updates.messengerfordesktop.com/download/darwin/latest",
+    "win32": "https://updates.messengerfordesktop.com/download/win32/latest",
     "linux32": "https://updates.messengerfordesktop.com/download/linux/latest?arch=i386&pkg=deb",
     "linux64": "https://updates.messengerfordesktop.com/download/linux/latest?arch=amd64&pkg=deb"
   },
