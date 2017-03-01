@@ -43,10 +43,10 @@
     }
   },
   "packages": {
-    "osx64": "http://mac.filehorse.com/download-messenger-for-desktop/?utm_medium=mac&utm_source=messengerfordesktop.com&utm_campaign=MessengerForDesktop",
-    "win32": "https://updates.messengerfordesktop.com/download/mirror/installcore/latest?platform=win32",
-    "linux32": "https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v1.5.0-beta.1/Messenger_linux32_V150_beta1.deb",
-    "linux64": "https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v1.5.0-beta.1/Messenger_linux64_V150_beta1.deb"
+    "osx64": "https://updates.messengerfordesktop.com/download/darwin/latest",
+    "win32": "https://updates.messengerfordesktop.com/download/win32/latest",
+    "linux32": "https://updates.messengerfordesktop.com/download/linux/latest?arch=i386&pkg=deb",
+    "linux64": "https://updates.messengerfordesktop.com/download/linux/latest?arch=amd64&pkg=deb"
   },
   "darwin": {
     "bundleId": "com.aluxian.messengerfd",
