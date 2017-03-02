@@ -42,7 +42,8 @@ args = require './args'
     loggerIgnore = fs.readFileSync('./src/.loggerignore', 'utf8')
       .split('\n').filter((rule) -> !!rule).map((rule) -> '!' + rule.trim())
     excludeHeaderFilter = filter ['**/*'].concat(loggerIgnore), {restore: true}
-    sourceMapHeader = "if (process.type === 'browser') { require('source-map-support').install(); }"
+    sourceMapHeader = "if (process.type === 'browser') { " +
+      "var ___smp = require('source-map-support'); if (___smp) { ___smp.install(); } }"
     loggerHeader = [
       "var log = require('common/utils/logger').debugLogger(__filename);"
       "var logError = require('common/utils/logger').errorLogger(__filename, false);"

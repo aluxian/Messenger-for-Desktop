@@ -24,14 +24,14 @@
     "raven": "1.1.2",
     "raven-js": "3.11.0",
     "semver": "5.3.0",
-    "source-map-support": "0.4.11",
     "spellchecker": "3.3.1",
     "strip-ansi": "3.0.1",
     "winreg": "1.2.3",
     "yargs": "6.6.0"
   },
   "devDependencies": {
-    "devtron": "1.4.0"
+    "devtron": "1.4.0",
+    "source-map-support": "0.4.11"
   },
   "optionalDependencies": {
     "nodobjc": "2.1.0"
