@@ -4,7 +4,7 @@
 
 **General**
 
-- Updated dependencies and Electron to v1.4.15.
+- Updated dependencies and Electron to v1.6.1.
 - Disabled hardware acceleration (should be easier on the GPU).
 - Added option to disable typing and seen indicators.
 - Made the crash reporter use less resources.
