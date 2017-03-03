@@ -9,7 +9,7 @@ export default {
     label: 'Reload',
     accelerator: 'Cmd+R',
     needsWindow: true,
-    click: $.reloadWindow()
+    role: 'forcereload'
   }, {
     label: 'Reset',
     accelerator: 'Cmd+Alt+R',
