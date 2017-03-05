@@ -90,17 +90,5 @@ export default {
   //     needsWindow: true,
   //     click: $.sendToWebView('switch-conversation', $.val(1000 + index))
   //   }))
-  }/*, {
-    type: 'separator'
-  }, {
-    label: 'Send Photo or &Video',
-    accelerator: 'CmdOrCtrl+O',
-    needsWindow: true,
-    click: $.sendToWebView('send-photo-video')
-  }, {
-    label: '&Take Photo',
-    accelerator: 'CmdOrCtrl+P',
-    needsWindow: true,
-    click: $.sendToWebView('take-photo')
-  }*/]
+  }]
 };

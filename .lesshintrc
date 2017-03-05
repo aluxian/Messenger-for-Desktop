@@ -4,5 +4,6 @@
   "propertyOrdering": false,
   "singleLinePerSelector": false,
   "spaceAroundOperator": false,
-  "newlineAfterBlock": false
+  "newlineAfterBlock": false,
+  "universalSelector": false
 }
