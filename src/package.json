@@ -34,7 +34,7 @@
     "source-map-support": "0.4.11"
   },
   "optionalDependencies": {
-    "nodobjc": "git+https://github.com/screenmeet/NodObjC.git"
+    "nodobjc": "2.1.0"
   },
   "updater": {
     "urls": {
