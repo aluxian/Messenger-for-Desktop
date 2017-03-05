@@ -29,13 +29,13 @@
     "gulp-zip": "4.0.0",
     "moment": "2.17.1",
     "rcedit": "0.7.0",
-    "request": "2.79.0",
+    "request": "2.80.0",
     "require-dir": "0.3.1"
   },
   "devDependencies": {
     "babel-eslint": "7.1.1",
     "coffeelint": "1.16.0",
-    "eslint": "3.16.1",
+    "eslint": "3.17.0",
     "eslint-config-standard": "7.0.0",
     "eslint-plugin-babel": "4.1.0",
     "eslint-plugin-promise": "3.5.0",
