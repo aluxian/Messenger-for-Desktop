@@ -5,7 +5,6 @@
 [![Linux builds](https://circleci.com/gh/aluxian/Messenger-for-Desktop/tree/staging.svg?style=shield)](https://circleci.com/gh/aluxian/Messenger-for-Desktop)
 [![Downloads total](https://updates.messengerfordesktop.com/badge/downloads.svg)](https://updates.messengerfordesktop.com/stats)
 [![Services status](https://img.shields.io/badge/services-status-blue.svg)](https://status.messengerfordesktop.com/)
-[![HuBoard task board](https://img.shields.io/badge/hu-board-7965cc.svg)](https://huboard.com/Aluxian/Messenger-for-Desktop)
 [![Join the chat](https://badges.gitter.im/Join%20Chat.svg)][1]
 
 A simple &amp; beautiful desktop client for [Facebook Messenger](https://www.messenger.com/). Chat without distractions on OS X, Windows and Linux. Not affiliated with Facebook. This is **NOT** an official product.
