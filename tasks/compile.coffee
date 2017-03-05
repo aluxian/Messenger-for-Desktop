@@ -43,7 +43,7 @@ args = require './args'
       .split('\n').filter((rule) -> !!rule).map((rule) -> '!' + rule.trim())
     excludeHeaderFilter = filter ['**/*'].concat(loggerIgnore), {restore: true}
     sourceMapHeader = "if (process.type === 'browser') { " +
-      "var ___smp = require('source-map-support'); if (___smp) { ___smp.install(); } }"
+      "try { require('source-map-support').install(); } catch(ignored) {} }"
     loggerHeader = [
       "var log = require('common/utils/logger').debugLogger(__filename);"
       "var logError = require('common/utils/logger').errorLogger(__filename, false);"
