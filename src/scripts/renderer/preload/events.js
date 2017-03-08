@@ -8,6 +8,23 @@ ipcRenderer.on('zoom-level', function (event, zoomLevel) {
   webFrame.setZoomLevel(zoomLevel);
 });
 
+// Remove the top banner ad
+ipcRenderer.on('remove-top-banner', function (event) {
+  log('removing top banner ad');
+
+  // Strip the HTML
+  const bannerElems = document.getElementsByClassName('_s15');
+  for (const bannerElem of bannerElems) {
+    bannerElem.outerHTML = '';
+  }
+
+  // Fix non-automatic resize
+  if (bannerElems.length) {
+    webFrame.setZoomLevel(1);
+    webFrame.setZoomLevel(0);
+  }
+});
+
 // Set spell checker
 ipcRenderer.on('spell-checker', function (event, enabled, autoCorrect, langCode) {
   const chromiumLangCode = langCode.replace('_', '-');

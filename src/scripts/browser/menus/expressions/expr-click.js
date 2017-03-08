@@ -1,6 +1,7 @@
 import {app, shell} from 'electron';
 
 import * as piwik from 'browser/services/piwik';
+import * as requestFilter from 'browser/utils/request-filter';
 import prefs from 'browser/utils/prefs';
 
 /**
@@ -114,7 +115,9 @@ export function showWindow () {
     if (!browserWindow) {
       browserWindow = global.application.mainWindowManager.window;
     }
-    browserWindow.show();
+    if (browserWindow) {
+      browserWindow.show();
+    }
   };
 }
 
@@ -188,7 +191,7 @@ export function showInTray (flagExpr) {
  */
 export function showInDock (flagExpr) {
   return function () {
-    if (app.dock) {
+    if (app.dock && app.dock.show && app.dock.hide) {
       const show = flagExpr.apply(this, arguments);
       if (show) {
         app.dock.show();
@@ -210,14 +213,14 @@ export function launchOnStartup (enabledExpr) {
         .then(() => log('auto launcher enabled'))
         .catch((err) => {
           log('could not enable auto-launcher');
-          logError(err);
+          logError(err, true);
         });
     } else {
       global.application.autoLauncher.disable()
         .then(() => log('auto launcher disabled'))
         .catch((err) => {
           log('could not disable auto-launcher');
-          logError(err);
+          logError(err, true);
         });
     }
   };
@@ -247,6 +250,16 @@ export function hideTaskbarBadge (flagExpr) {
     if (!flag) {
       browserWindow.setOverlayIcon(null, '');
     }
+  };
+}
+
+/**
+ * Whether the user should appear as online and 'is typing' indicators be sent.
+ */
+export function blockSeenTyping (flagExpr) {
+  return function (menuItem, browserWindow) {
+    const shouldBlock = flagExpr.apply(this, arguments);
+    requestFilter.set(shouldBlock, browserWindow.webContents.session);
   };
 }
 

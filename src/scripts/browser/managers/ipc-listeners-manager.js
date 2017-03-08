@@ -1,15 +1,13 @@
-import {app, ipcMain, shell, BrowserWindow, nativeImage} from 'electron';
+import {ipcMain, shell, BrowserWindow} from 'electron';
 import EventEmitter from 'events';
 
-import platform from 'common/utils/platform';
+import urls from 'common/utils/urls';
 import prefs from 'browser/utils/prefs';
 
 class IpcListenersManager extends EventEmitter {
 
-  constructor (notifManager, trayManager, mainWindowManager) {
+  constructor (mainWindowManager) {
     super();
-    this.notifManager = notifManager;
-    this.trayManager = trayManager;
     this.mainWindowManager = mainWindowManager;
   }
 
@@ -27,27 +25,14 @@ class IpcListenersManager extends EventEmitter {
    */
   onNotifCount (event, count, badgeDataUrl) {
     log('on renderer notif-count', count, !!badgeDataUrl || null);
-    this.notifManager.unreadCount = count;
-
-    // Set icon badge
-    if (prefs.get('show-notifications-badge')) {
-      if (platform.isWindows) {
-        if (count) {
-          const image = nativeImage.createFromDataURL(badgeDataUrl);
-          this.mainWindowManager.window.setOverlayIcon(image, count);
-        } else {
-          this.mainWindowManager.window.setOverlayIcon(null, '');
-        }
-      } else {
-        app.setBadgeCount(parseInt(count, 10) || 0);
-      }
+    clearTimeout(this._delayedRemoveBadge);
+    if (count) {
+      this.mainWindowManager.notifCountChanged(count, badgeDataUrl);
+    } else {
+      this._delayedRemoveBadge = setTimeout(() => {
+        this.mainWindowManager.notifCountChanged(count, badgeDataUrl);
+      }, 1500);
     }
-
-    // Update tray
-    this.trayManager.unreadCountUpdated(count);
-
-    // Update window title
-    this.mainWindowManager.suffixWindowTitle(count ? ' (' + count + ')' : '');
   }
 
   /**
@@ -61,7 +46,12 @@ class IpcListenersManager extends EventEmitter {
    * Called when the 'open-url' event is received.
    */
   onOpenUrl (event, url, options) {
-    if (prefs.get('links-in-browser')) {
+    url = urls.skipFacebookRedirect(url);
+
+    if (urls.isDownloadUrl(url)) {
+      log('on renderer open-url, downloading', url);
+      this.mainWindowManager.window.loadURL(url);
+    } else if (prefs.get('links-in-browser')) {
       log('on renderer open-url, externally', url);
       shell.openExternal(url);
     } else {

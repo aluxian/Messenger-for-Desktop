@@ -11,6 +11,8 @@ const defaults = {
   'launch-startup-hidden': true,
   'launch-quit': false,
   'links-in-browser': true,
+  'switch-workplace': false,
+  'block-seen-typing': false,
   'close-with-esc': false,
   'quit-behaviour-taught': false,
   'show-notifications-badge': true,

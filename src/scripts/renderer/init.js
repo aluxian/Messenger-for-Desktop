@@ -1,7 +1,7 @@
 import {remote} from 'electron';
 import path from 'path';
 
-export function inject () {
+export function inject (scope) {
   global.manifest = remote.getGlobal('manifest');
   global.options = remote.getGlobal('options');
 
@@ -13,9 +13,9 @@ export function inject () {
 
   // Add loggers to be used in the console
   const logger = require('common/utils/logger');
-  window.log = logger.debugLogger('console:renderer');
-  window.logError = logger.errorLogger('console:renderer', false);
-  window.logFatal = logger.errorLogger('console:renderer', true);
+  window.log = logger.debugLogger('console:' + scope);
+  window.logError = logger.errorLogger('console:' + scope, false);
+  window.logFatal = logger.errorLogger('console:' + scope, true);
 
   // Handle errors
   window.onerror = function (message, source, lineno, colno, error) {
