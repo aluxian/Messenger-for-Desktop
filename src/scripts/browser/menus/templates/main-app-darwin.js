@@ -48,6 +48,16 @@ export default {
     click: $.setPref('analytics-track', $.key('checked')),
     parse: $.setLocal('checked', $.pref('analytics-track'))
   }, {
+    type: 'checkbox',
+    label: 'Switch to Workplace Messenger',
+    click: $.all(
+      $.setPref('switch-workplace', $.key('checked')),
+      $.reloadWindow()
+    ),
+    parse: $.all(
+      $.setLocal('checked', $.pref('switch-workplace'))
+    )
+  }, {
     type: 'separator',
     allow: !global.options.mas
   },

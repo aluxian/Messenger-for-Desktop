@@ -1,10 +1,6 @@
 import util from 'util';
 import path from 'path';
 
-import eventCategories from 'common/analytics/categories';
-import eventActions from 'common/analytics/actions';
-import eventNames from 'common/analytics/names';
-
 function namespaceOfFile (filename) {
   const app = require('common/electron/app').default;
   const appPath = path.join(app.getAppPath(), 'scripts') + path.sep;
@@ -18,19 +14,10 @@ function namespaceOfFile (filename) {
     name += ':' + process.type;
   }
 
-  return global.manifest.name + ':' + name;
-}
+  // replace slashes with semicolons
+  name = name.replace(/\//g, ':');
 
-function reportToPiwik (namespace, isFatal, err) {
-  const piwik = require('common/services/piwik').default.getTracker();
-  if (piwik) {
-    piwik.trackEvent(
-      eventCategories['Logs'],
-      eventActions['Exception'],
-      isFatal ? eventNames['Fatal Error'] : eventNames['Error'],
-      `${namespace}: ${err.name}: ${err.message}`
-    );
-  }
+  return global.manifest.name + ':' + name;
 }
 
 function reportToSentry (namespace, isFatal, err) {
@@ -90,7 +77,6 @@ export function errorLogger (filename, isFatal) {
     browserLogger.printError(namespace, isFatal, err.stack);
 
     if (!skipReporting && !global.options.debug) {
-      reportToPiwik(namespace, isFatal, err);
       reportToSentry(namespace, isFatal, err);
     }
   };

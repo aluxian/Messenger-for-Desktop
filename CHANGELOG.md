@@ -1,3 +1,19 @@
+## [2.0.5-beta](https://github.com/Aluxian/Messenger-for-Desktop/tree/v2.0.5) (2017-23-02)
+
+[Full Changelog](https://github.com/Aluxian/Messenger-for-Desktop/compare/v2.0.4...v2.0.5) &bull; [Download](https://github.com/Aluxian/Messenger-for-Desktop/releases/tag/v2.0.5)
+
+**General**
+
+- Updated dependencies and Electron to v1.4.15.
+- Disabled hardware acceleration (should be easier on the GPU).
+- Added option to disable typing and seen indicators.
+- Made the crash reporter use less resources.
+- Fixed file download links opening in the browser.
+- Fixed an issue with updates on Windows and Linux.
+- Fixed audio and video calls.
+- Fixed blinking badge.
+- Fixed top banner still appearing sometimes.
+
 ## [2.0.4-beta](https://github.com/Aluxian/Messenger-for-Desktop/tree/v2.0.4) (2016-29-12)
 
 [Full Changelog](https://github.com/Aluxian/Messenger-for-Desktop/compare/v2.0.3...v2.0.4) &bull; [Download](https://github.com/Aluxian/Messenger-for-Desktop/releases/tag/v2.0.4)
@@ -32,7 +48,7 @@
 - Various fixes and improvements.
 - Dependency updates.
 
-## [2.0.0-beta](https://github.com/Aluxian/Messenger-for-Desktop/tree/v2.0.0) (2016-25-08)
+## [2.0.0-beta](https://github.com/Aluxian/Messenger-for-Desktop/tree/v2.0.0) (2016-26-08)
 
 [Download](https://github.com/Aluxian/Messenger-for-Desktop/releases/tag/v2.0.0)
 

@@ -1,7 +1,8 @@
-import {shell, BrowserWindow, Menu} from 'electron';
+import {app, shell, BrowserWindow, Menu, nativeImage} from 'electron';
 import debounce from 'lodash.debounce';
 import EventEmitter from 'events';
 
+import urls from 'common/utils/urls';
 import filePaths from 'common/utils/file-paths';
 import platform from 'common/utils/platform';
 import contextMenu from 'browser/menus/context';
@@ -23,6 +24,10 @@ class MainWindowManager extends EventEmitter {
 
   setMenuManager (menuManager) {
     this.menuManager = menuManager;
+  }
+
+  setNotifManager (notifManager) {
+    this.notifManager = notifManager;
   }
 
   createWindow () {
@@ -98,13 +103,18 @@ class MainWindowManager extends EventEmitter {
    * Called when the 'new-window' event is emitted.
    */
   onNewWindow (event, url) {
-    // Open urls in an external browser
-    if (prefs.get('links-in-browser')) {
-      log('opening url externally', url);
+    url = urls.skipFacebookRedirect(url);
+
+    if (urls.isDownloadUrl(url)) {
+      log('on new window, downloading', url);
+      event.preventDefault();
+      this.window.loadURL(url);
+    } else if (prefs.get('links-in-browser')) {
+      log('on new window, opening url externally', url);
       event.preventDefault();
       shell.openExternal(url);
     } else {
-      log('opening url in-app', url);
+      log('on new window, opening url in-app', url);
     }
   }
 
@@ -237,6 +247,9 @@ class MainWindowManager extends EventEmitter {
       this.window.setSize(bounds.width, bounds.height, true);
       this.window.center();
     }
+
+    // Remove notifications count
+    this.notifCountChanged('', null);
   }
 
   /**
@@ -295,6 +308,33 @@ class MainWindowManager extends EventEmitter {
   }
 
   /**
+   * Update the notifications count everywhere.
+   */
+  notifCountChanged (count, badgeDataUrl) {
+    this.notifManager.unreadCount = count;
+
+    // Set icon badge
+    if (prefs.get('show-notifications-badge')) {
+      if (platform.isWindows) {
+        if (count) {
+          const image = nativeImage.createFromDataURL(badgeDataUrl);
+          this.window.setOverlayIcon(image, count);
+        } else {
+          this.window.setOverlayIcon(null, '');
+        }
+      } else {
+        app.setBadgeCount(parseInt(count, 10) || 0);
+      }
+    }
+
+    // Update tray
+    this.trayManager.unreadCountUpdated(count);
+
+    // Update window title
+    this.prefixWindowTitle(count ? '(' + count + ') ' : '');
+  }
+
+  /**
    * Show and focus or create the main window.
    */
   showOrCreate () {
@@ -303,6 +343,15 @@ class MainWindowManager extends EventEmitter {
     } else {
       this.createWindow();
       this.initWindow();
+    }
+  }
+
+  /**
+   * Append a prefix to the window title.
+   */
+  prefixWindowTitle (prefix) {
+    if (this.window) {
+      this.window.setTitle(prefix + this.initialTitle);
     }
   }
 

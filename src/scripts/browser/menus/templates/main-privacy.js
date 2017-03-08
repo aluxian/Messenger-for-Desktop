@@ -7,8 +7,8 @@ export default {
     type: 'checkbox',
     label: 'Block Seen and Typing Indicators',
     click: $.all(
-        $.setPref('block-seen-typing', $.key('checked')),
-        $.blockSeenTyping($.key('checked'))
+      $.setPref('block-seen-typing', $.key('checked')),
+      $.blockSeenTyping($.key('checked'))
     ),
     parse: $.all(
       $.setLocal('checked', $.pref('block-seen-typing'))
