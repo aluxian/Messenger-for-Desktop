@@ -1,3 +1,11 @@
+## [2.0.6](https://github.com/Aluxian/Messenger-for-Desktop/tree/v2.0.6) (2017-12-03)
+
+[Full Changelog](https://github.com/Aluxian/Messenger-for-Desktop/compare/v2.0.5...v2.0.6) &bull; [Download](https://github.com/Aluxian/Messenger-for-Desktop/releases/tag/v2.0.6)
+
+**General**
+
+- Fixed an internal error related to notifications count.
+
 ## [2.0.5-beta](https://github.com/Aluxian/Messenger-for-Desktop/tree/v2.0.5) (2017-23-02)
 
 [Full Changelog](https://github.com/Aluxian/Messenger-for-Desktop/compare/v2.0.4...v2.0.5) &bull; [Download](https://github.com/Aluxian/Messenger-for-Desktop/releases/tag/v2.0.5)
