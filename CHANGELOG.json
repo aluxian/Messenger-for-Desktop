@@ -1,4 +1,14 @@
 [{
+  "version": "2.0.6",
+  "channel": "stable",
+  "releasedAt": 1489325983503,
+  "urgency": "low",
+  "changes": {
+    "General": [
+      "Fixed an internal error related to notifications count."
+    ]
+  }
+}, {
   "version": "2.0.5",
   "channel": "beta",
   "releasedAt": 1487851951578,

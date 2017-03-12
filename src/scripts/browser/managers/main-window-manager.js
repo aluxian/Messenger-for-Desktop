@@ -311,7 +311,9 @@ class MainWindowManager extends EventEmitter {
    * Update the notifications count everywhere.
    */
   notifCountChanged (count, badgeDataUrl) {
-    this.notifManager.unreadCount = count;
+    if (this.notifManager) {
+      this.notifManager.unreadCount = count;
+    }
 
     // Set icon badge
     if (prefs.get('show-notifications-badge')) {
@@ -328,7 +330,9 @@ class MainWindowManager extends EventEmitter {
     }
 
     // Update tray
-    this.trayManager.unreadCountUpdated(count);
+    if (this.trayManager) {
+      this.trayManager.unreadCountUpdated(count);
+    }
 
     // Update window title
     this.prefixWindowTitle(count ? '(' + count + ') ' : '');
