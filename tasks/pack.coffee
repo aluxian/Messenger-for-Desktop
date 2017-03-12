@@ -435,11 +435,10 @@ gulp.task 'pack:win32:nsis', ['build:win32', 'clean:dist:win32'], (done) ->
     (callback) ->
       properties =
         'version-string':
-          ProductName: manifest.productName
-          CompanyName: manifest.authorName
-          FileDescription: manifest.productName
-          LegalCopyright: manifest.copyright
-          OriginalFilename: manifest.productName + '.exe'
+          ProductName: manifest.name
+          CompanyName: manifest.name
+          FileDescription: manifest.name
+          LegalCopyright: manifest.name
         'file-version': manifest.version
         'product-version': manifest.version
 
