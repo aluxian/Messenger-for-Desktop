@@ -444,7 +444,12 @@ gulp.task 'pack:win32:nsis', ['build:win32', 'clean:dist:win32'], (done) ->
 
       exePath = './dist/' + manifest.name + '-' + manifest.version + '-win32-nsis.exe'
       logMessage = 'rcedit ' + exePath + ' properties'
-      rcedit exePath, properties, utils.log callback, logMessage, JSON.stringify(properties)
+      fakeCallback = (err) ->
+        if err
+          console.log 'rcedit failed'
+          console.error err
+        callback()
+      rcedit exePath, properties, utils.log fakeCallback, logMessage, JSON.stringify(properties)
 
     # Sign the exe
     (callback) ->
