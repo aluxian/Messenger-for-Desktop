@@ -109,6 +109,12 @@ webView.addEventListener('dom-ready', function () {
     log('restoring spell checker', spellCheckerCheck, 'auto correct', autoCorrect, 'lang code', langCode);
     webView.send('spell-checker', spellCheckerCheck, autoCorrect, langCode);
   }
+
+  // Show an 'app updated' notification
+  if (prefs.get('notify-app-updated')) {
+    webView.send('notify-app-updated');
+    prefs.set('notify-app-updated', false);
+  }
 });
 
 // Listen for did-finish-load

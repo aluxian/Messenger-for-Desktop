@@ -15,6 +15,7 @@ const defaults = {
   'block-seen-typing': false,
   'close-with-esc': false,
   'quit-behaviour-taught': false,
+  'notify-app-updated': false,
   'show-notifications-badge': true,
   'show-tray': platform.isWindows,
   'show-dock': true,

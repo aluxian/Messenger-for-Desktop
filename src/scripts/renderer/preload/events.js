@@ -1,4 +1,4 @@
-import {webFrame, ipcRenderer} from 'electron';
+import {webFrame, ipcRenderer, shell} from 'electron';
 import {getDictionaryPath} from 'common/utils/spellchecker';
 import SpellChecker from 'spellchecker';
 
@@ -23,6 +23,25 @@ ipcRenderer.on('remove-top-banner', function (event) {
     webFrame.setZoomLevel(1);
     webFrame.setZoomLevel(0);
   }
+});
+
+// Show an 'app updated' notification
+ipcRenderer.on('notify-app-updated', function (event) {
+  log('notifying app updated');
+
+  // Display the notification
+  const notif = new window.Notification(global.manifest.productName, {
+    body: 'App updated to v' + global.manifest.version + '. Click to see changes.',
+    tag: 'notify-app-updated',
+    canReply: false
+  });
+  notif.onclick = () => {
+    setTimeout(() => {
+      const changelogUrl = global.manifest.changelogUrl
+        .replace(/%CURRENT_VERSION%/g, global.manifest.version);
+      shell.openExternal(changelogUrl);
+    }, 300);
+  };
 });
 
 // Set spell checker

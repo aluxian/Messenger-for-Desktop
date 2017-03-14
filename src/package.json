@@ -66,8 +66,9 @@
   "homepage": "https://messengerfordesktop.com",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Aluxian/Messenger-for-Desktop.git"
+    "url": "https://github.com/aluxian/Messenger-for-Desktop.git"
   },
+  "changelogUrl": "https://github.com/aluxian/Messenger-for-Desktop/releases/tag/v%CURRENT_VERSION%",
   "virtualUrl": "http://app.messengerfordesktop.com",
   "piwik": {
     "serverUrl": "{{& PIWIK_SERVER_URL }}",
