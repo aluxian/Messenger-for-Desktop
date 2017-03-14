@@ -8,7 +8,7 @@ export default {
     accelerator: 'CmdOrCtrl+plus',
     needsWindow: true,
     click: $.all(
-      $.setPref('zoom-level', $.sum($.pref('zoom-level'), $.val(1))),
+      $.setPref('zoom-level', $.sum($.pref('zoom-level'), $.val(+0.25))),
       $.sendToWebView('zoom-level', $.pref('zoom-level'))
     )
   }, {
@@ -16,7 +16,7 @@ export default {
     accelerator: 'CmdOrCtrl+-',
     needsWindow: true,
     click: $.all(
-      $.setPref('zoom-level', $.sum($.pref('zoom-level'), $.val(-1))),
+      $.setPref('zoom-level', $.sum($.pref('zoom-level'), $.val(-0.25))),
       $.sendToWebView('zoom-level', $.pref('zoom-level'))
     )
   }, {
