@@ -15,8 +15,21 @@ export default {
     enabled: false,
     allow: platform.isNonDarwin
   }, {
+    type: 'checkbox',
+    label: 'Switch to Workplace Messenger',
+    click: $.all(
+      $.setPref('switch-workplace', $.key('checked')),
+      $.reloadWindow()
+    ),
+    parse: $.all(
+      $.setLocal('checked', $.pref('switch-workplace'))
+    )
+  }, {
+    type: 'separator',
+    allow: !global.options.mas
+  }, {
     id: 'cfu-check-for-update',
-    label: 'Check for &Update',
+    label: 'Check for &Update...',
     allow: !global.options.mas,
     click: $.cfuCheckForUpdate(true)
   }, {
@@ -27,7 +40,7 @@ export default {
     visible: false
   }, {
     id: 'cfu-update-available',
-    label: 'Download &Update',
+    label: 'Download &Update...',
     allow: platform.isNonDarwin && (platform.isLinux || global.options.portable),
     visible: false,
     click: $.cfuUpdateAvailable()
@@ -39,12 +52,10 @@ export default {
     visible: false
   }, {
     id: 'cfu-update-downloaded',
-    label: 'Restart and Install &Update',
+    label: 'Restart and Install &Update...',
     allow: !global.options.mas,
     visible: false,
     click: $.cfuUpdateDownloaded()
-  }, {
-    type: 'separator'
   }, {
     label: 'Updates Release Channel',
     allow: !global.options.mas,
@@ -71,20 +82,10 @@ export default {
     ),
     parse: $.setLocal('checked', $.pref('updates-auto-check'))
   }, {
-    type: 'checkbox',
-    label: 'Switch to Workplace Messenger',
-    click: $.all(
-      $.setPref('switch-workplace', $.key('checked')),
-      $.reloadWindow()
-    ),
-    parse: $.all(
-      $.setLocal('checked', $.pref('switch-workplace'))
-    )
-  }, {
     type: 'separator'
   }, {
     type: 'checkbox',
-    label: '&Launch on Startup',
+    label: '&Launch on OS Startup',
     allow: !global.options.mas && !global.options.portable,
     click: $.all(
       $.launchOnStartup($.key('checked')),
@@ -113,7 +114,7 @@ export default {
     allow: global.options.debug,
     enabled: false
   }, {
-    label: 'Open Debug Log',
+    label: 'Open Debug Log...',
     enabled: global.options.debug,
     click: $.openDebugLog()
   }, {
