@@ -34,7 +34,6 @@ export default {
     role: 'togglefullscreen'
   }, {
     label: 'Toggle &Developer Tools',
-    accelerator: platform.isNonDarwin ? 'Ctrl+Shift+Alt+I' : 'Alt+Cmd+I',
     needsWindow: true,
     click: $.toggleDevTools()
   }, {
