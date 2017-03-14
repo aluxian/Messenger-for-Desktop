@@ -88,5 +88,6 @@
     "black": "Black",
     "midnight": "Midnight",
     "mosaic": "Mosaic"
-  }
+  },
+  "darkThemes": ["dark", "black", "midnight"]
 }

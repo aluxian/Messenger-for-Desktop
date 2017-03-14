@@ -44,6 +44,7 @@ class MainWindowManager extends EventEmitter {
       title: this.initialTitle,
       backgroundColor: '#ffffff',
       autoHideMenuBar: prefs.get('auto-hide-menubar'),
+      darkTheme: global.manifest.darkThemes.includes(prefs.get('theme')),
       useContentSize: true,
       minWidth: 500,
       minHeight: 500,
