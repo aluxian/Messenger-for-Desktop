@@ -4,7 +4,7 @@ export default {
   label: 'Privacy',
   submenu: [{
     type: 'checkbox',
-    label: '&Report Stats and Crashes',
+    label: '&Report App Stats and Crashes',
     click: $.setPref('analytics-track', $.key('checked')),
     parse: $.setLocal('checked', $.pref('analytics-track'))
   }, {
