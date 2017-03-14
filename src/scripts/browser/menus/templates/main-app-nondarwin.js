@@ -1,6 +1,5 @@
 import platform from 'common/utils/platform';
 import $ from 'browser/menus/expressions';
-import g from 'browser/menus/generator';
 
 let versionSuffix = '';
 if (global.manifest.versionChannel !== 'stable') {
@@ -39,10 +38,25 @@ export default {
     label: 'Restart and Install &Update',
     visible: false,
     click: $.cfuUpdateDownloaded()
-  },
-    g.separator(),
-    g.appUpdatesReleaseChannel(),
-  {
+  }, {
+    type: 'separator'
+  }, {
+    label: 'Updates Release Channel',
+    allow: !global.options.mas,
+    submenu: ['Stable', 'Beta', 'Dev'].map((channelName) => ({
+      type: 'radio',
+      label: channelName,
+      channel: channelName.toLowerCase(),
+      click: $.all(
+        $.setPref('updates-channel', $.key('channel')),
+        $.resetAutoUpdaterUrl(),
+        $.cfuCheckForUpdate(false)
+      ),
+      parse: $.all(
+        $.setLocal('checked', $.eq($.pref('updates-channel'), $.key('channel')))
+      )
+    }))
+  }, {
     type: 'checkbox',
     label: 'Check for Update Automatically',
     click: $.all(
@@ -53,10 +67,27 @@ export default {
   }, {
     type: 'separator',
     allow: !global.options.portable
-  },
-    g.appLaunchOnStartup(!global.options.portable),
-    g.appLaunchHidden(!global.options.portable),
-  {
+  }, {
+    type: 'checkbox',
+    label: '&Launch on Startup',
+    allow: !global.options.portable,
+    click: $.all(
+      $.launchOnStartup($.key('checked')),
+      $.updateSibling('startup-hidden', 'enabled', $.key('checked')),
+      $.setPref('launch-startup', $.key('checked'))
+    ),
+    parse: $.all(
+      $.setLocal('checked', $.pref('launch-startup')),
+      $.updateSibling('startup-hidden', 'enabled', $.key('checked'))
+    )
+  }, {
+    id: 'startup-hidden',
+    type: 'checkbox',
+    label: 'Start &Hidden on Startup',
+    allow: !global.options.portable,
+    click: $.setPref('launch-startup-hidden', $.key('checked')),
+    parse: $.setLocal('checked', $.pref('launch-startup-hidden'))
+  }, {
     type: 'separator'
   }, {
     label: 'Restart in Debug Mode',

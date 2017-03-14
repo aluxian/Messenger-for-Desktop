@@ -1,6 +1,5 @@
 import platform from 'common/utils/platform';
 import $ from 'browser/menus/expressions';
-import g from 'browser/menus/generator';
 
 export default {
   label: global.manifest.productName,
@@ -30,10 +29,25 @@ export default {
     allow: !global.options.mas,
     visible: false,
     click: $.cfuUpdateDownloaded()
-  },
-    g.separator(),
-    g.appUpdatesReleaseChannel(),
-  {
+  }, {
+    type: 'separator'
+  }, {
+    label: 'Updates Release Channel',
+    allow: !global.options.mas,
+    submenu: ['Stable', 'Beta', 'Dev'].map((channelName) => ({
+      type: 'radio',
+      label: channelName,
+      channel: channelName.toLowerCase(),
+      click: $.all(
+        $.setPref('updates-channel', $.key('channel')),
+        $.resetAutoUpdaterUrl(),
+        $.cfuCheckForUpdate(false)
+      ),
+      parse: $.all(
+        $.setLocal('checked', $.eq($.pref('updates-channel'), $.key('channel')))
+      )
+    }))
+  }, {
     type: 'checkbox',
     label: 'Check for Update Automatically',
     allow: !global.options.mas,
@@ -55,10 +69,27 @@ export default {
   }, {
     type: 'separator',
     allow: !global.options.mas
-  },
-    g.appLaunchOnStartup(!global.options.mas),
-    g.appLaunchHidden(!global.options.mas),
-  {
+  }, {
+    type: 'checkbox',
+    label: '&Launch on Startup',
+    allow: !global.options.mas,
+    click: $.all(
+      $.launchOnStartup($.key('checked')),
+      $.updateSibling('startup-hidden', 'enabled', $.key('checked')),
+      $.setPref('launch-startup', $.key('checked'))
+    ),
+    parse: $.all(
+      $.setLocal('checked', $.pref('launch-startup')),
+      $.updateSibling('startup-hidden', 'enabled', $.key('checked'))
+    )
+  }, {
+    id: 'startup-hidden',
+    type: 'checkbox',
+    label: 'Start &Hidden on Startup',
+    allow: !global.options.mas,
+    click: $.setPref('launch-startup-hidden', $.key('checked')),
+    parse: $.setLocal('checked', $.pref('launch-startup-hidden'))
+  }, {
     type: 'separator'
   }, {
     label: 'Restart in Debug Mode',
