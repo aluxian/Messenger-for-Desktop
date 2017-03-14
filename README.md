@@ -32,8 +32,16 @@ If you want to help me make *Messenger for Desktop* better, I recommend `dev` or
 
 ### OS X
 
+*DMG or zip:*
+
 1. Download [messengerfordesktop-x.x.x-osx.dmg][LR] or [messengerfordesktop-x.x.x-osx.zip][LR]
 2. Open or unzip the file and drag the app into the `Applications` folder
+3. Done! The app will update automatically
+
+*Using brew:*
+
+1. Run `brew cask install messenger-for-desktop` in your terminal
+2. The app will be installed in your `Applications`
 3. Done! The app will update automatically
 
 ### Windows
