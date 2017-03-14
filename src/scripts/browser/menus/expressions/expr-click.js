@@ -186,6 +186,18 @@ export function toggleDevTools () {
 }
 
 /**
+ * Toggle the webview's dev tools panel.
+ */
+export function toggleWebViewDevTools () {
+  return function (menuItem, browserWindow) {
+    if (!browserWindow) {
+      browserWindow = global.application.mainWindowManager.window;
+    }
+    browserWindow.webContents.send('toggle-wv-dev-tools');
+  };
+}
+
+/**
  * Whether the menu bar should hide automatically.
  */
 export function autoHideMenuBar (autoHideExpr) {

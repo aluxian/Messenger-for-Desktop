@@ -37,6 +37,10 @@ export default {
     needsWindow: true,
     click: $.toggleDevTools()
   }, {
+    label: 'Toggle WebView &Dev Tools',
+    needsWindow: true,
+    click: $.toggleWebViewDevTools()
+  }, {
     type: 'separator'
   }, {
     type: 'checkbox',
