@@ -7,13 +7,9 @@ export default {
     role: 'about',
     allow: platform.isDarwin
   }, {
-    label: 'Version ' + global.manifest.version + (
-      global.manifest.versionChannel !== 'stable'
-        ? '-' + global.manifest.versionChannel
-        : ''
-    ),
-    enabled: false,
-    allow: platform.isNonDarwin
+    label: 'About ' + global.manifest.productName,
+    allow: platform.isNonDarwin,
+    click: $.showCustomAboutDialog()
   }, {
     type: 'checkbox',
     label: 'Switch to Workplace Messenger',

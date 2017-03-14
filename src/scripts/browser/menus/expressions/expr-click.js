@@ -1,7 +1,8 @@
-import {app, shell} from 'electron';
+import {app, shell, dialog} from 'electron';
 
 import * as piwik from 'browser/services/piwik';
 import * as requestFilter from 'browser/utils/request-filter';
+import filePaths from 'common/utils/file-paths';
 import prefs from 'browser/utils/prefs';
 
 /**
@@ -65,6 +66,21 @@ export function appQuit () {
 export function openUrl (url) {
   return function () {
     shell.openExternal(url);
+  };
+}
+
+/**
+ * Show a mac-like About dialog.
+ */
+export function showCustomAboutDialog () {
+  return function () {
+    dialog.showMessageBox({
+      icon: filePaths.getImagePath('app_icon.png'),
+      title: 'About ' + global.manifest.productName,
+      message: global.manifest.productName,
+      detail: 'Version ' + global.manifest.version + '-' + global.manifest.versionChannel +
+        '\n' + global.manifest.copyright
+    });
   };
 }
 
