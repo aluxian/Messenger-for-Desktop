@@ -19,6 +19,7 @@
     "gulp-electron-downloader": "0.1.6",
     "gulp-filter": "5.0.0",
     "gulp-github-release": "1.2.1",
+    "gulp-gzip": "1.4.0",
     "gulp-header": "1.8.8",
     "gulp-if": "2.0.2",
     "gulp-less": "3.3.0",
@@ -26,6 +27,7 @@
     "gulp-plumber": "1.1.0",
     "gulp-rename": "1.2.2",
     "gulp-sourcemaps": "2.4.1",
+    "gulp-tar": "1.9.0",
     "gulp-zip": "4.0.0",
     "moment": "2.17.1",
     "rcedit": "0.8.0",
@@ -57,11 +59,11 @@
   "homepage": "https://messengerfordesktop.com/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Aluxian/Messenger-for-Desktop.git",
+    "url": "https://github.com/aluxian/Messenger-for-Desktop.git",
     "aur": "ssh+git://aur@aur.archlinux.org/messengerfordesktop.git"
   },
   "icon": {
-    "url": "https://raw.githubusercontent.com/Aluxian/Messenger-for-Desktop/master/resources/win/app.ico"
+    "url": "https://raw.githubusercontent.com/aluxian/Messenger-for-Desktop/master/resources/win/app.ico"
   },
   "bintray": {
     "subject": "aluxian",
@@ -70,6 +72,6 @@
     "gpgpub": "6DDA23616E3FE905FFDA152AE61DA9241537994D"
   },
   "bugs": {
-    "url": "https://github.com/Aluxian/Messenger-for-Desktop/issues"
+    "url": "https://github.com/aluxian/Messenger-for-Desktop/issues"
   }
 }
