@@ -1,41 +1,46 @@
 import platform from 'common/utils/platform';
 import $ from 'browser/menus/expressions';
 
-let versionSuffix = '';
-if (global.manifest.versionChannel !== 'stable') {
-  versionSuffix = '-' + global.manifest.versionChannel;
-}
-
 export default {
-  label: '&App',
-  allow: platform.isNonDarwin,
+  label: platform.isDarwin ? global.manifest.productName : '&App',
   submenu: [{
-    label: 'Version ' + global.manifest.version + versionSuffix,
-    enabled: false
+    role: 'about',
+    allow: platform.isDarwin
+  }, {
+    label: 'Version ' + global.manifest.version + (
+      global.manifest.versionChannel !== 'stable'
+        ? '-' + global.manifest.versionChannel
+        : ''
+    ),
+    enabled: false,
+    allow: platform.isNonDarwin
   }, {
     id: 'cfu-check-for-update',
     label: 'Check for &Update',
+    allow: !global.options.mas,
     click: $.cfuCheckForUpdate(true)
   }, {
     id: 'cfu-checking-for-update',
     label: 'Checking for &Update...',
+    allow: !global.options.mas,
     enabled: false,
     visible: false
   }, {
     id: 'cfu-update-available',
     label: 'Download &Update',
-    allow: platform.isLinux || global.options.portable,
+    allow: platform.isNonDarwin && (platform.isLinux || global.options.portable),
     visible: false,
     click: $.cfuUpdateAvailable()
   }, {
     id: 'cfu-update-available',
     label: 'Downloading &Update...',
-    allow: !platform.isLinux && !global.options.portable,
+    allow: !global.options.mas && !platform.isLinux && !global.options.portable,
     enabled: false,
     visible: false
   }, {
     id: 'cfu-update-downloaded',
     label: 'Restart and Install &Update',
+    allow: !global.options.mas,
     visible: false,
     click: $.cfuUpdateDownloaded()
   }, {
@@ -59,18 +64,28 @@ export default {
   }, {
     type: 'checkbox',
     label: 'Check for Update Automatically',
+    allow: !global.options.mas,
     click: $.all(
       $.checkForUpdateAuto($.key('checked')),
       $.setPref('updates-auto-check', $.key('checked'))
     ),
     parse: $.setLocal('checked', $.pref('updates-auto-check'))
   }, {
-    type: 'separator',
-    allow: !global.options.portable
+    type: 'checkbox',
+    label: 'Switch to Workplace Messenger',
+    click: $.all(
+      $.setPref('switch-workplace', $.key('checked')),
+      $.reloadWindow()
+    ),
+    parse: $.all(
+      $.setLocal('checked', $.pref('switch-workplace'))
+    )
+  }, {
+    type: 'separator'
   }, {
     type: 'checkbox',
     label: '&Launch on Startup',
-    allow: !global.options.portable,
+    allow: !global.options.mas && !global.options.portable,
     click: $.all(
       $.launchOnStartup($.key('checked')),
       $.updateSibling('startup-hidden', 'enabled', $.key('checked')),
@@ -84,7 +99,7 @@ export default {
     id: 'startup-hidden',
     type: 'checkbox',
     label: 'Start &Hidden on Startup',
-    allow: !global.options.portable,
+    allow: !global.options.mas && !global.options.portable,
     click: $.setPref('launch-startup-hidden', $.key('checked')),
     parse: $.setLocal('checked', $.pref('launch-startup-hidden'))
   }, {
@@ -106,6 +121,29 @@ export default {
   }, {
     label: '&Quit',
     accelerator: 'Ctrl+Q',
+    allow: platform.isNonDarwin,
     click: $.appQuit()
+  }, {
+    role: 'services',
+    submenu: [],
+    allow: platform.isDarwin
+  }, {
+    type: 'separator',
+    allow: platform.isDarwin
+  }, {
+    role: 'hide',
+    allow: platform.isDarwin
+  }, {
+    role: 'hideothers',
+    allow: platform.isDarwin
+  }, {
+    role: 'unhide',
+    allow: platform.isDarwin
+  }, {
+    type: 'separator',
+    allow: platform.isDarwin
+  }, {
+    role: 'quit',
+    allow: platform.isDarwin
   }]
 };
