@@ -47,6 +47,6 @@ manifest = require '../src/package.json'
           return
 
         console.log 're-spawning app' if args.verbose
-        applySpawn(runnablePath, [], {stdio: 'inherit'})()
+        applySpawn(runnablePath, ['--debug'], {stdio: 'inherit'})()
         done null
       applySpawn(killCmd, killArgs)(cb)
