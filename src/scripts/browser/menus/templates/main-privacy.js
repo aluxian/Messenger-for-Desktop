@@ -3,9 +3,14 @@ import $ from 'browser/menus/expressions';
 export default {
   label: 'Privacy',
   submenu: [{
+    type: 'checkbox',
+    label: '&Report Stats and Crashes',
+    click: $.setPref('analytics-track', $.key('checked')),
+    parse: $.setLocal('checked', $.pref('analytics-track'))
+  }, {
     id: 'block-seen-typing',
     type: 'checkbox',
-    label: 'Block Seen and Typing Indicators',
+    label: '&Block Seen and Typing Indicators',
     click: $.all(
       $.setPref('block-seen-typing', $.key('checked')),
       $.blockSeenTyping($.key('checked'))
