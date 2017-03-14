@@ -112,7 +112,10 @@ if (options.portable) {
   if (printVersionsAndExit()) return;
   if (enforceSingleInstance()) return;
   preReadySetup();
-  initAndLaunch();
+  initAndLaunch().catch((err) => {
+    log('init and launch failed');
+    logFatal(err);
+  });
   startRepl();
 })();
 
@@ -165,13 +168,6 @@ function enforceSingleInstance () {
   return false;
 }
 
-function startRepl () {
-  if (options.repl) {
-    const repl = require('browser/utils/repl');
-    repl.createServer(options.replPort);
-  }
-}
-
 function preReadySetup () {
   app.disableHardwareAcceleration(); // should be easier on the GPU
 }
@@ -190,6 +186,13 @@ async function initAndLaunch () {
   global.application = new Application();
   global.application.init();
   global.ready = true;
+}
+
+function startRepl () {
+  if (options.repl) {
+    const repl = require('browser/utils/repl');
+    repl.createServer(options.replPort);
+  }
 }
 
 async function onAppReady () {
