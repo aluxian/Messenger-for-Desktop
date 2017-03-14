@@ -522,9 +522,3 @@ gulp.task 'pack:win32:portable', ['build:win32', 'clean:dist:win32'], (done) ->
         .pipe gulp.dest './dist'
         .on 'end', callback
   ], done
-
-# Pack for the current platform by default
-if process.platform is 'win32'
-  gulp.task 'pack', ['pack:' + platform() + ':installer']
-else
-  gulp.task 'pack', ['pack:' + platform()]
