@@ -9,6 +9,8 @@ del = require 'del'
 
 gulp = require 'gulp'
 zip = require 'gulp-zip'
+tar = require 'gulp-tar'
+gzip = require 'gulp-gzip'
 
 utils = require './utils'
 {applyPromise, applySpawn, applyIf, updateManifest, platform} = require './utils'
@@ -278,6 +280,45 @@ gulp.task 'pack:darwin64:zip', ['build:darwin64'], (done) ->
         # Package the app
         applySpawn 'fpm', fpmArgs
       ], done
+
+# Create tar packages for linux32 and linux64
+[32, 64].forEach (arch) ->
+  gulp.task 'pack:linux' + arch + ':tar', ['build:linux' + arch, 'clean:dist:linux' + arch], (done) ->
+    async.series [
+      # Update package.json
+      (callback) ->
+        jsonPath = './build/linux' + arch + '/opt/' + manifest.name + '/resources/app/package.json'
+        updateManifest jsonPath, (manifest) ->
+          manifest.portable = true
+          manifest.distrib = 'linux' + arch + ':tar'
+          manifest.buildNum = process.env.CIRCLE_BUILD_NUM
+          manifest.dev = false
+        , callback
+
+      # Remove the dev modules
+      applyIf args.prod, applySpawn 'npm', ['prune', '--production'],
+        cwd: './build/linux' + arch + '/opt/' + manifest.name + '/resources/app'
+
+      # Deduplicate dependencies
+      applyIf args.prod, applySpawn 'npm', ['dedupe'],
+        cwd: './build/linux' + arch + '/opt/' + manifest.name + '/resources/app'
+
+      # Compress the source files into an asar archive
+      async.apply asar.createPackage,
+        './build/linux' + arch + '/opt/' + manifest.name + '/resources/app',
+        './build/linux' + arch + '/opt/' + manifest.name + '/resources/app.asar'
+
+      # Remove leftovers
+      applyPromise del, './build/linux' + arch + '/opt/' + manifest.name + '/resources/app'
+
+      # Archive the files
+      (callback) ->
+        gulp.src './build/linux' + arch + '/opt/' + manifest.name + '/**/*'
+          .pipe tar(manifest.name + '-' + manifest.version + '-linux' + arch + '.tar.gz')
+          .pipe gzip()
+          .pipe gulp.dest './dist'
+          .on 'end', callback
+    ], done
 
 # Create the win32 installer; only works on Windows
 gulp.task 'pack:win32:installer', ['build:win32', 'clean:dist:win32'], (done) ->
