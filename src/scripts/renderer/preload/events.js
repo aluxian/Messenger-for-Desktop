@@ -124,100 +124,55 @@ ipcRenderer.on('search-chats', function () {
   }
 });
 
-/**
- * Dispatch a click event on the given item.
- */
-function dispatchClick (item) {
-  // TODO broken
-  item.dispatchEvent(new window.MouseEvent('mousedown', {
-    view: window,
-    bubbles: true,
-    cancelable: false
-  }));
-}
-
-// Switch to next/previous conversation
-ipcRenderer.on('switch-conversation', function (event, indexDelta) {
-  function getChatList () {
-    const chatListElem = document.querySelectorAll('[aria-label~="Conversation"][aria-label~="list"] > li');
-    if (chatListElem && chatListElem.length) {
-      return Array.from(chatListElem).sort(function (a, b) {
-        return parseInt(b.style.zIndex, 10) - parseInt(a.style.zIndex, 10);
-      });
-    }
-  }
-
-  function navigateConversation (delta) {
-    const chatList = getChatList();
-    if (!chatList) {
-      return;
-    }
-
-    let found = false;
-    for (let [i, item] of chatList.entries()) {
-      const active = isItemActive(item);
-      if (active) {
-        const nextIndex = getDeltaIndex(i, delta, chatList);
-        if (nextIndex !== -1) {
-          makeActive(chatList[nextIndex]);
-        }
-        found = true;
-        break;
-      }
-    }
-
-    if (!found) {
-      if (delta > 0) {
-        makeActive(chatList[0]);
-      } else {
-        makeActive(chatList[chatList.length - 1]);
-      }
-    }
-  }
-
-  function navigateConversationIndex (delta) {
-    const chatList = getChatList();
-    if (!chatList) {
-      return;
-    }
-
-    if (delta < 0) {
-      delta = 0;
-    }
-
-    if (delta >= chatList.length) {
-      delta = chatList.length - 1;
-    }
-
-    makeActive(chatList[delta]);
-  }
-
-  function getDeltaIndex (index, delta, chatList) {
-    let deltaIndex = index + delta;
-    if (deltaIndex < 0) {
-      deltaIndex = -1;
-    }
-    if (deltaIndex >= chatList.length) {
-      deltaIndex = -1;
-    }
-    return deltaIndex;
-  }
-
-  function isItemActive (item) {
-    return item && !!item.getAttribute('aria-relevant');
-  }
-
-  // TODO broken
-  function makeActive (item) {
-    const chat = item.querySelector('.chat');
-    if (chat) {
-      dispatchClick(chat);
-    }
-  }
-
-  if (indexDelta > 1000) {
-    navigateConversationIndex(indexDelta - 1000 - 1);
-  } else {
-    navigateConversation(indexDelta);
-  }
+// Switch to the next conversation
+ipcRenderer.on('switch-conversation-next', function (event) {
+  log('switching to the next conversation');
+  const index = getNextConversationIndex(true);
+  log('index =', index);
+  selectConversation(index);
 });
+
+// Switch to the previous conversation
+ipcRenderer.on('switch-conversation-previous', function (event) {
+  log('switching to the previous conversation');
+  const index = getNextConversationIndex(false);
+  log('index =', index);
+  selectConversation(index);
+});
+
+// Switch to a particular conversation
+ipcRenderer.on('switch-conversation-num', function (event, num) {
+  log('switching to conversation num =', num);
+  const index = num - 1;
+  selectConversation(index);
+});
+
+// Conversation navigation helpers
+// @source https://github.com/sindresorhus/caprine/blob/master/browser.js
+function selectConversation (index) {
+  log('select conversation index =', index);
+  const list = document.querySelector('div[role="navigation"] > div > ul');
+  list.children[index].firstChild.firstChild.click();
+}
+function getNextConversationIndex (ascending) {
+  const list = document.querySelector('div[role="navigation"] > div > ul');
+  const selected = document.querySelector('._5l-3._1ht1._1ht2');
+
+  // none selected, return first or last
+  if (!selected) {
+    return ascending ? 0 : list.length - 1;
+  }
+
+  // get selected + delta
+  const index = Array.from(list.children).indexOf(selected) + (ascending ? +1 : -1);
+
+  // keep index in bounds
+  if (index < 0) {
+    return 0;
+  }
+  if (index >= list.length) {
+    return list.length - 1;
+  }
+
+  return index;
+}

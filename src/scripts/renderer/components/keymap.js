@@ -6,19 +6,23 @@ import webView from 'renderer/webview';
 
 log('binding keyboard shortcuts');
 
-function bindSwitchConversation (keys, delta) {
+function bindSwitchConversation (keys, direction) {
   Mousetrap.bind(keys, function () {
-    log('conversation', delta);
-    webView.send('switch-conversation', delta);
+    log(direction, 'conversation');
+    if (direction === 'next') {
+      webView.send('switch-conversation-next');
+    } else {
+      webView.send('switch-conversation-previous');
+    }
     return false;
   });
 }
 
 // Previous chat
-bindSwitchConversation(['ctrl+shift+tab'], -1);
+bindSwitchConversation(['ctrl+shift+tab'], 'previous');
 
 // Next chat
-bindSwitchConversation(['ctrl+tab'], +1);
+bindSwitchConversation(['ctrl+tab'], 'next');
 
 // Close with Esc
 Mousetrap.bind('esc', function () {
