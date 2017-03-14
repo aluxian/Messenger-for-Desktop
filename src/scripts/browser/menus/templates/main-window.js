@@ -24,20 +24,6 @@ export default {
     click: $.floatOnTop($.key('checked'))
   }, {
     type: 'checkbox',
-    label: 'Show in &Tray',
-    allow: platform.isNonDarwin,
-    click: $.all(
-      $.showInTray($.key('checked')),
-      $.setPref('show-tray', $.key('checked'))
-    ),
-    parse: $.all(
-      $.setLocal('checked', $.pref('show-tray')),
-    )
-  }, {
-    type: 'separator',
-    allow: platform.isNonDarwin
-  }, {
-    type: 'checkbox',
     label: 'Close with &Escape Key',
     click: $.setPref('close-with-esc', $.key('checked')),
     parse: $.setLocal('checked', $.pref('close-with-esc'))
@@ -58,8 +44,18 @@ export default {
       $.setLocal('checked', $.pref('show-notifications-badge'))
     )
   }, {
-    type: 'separator',
-    allow: platform.isDarwin
+    type: 'separator'
+  }, {
+    type: 'checkbox',
+    label: 'Show in &Tray',
+    allow: platform.isNonDarwin,
+    click: $.all(
+      $.showInTray($.key('checked')),
+      $.setPref('show-tray', $.key('checked'))
+    ),
+    parse: $.all(
+      $.setLocal('checked', $.pref('show-tray')),
+    )
   }, {
     id: 'show-tray',
     type: 'checkbox',
