@@ -43,7 +43,7 @@ If you want to help me make *Messenger for Desktop* better, I recommend `dev` or
 
 1. Run `brew cask install messenger-for-desktop` in your terminal
 2. The app will be installed in your `Applications`
-3. Done! The app will update automatically
+3. Done! The app will update automatically (you can also use `brew`)
 
 ### Windows
 
