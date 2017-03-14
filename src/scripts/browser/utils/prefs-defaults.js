@@ -32,6 +32,7 @@ const defaults = {
     height: 610
   },
   'window-full-screen': false,
+  'accept-first-mouse': false,
   'zoom-level': 0
 };
 

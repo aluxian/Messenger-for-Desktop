@@ -61,6 +61,16 @@ export function appQuit () {
 }
 
 /**
+ * Restart the app.
+ */
+export function restartApp () {
+  return function () {
+    app.relaunch();
+    app.quit();
+  };
+}
+
+/**
  * Open the url externally, in a browser.
  */
 export function openUrl (url) {

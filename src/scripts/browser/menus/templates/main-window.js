@@ -44,6 +44,17 @@ export default {
       $.setLocal('checked', $.pref('show-notifications-badge'))
     )
   }, {
+    type: 'checkbox',
+    label: 'Accept First &Click',
+    needsWindow: true,
+    click: $.all(
+      $.setPref('accept-first-mouse', $.key('checked')),
+      $.restartApp()
+    ),
+    parse: $.all(
+      $.setLocal('checked', $.pref('accept-first-mouse'))
+    )
+  }, {
     type: 'separator'
   }, {
     type: 'checkbox',
