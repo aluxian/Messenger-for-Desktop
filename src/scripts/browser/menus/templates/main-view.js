@@ -64,11 +64,11 @@ export default {
     accelerator: 'CmdOrCtrl+N',
     needsWindow: true,
     click: $.sendToWebView('new-conversation')
-  // }, {
-  //   label: 'Search &Chats',
-  //   accelerator: 'CmdOrCtrl+F',
-  //   needsWindow: true,
-  //   click: $.sendToWebView('search-chats')
+  }, {
+    label: 'Search &Chats',
+    accelerator: 'CmdOrCtrl+F',
+    needsWindow: true,
+    click: $.sendToWebView('search-chats')
   // }, {
   //   type: 'separator'
   // }, {

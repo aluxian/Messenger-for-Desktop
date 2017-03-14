@@ -106,7 +106,7 @@ ipcRenderer.on('add-selection-to-dictionary', function () {
 
 // Simulate a click on the 'New chat' button
 ipcRenderer.on('new-conversation', function () {
-  const newChatButton = document.querySelector('a[href="/new"]');
+  const newChatButton = document.querySelector('._30yy[href="/new"]');
   if (newChatButton) {
     newChatButton.click();
   }
@@ -118,7 +118,7 @@ ipcRenderer.on('new-conversation', function () {
 
 // Focus the 'Search or start a new chat' input field
 ipcRenderer.on('search-chats', function () {
-  const inputSearch = document.querySelector('[role="combobox"]');
+  const inputSearch = document.querySelector('._58al');
   if (inputSearch) {
     inputSearch.focus();
   }
