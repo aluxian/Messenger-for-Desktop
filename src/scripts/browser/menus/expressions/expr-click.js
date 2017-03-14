@@ -82,6 +82,19 @@ export function sendToWebView (channel, ...valueExprs) {
 }
 
 /**
+ * Send a message to the current BrowserWindow's WebContents.
+ */
+export function sendToWebContents (channel, ...valueExprs) {
+  return function (menuItem, browserWindow) {
+    if (!browserWindow) {
+      browserWindow = global.application.mainWindowManager.window;
+    }
+    const values = valueExprs.map((e) => e.apply(this, arguments));
+    browserWindow.webContents.send(channel, ...values);
+  };
+}
+
+/**
  * Reload the browser window.
  */
 export function reloadWindow () {

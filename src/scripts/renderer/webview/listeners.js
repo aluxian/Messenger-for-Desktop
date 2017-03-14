@@ -94,11 +94,11 @@ webView.addEventListener('dom-ready', function () {
       .catch(logError);
   }
 
-  // Restore the default zoom level
+  // Restore the zoom level
   const zoomLevel = prefs.get('zoom-level');
   if (zoomLevel) {
     log('restoring zoom level', zoomLevel);
-    webView.send('zoom-level', zoomLevel);
+    webView.setZoomLevel(zoomLevel);
   }
 
   // Restore spell checker and auto correct

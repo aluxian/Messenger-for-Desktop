@@ -2,12 +2,6 @@ import {webFrame, ipcRenderer, shell} from 'electron';
 import {getDictionaryPath} from 'common/utils/spellchecker';
 import SpellChecker from 'spellchecker';
 
-// Set zoom level
-ipcRenderer.on('zoom-level', function (event, zoomLevel) {
-  log('zoom level', zoomLevel);
-  webFrame.setZoomLevel(zoomLevel);
-});
-
 // Remove the top banner ad
 ipcRenderer.on('remove-top-banner', function (event) {
   log('removing top banner ad');

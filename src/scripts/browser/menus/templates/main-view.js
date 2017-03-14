@@ -9,7 +9,7 @@ export default {
     needsWindow: true,
     click: $.all(
       $.setPref('zoom-level', $.sum($.pref('zoom-level'), $.val(+0.25))),
-      $.sendToWebView('zoom-level', $.pref('zoom-level'))
+      $.sendToWebContents('zoom-level', $.pref('zoom-level'))
     )
   }, {
     label: 'Zoom Out',
@@ -17,14 +17,14 @@ export default {
     needsWindow: true,
     click: $.all(
       $.setPref('zoom-level', $.sum($.pref('zoom-level'), $.val(-0.25))),
-      $.sendToWebView('zoom-level', $.pref('zoom-level'))
+      $.sendToWebContents('zoom-level', $.pref('zoom-level'))
     )
   }, {
     label: 'Reset Zoom',
     accelerator: 'CmdOrCtrl+0',
     needsWindow: true,
     click: $.all(
-      $.sendToWebView('zoom-level', $.val(0)),
+      $.sendToWebContents('zoom-level', $.val(0)),
       $.unsetPref('zoom-level')
     )
   }, {
