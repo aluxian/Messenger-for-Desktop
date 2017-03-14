@@ -43,6 +43,7 @@ class MainWindowManager extends EventEmitter {
     const defaultOptions = {
       title: this.initialTitle,
       backgroundColor: '#ffffff',
+      autoHideMenuBar: prefs.get('auto-hide-menubar'),
       useContentSize: true,
       minWidth: 500,
       minHeight: 500,

@@ -37,11 +37,20 @@ export default {
     needsWindow: true,
     click: $.toggleDevTools()
   }, {
-    label: 'Toggle &Menu Bar',
+    type: 'separator'
+  }, {
+    type: 'checkbox',
+    label: 'Auto Hide &Menu Bar',
     accelerator: 'Alt+Ctrl+B',
     needsWindow: true,
     allow: platform.isNonDarwin,
-    click: $.toggleMenuBar()
+    click: $.all(
+      $.setPref('auto-hide-menubar', $.key('checked')),
+      $.autoHideMenuBar($.key('auto-hide-menubar'))
+    ),
+    parse: $.all(
+      $.setLocal('checked', $.pref('auto-hide-menubar'))
+    )
   }, {
     type: 'separator'
   }, {

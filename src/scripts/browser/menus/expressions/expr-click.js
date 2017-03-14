@@ -160,15 +160,15 @@ export function toggleDevTools () {
 }
 
 /**
- * Toggle the menu bar of the window.
+ * Whether the menu bar should hide automatically.
  */
-export function toggleMenuBar () {
+export function autoHideMenuBar (autoHideExpr) {
   return function (menuItem, browserWindow) {
     if (!browserWindow) {
       browserWindow = global.application.mainWindowManager.window;
     }
-    const newState = !browserWindow.isMenuBarVisible();
-    browserWindow.setMenuBarVisibility(newState);
+    const autoHide = autoHideExpr.apply(this, arguments);
+    browserWindow.setAutoHideMenuBar(autoHide);
   };
 }
 

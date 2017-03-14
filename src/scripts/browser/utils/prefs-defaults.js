@@ -19,6 +19,7 @@ const defaults = {
   'show-notifications-badge': true,
   'show-tray': platform.isWindows,
   'show-dock': true,
+  'auto-hide-menubar': false,
   'sidebar-auto-hide': false,
   'spell-checker-check': false,
   'spell-checker-auto-correct': false,
