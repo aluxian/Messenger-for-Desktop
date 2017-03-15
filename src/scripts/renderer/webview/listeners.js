@@ -56,15 +56,17 @@ webView.addEventListener('new-window', function (event) {
     return;
   }
 
-  // otherwise open it in a new app window
-  const options = {
-    title: event.frameName || global.manifest.productName,
-    darkTheme: global.manifest.darkThemes.includes(prefs.get('theme'))
-  };
-  log('on webview new-window, new window', url, options);
-  const newWindow = new remote.BrowserWindow(options);
-  newWindow.loadURL(url);
-  event.newGuest = newWindow;
+  // otherwise open it in a new app window (unless it's an audio/video call)
+  if (event.frameName !== 'Video Call' || event.url !== 'about:blank') {
+    const options = {
+      title: event.frameName || global.manifest.productName,
+      darkTheme: global.manifest.darkThemes.includes(prefs.get('theme'))
+    };
+    log('on webview new-window, new window', url, options);
+    const newWindow = new remote.BrowserWindow(options);
+    newWindow.loadURL(url);
+    event.newGuest = newWindow;
+  }
 });
 
 // Listen for dom-ready
