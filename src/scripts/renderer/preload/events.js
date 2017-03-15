@@ -170,3 +170,21 @@ function getNextConversationIndex (ascending) {
 
   return index;
 }
+
+// Show the 'Settings' modal
+// @source https://github.com/sindresorhus/caprine/blob/master/browser.js
+ipcRenderer.on('open-preferences-modal', function (event, num) {
+  log('opening Settings modal');
+
+  // Click on the 'cog' icon
+  const cogBtn = document.querySelector('._30yy._2fug._p');
+  if (cogBtn) {
+    cogBtn.click();
+  }
+
+  // Click on 'Settings'
+  const nodes = document.querySelectorAll('._54nq._2i-c._558b._2n_z li:first-child a');
+  if (nodes && nodes.length) {
+    nodes[nodes.length - 1].click();
+  }
+});

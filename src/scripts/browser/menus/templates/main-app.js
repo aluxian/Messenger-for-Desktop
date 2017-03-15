@@ -17,6 +17,11 @@ export default {
       $.setLocal('checked', $.pref('switch-workplace'))
     )
   }, {
+    label: platform.isDarwin ? 'Preferences...' : 'Settings',
+    accelerator: 'CmdOrCtrl+,',
+    click: $.sendToWebView('open-preferences-modal'),
+    needsWindow: true
+  }, {
     type: 'separator',
     allow: !global.options.mas
   }, {
