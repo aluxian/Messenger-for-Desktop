@@ -4,11 +4,7 @@ import $ from 'browser/menus/expressions';
 export default {
   label: platform.isDarwin ? global.manifest.productName : '&App',
   submenu: [{
-    role: 'about',
-    allow: platform.isDarwin
-  }, {
     label: 'About ' + global.manifest.productName,
-    allow: platform.isNonDarwin,
     click: $.showCustomAboutDialog()
   }, {
     type: 'checkbox',
