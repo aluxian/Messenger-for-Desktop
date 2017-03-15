@@ -379,6 +379,7 @@ class MainWindowManager extends EventEmitter {
   hideWindow () {
     if (platform.isDarwin) {
       Menu.sendActionToFirstResponder('hide:');
+      this.window.hide();
     } else {
       this.window.hide();
     }
