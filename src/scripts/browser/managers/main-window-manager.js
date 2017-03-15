@@ -67,7 +67,6 @@ class MainWindowManager extends EventEmitter {
 
     // Bind webContents events to local methods
     this.window.webContents.on('will-navigate', ::this.onWillNavigate);
-    this.window.webContents.on('context-menu', ::this.onContextMenu);
 
     // Bind events to local methods
     this.window.on('ready-to-show', ::this.onReadyToShow);
@@ -110,25 +109,6 @@ class MainWindowManager extends EventEmitter {
       // Don't navigate away
       event.preventDefault();
       log('navigation prevented', url);
-    }
-  }
-
-  /**
-   * Called when the 'context-menu' event is received.
-   * TODO: Facebook intercepts this so it doesn't work, but at least it won't crash
-   */
-  onContextMenu (event, params) {
-    log('on context-menu');
-    try {
-      const menu = contextMenu.create(params, this.window);
-      if (menu) {
-        log('opening context menu');
-        setTimeout(() => {
-          menu.popup(this.window);
-        }, 50);
-      }
-    } catch (err) {
-      logError(err);
     }
   }
 
@@ -320,6 +300,25 @@ class MainWindowManager extends EventEmitter {
 
     // Update window title
     this.prefixWindowTitle(count ? '(' + count + ') ' : '');
+  }
+
+  /**
+   * Called by the renderer process to open the context menu.
+   */
+  openContextMenu (params) {
+    log('open context menu');
+    try {
+      params = JSON.parse(params);
+      const menu = contextMenu.create(params, this.window);
+      if (menu) {
+        log('opening context menu');
+        setTimeout(() => {
+          menu.popup(this.window);
+        }, 50);
+      }
+    } catch (err) {
+      logError(err);
+    }
   }
 
   /**
