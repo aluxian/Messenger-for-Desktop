@@ -128,7 +128,7 @@ export function reloadWindow () {
     if (!browserWindow) {
       browserWindow = global.application.mainWindowManager.window;
     }
-    browserWindow.reload();
+    browserWindow.webContents.reloadIgnoringCache();
   };
 }
 
