@@ -17,17 +17,11 @@ function create (params, browserWindow) {
 
   if (params.isEditable && params.misspelledWord) {
     const corrections = spellChecker.getCorrectionsForMisspelling(params.misspelledWord);
-
-    // prepend separator
-    if (corrections.length) {
-      menu.append(new MenuItem({
-        type: 'separator'
-      }));
-    }
+    const items = [];
 
     // add correction suggestions
     for (let i = 0; i < corrections.length && i < 5; i++) {
-      menu.append(new MenuItem({
+      items.push(new MenuItem({
         label: 'Correct: ' + corrections[i],
         click: () => webContents.send('call-webview-method', 'replaceMisspelling', corrections[i])
       }));
@@ -35,14 +29,25 @@ function create (params, browserWindow) {
 
     // Hunspell doesn't remember these, so skip this item
     // Otherwise, offer to add the word to the dictionary
-    if (corrections.length && !platform.isLinux && !params.isWindows7) {
-      menu.append(new MenuItem({
+    if (!platform.isLinux && !params.isWindows7) {
+      items.push(new MenuItem({
         label: 'Add to Dictionary',
         click: () => {
           webContents.send('fwd-webview', 'add-selection-to-dictionary');
           webContents.send('call-webview-method', 'replaceMisspelling', params.misspelledWord);
         }
       }));
+    }
+
+    // prepend separator and then add items
+    if (items.length) {
+      menu.append(new MenuItem({
+        type: 'separator'
+      }));
+
+      for (const item of items) {
+        menu.append(item);
+      }
     }
   }
 
