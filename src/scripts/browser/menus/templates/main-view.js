@@ -50,7 +50,7 @@ export default {
     allow: platform.isNonDarwin,
     click: $.all(
       $.setPref('auto-hide-menubar', $.key('checked')),
-      $.autoHideMenuBar($.key('auto-hide-menubar'))
+      $.autoHideMenuBar($.key('checked'))
     ),
     parse: $.all(
       $.setLocal('checked', $.pref('auto-hide-menubar'))
