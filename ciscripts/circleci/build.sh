@@ -2,7 +2,6 @@
 
 ./ciscripts/circleci/dependencies.sh;
 ./ciscripts/circleci/install_aws.sh;
-./ciscripts/circleci/git_setup.sh;
 
 gulp changelog:linux --verbose
 
