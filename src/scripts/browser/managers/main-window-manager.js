@@ -1,8 +1,7 @@
-import {app, shell, BrowserWindow, Menu, nativeImage} from 'electron';
+import {app, BrowserWindow, Menu, nativeImage} from 'electron';
 import debounce from 'lodash.debounce';
 import EventEmitter from 'events';
 
-import urls from 'common/utils/urls';
 import filePaths from 'common/utils/file-paths';
 import platform from 'common/utils/platform';
 import contextMenu from 'browser/menus/context';
@@ -67,7 +66,6 @@ class MainWindowManager extends EventEmitter {
     this.window.webContents.setUserAgent(cleanUA);
 
     // Bind webContents events to local methods
-    this.window.webContents.on('new-window', ::this.onNewWindow);
     this.window.webContents.on('will-navigate', ::this.onWillNavigate);
     this.window.webContents.on('context-menu', ::this.onContextMenu);
 
@@ -100,25 +98,6 @@ class MainWindowManager extends EventEmitter {
    */
   windowBoundsAreValid (bounds) {
     return bounds.x !== -32000 && bounds.y !== -32000;
-  }
-
-  /**
-   * Called when the 'new-window' event is emitted.
-   */
-  onNewWindow (event, url) {
-    url = urls.skipFacebookRedirect(url);
-
-    if (urls.isDownloadUrl(url)) {
-      log('on new window, downloading', url);
-      event.preventDefault();
-      this.window.loadURL(url);
-    } else if (prefs.get('links-in-browser')) {
-      log('on new window, opening url externally', url);
-      event.preventDefault();
-      shell.openExternal(url);
-    } else {
-      log('on new window, opening url in-app', url);
-    }
   }
 
   /**

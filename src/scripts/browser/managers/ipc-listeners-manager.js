@@ -1,8 +1,5 @@
-import {ipcMain, shell, BrowserWindow} from 'electron';
+import {ipcMain} from 'electron';
 import EventEmitter from 'events';
-
-import urls from 'common/utils/urls';
-import prefs from 'browser/utils/prefs';
 
 class IpcListenersManager extends EventEmitter {
 
@@ -17,7 +14,6 @@ class IpcListenersManager extends EventEmitter {
   set () {
     ipcMain.on('notif-count', ::this.onNotifCount);
     ipcMain.on('close-window', ::this.onCloseWindow);
-    ipcMain.on('open-url', ::this.onOpenUrl);
   }
 
   /**
@@ -40,29 +36,6 @@ class IpcListenersManager extends EventEmitter {
    */
   onCloseWindow () {
     this.mainWindowManager.window.close();
-  }
-
-  /**
-   * Called when the 'open-url' event is received.
-   */
-  onOpenUrl (event, url) {
-    url = urls.skipFacebookRedirect(url);
-
-    if (urls.isDownloadUrl(url)) {
-      log('on renderer open-url, downloading', url);
-      this.mainWindowManager.window.loadURL(url);
-    } else if (prefs.get('links-in-browser')) {
-      log('on renderer open-url, externally', url);
-      shell.openExternal(url);
-    } else {
-      const options = {
-        title: global.manifest.productName,
-        darkTheme: global.manifest.darkThemes.includes(prefs.get('theme'))
-      };
-      log('on renderer open-url, new window', url, options);
-      const newWindow = new BrowserWindow(options);
-      newWindow.loadURL(url);
-    }
   }
 
 }

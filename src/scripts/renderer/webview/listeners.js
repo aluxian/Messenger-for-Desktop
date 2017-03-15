@@ -1,9 +1,10 @@
-import {ipcRenderer} from 'electron';
+import {ipcRenderer, shell, remote} from 'electron';
 
 import webView from 'renderer/webview';
 import platform from 'common/utils/platform';
 import files from 'common/utils/files';
 import prefs from 'common/utils/prefs';
+import urls from 'common/utils/urls';
 
 function createBadgeDataUrl (text) {
   const canvas = document.createElement('canvas');
@@ -57,8 +58,33 @@ webView.addEventListener('page-title-updated', function () {
 
 // Handle url clicks
 webView.addEventListener('new-window', function (event) {
-  log('webview new-window: sending open-url', JSON.stringify(event));
-  ipcRenderer.send('open-url', event.url);
+  log('webview new-window', JSON.stringify(event));
+  const url = urls.skipFacebookRedirect(event.url);
+  event.preventDefault();
+
+  // download url
+  if (urls.isDownloadUrl(url)) {
+    log('on webview new-window, downloading', url);
+    webView.getWebContents().loadURL(url);
+    return;
+  }
+
+  // open it externally (if preference is set)
+  if (prefs.get('links-in-browser')) {
+    log('on webview new-window, externally', url);
+    shell.openExternal(url);
+    return;
+  }
+
+  // otherwise open it in a new app window
+  const options = {
+    title: event.frameName || global.manifest.productName,
+    darkTheme: global.manifest.darkThemes.includes(prefs.get('theme'))
+  };
+  log('on webview new-window, new window', url, options);
+  const newWindow = new remote.BrowserWindow(options);
+  newWindow.loadURL(url);
+  event.newGuest = newWindow;
 });
 
 // Listen for dom-ready
