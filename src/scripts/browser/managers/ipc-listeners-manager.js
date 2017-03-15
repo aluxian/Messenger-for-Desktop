@@ -45,7 +45,7 @@ class IpcListenersManager extends EventEmitter {
   /**
    * Called when the 'open-url' event is received.
    */
-  onOpenUrl (event, url, options) {
+  onOpenUrl (event, url) {
     url = urls.skipFacebookRedirect(url);
 
     if (urls.isDownloadUrl(url)) {
@@ -55,7 +55,11 @@ class IpcListenersManager extends EventEmitter {
       log('on renderer open-url, externally', url);
       shell.openExternal(url);
     } else {
-      log('on renderer open-url, new window', url);
+      const options = {
+        title: global.manifest.productName,
+        darkTheme: global.manifest.darkThemes.includes(prefs.get('theme'))
+      };
+      log('on renderer open-url, new window', url, options);
       const newWindow = new BrowserWindow(options);
       newWindow.loadURL(url);
     }
