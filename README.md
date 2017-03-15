@@ -11,15 +11,15 @@ A simple &amp; beautiful desktop client for [Facebook Messenger](https://www.mes
 
 > **@devs:** If you're willing to help improve, fix or maintain the app, I can make you a collaborator to help me. [Join me on Gitter][1] and let's chat!
 
-## Features
+## Features :star:
 
-- :star: Themes &amp; Mini Mode
-- :star: Native Notifications (with reply on OS X)
-- :star: Spell Checker &amp; Auto Correct
-- :star: Support for *Facebook for Work*
-- :star: Keyboard Shortcuts
-- :star: Launch on OS startup
-- :star: Automatic Updates
+- Themes &amp; Mini Mode
+- Native Notifications (with reply on OS X)
+- Spell Checker &amp; Auto Correct
+- Support for *Facebook for Work*
+- Keyboard Shortcuts
+- Launch on OS startup
+- Automatic Updates
 
 ## How to install
 
