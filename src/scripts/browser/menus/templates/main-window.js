@@ -83,7 +83,7 @@ export default {
     ),
     parse: $.all(
       $.setLocal('checked', $.pref('show-tray')),
-      $.updateSibling('show-dock', 'enabled', $.key('checked'))
+      $.setLocal('enabled', $.pref('show-dock'))
     )
   }, {
     id: 'show-dock',
@@ -101,7 +101,7 @@ export default {
     ),
     parse: $.all(
       $.setLocal('checked', $.pref('show-dock')),
-      $.updateSibling('show-tray', 'enabled', $.key('checked')),
+      $.setLocal('enabled', $.pref('show-tray')),
       $.showInDock($.key('checked'))
     )
   }, {
