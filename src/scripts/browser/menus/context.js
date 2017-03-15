@@ -2,6 +2,7 @@ import {clipboard, Menu, MenuItem} from 'electron';
 import spellChecker from 'spellchecker';
 
 import platform from 'common/utils/platform';
+import urls from 'common/utils/urls';
 
 function create (params, browserWindow) {
   const webContents = browserWindow.webContents;
@@ -12,16 +13,19 @@ function create (params, browserWindow) {
       label: 'Look Up "' + params.selectionText + '"',
       click: () => webContents.send('call-webview-method', 'showDefinitionForSelection')
     }));
-
-    menu.append(new MenuItem({
-      type: 'separator'
-    }));
   }
 
   if (params.isEditable && params.misspelledWord) {
     const corrections = spellChecker.getCorrectionsForMisspelling(params.misspelledWord);
-    let hasMisspellingRelatedItems = !!corrections.length;
 
+    // prepend separator
+    if (corrections.length) {
+      menu.append(new MenuItem({
+        type: 'separator'
+      }));
+    }
+
+    // add correction suggestions
     for (let i = 0; i < corrections.length && i < 5; i++) {
       menu.append(new MenuItem({
         label: 'Correct: ' + corrections[i],
@@ -30,8 +34,8 @@ function create (params, browserWindow) {
     }
 
     // Hunspell doesn't remember these, so skip this item
-    // TODO: params.isWindows7 is always undefined
-    if (!platform.isLinux && !params.isWindows7) {
+    // Otherwise, offer to add the word to the dictionary
+    if (corrections.length && !platform.isLinux && !params.isWindows7) {
       menu.append(new MenuItem({
         label: 'Add to Dictionary',
         click: () => {
@@ -39,17 +43,14 @@ function create (params, browserWindow) {
           webContents.send('call-webview-method', 'replaceMisspelling', params.misspelledWord);
         }
       }));
-      hasMisspellingRelatedItems = true;
-    }
-
-    if (hasMisspellingRelatedItems) {
-      menu.append(new MenuItem({
-        type: 'separator'
-      }));
     }
   }
 
-  if (params.selectionText || params.isEditable) {
+  if (params.isEditable) {
+    menu.append(new MenuItem({
+      type: 'separator'
+    }));
+
     menu.append(new MenuItem({
       label: 'Undo',
       enabled: params.editFlags.canUndo,
@@ -61,7 +62,9 @@ function create (params, browserWindow) {
       enabled: params.editFlags.canRedo,
       click: () => webContents.send('call-webview-method', 'redo')
     }));
+  }
 
+  if (params.selectionText || params.isEditable) {
     menu.append(new MenuItem({
       type: 'separator'
     }));
@@ -89,13 +92,13 @@ function create (params, browserWindow) {
       enabled: params.editFlags.canSelectAll,
       click: () => webContents.send('call-webview-method', 'selectAll')
     }));
-
-    menu.append(new MenuItem({
-      type: 'separator'
-    }));
   }
 
   if (params.linkURL) {
+    menu.append(new MenuItem({
+      type: 'separator'
+    }));
+
     menu.append(new MenuItem({
       label: 'Copy Link Text',
       enabled: !!params.linkText,
@@ -104,11 +107,7 @@ function create (params, browserWindow) {
 
     menu.append(new MenuItem({
       label: 'Copy Link Address',
-      click: () => clipboard.writeText(params.linkURL)
-    }));
-
-    menu.append(new MenuItem({
-      type: 'separator'
+      click: () => clipboard.writeText(urls.skipFacebookRedirect(params.linkURL))
     }));
   }
 

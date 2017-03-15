@@ -15,7 +15,7 @@ args = require './args'
   gulp.task 'watch:' + dist, ['build:' + dist], ->
     # Launch the app
     console.log 'initial spawn' if args.verbose
-    applySpawn(runnablePath, [], {stdio: 'inherit'})()
+    applySpawn(runnablePath, ['--debug'], {stdio: 'inherit'})()
 
     # Watch files
     gulp.watch './src/styles/**/*', ['compile:' + dist + ':styles']

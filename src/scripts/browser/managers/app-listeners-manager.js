@@ -45,6 +45,7 @@ class AppListenersManager extends EventEmitter {
         log('has update downloaded, installing it before quitting');
         event.preventDefault();
         prefs.setSync('launch-quit', true);
+        prefs.setSync('notify-app-updated', true);
         setTimeout(() => {
           log('timeout over');
           this.autoUpdateManager.quitAndInstall();

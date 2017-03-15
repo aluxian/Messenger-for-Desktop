@@ -1,4 +1,4 @@
-import {app, dialog} from 'electron';
+import {app, dialog, session, screen} from 'electron';
 import yargs from 'yargs';
 
 import prefs from 'browser/utils/prefs';
@@ -112,7 +112,10 @@ if (options.portable) {
   if (printVersionsAndExit()) return;
   if (enforceSingleInstance()) return;
   preReadySetup();
-  initAndLaunch();
+  initAndLaunch().catch((err) => {
+    log('init and launch failed');
+    logFatal(err);
+  });
   startRepl();
 })();
 
@@ -165,13 +168,6 @@ function enforceSingleInstance () {
   return false;
 }
 
-function startRepl () {
-  if (options.repl) {
-    const repl = require('browser/utils/repl');
-    repl.createServer(options.replPort);
-  }
-}
-
 function preReadySetup () {
   app.disableHardwareAcceleration(); // should be easier on the GPU
 }
@@ -180,6 +176,7 @@ async function initAndLaunch () {
   try {
     await onAppReady();
     await interceptHttp();
+    enableHighResResources();
   } catch (err) {
     logFatal(err);
     return;
@@ -190,6 +187,13 @@ async function initAndLaunch () {
   global.application = new Application();
   global.application.init();
   global.ready = true;
+}
+
+function startRepl () {
+  if (options.repl) {
+    const repl = require('browser/utils/repl');
+    repl.createServer(options.replPort);
+  }
 }
 
 async function onAppReady () {
@@ -222,5 +226,28 @@ async function interceptHttp () {
       if (err) reject(err);
       else resolve();
     });
+  });
+}
+
+/**
+ * @source https://github.com/sindresorhus/caprine/pull/172
+ */
+function enableHighResResources () {
+  const scaleFactor = Math.max.apply(null, screen.getAllDisplays().map(scr => scr.scaleFactor));
+  if (scaleFactor === 1) {
+    return;
+  }
+
+  session.defaultSession.webRequest.onBeforeSendHeaders((details, callback) => {
+    let cookie = details.requestHeaders.Cookie;
+    if (cookie && details.method === 'GET' && details.url.startsWith('https://www.messenger.com/')) {
+      if (cookie.match(/(; )?dpr=\d/)) {
+        cookie = cookie.replace(/dpr=\d/, 'dpr=' + scaleFactor);
+      } else {
+        cookie = cookie + '; dpr=' + scaleFactor;
+      }
+      details.requestHeaders.Cookie = cookie;
+    }
+    callback({cancel: false, requestHeaders: details.requestHeaders});
   });
 }

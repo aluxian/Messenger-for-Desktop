@@ -25,7 +25,7 @@ window.Notification = (function (Html5Notification) {
 
     log('showing native notification');
     const nativeOptions = Object.assign({}, options, {
-      canReply: true,
+      canReply: options.canReply !== false,
       title
     });
 
@@ -37,7 +37,7 @@ window.Notification = (function (Html5Notification) {
       if (result.__data) {
         nativeNotifier.removeNotification(result.__data.identifier);
       } else {
-        logError(new Error('tried to close notification with falsy __data'));
+        logFatal(new Error('tried to close notification with falsy __data'));
       }
     };
 
