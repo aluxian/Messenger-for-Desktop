@@ -1,4 +1,4 @@
-import {ipcRenderer, shell, remote} from 'electron';
+import {shell, remote} from 'electron';
 
 import webView from 'renderer/webview';
 import platform from 'common/utils/platform';
@@ -41,6 +41,7 @@ webView.addEventListener('console-message', function (event) {
 });
 
 // Listen for title changes to update the badge
+let _delayedRemoveBadge = null;
 webView.addEventListener('page-title-updated', function () {
   log('webview page-title-updated');
   const matches = /\(([\d]+)\)/.exec(webView.getTitle());
@@ -52,8 +53,13 @@ webView.addEventListener('page-title-updated', function () {
     badgeDataUrl = createBadgeDataUrl(count);
   }
 
-  log('sending notif-count', count, !!badgeDataUrl || null);
-  ipcRenderer.send('notif-count', count, badgeDataUrl);
+  log('notifying window of notif-count', count, !!badgeDataUrl || null);
+  clearTimeout(_delayedRemoveBadge);
+
+  // clear badge either instantly or after delay
+  _delayedRemoveBadge = setTimeout(() => {
+    remote.getGlobal('application').mainWindowManager.notifCountChanged(count, badgeDataUrl);
+  }, count ? 0 : 1500);
 });
 
 // Handle url clicks

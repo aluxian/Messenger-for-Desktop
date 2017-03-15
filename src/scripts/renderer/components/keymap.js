@@ -1,4 +1,4 @@
-import {ipcRenderer} from 'electron';
+import {remote} from 'electron';
 import Mousetrap from 'mousetrap';
 
 import prefs from 'common/utils/prefs';
@@ -29,7 +29,7 @@ Mousetrap.bind('esc', function () {
   const enabled = prefs.get('close-with-esc');
   log('close with esc shortcut, enabled:', enabled);
   if (enabled) {
-    ipcRenderer.send('close-window');
+    remote.getGlobal('application').mainWindowManager.window.close();
   }
   return enabled;
 });
