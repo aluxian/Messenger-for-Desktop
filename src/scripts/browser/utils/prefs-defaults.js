@@ -15,9 +15,11 @@ const defaults = {
   'block-seen-typing': false,
   'close-with-esc': false,
   'quit-behaviour-taught': false,
+  'notify-app-updated': false,
   'show-notifications-badge': true,
   'show-tray': platform.isWindows,
   'show-dock': true,
+  'auto-hide-menubar': false,
   'sidebar-auto-hide': false,
   'spell-checker-check': false,
   'spell-checker-auto-correct': false,
@@ -30,6 +32,7 @@ const defaults = {
     height: 610
   },
   'window-full-screen': false,
+  'accept-first-mouse': false,
   'zoom-level': 0
 };
 

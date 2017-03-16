@@ -1,5 +1,5 @@
 /* @source https://github.com/sindresorhus/caprine/blob/master/dark-mode.css */
-/* Last update: 2017-02-23 */
+/* Last update: 2017-03-14 */
 
 body {
 	color: rgba(255, 255, 255, 0.7);
@@ -92,7 +92,7 @@ body {
 	color: rgba(255, 255, 255, 0.7) !important;
 }
 
-/* messages list: user info */
+/* Messages list: user info */
 ._1n-e {
 	color: rgba(255, 255, 255, 0.4);
 }
@@ -141,7 +141,7 @@ body {
 
 /* Contact list: person container */
 ._1qt4 {
-	border-top: solid 1px rgba(255, 255, 255, 0.05);
+	border-top: solid 1px rgba(255, 255, 255, 0.05) !important;
 }
 
 /* contact list: person name */
@@ -161,6 +161,11 @@ body {
 
 /* Contact list: timestamp (unread) */
 ._1ht3 ._1ht7 {
+	color: rgba(0, 132, 255, 0.7)
+}
+
+/* Contact list: unread conversation message subtitle */
+._1ht3 ._1htf {
 	color: rgba(0, 132, 255, 0.7)
 }
 
@@ -236,7 +241,7 @@ body {
 
 /* Right sidebar: people list (add people) */
 ._4rph ._4rpj {
-	border-top: solid 1px rgba(255, 255, 255, 0.1);
+	border-top: solid 1px rgba(255, 255, 255, 0.1) !important;
 }
 
 /* Right sidebar: people list item (name) */
@@ -292,6 +297,41 @@ body {
 	filter: invert();
 }
 
+/* Poll */
+/* Border */
+._3b4t {
+	border-color: rgba(255, 255, 255, 0.09);
+}
+/* "Poll" header text */
+._4qba {
+	color: rgba(255, 255, 255, 0.7);
+}
+/* Voting options text */
+._1mr_,
+._1mq_ ._1mq- {
+	color: rgba(255, 255, 255, 0.4);
+}
+/* Check box colors */
+._2m5p[aria-checked="false"][role="checkbox"] {
+	border: 1px solid rgba(255, 255, 255, .10);
+}
+/* New option text box */
+._58al {
+	color: white;
+}
+/* Poll results bar graph colors */
+._3b4h {
+	background-color: rgba(255, 255, 255, 0.09);
+}
+/* Poll results profile pictures */
+._4mnq {
+	border-color: #192633;
+}
+._34n6 {
+	color: rgba(255, 255, 255, 0.4);
+	background-color: rgba(255, 255, 255, 0.09);
+}
+
 /* Dialogs */
 ._53ij,
 ._4eby,
@@ -334,6 +374,11 @@ body {
 	color: rgba(255, 255, 255, 0.7);
 }
 
+/* Delete popover */
+._hw2 ._53ij {
+	background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
 /* Login tile and names */
 ._5hy4,
 ._3403 {
@@ -349,4 +394,10 @@ body {
 /* Login button */
 button {
 	background: #192633 !important;
+}
+
+/* Fix the Sticker button */
+._4rv6 {
+	filter: invert() !important;
+	opacity: 0.6 !important;
 }

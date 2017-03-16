@@ -6,7 +6,6 @@ export default {
     type: 'radio',
     label: global.manifest.themes[themeId],
     theme: themeId,
-    accelerator: index < 10 ? 'CmdOrCtrl+Alt+' + index : undefined,
     needsWindow: true,
     click: $.all(
       $.themeCss($.key('theme'), (css) => $.sendToWebView('apply-theme', $.val(css))),

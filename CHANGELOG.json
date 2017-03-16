@@ -1,4 +1,38 @@
 [{
+  "version": "2.0.7",
+  "channel": "dev",
+  "releasedAt": 1489660479542,
+  "urgency": "low",
+  "changes": {
+    "General": [
+      "Zoom level changes in 25% increments now instead of 100%.",
+      "Fixed icon resolution (adios blurriness!).",
+      "Fixed/re-added shortcuts to switch between conversations.",
+      "Fixed/re-added shortcut to focus on the Search input field.",
+      "Fixed audio/video calls semetimes opening 2 windows.",
+      "Replaced the About menu with a custom dialog that mentions contributors.",
+      "Updated theme Midnight and fixed some minor styling issues.",
+      "Added a notification displayed after the app updates to see what's changed.",
+      "Added a new preference in Window that changes how first clicks are handled.",
+      "Added a Preferences/Settings shortcut for the in-app Settings.",
+      "Made window Reload clear the cache as well.",
+      "Added back the context menu with word corrections."
+    ],
+    "OS X": [
+      "Fixed window not closing after menubar is turned on and dock off."
+    ],
+    "Windows": [
+      "Removed some shortcuts that caused compatibility issues.",
+      "Fixed 'Auto Hide Menu Bar' resetting after restart and not reappearing when Alt is pressed."
+    ],
+    "Linux": [
+      "Removed some shortcuts that caused compatibility issues.",
+      "Fixed 'Auto Hide Menu Bar' resetting after restart and not reappearing when Alt is pressed.",
+      "When a dark theme is set, the app will request a dark window frame on GTK+3 environments.",
+      "The app is distributed as a .tar.gz now too."
+    ]
+  }
+}, {
   "version": "2.0.6",
   "channel": "stable",
   "releasedAt": 1489325983503,

@@ -4,10 +4,10 @@ export default {
   label: '&Help',
   role: 'help',
   submenu: [{
-    label: 'App Website',
+    label: 'Open App Website',
     click: $.openUrl('https://messengerfordesktop.com/')
   }, {
-    label: 'Email Us',
-    click: $.openUrl('mailto:hello@messengerfordesktop.com')
+    label: 'Send Feedback',
+    click: $.openUrl('https://aluxian.typeform.com/to/sr2gEc')
   }]
 };

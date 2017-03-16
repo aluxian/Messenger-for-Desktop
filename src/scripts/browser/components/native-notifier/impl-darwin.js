@@ -19,7 +19,7 @@ class DarwinNativeNotifier extends BaseNativeNotifier {
     this.center = $.NSUserNotificationCenter('defaultUserNotificationCenter');
 
     // Create a notifications delegate
-    this.Delegate = $.NSObject.extend(global.manifest.productName + 'NotificationDelegate');
+    this.Delegate = $.NSObject.extend(global.manifest.name + 'NotificationDelegate');
     this.Delegate.addMethod('userNotificationCenter:didActivateNotification:',
       [$.void, [this.Delegate, $.selector, $.id, $.id]], ::this.didActivateNotification);
     this.Delegate.addMethod('userNotificationCenter:shouldPresentNotification:',

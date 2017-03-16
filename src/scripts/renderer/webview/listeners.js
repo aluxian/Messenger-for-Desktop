@@ -1,69 +1,77 @@
-import {ipcRenderer} from 'electron';
+import {shell, remote} from 'electron';
 
 import webView from 'renderer/webview';
 import platform from 'common/utils/platform';
+import graphics from 'common/utils/graphics';
 import files from 'common/utils/files';
 import prefs from 'common/utils/prefs';
-
-function createBadgeDataUrl (text) {
-  const canvas = document.createElement('canvas');
-  canvas.height = 140;
-  canvas.width = 140;
-
-  const context = canvas.getContext('2d');
-  context.fillStyle = 'red';
-  context.beginPath();
-  context.ellipse(70, 70, 70, 70, 0, 0, 2 * Math.PI);
-  context.fill();
-  context.textAlign = 'center';
-  context.fillStyle = 'white';
-
-  if (text.length > 2) {
-    context.font = 'bold 65px "Segoe UI", sans-serif';
-    context.fillText('' + text, 70, 95);
-  } else if (text.length > 1) {
-    context.font = 'bold 85px "Segoe UI", sans-serif';
-    context.fillText('' + text, 70, 100);
-  } else {
-    context.font = 'bold 100px "Segoe UI", sans-serif';
-    context.fillText('' + text, 70, 105);
-  }
-
-  return canvas.toDataURL();
-}
+import urls from 'common/utils/urls';
 
 // Log console messages
 webView.addEventListener('console-message', function (event) {
   const msg = event.message.replace(/%c/g, '');
-  const fwNormal = 'font-weight: normal;';
-  const fwBold = 'font-weight: bold;';
-  console.log('WV: ' + msg, fwBold, fwNormal);
+  console.log('WV: ' + msg);
+  log('WV:', msg);
 });
 
 // Listen for title changes to update the badge
+let _delayedRemoveBadge = null;
 webView.addEventListener('page-title-updated', function () {
+  log('webview page-title-updated');
   const matches = /\(([\d]+)\)/.exec(webView.getTitle());
   const parsed = parseInt(matches && matches[1], 10);
   const count = isNaN(parsed) || !parsed ? '' : '' + parsed;
   let badgeDataUrl = null;
 
   if (platform.isWindows && count) {
-    badgeDataUrl = createBadgeDataUrl(count);
+    badgeDataUrl = graphics.createBadgeDataUrl(count);
   }
 
-  log('sending notif-count', count, !!badgeDataUrl || null);
-  ipcRenderer.send('notif-count', count, badgeDataUrl);
+  log('notifying window of notif-count', count, !!badgeDataUrl || null);
+  clearTimeout(_delayedRemoveBadge);
+
+  // clear badge either instantly or after delay
+  _delayedRemoveBadge = setTimeout(() => {
+    remote.getGlobal('application').mainWindowManager.notifCountChanged(count, badgeDataUrl);
+  }, count ? 0 : 1500);
 });
 
 // Handle url clicks
 webView.addEventListener('new-window', function (event) {
-  log('sending open-url', event.frameName, event.url);
-  ipcRenderer.send('open-url', event.url, event.options);
+  log('webview new-window', JSON.stringify(event));
+  const url = urls.skipFacebookRedirect(event.url);
+  event.preventDefault();
+
+  // download url
+  if (urls.isDownloadUrl(url)) {
+    log('on webview new-window, downloading', url);
+    webView.getWebContents().loadURL(url);
+    return;
+  }
+
+  // open it externally (if preference is set)
+  if (prefs.get('links-in-browser')) {
+    log('on webview new-window, externally', url);
+    shell.openExternal(url);
+    return;
+  }
+
+  // otherwise open it in a new app window (unless it's an audio/video call)
+  if (event.frameName !== 'Video Call' || event.url !== 'about:blank') {
+    const options = {
+      title: event.frameName || global.manifest.productName,
+      darkTheme: global.manifest.darkThemes.includes(prefs.get('theme'))
+    };
+    log('on webview new-window, new window', url, options);
+    const newWindow = new remote.BrowserWindow(options);
+    newWindow.loadURL(url);
+    event.newGuest = newWindow;
+  }
 });
 
 // Listen for dom-ready
 webView.addEventListener('dom-ready', function () {
-  log('dom-ready');
+  log('webview dom-ready');
 
   // Open dev tools when debugging
   const autoLaunchDevTools = window.localStorage.autoLaunchDevTools;
@@ -94,11 +102,11 @@ webView.addEventListener('dom-ready', function () {
       .catch(logError);
   }
 
-  // Restore the default zoom level
+  // Restore the zoom level
   const zoomLevel = prefs.get('zoom-level');
   if (zoomLevel) {
     log('restoring zoom level', zoomLevel);
-    webView.send('zoom-level', zoomLevel);
+    webView.setZoomLevel(zoomLevel);
   }
 
   // Restore spell checker and auto correct
@@ -109,10 +117,18 @@ webView.addEventListener('dom-ready', function () {
     log('restoring spell checker', spellCheckerCheck, 'auto correct', autoCorrect, 'lang code', langCode);
     webView.send('spell-checker', spellCheckerCheck, autoCorrect, langCode);
   }
+
+  // Show an 'app updated' notification
+  if (prefs.get('notify-app-updated')) {
+    webView.send('notify-app-updated');
+    prefs.set('notify-app-updated', false);
+  }
 });
 
 // Listen for did-finish-load
 webView.addEventListener('did-finish-load', function () {
+  log('webview did-finish-load');
+
   // Remove top banner
   webView.send('remove-top-banner');
 
@@ -126,6 +142,7 @@ webView.addEventListener('did-finish-load', function () {
 
 // Animate the splash screen into view
 document.addEventListener('DOMContentLoaded', function () {
+  log('document DOMContentLoaded');
   const loadingSplashDiv = document.querySelector('.loader');
   loadingSplashDiv.style.opacity = 1;
 });
