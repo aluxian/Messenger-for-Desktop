@@ -9,6 +9,8 @@ del = require 'del'
 
 gulp = require 'gulp'
 zip = require 'gulp-zip'
+tar = require 'gulp-tar'
+gzip = require 'gulp-gzip'
 
 utils = require './utils'
 {applyPromise, applySpawn, applyIf, updateManifest, platform} = require './utils'
@@ -279,6 +281,45 @@ gulp.task 'pack:darwin64:zip', ['build:darwin64'], (done) ->
         applySpawn 'fpm', fpmArgs
       ], done
 
+# Create tar packages for linux32 and linux64
+[32, 64].forEach (arch) ->
+  gulp.task 'pack:linux' + arch + ':tar', ['build:linux' + arch, 'clean:dist:linux' + arch], (done) ->
+    async.series [
+      # Update package.json
+      (callback) ->
+        jsonPath = './build/linux' + arch + '/opt/' + manifest.name + '/resources/app/package.json'
+        updateManifest jsonPath, (manifest) ->
+          manifest.portable = true
+          manifest.distrib = 'linux' + arch + ':tar'
+          manifest.buildNum = process.env.CIRCLE_BUILD_NUM
+          manifest.dev = false
+        , callback
+
+      # Remove the dev modules
+      applyIf args.prod, applySpawn 'npm', ['prune', '--production'],
+        cwd: './build/linux' + arch + '/opt/' + manifest.name + '/resources/app'
+
+      # Deduplicate dependencies
+      applyIf args.prod, applySpawn 'npm', ['dedupe'],
+        cwd: './build/linux' + arch + '/opt/' + manifest.name + '/resources/app'
+
+      # Compress the source files into an asar archive
+      async.apply asar.createPackage,
+        './build/linux' + arch + '/opt/' + manifest.name + '/resources/app',
+        './build/linux' + arch + '/opt/' + manifest.name + '/resources/app.asar'
+
+      # Remove leftovers
+      applyPromise del, './build/linux' + arch + '/opt/' + manifest.name + '/resources/app'
+
+      # Archive the files
+      (callback) ->
+        gulp.src './build/linux' + arch + '/opt/' + manifest.name + '/**/*'
+          .pipe tar(manifest.name + '-' + manifest.version + '-linux' + arch + '.tar.gz')
+          .pipe gzip()
+          .pipe gulp.dest './dist'
+          .on 'end', callback
+    ], done
+
 # Create the win32 installer; only works on Windows
 gulp.task 'pack:win32:installer', ['build:win32', 'clean:dist:win32'], (done) ->
   if process.platform isnt 'win32'
@@ -435,17 +476,21 @@ gulp.task 'pack:win32:nsis', ['build:win32', 'clean:dist:win32'], (done) ->
     (callback) ->
       properties =
         'version-string':
-          ProductName: manifest.productName
-          CompanyName: manifest.authorName
-          FileDescription: manifest.productName
-          LegalCopyright: manifest.copyright
-          OriginalFilename: manifest.productName + '.exe'
+          ProductName: manifest.name
+          CompanyName: manifest.name
+          FileDescription: manifest.name
+          LegalCopyright: manifest.name
         'file-version': manifest.version
         'product-version': manifest.version
 
       exePath = './dist/' + manifest.name + '-' + manifest.version + '-win32-nsis.exe'
       logMessage = 'rcedit ' + exePath + ' properties'
-      rcedit exePath, properties, utils.log callback, logMessage, JSON.stringify(properties)
+      fakeCallback = (err) ->
+        if err
+          console.log 'rcedit failed'
+          console.error err
+        callback()
+      rcedit exePath, properties, utils.log fakeCallback, logMessage, JSON.stringify(properties)
 
     # Sign the exe
     (callback) ->
@@ -518,9 +563,3 @@ gulp.task 'pack:win32:portable', ['build:win32', 'clean:dist:win32'], (done) ->
         .pipe gulp.dest './dist'
         .on 'end', callback
   ], done
-
-# Pack for the current platform by default
-if process.platform is 'win32'
-  gulp.task 'pack', ['pack:' + platform() + ':installer']
-else
-  gulp.task 'pack', ['pack:' + platform()]

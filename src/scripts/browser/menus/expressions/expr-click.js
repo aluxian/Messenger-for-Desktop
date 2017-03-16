@@ -1,7 +1,8 @@
-import {app, shell} from 'electron';
+import {app, shell, dialog} from 'electron';
 
 import * as piwik from 'browser/services/piwik';
 import * as requestFilter from 'browser/utils/request-filter';
+import filePaths from 'common/utils/file-paths';
 import prefs from 'browser/utils/prefs';
 
 /**
@@ -60,11 +61,36 @@ export function appQuit () {
 }
 
 /**
+ * Restart the app.
+ */
+export function restartApp () {
+  return function () {
+    app.relaunch();
+    app.quit();
+  };
+}
+
+/**
  * Open the url externally, in a browser.
  */
 export function openUrl (url) {
   return function () {
     shell.openExternal(url);
+  };
+}
+
+/**
+ * Show a mac-like About dialog.
+ */
+export function showCustomAboutDialog () {
+  return function () {
+    dialog.showMessageBox({
+      icon: filePaths.getImagePath('app_icon.png'),
+      title: 'About ' + global.manifest.productName,
+      message: global.manifest.productName + ' v' + global.manifest.version + '-' + global.manifest.versionChannel,
+      detail: global.manifest.copyright + '\n\n' + 'Special thanks to @sytten, @nevercast' +
+        ', @TheHimanshu, @MichaelAquilina, @franciscoib, @levrik, and all the contributors on GitHub.'
+    });
   };
 }
 
@@ -82,6 +108,19 @@ export function sendToWebView (channel, ...valueExprs) {
 }
 
 /**
+ * Send a message to the current BrowserWindow's WebContents.
+ */
+export function sendToWebContents (channel, ...valueExprs) {
+  return function (menuItem, browserWindow) {
+    if (!browserWindow) {
+      browserWindow = global.application.mainWindowManager.window;
+    }
+    const values = valueExprs.map((e) => e.apply(this, arguments));
+    browserWindow.webContents.send(channel, ...values);
+  };
+}
+
+/**
  * Reload the browser window.
  */
 export function reloadWindow () {
@@ -89,7 +128,7 @@ export function reloadWindow () {
     if (!browserWindow) {
       browserWindow = global.application.mainWindowManager.window;
     }
-    browserWindow.reload();
+    browserWindow.webContents.reloadIgnoringCache();
   };
 }
 
@@ -147,15 +186,27 @@ export function toggleDevTools () {
 }
 
 /**
- * Toggle the menu bar of the window.
+ * Toggle the webview's dev tools panel.
  */
-export function toggleMenuBar () {
+export function toggleWebViewDevTools () {
   return function (menuItem, browserWindow) {
     if (!browserWindow) {
       browserWindow = global.application.mainWindowManager.window;
     }
-    const newState = !browserWindow.isMenuBarVisible();
-    browserWindow.setMenuBarVisibility(newState);
+    browserWindow.webContents.send('toggle-wv-dev-tools');
+  };
+}
+
+/**
+ * Whether the menu bar should hide automatically.
+ */
+export function autoHideMenuBar (autoHideExpr) {
+  return function (menuItem, browserWindow) {
+    if (!browserWindow) {
+      browserWindow = global.application.mainWindowManager.window;
+    }
+    const autoHide = autoHideExpr.apply(this, arguments);
+    browserWindow.setAutoHideMenuBar(autoHide);
   };
 }
 

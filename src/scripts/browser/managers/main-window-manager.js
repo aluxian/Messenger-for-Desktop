@@ -1,8 +1,7 @@
-import {app, shell, BrowserWindow, Menu, nativeImage} from 'electron';
+import {app, BrowserWindow, Menu, nativeImage} from 'electron';
 import debounce from 'lodash.debounce';
 import EventEmitter from 'events';
 
-import urls from 'common/utils/urls';
 import filePaths from 'common/utils/file-paths';
 import platform from 'common/utils/platform';
 import contextMenu from 'browser/menus/context';
@@ -43,9 +42,12 @@ class MainWindowManager extends EventEmitter {
     const defaultOptions = {
       title: this.initialTitle,
       backgroundColor: '#ffffff',
+      autoHideMenuBar: prefs.get('auto-hide-menubar'),
+      acceptFirstMouse: prefs.get('accept-first-mouse'),
+      darkTheme: global.manifest.darkThemes.includes(prefs.get('theme')),
       useContentSize: true,
-      minWidth: 458,
-      minHeight: 355,
+      minWidth: 500,
+      minHeight: 500,
       show: false
     };
 
@@ -64,9 +66,7 @@ class MainWindowManager extends EventEmitter {
     this.window.webContents.setUserAgent(cleanUA);
 
     // Bind webContents events to local methods
-    this.window.webContents.on('new-window', ::this.onNewWindow);
     this.window.webContents.on('will-navigate', ::this.onWillNavigate);
-    this.window.webContents.on('context-menu', ::this.onContextMenu);
 
     // Bind events to local methods
     this.window.on('ready-to-show', ::this.onReadyToShow);
@@ -100,25 +100,6 @@ class MainWindowManager extends EventEmitter {
   }
 
   /**
-   * Called when the 'new-window' event is emitted.
-   */
-  onNewWindow (event, url) {
-    url = urls.skipFacebookRedirect(url);
-
-    if (urls.isDownloadUrl(url)) {
-      log('on new window, downloading', url);
-      event.preventDefault();
-      this.window.loadURL(url);
-    } else if (prefs.get('links-in-browser')) {
-      log('on new window, opening url externally', url);
-      event.preventDefault();
-      shell.openExternal(url);
-    } else {
-      log('on new window, opening url in-app', url);
-    }
-  }
-
-  /**
    * Called when the 'will-navigate' event is emitted.
    */
   onWillNavigate (event, url) {
@@ -128,25 +109,6 @@ class MainWindowManager extends EventEmitter {
       // Don't navigate away
       event.preventDefault();
       log('navigation prevented', url);
-    }
-  }
-
-  /**
-   * Called when the 'context-menu' event is received.
-   * TODO: Facebook intercepts this so it doesn't work, but at least it won't crash
-   */
-  onContextMenu (event, params) {
-    log('on context-menu');
-    try {
-      const menu = contextMenu.create(params, this.window);
-      if (menu) {
-        log('opening context menu');
-        setTimeout(() => {
-          menu.popup(this.window);
-        }, 50);
-      }
-    } catch (err) {
-      logError(err);
     }
   }
 
@@ -267,6 +229,7 @@ class MainWindowManager extends EventEmitter {
    */
   onShow () {
     log('onShow');
+
     // Enable window specific menu items
     if (this.menuManager) {
       this.menuManager.windowSpecificItemsEnabled(true);
@@ -278,6 +241,7 @@ class MainWindowManager extends EventEmitter {
    */
   onHide () {
     log('onHide');
+
     // Disable window specific menu items
     if (this.menuManager) {
       this.menuManager.windowSpecificItemsEnabled(false);
@@ -339,6 +303,25 @@ class MainWindowManager extends EventEmitter {
   }
 
   /**
+   * Called by the renderer process to open the context menu.
+   */
+  openContextMenu (params) {
+    log('open context menu');
+    try {
+      params = JSON.parse(params);
+      const menu = contextMenu.create(params, this.window);
+      if (menu) {
+        log('opening context menu');
+        setTimeout(() => {
+          menu.popup(this.window);
+        }, 50);
+      }
+    } catch (err) {
+      logError(err);
+    }
+  }
+
+  /**
    * Show and focus or create the main window.
    */
   showOrCreate () {
@@ -374,6 +357,7 @@ class MainWindowManager extends EventEmitter {
   hideWindow () {
     if (platform.isDarwin) {
       Menu.sendActionToFirstResponder('hide:');
+      this.window.hide();
     } else {
       this.window.hide();
     }

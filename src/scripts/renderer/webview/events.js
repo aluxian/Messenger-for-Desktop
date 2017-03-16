@@ -4,6 +4,14 @@ import * as piwik from 'renderer/services/piwik';
 import webView from 'renderer/webview';
 
 /**
+ * Change the webview's zoom level.
+ */
+ipcRenderer.on('zoom-level', function (event, zoomLevel) {
+  log('setting webview zoom level', zoomLevel);
+  webView.setZoomLevel(zoomLevel);
+});
+
+/**
  * Forward a message to the webview.
  */
 ipcRenderer.on('fwd-webview', function (event, channel, ...args) {
@@ -27,6 +35,17 @@ ipcRenderer.on('call-webview-method', function (event, method, ...args) {
     webView[method](...args);
   } else {
     logError(new Error('method ' + method + ' on webview is not a function'));
+  }
+});
+
+/**
+ * Toggle the dev tools panel of the webview.
+ */
+ipcRenderer.on('toggle-wv-dev-tools', function (event) {
+  if (webView.isDevToolsOpened()) {
+    webView.closeDevTools();
+  } else {
+    webView.openDevTools();
   }
 });
 

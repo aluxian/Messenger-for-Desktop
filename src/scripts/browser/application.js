@@ -10,7 +10,6 @@ import AutoLauncher from 'browser/components/auto-launcher';
 import TrayManager from 'browser/managers/tray-manager';
 
 import AppListenersManager from 'browser/managers/app-listeners-manager';
-import IpcListenersManager from 'browser/managers/ipc-listeners-manager';
 
 class Application extends EventEmitter {
 
@@ -46,7 +45,6 @@ class Application extends EventEmitter {
 
     // Listeners
     new AppListenersManager(this.mainWindowManager, this.autoUpdateManager).set();
-    new IpcListenersManager(this.mainWindowManager).set();
   }
 
 }
