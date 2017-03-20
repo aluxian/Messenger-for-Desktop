@@ -143,8 +143,18 @@ webView.addEventListener('did-finish-load', function () {
 // Animate the splash screen into view
 document.addEventListener('DOMContentLoaded', function () {
   log('document DOMContentLoaded');
+
+  // Show the loading splash screen
   const loadingSplashDiv = document.querySelector('.loader');
   loadingSplashDiv.style.opacity = 1;
+
+  // In case did-finish-load isn't called, set a timeout
+  setTimeout(function () {
+    loadingSplashDiv.style.opacity = 0;
+    setTimeout(function () {
+      loadingSplashDiv.style.display = 'none';
+    }, 250);
+  }, 10 * 1000);
 });
 
 export default webView;
