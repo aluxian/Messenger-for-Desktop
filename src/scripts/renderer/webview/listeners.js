@@ -32,7 +32,10 @@ webView.addEventListener('page-title-updated', function () {
 
   // clear badge either instantly or after delay
   _delayedRemoveBadge = setTimeout(() => {
-    remote.getGlobal('application').mainWindowManager.notifCountChanged(count, badgeDataUrl);
+    const mwm = remote.getGlobal('application').mainWindowManager;
+    if (mwm && typeof mwm.notifCountChanged === 'function') {
+      mwm.notifCountChanged(count, badgeDataUrl);
+    }
   }, count ? 0 : 1500);
 });
 
@@ -93,14 +96,20 @@ webView.addEventListener('dom-ready', function () {
     }
   }
 
-  // Restore the sidebar auto-hide setting
-  const sidebarAutoHide = prefs.get('sidebar-auto-hide');
-  if (sidebarAutoHide) {
-    log('restoring sidebar auto-hide', sidebarAutoHide);
-    files.getStyleCss('auto-hide-sidebar')
-      .then((css) => webView.send('apply-sidebar-auto-hide', sidebarAutoHide, css))
-      .catch(logError);
-  }
+  // Load webview style overrides
+  log('restoring webview css override', themeId);
+  files.getStyleCss('webview')
+    .then((css) => webView.send('apply-webview-css', css))
+    .catch(logError);
+
+  // TODO: Restore the sidebar auto-hide setting
+  // const sidebarAutoHide = prefs.get('sidebar-auto-hide');
+  // if (sidebarAutoHide) {
+  //   log('restoring sidebar auto-hide', sidebarAutoHide);
+  //   files.getStyleCss('auto-hide-sidebar')
+  //     .then((css) => webView.send('apply-sidebar-auto-hide', sidebarAutoHide, css))
+  //     .catch(logError);
+  // }
 
   // Restore the zoom level
   const zoomLevel = prefs.get('zoom-level');
@@ -129,9 +138,6 @@ webView.addEventListener('dom-ready', function () {
 webView.addEventListener('did-finish-load', function () {
   log('webview did-finish-load');
 
-  // Remove top banner
-  webView.send('remove-top-banner');
-
   // Hide the loading splash screen
   const loadingSplashDiv = document.querySelector('.loader');
   loadingSplashDiv.style.opacity = 0;
@@ -140,11 +146,35 @@ webView.addEventListener('did-finish-load', function () {
   }, 250);
 });
 
+// Forward context menu opens
+webView.addEventListener('context-menu', function (event) {
+  const paramDefaults = {
+    isWindows7: platform.isWindows7
+  };
+  const params = JSON.stringify(Object.assign(paramDefaults, event.params));
+  log('sending context menu', params);
+  const mwm = remote.getGlobal('application').mainWindowManager;
+  if (mwm) {
+    mwm.openContextMenu(params);
+  }
+  event.preventDefault();
+});
+
 // Animate the splash screen into view
 document.addEventListener('DOMContentLoaded', function () {
   log('document DOMContentLoaded');
+
+  // Show the loading splash screen
   const loadingSplashDiv = document.querySelector('.loader');
   loadingSplashDiv.style.opacity = 1;
+
+  // In case did-finish-load isn't called, set a timeout
+  setTimeout(function () {
+    loadingSplashDiv.style.opacity = 0;
+    setTimeout(function () {
+      loadingSplashDiv.style.display = 'none';
+    }, 250);
+  }, 10 * 1000);
 });
 
 export default webView;
