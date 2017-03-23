@@ -93,6 +93,12 @@ webView.addEventListener('dom-ready', function () {
     }
   }
 
+  // Load webview style overrides
+  log('restoring webview css override', themeId);
+  files.getStyleCss('webview')
+    .then((css) => webView.send('apply-webview-css', css))
+    .catch(logError);
+
   // TODO: Restore the sidebar auto-hide setting
   // const sidebarAutoHide = prefs.get('sidebar-auto-hide');
   // if (sidebarAutoHide) {
@@ -128,9 +134,6 @@ webView.addEventListener('dom-ready', function () {
 // Listen for did-finish-load
 webView.addEventListener('did-finish-load', function () {
   log('webview did-finish-load');
-
-  // Remove top banner
-  webView.send('remove-top-banner');
 
   // Hide the loading splash screen
   const loadingSplashDiv = document.querySelector('.loader');
