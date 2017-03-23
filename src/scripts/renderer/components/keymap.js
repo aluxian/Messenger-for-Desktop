@@ -29,7 +29,10 @@ Mousetrap.bind('esc', function () {
   const enabled = prefs.get('close-with-esc');
   log('close with esc shortcut, enabled:', enabled);
   if (enabled) {
-    remote.getGlobal('application').mainWindowManager.window.close();
+    const mwm = remote.getGlobal('application').mainWindowManager;
+    if (mwm) {
+      mwm.window.close();
+    }
   }
   return enabled;
 });

@@ -314,7 +314,7 @@ gulp.task 'pack:darwin64:zip', ['build:darwin64'], (done) ->
       # Archive the files
       (callback) ->
         gulp.src './build/linux' + arch + '/opt/' + manifest.name + '/**/*'
-          .pipe tar(manifest.name + '-' + manifest.version + '-linux' + arch + '.tar.gz')
+          .pipe tar(manifest.name + '-' + manifest.version + '-linux' + arch + '.tar')
           .pipe gzip()
           .pipe gulp.dest './dist'
           .on 'end', callback
