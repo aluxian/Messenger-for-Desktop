@@ -93,7 +93,7 @@ webView.addEventListener('dom-ready', function () {
     }
   }
 
-  // Restore the sidebar auto-hide setting
+  // TODO: Restore the sidebar auto-hide setting
   // const sidebarAutoHide = prefs.get('sidebar-auto-hide');
   // if (sidebarAutoHide) {
   //   log('restoring sidebar auto-hide', sidebarAutoHide);

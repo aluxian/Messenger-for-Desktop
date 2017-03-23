@@ -30,7 +30,7 @@ ipcRenderer.on('notify-app-updated', function (event) {
     canReply: false
   });
 
-  // handle clicks
+  // Handle clicks
   notif.onclick = () => {
     setTimeout(() => {
       const changelogUrl = global.manifest.changelogUrl
