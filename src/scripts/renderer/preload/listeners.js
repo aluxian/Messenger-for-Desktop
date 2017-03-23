@@ -7,6 +7,9 @@ remote.getCurrentWebContents().on('context-menu', function (event, params) {
   params.isWindows7 = platform.isWindows7;
   params = JSON.stringify(params);
   log('sending context menu', event, params);
-  remote.getGlobal('application').mainWindowManager.openContextMenu(params);
+  const mwm = remote.getGlobal('application').mainWindowManager;
+  if (mwm) {
+    mwm.openContextMenu(params);
+  }
   event.preventDefault();
 });

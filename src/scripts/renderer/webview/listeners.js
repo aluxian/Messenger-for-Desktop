@@ -32,7 +32,10 @@ webView.addEventListener('page-title-updated', function () {
 
   // clear badge either instantly or after delay
   _delayedRemoveBadge = setTimeout(() => {
-    remote.getGlobal('application').mainWindowManager.notifCountChanged(count, badgeDataUrl);
+    const mwm = remote.getGlobal('application').mainWindowManager;
+    if (mwm && typeof mwm.notifCountChanged === 'function') {
+      mwm.notifCountChanged(count, badgeDataUrl);
+    }
   }, count ? 0 : 1500);
 });
 
