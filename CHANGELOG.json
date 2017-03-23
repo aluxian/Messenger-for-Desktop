@@ -1,4 +1,17 @@
 [{
+  "version": "2.0.8",
+  "channel": "beta",
+  "releasedAt": 1490272214091,
+  "urgency": "low",
+  "changes": {
+    "General": [
+      "Added Hungarian dictionary for the spell checker.",
+      "Fixed white borders around chat bubbles.",
+      "Fixed app getting stuck on the loading screen.",
+      "Fixed error that appeared sometimes when right-clicking."
+    ]
+  }
+}, {
   "version": "2.0.7",
   "channel": "dev",
   "releasedAt": 1489660479542,
