@@ -94,13 +94,13 @@ webView.addEventListener('dom-ready', function () {
   }
 
   // Restore the sidebar auto-hide setting
-  const sidebarAutoHide = prefs.get('sidebar-auto-hide');
-  if (sidebarAutoHide) {
-    log('restoring sidebar auto-hide', sidebarAutoHide);
-    files.getStyleCss('auto-hide-sidebar')
-      .then((css) => webView.send('apply-sidebar-auto-hide', sidebarAutoHide, css))
-      .catch(logError);
-  }
+  // const sidebarAutoHide = prefs.get('sidebar-auto-hide');
+  // if (sidebarAutoHide) {
+  //   log('restoring sidebar auto-hide', sidebarAutoHide);
+  //   files.getStyleCss('auto-hide-sidebar')
+  //     .then((css) => webView.send('apply-sidebar-auto-hide', sidebarAutoHide, css))
+  //     .catch(logError);
+  // }
 
   // Restore the zoom level
   const zoomLevel = prefs.get('zoom-level');
