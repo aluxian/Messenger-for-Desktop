@@ -146,6 +146,20 @@ webView.addEventListener('did-finish-load', function () {
   }, 250);
 });
 
+// Forward context menu opens
+webView.addEventListener('context-menu', function (event) {
+  const paramDefaults = {
+    isWindows7: platform.isWindows7
+  };
+  const params = JSON.stringify(Object.assign(paramDefaults, event.params));
+  log('sending context menu', params);
+  const mwm = remote.getGlobal('application').mainWindowManager;
+  if (mwm) {
+    mwm.openContextMenu(params);
+  }
+  event.preventDefault();
+});
+
 // Animate the splash screen into view
 document.addEventListener('DOMContentLoaded', function () {
   log('document DOMContentLoaded');
