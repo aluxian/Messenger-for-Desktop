@@ -2,23 +2,6 @@ import {webFrame, ipcRenderer, shell} from 'electron';
 import {getDictionaryPath} from 'common/utils/spellchecker';
 import SpellChecker from 'spellchecker';
 
-// Remove the top banner ad
-ipcRenderer.on('remove-top-banner', function (event) {
-  log('removing top banner ad');
-
-  // Strip the HTML
-  const bannerElems = document.getElementsByClassName('_s15');
-  for (const bannerElem of bannerElems) {
-    bannerElem.outerHTML = '';
-  }
-
-  // Fix non-automatic resize
-  if (bannerElems.length) {
-    webFrame.setZoomLevel(1);
-    webFrame.setZoomLevel(0);
-  }
-});
-
 // Show an 'app updated' notification
 ipcRenderer.on('notify-app-updated', function (event) {
   log('notifying app updated');
@@ -30,7 +13,7 @@ ipcRenderer.on('notify-app-updated', function (event) {
     canReply: false
   });
 
-  // handle clicks
+  // Handle clicks
   notif.onclick = () => {
     setTimeout(() => {
       const changelogUrl = global.manifest.changelogUrl
@@ -71,6 +54,20 @@ ipcRenderer.on('apply-theme', function (event, css) {
   if (!styleBlock) {
     styleBlock = document.createElement('style');
     styleBlock.id = 'cssTheme';
+    styleBlock.type = 'text/css';
+    document.head.appendChild(styleBlock);
+  }
+
+  styleBlock.innerHTML = css;
+});
+
+// Insert the webview css overrides into the DOM
+ipcRenderer.on('apply-webview-css', function (event, css) {
+  let styleBlock = document.getElementById('webviewCss');
+
+  if (!styleBlock) {
+    styleBlock = document.createElement('style');
+    styleBlock.id = 'webviewCss';
     styleBlock.type = 'text/css';
     document.head.appendChild(styleBlock);
   }

@@ -1,3 +1,14 @@
+## [2.0.8-beta](https://github.com/aluxian/Messenger-for-Desktop/tree/v2.0.8) (2017-23-03)
+
+[Full Changelog](https://github.com/aluxian/Messenger-for-Desktop/compare/v2.0.7...v2.0.8) &bull; [Download](https://github.com/aluxian/Messenger-for-Desktop/releases/tag/v2.0.8)
+
+**General**
+
+- Added Hungarian dictionary for the spell checker.
+- Fixed white borders around chat bubbles.
+- Fixed app getting stuck on the loading screen.
+- Fixed error that appeared sometimes when right-clicking.
+
 ## [2.0.7-dev](https://github.com/aluxian/Messenger-for-Desktop/tree/v2.0.7) (2017-16-03)
 
 [Full Changelog](https://github.com/aluxian/Messenger-for-Desktop/compare/v2.0.6...v2.0.7) &bull; [Download](https://github.com/aluxian/Messenger-for-Desktop/releases/tag/v2.0.7)
