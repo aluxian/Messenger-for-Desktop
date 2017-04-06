@@ -119,7 +119,7 @@ input::-webkit-input-placeholder {
 }
 /* composer */
 ._4rv3 {
-	background-color: #1e1e1e !important;
+	background-color: transparent !important;
 	border-top-color: rgba(255, 255, 255, .1) !important;
 }
 /* make static stickers slightly more readable */
