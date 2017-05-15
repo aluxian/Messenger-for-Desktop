@@ -13,7 +13,7 @@ A simple &amp; beautiful desktop client for [Facebook Messenger](https://www.mes
 
 ## Sponsors
 
-<a href="https://www.browserstack.com"><img src="browserstack.svg" width="200" /></a>
+[![BrowserStack](browserstack.svg)](https://www.browserstack.com)
 
 Thanks!
 
