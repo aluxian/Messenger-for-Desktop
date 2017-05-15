@@ -6,11 +6,16 @@
 [![Downloads total](https://updates.messengerfordesktop.com/badge/downloads.svg)](https://updates.messengerfordesktop.com/stats)
 [![Services status](https://img.shields.io/badge/services-status-blue.svg)](https://status.messengerfordesktop.com/)
 [![Join the chat](https://badges.gitter.im/Join%20Chat.svg)][1]
-[![BrowserStack](https://img.shields.io/badge/BrowserStack-ok-brightgreen.svg)](https://www.browserstack.com)
 
 A simple &amp; beautiful desktop client for [Facebook Messenger](https://www.messenger.com/). Chat without distractions on OS X, Windows and Linux. Not affiliated with Facebook. This is **NOT** an official product.
 
 > **@devs:** If you're willing to help improve, fix or maintain the app, I can make you a collaborator to help me. [Join me on Gitter][1] and let's chat!
+
+## Sponsors
+
+<a href="https://www.browserstack.com"><img src="browserstack.svg" width="200" /></a>
+
+Thanks!
 
 ## Features :star:
 
