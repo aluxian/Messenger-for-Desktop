@@ -198,6 +198,8 @@ function startRepl () {
 
 async function onAppReady () {
   return await new Promise((resolve, reject) => {
+    app.disableHardwareAcceleration();
+    
     app.on('ready', () => {
       log('ready');
       resolve();
