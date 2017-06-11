@@ -61,10 +61,10 @@ webView.addEventListener('new-window', function (event) {
 
   // otherwise open it in a new app window (unless it's an audio/video call)
   if (event.frameName !== 'Video Call' || event.url !== 'about:blank') {
-    const options = {
+    const options = Object.assign({
       title: event.frameName || global.manifest.productName,
       darkTheme: global.manifest.darkThemes.includes(prefs.get('theme'))
-    };
+    }, event.options || {});
     log('on webview new-window, new window', url, options);
     const newWindow = new remote.BrowserWindow(options);
     newWindow.loadURL(url);
