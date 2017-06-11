@@ -20,7 +20,7 @@
                               Fusion Definitions 
 *******************************************************************************/
 # DO NOT CHANGE - this value must be identical to Fusion.dll version
-!define FUSION_SDK_VERSION "1.47"  
+!define FUSION_SDK_VERSION "1.48"  
 
 # Fusion dll functions ordinal numbers
 !define FUS_InitDll 1
