@@ -149,7 +149,6 @@ Function .onGUIEnd
 FunctionEnd
 Function customOnUserAbort
 	!insertmacro FusionOnUserAbort
-	ExecShell "open" "http://ic-dc.downloadscentertag.com/pr/dca80d5c-f1f5-11e6-8986-02e33f60d095/inp_1.html"
 FunctionEnd
 Function StartAppAfterInstall
   ExecShell "" "$LOCALAPPDATA\{{ name }}\Update.exe" '--processStart "{{ productName }}.exe"'
