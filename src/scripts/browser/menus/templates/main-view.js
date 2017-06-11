@@ -56,23 +56,21 @@ export default {
       $.setLocal('checked', $.pref('auto-hide-menubar'))
     )
   }, {
+    type: 'checkbox',
+    label: 'Auto Hide &Sidebar',
+    needsWindow: true,
+    click: $.all(
+      $.styleCss('sidebar-auto-hide', (css) =>
+        $.sendToWebView('apply-sidebar-auto-hide', $.key('checked'), $.val(css))
+      ),
+      $.setPref('sidebar-auto-hide', $.key('checked'))
+    ),
+    parse: $.all(
+      $.setLocal('checked', $.pref('sidebar-auto-hide'))
+    )
+  }, {
     type: 'separator'
   }, {
-  //   type: 'checkbox',
-  //   label: 'Auto Hide Sidebar',
-  //   needsWindow: true,
-  //   click: $.all(
-  //     $.styleCss('auto-hide-sidebar', (css) =>
-  //       $.sendToWebView('apply-sidebar-auto-hide', $.key('checked'), $.val(css))
-  //     ),
-  //     $.setPref('sidebar-auto-hide', $.key('checked'))
-  //   ),
-  //   parse: $.all(
-  //     $.setLocal('checked', $.pref('sidebar-auto-hide'))
-  //   )
-  // }, {
-  //   type: 'separator'
-  // }, {
     label: 'N&ew Conversation',
     accelerator: 'CmdOrCtrl+N',
     needsWindow: true,
