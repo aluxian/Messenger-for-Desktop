@@ -175,7 +175,6 @@ function preReadySetup () {
 async function initAndLaunch () {
   try {
     await onAppReady();
-    await interceptHttp();
     enableHighResResources();
   } catch (err) {
     logFatal(err);
@@ -201,30 +200,6 @@ async function onAppReady () {
     app.on('ready', () => {
       log('ready');
       resolve();
-    });
-  });
-}
-
-async function interceptHttp () {
-  log('intercepting protocol http');
-  return new Promise((resolve, reject) => {
-    const handler = function (request, callback) {
-      if (!request.url.startsWith(global.manifest.virtualUrl)) {
-        return;
-      }
-
-      const newPath = request.url.replace(global.manifest.virtualUrl, 'file://' + app.getAppPath());
-      const newPathShort = request.url.replace(global.manifest.virtualUrl, 'file://<app>');
-      log('intercepted http', request.method, request.url, '=>', newPathShort);
-
-      request.url = newPath;
-      callback(request);
-    };
-
-    const {protocol} = require('electron');
-    protocol.interceptHttpProtocol('http', handler, function (err) {
-      if (err) reject(err);
-      else resolve();
     });
   });
 }

@@ -96,7 +96,7 @@ class MainWindowManager extends EventEmitter {
     this.window.setFullScreen(isFullScreen);
 
     // Finally, load the app html
-    this.window.loadURL(global.manifest.virtualUrl + '/html/app.html');
+    this.window.loadURL(filePaths.getHtmlFile('app.html'));
   }
 
   /**
@@ -320,7 +320,7 @@ class MainWindowManager extends EventEmitter {
       if (menu) {
         log('opening context menu');
         setTimeout(() => {
-          menu.popup(this.window);
+          menu.popup(this.window, {async: true});
         }, 50);
       }
     } catch (err) {
