@@ -28,8 +28,8 @@ const defaults = {
   'updates-auto-check': true,
   'updates-channel': global.manifest.versionChannel,
   'window-bounds': {
-    width: 920,
-    height: 610
+    width: 800,
+    height: 600
   },
   'window-full-screen': false,
   'accept-first-mouse': false,
