@@ -9,6 +9,8 @@ branches:
 init:
   - git config --global core.autocrlf input
 
+# IS_IC_FUSION_STR_AUTH_KEY is AuthKey.txt encrypted on AppVeyor
+
 environment:
   SIGNTOOL_PATH: 'C:/Program Files (x86)/Microsoft SDKs/Windows/v7.1A/Bin/SignTool.exe'
   MAKENSIS_PATH: 'C:/Program Files (x86)/NSIS/makensis.exe'
