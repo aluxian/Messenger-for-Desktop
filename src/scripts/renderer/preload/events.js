@@ -124,6 +124,61 @@ ipcRenderer.on('search-chats', function () {
   }
 });
 
+// Focus the conversation search input field
+ipcRenderer.on('search-conversation', function () {
+  function doneSearch () {
+    const doneBtn = document.querySelector('._30vt ._4qba');
+    if (doneBtn) {
+      doneBtn.click();
+      return true;
+    }
+    return false;
+  }
+
+  function focusSearch () {
+    const searchBar = document.querySelector('._33p7 ._58al');
+    if (searchBar) {
+      searchBar.click();
+      return true;
+    }
+    return false;
+  }
+
+  function enableSearch () {
+    const searchConversationBtn = document.querySelector('._3szq');
+    if (searchConversationBtn) {
+      searchConversationBtn.click();
+      focusSearch();
+      return true;
+    }
+    return false;
+  }
+
+  function toggleInfoPanel () {
+    const infoPanelBtn = document.querySelector('a._30yy[data-testid="info_panel_button"]');
+    if (infoPanelBtn) {
+      infoPanelBtn.click();
+      return true;
+    }
+    return false;
+  }
+
+  if (doneSearch()) {
+    // search box closed
+  } else {
+    // 'done' button not found
+    if (enableSearch()) {
+      // search box displayed
+    } else {
+      // 'search in conversation' button not found
+      if (toggleInfoPanel()) {
+        // now 'search in conversation' should be displayed
+        enableSearch();
+      }
+    }
+  }
+});
+
 // Switch to the next conversation
 ipcRenderer.on('switch-conversation-next', function (event) {
   log('switching to the next conversation');

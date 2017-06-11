@@ -76,8 +76,13 @@ export default {
     needsWindow: true,
     click: $.sendToWebView('new-conversation')
   }, {
-    label: 'Search &Chats',
+    label: 'Search &Conversation',
     accelerator: 'CmdOrCtrl+F',
+    needsWindow: true,
+    click: $.sendToWebView('search-conversation')
+  }, {
+    label: 'Search C&hats',
+    accelerator: 'CmdOrCtrl+Shift+F',
     needsWindow: true,
     click: $.sendToWebView('search-chats')
   }, {
