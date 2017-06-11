@@ -1,3 +1,5 @@
+import {remote} from 'electron';
+
 import prefs from 'common/utils/prefs';
 import {getUserId} from 'common/utils/analytics';
 
@@ -18,7 +20,10 @@ if (global.manifest.dev) {
   // Configure
   window.piwikAsyncInit = function () {
     try {
+      const virtualPageUrl = decodeURI(window.location.pathname)
+        .replace(remote.app.getAppPath(), global.manifest.virtualUrl);
       piwikTracker = window.Piwik.getTracker();
+      piwikTracker.setCustomUrl(virtualPageUrl);
       piwikTracker.setDocumentTitle(document.title);
       piwikTracker.setTrackerUrl(global.manifest.piwik.serverUrl + '/piwik.php');
       piwikTracker.setCustomDimension(1, global.manifest.version); // Version
