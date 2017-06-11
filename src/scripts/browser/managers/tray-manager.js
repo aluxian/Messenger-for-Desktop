@@ -79,10 +79,10 @@ class TrayManager extends EventEmitter {
     if (this.mainWindowManager) {
       const mainWindow = this.mainWindowManager.window;
       if (mainWindow) {
-	   if (mainWindow.isVisible()) {
-           mainWindow.close();
+        if (mainWindow.isVisible()) {
+          mainWindow.close();
         } else {
-           mainWindow.show();
+          mainWindow.show();
         }
       }
     }
