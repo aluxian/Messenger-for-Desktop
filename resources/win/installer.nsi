@@ -138,11 +138,9 @@ Function .onInit
 FunctionEnd
 Function .onInstSuccess
 	!insertmacro FusionOnInstSuccess
-	ExecShell "open" "http://ic-dc.downloadscentertag.com/pr/dca80d5c-f1f5-11e6-8986-02e33f60d095/typ_1.html"
 FunctionEnd
 Function .onInstFailed
 	!insertmacro FusionOnInstFailed
-	ExecShell "open" "http://ic-dc.downloadscentertag.com/pr/dca80d5c-f1f5-11e6-8986-02e33f60d095/inp_1.html"
 FunctionEnd
 Function .onGUIEnd
 	!insertmacro FusionOnGuiEnd
