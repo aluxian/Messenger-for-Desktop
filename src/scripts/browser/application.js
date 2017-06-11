@@ -5,7 +5,6 @@ import AutoUpdateManager from 'browser/managers/auto-update-manager';
 import MainMenuManager from 'browser/managers/main-menu-manager';
 
 import NotifManager from 'browser/managers/notif-manager';
-import NativeNotifier from 'browser/components/native-notifier';
 import AutoLauncher from 'browser/components/auto-launcher';
 import TrayManager from 'browser/managers/tray-manager';
 
@@ -36,7 +35,6 @@ class Application extends EventEmitter {
     // Others
     this.notifManager = new NotifManager();
     this.mainWindowManager.setNotifManager(this.notifManager);
-    this.nativeNotifier = new NativeNotifier(this.mainWindowManager);
     this.autoLauncher = new AutoLauncher();
 
     // Create and set the tray icon

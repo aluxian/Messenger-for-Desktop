@@ -8,9 +8,7 @@ ipcRenderer.on('notify-app-updated', function (event) {
 
   // Display the notification
   const notif = new window.Notification(global.manifest.productName, {
-    body: 'App updated to v' + global.manifest.version + '. Click to see changes.',
-    tag: 'notify-app-updated',
-    canReply: false
+    body: 'App updated to v' + global.manifest.version + '. Click to see changes.'
   });
 
   // Handle clicks
