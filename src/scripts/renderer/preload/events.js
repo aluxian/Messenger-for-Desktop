@@ -97,6 +97,13 @@ ipcRenderer.on('add-selection-to-dictionary', function () {
   SpellChecker.add(document.getSelection().toString());
 });
 
+// Switch to the conversation with the given username
+ipcRenderer.on('open-messenger-thread', function (event, username) {
+  const url = 'https://www.messenger.com/t/' + username;
+  log('redirecting to thread', url);
+  window.location = url;
+});
+
 // Simulate a click on the 'New chat' button
 ipcRenderer.on('new-conversation', function () {
   const newChatButton = document.querySelector('._30yy[href="/new"]');
