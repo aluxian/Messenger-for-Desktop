@@ -38,15 +38,6 @@ const options = yargs(cliArgs)
     description: 'Allow usage of console.log and friends.',
     default: true
   })
-  .option('repl', {
-    type: 'boolean',
-    description: 'Listen for REPL connections.'
-  })
-  .option('repl-port', {
-    type: 'number',
-    description: 'The port to listen for REPL connections on.',
-    default: 3499
-  })
   .option('mas', {
     type: 'boolean',
     description: 'Run in Mac App Store release mode.'
@@ -116,7 +107,6 @@ if (options.portable) {
     log('init and launch failed');
     logFatal(err);
   });
-  startRepl();
 })();
 
 function checkSquirrelWindowsArgs () {
@@ -188,15 +178,8 @@ async function initAndLaunch () {
   global.ready = true;
 }
 
-function startRepl () {
-  if (options.repl) {
-    const repl = require('browser/utils/repl');
-    repl.createServer(options.replPort);
-  }
-}
-
-async function onAppReady () {
-  return await new Promise((resolve, reject) => {
+function onAppReady () {
+  return new Promise((resolve, reject) => {
     app.on('ready', () => {
       log('ready');
       resolve();
