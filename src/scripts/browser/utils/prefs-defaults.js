@@ -28,7 +28,7 @@ const defaults = {
   'updates-auto-check': true,
   'updates-channel': global.manifest.versionChannel,
   'window-bounds': {
-    width: 800,
+    width: 900,
     height: 600
   },
   'window-full-screen': false,
