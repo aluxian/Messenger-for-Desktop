@@ -264,7 +264,7 @@ class MainWindowManager extends EventEmitter {
     }
 
     log('saving bounds');
-    const bounds = this.window.getBounds();
+    const bounds = this.window.getContentBounds();
     prefs.set('window-bounds', bounds);
   }
 
