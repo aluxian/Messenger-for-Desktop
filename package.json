@@ -55,7 +55,7 @@
     "lint-less": "lesshint src/styles/"
   },
   "license": "MIT",
-  "author": "Alexandru Rosianu <me@aluxian.com>",
+  "author": "MessengerForDesktop.com <hello@messengerfordesktop.com>",
   "homepage": "https://messengerfordesktop.com/",
   "repository": {
     "type": "git",
