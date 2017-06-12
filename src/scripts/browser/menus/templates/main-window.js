@@ -1,5 +1,7 @@
+import {app} from 'electron';
+
+import {findItemByLabel} from 'browser/menus/utils';
 import prefs from 'browser/utils/prefs';
-import $ from 'browser/menus/expressions';
 
 export default {
   role: 'window',
@@ -40,75 +42,91 @@ export default {
     type: 'checkbox',
     label: 'Notifications Badge in ' + (process.platform === 'win32' ? 'Taskbar' : 'Dock'),
     checked: prefs.get('show-notifications-badge'),
-    click: $.all(
-      $.setPref('show-notifications-badge', $.key('checked')),
-      process.platform === 'win32' ? $.hideTaskbarBadge($.key('checked')) : $.hideDockBadge($.key('checked'))
-    )
+    click (menuItem, browserWindow) {
+      prefs.set('show-notifications-badge', menuItem.checked);
+      if (process.platform === 'win32') {
+        if (!menuItem.checked) {
+          browserWindow.setOverlayIcon(null, '');
+        }
+      } else {
+        if (!menuItem.checked) {
+          app.setBadgeCount(0);
+        }
+      }
+    }
   }, {
     type: 'checkbox',
     label: 'Accept First Click',
     checked: prefs.get('accept-first-mouse'),
-    click: $.all(
-      $.setPref('accept-first-mouse', $.key('checked')),
-      $.restartApp()
-    )
+    click (menuItem) {
+      prefs.set('accept-first-mouse', menuItem.checked);
+      app.relaunch();
+      app.quit();
+    }
   }, {
     type: 'separator'
   }, {
     type: 'checkbox',
     label: 'Show in Tray',
-    allow: process.platform !== 'darwin',
+    visible: process.platform !== 'darwin',
     checked: prefs.get('show-tray'),
-    click: $.all(
-      $.showInTray($.key('checked')),
-      $.setPref('show-tray', $.key('checked'))
-    )
+    click (menuItem) {
+      if (menuItem.checked) {
+        global.application.trayManager.create();
+      } else {
+        global.application.trayManager.destroy();
+      }
+      prefs.set('show-tray', menuItem.checked);
+    }
   }, {
     id: 'show-tray',
     type: 'checkbox',
     label: 'Show in Menu Bar',
-    allow: process.platform === 'darwin',
+    visible: process.platform === 'darwin',
     checked: prefs.get('show-tray'),
     enabled: prefs.get('show-dock'),
-    click: $.all(
-      $.showInTray($.key('checked')),
-      $.updateSibling('show-dock', 'enabled', $.key('checked')),
-      $.updateMenuItem('tray', 'show-tray')($.key('checked'))((checked) => $.all(
-        $.setLocal('checked', $.val(checked)),
-        $.updateSibling('show-dock', 'enabled', $.val(checked))
-      )),
-      $.setPref('show-tray', $.key('checked'))
-    )
+    click (menuItem, browserWindow) {
+      if (menuItem.checked) {
+        global.application.trayManager.create();
+      } else {
+        global.application.trayManager.destroy();
+      }
+      menuItem.menu.items.find(e => e.label === 'Show in Dock').enabled = menuItem.checked;
+      const trayMenuItem = findItemByLabel(global.application.trayManager.menu.items, 'Show in Tray');
+      trayMenuItem.checked = menuItem.checked;
+      trayMenuItem.menu.items.find(e => e.label === 'Show in Dock').enabled = menuItem.checked;
+      prefs.set('show-tray', menuItem.checked);
+    }
   }, {
     id: 'show-dock',
     type: 'checkbox',
     label: 'Show in Dock',
-    allow: process.platform === 'darwin',
+    visible: process.platform === 'darwin',
     checked: prefs.get('show-dock'),
     enabled: prefs.get('show-tray'),
-    click: $.all(
-      $.showInDock($.key('checked')),
-      $.updateSibling('show-tray', 'enabled', $.key('checked')),
-      $.updateMenuItem('tray', 'show-dock')($.key('checked'))((checked) => $.all(
-        $.setLocal('checked', $.val(checked)),
-        $.updateSibling('show-tray', 'enabled', $.val(checked))
-      )),
-      $.setPref('show-dock', $.key('checked'))
-    ),
-    parse: $.all(
-      $.showInDock($.key('checked'))
-    )
+    click (menuItem, browserWindow) {
+      if (menuItem.checked) {
+        app.dock.show();
+      } else {
+        app.dock.hide();
+      }
+      menuItem.menu.items.find(e => e.label === 'Show in Tray').enabled = menuItem.checked;
+      const dockMenuItem = findItemByLabel(global.application.trayManager.menu.items, 'Show in Dock');
+      dockMenuItem.checked = menuItem.checked;
+      dockMenuItem.menu.items.find(e => e.label === 'Show in Tray').enabled = menuItem.checked;
+      prefs.set('show-dock', menuItem.checked);
+    }
   }, {
     type: 'separator',
-    allow: process.platform === 'darwin'
+    visible: process.platform === 'darwin'
   }, {
     role: 'minimize',
-    allow: process.platform === 'darwin'
+    visible: process.platform === 'darwin'
   }, {
     role: 'zoom',
-    allow: process.platform === 'darwin'
+    visible: process.platform === 'darwin'
   }, {
     role: 'close',
-    allow: process.platform === 'darwin'
+    visible: process.platform === 'darwin'
   }]
 };

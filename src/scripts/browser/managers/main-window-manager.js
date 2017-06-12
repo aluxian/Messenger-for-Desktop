@@ -64,6 +64,14 @@ class MainWindowManager extends EventEmitter {
     const cleanUA = this.getCleanUserAgent();
     this.window.webContents.setUserAgent(cleanUA);
 
+    // Hide dock if on Mac
+    if (process.platform === 'darwin') {
+      const showDock = prefs.get('show-dock');
+      if (!showDock) {
+        app.dock.hide();
+      }
+    }
+
     // Bind webContents events to local methods
     this.window.webContents.on('will-navigate', ::this.onWillNavigate);
 

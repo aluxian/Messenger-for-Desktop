@@ -1,61 +1,60 @@
 import {shell} from 'electron';
-
-import $ from 'browser/menus/expressions';
+import * as piwik from 'browser/services/piwik';
 
 export default {
   label: 'Bots',
   submenu: [{
     label: 'Tomo \t\t Cheap flight alerts, save 70%',
-    click: $.all(
-      $.sendToWebView('open-messenger-thread', $.val('tomocheapflights?ref=MFD_APP')),
-      $.analytics.trackEvent('Menu', 'Open Bot', 'tomocheapflights')
-    )
+    click (menuItem, browserWindow) {
+      browserWindow.webContents.send('fwd-webview', 'open-messenger-thread', 'tomocheapflights?ref=MFD_APP');
+      piwik.getTracker().trackEvent('Menu', 'Open Bot', 'tomocheapflights');
+    }
   }, {
     type: 'separator'
   }, {
     label: 'Poncho \t\t Personal weather forecasts',
-    click: $.all(
-      $.sendToWebView('open-messenger-thread', $.val('hiponcho')),
-      $.analytics.trackEvent('Menu', 'Open Bot', 'hiponcho')
-    )
+    click (menuItem, browserWindow) {
+      browserWindow.webContents.send('fwd-webview', 'open-messenger-thread', 'hiponcho');
+      piwik.getTracker().trackEvent('Menu', 'Open Bot', 'hiponcho');
+    }
   }, {
     label: 'TechCrunch \t Personalized tech news',
-    click: $.all(
-      $.sendToWebView('open-messenger-thread', $.val('techcrunch')),
-      $.analytics.trackEvent('Menu', 'Open Bot', 'techcrunch')
-    )
+    click (menuItem, browserWindow) {
+      browserWindow.webContents.send('fwd-webview', 'open-messenger-thread', 'techcrunch');
+      piwik.getTracker().trackEvent('Menu', 'Open Bot', 'techcrunch');
+    }
   }, {
     label: 'CNN \t\t Breaking news alerts',
-    click: $.all(
-      $.sendToWebView('open-messenger-thread', $.val('cnn')),
-      $.analytics.trackEvent('Menu', 'Open Bot', 'cnn')
-    )
+    click (menuItem, browserWindow) {
+      browserWindow.webContents.send('fwd-webview', 'open-messenger-thread', 'cnn');
+      piwik.getTracker().trackEvent('Menu', 'Open Bot', 'cnn');
+    }
   }, {
     type: 'separator'
   }, {
     label: 'Foxsy \t\t Make new friends',
-    click: $.all(
-      $.sendToWebView('open-messenger-thread', $.val('foxsybot')),
-      $.analytics.trackEvent('Menu', 'Open Bot', 'foxsybot')
-    )
+    click (menuItem, browserWindow) {
+      browserWindow.webContents.send('fwd-webview', 'open-messenger-thread', 'foxsybot');
+      piwik.getTracker().trackEvent('Menu', 'Open Bot', 'foxsybot');
+    }
   }, {
     label: 'Icon8 \t\t Turn your selfies into art',
-    click: $.all(
-      $.sendToWebView('open-messenger-thread', $.val('icon8bot')),
-      $.analytics.trackEvent('Menu', 'Open Bot', 'icon8bot')
-    )
+    click (menuItem, browserWindow) {
+      browserWindow.webContents.send('fwd-webview', 'open-messenger-thread', 'icon8bot');
+      piwik.getTracker().trackEvent('Menu', 'Open Bot', 'icon8bot');
+    }
   }, {
     label: 'Sensay \t\t On-demand help from humans',
-    click: $.all(
-      $.sendToWebView('open-messenger-thread', $.val('sensaybot')),
-      $.analytics.trackEvent('Menu', 'Open Bot', 'sensaybot')
-    )
+    click (menuItem, browserWindow) {
+      browserWindow.webContents.send('fwd-webview', 'open-messenger-thread', 'sensaybot');
+      piwik.getTracker().trackEvent('Menu', 'Open Bot', 'sensaybot');
+    }
   }, {
     label: 'Swelly \t\t Better decisions with friends',
-    click: $.all(
-      $.sendToWebView('open-messenger-thread', $.val('swell.bot')),
-      $.analytics.trackEvent('Menu', 'Open Bot', 'swell.bot')
-    )
+    click (menuItem, browserWindow) {
+      browserWindow.webContents.send('fwd-webview', 'open-messenger-thread', 'swell.bot');
+      piwik.getTracker().trackEvent('Menu', 'Open Bot', 'swell.bot');
+    }
   }, {
     type: 'separator'
   }, {

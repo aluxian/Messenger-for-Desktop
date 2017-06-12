@@ -31,17 +31,6 @@ ipcRenderer.on('call-webview-method', function (event, method, ...args) {
 });
 
 /**
- * Toggle the dev tools panel of the webview.
- */
-ipcRenderer.on('toggle-wv-dev-tools', function (event) {
-  if (webView.isDevToolsOpened()) {
-    webView.closeDevTools();
-  } else {
-    webView.openDevTools();
-  }
-});
-
-/**
  * Track an analytics event.
  */
 ipcRenderer.on('track-analytics', function (event, name, args) {

@@ -31,6 +31,7 @@ const defaults = {
     width: 900,
     height: 600
   },
+
   'window-full-screen': false,
   'accept-first-mouse': false
 };

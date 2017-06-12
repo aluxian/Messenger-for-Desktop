@@ -1,7 +1,6 @@
 import {getAvailableDictionaries} from 'common/utils/spellchecker';
 import languageCodes from 'common/utils/language-codes';
 import prefs from 'browser/utils/prefs';
-import $ from 'browser/menus/expressions';
 
 const spellCheckerLanguage = prefs.get('spell-checker-language');
 const availableLanguages = getAvailableDictionaries()
@@ -59,53 +58,43 @@ export default {
     label: 'Check Spelling While Typing',
     accelerator: 'CmdOrCtrl+Alt+S',
     checked: prefs.get('spell-checker-check'),
-    click: $.all(
-      $.sendToWebView(
-        'spell-checker',
-        $.key('checked'),
-        $.pref('spell-checker-auto-correct'),
-        $.pref('spell-checker-language')
-      ),
-      $.updateSibling('spell-checker-auto-correct', 'enabled', $.key('checked')),
-      $.updateSibling('spell-checker-language', 'enabled', $.key('checked')),
-      $.setPref('spell-checker-check', $.key('checked'))
-    )
+    click (menuItem, browserWindow) {
+      browserWindow.webContents.send('fwd-webview', 'spell-checker',
+        menuItem.checked,
+        prefs.get('spell-checker-auto-correct'),
+        prefs.get('spell-checker-language'));
+      menuItem.menu.items.find(e => e.label === 'Auto Correct Spelling Mistakes').enabled = menuItem.checked;
+      menuItem.menu.items.find(e => e.label === 'Spell Checker Language').enabled = menuItem.checked;
+      prefs.set('spell-checker-check', menuItem.checked);
+    }
   }, {
-    id: 'spell-checker-auto-correct',
     type: 'checkbox',
     label: 'Auto Correct Spelling Mistakes',
-    allow: false,
+    visible: false,
     checked: prefs.get('spell-checker-auto-correct'),
     enabled: prefs.get('spell-checker-check'),
-    click: $.all(
-      $.sendToWebView(
-        'spell-checker',
-        $.pref('spell-checker-check'),
-        $.key('checked'),
-        $.pref('spell-checker-language')
-      ),
-      $.setPref('spell-checker-auto-correct', $.key('checked'))
-    )
+    click (menuItem, browserWindow) {
+      browserWindow.webContents.send('fwd-webview', 'spell-checker',
+        prefs.get('spell-checker-check'),
+        menuItem.checked,
+        prefs.get('spell-checker-language'));
+      prefs.set('spell-checker-auto-correct', menuItem.checked);
+    }
   }, {
-    id: 'spell-checker-language',
     label: 'Spell Checker Language',
     submenu: availableLanguages.map((lang) => ({
       type: 'radio',
       label: lang.name,
-      langCode: lang.code,
       checked: spellCheckerLanguage === lang.code,
-      click: $.all(
-        $.ifTrue(
-          $.pref('spell-checker-check'),
-          $.sendToWebView(
-            'spell-checker',
-            $.pref('spell-checker-check'),
-            $.pref('spell-checker-auto-correct'),
-            $.key('langCode')
-          )
-        ),
-        $.setPref('spell-checker-language', $.key('langCode'))
-      )
+      click (menuItem, browserWindow) {
+        if (prefs.get('spell-checker-check')) {
+          browserWindow.webContents.send('fwd-webview', 'spell-checker',
+          prefs.get('spell-checker-check'),
+          prefs.get('spell-checker-auto-correct'),
+          lang.code);
+        }
+        prefs.set('spell-checker-language', lang.code);
+      }
     }))
   }]
 };

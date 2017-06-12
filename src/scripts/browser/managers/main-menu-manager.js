@@ -2,7 +2,7 @@ import EventEmitter from 'events';
 import {Menu} from 'electron';
 
 import AutoUpdater from 'browser/components/auto-updater';
-import {findItemById} from 'browser/menus/utils';
+import {findItemByLabel} from 'browser/menus/utils';
 import template from 'browser/menus/main';
 
 class MainMenuManager extends EventEmitter {
@@ -32,22 +32,22 @@ class MainMenuManager extends EventEmitter {
 
   setAutoUpdaterListeners () {
     if (!this.cfuVisibleItem) {
-      this.cfuVisibleItem = findItemById(this.menu.items, 'cfu-check-for-update');
+      this.cfuVisibleItem = findItemByLabel(this.menu.items, 'Check for Update...');
     }
 
-    const eventToIdMap = {
-      'error': 'cfu-check-for-update',
-      'checking-for-update': 'cfu-checking-for-update',
-      'update-available': 'cfu-update-available',
-      'update-not-available': 'cfu-check-for-update',
-      'update-downloaded': 'cfu-update-downloaded'
+    const eventToLabelMap = {
+      'error': 'Check for Update...',
+      'checking-for-update': 'Checking for Update...',
+      'update-available': 'Download Update...',
+      'update-not-available': 'Check for Update...',
+      'update-downloaded': 'Restart and Install Update...'
     };
 
-    for (let [eventName, itemId] of Object.entries(eventToIdMap)) {
+    for (let [eventName, itemLabel] of Object.entries(eventToLabelMap)) {
       AutoUpdater.on(eventName, () => {
         log('auto updater on:', eventName, 'params:', ...arguments);
         this.cfuVisibleItem.visible = false;
-        this.cfuVisibleItem = findItemById(this.menu.items, itemId);
+        this.cfuVisibleItem = findItemByLabel(this.menu.items, itemLabel);
         this.cfuVisibleItem.visible = true;
       });
     }

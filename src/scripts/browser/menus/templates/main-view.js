@@ -1,6 +1,5 @@
 import prefs from 'browser/utils/prefs';
 import files from 'common/utils/files';
-import $ from 'browser/menus/expressions';
 
 export default {
   label: 'View',
@@ -24,10 +23,10 @@ export default {
     accelerator: 'Alt+Ctrl+B',
     allow: process.platform !== 'darwin',
     checked: prefs.get('auto-hide-menubar'),
-    click: $.all(
-      $.setPref('auto-hide-menubar', $.key('checked')),
-      $.autoHideMenuBar($.key('checked'))
-    )
+    click (menuItem, browserWindow) {
+      prefs.set('auto-hide-menubar', menuItem.checked);
+      browserWindow.setAutoHideMenuBar(menuItem.checked);
+    }
   }, {
     type: 'checkbox',
     label: 'Auto Hide Sidebar',

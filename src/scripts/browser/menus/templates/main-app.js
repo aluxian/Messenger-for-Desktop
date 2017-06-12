@@ -1,32 +1,43 @@
-import {app, shell} from 'electron';
+import {app, shell, dialog} from 'electron';
 
 import prefs from 'browser/utils/prefs';
-import $ from 'browser/menus/expressions';
+import filePaths from 'common/utils/file-paths';
 
 export default {
   label: process.platform === 'darwin' ? global.manifest.productName : 'App',
   submenu: [{
     role: 'about',
-    click: $.showCustomAboutDialog()
+    click () {
+      dialog.showMessageBox({
+        icon: filePaths.getImagePath('app_icon.png'),
+        title: 'About ' + global.manifest.productName,
+        message: global.manifest.productName + ' v' + global.manifest.version + '-' + global.manifest.versionChannel,
+        detail: global.manifest.copyright + '\n\n' + 'Special thanks to @sytten, @nevercast' +
+          ', @TheHimanshu, @MichaelAquilina, @franciscoib, @levrik, and all the contributors on GitHub.'
+      });
+    }
   }, {
     type: 'checkbox',
     label: 'Switch to Workplace Messenger',
     checked: prefs.get('switch-workplace'),
-    click: $.all(
-      $.setPref('switch-workplace', $.key('checked')),
-      $.reloadWindow()
-    )
+    click (menuItem, browserWindow) {
+      prefs.set('switch-workplace', menuItem.checked);
+      browserWindow.webContents.reloadIgnoringCache();
+    }
   }, {
     label: process.platform === 'darwin' ? 'Preferences...' : 'Settings',
     accelerator: 'CmdOrCtrl+,',
-    click: $.sendToWebView('open-preferences-modal'),
-    needsWindow: true
+    click (menuItem, browserWindow) {
+      browserWindow.webContents.send('fwd-webview', 'open-preferences-modal');
+    }
   }, {
     type: 'separator'
   }, {
     id: 'cfu-check-for-update',
     label: 'Check for Update...',
-    click: $.cfuCheckForUpdate(true)
+    click () {
+      global.application.autoUpdateManager.handleMenuCheckForUpdate(true);
+    }
   }, {
     id: 'cfu-checking-for-update',
     label: 'Checking for Update...',
@@ -35,67 +46,82 @@ export default {
   }, {
     id: 'cfu-update-available',
     label: 'Download Update...',
-    allow: process.platform !== 'darwin' && (process.platform === 'linux' || global.options.portable),
     visible: false,
-    click: $.cfuUpdateAvailable()
+    click () {
+      global.application.autoUpdateManager.handleMenuUpdateAvailable();
+    }
   }, {
     id: 'cfu-update-available',
     label: 'Downloading Update...',
-    allow: !process.platform === 'linux' && !global.options.portable,
     enabled: false,
     visible: false
   }, {
     id: 'cfu-update-downloaded',
     label: 'Restart and Install Update...',
     visible: false,
-    click: $.cfuUpdateDownloaded()
+    click () {
+      global.application.autoUpdateManager.handleMenuUpdateDownloaded();
+    }
   }, {
     label: 'Updates Release Channel',
     submenu: ['Stable', 'Beta', 'Dev'].map((channelName) => ({
       type: 'radio',
       label: channelName,
       checked: prefs.get('updates-channel') === channelName.toLowerCase(),
-      click: $.all(
-        $.setPref('updates-channel', channelName.toLowerCase()),
-        $.resetAutoUpdaterUrl(),
-        $.cfuCheckForUpdate(false)
-      )
+      click () {
+        prefs.set('updates-channel', channelName.toLowerCase());
+        global.application.autoUpdateManager.initFeedUrl();
+        global.application.autoUpdateManager.handleMenuCheckForUpdate(false);
+      }
     }))
   }, {
     type: 'checkbox',
     label: 'Check for Update Automatically',
     checked: prefs.get('updates-auto-check'),
-    click: $.all(
-      $.checkForUpdateAuto($.key('checked')),
-      $.setPref('updates-auto-check', $.key('checked'))
-    )
+    click (menuItem) {
+      global.application.autoUpdateManager.setAutoCheck(menuItem.checked);
+      prefs.set('updates-auto-check', menuItem.checked);
+    }
   }, {
     type: 'separator'
   }, {
     type: 'checkbox',
     label: 'Launch on OS Startup',
-    allow: !global.options.portable,
+    visible: !global.options.portable,
     checked: prefs.get('launch-startup'),
-    click: $.all(
-      $.launchOnStartup($.key('checked')),
-      $.updateSibling('startup-hidden', 'enabled', $.key('checked')),
-      $.setPref('launch-startup', $.key('checked'))
-    ),
-    parse: $.all(
-      $.updateSibling('startup-hidden', 'enabled', $.key('checked'))
-    )
+    click (menuItem, browserWindow) {
+      if (menuItem.checked) {
+        global.application.autoLauncher.enable()
+          .then(() => log('auto launcher enabled'))
+          .catch((err) => {
+            log('could not enable auto-launcher');
+            logError(err, true);
+          });
+      } else {
+        global.application.autoLauncher.disable()
+          .then(() => log('auto launcher disabled'))
+          .catch((err) => {
+            log('could not disable auto-launcher');
+            logError(err, true);
+          });
+      }
+      menuItem.menu.items.find(e => e.label === 'Start Hidden on Startup').enabled = menuItem.checked;
+      prefs.set('launch-startup', menuItem.checked);
+    }
   }, {
-    id: 'startup-hidden',
     type: 'checkbox',
     label: 'Start Hidden on Startup',
-    allow: !global.options.portable,
+    visible: !global.options.portable,
     checked: prefs.get('launch-startup-hidden'),
-    click: $.setPref('launch-startup-hidden', $.key('checked'))
+    enabled: prefs.get('launch-startup'),
+    click (menuItem) {
+      prefs.set('launch-startup-hidden', menuItem.checked);
+    }
   }, {
     type: 'separator'
   }, {
     label: 'Restart in Debug Mode',
-    allow: !global.options.debug,
+    visible: !global.options.debug,
     click () {
       const options = {
         // without --no-console-logs, calls to console.log et al. trigger EBADF errors in the new process
@@ -108,7 +134,7 @@ export default {
     }
   }, {
     label: 'Running in Debug Mode',
-    allow: global.options.debug,
+    visible: global.options.debug,
     enabled: false
   }, {
     label: 'Open Debug Log...',
@@ -123,26 +149,26 @@ export default {
     }
   }, {
     type: 'separator',
-    allow: process.platform === 'darwin'
+    visible: process.platform === 'darwin'
   }, {
     role: 'services',
     submenu: [],
-    allow: process.platform === 'darwin'
+    visible: process.platform === 'darwin'
   }, {
     type: 'separator',
-    allow: process.platform === 'darwin'
+    visible: process.platform === 'darwin'
   }, {
     role: 'hide',
-    allow: process.platform === 'darwin'
+    visible: process.platform === 'darwin'
   }, {
     role: 'hideothers',
-    allow: process.platform === 'darwin'
+    visible: process.platform === 'darwin'
   }, {
     role: 'unhide',
-    allow: process.platform === 'darwin'
+    visible: process.platform === 'darwin'
   }, {
     type: 'separator',
-    allow: process.platform === 'darwin'
+    visible: process.platform === 'darwin'
   }, {
     role: 'quit'
   }]

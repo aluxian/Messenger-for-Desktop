@@ -13,12 +13,10 @@ function send (name, ...args) {
   }
 }
 
-function bind (name) {
-  return send.bind(null, name);
-}
-
-export function getTracker () {
-  return {
-    trackEvent: bind('trackEvent')
-  };
-}
+export default {
+  getTracker () {
+    return {
+      trackEvent: send.bind(null, 'trackEvent')
+    };
+  }
+};
