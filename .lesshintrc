@@ -1,9 +1,0 @@
-{
-  "idSelector": false,
-  "importantRule": false,
-  "propertyOrdering": false,
-  "singleLinePerSelector": false,
-  "spaceAroundOperator": false,
-  "newlineAfterBlock": false,
-  "universalSelector": false
-}

@@ -39,12 +39,12 @@ class SquirrelEvents {
   /**
    * Spawn Squirrel's Update.exe with the given arguments.
    */
-  async spawnSquirrel (...args) {
+  spawnSquirrel (...args) {
     const squirrelExec = filePaths.getSquirrelUpdateExePath();
     log('spawning', squirrelExec, args);
 
     const child = cp.spawn(squirrelExec, args, {detached: true});
-    return await new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       child.on('close', function (code) {
         if (code) {
           logError(new Error(squirrelExec + ' exited with code ' + code));
@@ -55,26 +55,29 @@ class SquirrelEvents {
   }
 
   async teardown () {
-    try { await this.teardownShortcuts(); } catch (err) { logError(err, true); }
-    try { await this.teardownAutoLauncherRegKey(); } catch (err) { logError(err, true); }
-    try { await this.teardownLeftoverUserData(); } catch (err) { logError(err, true); }
+    this.teardownShortcuts()
+      .catch(err => logError(err, true));
+    this.teardownAutoLauncherRegKey()
+      .catch(err => logError(err, true));
+    this.teardownLeftoverUserData()
+      .catch(err => logError(err, true));
     log('teardown finished');
   }
 
-  async teardownShortcuts () {
+  teardownShortcuts () {
     log('removing shortcuts');
-    await this.spawnSquirrel('--removeShortcut', this.getShortcutExeName());
+    return this.spawnSquirrel('--removeShortcut', this.getShortcutExeName());
   }
 
-  async teardownAutoLauncherRegKey () {
+  teardownAutoLauncherRegKey () {
     log('removing reg keys');
-    await new AutoLauncher().disable();
+    return new AutoLauncher().disable();
   }
 
-  async teardownLeftoverUserData () {
+  teardownLeftoverUserData () {
     const userDataPath = app.getPath('userData');
     log('removing user data folder', userDataPath);
-    await del(path.join(userDataPath, '**'), {force: true})
+    return del(path.join(userDataPath, '**'), {force: true})
       .then((files) => log('deleted', JSON.stringify(files)));
   }
 

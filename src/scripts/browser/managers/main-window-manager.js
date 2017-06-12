@@ -1,5 +1,5 @@
 import {app, BrowserWindow, Menu, nativeImage} from 'electron';
-import debounce from 'lodash.debounce';
+import debounce from 'debounce';
 import EventEmitter from 'events';
 
 import filePaths from 'common/utils/file-paths';
@@ -121,7 +121,7 @@ class MainWindowManager extends EventEmitter {
   onReadyToShow () {
     // Show the window
     log('ready-to-show');
-    if (!this.startHidden && !this.window.isVisible()) {
+    if (!this.startHidden) {
       this.window.show();
     }
   }
@@ -155,7 +155,6 @@ class MainWindowManager extends EventEmitter {
   onClosed () {
     log('onClosed');
     this.window = null;
-    this.emit('closed');
   }
 
   /**
@@ -200,9 +199,6 @@ class MainWindowManager extends EventEmitter {
   onFocus () {
     log('onFocus');
 
-    // Forward this event to the webview
-    this.window.webContents.send('call-webview-method', 'focus');
-
     // Validate window bounds
     let bounds = this.window.getBounds();
     if (!this.windowBoundsAreValid(bounds)) {
@@ -222,9 +218,6 @@ class MainWindowManager extends EventEmitter {
    */
   onBlur () {
     log('onBlur');
-
-    // Forward this event to the webview
-    this.window.webContents.send('call-webview-method', 'blur');
   }
 
   /**
@@ -326,24 +319,13 @@ class MainWindowManager extends EventEmitter {
   }
 
   /**
-   * Append a suffix to the window title.
-   */
-  suffixWindowTitle (suffix) {
-    if (this.window) {
-      this.window.setTitle(this.initialTitle + suffix);
-    }
-  }
-
-  /**
    * Hide the whole app on OS X, not just the window.
    */
   hideWindow () {
     if (process.platform === 'darwin') {
       Menu.sendActionToFirstResponder('hide:');
-      this.window.hide();
-    } else {
-      this.window.hide();
     }
+    this.window.hide();
   }
 
 }

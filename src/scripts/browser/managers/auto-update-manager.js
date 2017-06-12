@@ -1,16 +1,15 @@
 import {dialog, shell} from 'electron';
 import EventEmitter from 'events';
-import keyMirror from 'keymirror';
 
 import AutoUpdater from 'browser/components/auto-updater';
 import prefs from 'browser/utils/prefs';
 
-const STATES = keyMirror({
-  IDLE: null,
-  UPDATE_CHECKING: null,
-  UPDATE_AVAILABLE: null,
-  UPDATE_DOWNLOADED: null
-});
+const STATES = {
+  IDLE: 'IDLE',
+  UPDATE_CHECKING: 'UPDATE_CHECKING',
+  UPDATE_AVAILABLE: 'UPDATE_AVAILABLE',
+  UPDATE_DOWNLOADED: 'UPDATE_DOWNLOADED'
+};
 
 class AutoUpdateManager extends EventEmitter {
 

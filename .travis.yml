@@ -22,8 +22,8 @@ env:
 install:
   - git clone https://github.com/creationix/nvm.git /tmp/.nvm
   - source /tmp/.nvm/nvm.sh
-  - nvm install 5.5
-  - nvm use 5.5
+  - nvm install 8.1.0
+  - nvm use 8.1.0
   - npm install -g gulp
   - npm install
 
@@ -39,8 +39,3 @@ cache:
     - node_modules
     - src/node_modules
     - cache
-
-notifications:
-  email: false
-  webhooks:
-    - https://webhooks.gitter.im/e/9d5d42078307e6548093

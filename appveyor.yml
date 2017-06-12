@@ -41,7 +41,7 @@ cache:
   - "%APPDATA%\\npm-cache"
 
 install:
-  - npm install -g npm@3
+  - npm install -g npm@5
   - set PATH=%APPDATA%\npm;%PATH%
   - npm install -g gulp
   - npm install
@@ -54,7 +54,3 @@ test_script:
 deploy_script:
   - if "%APPVEYOR_REPO_BRANCH%" == "staging" ciscripts\appveyor\build_staging.cmd
   - if "%APPVEYOR_REPO_BRANCH%" == "deploy" ciscripts\appveyor\build_deploy.cmd
-
-notifications:
-  - provider: Webhook
-    url: https://webhooks.gitter.im/e/2d3662c4ab6e4f2fc46e
