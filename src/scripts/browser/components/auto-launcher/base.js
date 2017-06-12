@@ -1,6 +1,4 @@
-import EventEmitter from 'events';
-
-class BaseAutoLauncher extends EventEmitter {
+class BaseAutoLauncher {
 
   async enable () {
     throw new Error('Not implemented');

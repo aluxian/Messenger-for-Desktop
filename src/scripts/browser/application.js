@@ -1,18 +1,17 @@
-import EventEmitter from 'events';
-
 import MainWindowManager from 'browser/managers/main-window-manager';
 import AutoUpdateManager from 'browser/managers/auto-update-manager';
 import MainMenuManager from 'browser/managers/main-menu-manager';
 
-import NotifManager from 'browser/managers/notif-manager';
 import AutoLauncher from 'browser/components/auto-launcher';
 import TrayManager from 'browser/managers/tray-manager';
 
 import AppListenersManager from 'browser/managers/app-listeners-manager';
 
-class Application extends EventEmitter {
+class Application {
 
   init () {
+    this.unreadCount = 0;
+
     // Create the main app window
     this.mainWindowManager = new MainWindowManager();
     this.mainWindowManager.createWindow();
@@ -33,12 +32,10 @@ class Application extends EventEmitter {
     this.mainWindowManager.setMenuManager(this.menuManager);
 
     // Others
-    this.notifManager = new NotifManager();
-    this.mainWindowManager.setNotifManager(this.notifManager);
     this.autoLauncher = new AutoLauncher();
 
     // Create and set the tray icon
-    this.trayManager = new TrayManager(this.mainWindowManager, this.notifManager);
+    this.trayManager = new TrayManager(this.mainWindowManager);
     this.mainWindowManager.setTrayManager(this.trayManager);
 
     // Listeners

@@ -1,14 +1,12 @@
-import EventEmitter from 'events';
 import {Menu} from 'electron';
 
 import AutoUpdater from 'browser/components/auto-updater';
 import {findItemByLabel} from 'browser/menus/utils';
 import template from 'browser/menus/main';
 
-class MainMenuManager extends EventEmitter {
+class MainMenuManager {
 
   constructor () {
-    super();
     this.cfuVisibleItem = null;
   }
 

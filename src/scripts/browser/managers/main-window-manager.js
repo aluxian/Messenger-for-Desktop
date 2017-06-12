@@ -1,15 +1,13 @@
 import {app, BrowserWindow, Menu, nativeImage} from 'electron';
 import debounce from 'debounce';
-import EventEmitter from 'events';
 
 import filePaths from 'common/utils/file-paths';
 import contextMenu from 'browser/menus/context';
 import prefs from 'browser/utils/prefs';
 
-class MainWindowManager extends EventEmitter {
+class MainWindowManager {
 
   constructor () {
-    super();
     this.forceClose = false;
     this.updateInProgress = false;
     this.startHidden = global.options.osStartup && prefs.get('launch-startup-hidden');
@@ -22,10 +20,6 @@ class MainWindowManager extends EventEmitter {
 
   setMenuManager (menuManager) {
     this.menuManager = menuManager;
-  }
-
-  setNotifManager (notifManager) {
-    this.notifManager = notifManager;
   }
 
   createWindow () {
@@ -251,9 +245,7 @@ class MainWindowManager extends EventEmitter {
    * Update the notifications count everywhere.
    */
   notifCountChanged (count, badgeDataUrl) {
-    if (this.notifManager) {
-      this.notifManager.unreadCount = count;
-    }
+    global.application.unreadNotifsCount = count;
 
     // Set icon badge
     if (prefs.get('show-notifications-badge')) {

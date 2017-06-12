@@ -1,12 +1,10 @@
-import EventEmitter from 'events';
 import {app} from 'electron';
 
 import prefs from 'browser/utils/prefs';
 
-class AppListenersManager extends EventEmitter {
+class AppListenersManager {
 
   constructor (mainWindowManager, autoUpdateManager) {
-    super();
     this.mainWindowManager = mainWindowManager;
     this.autoUpdateManager = autoUpdateManager;
   }

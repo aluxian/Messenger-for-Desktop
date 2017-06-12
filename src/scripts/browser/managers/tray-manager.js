@@ -1,17 +1,13 @@
-import EventEmitter from 'events';
 import {Menu, Tray, nativeImage} from 'electron';
 
 import filePaths from 'common/utils/file-paths';
 import template from 'browser/menus/tray';
 import prefs from 'browser/utils/prefs';
 
-class TrayManager extends EventEmitter {
+class TrayManager {
 
-  constructor (mainWindowManager, notifManager) {
-    super();
-
+  constructor (mainWindowManager) {
     this.mainWindowManager = mainWindowManager;
-    this.notifManager = notifManager;
 
     // Restore the tray menu from prefs
     if (prefs.get('show-tray')) {
@@ -38,12 +34,12 @@ class TrayManager extends EventEmitter {
       this.tray.setPressedImage(pressedImage);
 
       // Show the notifications count
-      if (this.notifManager.unreadCount) {
-        this.tray.setTitle(this.notifManager.unreadCount);
+      if (global.application.unreadNotifsCount) {
+        this.tray.setTitle(global.application.unreadNotifsCount);
       }
     } else {
       const imgExt = process.platform === 'win32' ? 'ico' : 'png';
-      const iconName = this.notifManager.unreadCount ? 'trayAlert' : 'tray';
+      const iconName = global.application.unreadNotifsCount ? 'trayAlert' : 'tray';
 
       const imagePath = filePaths.getImagePath(iconName + '.' + imgExt);
       const image = nativeImage.createFromPath(imagePath);

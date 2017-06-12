@@ -1,5 +1,4 @@
 import {dialog, shell} from 'electron';
-import EventEmitter from 'events';
 
 import AutoUpdater from 'browser/components/auto-updater';
 import prefs from 'browser/utils/prefs';
@@ -11,11 +10,9 @@ const STATES = {
   UPDATE_DOWNLOADED: 'UPDATE_DOWNLOADED'
 };
 
-class AutoUpdateManager extends EventEmitter {
+class AutoUpdateManager {
 
   constructor (mainWindowManager) {
-    super();
-
     this.mainWindowManager = mainWindowManager;
     this.enabled = prefs.get('updates-auto-check');
 

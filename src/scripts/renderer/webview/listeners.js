@@ -40,7 +40,6 @@ webView.addEventListener('console-message', function (event) {
 });
 
 // Listen for title changes to update the badge
-let _delayedRemoveBadge = null;
 webView.addEventListener('page-title-updated', function () {
   log('webview page-title-updated');
   const matches = /\(([\d]+)\)/.exec(webView.getTitle());
@@ -53,10 +52,10 @@ webView.addEventListener('page-title-updated', function () {
   }
 
   log('notifying window of notif-count', count, !!badgeDataUrl || null);
-  clearTimeout(_delayedRemoveBadge);
+  clearTimeout(window._delayedRemoveBadge);
 
   // clear badge either instantly or after delay
-  _delayedRemoveBadge = setTimeout(() => {
+  window._delayedRemoveBadge = setTimeout(() => {
     const mwm = remote.getGlobal('application').mainWindowManager;
     if (mwm && typeof mwm.notifCountChanged === 'function') {
       mwm.notifCountChanged(count, badgeDataUrl);
@@ -100,12 +99,6 @@ webView.addEventListener('new-window', function (event) {
 // Listen for dom-ready
 webView.addEventListener('dom-ready', function () {
   log('webview dom-ready');
-
-  // Open dev tools when debugging
-  const autoLaunchDevTools = window.localStorage.autoLaunchDevTools;
-  if (autoLaunchDevTools && JSON.parse(autoLaunchDevTools)) {
-    webView.openDevTools();
-  }
 
   // Restore the default theme
   const themeId = prefs.get('theme');
@@ -189,7 +182,7 @@ document.addEventListener('DOMContentLoaded', function () {
     setTimeout(function () {
       loadingSplashDiv.style.display = 'none';
     }, 250);
-  }, 10 * 1000);
+  }, 10 * 1000); // 10s
 });
 
 export default webView;
