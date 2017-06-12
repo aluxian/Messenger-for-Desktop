@@ -3,8 +3,6 @@ import debounce from 'lodash.debounce';
 import EventEmitter from 'events';
 
 import filePaths from 'common/utils/file-paths';
-import platform from 'common/utils/platform';
-import * as requestFilter from 'browser/utils/request-filter';
 import contextMenu from 'browser/menus/context';
 import prefs from 'browser/utils/prefs';
 
@@ -65,12 +63,6 @@ class MainWindowManager extends EventEmitter {
     // Replace the default user agent
     const cleanUA = this.getCleanUserAgent();
     this.window.webContents.setUserAgent(cleanUA);
-
-    // Restore privacy settings
-    const shouldBlock = prefs.get('block-seen-typing');
-    if (shouldBlock) {
-      requestFilter.enable(this.window.webContents.session);
-    }
 
     // Bind webContents events to local methods
     this.window.webContents.on('will-navigate', ::this.onWillNavigate);

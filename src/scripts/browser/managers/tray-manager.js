@@ -2,7 +2,6 @@ import EventEmitter from 'events';
 import {Menu, Tray, nativeImage} from 'electron';
 
 import filePaths from 'common/utils/file-paths';
-import platform from 'common/utils/platform';
 import template from 'browser/menus/tray';
 import prefs from 'browser/utils/prefs';
 

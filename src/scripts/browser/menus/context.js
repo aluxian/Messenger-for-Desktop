@@ -1,7 +1,6 @@
 import {clipboard, Menu, MenuItem} from 'electron';
 import spellChecker from 'spellchecker';
 
-import platform from 'common/utils/platform';
 import urls from 'common/utils/urls';
 
 function create (params, browserWindow) {

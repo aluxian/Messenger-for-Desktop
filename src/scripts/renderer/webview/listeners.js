@@ -1,7 +1,6 @@
 import {shell, remote} from 'electron';
 
 import webView from 'renderer/webview';
-import platform from 'common/utils/platform';
 import graphics from 'common/utils/graphics';
 import files from 'common/utils/files';
 import prefs from 'common/utils/prefs';

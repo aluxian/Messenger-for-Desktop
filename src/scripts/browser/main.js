@@ -3,7 +3,6 @@ import yargs from 'yargs';
 
 import prefs from 'browser/utils/prefs';
 import filePaths from 'common/utils/file-paths';
-import platform from 'common/utils/platform';
 
 // Handle uncaught exceptions
 process.on('uncaughtException', function (err) {

@@ -1,7 +1,6 @@
 import {app} from 'electron';
 
 import {getAvailableDictionaries} from 'common/utils/spellchecker';
-import platform from 'common/utils/platform';
 
 let availableLanguages = null;
 const defaults = {

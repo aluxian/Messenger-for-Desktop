@@ -1,5 +1,3 @@
-import platform from 'common/utils/platform';
-
 let impl = null;
 
 if (process.platform === 'linux') {

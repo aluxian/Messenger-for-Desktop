@@ -3,7 +3,6 @@ import EventEmitter from 'events';
 import keyMirror from 'keymirror';
 
 import AutoUpdater from 'browser/components/auto-updater';
-import platform from 'common/utils/platform';
 import prefs from 'browser/utils/prefs';
 
 const STATES = keyMirror({
