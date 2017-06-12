@@ -30,7 +30,7 @@ export function getDictionarySearchPaths () {
     return searchPath;
   });
 
-  if (platform.isLinux) {
+  if (process.platform === 'linux') {
     searchPaths = searchPaths.concat([
       '/usr/share/hunspell',
       '/usr/share/myspell',

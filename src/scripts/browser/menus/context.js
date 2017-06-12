@@ -8,7 +8,7 @@ function create (params, browserWindow) {
   const webContents = browserWindow.webContents;
   const menu = new Menu();
 
-  if (platform.isDarwin && params.selectionText) {
+  if (process.platform === 'darwin' && params.selectionText) {
     menu.append(new MenuItem({
       label: 'Look Up "' + params.selectionText + '"',
       click: () => webContents.send('call-webview-method', 'showDefinitionForSelection')
@@ -29,7 +29,7 @@ function create (params, browserWindow) {
 
     // Hunspell doesn't remember these, so skip this item
     // Otherwise, offer to add the word to the dictionary
-    if (!platform.isLinux && !params.isWindows7) {
+    if (!process.platform === 'linux') {
       items.push(new MenuItem({
         label: 'Add to Dictionary',
         click: () => {

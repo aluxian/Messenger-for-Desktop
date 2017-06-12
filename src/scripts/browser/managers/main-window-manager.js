@@ -53,7 +53,7 @@ class MainWindowManager extends EventEmitter {
     };
 
     // Fix Window icon on Linux
-    if (platform.isLinux) {
+    if (process.platform === 'linux') {
       defaultOptions.icon = filePaths.getImagePath('windowIcon.png');
     }
 
@@ -134,7 +134,7 @@ class MainWindowManager extends EventEmitter {
    * Called when the 'enter-full-screen' event is emitted.
    */
   onEnterFullScreen () {
-    if (platform.isLinux) {
+    if (process.platform === 'linux') {
       return; // this event isn't triggered correctly on linux
     }
     // Save in prefs
@@ -145,7 +145,7 @@ class MainWindowManager extends EventEmitter {
    * Called when the 'leave-full-screen' event is emitted.
    */
   onLeaveFullScreen () {
-    if (platform.isLinux) {
+    if (process.platform === 'linux') {
       return; // this event isn't triggered correctly on linux
     }
     // Save in prefs
@@ -174,7 +174,7 @@ class MainWindowManager extends EventEmitter {
     }
 
     // Just hide the window on Darwin
-    if (!this.forceClose && platform.isDarwin) {
+    if (!this.forceClose && process.platform === 'darwin') {
       event.preventDefault();
       this.hideWindow();
     }
@@ -185,7 +185,7 @@ class MainWindowManager extends EventEmitter {
       this.hideWindow();
 
       // Inform the user the app is still running
-      if (platform.isWindows && !prefs.get('quit-behaviour-taught')) {
+      if (process.platform === 'win32' && !prefs.get('quit-behaviour-taught')) {
         const tray = this.trayManager.tray;
         if (tray) {
           tray.displayBalloon({
@@ -236,11 +236,6 @@ class MainWindowManager extends EventEmitter {
    */
   onShow () {
     log('onShow');
-
-    // Enable window specific menu items
-    if (this.menuManager) {
-      this.menuManager.windowSpecificItemsEnabled(true);
-    }
   }
 
   /**
@@ -248,11 +243,6 @@ class MainWindowManager extends EventEmitter {
    */
   onHide () {
     log('onHide');
-
-    // Disable window specific menu items
-    if (this.menuManager) {
-      this.menuManager.windowSpecificItemsEnabled(false);
-    }
   }
 
   /**
@@ -288,7 +278,7 @@ class MainWindowManager extends EventEmitter {
 
     // Set icon badge
     if (prefs.get('show-notifications-badge')) {
-      if (platform.isWindows) {
+      if (process.platform === 'win32') {
         if (count) {
           const image = nativeImage.createFromDataURL(badgeDataUrl);
           this.window.setOverlayIcon(image, count);
@@ -362,7 +352,7 @@ class MainWindowManager extends EventEmitter {
    * Hide the whole app on OS X, not just the window.
    */
   hideWindow () {
-    if (platform.isDarwin) {
+    if (process.platform === 'darwin') {
       Menu.sendActionToFirstResponder('hide:');
       this.window.hide();
     } else {

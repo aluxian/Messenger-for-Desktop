@@ -2,9 +2,9 @@ import platform from 'common/utils/platform';
 
 let impl = null;
 
-if (platform.isLinux) {
+if (process.platform === 'linux') {
   impl = require('browser/components/auto-updater/impl-linux').default;
-} else if (platform.isWindows && global.options.portable) {
+} else if (process.platform === 'win32' && global.options.portable) {
   impl = require('browser/components/auto-updater/impl-win32-portable').default;
 } else {
   impl = require('electron').autoUpdater;

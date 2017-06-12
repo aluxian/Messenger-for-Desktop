@@ -23,7 +23,7 @@ webView.addEventListener('page-title-updated', function () {
   const count = isNaN(parsed) || !parsed ? '' : '' + parsed;
   let badgeDataUrl = null;
 
-  if (platform.isWindows && count) {
+  if (process.platform === 'win32' && count) {
     badgeDataUrl = graphics.createBadgeDataUrl(count);
   }
 
@@ -111,13 +111,6 @@ webView.addEventListener('dom-ready', function () {
       .catch(logError);
   }
 
-  // Restore the zoom level
-  const zoomLevel = prefs.get('zoom-level');
-  if (zoomLevel) {
-    log('restoring zoom level', zoomLevel);
-    webView.setZoomLevel(zoomLevel);
-  }
-
   // Restore spell checker and auto correct
   const spellCheckerCheck = prefs.get('spell-checker-check');
   if (spellCheckerCheck) {
@@ -148,10 +141,7 @@ webView.addEventListener('did-finish-load', function () {
 
 // Forward context menu opens
 webView.addEventListener('context-menu', function (event) {
-  const paramDefaults = {
-    isWindows7: platform.isWindows7
-  };
-  const params = JSON.stringify(Object.assign(paramDefaults, event.params));
+  const params = JSON.stringify(event.params);
   log('sending context menu', params);
   const mwm = remote.getGlobal('application').mainWindowManager;
   if (mwm) {

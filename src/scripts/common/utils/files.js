@@ -6,15 +6,15 @@ import filePaths from 'common/utils/file-paths';
 /**
  * @return the css of the theme
  */
-async function getThemeCss (theme) {
-  return await fs.readFileAsync(filePaths.getThemePath(theme), 'utf-8');
+function getThemeCss (theme) {
+  return fs.readFileAsync(filePaths.getThemePath(theme), 'utf-8');
 }
 
 /**
  * @return the css of the file
  */
-async function getStyleCss (style) {
-  return await fs.readFileAsync(filePaths.getStylePath(style), 'utf-8');
+function getStyleCss (style) {
+  return fs.readFileAsync(filePaths.getStylePath(style), 'utf-8');
 }
 
 /**

@@ -22,15 +22,6 @@ export function setPref (prefName, valueExpr) {
 }
 
 /**
- * Unsets a preference key.
- */
-export function unsetPref (prefName) {
-  return function () {
-    prefs.unset(prefName);
-  };
-}
-
-/**
  * Updates the value of a sibling item's key.
  */
 export function updateSibling (siblingId, siblingKey, valueExpr) {

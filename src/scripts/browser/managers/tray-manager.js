@@ -28,7 +28,7 @@ class TrayManager extends EventEmitter {
       return;
     }
 
-    if (platform.isDarwin) {
+    if (process.platform === 'darwin') {
       const imagePath = filePaths.getImagePath('trayBlackTemplate.png');
       const image = nativeImage.createFromPath(imagePath);
 
@@ -43,7 +43,7 @@ class TrayManager extends EventEmitter {
         this.tray.setTitle(this.notifManager.unreadCount);
       }
     } else {
-      const imgExt = platform.isWindows ? 'ico' : 'png';
+      const imgExt = process.platform === 'win32' ? 'ico' : 'png';
       const iconName = this.notifManager.unreadCount ? 'trayAlert' : 'tray';
 
       const imagePath = filePaths.getImagePath(iconName + '.' + imgExt);
@@ -53,7 +53,7 @@ class TrayManager extends EventEmitter {
     }
 
     this.menu = Menu.buildFromTemplate(template());
-    if (platform.isLinux) {
+    if (process.platform === 'linux') {
       this.tray.setContextMenu(this.menu);
     }
     this.setEventListeners();
@@ -116,10 +116,10 @@ class TrayManager extends EventEmitter {
       return;
     }
 
-    if (platform.isDarwin) {
+    if (process.platform === 'darwin') {
       this.tray.setTitle(count);
     } else {
-      const imgExt = platform.isWindows ? 'ico' : 'png';
+      const imgExt = process.platform === 'win32' ? 'ico' : 'png';
       const iconName = count ? 'trayAlert' : 'tray';
 
       const imagePath = filePaths.getImagePath(iconName + '.' + imgExt);

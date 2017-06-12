@@ -1,109 +1,85 @@
-import platform from 'common/utils/platform';
+import prefs from 'browser/utils/prefs';
+import files from 'common/utils/files';
 import $ from 'browser/menus/expressions';
 
 export default {
-  label: '&View',
+  label: 'View',
   submenu: [{
-    label: 'Zoom In',
-    accelerator: 'CmdOrCtrl+plus',
-    needsWindow: true,
-    click: $.all(
-      $.setPref('zoom-level', $.sum($.pref('zoom-level'), $.val(+0.25))),
-      $.sendToWebContents('zoom-level', $.pref('zoom-level'))
-    )
+    role: 'zoomin'
   }, {
-    label: 'Zoom Out',
-    accelerator: 'CmdOrCtrl+-',
-    needsWindow: true,
-    click: $.all(
-      $.setPref('zoom-level', $.sum($.pref('zoom-level'), $.val(-0.25))),
-      $.sendToWebContents('zoom-level', $.pref('zoom-level'))
-    )
+    role: 'zoomout'
   }, {
-    label: 'Reset Zoom',
-    accelerator: 'CmdOrCtrl+0',
-    needsWindow: true,
-    click: $.all(
-      $.sendToWebContents('zoom-level', $.val(0)),
-      $.unsetPref('zoom-level')
-    )
+    role: 'resetzoom'
   }, {
     type: 'separator'
   }, {
-    needsWindow: true,
     role: 'togglefullscreen'
   }, {
-    label: 'Toggle &Developer Tools',
-    needsWindow: true,
-    click: $.toggleDevTools()
-  }, {
-    label: 'Toggle WebView &Dev Tools',
-    needsWindow: true,
-    click: $.toggleWebViewDevTools()
+    role: 'toggledevtools'
   }, {
     type: 'separator'
   }, {
     type: 'checkbox',
-    label: 'Auto Hide &Menu Bar',
+    label: 'Auto Hide Menu Bar',
     accelerator: 'Alt+Ctrl+B',
-    needsWindow: true,
-    allow: platform.isNonDarwin,
+    allow: process.platform !== 'darwin',
+    checked: prefs.get('auto-hide-menubar'),
     click: $.all(
       $.setPref('auto-hide-menubar', $.key('checked')),
       $.autoHideMenuBar($.key('checked'))
-    ),
-    parse: $.all(
-      $.setLocal('checked', $.pref('auto-hide-menubar'))
     )
   }, {
     type: 'checkbox',
-    label: 'Auto Hide &Sidebar',
-    needsWindow: true,
-    click: $.all(
-      $.styleCss('sidebar-auto-hide', (css) =>
-        $.sendToWebView('apply-sidebar-auto-hide', $.key('checked'), $.val(css))
-      ),
-      $.setPref('sidebar-auto-hide', $.key('checked'))
-    ),
-    parse: $.all(
-      $.setLocal('checked', $.pref('sidebar-auto-hide'))
-    )
+    label: 'Auto Hide Sidebar',
+    checked: prefs.get('sidebar-auto-hide'),
+    click (menuItem, browserWindow) {
+      files.getStyleCss('sidebar-auto-hide')
+        .then((css) => browserWindow.webContents.send('fwd-webview', 'apply-sidebar-auto-hide', menuItem.checked, css))
+        .catch(logError);
+      prefs.set('sidebar-auto-hide', menuItem.checked);
+    }
   }, {
     type: 'separator'
   }, {
-    label: 'N&ew Conversation',
+    label: 'New Conversation',
     accelerator: 'CmdOrCtrl+N',
-    needsWindow: true,
-    click: $.sendToWebView('new-conversation')
+    click (menuItem, browserWindow) {
+      browserWindow.webContents.send('fwd-webview', 'new-conversation');
+    }
   }, {
-    label: 'Search &Conversation',
+    label: 'Search Conversation',
     accelerator: 'CmdOrCtrl+F',
-    needsWindow: true,
-    click: $.sendToWebView('search-conversation')
+    click (menuItem, browserWindow) {
+      browserWindow.webContents.send('fwd-webview', 'search-conversation');
+    }
   }, {
-    label: 'Search C&hats',
+    label: 'Search Chats',
     accelerator: 'CmdOrCtrl+Shift+F',
-    needsWindow: true,
-    click: $.sendToWebView('search-chats')
+    click (menuItem, browserWindow) {
+      browserWindow.webContents.send('fwd-webview', 'search-chats');
+    }
   }, {
     type: 'separator'
   }, {
-    label: '&Next Conversation',
+    label: 'Next Conversation',
     accelerator: 'CmdOrCtrl+Down',
-    needsWindow: true,
-    click: $.sendToWebView('switch-conversation-next')
+    click (menuItem, browserWindow) {
+      browserWindow.webContents.send('fwd-webview', 'switch-conversation-next');
+    }
   }, {
-    label: '&Previous Conversation',
+    label: 'Previous Conversation',
     accelerator: 'CmdOrCtrl+Up',
-    needsWindow: true,
-    click: $.sendToWebView('switch-conversation-previous')
+    click (menuItem, browserWindow) {
+      browserWindow.webContents.send('fwd-webview', 'switch-conversation-previous');
+    }
   }, {
     label: 'Switch to Conversation',
     submenu: [1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => ({
       label: 'Conversation ' + num,
       accelerator: 'CmdOrCtrl+' + num,
-      needsWindow: true,
-      click: $.sendToWebView('switch-conversation-num', $.val(num))
+      click (menuItem, browserWindow) {
+        browserWindow.webContents.send('fwd-webview', 'switch-conversation-num', num);
+      }
     }))
   }]
 };

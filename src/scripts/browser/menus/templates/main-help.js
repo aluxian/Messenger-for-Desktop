@@ -1,13 +1,16 @@
-import $ from 'browser/menus/expressions';
+import {shell} from 'electron';
 
 export default {
-  label: '&Help',
   role: 'help',
   submenu: [{
     label: 'Open App Website',
-    click: $.openUrl('https://messengerfordesktop.com/')
+    click () {
+      shell.openExternal('https://messengerfordesktop.com/');
+    }
   }, {
     label: 'Send Feedback',
-    click: $.openUrl('https://aluxian.typeform.com/to/sr2gEc')
+    click () {
+      shell.openExternal('https://aluxian.typeform.com/to/sr2gEc');
+    }
   }]
 };

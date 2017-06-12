@@ -12,12 +12,13 @@ const defaults = {
   'launch-quit': false,
   'links-in-browser': true,
   'switch-workplace': false,
-  'block-seen-typing': false,
+  'block-indicator-seen': false,
+  'block-indicator-typing': false,
   'close-with-esc': false,
   'quit-behaviour-taught': false,
   'notify-app-updated': false,
   'show-notifications-badge': true,
-  'show-tray': platform.isWindows,
+  'show-tray': process.platform === 'win32',
   'show-dock': true,
   'auto-hide-menubar': false,
   'sidebar-auto-hide': false,
@@ -32,8 +33,7 @@ const defaults = {
     height: 600
   },
   'window-full-screen': false,
-  'accept-first-mouse': false,
-  'zoom-level': 0
+  'accept-first-mouse': false
 };
 
 function get (key) {

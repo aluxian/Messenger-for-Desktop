@@ -19,7 +19,7 @@ class AutoUpdateManager extends EventEmitter {
     super();
 
     this.mainWindowManager = mainWindowManager;
-    this.enabled = !global.options.mas && prefs.get('updates-auto-check');
+    this.enabled = prefs.get('updates-auto-check');
 
     this.state = STATES.IDLE;
     this.states = STATES;
@@ -107,7 +107,7 @@ class AutoUpdateManager extends EventEmitter {
       return; // same state
     }
 
-    this.enabled = !global.options.mas && check;
+    this.enabled = check;
     if (this.enabled) { // disabled -> enabled
       log('enabling auto update checker');
       this.scheduleUpdateChecks();
@@ -120,7 +120,7 @@ class AutoUpdateManager extends EventEmitter {
 
   onCheckUpdateAvailable (newVersion, downloadUrl) {
     log('onCheckUpdateAvailable', 'newVersion:', newVersion, 'downloadUrl:', downloadUrl);
-    if (platform.isLinux) {
+    if (process.platform === 'linux') {
       dialog.showMessageBox({
         type: 'info',
         message: 'A new version is available: ' + newVersion,
@@ -132,7 +132,7 @@ class AutoUpdateManager extends EventEmitter {
           shell.openExternal(downloadUrl || global.manifest.homepage);
         }
       });
-    } else if (platform.isWindows && global.options.portable) {
+    } else if (process.platform === 'win32' && global.options.portable) {
       dialog.showMessageBox({
         type: 'info',
         message: 'A new version is available: ' + newVersion,

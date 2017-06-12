@@ -1,77 +1,75 @@
-import platform from 'common/utils/platform';
+import prefs from 'browser/utils/prefs';
 import $ from 'browser/menus/expressions';
 
 export default {
-  label: 'Window',
   role: 'window',
   submenu: [{
-    label: '&Reload',
-    accelerator: 'CmdOrCtrl+R',
-    needsWindow: true,
-    click: $.reloadWindow()
+    role: 'forcereload'
   }, {
-    label: 'Re&set',
+    label: 'Reset Bounds',
     accelerator: 'CmdOrCtrl+Alt+R',
-    needsWindow: true,
-    click: $.resetWindow()
+    click (menuItem, browserWindow) {
+      const bounds = prefs.getDefault('window-bounds');
+      browserWindow.setSize(bounds.width, bounds.height, true);
+      browserWindow.center();
+    }
   }, {
     type: 'separator'
   }, {
     type: 'checkbox',
-    label: '&Float on Top',
+    label: 'Float on Top',
     accelerator: 'CmdOrCtrl+Alt+T',
-    needsWindow: true,
-    click: $.floatOnTop($.key('checked'))
+    click (menuItem, browserWindow) {
+      browserWindow.setAlwaysOnTop(menuItem.checked);
+    }
   }, {
     type: 'checkbox',
-    label: 'Close with &Escape Key',
-    click: $.setPref('close-with-esc', $.key('checked')),
-    parse: $.setLocal('checked', $.pref('close-with-esc'))
+    label: 'Close with Escape Key',
+    checked: prefs.get('close-with-esc'),
+    click (menuItem) {
+      prefs.set('close-with-esc', menuItem.checked);
+    }
   }, {
     type: 'checkbox',
-    label: 'Open Links in &Browser',
-    click: $.setPref('links-in-browser', $.key('checked')),
-    parse: $.setLocal('checked', $.pref('links-in-browser'))
+    label: 'Open Links in Browser',
+    checked: prefs.get('links-in-browser'),
+    click (menuItem) {
+      prefs.set('links-in-browser', menuItem.checked);
+    }
   }, {
     type: 'checkbox',
-    label: '&Notifications Badge in ' + (platform.isWindows ? 'Taskbar' : 'Dock'),
-    needsWindow: true,
+    label: 'Notifications Badge in ' + (process.platform === 'win32' ? 'Taskbar' : 'Dock'),
+    checked: prefs.get('show-notifications-badge'),
     click: $.all(
       $.setPref('show-notifications-badge', $.key('checked')),
-      platform.isWindows ? $.hideTaskbarBadge($.key('checked')) : $.hideDockBadge($.key('checked'))
-    ),
-    parse: $.all(
-      $.setLocal('checked', $.pref('show-notifications-badge'))
+      process.platform === 'win32' ? $.hideTaskbarBadge($.key('checked')) : $.hideDockBadge($.key('checked'))
     )
   }, {
     type: 'checkbox',
-    label: 'Accept First &Click',
-    needsWindow: true,
+    label: 'Accept First Click',
+    checked: prefs.get('accept-first-mouse'),
     click: $.all(
       $.setPref('accept-first-mouse', $.key('checked')),
       $.restartApp()
-    ),
-    parse: $.all(
-      $.setLocal('checked', $.pref('accept-first-mouse'))
     )
   }, {
     type: 'separator'
   }, {
     type: 'checkbox',
-    label: 'Show in &Tray',
-    allow: platform.isNonDarwin,
+    label: 'Show in Tray',
+    allow: process.platform !== 'darwin',
+    checked: prefs.get('show-tray'),
     click: $.all(
       $.showInTray($.key('checked')),
       $.setPref('show-tray', $.key('checked'))
-    ),
-    parse: $.all(
-      $.setLocal('checked', $.pref('show-tray')),
     )
   }, {
     id: 'show-tray',
     type: 'checkbox',
     label: 'Show in Menu Bar',
-    allow: platform.isDarwin,
+    allow: process.platform === 'darwin',
+    checked: prefs.get('show-tray'),
+    enabled: prefs.get('show-dock'),
     click: $.all(
       $.showInTray($.key('checked')),
       $.updateSibling('show-dock', 'enabled', $.key('checked')),
@@ -80,16 +78,14 @@ export default {
         $.updateSibling('show-dock', 'enabled', $.val(checked))
       )),
       $.setPref('show-tray', $.key('checked'))
-    ),
-    parse: $.all(
-      $.setLocal('checked', $.pref('show-tray')),
-      $.setLocal('enabled', $.pref('show-dock'))
     )
   }, {
     id: 'show-dock',
     type: 'checkbox',
     label: 'Show in Dock',
-    allow: platform.isDarwin,
+    allow: process.platform === 'darwin',
+    checked: prefs.get('show-dock'),
+    enabled: prefs.get('show-tray'),
     click: $.all(
       $.showInDock($.key('checked')),
       $.updateSibling('show-tray', 'enabled', $.key('checked')),
@@ -100,21 +96,19 @@ export default {
       $.setPref('show-dock', $.key('checked'))
     ),
     parse: $.all(
-      $.setLocal('checked', $.pref('show-dock')),
-      $.setLocal('enabled', $.pref('show-tray')),
       $.showInDock($.key('checked'))
     )
   }, {
     type: 'separator',
-    allow: platform.isDarwin
+    allow: process.platform === 'darwin'
   }, {
     role: 'minimize',
-    allow: platform.isDarwin
+    allow: process.platform === 'darwin'
   }, {
     role: 'zoom',
-    allow: platform.isDarwin
+    allow: process.platform === 'darwin'
   }, {
     role: 'close',
-    allow: platform.isDarwin
+    allow: process.platform === 'darwin'
   }]
 };

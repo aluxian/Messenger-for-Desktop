@@ -24,12 +24,3 @@ export function ifTrue (condExpr, trueExpr, falseExpr) {
     }
   };
 }
-
-/**
- * Runs a custom function.
- */
-export function custom (fn) {
-  return function () {
-    fn.apply(this, arguments);
-  };
-}

@@ -4,14 +4,6 @@ import * as piwik from 'renderer/services/piwik';
 import webView from 'renderer/webview';
 
 /**
- * Change the webview's zoom level.
- */
-ipcRenderer.on('zoom-level', function (event, zoomLevel) {
-  log('setting webview zoom level', zoomLevel);
-  webView.setZoomLevel(zoomLevel);
-});
-
-/**
  * Forward a message to the webview.
  */
 ipcRenderer.on('fwd-webview', function (event, channel, ...args) {

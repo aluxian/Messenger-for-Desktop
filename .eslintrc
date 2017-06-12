@@ -28,6 +28,7 @@
     "semi": [2, "always"],
     "no-extra-semi": 2,
     "semi-spacing": [2, { "before": false, "after": true }],
-    "padded-blocks": 0
+    "padded-blocks": 0,
+    "standard/no-callback-literal": 0
   }
 }

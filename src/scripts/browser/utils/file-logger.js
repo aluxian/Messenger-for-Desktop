@@ -10,7 +10,7 @@ let fileLogIsGettingReady = false;
 let fileLogIsReady = false;
 
 function isFileLogEnabled () {
-  return global.options.debug && !global.options.mas;
+  return global.options.debug;
 }
 
 function initFileLogging () {

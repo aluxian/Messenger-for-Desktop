@@ -1,5 +1,4 @@
 import prefs from 'browser/utils/prefs';
-import files from 'common/utils/files';
 
 /**
  * Wrapper for a raw value.
@@ -25,55 +24,5 @@ export function key (localKey) {
 export function pref (prefName) {
   return function () {
     return prefs.get(prefName);
-  };
-}
-
-/**
- * Negates the given value.
- */
-export function not (valueExpr) {
-  return function () {
-    return !valueExpr.apply(this, arguments);
-  };
-}
-
-/**
- * Sums up two expressions.
- */
-export function sum (value1Expr, value2Expr) {
-  return function () {
-    return value1Expr.apply(this, arguments) + value2Expr.apply(this, arguments);
-  };
-}
-
-/**
- * Checks 2 expressions for equality.
- */
-export function eq (value1Expr, value2Expr) {
-  return function () {
-    return value1Expr.apply(this, arguments) === value2Expr.apply(this, arguments);
-  };
-}
-
-/**
- * Gets the css content of the given theme.
- */
-export function themeCss (nameExpr, callback) {
-  return function () {
-    const theme = nameExpr.apply(this, arguments);
-    files.getThemeCss(theme)
-      .then((css) => callback(css).apply(this, arguments))
-      .catch(logError);
-  };
-}
-
-/**
- * Gets the css content of the given style.
- */
-export function styleCss (styleName, callback) {
-  return function () {
-    files.getStyleCss(styleName)
-      .then((css) => callback(css).apply(this, arguments))
-      .catch(logError);
   };
 }

@@ -1,6 +1,5 @@
 import {getAvailableDictionaries} from 'common/utils/spellchecker';
 import languageCodes from 'common/utils/language-codes';
-import platform from 'common/utils/platform';
 import prefs from 'browser/utils/prefs';
 import $ from 'browser/menus/expressions';
 
@@ -36,38 +35,30 @@ const availableLanguages = getAvailableDictionaries()
 
 export default {
   label: 'Edit',
+  role: 'edit',
   submenu: [{
-    allow: platform.isDarwin,
     role: 'undo'
   }, {
-    allow: platform.isDarwin,
     role: 'redo'
   }, {
-    type: 'separator',
-    allow: platform.isDarwin
+    type: 'separator'
   }, {
-    allow: platform.isDarwin,
     role: 'cut'
   }, {
-    allow: platform.isDarwin,
     role: 'copy'
   }, {
-    allow: platform.isDarwin,
     role: 'paste'
   }, {
-    allow: platform.isDarwin,
     role: 'delete'
   }, {
-    allow: platform.isDarwin,
     role: 'selectall'
   }, {
-    type: 'separator',
-    allow: platform.isDarwin
+    type: 'separator'
   }, {
     type: 'checkbox',
-    label: 'Check &Spelling While Typing',
+    label: 'Check Spelling While Typing',
     accelerator: 'CmdOrCtrl+Alt+S',
-    needsWindow: true,
+    checked: prefs.get('spell-checker-check'),
     click: $.all(
       $.sendToWebView(
         'spell-checker',
@@ -78,16 +69,14 @@ export default {
       $.updateSibling('spell-checker-auto-correct', 'enabled', $.key('checked')),
       $.updateSibling('spell-checker-language', 'enabled', $.key('checked')),
       $.setPref('spell-checker-check', $.key('checked'))
-    ),
-    parse: $.all(
-      $.setLocal('checked', $.pref('spell-checker-check'))
     )
   }, {
     id: 'spell-checker-auto-correct',
     type: 'checkbox',
-    label: '&Auto Correct Spelling Mistakes',
-    needsWindow: true,
+    label: 'Auto Correct Spelling Mistakes',
     allow: false,
+    checked: prefs.get('spell-checker-auto-correct'),
+    enabled: prefs.get('spell-checker-check'),
     click: $.all(
       $.sendToWebView(
         'spell-checker',
@@ -96,10 +85,6 @@ export default {
         $.pref('spell-checker-language')
       ),
       $.setPref('spell-checker-auto-correct', $.key('checked'))
-    ),
-    parse: $.all(
-      $.setLocal('enabled', $.pref('spell-checker-check')),
-      $.setLocal('checked', $.pref('spell-checker-auto-correct'))
     )
   }, {
     id: 'spell-checker-language',
@@ -109,7 +94,6 @@ export default {
       label: lang.name,
       langCode: lang.code,
       checked: spellCheckerLanguage === lang.code,
-      needsWindow: true,
       click: $.all(
         $.ifTrue(
           $.pref('spell-checker-check'),

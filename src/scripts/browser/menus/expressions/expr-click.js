@@ -1,7 +1,6 @@
 import {app, shell, dialog} from 'electron';
 
 import * as piwik from 'browser/services/piwik';
-import * as requestFilter from 'browser/utils/request-filter';
 import filePaths from 'common/utils/file-paths';
 import prefs from 'browser/utils/prefs';
 
@@ -71,15 +70,6 @@ export function restartApp () {
 }
 
 /**
- * Open the url externally, in a browser.
- */
-export function openUrl (url) {
-  return function () {
-    shell.openExternal(url);
-  };
-}
-
-/**
  * Show a mac-like About dialog.
  */
 export function showCustomAboutDialog () {
@@ -133,20 +123,6 @@ export function reloadWindow () {
 }
 
 /**
- * Reset the window's position and size.
- */
-export function resetWindow () {
-  return function (menuItem, browserWindow) {
-    if (!browserWindow) {
-      browserWindow = global.application.mainWindowManager.window;
-    }
-    const bounds = prefs.getDefault('window-bounds');
-    browserWindow.setSize(bounds.width, bounds.height, true);
-    browserWindow.center();
-  };
-}
-
-/**
  * Show (and focus) the window.
  */
 export function showWindow () {
@@ -174,18 +150,6 @@ export function toggleFullScreen () {
 }
 
 /**
- * Toggle the dev tools panel.
- */
-export function toggleDevTools () {
-  return function (menuItem, browserWindow) {
-    if (!browserWindow) {
-      browserWindow = global.application.mainWindowManager.window;
-    }
-    browserWindow.toggleDevTools();
-  };
-}
-
-/**
  * Toggle the webview's dev tools panel.
  */
 export function toggleWebViewDevTools () {
@@ -207,19 +171,6 @@ export function autoHideMenuBar (autoHideExpr) {
     }
     const autoHide = autoHideExpr.apply(this, arguments);
     browserWindow.setAutoHideMenuBar(autoHide);
-  };
-}
-
-/**
- * Whether the window should always appear on top.
- */
-export function floatOnTop (flagExpr) {
-  return function (menuItem, browserWindow) {
-    if (!browserWindow) {
-      browserWindow = global.application.mainWindowManager.window;
-    }
-    const flag = flagExpr.apply(this, arguments);
-    browserWindow.setAlwaysOnTop(flag);
   };
 }
 
@@ -304,16 +255,6 @@ export function hideTaskbarBadge (flagExpr) {
   };
 }
 
-/**
- * Whether the user should appear as online and 'is typing' indicators be sent.
- */
-export function blockSeenTyping (flagExpr) {
-  return function (menuItem, browserWindow) {
-    const shouldBlock = flagExpr.apply(this, arguments);
-    requestFilter.set(shouldBlock, browserWindow.webContents.session);
-  };
-}
-
 // Analytics
 export const analytics = {
 
@@ -330,33 +271,3 @@ export const analytics = {
   }
 
 };
-
-/**
- * Restart the app in debug mode.
- */
-export function restartInDebugMode () {
-  return function () {
-    const options = {
-      // without --no-console-logs, calls to console.log et al. trigger EBADF errors in the new process
-      args: [...process.argv.slice(1), '--debug', '--no-console-logs']
-    };
-
-    log('relaunching app', JSON.stringify(options));
-    app.relaunch(options);
-    app.exit(0);
-  };
-}
-
-/**
- * Open the log file for easier debugging.
- */
-export function openDebugLog () {
-  return function () {
-    if (global.__debug_file_log_path) {
-      log('opening log file with default app', global.__debug_file_log_path);
-      shell.openItem(global.__debug_file_log_path);
-    } else {
-      logError(new Error('global.__debug_file_log_path was falsy'));
-    }
-  };
-}

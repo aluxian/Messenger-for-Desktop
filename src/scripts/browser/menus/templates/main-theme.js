@@ -1,18 +1,17 @@
-import $ from 'browser/menus/expressions';
+import prefs from 'browser/utils/prefs';
+import files from 'common/utils/files';
 
 export default {
   label: 'Theme',
-  submenu: Object.keys(global.manifest.themes).map((themeId, index) => ({
+  submenu: Object.keys(global.manifest.themes).map((theme, index) => ({
     type: 'radio',
-    label: global.manifest.themes[themeId],
-    theme: themeId,
-    needsWindow: true,
-    click: $.all(
-      $.themeCss($.key('theme'), (css) => $.sendToWebView('apply-theme', $.val(css))),
-      $.setPref('theme', $.key('theme'))
-    ),
-    parse: $.all(
-      $.setLocal('checked', $.eq($.pref('theme'), $.key('theme')))
-    )
+    label: global.manifest.themes[theme],
+    checked: prefs.get('theme') === theme,
+    click (menuItem, browserWindow) {
+      files.getThemeCss(theme)
+        .then((css) => browserWindow.webContents.send('fwd-webview', 'apply-theme', css))
+        .catch(logError);
+      prefs.set('theme', theme);
+    }
   }))
 };

@@ -38,10 +38,6 @@ const options = yargs(cliArgs)
     description: 'Allow usage of console.log and friends.',
     default: true
   })
-  .option('mas', {
-    type: 'boolean',
-    description: 'Run in Mac App Store release mode.'
-  })
   .option('version', {
     type: 'boolean',
     description: 'Print the app version.',
@@ -71,7 +67,6 @@ const options = yargs(cliArgs)
   .epilog('Coded with <3 by ' + global.manifest.author)
   .argv;
 
-options.mas = options.mas || !!process.mas;
 options.portable = options.portable || !!global.manifest.portable;
 options.debug = options.debug || !!process.env.DEBUG;
 global.options = options;
@@ -82,11 +77,6 @@ log('cli args parsed', JSON.stringify(options));
 // Check for debug mode
 if (options.debug) {
   log('running in debug mode');
-}
-
-// Check for mas mode
-if (options.mas) {
-  log('running in mas mode');
 }
 
 // Change the userData path if in portable mode
@@ -100,17 +90,25 @@ if (options.portable) {
 (() => {
   if (checkSquirrelWindowsArgs()) return;
   if (quitIfPrefEnabled()) return;
-  if (printVersionsAndExit()) return;
+  if (printVersionAndExit()) return;
   if (enforceSingleInstance()) return;
-  preReadySetup();
-  initAndLaunch().catch((err) => {
-    log('init and launch failed');
-    logFatal(err);
+
+  app.on('ready', () => {
+    log('ready');
+
+    enableHighResResources();
+    injectRequestFilter();
+
+    log('launching app');
+    const Application = require('browser/application').default;
+    global.application = new Application();
+    global.application.init();
+    global.ready = true;
   });
 })();
 
 function checkSquirrelWindowsArgs () {
-  if (platform.isWindows) {
+  if (process.platform === 'win32') {
     const SquirrelEvents = require('browser/components/squirrel-events').default;
     if (SquirrelEvents.check(options)) {
       log('Squirrel.Windows event detected');
@@ -130,7 +128,7 @@ function quitIfPrefEnabled () {
   return false;
 }
 
-function printVersionsAndExit () {
+function printVersionAndExit () {
   if (options.version) {
     console.log(`${app.getName()} ${app.getVersion()} (${global.manifest.buildNum})`);
     console.log(`Electron ${process.versions.electron}`);
@@ -158,35 +156,6 @@ function enforceSingleInstance () {
   return false;
 }
 
-function preReadySetup () {
-  app.disableHardwareAcceleration(); // should be easier on the GPU
-}
-
-async function initAndLaunch () {
-  try {
-    await onAppReady();
-    enableHighResResources();
-  } catch (err) {
-    logFatal(err);
-    return;
-  }
-
-  log('launching app');
-  const Application = require('browser/application').default;
-  global.application = new Application();
-  global.application.init();
-  global.ready = true;
-}
-
-function onAppReady () {
-  return new Promise((resolve, reject) => {
-    app.on('ready', () => {
-      log('ready');
-      resolve();
-    });
-  });
-}
-
 /**
  * @source https://github.com/sindresorhus/caprine/pull/172
  */
@@ -207,5 +176,24 @@ function enableHighResResources () {
       details.requestHeaders.Cookie = cookie;
     }
     callback({cancel: false, requestHeaders: details.requestHeaders});
+  });
+}
+
+function injectRequestFilter () {
+  const PATTERNS_READ = ['*://*.facebook.com/*change_read_status*', '*://*.messenger.com/*change_read_status*'];
+  const PATTERNS_TYPING = ['*://*.facebook.com/*typ.php*', '*://*.messenger.com/*typ.php*'];
+
+  // block read status
+  session.defaultSession.webRequest.onBeforeRequest({urls: PATTERNS_READ}, (details, callback) => {
+    const block = prefs.get('block-indicator-seen');
+    log('request to', details.url, block ? 'blocked' : 'not blocked');
+    callback({cancel: block});
+  });
+
+  // block typing status
+  session.defaultSession.webRequest.onBeforeRequest({urls: PATTERNS_TYPING}, (details, callback) => {
+    const block = prefs.get('block-indicator-typing');
+    log('request to', details.url, block ? 'blocked' : 'not blocked');
+    callback({cancel: block});
   });
 }
