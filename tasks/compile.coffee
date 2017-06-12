@@ -6,10 +6,8 @@ plumber = require 'gulp-plumber'
 sourcemaps = require 'gulp-sourcemaps'
 mustache = require 'gulp-mustache'
 filter = require 'gulp-filter'
-rename = require 'gulp-rename'
 header = require 'gulp-header'
 
-less = require 'gulp-less'
 babel = require 'gulp-babel'
 gif = require 'gulp-if'
 
@@ -31,10 +29,7 @@ args = require './args'
 
   # Compile styles
   gulp.task 'compile:' + dist + ':styles', ['clean:build:' + dist], ->
-    gulp.src './src/styles/**/*.less'
-      .pipe plumber handleError
-      .pipe less()
-      .pipe plumber.stop()
+    gulp.src './src/styles/**/*.css'
       .pipe gulp.dest dir + '/styles'
 
   # Compile scripts
@@ -73,8 +68,6 @@ args = require './args'
   # Move themes
   gulp.task 'compile:' + dist + ':themes', ['clean:build:' + dist], ->
     gulp.src './src/themes/**/*.css'
-      .pipe rename (path) ->
-        path.basename = path.basename.toLowerCase()
       .pipe gulp.dest dir + '/themes'
 
   # Move images

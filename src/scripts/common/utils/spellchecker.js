@@ -3,6 +3,7 @@ import path from 'path';
 import fs from 'fs';
 
 import app from 'common/electron/app';
+import files from 'common/utils/files';
 
 let hunspellDictionarySearchPaths = null;
 let availableDictionaries = null;
