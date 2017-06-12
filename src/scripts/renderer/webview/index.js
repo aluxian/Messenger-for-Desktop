@@ -13,7 +13,6 @@ const wvSrc = require('common/utils/prefs').default.get('switch-workplace')
   ? global.manifest.wvUrlWork
   : global.manifest.wvUrl;
 log('loading', wvSrc);
-webView.setAttribute('useragent', navigator.userAgent);
 webView.setAttribute('src', wvSrc);
 
 export default webView;

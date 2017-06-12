@@ -60,10 +60,6 @@ class MainWindowManager extends EventEmitter {
   }
 
   initWindow () {
-    // Replace the default user agent
-    const cleanUA = this.getCleanUserAgent();
-    this.window.webContents.setUserAgent(cleanUA);
-
     // Hide dock if on Mac
     if (process.platform === 'darwin') {
       const showDock = prefs.get('show-dock');
@@ -256,16 +252,6 @@ class MainWindowManager extends EventEmitter {
     log('saving bounds');
     const bounds = this.window.getContentBounds();
     prefs.set('window-bounds', bounds);
-  }
-
-  /**
-   * Remove identifiable information (e.g. app name) from the UA string.
-   */
-  getCleanUserAgent () {
-    return this.window.webContents.getUserAgent()
-      .replace(new RegExp(global.manifest.productName + '/[\\S]*', 'g'), '')
-      .replace(new RegExp('Electron/[\\S]*', 'g'), '')
-      .replace(new RegExp('\\s+', 'g'), ' ');
   }
 
   /**
