@@ -18,10 +18,6 @@ class MainWindowManager {
     this.trayManager = trayManager;
   }
 
-  setMenuManager (menuManager) {
-    this.menuManager = menuManager;
-  }
-
   createWindow () {
     log('creating main window');
 

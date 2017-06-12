@@ -33,30 +33,25 @@ export default {
   }, {
     type: 'separator'
   }, {
-    id: 'cfu-check-for-update',
     label: 'Check for Update...',
     click () {
       global.application.autoUpdateManager.handleMenuCheckForUpdate(true);
     }
   }, {
-    id: 'cfu-checking-for-update',
     label: 'Checking for Update...',
     enabled: false,
     visible: false
   }, {
-    id: 'cfu-update-available',
     label: 'Download Update...',
     visible: false,
     click () {
       global.application.autoUpdateManager.handleMenuUpdateAvailable();
     }
   }, {
-    id: 'cfu-update-available',
     label: 'Downloading Update...',
     enabled: false,
     visible: false
   }, {
-    id: 'cfu-update-downloaded',
     label: 'Restart and Install Update...',
     visible: false,
     click () {

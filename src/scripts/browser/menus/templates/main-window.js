@@ -79,7 +79,6 @@ export default {
       prefs.set('show-tray', menuItem.checked);
     }
   }, {
-    id: 'show-tray',
     type: 'checkbox',
     label: 'Show in Menu Bar',
     visible: process.platform === 'darwin',
@@ -95,10 +94,12 @@ export default {
       const trayMenuItem = findItemByLabel(global.application.trayManager.menu.items, 'Show in Tray');
       trayMenuItem.checked = menuItem.checked;
       trayMenuItem.menu.items.find(e => e.label === 'Show in Dock').enabled = menuItem.checked;
+      const menuBarMenuItem = findItemByLabel(global.application.trayManager.menu.items, 'Show in Menu Bar');
+      menuBarMenuItem.checked = menuItem.checked;
+      menuBarMenuItem.menu.items.find(e => e.label === 'Show in Dock').enabled = menuItem.checked;
       prefs.set('show-tray', menuItem.checked);
     }
   }, {
-    id: 'show-dock',
     type: 'checkbox',
     label: 'Show in Dock',
     visible: process.platform === 'darwin',
