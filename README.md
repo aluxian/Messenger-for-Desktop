@@ -1,5 +1,7 @@
 # Messenger for Desktop 2
 
+### *UNMAINTAINED* -- [Caprine is a nice alternative](https://github.com/sindresorhus/caprine)
+
 [![OS X build](https://travis-ci.org/aluxian/Messenger-for-Desktop.svg?branch=staging)](https://travis-ci.org/aluxian/Messenger-for-Desktop)
 [![Windows build](https://ci.appveyor.com/api/projects/status/2oar528hietbc77t/branch/staging?svg=true)](https://ci.appveyor.com/project/Aluxian/Messenger-for-Desktop)
 [![Linux builds](https://circleci.com/gh/aluxian/Messenger-for-Desktop/tree/staging.svg?style=shield)](https://circleci.com/gh/aluxian/Messenger-for-Desktop)
